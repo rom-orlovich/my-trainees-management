@@ -3,3 +3,5 @@ Design-Doc.md
 coverage/
 .env
 deploy/
+nom-script.md
+.vscode/
