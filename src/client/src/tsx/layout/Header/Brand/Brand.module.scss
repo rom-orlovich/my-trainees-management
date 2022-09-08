@@ -1,0 +1,11 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+.img_brand {
+  cursor: pointer;
+  margin-top: 0.5rem;
+  @include heightWidth(5rem, 8rem);
+}
+@include smartphone() {
+  .img_brand {
+    @include heightWidth(4rem, 7rem);
+  }
+}

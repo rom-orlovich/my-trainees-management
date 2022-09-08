@@ -1,0 +1,45 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+import { TablePagniation } from "../../components/baseComponents/Tables/TablePagination";
+import { trainingProgramsListApi } from "../../redux/api/hooksAPI";
+import { TrainingProgramsListExtends } from "../../redux/api/interfaceAPI";
+import { APP_ROUTE } from "../../routes/routesConstants";
+import { deleteFunMutation } from "../../utlities/helpersFun";
+
+const transformTrainingProgramList = ({
+  profile_id,
+  note_id,
+
+  training_programs_list_id,
+  type_program,
+  ...rest
+}: TrainingProgramsListExtends) => {
+  return {
+    training_programs_list_id,
+    type_program: (
+      <Link
+        to={`${training_programs_list_id}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
+      >
+        {type_program}
+      </Link>
+    ),
+    ...rest,
+  };
+};
+
+function TableTrainingProgramList({ traineeID }: { traineeID: number }) {
+  const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
+  return (
+    <TablePagniation
+      transformFun={transformTrainingProgramList}
+      deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
+      queriesOptions={{ traineeID }}
+      mainRoute={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}`}
+      nameData="Training Program List"
+      getAllQuery={trainingProgramsListApi.useGetItemsQuery}
+    />
+  );
+}
+
+export default TableTrainingProgramList;

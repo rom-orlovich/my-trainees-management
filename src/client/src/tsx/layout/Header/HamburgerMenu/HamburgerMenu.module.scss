@@ -1,0 +1,37 @@
+@use "./../../../../style/utilities/utilities.scss" as *;
+
+.hamburger_menu {
+  @include heightWidth(2.5rem, 2.5rem);
+
+  @include flex-dir(space-around, null, column);
+  // display: block;
+  cursor: pointer;
+  & > div {
+    width: 100%;
+    border: 1px rgb(107, 176, 222) solid;
+  }
+  display: none;
+}
+
+@include smartphone() {
+  .hamburger_menu {
+    display: flex !important;
+    position: relative;
+
+    &.close {
+      transform: rotate(180deg);
+      transition: transform 1s;
+      .first {
+        position: absolute;
+        transform: rotate(45deg);
+      }
+      .sec {
+        position: absolute;
+        transform: rotate(-45deg);
+      }
+      .third {
+        display: none;
+      }
+    }
+  }
+}

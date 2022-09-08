@@ -1,0 +1,43 @@
+@use "./../../../../style/utilities/utilities.scss" as *;
+
+%icon {
+  color: rgb(197, 214, 220);
+  cursor: pointer;
+}
+
+.navBar {
+  @include flex-dir(null, center);
+  gap: 5rem;
+  padding-right: 0rem;
+  margin-right: 3rem;
+  .profile_icon {
+    @extend %icon;
+    @include heightWidth(3.2rem, 3.2rem);
+  }
+
+  .add_icon {
+    @extend %icon;
+    @include heightWidth(2.8rem, 2.8rem);
+  }
+  .alert_icon {
+    @extend %icon;
+    @include heightWidth(2.5rem, 2.5rem);
+  }
+}
+@include smartphone() {
+  .navBar {
+    gap: 1rem;
+    margin-right: 1rem;
+    padding-right: 0rem;
+    .profile_icon {
+      @include heightWidth(2.5rem, 2.5rem);
+    }
+
+    .add_icon {
+      @include heightWidth(2.2rem, 2.2rem);
+    }
+    .alert_icon {
+      @include heightWidth(2rem, 2rem);
+    }
+  }
+}

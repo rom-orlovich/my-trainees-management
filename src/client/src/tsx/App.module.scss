@@ -1,0 +1,53 @@
+@use "../style/utilities/utilities.scss" as *;
+
+.header {
+  padding: 0 2rem;
+  height: $HEADER_HEIGHT;
+  background-color: rgb(248, 249, 249);
+
+  @include flex-dir(space-between, center);
+}
+
+.main_layout {
+  width: 100vw;
+  height: $SIDE_NAVBAR_HEIGHT;
+  @include flex-dir(null, null, row);
+  gap: 1rem;
+  .side_bar {
+    flex: $SIDE_BAR_FLEX;
+  }
+  .main_content {
+    // overflow: scroll;
+    margin-top: 0.5rem;
+    @include flex-dir(center, null);
+    flex: $MAIN_CONTENT_FLEX_WIDTH;
+  }
+}
+
+@include smartphone() {
+  body {
+    overflow: scroll;
+  }
+
+  .header {
+    padding: 0 1rem;
+    position: fixed;
+    background-color: #fff;
+    z-index: 100;
+    width: 100%;
+    top: 0;
+    height: $HEADER_HEIGHT_SMARTPHONE;
+  }
+  .main_layout {
+    margin-top: $HEADER_HEIGHT_SMARTPHONE;
+    max-width: 100%;
+    min-height: 100vh;
+
+    .side_bar {
+    }
+    .main_content {
+      // overflow: scroll;
+      flex: 1;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@use "../../../../../style//utilities/utilities.scss" as *;
+.select_plus_button {
+  width: 100%;
+  @include flex-dir(null, center);
+  gap: 1rem;
+
+  a {
+    @include flex-dir(null, null);
+    align-items: center;
+    margin-bottom: 0.3rem;
+    font-size: 2rem;
+    color: rgb(89, 89, 228);
+  }
+}

@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+// breaks points media query
+$SMARTPHONE: 480px;
+$TABLET: 768px;
+$LAPTOP: 1024px;
+$DESKTOP: 1200px;
+
+// Sizes
+$HEADER_HEIGHT: 16vh;
+$SIDE_NAVBAR_HEIGHT: calc(100vh - $HEADER_HEIGHT);
+$HEADER_HEIGHT_SMARTPHONE: calc($HEADER_HEIGHT - 3vh);
+$SIDE_BAR_FLEX: 16%;
+$SPACE_FLEX: 5%;
+$MAIN_CONTENT_FLEX_WIDTH: calc(100% - $SPACE_FLEX - $SIDE_BAR_FLEX);
+//Sizes Padding
+
+// Fonts-size

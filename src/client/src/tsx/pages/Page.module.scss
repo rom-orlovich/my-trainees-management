@@ -1,0 +1,64 @@
+@use "../../style/utilities/utilities.scss" as *;
+.page_container {
+  margin-top: 0.2rem;
+  background-color: initial;
+  width: 95%;
+
+  .page_header {
+    width: 100%;
+    @include flex-dir(space-between, center);
+    padding: 0 2rem;
+    margin-bottom: 0.5rem;
+
+    a {
+      @include button(rgb(114, 151, 224), 0.7rem, 1rem);
+      text-decoration: none;
+      color: white;
+      font-size: 1.2rem;
+    }
+  }
+  .page_main_content {
+    background-color: initial;
+    position: relative;
+    height: 100%;
+
+    p[class*="message_spinner"] {
+      position: absolute;
+      font-size: 1.5rem;
+      display: inline;
+      @include centerAbs();
+      @include posAbs(20% !important);
+    }
+  }
+}
+
+@include smartphone() {
+  .page_container {
+    margin-top: 0rem;
+    width: 90%;
+    .page_header {
+      padding: 0 0rem;
+      span[class*="auto"] {
+        max-width: 60%;
+      }
+      a {
+        font-size: 0.7rem;
+      }
+    }
+    .page_main_content {
+      background-color: initial;
+      position: relative;
+      height: 100%;
+
+      p[class*="message_spinner"] {
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        font-size: 1.5rem;
+        display: inline;
+        @include centerAbs();
+        @include posAbs(30% !important);
+      }
+    }
+  }
+}

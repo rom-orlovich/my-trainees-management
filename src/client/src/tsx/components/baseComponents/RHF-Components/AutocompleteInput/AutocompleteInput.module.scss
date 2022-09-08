@@ -1,0 +1,66 @@
+@use "../../../../../style/utilities/utilities.scss" as *;
+
+.autocomplete_contianer {
+  position: relative;
+  @include flex-dir(null, null);
+  max-width: 50%;
+  span[class*="input_label"],
+  .list_res {
+    max-width: 100%;
+  }
+  input {
+    padding-left: 0.5rem;
+    font-size: 1.3rem;
+  }
+  p[class*="spinner"] {
+    @include posAbs(100%, null, null, null);
+    font-size: 1.2rem;
+    color: rgb(237, 47, 47);
+    font-weight: 400;
+  }
+  p[class*="error_message"] {
+    @include posAbs(100%, null, null, null);
+  }
+  .list_res {
+    width: 100%;
+    min-height: fit-content;
+    height: fit-content;
+    max-height: 250%;
+    overflow-y: auto;
+
+    @include posAbs(100%, null, null, null);
+    text-align: center;
+    border: 1px solid rgb(211, 204, 204);
+    box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    z-index: 20;
+    background-color: white;
+    li {
+      @include flex-dir(center, center);
+      font-size: 1.2rem;
+      height: 3rem;
+      background-color: white;
+      &:hover {
+        background-color: rgb(107, 146, 218);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .select_plus_button {
+    @include posAbs(43%, null, 0%, null);
+
+    a {
+      margin-bottom: 0.3rem;
+      font-size: 2rem;
+      color: rgb(89, 89, 228);
+    }
+  }
+}
+@include smartphone() {
+  .autocomplete_contianer {
+    p[class*="message_spinner"] {
+      @include posAbs(100%, 2%, null, null);
+    }
+  }
+}
