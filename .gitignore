@@ -1,0 +1,5 @@
+node_modules/
+Design-Doc.md
+coverage/
+.env
+deploy/
