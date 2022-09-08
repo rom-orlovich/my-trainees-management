@@ -8,14 +8,10 @@ personal trainers in managing their business’s system.
 \
 The app helps the trainer manage his trainees training and nutrition programs, his leads and his business’s financials.
 
-## About me:
-
-My name is Rom Orlovich, I'm a highly motivated Full Stack Developer who has experience with cutting-edge technologies like React, TypeScript, Node, Express, MongoDB, Sql, ect.
-\
-As a self employed personal trainer, I wanted to combine my passion for programming with the world of personal training.
-
 ## Why I chose this project:
-As a personal trainer, I have experienced difficulties with managing my business due to not having a single app that comprises all of the tools I needed.
+As a self employed personal trainer, I wanted to combine my passion for programming with the world of personal training.
+\
+During my work I have experienced difficulties with managing my business due to not having a single app that comprises all of the tools I needed.
 \
 Therefore, I've decided to create one myself - An app that creates an overview of my trainees and their progesses.
 
