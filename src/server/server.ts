@@ -10,7 +10,7 @@ import path from "path";
 
 import { Server } from "http";
 import { client } from "./PGSqlDB/PGSqlConfig";
-import { initDB } from "./createDBpgsql";
+import { initDB } from "./initDB";
 import { checkIfTableExist } from "./PGSqlDB/PGSqlHelpers";
 
 import { INCOMES_TABLE_NAME } from "./utilites/constants";
