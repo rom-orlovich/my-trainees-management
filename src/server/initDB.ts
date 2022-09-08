@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { client } from "./PGSqlDB/PGSqlConfig";
+import { client } from "./PGSql/DBConnectConfig";
 import { TRAINEES_MANAGEMENT_SQL_PATH } from "./utilites/constants";
 
 async function readFromSQLfileAndExcute(path: string) {

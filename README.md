@@ -36,9 +36,11 @@ and give me a nice overview about my trainees and their processes.
 
 - **Back-end : [node-postgres](https://www.npmjs.com/package/pg) - for DB management | [Yup](https://www.npmjs.com/package/yup) - For Validation | [webpack](https://www.npmjs.com/package/webpack) - For building | [dotenv](https://www.npmjs.com/package/dotenv) - For environment variables | [dotenv](https://www.npmjs.com/package/dotenv) - For environment variables**
 
+## **Main Features:**
+
 ---
 
-## **Deployed app:**
+## **My App:**
 
 ---
 

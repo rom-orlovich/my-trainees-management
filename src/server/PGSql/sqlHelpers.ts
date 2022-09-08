@@ -13,7 +13,7 @@ import {
   promiseHandler,
 } from "../utilites/helpers";
 
-import { client } from "./PGSqlConfig";
+import { client } from "./DBConnectConfig";
 
 // Check if the table name is exist.
 export async function checkIfTableExist(nameTable: string) {

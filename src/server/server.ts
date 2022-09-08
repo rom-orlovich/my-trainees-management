@@ -9,9 +9,9 @@ import cors from "cors";
 import path from "path";
 
 import { Server } from "http";
-import { client } from "./PGSqlDB/PGSqlConfig";
+import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
-import { checkIfTableExist } from "./PGSqlDB/PGSqlHelpers";
+import { checkIfTableExist } from "./PGSql/sqlHelpers";
 
 import { INCOMES_TABLE_NAME } from "./utilites/constants";
 

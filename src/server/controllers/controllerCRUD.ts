@@ -12,7 +12,7 @@ import {
   selectQuery,
   updateQuerySingleItem,
   updateQueryToManyTables,
-} from "../PGSqlDB/PGSqlHelpers";
+} from "../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
 import { createObjValuesArr, promiseHandler } from "../utilites/helpers";
 
