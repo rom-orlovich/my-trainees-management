@@ -11,7 +11,14 @@ The app helps the trainer to manage his trainees's training and nutrition progra
 I’m Rom Orlovich, a highly motivated Full Stack Developer who has experience with cutting-edge techs like React,Ts,node,express,mongo,sql and ect.
 \
 As a self - employed personal trainer , I try to integrate the world of personal training with my passaion for programming.
+
+# **Why I choose this project:**
+
+As personal trainer , I have manage the system of my business manually with different and
+not related tools that make my daily work much more complicated.
 \
+Therefore , I decided to create this practical tool that will simplify my business management
+and give me a nice overview about my trainees and their processes.
 
 **My Linkedin** - **[Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)**
 
