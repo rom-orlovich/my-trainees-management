@@ -2,13 +2,18 @@
 
 My Trainees app management is web app application that assists the
 personal trainers in managing their business’s system.
+\
 The app helps the trainer to manage his trainees's training and nutrition programs
 ,manage his leads and his business’s financials.
 
 # **About me:**
 
 I’m Rom Orlovich, a highly motivated Full Stack Developer who has experience with cutting-edge techs like React,Ts,node,express,mongo,sql and ect.
+\
 As a self - employed personal trainer , I try to integrate the world of personal training with my passaion for programming.
+\
+
+**My Linkedin** - **[Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)**
 
 # **Technologies:**-
 
