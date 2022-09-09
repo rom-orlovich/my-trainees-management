@@ -1,5 +1,5 @@
 # My Trainees Managment App:
-Link to the app: [My Trainees Managment App](https://my-trainees-managment.herokuapp.com//):point_left:
+Link to the app: [My Trainees Managment App](https://my-trainees-managment.herokuapp.com):point_left:
 
 ## About my project:
 
