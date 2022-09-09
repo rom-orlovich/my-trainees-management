@@ -1,5 +1,5 @@
 # My Trainees Managment App:
-Link to the app: [My Trainees Managment App](https://my-trainees-managment.herokuapp.com//):point_left:
+Link to the app: [My Trainees Managment App](https://my-trainees-managment.herokuapp.com):point_left:
 
 ## About my project:
 
@@ -61,8 +61,12 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 
 5. **Go to http://localhost:3000 and have fun**!
 
-
 ## Main Features:
+1. **Create/Read/Update/Delete** - Data of trainees, trainings programs, training program's exercises, muscule groups, equipments, 
+leads, cities, locations and app's notes.
+2. **Table paginiation** - Pagination buttons will display when the number of table's rows will be greater than 10 rows.
+3. **Filter table's rows by name** - Filter the table's rows by the name of row.  
+4. **Infinte scroll autocomplete search input** - Autocomplete input which suggest a list of results from the server. \
+ when the possible search results are greater than 10 results, the user can scroll and fetchs more results from the server. 
 
----
 
