@@ -40,6 +40,28 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
     - [webpack](https://www.npmjs.com/package/webpack) - For building
     - [dotenv](https://www.npmjs.com/package/dotenv) - For environment variables
 
+## Installation
+1. **Clone the repo**
+   ```
+   git clone https://github.com/rom-orlovich/my-trainees-management.git
+   ```
+2. **Install all the dependencies** 
+   ```
+   npm run init-p 
+   ```
+3. **Run server**
+   ```
+   npm run server
+   ```
+   
+4. **Run Client**
+   ```
+   npm run start
+   ```
+
+5. **Go to http://localhost:3000 and have fun**!
+
+
 ## Main Features:
 
 ---
