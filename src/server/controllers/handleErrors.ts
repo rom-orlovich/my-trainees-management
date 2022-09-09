@@ -7,6 +7,6 @@ export function handleError(
   singleEntityName: string
 ) {
   if (ErrorCodePgNODE.unique === err.code)
-    return `The ${singleEntityName} have already exist!`;
+    return `The ${singleEntityName} have already existed`;
   return "Something is went worng.";
 }

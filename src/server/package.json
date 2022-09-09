@@ -6,7 +6,7 @@
     "test": "jest --watchAll --coverage --verbose",
     "lint": "eslint ./src --ext .js,.ts",
     "lint-fix": "eslint ./src --ext .js,.ts --fix",
-    "server": "nodemon ./server.ts",
+    "server": "NODE_ENV=development nodemon ./server.ts",
     "build": "cd ./configs && set NODE_ENV=production && webpack --mode production --config webpack-back.config.ts"
   },
   "keywords": [],
