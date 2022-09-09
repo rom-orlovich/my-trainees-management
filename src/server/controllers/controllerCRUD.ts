@@ -15,6 +15,7 @@ import {
 } from "../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
 import { createObjValuesArr, promiseHandler } from "../utilites/helpers";
+import { handleError } from "./handleErrors";
 
 /**
  *
@@ -107,8 +108,10 @@ export function createRoutesControllers({
     );
 
     if (err) {
-      console.log(err);
-      return res.status(400).json({ message: "Something is went worng." });
+      // console.log(err);
+      return res
+        .status(400)
+        .json({ message: handleError(err, singleEntityName) });
     }
 
     return res.status(200).json({

@@ -30,14 +30,6 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
   app.use(baseRoute, createCRUDroutes(optionsCRUD));
 });
 
-const errorHanlder: ExpressErrorRequestHandler = (err, req, res, next) => {
-  console.log("asdsdad");
-  console.error(err.code);
-  res.status(500).send();
-  next();
-};
-
-app.use(errorHanlder);
 let server: Server;
 
 // Connects to the pgSQLDB and initilizes the server listen to port 5000.
