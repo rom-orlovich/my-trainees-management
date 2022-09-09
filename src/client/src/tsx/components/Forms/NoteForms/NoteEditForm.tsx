@@ -1,9 +1,11 @@
+import { useParams } from "react-router-dom";
 import { notesAPI } from "../../../redux/api/hooksAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { NoteForm } from "./NoteForm";
 
-export function NoteEditForm({ id }: { id: number }) {
+export function NoteEditForm() {
+  const id = Number(useParams().id);
   const [updateItem, state] = notesAPI.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     notesAPI.useGetItemByIDQuery(id);

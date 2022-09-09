@@ -1,9 +1,11 @@
+import { useParams } from "react-router-dom";
 import { musculesGroupApi } from "../../../redux/api/hooksAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { MusculeGroupForm } from "./MusculeGroupForm";
 
-export function MusculeGroupEditForm({ id }: { id: number }) {
+export function MusculeGroupEditForm() {
+  const id = Number(useParams().id);
   const [updateItem] = musculesGroupApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     musculesGroupApi.useGetItemByIDQuery(id);

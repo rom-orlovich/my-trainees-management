@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { expensesApi } from "../../../redux/api/hooksAPI";
+
 import { EquipmentsTable } from "../../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../../routes/routesConstants";
+
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { equipmentSchema } from "../../baseComponents/RHF-Components/formsSchemas";

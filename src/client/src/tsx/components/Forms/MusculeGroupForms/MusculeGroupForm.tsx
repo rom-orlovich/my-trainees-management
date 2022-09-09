@@ -7,6 +7,7 @@ import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMes
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import style from "./MusculeGroupForm.module.scss";
+import { APP_ROUTE } from "../../../routes/routesConstants";
 
 export function MusculeGroupForm({
   editMode,
@@ -18,6 +19,7 @@ export function MusculeGroupForm({
       <Form<MusculesGroupTable>
         onSubmit={onSubmit}
         editMode={editMode}
+        // pathMove={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCULES_GROUP_LIST_ROUTE}`}
         nameForm="Muscule Group"
         formProps={{ className: style.form_musculesGroup }}
         formOptions={{

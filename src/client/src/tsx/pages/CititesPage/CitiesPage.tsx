@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { citiesApi } from "../../redux/api/hooksAPI";
-import { CitiesTable } from "../../redux/api/interfaceAPI";
+import { CitiesTable as CityTableAPi } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 
 import { APP_ROUTE } from "../../routes/routesConstants";
 import page_style from "../Page.module.scss";
+import CitiesTable from "./CitiesTable";
 import LeadsTable from "./CitiesTable";
 
 function CitiesPage() {
@@ -15,7 +16,7 @@ function CitiesPage() {
     <MainRoute mainRoutes={APP_ROUTE.CITY_ROUTE}>
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
-          <AutocompleteInput<CitiesTable>
+          <AutocompleteInput<CityTableAPi>
             keys={["city_name"]}
             id={"city_id"}
             loadingSpinnerResult={{ nameData: "Cities" }}
@@ -35,7 +36,7 @@ function CitiesPage() {
           </span>
         </div>
         <div className={page_style.page_main_content}>
-          <LeadsTable name={city[1]} />
+          <CitiesTable name={city[1]} />
         </div>
       </section>
     </MainRoute>

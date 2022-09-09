@@ -31,9 +31,9 @@ export enum APP_ROUTE {
   CITY_ROUTE_ADD = "addNewCity",
   CITY_ROUTE = "cities",
 
-  NOTE_ROUTES = "notes",
-  NOTE_ROUTES_EDIT = "editNotes",
-  NOTE_ROUTES_ADD = "addNotes",
+  NOTES_ROUTE = "notes",
+  NOTES_ROUTE_EDIT = "editNotes",
+  NOTES_ROUTE_ADD = "addNotes",
 
   SETTINGS_ROUTE = "settings",
 }

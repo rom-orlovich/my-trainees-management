@@ -10,15 +10,7 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm, { TraineeWithMemberProps } from "./TraineeForm";
 
-export function TraineeEditForm({
-  id,
-}: // heading,
-// ...rest
-// Partial<FormProps>
-// &
-{
-  id?: number;
-}) {
+export function TraineeEditForm({ id }: { id?: number }) {
   const state = useAppSelector((state) => state.tablesPagintationState);
 
   const { trainee, isLoading, isFetching, isError } =

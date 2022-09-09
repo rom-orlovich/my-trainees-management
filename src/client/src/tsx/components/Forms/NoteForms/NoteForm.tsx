@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { NotesTable } from "../../../redux/api/interfaceAPI";
+import { APP_ROUTE } from "../../../routes/routesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { notesSchema } from "../../baseComponents/RHF-Components/formsSchemas";
@@ -13,10 +14,11 @@ export function NoteForm({
 }: GeneralFormProps<NotesTable>) {
   return (
     <>
-      {" "}
-      <h2>{editMode ? "Edit" : "Add"} Note </h2>
       <Form<NotesTable>
         onSubmit={onSubmit}
+        nameForm="Note"
+        editMode={editMode}
+        // pathMove={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.NOTES_ROUTE}`}
         formOptions={{
           mode: "onChange",
           defaultValues: defaultValues,
@@ -29,10 +31,7 @@ export function NoteForm({
           return (
             <>
               <InputLabel
-                InputProps={{
-                  ...register("name_topic"),
-                  // isError: !!name_topic,
-                }}
+                InputProps={{ ...register("name_topic") }}
                 LabelProps={{
                   htmlFor: "name_topic",
                   labelText: "Topic",
@@ -41,10 +40,7 @@ export function NoteForm({
                 <InputErrorMessage nameInput="Topic" error={name_topic} />
               </InputLabel>
               <InputLabel
-                InputProps={{
-                  ...register("note_text"),
-                  // isError: !!note_text
-                }}
+                TextAreaProps={{ ...register("note_text") }}
                 LabelProps={{
                   htmlFor: "note_text",
                   labelText: "Text",
@@ -52,7 +48,6 @@ export function NoteForm({
               >
                 <InputErrorMessage nameInput="Text" error={note_text} />
               </InputLabel>
-              <button type="submit">{editMode ? "Edit" : "Add"} </button>
             </>
           );
         }}
