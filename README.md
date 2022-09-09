@@ -37,7 +37,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 - Back-end:
     - [node-postgres](https://www.npmjs.com/package/pg) - for DB management
     - [Yup](https://www.npmjs.com/package/yup) - For validation
-    - [webpack](https://www.npmjs.com/package/webpack) - For building
+    - [webpack](https://www.npmjs.com/package/webpack) - For modules bundling and build the server side.
     - [dotenv](https://www.npmjs.com/package/dotenv) - For environment variables
 
 ## Installation
