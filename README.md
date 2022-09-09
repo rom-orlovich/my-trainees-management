@@ -27,15 +27,15 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 
 ## Packages:
 
-- Front-end :
+- **Front-end** :
     - [Redux RTK](https://www.npmjs.com/package/@reduxjs/toolkit) - For state management.
     - [React Router](https://www.npmjs.com/package/react-router-dom) - For routes management.
     - [React Hook Form](https://www.npmjs.com/package/react-hook-form) - For forms management.
     - [Yup](https://www.npmjs.com/package/yup) - For validation.
     - [React Icons](https://www.npmjs.com/package/react-icons) - For icons
 
-- Back-end:
-    - [node-postgres](https://www.npmjs.com/package/pg) - for DB management
+- **Back-end**:
+    - [node-postgres](https://www.npmjs.com/package/pg) - For DB management
     - [Yup](https://www.npmjs.com/package/yup) - For validation
     - [webpack](https://www.npmjs.com/package/webpack) - For modules bundling and build the server side.
     - [dotenv](https://www.npmjs.com/package/dotenv) - For environment variables
