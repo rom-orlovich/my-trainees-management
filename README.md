@@ -67,6 +67,6 @@ leads, cities, locations and app's notes.
 2. **Table paginiation** - Pagination buttons will display when the number of table's rows will be greater than 10 rows.
 3. **Filter table's rows by name** - Filter the table's rows by the name of row.  
 4. **Infinte scroll autocomplete search input** - Autocomplete input which suggest a list of results from the server. \
- when the possible search results are greater than 10 results, the user can scroll and fetchs more results from the server. 
+ When the number of possible results are greater than 10 results, the user can scroll and fetchs more results from the server. 
 
 
