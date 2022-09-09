@@ -22,7 +22,8 @@
     position: relative;
     height: 100%;
 
-    p[class*="message_spinner"] {
+    p[class*="message_spinner"],
+    p[class*="loading_spinner"] {
       position: absolute;
       font-size: 1.5rem;
       display: inline;
