@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import List from "../../components/baseComponents/List";
+
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 
