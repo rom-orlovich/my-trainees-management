@@ -4,11 +4,12 @@
 import { config } from "dotenv";
 
 config();
-import express from "express";
+import express, { ErrorRequestHandler } from "express";
 import cors from "cors";
 import path from "path";
 
 import { Server } from "http";
+import { ExpressErrorRequestHandler } from "webpack-dev-server";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
 import { checkIfTableExist } from "./PGSql/sqlHelpers";
@@ -28,6 +29,15 @@ app.use(cors());
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
   app.use(baseRoute, createCRUDroutes(optionsCRUD));
 });
+
+const errorHanlder: ExpressErrorRequestHandler = (err, req, res, next) => {
+  console.log("asdsdad");
+  console.error(err.code);
+  res.status(500).send();
+  next();
+};
+
+app.use(errorHanlder);
 let server: Server;
 
 // Connects to the pgSQLDB and initilizes the server listen to port 5000.

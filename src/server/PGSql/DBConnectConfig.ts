@@ -5,7 +5,7 @@ import { Client, ClientConfig } from "pg";
 // NOTE: Changing the mode of NODE_ENV can change the db location loccal db or remote db.
 // The options are: "development" | "production"
 const configClient: ClientConfig =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === "development"
     ? {
         connectionString: process.env.DATABASE_URL,
         ssl: {

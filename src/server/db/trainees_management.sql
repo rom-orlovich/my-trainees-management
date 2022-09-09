@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS  "muscules_group" CASCADE;
 
 CREATE TABLE IF NOT EXISTS "muscules_group" (
   "muscules_group_id" serial PRIMARY KEY ,
-  "muscules_group_name" VARCHAR(20) NOT NULL
+  "muscules_group_name" VARCHAR(20) UNIQUE NOT NULL
 );
 
 
@@ -55,12 +55,12 @@ CREATE TABLE IF NOT EXISTS "leads"(
 
 CREATE TABLE IF NOT EXISTS "activities" (
   "activity_id" serial PRIMARY KEY,
-  "activity_name" VARCHAR(255) NOT NULL
+  "activity_name" VARCHAR(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "cities" (
   "city_id" serial PRIMARY KEY,
-  "city_name" VARCHAR(255) NOT NULL,
+  "city_name" VARCHAR(255) UNIQUE NOT NULL,
   "district" VARCHAR(255) DEFAULT NULL,
   "population" INTEGER DEFAULT NULL
 );
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS "locations" (
 
 CREATE TABLE IF NOT EXISTS "providers" (
   "provider_id" serial PRIMARY KEY ,
-  "provider_name" VARCHAR(255) NOT NULL,
+  "provider_name" VARCHAR(255) UNIQUE NOT NULL,
   "location_id" INTEGER NOT NULL,
 
   CONSTRAINT fk_location_id
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS "expenses" (
 
 CREATE TABLE IF NOT EXISTS "equipments" (
   "equipment_id" serial PRIMARY KEY,
-  "equipment_name" VARCHAR(255) NOT NULL,
+  "equipment_name" VARCHAR(255) UNIQUE NOT NULL,
   "brand" VARCHAR(255) NOT NULL,
   "manufacture_year" INTEGER NOT NULL,
   "expense_id" INTEGER DEFAULT NULL ,
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS "equipments" (
 
 CREATE TABLE IF NOT EXISTS "exercises_list" (
   "exercise_id" serial PRIMARY KEY,
-  "exercise_name" VARCHAR(50) NOT NULL,
+  "exercise_name" VARCHAR(50)  NOT NULL,
   "muscules_group_id" INTEGER NOT NULL,
   "equipment_id" INTEGER DEFAULT NULL,
       CONSTRAINT fk_muscules_group_id
@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS "profiles" (
   "gender" VARCHAR (20) NOT NULL,
   "identify_num" VARCHAR(15) UNIQUE NOT NULL ,
   "birthday" DATE NOT NULL,
-  "email" VARCHAR(255) UNIQUE ,
+  "email" VARCHAR(255) UNIQUE NOT NULL,
   "phone_number" VARCHAR(12) NOT NULL,
   "location_id" INTEGER NOT NULL,
   "date_join" DATE NOT NULL,
