@@ -6,7 +6,7 @@ Link to the app: [My Trainees Managment App](https://my-trainees-managment.herok
 My Trainees app management is a web app application that assists
 personal trainers in managing their business’s system.
 \
-The app helps the trainer manage his trainees training and nutrition programs, his leads and his business’s financials.
+The app helps the trainer manage his trainees training and nutrition programs, his leads and business’s financials.
 
 ## Why I chose this project:
 As a self employed personal trainer, I wanted to combine my passion for programming with the world of personal training.
@@ -66,15 +66,15 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 leads, cities, locations and app's notes.
 2. **Table paginiation** - Pagination buttons will display when the number of table's rows will be greater than 10 rows.
 3. **Filter table's rows by name** - Filter the table's rows by the name of row.  
-4. **Infinte scroll autocomplete search input** - Autocomplete input which suggest a list of results from the server. \
- When the number of possible results are greater than 10 results, the user can scroll and fetchs more results from the server. 
+4. **Infinte scroll autocomplete search input** - Autocomplete input which suggests a list of results from the server. \
+ When the number of possible results are greater than 10 results, the users can scroll and fetch more results from the server. 
  
  ## Comeing soon:
  1. **Notifications system** -Displaying notifications as output of user activities.
  2. **Trainee Profile Page**- Trainee's Profile page that will display all his personal data, programs and subscription state.  
  3. **Create/Read/Update/Delete** - Data of nutrition programs progress, finicanls systems, providers.
- 4. **Users System**- Trainees could login to thier profile and track thier progress. \
- Other personal trainers could login and manage thier business.
- 5. **Statistics Page** - The trainer will have an graphical overview about thier business.
+ 4. **Users System**- Trainees will be able to login to thier profiles and track thier progress. \
+ Other personal trainers can login and manage thier businesses.
+ 5. **Statistics Page** - Presonal trainers will have a graphical overview about thier businesses.
 
 
