@@ -39,6 +39,7 @@ export function createRoutesControllers({
 
     if (errValid && !valid)
       next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
+    next();
   };
 
   // Controller of the get method. Gets data from the db.
