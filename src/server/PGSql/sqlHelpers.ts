@@ -58,7 +58,8 @@ export const createRealQueryKeyValuesObj = (
 
   let newRealQueryKeyValueObj = {} as Record<string, any>;
   for (const key in realQueryName) {
-    // created the key value obj
+    // Created  key value obj which the first key is the key with the concat value of the query
+    // and the other keys will concat to his key to create the concat name string for the query.
     newRealQueryKeyValueObj = {
       ...newRealQueryKeyValueObj,
       [realQueryName[key]]: queryFromReq[key],
@@ -68,7 +69,7 @@ export const createRealQueryKeyValuesObj = (
   return newRealQueryKeyValueObj;
 };
 
-// Concat the obj query keys that contains 'name'.
+// Concat the obj query keys that belong to queryName.
 const concatQueryWithName = (
   keysValuesEntries: [string, any][],
   startIndex = 0
@@ -81,8 +82,10 @@ const concatQueryWithName = (
   });
 
   const columnsNameStr = `concat(${columnsArr.join(
-    ",' ',"
-  )}) ILIKE $${startIndex} `;
+    ",' '," // for space between words in concatenation
+  )}) ILIKE $${startIndex} `; // EXAM: concat(first_name ,' ', last_name) ILIKE $1;
+
+  // keysValuesEntries[0][1] is the value of the concatenation from the client
   return { columnsNameStr, valueNameParam: [`%${keysValuesEntries[0][1]}%`] };
 };
 
@@ -95,18 +98,16 @@ const prepareKeyValuesOfNameToSelect = (
   if (Object.keys(queryNameParams).length === 0)
     return { keyValuesOfNameStrArr: [], paramsNamesArr: [] };
 
-  const paramsArr = [] as any;
   const keysValuesEntries = Object.entries(queryNameParams);
 
   const { columnsNameStr, valueNameParam } = concatQueryWithName(
     keysValuesEntries,
     startIndex
   );
-  paramsArr.push(...valueNameParam);
 
   return {
     keyValuesOfNameStrArr: [`${columnsNameStr}`],
-    paramsNamesArr: paramsArr,
+    paramsNamesArr: valueNameParam,
   };
 };
 // Makes string from the key-value of other columns of table.
@@ -127,7 +128,7 @@ const prepareKeyValuesOtherColumnToSelect = (
       keyValuesStr += `${keyValuesStr} and`;
     paramsArr.push(value);
   });
-
+  // EXAM: keyValuesStrArr : profile_id=$1,
   return {
     keyValuesStrArr: [`${keyValuesStr} `],
     paramsArr,

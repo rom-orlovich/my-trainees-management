@@ -28,9 +28,10 @@ export interface SelectTableQueryParam {
   fieldNamesQuery: string; // The field names that we want to return from the query
   querySelectLogic: string; // The query logic
 
+  // The purpose of below params is to encapsulate the real table's fields from the client,
+  // so the client won't able to know what are the real fields name of the table.
   queryParams?: Record<string, string>;
-  queryNameParam?: Record<string, string>; // Field to search by name,the first field with name key is the main name query which
-  // the other keys are concat to him.
+  queryNameParam?: Record<string, string>;
 }
 
 export interface OptionsCRUD {
@@ -42,7 +43,6 @@ export interface OptionsCRUD {
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
 // the input of the user.
-//
 export const leadsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.LEADS_ENTITY,
   selectQuery: {
@@ -50,6 +50,10 @@ export const leadsOptionsCRUD: OptionsCRUD = {
     tableID: `le.${TABLES_DATA.LEADS_TABLE_ID}`,
     fieldNamesQuery: `le.*`,
     querySelectLogic: ``,
+    queryNameParam: {
+      mainName: "first_name",
+      lastName: "last_name",
+    },
   },
 
   validateSchema: leadsSchema,
@@ -62,6 +66,9 @@ export const musclesGroupOptionsCRUD: OptionsCRUD = {
     tableID: `mg.${TABLES_DATA.MUSCLE_GROUP_ID}`,
     fieldNamesQuery: "*",
     querySelectLogic: ``,
+    queryNameParam: {
+      mainName: "muscles_group_name",
+    },
   },
 
   validateSchema: musclesGroupSchema,
@@ -75,7 +82,7 @@ export const citiesOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: "*",
     querySelectLogic: ``,
     queryNameParam: {
-      name: "city_name",
+      mainName: "city_name",
     },
   },
 
@@ -91,11 +98,10 @@ export const locationsOptionsCRUD: OptionsCRUD = {
     querySelectLogic: `JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c ON
     c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} `,
     queryNameParam: {
-      name: "street",
+      mainName: "street",
       cityName: "city_name",
     },
   },
-
   validateSchema: locationsSchema,
 };
 export const providersOptionsCRUD: OptionsCRUD = {
@@ -107,6 +113,9 @@ export const providersOptionsCRUD: OptionsCRUD = {
     querySelectLogic: `
     JOIN ${TABLES_DATA.LOCATION_TABLE_NAME} as lo on 
     pro.${TABLES_DATA.LOCATION_ID} = lo.${TABLES_DATA.LOCATION_ID}`,
+    queryNameParam: {
+      mainName: "provider_name",
+    },
   },
   validateSchema: providersSchema,
 };
@@ -142,6 +151,9 @@ export const equipmentsOptionsCRUD: OptionsCRUD = {
     tableID: `eq.${TABLES_DATA.EQUIPMENTS_ID}`,
     fieldNamesQuery: `*`,
     querySelectLogic: ``,
+    queryNameParam: {
+      mainName: "equipment_name",
+    },
   },
   validateSchema: equipmentSchema,
 };
@@ -155,6 +167,9 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
     querySelectLogic: `JOIN ${TABLES_DATA.MUSCLES_GROUP_TABLE_NAME} as mg on 
     mg.${TABLES_DATA.MUSCLE_GROUP_ID}=exer.${TABLES_DATA.MUSCLE_GROUP_ID} JOIN ${TABLES_DATA.EQUIPMENTS_TABLE_NAME} as eq on 
    eq.${TABLES_DATA.EQUIPMENTS_ID}=exer.${TABLES_DATA.EQUIPMENTS_ID} `,
+    queryNameParam: {
+      mainName: "exercise_name",
+    },
   },
   validateSchema: exercisesListSchema,
 };
@@ -263,7 +278,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
    LEFT JOIN ${TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_NAME} as subp ON
    subp.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID} `,
     queryNameParam: {
-      name: "first_name",
+      mainName: "first_name",
       lastName: "last_name",
     },
   },
