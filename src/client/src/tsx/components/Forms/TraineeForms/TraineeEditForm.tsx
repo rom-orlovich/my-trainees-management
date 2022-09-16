@@ -11,7 +11,7 @@ import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm, { TraineeWithMemberProps } from "./TraineeForm";
 
 export function TraineeEditForm({ id }: { id?: number }) {
-  const state = useAppSelector((state) => state.tablesPagintationState);
+  const state = useAppSelector((state) => state.tablesPaginationState);
 
   const { trainee, isLoading, isFetching, isError } =
     traineesApi.useGetItemsQuery(

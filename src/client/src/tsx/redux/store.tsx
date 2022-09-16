@@ -4,13 +4,13 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { middlewareArr, reducersArr } from "./api/hooksAPI";
 import { menusSlice } from "./slices/menusSlice";
 import { formValuesState } from "./slices/formValuesStateSlice";
-import { tablesPagintationState } from "./slices/trackTablePagesSlice";
+import { tablesPaginationState } from "./slices/trackTablePagesSlice";
 import { apiSideEffectSlice } from "./slices/apiSideEffectSlice";
 
 //Configure the reducers and the middlewares of redux.
 export const store = configureStore({
   reducer: {
-    tablesPagintationState: tablesPagintationState.reducer,
+    tablesPaginationState: tablesPaginationState.reducer,
     menusSlice: menusSlice.reducer,
     formValuesState: formValuesState.reducer,
     apiSideEffect: apiSideEffectSlice.reducer,

@@ -5,7 +5,7 @@ import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm, { TraineeWithMemberProps } from "./TraineeForm";
 
 export function TraineeAddForm() {
-  const state = useAppSelector((state) => state.tablesPagintationState);
+  const state = useAppSelector((state) => state.tablesPaginationState);
 
   const [addTrainee] = traineesApi.useCreateOneItemMutation();
   const handleSubmit = (body: TraineeWithMemberProps) => {
