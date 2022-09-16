@@ -13,7 +13,7 @@ import { SelectInput } from "../../baseComponents/RHF-Components/SelectInput/Sel
 import { locationsApi } from "../../../redux/api/hooksAPI";
 
 import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
-import { formatDate } from "../../../utlities/helpersFun";
+import { formatDate } from "../../../utilities/helpersFun";
 
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";

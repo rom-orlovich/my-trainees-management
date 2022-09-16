@@ -15,7 +15,7 @@ import useHideUnFocusElement from "../../../../hooks/useHideUnFocusElement";
 
 import { ResponseQueryAPI } from "../../../../redux/api/interfaceAPI";
 
-import { getEnteriesArrObj } from "../../../../utlities/helpersFun";
+import { getEnteriesArrObj } from "../../../../utilities/helpersFun";
 import { LiProps } from "../../baseComponentsTypes";
 
 import ListObserver from "../../ListObserver";

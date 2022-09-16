@@ -1,12 +1,12 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import { TablePagniation } from "../../components/baseComponents/Tables/TablePagination";
+import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import { TraineeGetRes } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
-import { deleteFunMutation } from "../../utlities/helpersFun";
+import { deleteFunMutation } from "../../utilities/helpersFun";
 
 export const tranformDataTrainee = (arg: TraineeGetRes) => {
   const {
@@ -36,7 +36,7 @@ function TraineesTable({ name }: PageTableProps) {
 
   return (
     <MainRoute mainRoutes={[APP_ROUTE.TRAINEES_ROUTE, ""]}>
-      <TablePagniation<TraineeGetRes>
+      <TablePagination<TraineeGetRes>
         mainRoute={APP_ROUTE.TRAINEES_ROUTE}
         queriesOptions={{ name }}
         nameData={"Trainees"}

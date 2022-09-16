@@ -1,5 +1,5 @@
 import React from "react";
-import { getKeysArrObj } from "../../utlities/helpersFun";
+import { getKeysArrObj } from "../../utilities/helpersFun";
 
 import { ListProps } from "./baseComponentsTypes";
 

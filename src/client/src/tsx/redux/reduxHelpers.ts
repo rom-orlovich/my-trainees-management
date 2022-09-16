@@ -1,4 +1,4 @@
-import { getValuesArrObj } from "../utlities/helpersFun";
+import { getValuesArrObj } from "../utilities/helpersFun";
 
 export const providerTag = <T extends object>(obj: T, itemTag: string) => {
   return {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import { TablePagniation } from "../../components/baseComponents/Tables/TablePagination";
+import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { exercisesApi, trainingProgramsApi } from "../../redux/api/hooksAPI";
 import {
   ExercisesTable,
@@ -9,7 +9,7 @@ import {
 } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
-import { getEndPoint } from "../../utlities/helpersFun";
+import { getEndPoint } from "../../utilities/helpersFun";
 import page_style from "../Page.module.scss";
 const trainingProgramExercisesTransform = ({
   note_id,
@@ -76,7 +76,7 @@ function TrainingProgramExercises() {
 
         <div className={page_style.page_main_content}>
           <MainRoute mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}>
-            <TablePagniation
+            <TablePagination
               transformFun={trainingProgramExercisesTransform}
               queriesOptions={{ trainingProgramListID, name: exercise[1] }}
               // mainRoute={`{${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${trainingProgramListID}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}}`}

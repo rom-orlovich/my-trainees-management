@@ -4,7 +4,7 @@ import { traineesApi } from "../../../redux/api/hooksAPI";
 import { TraineeGetRes } from "../../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../../redux/hooks";
 
-import { formatDate } from "../../../utlities/helpersFun";
+import { formatDate } from "../../../utilities/helpersFun";
 
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";

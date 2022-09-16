@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TrainingProgramsListTable } from "../../../redux/api/interfaceAPI";
 
-import { formatDate } from "../../../utlities/helpersFun";
+import { formatDate } from "../../../utilities/helpersFun";
 
 import {
   FormWithNotesProps,

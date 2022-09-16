@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { SubscriptionPlans } from "../../../redux/api/interfaceAPI";
-import { formatDate } from "../../../utlities/helpersFun";
+import { formatDate } from "../../../utilities/helpersFun";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { subscriptionPlansSchema } from "../../baseComponents/RHF-Components/formsSchemas";

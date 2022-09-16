@@ -4,7 +4,7 @@ import { PropsBasic } from "../components/baseComponents/baseComponentsTypes";
 import {
   checkSecValueIncludeOrEqualFirstValue,
   getEndPoint,
-} from "../utlities/helpersFun";
+} from "../utilities/helpersFun";
 export type MainRouteProps<CTX> = PropsBasic & {
   mainRoutes: string | string[];
   context?: CTX;

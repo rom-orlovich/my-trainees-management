@@ -2,7 +2,7 @@ import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 
-import { getKeysArrObj, getValuesArrObj } from "../../../utlities/helpersFun";
+import { getKeysArrObj, getValuesArrObj } from "../../../utilities/helpersFun";
 import { TableProps } from "../baseComponentsTypes";
 import { formatThValue, TdCell, ThCell } from "./TableCells";
 import style from "./Table.module.scss";

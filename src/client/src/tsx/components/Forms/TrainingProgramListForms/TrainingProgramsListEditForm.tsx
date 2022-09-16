@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { trainingProgramsListApi } from "../../../redux/api/hooksAPI";
-import { formatDate } from "../../../utlities/helpersFun";
+import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import {

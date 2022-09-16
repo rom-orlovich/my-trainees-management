@@ -1,12 +1,12 @@
 import React from "react";
 
-import { TablePagniation } from "../../components/baseComponents/Tables/TablePagination";
+import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { LeadsFormProps } from "../../components/Forms/LeadForms/LeadForm";
 import { leadsApi } from "../../redux/api/hooksAPI";
 
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
-import { deleteFunMutation } from "../../utlities/helpersFun";
+import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
 export const tranformDataLead = (arg: LeadsFormProps) => {
@@ -20,7 +20,7 @@ function LeadsTable({ name }: PageTableProps) {
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.LEADS_ROUTE}>
-      <TablePagniation<LeadsFormProps>
+      <TablePagination<LeadsFormProps>
         mainRoute={APP_ROUTE.LEADS_ROUTE}
         queriesOptions={{ name }}
         nameData={"Leads"}

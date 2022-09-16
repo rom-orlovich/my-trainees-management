@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { getValuesArrObj } from "../../utlities/helpersFun";
+import { getValuesArrObj } from "../../utilities/helpersFun";
 import style from "./LoadingSpinner.module.scss";
 export interface LoadingSpinnerProps<T> {
   stateData: {

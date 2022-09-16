@@ -1,7 +1,7 @@
 import React from "react";
 import { subscriptionPlansApi } from "../../../redux/api/hooksAPI";
 
-import { formatDate } from "../../../utlities/helpersFun";
+import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import MembersPlansForm from "./SubscriptionPlansForm";

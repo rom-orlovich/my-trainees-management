@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { TablePagniation } from "../../components/baseComponents/Tables/TablePagination";
+import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { trainingProgramsListApi } from "../../redux/api/hooksAPI";
 import { TrainingProgramsListExtends } from "../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../routes/routesConstants";
-import { deleteFunMutation } from "../../utlities/helpersFun";
+import { deleteFunMutation } from "../../utilities/helpersFun";
 
 const transformTrainingProgramList = ({
   profile_id,
@@ -31,7 +31,7 @@ const transformTrainingProgramList = ({
 function TableTrainingProgramList({ traineeID }: { traineeID: number }) {
   const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
   return (
-    <TablePagniation
+    <TablePagination
       transformFun={transformTrainingProgramList}
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       queriesOptions={{ traineeID }}

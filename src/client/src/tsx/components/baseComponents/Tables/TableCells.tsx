@@ -8,7 +8,7 @@ import {
 import {
   captialFirstLetter,
   checkIfStrIsValidDate,
-} from "../../../utlities/helpersFun";
+} from "../../../utilities/helpersFun";
 
 export interface ThProps {
   td?: Partial<

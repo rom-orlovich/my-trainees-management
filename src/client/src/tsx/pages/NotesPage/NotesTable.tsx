@@ -1,13 +1,13 @@
 import React from "react";
 
-import { TablePagniation } from "../../components/baseComponents/Tables/TablePagination";
+import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 
 import { notesAPI } from "../../redux/api/hooksAPI";
 import { NotesTable as NotesTableAPI } from "../../redux/api/interfaceAPI";
 
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
-import { deleteFunMutation } from "../../utlities/helpersFun";
+import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
 function NotesTable({ name }: PageTableProps) {
@@ -16,7 +16,7 @@ function NotesTable({ name }: PageTableProps) {
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.NOTES_ROUTE}>
-      <TablePagniation<NotesTableAPI>
+      <TablePagination<NotesTableAPI>
         queriesOptions={{ name }}
         nameData={"Notes List"}
         getAllQuery={useGetItemsQuery}

@@ -3,7 +3,7 @@ import { AnyFun } from "../../../../types";
 import {
   getEnteriesArrObj,
   getValuesArrObj,
-} from "../../../../utlities/helpersFun";
+} from "../../../../utilities/helpersFun";
 import { ComponentProps, LiProps } from "../../baseComponentsTypes";
 
 export const createStrFromValuesOfChosenKeys = <T extends Record<string, any>>(

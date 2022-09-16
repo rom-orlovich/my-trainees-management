@@ -12,7 +12,7 @@ import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/Input
 import { LeadsTable } from "../../../redux/api/interfaceAPI";
 
 import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
-import { formatDate } from "../../../utlities/helpersFun";
+import { formatDate } from "../../../utilities/helpersFun";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 export type LeadsFormProps = FormWithNotesProps<LeadsTable>;
 export function LeadForm({
