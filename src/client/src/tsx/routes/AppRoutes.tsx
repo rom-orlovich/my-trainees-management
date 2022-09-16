@@ -25,7 +25,7 @@ import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
 import MusculesGroupPage from "../pages/MusculeGroupPage/MusculeGroupPage";
-import NotesPage from "../pages/NotesPage/NotesPage";
+
 import Settings from "../pages/SettingsPage/SettingsPage";
 
 import TraineeProfile from "../pages/TraineeProfile/TraineeProfile";
@@ -129,10 +129,6 @@ function AppRoutes() {
           <Route path={APP_ROUTE.CITY_ROUTE} element={<CitiesPage />}>
             <Route path={APP_ROUTE.CITY_ROUTE_ADD} element={<CityAddForm />} />
             <Route path=":id" element={<CityEditForm />} />
-          </Route>
-          <Route path={APP_ROUTE.NOTES_ROUTE} element={<NotesPage />}>
-            <Route path={APP_ROUTE.NOTES_ROUTE_ADD} element={<NoteAddForm />} />
-            <Route path=":id" element={<NoteEditForm />} />
           </Route>
         </Route>
       </Route>
