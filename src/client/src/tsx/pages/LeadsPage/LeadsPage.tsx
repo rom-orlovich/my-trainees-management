@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { leadsApi } from "../../redux/api/hooksAPI";
-import { LeadsTable as LeadTableInterface } from "../../redux/api/interfaceAPI";
+import { LeadsTableAPI } from "../../redux/api/interfaceAPI";
 
 import { APP_ROUTE } from "../../routes/routesConstants";
 import page_style from "../Page.module.scss";
@@ -13,7 +13,7 @@ function LeadsPage() {
   return (
     <section className={page_style.page_container}>
       <div className={page_style.page_header}>
-        <AutocompleteInput<LeadTableInterface>
+        <AutocompleteInput<LeadsTableAPI>
           keys={["first_name", "last_name"]}
           id={"lead_id"}
           loadingSpinnerResult={{ nameData: "Leads" }}

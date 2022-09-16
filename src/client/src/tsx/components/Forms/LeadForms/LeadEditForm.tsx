@@ -2,7 +2,8 @@ import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import { leadsApi } from "../../../redux/api/hooksAPI";
-import { LeadsTable } from "../../../redux/api/interfaceAPI";
+import { LeadsTableAPI } from "../../../redux/api/interfaceAPI";
+
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
@@ -15,7 +16,7 @@ function LeadEditForm() {
   const { data, isFetching, isError, isLoading } =
     leadsApi.useGetItemByIDQuery(id);
 
-  const handleSubmit = (body: LeadsTable) => {
+  const handleSubmit = (body: LeadsTableAPI) => {
     updateFunction({
       updateItem,
       id,

@@ -3,14 +3,14 @@ import React from "react";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 
 import { leadsApi } from "../../redux/api/hooksAPI";
-import { LeadsTable } from "../../redux/api/interfaceAPI";
+import { LeadsTableAPI } from "../../redux/api/interfaceAPI";
 
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
-export const transformDataLead = (arg: LeadsTable) => {
+export const transformDataLead = (arg: LeadsTableAPI) => {
   const { note_text, name_topic, ...rest } = arg;
 
   return rest;
@@ -21,7 +21,7 @@ function LeadsTable({ name }: PageTableProps) {
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.LEADS_ROUTE}>
-      <TablePagination<LeadsTable>
+      <TablePagination<LeadsTableAPI>
         mainRoute={APP_ROUTE.LEADS_ROUTE}
         queriesOptions={{ name }}
         nameData={"Leads"}

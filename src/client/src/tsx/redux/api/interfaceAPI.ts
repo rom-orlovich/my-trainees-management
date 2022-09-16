@@ -69,7 +69,7 @@ export interface MusculesGroupTable {
 //   note_text: string | null;
 // }
 
-export interface LeadsTable {
+export interface LeadsTableAPI {
   lead_id?: number;
   date_lead: Date;
   first_name: string;
