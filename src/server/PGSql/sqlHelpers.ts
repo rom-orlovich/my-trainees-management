@@ -288,7 +288,7 @@ export const createObjMainTable = (
   };
 };
 
-// Creates array of promises that contains all the data of destrcture
+// Creates array of promises that contains all the data of destructure
 // main and sub table.
 const makeSelectQueryArr = async (
   mainTableQuery: Record<string, any>,
@@ -503,16 +503,16 @@ export async function updateQueryToManyTables(
     obj,
     true
   );
-  const destrctureMap = createDestructureArr(insertDataToOtherTables, obj);
+  const destructureMap = createDestructureArr(insertDataToOtherTables, obj);
   // Add the data of other table to the db.
   const queryOtherTables = await Promise.all(
-    destrctureMap.map((el) => {
-      const qureyLogicEl = `where ${el.id}=$1`;
+    destructureMap.map((el) => {
+      const queryLogicEl = `where ${el.id}=$1`;
       return updateQuerySingleItem(
         el.tableName,
         el.obj,
         obj[el.id],
-        qureyLogicEl
+        queryLogicEl
       );
     })
   );
@@ -569,7 +569,7 @@ export async function selectPagination(
   const offset = numPage * numResult;
   const numResultsReach = offset + numResult;
 
-  // Prepres the select query of the pagination and the values of where query.
+  // Prepares the select query of the pagination and the values of where query.
   const { keyValuesStrArr, paramsArr } = prepareKeyValuesOtherColumnToSelect(
     queryParams,
     1
