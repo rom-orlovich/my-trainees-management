@@ -36,17 +36,17 @@ const prepareFieldsName = (obj: Record<string, any>) => {
 // This string is used as the values  in  insert functions.
 const prepareValues = (obj: Record<string, any>, startParma = 1) => {
   const values = createObjValuesArr(obj);
-  let fieldParmas = "";
+  let fieldParams = "";
   let lastIndex = 0;
   const paramsArr = [] as any;
   values.forEach((value, index) => {
-    fieldParmas += `$${index + startParma},`;
+    fieldParams += `$${index + startParma},`;
     paramsArr.push(value);
     lastIndex++;
   });
 
   return {
-    fieldParmas: `(${fieldParmas.slice(0, -1)})`,
+    fieldParams: `(${fieldParams.slice(0, -1)})`,
     paramsArr,
     lastIndex,
   };
@@ -55,20 +55,20 @@ const prepareValues = (obj: Record<string, any>, startParma = 1) => {
 // Makes string from the values object array.
 // This string is used as the values in insert functions.
 const prepareValuesArr = (objArr: Record<string, any>[], startIndex = 1) => {
-  let fieldParmasStrAll = "";
+  let fieldParamsStrAll = "";
   const paramsArrAll = [] as any;
   let lastIndexArr = startIndex;
   objArr.forEach((obj) => {
-    const { fieldParmas, paramsArr, lastIndex } = prepareValues(
+    const { fieldParams, paramsArr, lastIndex } = prepareValues(
       obj,
       lastIndexArr
     );
     paramsArrAll.push(...paramsArr);
-    fieldParmasStrAll += `${fieldParmas},`;
+    fieldParamsStrAll += `${fieldParams},`;
     lastIndexArr += lastIndex;
   });
-  fieldParmasStrAll = fieldParmasStrAll.slice(0, -1);
-  return { paramsArrAll, fieldParmasStrAll, lastIndexArr };
+  fieldParamsStrAll = fieldParamsStrAll.slice(0, -1);
+  return { paramsArrAll, fieldParamsStrAll, lastIndexArr };
 };
 
 // Makes string from the key-value  of object.
@@ -368,11 +368,11 @@ export async function selectFromManyTablesQuery(
 const insertQuery = async (
   tableName: string,
   fieldName: string,
-  fieldParmas: string,
+  fieldParams: string,
   paramArr = [] as any
 ) => {
   const statement = `INSERT INTO ${tableName} (${fieldName})
-   VALUES ${fieldParmas} RETURNING *`;
+   VALUES ${fieldParams} RETURNING *`;
   console.log(statement, paramArr);
   const res = await client.query(statement, paramArr);
 
@@ -401,8 +401,8 @@ export async function insertQueryOneItem(
   obj: Record<string, any>
 ) {
   const fieldName = prepareFieldsName(obj);
-  const { fieldParmas, paramsArr } = prepareValues(obj);
-  const res = await insertQuery(tableName, fieldName, fieldParmas, paramsArr);
+  const { fieldParams, paramsArr } = prepareValues(obj);
+  const res = await insertQuery(tableName, fieldName, fieldParams, paramsArr);
 
   return res.rows[0];
 }
@@ -415,14 +415,14 @@ export async function insertManyQuery(
   startIndex = 1
 ) {
   const fieldName = prepareFieldsName(objArr[0]);
-  const { fieldParmasStrAll, paramsArrAll } = prepareValuesArr(
+  const { fieldParamsStrAll, paramsArrAll } = prepareValuesArr(
     objArr,
     startIndex
   );
   const res = await insertQuery(
     tableName,
     fieldName,
-    fieldParmasStrAll,
+    fieldParamsStrAll,
     paramsArrAll
   );
 
