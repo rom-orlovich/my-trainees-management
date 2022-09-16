@@ -19,7 +19,7 @@ export function MusculeGroupForm({
       <Form<MusculesGroupTable>
         onSubmit={onSubmit}
         editMode={editMode}
-        // pathMove={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCULES_GROUP_LIST_ROUTE}`}
+        // pathMove={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}`}
         nameForm="Muscule Group"
         formProps={{ className: style.form_musclesGroup }}
         formOptions={{

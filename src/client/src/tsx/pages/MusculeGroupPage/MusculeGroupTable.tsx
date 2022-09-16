@@ -15,7 +15,7 @@ function MusculesGroupTable({ name }: PageTableProps) {
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <MainRoute mainRoutes={APP_ROUTE.MUSCULES_GROUP_LIST_ROUTE}>
+    <MainRoute mainRoutes={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}>
       <TablePagniation<MusculesGroupTableAPI>
         queriesOptions={{ name }}
         nameData={"Muscules Group List"}

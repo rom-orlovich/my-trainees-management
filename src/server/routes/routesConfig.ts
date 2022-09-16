@@ -33,8 +33,8 @@ import {
   INCOMES_TABLE_NAME,
   LOCATION_ID,
   LOCATION_TABLE_NAME,
-  MUSCULES_GROUP_TABLE_NAME,
-  MUSCULE_GROUP_ID,
+  MUSCLES_GROUP_TABLE_NAME,
+  MUSCLE_GROUP_ID,
   NOTES_TABLE_NAME,
   NOTE_ID,
   NUTRITION_PROGRAM_LIST_ID,
@@ -113,10 +113,10 @@ export const leadsOptionsCRUD: OptionsCRUD = {
 };
 
 export const musclesGroupOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.MUSCULES_GROUP_ENTITY,
+  singleEntityName: API_ROUTES.MUSCLES_GROUP_ENTITY,
   selectQuery: {
-    tableName: `${MUSCULES_GROUP_TABLE_NAME} as mg`,
-    tableID: `mg.${MUSCULE_GROUP_ID}`,
+    tableName: `${MUSCLES_GROUP_TABLE_NAME} as mg`,
+    tableID: `mg.${MUSCLE_GROUP_ID}`,
     fieldNamesQuery: "*",
     querySelectLogic: ``,
   },
@@ -219,8 +219,8 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
     tableName: `${EXERCISES_LIST_TABLE_NAME} as exer`,
     tableID: EXERCISES_ID,
     fieldNamesQuery: `exer.* , mg.muscles_group_name , eq.equipment_name `,
-    querySelectLogic: `JOIN ${MUSCULES_GROUP_TABLE_NAME} as mg on 
-    mg.${MUSCULE_GROUP_ID}=exer.${MUSCULE_GROUP_ID} JOIN ${EQUIPMENTS_TABLE_NAME} as eq on 
+    querySelectLogic: `JOIN ${MUSCLES_GROUP_TABLE_NAME} as mg on 
+    mg.${MUSCLE_GROUP_ID}=exer.${MUSCLE_GROUP_ID} JOIN ${EQUIPMENTS_TABLE_NAME} as eq on 
    eq.${EQUIPMENTS_ID}=exer.${EQUIPMENTS_ID} `,
   },
   validateSchema: exercisesListSchema,
@@ -273,8 +273,8 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
     querySelectLogic: `
     LEFT JOIN ${EXERCISES_LIST_TABLE_NAME} as exer ON
     tp.${EXERCISES_ID}=exer.${EXERCISES_ID}
-    LEFT JOIN ${MUSCULES_GROUP_TABLE_NAME} as mg ON
-    exer.${MUSCULE_GROUP_ID} =mg.${MUSCULE_GROUP_ID}
+    LEFT JOIN ${MUSCLES_GROUP_TABLE_NAME} as mg ON
+    exer.${MUSCLE_GROUP_ID} =mg.${MUSCLE_GROUP_ID}
     LEFT JOIN ${EQUIPMENTS_TABLE_NAME} as eq ON
     exer.${EQUIPMENTS_ID}= eq.${EQUIPMENTS_ID}
     LEFT JOIN ${NOTES_TABLE_NAME} as no ON 
@@ -404,7 +404,7 @@ export const routesCRUDArr: {
     optionsCRUD: leadsOptionsCRUD,
   },
   {
-    baseRoute: API_ROUTES.MUSCULES_GROUP_ROUTE,
+    baseRoute: API_ROUTES.MUSCLES_GROUP_ROUTE,
     optionsCRUD: musclesGroupOptionsCRUD,
   },
   { baseRoute: API_ROUTES.NOTES_ROUTE, optionsCRUD: notesOptionsCRUD },

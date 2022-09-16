@@ -12,7 +12,7 @@ import MusculesGroupTable from "./MusculeGroupTable";
 function MusculesGroupPage() {
   const [musclesGroup, setMusclesGroup] = useState<string[]>(["", ""]);
   return (
-    <MainRoute mainRoutes={APP_ROUTE.MUSCULES_GROUP_LIST_ROUTE}>
+    <MainRoute mainRoutes={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}>
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
           <AutocompleteInput<MusclesGroupTableAPi>
@@ -31,7 +31,7 @@ function MusculesGroupPage() {
           />
 
           <span>
-            <Link to={`${APP_ROUTE.MUSCULES_GROUP_ADD}`}>
+            <Link to={`${APP_ROUTE.MUSCLES_GROUP_ADD}`}>
               Add Muscules Group
             </Link>
           </span>

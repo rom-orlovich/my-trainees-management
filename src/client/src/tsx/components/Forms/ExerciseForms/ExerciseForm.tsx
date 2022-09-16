@@ -93,7 +93,7 @@ export function ExerciseForm({
                     InputProps: { placeholder: "Search Muscules Group" },
                   },
                   addOption: {
-                    link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCULES_GROUP_LIST_ROUTE}/${APP_ROUTE.MUSCULES_GROUP_ADD}`,
+                    link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}/${APP_ROUTE.MUSCLES_GROUP_ADD}`,
                   },
                   loadingSpinnerResult: { nameData: "Muscules Group" },
                   useGetData: musclesGroupApi.useGetItemsQuery,

@@ -32,8 +32,8 @@ export const leadsApi = apiCreateCRUDHooks<LeadsFormProps>({
 
 export const musclesGroupApi = apiCreateCRUDHooks<MusculesGroupTable>({
   reducerPath: "musclesGroupApi",
-  baseUrl: API_ROUTES.MUSCULES_GROUP_ROUTE,
-  singleEntityName: API_ROUTES.MUSCULES_GROUP_ENTITY,
+  baseUrl: API_ROUTES.MUSCLES_GROUP_ROUTE,
+  singleEntityName: API_ROUTES.MUSCLES_GROUP_ENTITY,
   listId: "musclesGroup_list",
 });
 export type ApiCRUD = typeof musclesGroupApi;

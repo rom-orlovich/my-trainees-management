@@ -13,7 +13,7 @@ export const TRAINEES_MANAGEMENT_SQL_PATH = join(
 export const WEEKLY_ID = "week_id";
 export const NOTE_ID = "note_id";
 export const CITY_ID = "city_id";
-export const MUSCULE_GROUP_ID = "muscles_group_id";
+export const MUSCLE_GROUP_ID = "muscles_group_id";
 export const LOCATION_ID = "location_id";
 export const PROFILE_ID = "profile_id";
 export const PROVIDERS_ID = "provider_id";
@@ -31,7 +31,7 @@ export const LEADS_TABLE_NAME = "leads";
 export const WEEKLY_TABLE_NAME = "weeks";
 export const NOTES_TABLE_NAME = "notes";
 export const CITIES_TABLE_NAME = "cities";
-export constMUSCLES_GROUP_TABLE_NAME = "muscles_group";
+export const MUSCLES_GROUP_TABLE_NAME = "muscles_group";
 export const LOCATION_TABLE_NAME = "locations";
 export const PROFILES_TABLE_NAME = "profiles";
 

@@ -106,11 +106,11 @@ function AppRoutes() {
             <Route path=":id" element={<EquipmentEditForm />}></Route>
           </Route>
           <Route
-            path={APP_ROUTE.MUSCULES_GROUP_LIST_ROUTE}
+            path={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}
             element={<MusculesGroupPage />}
           >
             <Route
-              path={APP_ROUTE.MUSCULES_GROUP_ADD}
+              path={APP_ROUTE.MUSCLES_GROUP_ADD}
               element={<MusculeGroupAddForm />}
             />
             <Route path=":id" element={<MusculeGroupEditForm />}></Route>

@@ -14,7 +14,7 @@ function SettingsPage() {
           gap: "0.5rem",
         }}
       >
-        <Link to={APP_ROUTE.MUSCULES_GROUP_LIST_ROUTE}> Muscles Groups</Link>
+        <Link to={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}> Muscles Groups</Link>
         <Link to={APP_ROUTE.LOCATION_ROUTE}> Locations</Link>
         <Link to={APP_ROUTE.NOTES_ROUTE}> Notes</Link>
         <Link to={APP_ROUTE.CITY_ROUTE}>Cities </Link>
