@@ -38,12 +38,11 @@ export function createRoutesControllers({
     );
 
     if (errValid && !valid)
-      throw new ErrorCustomizes({ code: ErrorCodes.INVALID });
-    next();
+      next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
   };
 
   // Controller of the get method. Gets data from the db.
-  const getValuesFromDB: RequestHandler = async (req, res) => {
+  const getValuesFromDB: RequestHandler = async (req, res, next) => {
     const { page, ...rest } = req.query;
 
     const [data, err] = await promiseHandler(
@@ -58,9 +57,8 @@ export function createRoutesControllers({
       )
     );
 
-    if (err) {
-      throw new ErrorCustomizes(err);
-    }
+    if (err) return next(new ErrorCustomizes(err));
+
     return res.status(200).json({ data: data.rows, next: data.next });
   };
 
@@ -68,16 +66,13 @@ export function createRoutesControllers({
   const getValueFromDBbyID: RequestHandler = async (req, res, next) => {
     const queryLogic = `${querySelectLogic}  WHERE ${tableID}=$1`;
     const id = Number(req.params.id);
-    if (!id) {
-      throw new ErrorCustomizes(new Error("Source Not Found"));
-    }
+
     const [data, err] = await promiseHandler(
       selectQuery(`${tableName}`, `${fieldNamesQuery}`, queryLogic, [id])
     );
 
-    if (err) {
-      throw new ErrorCustomizes(err);
-    }
+    if (err) return next(new ErrorCustomizes(err));
+
     return res.status(200).json(data[0]);
   };
 
@@ -98,16 +93,16 @@ export function createRoutesControllers({
 
   // Controller of the put method.
   // Update one item by his ID in db.
-  const updateValueByID: RequestHandler = async (req, res) => {
+  const updateValueByID: RequestHandler = async (req, res, next) => {
     const queryLogic = `WHERE ${tableID}=$1`;
 
     const [data, err] = await promiseHandler<any, DatabaseError>(
       updateQuerySingleItem(tableName, req.body, req.params.id, queryLogic)
     );
 
-    if (err) throw new ErrorCustomizes(err);
+    if (err) return next(new ErrorCustomizes(err));
 
-    res.status(200).json({
+    return res.status(200).json({
       message: `The ${singleEntityName} is updated successfully!`,
       id: createObjValuesArr(data)[0],
     });
@@ -115,14 +110,15 @@ export function createRoutesControllers({
 
   // Controller of the delete method.
   // delete one item by his ID in db.
-  const deleteValueByID: RequestHandler = async (req, res) => {
+  const deleteValueByID: RequestHandler = async (req, res, next) => {
     const { id } = req.params;
     const queryLogic = `WHERE ${tableID}=$1`;
+
     const [data, err] = await promiseHandler(
       deleteQuery(tableName, queryLogic, [id], true)
     );
 
-    if (err) if (err) throw new ErrorCustomizes(err);
+    if (err) return next(new ErrorCustomizes(err));
 
     return res.status(200).json({
       message: `The ${singleEntityName} is deleted successfully!`,
