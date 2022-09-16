@@ -125,7 +125,7 @@ export interface EquipmentsTable {
 }
 
 export interface ExercisesTableAPI {
-  equipment_id?: number | null;
+  equipment_id?: number;
   exercise_name: string;
   exercise_id?: number;
   muscles_group_id: number;

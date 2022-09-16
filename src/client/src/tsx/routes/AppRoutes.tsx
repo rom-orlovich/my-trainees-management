@@ -6,6 +6,7 @@ import { CityEditForm } from "../components/Forms/CityForms/CityEditForm";
 import { EquipmentAddForm } from "../components/Forms/EquipmentForms/EquipmentAddForm";
 import { EquipmentEditForm } from "../components/Forms/EquipmentForms/EquipmentEditForm";
 import { ExerciseAddForm } from "../components/Forms/ExerciseForms/ExerciseAddForm";
+import { ExerciseEditForm } from "../components/Forms/ExerciseForms/ExerciseEditForm";
 import { LeadAddForm } from "../components/Forms/LeadForms/LeadAddForm";
 import LeadEditForm from "../components/Forms/LeadForms/LeadEditForm";
 import { LocationAddForm } from "../components/Forms/LocationForms/LocationAddForm";
@@ -21,6 +22,7 @@ import { TrainingProgramsListEditForm } from "../components/Forms/TrainingProgra
 import CitiesPage from "../pages/CitiesPage/CitiesPage";
 
 import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
+import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
@@ -85,16 +87,17 @@ function AppRoutes() {
           </Route>
         </Route>
 
-        <Route path={APP_ROUTE.EXERCISES_LIST_ROUTE}>
-          <Route index />
-
-          <Route
-            path={APP_ROUTE.EXERCISE_ADD}
-            element={<ExerciseAddForm />}
-          ></Route>
-        </Route>
-
         <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />}>
+          <Route
+            path={APP_ROUTE.EXERCISES_LIST_ROUTE}
+            element={<ExercisesPage />}
+          >
+            <Route
+              path={APP_ROUTE.EXERCISE_ADD}
+              element={<ExerciseAddForm />}
+            ></Route>
+            <Route path=":id" element={<ExerciseEditForm />}></Route>
+          </Route>
           <Route
             path={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}
             element={<EquipmentsListPage />}

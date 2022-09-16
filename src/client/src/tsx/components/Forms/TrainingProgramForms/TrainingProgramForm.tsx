@@ -56,7 +56,7 @@ export default function TrainingProgramForms({
                     InputProps: { placeholder: "Search Exercise" },
                   },
                   addOption: {
-                    link: `/${APP_ROUTE.EXERCISES_LIST_ROUTE}/${APP_ROUTE.EXERCISE_ADD}`,
+                    link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.EXERCISES_LIST_ROUTE}/${APP_ROUTE.EXERCISE_ADD}`,
                   },
                   loadingSpinnerResult: { nameData: "Exercise" },
                   useGetData: exercisesApi.useGetItemsQuery,

@@ -14,10 +14,6 @@ import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { exercisesListSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
-import {
-  Option,
-  SelectInput,
-} from "../../baseComponents/RHF-Components/SelectInput/SelectInput";
 
 export function ExerciseForm({
   onSubmit,
@@ -47,8 +43,7 @@ export function ExerciseForm({
         }}
       >
         {({ register, formState, control }) => {
-          const { equipment_id, muscles_group_id, exercise_name } =
-            formState.errors;
+          const { exercise_name } = formState.errors;
 
           return (
             <>
@@ -66,11 +61,11 @@ export function ExerciseForm({
                 name="equipment_id"
                 control={control}
                 AutocompleteInputProps={{
-                  defaultValueID: defaultValues?.exercise_id,
+                  defaultValueID: defaultValues?.equipment_id,
                   InputLabelProps: {
-                    LabelProps: { labelText: "Equipement" },
+                    LabelProps: { labelText: "Equipment" },
 
-                    InputProps: { placeholder: "Search Equipement" },
+                    InputProps: { placeholder: "Search Equipment" },
                   },
                   addOption: {
                     link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.EQUIPMENTS_LIST_ROUTE}/${APP_ROUTE.EQUIPMENT_ADD}`,

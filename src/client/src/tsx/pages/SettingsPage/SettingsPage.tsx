@@ -16,7 +16,7 @@ function SettingsPage() {
       >
         <Link to={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}> Muscles Groups</Link>
         <Link to={APP_ROUTE.LOCATION_ROUTE}> Locations</Link>
-        {/* <Link to={APP_ROUTE.NOTES_ROUTE}> Notes</Link> */}
+        <Link to={APP_ROUTE.EXERCISES_LIST_ROUTE}> Exercises List</Link>
         <Link to={APP_ROUTE.CITY_ROUTE}>Cities </Link>
         <Link to={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}>Equipment </Link>
       </div>
