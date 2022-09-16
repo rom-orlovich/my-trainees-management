@@ -97,11 +97,11 @@ export function createRoutesControllers({
 
   // Controller of the post method. Create one item  in the db.
   const createNewValueInDB: RequestHandler = async (req, res) => {
-    const [valid, errVaild] = await promiseHandler(
+    const [valid, errValid] = await promiseHandler(
       validateSchema.validate(req.body)
     );
-    if (errVaild && !valid)
-      return res.status(400).json({ message: errVaild?.message });
+    if (errValid && !valid)
+      return res.status(400).json({ message: errValid?.message });
 
     const [data, err] = await promiseHandler(
       insertQueryOneItem(tableName, req.body)
@@ -123,7 +123,7 @@ export function createRoutesControllers({
   // Controller of the post method.
   // Create many items in db by sending array of items.
   const createNewValuesInDB: RequestHandler = async (req, res) => {
-    const [valid, errVaild] = await promiseHandler(
+    const [valid, errValid] = await promiseHandler(
       yup
         .array()
         .of(validateSchema)
@@ -131,14 +131,14 @@ export function createRoutesControllers({
         .validate(req.body)
     );
 
-    if (errVaild && !valid)
-      return res.status(400).json({ message: errVaild?.message });
+    if (errValid && !valid)
+      return res.status(400).json({ message: errValid?.message });
     const [data, err] = await promiseHandler(
       insertManyQuery(tableName, req.body)
     );
     if (err) {
       console.log(err);
-      return res.status(400).json({ message: "Something is went worng." });
+      return res.status(400).json({ message: "Something is went wrong." });
     }
     return res.status(200).json({
       message: `The ${singleEntityName}s are added!`,
@@ -148,11 +148,11 @@ export function createRoutesControllers({
 
   // Controller of the post method. Create items in many different table.
   const createNewValuesInManyTablesInDB: RequestHandler = async (req, res) => {
-    const [valid, errVaild] = await promiseHandler(
+    const [valid, errValid] = await promiseHandler(
       validateSchema.validate(req.body)
     );
-    if (errVaild && !valid)
-      return res.status(400).json({ message: errVaild?.message });
+    if (errValid && !valid)
+      return res.status(400).json({ message: errValid?.message });
 
     const [data, err] = await promiseHandler(
       insertQueryToManyTables(tableName, insertDataToOtherTables, req.body)
@@ -160,7 +160,7 @@ export function createRoutesControllers({
 
     if (err) {
       console.log(err);
-      return res.status(400).json({ message: "Something is went worng." });
+      return res.status(400).json({ message: "Something is went wrong." });
     }
     return res.status(200).json({
       message: `The new ${singleEntityName} is added!`,
@@ -171,12 +171,12 @@ export function createRoutesControllers({
   // Controller of the put method.
   // Update one item by his ID in db.
   const updateValueByID: RequestHandler = async (req, res) => {
-    const [valid, errVaild] = await promiseHandler(
+    const [valid, errValid] = await promiseHandler(
       validateSchema.validate(req.body)
     );
 
-    if (errVaild && !valid) {
-      return res.status(400).json({ message: errVaild?.message });
+    if (errValid && !valid) {
+      return res.status(400).json({ message: errValid?.message });
     }
     const queryLogic = `WHERE ${tableID}=$1`;
 
@@ -186,7 +186,7 @@ export function createRoutesControllers({
     console.log(data);
     console.log(err);
     if (err)
-      return res.status(400).json({ message: "Something is went worng." });
+      return res.status(400).json({ message: "Something is went wrong." });
     return res.status(200).json({
       message: `The ${singleEntityName} is updated successfully!`,
       id: createObjValuesArr(data)[0],
@@ -195,11 +195,11 @@ export function createRoutesControllers({
 
   // Controller of the post method. Create items in many different table.
   const updateValuesInManyTablesInDB: RequestHandler = async (req, res) => {
-    const [valid, errVaild] = await promiseHandler(
+    const [valid, errValid] = await promiseHandler(
       validateSchema.validate(req.body)
     );
-    if (errVaild && !valid)
-      return res.status(400).json({ message: errVaild?.message });
+    if (errValid && !valid)
+      return res.status(400).json({ message: errValid?.message });
 
     const queryLogic = `WHERE ${tableID}=$1`;
 
@@ -215,7 +215,7 @@ export function createRoutesControllers({
 
     if (err) {
       console.log(err);
-      return res.status(400).json({ message: "Something is went worng." });
+      return res.status(400).json({ message: "Something is went wrong." });
     }
     return res.status(200).json({
       message: `The new ${singleEntityName} is updated successfully!`,
@@ -235,7 +235,7 @@ export function createRoutesControllers({
 
     if (err) {
       console.log(err);
-      return res.status(400).json({ message: "Something is went worng." });
+      return res.status(400).json({ message: "Something is went wrong." });
     }
 
     return res.status(200).json({
