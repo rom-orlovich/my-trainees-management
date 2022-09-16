@@ -13,14 +13,14 @@ import {
   TrainingProgramExercise,
   API_ROUTES,
   SubscriptionPlans,
-  LeadsTable,
+  LeadsTableAPI,
   TrainingProgramsListTable,
 } from "../api/interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
 
 // Each on of the api object contains the CRUD hooks of the endpoint.
-export const leadsApi = apiCreateCRUDHooks<LeadsTable>({
+export const leadsApi = apiCreateCRUDHooks<LeadsTableAPI>({
   reducerPath: "leadsApi",
   baseUrl: API_ROUTES.LEADS_ROUTE,
   singleEntityName: API_ROUTES.LEADS_ENTITY,

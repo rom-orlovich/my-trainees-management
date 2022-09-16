@@ -12,8 +12,7 @@ import { LocationAddForm } from "../components/Forms/LocationForms/LocationAddFo
 import { LocationEditForm } from "../components/Forms/LocationForms/LocationEditForm";
 import { MusculeGroupAddForm } from "../components/Forms/MusculeGroupForms/MusculeGroupAddForm";
 import { MusculeGroupEditForm } from "../components/Forms/MusculeGroupForms/MusculeGroupEditForm";
-import { NoteAddForm } from "../components/Forms/NoteForms/NoteAddForm";
-import { NoteEditForm } from "../components/Forms/NoteForms/NoteEditForm";
+
 import TraineeAddForm from "../components/Forms/TraineeForms/TraineeAddForm";
 import { TrainingProgramAddExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramAddForm";
 import { TrainingProgramEditExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramEditForm";
