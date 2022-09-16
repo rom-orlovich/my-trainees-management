@@ -11,7 +11,6 @@ import {
   locationsSchema,
   subscriptionPlansSchema,
   musclesGroupSchema,
-  // notesSchema,
   nutritionProgramSchema,
   nutritionProgramsListSchema,
   providersSchema,
@@ -20,91 +19,34 @@ import {
   trainingProgramsListSchema,
   weeksSchema,
 } from "../schemas/DBSchemas";
-import {
-  CITIES_TABLE_NAME,
-  CITY_ID,
-  EQUIPMENTS_ID,
-  EQUIPMENTS_TABLE_NAME,
-  EXERCISES_ID,
-  EXERCISES_LIST_TABLE_NAME,
-  EXPENSES_ID,
-  EXPENSES_TABLE_NAME,
-  INCOME_ID,
-  INCOMES_TABLE_NAME,
-  LOCATION_ID,
-  LOCATION_TABLE_NAME,
-  MUSCLES_GROUP_TABLE_NAME,
-  MUSCLE_GROUP_ID,
-  NOTES_TABLE_NAME,
-  NOTE_ID,
-  NUTRITION_PROGRAM_LIST_ID,
-  NUTRITION_PROGRAM_LIST_TABLE_NAME,
-  NUTRITION_PROGRAM_TABLE_NAME,
-  PROVIDERS_ID,
-  PROVIDERS_TABLE_NAME,
-  TRAINING_PROGRAMS_LIST_ID,
-  TRAINING_PROGRAMS_LIST_TABLE_NAME,
-  TRAINING_PROGRAM_ID,
-  TRAINING_PROGRAM_TABLE_NAME,
-  WEEKLY_ID,
-  WEEKLY_TABLE_NAME,
-  SUBSCRIPTION_PLANS_TABLE_ID,
-  SUBSCRIPTION_PLANS_TABLE_NAME,
-  LEADS_TABLE_NAME,
-  LEADS_TABLE_ID,
-  NUTRITION_PROGRAM_ID,
-  PROFILE_ID,
-  PROFILES_TABLE_NAME,
-} from "../utilities/constants";
+import { TABLES_DATA } from "../utilities/constants";
 import { API_ROUTES } from "./apiRoutesConstants";
 
-export interface InsertOtherTable {
-  tableName: string;
-  id: string;
-  keysPossible: string[];
-}
 export interface SelectTableQueryParam {
   tableName: string;
   tableID: string;
   fieldNamesQuery: string; // The field names that we want to return from the query
   querySelectLogic: string; // The query logic
-  subTableID?: string;
-  idSearch?: string; // ID of the main table which we search for data.
-  selectQueriesParams?: SelectTableQueryParam[];
-  subTableKeys?: Record<string, string[]>;
+
   queryParams?: Record<string, string>;
   queryNameParam?: Record<string, string>; // Field to search by name,the first field with name key is the main query.
-}
-export interface SelectOtherTable {
-  selectQueriesParams: SelectTableQueryParam[];
-  transformFunction: <T, K>(object: T) => K;
 }
 
 export interface OptionsCRUD {
   singleEntityName: string; // name of one item
   selectQuery: SelectTableQueryParam;
-  insertDataToOtherTables?: InsertOtherTable[]; // The data of tables we wish to insert data
-  selectOtherTablesQueries?: SelectOtherTable;
   validateSchema: yup.ObjectSchema<any>;
 }
-// export interface OptionsCRUD {
-//   singleEntityName: string; // name of one item
-//   selectQuery: string;
-//   insertDataToOtherTables?: InsertOtherTable[]; // The data of tables we wish to insert data
-//   selectOtherTablesQueries?: SelectOtherTable;
-//   validateSchema: yup.ObjectSchema<any>;
-// }
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
 // the input of the user.
 //
-
 export const leadsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.LEADS_ENTITY,
   selectQuery: {
-    tableName: `${LEADS_TABLE_NAME} as le`,
-    tableID: `le.${LEADS_TABLE_ID}`,
+    tableName: `${TABLES_DATA.LEADS_TABLE_NAME} as le`,
+    tableID: `le.${TABLES_DATA.LEADS_TABLE_ID}`,
     fieldNamesQuery: `le.*`,
     querySelectLogic: ``,
   },
@@ -115,8 +57,8 @@ export const leadsOptionsCRUD: OptionsCRUD = {
 export const musclesGroupOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.MUSCLES_GROUP_ENTITY,
   selectQuery: {
-    tableName: `${MUSCLES_GROUP_TABLE_NAME} as mg`,
-    tableID: `mg.${MUSCLE_GROUP_ID}`,
+    tableName: `${TABLES_DATA.MUSCLES_GROUP_TABLE_NAME} as mg`,
+    tableID: `mg.${TABLES_DATA.MUSCLE_GROUP_ID}`,
     fieldNamesQuery: "*",
     querySelectLogic: ``,
   },
@@ -127,8 +69,8 @@ export const musclesGroupOptionsCRUD: OptionsCRUD = {
 export const citiesOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.CITIES_ENTITY,
   selectQuery: {
-    tableName: `${CITIES_TABLE_NAME} as c`,
-    tableID: `c.${CITY_ID}`,
+    tableName: `${TABLES_DATA.CITIES_TABLE_NAME} as c`,
+    tableID: `c.${TABLES_DATA.CITY_ID}`,
     fieldNamesQuery: "*",
     querySelectLogic: ``,
     queryNameParam: {
@@ -142,11 +84,11 @@ export const citiesOptionsCRUD: OptionsCRUD = {
 export const locationsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.LOCATIONS_ENTITY,
   selectQuery: {
-    tableName: `${LOCATION_TABLE_NAME} as lo`,
-    tableID: `lo.${LOCATION_ID}`,
+    tableName: `${TABLES_DATA.LOCATION_TABLE_NAME} as lo`,
+    tableID: `lo.${TABLES_DATA.LOCATION_ID}`,
     fieldNamesQuery: "lo.*,c.city_name ",
-    querySelectLogic: `JOIN ${CITIES_TABLE_NAME} as c ON
-    c.${CITY_ID}=lo.${CITY_ID} `,
+    querySelectLogic: `JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c ON
+    c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} `,
     queryNameParam: {
       name: "street",
       cityName: "city_name",
@@ -158,14 +100,12 @@ export const locationsOptionsCRUD: OptionsCRUD = {
 export const providersOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.PROVIDERS_ENTITY,
   selectQuery: {
-    tableName: `${PROVIDERS_TABLE_NAME} as pro`,
-    tableID: `pro.${PROVIDERS_ID}`,
+    tableName: `${TABLES_DATA.PROVIDERS_TABLE_NAME} as pro`,
+    tableID: `pro.${TABLES_DATA.PROVIDERS_ID}`,
     fieldNamesQuery: "pro.*,lo.street , c.city_name",
     querySelectLogic: `
-    JOIN ${LOCATION_TABLE_NAME} as lo on 
-    pro.${LOCATION_ID} = lo.${LOCATION_ID}
-   
-    `,
+    JOIN ${TABLES_DATA.LOCATION_TABLE_NAME} as lo on 
+    pro.${TABLES_DATA.LOCATION_ID} = lo.${TABLES_DATA.LOCATION_ID}`,
   },
   validateSchema: providersSchema,
 };
@@ -173,8 +113,8 @@ export const providersOptionsCRUD: OptionsCRUD = {
 export const weeksOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.WEEKS_ROUTE,
   selectQuery: {
-    tableName: `${WEEKLY_TABLE_NAME} as we`,
-    tableID: `we.${WEEKLY_ID}`,
+    tableName: `${TABLES_DATA.WEEKLY_TABLE_NAME} as we`,
+    tableID: `we.${TABLES_DATA.WEEKLY_ID}`,
     fieldNamesQuery: "*",
     querySelectLogic: ``,
   },
@@ -184,11 +124,11 @@ export const weeksOptionsCRUD: OptionsCRUD = {
 export const expensesOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.EXPENSES_ENTITY,
   selectQuery: {
-    tableName: `${EXPENSES_TABLE_NAME} as ex`,
-    tableID: `ex.${EXPENSES_ID}`,
+    tableName: `${TABLES_DATA.EXPENSES_TABLE_NAME} as ex`,
+    tableID: `ex.${TABLES_DATA.EXPENSES_ID}`,
     fieldNamesQuery: `ex.*, pr.provider_name`,
-    querySelectLogic: `JOIN ${PROVIDERS_TABLE_NAME} as pr on 
-   ex.seller_id=pr.${PROVIDERS_ID}
+    querySelectLogic: `JOIN ${TABLES_DATA.PROVIDERS_TABLE_NAME} as pr on 
+   ex.seller_id=pr.${TABLES_DATA.PROVIDERS_ID}
    `,
   },
   validateSchema: expensesSchema,
@@ -197,8 +137,8 @@ export const expensesOptionsCRUD: OptionsCRUD = {
 export const equipmentsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.EQUIPMENTS_ENTITY,
   selectQuery: {
-    tableName: `${EQUIPMENTS_TABLE_NAME} as eq`,
-    tableID: `eq.${EQUIPMENTS_ID}`,
+    tableName: `${TABLES_DATA.EQUIPMENTS_TABLE_NAME} as eq`,
+    tableID: `eq.${TABLES_DATA.EQUIPMENTS_ID}`,
     fieldNamesQuery: `*`,
     querySelectLogic: ``,
   },
@@ -208,12 +148,12 @@ export const equipmentsOptionsCRUD: OptionsCRUD = {
 export const exerciseListOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.EXERCISES_ENTITY,
   selectQuery: {
-    tableName: `${EXERCISES_LIST_TABLE_NAME} as exer`,
-    tableID: EXERCISES_ID,
+    tableName: `${TABLES_DATA.EXERCISES_LIST_TABLE_NAME} as exer`,
+    tableID: TABLES_DATA.EXERCISES_ID,
     fieldNamesQuery: `exer.* , mg.muscles_group_name , eq.equipment_name `,
-    querySelectLogic: `JOIN ${MUSCLES_GROUP_TABLE_NAME} as mg on 
-    mg.${MUSCLE_GROUP_ID}=exer.${MUSCLE_GROUP_ID} JOIN ${EQUIPMENTS_TABLE_NAME} as eq on 
-   eq.${EQUIPMENTS_ID}=exer.${EQUIPMENTS_ID} `,
+    querySelectLogic: `JOIN ${TABLES_DATA.MUSCLES_GROUP_TABLE_NAME} as mg on 
+    mg.${TABLES_DATA.MUSCLE_GROUP_ID}=exer.${TABLES_DATA.MUSCLE_GROUP_ID} JOIN ${TABLES_DATA.EQUIPMENTS_TABLE_NAME} as eq on 
+   eq.${TABLES_DATA.EQUIPMENTS_ID}=exer.${TABLES_DATA.EQUIPMENTS_ID} `,
   },
   validateSchema: exercisesListSchema,
 };
@@ -221,14 +161,15 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
 export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.TRAINING_PROGRAMS_LIST_ENTITY,
   selectQuery: {
-    tableName: `${TRAINING_PROGRAMS_LIST_TABLE_NAME} as trpl`,
-    tableID: `trpl.${TRAINING_PROGRAMS_LIST_ID}`,
+    tableName: `${TABLES_DATA.TRAINING_PROGRAMS_LIST_TABLE_NAME} as trpl`,
+    tableID: `trpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     fieldNamesQuery: `trpl.*`,
     querySelectLogic: `
-    LEFT JOIN ${TRAINING_PROGRAM_TABLE_NAME} as tp ON
-    trpl.${TRAINING_PROGRAMS_LIST_ID}=tp.${TRAINING_PROGRAMS_LIST_ID}`,
+    LEFT JOIN ${TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME} as tp ON
+    trpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}=
+    tp.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     queryParams: {
-      traineeID: PROFILE_ID,
+      traineeID: TABLES_DATA.PROFILE_ID,
     },
   },
 
@@ -238,22 +179,20 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
 export const trainingProgramsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.TRAINING_PROGRAMS_ENTITY,
   selectQuery: {
-    tableName: `${TRAINING_PROGRAM_TABLE_NAME} as tp`,
-    tableID: `tp.${TRAINING_PROGRAM_ID}`,
+    tableName: `${TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME} as tp`,
+    tableID: `tp.${TABLES_DATA.TRAINING_PROGRAM_ID}`,
     fieldNamesQuery: `tp.*, 
     mg.muscles_group_name, eq.equipment_name,
-    exer.exercise_name
-   `,
+    exer.exercise_name`,
     querySelectLogic: `
-    LEFT JOIN ${EXERCISES_LIST_TABLE_NAME} as exer ON
-    tp.${EXERCISES_ID}=exer.${EXERCISES_ID}
-    LEFT JOIN ${MUSCLES_GROUP_TABLE_NAME} as mg ON
-    exer.${MUSCLE_GROUP_ID} =mg.${MUSCLE_GROUP_ID}
-    LEFT JOIN ${EQUIPMENTS_TABLE_NAME} as eq ON
-    exer.${EQUIPMENTS_ID}= eq.${EQUIPMENTS_ID}
-   `,
+    LEFT JOIN ${TABLES_DATA.EXERCISES_LIST_TABLE_NAME} as exer ON
+    tp.${TABLES_DATA.EXERCISES_ID}=exer.${TABLES_DATA.EXERCISES_ID}
+    LEFT JOIN ${TABLES_DATA.MUSCLES_GROUP_TABLE_NAME} as mg ON
+    exer.${TABLES_DATA.MUSCLE_GROUP_ID} =mg.${TABLES_DATA.MUSCLE_GROUP_ID}
+    LEFT JOIN ${TABLES_DATA.EQUIPMENTS_TABLE_NAME} as eq ON
+    exer.${TABLES_DATA.EQUIPMENTS_ID}= eq.${TABLES_DATA.EQUIPMENTS_ID}`,
     queryParams: {
-      trainingProgramListID: TRAINING_PROGRAMS_LIST_ID,
+      trainingProgramListID: TABLES_DATA.TRAINING_PROGRAMS_LIST_ID,
     },
   },
 
@@ -263,8 +202,8 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
 export const nutritionProgramOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_ENTITY,
   selectQuery: {
-    tableName: `${NUTRITION_PROGRAM_TABLE_NAME} as np`,
-    tableID: `np.${NUTRITION_PROGRAM_ID}`,
+    tableName: `${TABLES_DATA.NUTRITION_PROGRAM_TABLE_NAME} as np`,
+    tableID: `np.${TABLES_DATA.NUTRITION_PROGRAM_ID}`,
     fieldNamesQuery: `*`,
     querySelectLogic: ``,
   },
@@ -274,22 +213,19 @@ export const nutritionProgramOptionsCRUD: OptionsCRUD = {
 export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_LIST_ENTITY,
   selectQuery: {
-    tableName: `${NUTRITION_PROGRAM_LIST_TABLE_NAME} as npl`,
-    tableID: `npl.${NUTRITION_PROGRAM_LIST_ID}`,
+    tableName: `${TABLES_DATA.NUTRITION_PROGRAM_LIST_TABLE_NAME} as npl`,
+    tableID: `npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}`,
     fieldNamesQuery: `npl.*,
     np.week_id,
     np.note_id as week_note_id,
-    we.date,we.day,we.weight,
-   `,
+    we.date,we.day,we.weight`,
     querySelectLogic: `
-    LEFT JOIN ${PROFILES_TABLE_NAME} as tr ON
-    npl.${PROFILE_ID}=tr.${PROFILE_ID}
-    LEFT JOIN  ${NUTRITION_PROGRAM_TABLE_NAME} as np ON
-    npl.${NUTRITION_PROGRAM_LIST_ID}=np.${NUTRITION_PROGRAM_LIST_ID}
-    LEFT JOIN ${WEEKLY_TABLE_NAME} as we ON 
-    we.${WEEKLY_ID}=np.${WEEKLY_ID} 
-   
-    `,
+    LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as tr ON
+    npl.${TABLES_DATA.PROFILE_ID}=tr.${TABLES_DATA.PROFILE_ID}
+    LEFT JOIN  ${TABLES_DATA.NUTRITION_PROGRAM_TABLE_NAME} as np ON
+    npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}=np.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}
+    LEFT JOIN ${TABLES_DATA.WEEKLY_TABLE_NAME} as we ON 
+    we.${TABLES_DATA.WEEKLY_ID}=np.${TABLES_DATA.WEEKLY_ID} `,
   },
   validateSchema: nutritionProgramsListSchema,
 };
@@ -297,8 +233,8 @@ export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
 export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.SUBSCRIPTION_PLANS_ENTITY,
   selectQuery: {
-    tableName: `${SUBSCRIPTION_PLANS_TABLE_NAME} as subp`,
-    tableID: `subp.${SUBSCRIPTION_PLANS_TABLE_ID}`,
+    tableName: `${TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_NAME} as subp`,
+    tableID: `subp.${TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_ID}`,
     fieldNamesQuery: `subp.*`,
     querySelectLogic: ``,
   },
@@ -308,54 +244,40 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
 export const traineesOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.TRAINEES_ENTITY,
   selectQuery: {
-    tableName: `${PROFILES_TABLE_NAME} as pr`,
-    tableID: `pr.${PROFILE_ID}`,
+    tableName: `${TABLES_DATA.PROFILES_TABLE_NAME} as pr`,
+    tableID: `pr.${TABLES_DATA.PROFILE_ID}`,
     fieldNamesQuery: `
     pr.*, lo.street ,
      c.city_name , 
-    tpl.${TRAINING_PROGRAMS_LIST_ID},
-    npl.${NUTRITION_PROGRAM_LIST_ID} `,
+    tpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID},
+    npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID} `,
     querySelectLogic: `
-    JOIN ${LOCATION_TABLE_NAME} as lo ON 
-    pr.${LOCATION_ID}=lo.${LOCATION_ID} JOIN ${CITIES_TABLE_NAME} as c on 
-   c.${CITY_ID}=lo.${CITY_ID} 
-   LEFT JOIN ${TRAINING_PROGRAMS_LIST_TABLE_NAME} as tpl ON
-   tpl.${PROFILE_ID}=pr.${PROFILE_ID}
-   LEFT JOIN ${NUTRITION_PROGRAM_LIST_TABLE_NAME} as npl ON
-   npl.${PROFILE_ID}=pr.${PROFILE_ID}
-   LEFT JOIN ${SUBSCRIPTION_PLANS_TABLE_NAME} as subp ON
-   subp.${PROFILE_ID}=pr.${PROFILE_ID} `,
+    JOIN ${TABLES_DATA.LOCATION_TABLE_NAME} as lo ON 
+    pr.${TABLES_DATA.LOCATION_ID}=lo.${TABLES_DATA.LOCATION_ID} JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c on 
+   c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} 
+   LEFT JOIN ${TABLES_DATA.TRAINING_PROGRAMS_LIST_TABLE_NAME} as tpl ON
+   tpl.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}
+   LEFT JOIN ${TABLES_DATA.NUTRITION_PROGRAM_LIST_TABLE_NAME} as npl ON
+   npl.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}
+   LEFT JOIN ${TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_NAME} as subp ON
+   subp.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID} `,
     queryNameParam: {
       name: "first_name",
       lastName: "last_name",
     },
   },
-  // selectOtherTablesQueries: {
-  //   selectQueriesParams: [
-  //     {
-  //       ...trainingProgramsListOptionsCRUD.selectQuery,
-  //       idSearch: `trpl.${TRAINING_PROGRAMS_LIST_ID}`,
-  //       subTableID: TRAINING_PROGRAMS_LIST_ID,
-  //     },
-  //     {
-  //       ...nutritionProgramsListOptionsCRUD.selectQuery,
-  //       subTableID: NUTRITION_PROGRAM_LIST_TABLE_NAME,
-  //       subTableKeys: { nutritionProgram: ["date", "day", "weight"] },
-  //     },
-  //   ],
-  //   transformFunction: (arg: any) => ({} as any),
-  // },
+
   validateSchema: traineesSchema,
 };
 
 export const incomesOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.INCOMES_ROUTE,
   selectQuery: {
-    tableName: `${INCOMES_TABLE_NAME} as in`,
-    tableID: `in.${INCOME_ID}`,
+    tableName: `${TABLES_DATA.INCOMES_TABLE_NAME} as in`,
+    tableID: `in.${TABLES_DATA.INCOME_ID}`,
     fieldNamesQuery: ` in.*, pr.first_name,pr.last_name,`,
-    querySelectLogic: `JOIN ${PROFILES_TABLE_NAME} as pr ON 
-    pr.${PROFILE_ID}=in.buyer_id `,
+    querySelectLogic: `JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr ON 
+    pr.${TABLES_DATA.PROFILE_ID}=in.buyer_id `,
   },
   validateSchema: incomesSchema,
 };

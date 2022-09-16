@@ -160,9 +160,6 @@ CREATE TABLE IF NOT EXISTS "profiles" (
   "date_join" DATE NOT NULL,
   "status" BOOLEAN DEFAULT FALSE,
  
-
-
-
   CONSTRAINT fk_location_id
       FOREIGN KEY(location_id) 
       REFERENCES locations(location_id)
@@ -178,8 +175,6 @@ CREATE TABLE IF NOT EXISTS "subscription_plans"(
 "current_num_trainings" integer NOT NULL,
 "total_trainings" integer NOT NULL,
 "last_training" date ,
-
-
 
 CONSTRAINT fk_profile_id 
     FOREIGN KEY(profile_id)

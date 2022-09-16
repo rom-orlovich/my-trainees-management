@@ -3,11 +3,6 @@
 /* eslint-disable no-unused-vars */
 
 import {
-  InsertOtherTable,
-  SelectOtherTable,
-  SelectTableQueryParam,
-} from "../routes/routesConfig";
-import {
   createObjKeysArr,
   createObjValuesArr,
   promiseHandler,
@@ -190,17 +185,6 @@ const destructureObjByKeys = (
   return newObj;
 };
 
-// Create new Arr from the of table name and new extract obj.
-const createDestructureArr = (
-  insertDataToOtherTables: InsertOtherTable[],
-  obj: Record<string, any>
-) =>
-  insertDataToOtherTables.map((el) => ({
-    tableName: el.tableName,
-    id: el.id,
-    obj: destructureObjByKeys(el.keysPossible, obj),
-  }));
-
 // Select items from the db.
 export async function selectQuery(
   tableName: string,
@@ -213,155 +197,6 @@ export async function selectQuery(
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;
-}
-
-const separatedSubTableNameAndKeys = (
-  tableSelectQuery: SelectTableQueryParam
-) => {
-  const { subTableKeys } = tableSelectQuery;
-  // The obj that contain the name of the sub table and the
-  // list of it keys.
-  if (!subTableKeys) return { subTableName: "", keys: [] };
-
-  // Get the subTableName.
-  const subTableName = createObjKeysArr(subTableKeys)[0];
-  // Get the it Keys.
-  const keys = subTableKeys[subTableName];
-
-  return { keys, subTableName };
-};
-
-const createMainTableAndSubTableArr = (
-  selectTableQuery: SelectTableQueryParam,
-  tablesDataList: Record<string, any>[]
-) => {
-  const { keys, subTableName } = separatedSubTableNameAndKeys(selectTableQuery);
-
-  const mainTableArr: Record<string, any>[] = [];
-  const cachedId: string[] = [];
-  tablesDataList.forEach((el) => {
-    const formattedTableID = selectTableQuery.tableID
-      .split(".")
-      .slice(1)
-      .join("");
-    const tableID = el[formattedTableID];
-    const subTableData = subTableName
-      ? {
-          [subTableName]: tablesDataList
-            .filter((table) => table[formattedTableID] === tableID)
-            .map((filterTable) => destructureObjByKeys(keys, filterTable)),
-        }
-      : {};
-
-    if (!cachedId.includes(tableID)) {
-      cachedId.push(tableID);
-      mainTableArr.push({
-        ...destructureObjByKeys(keys, el, true),
-        ...subTableData,
-      });
-    }
-  });
-  return mainTableArr;
-};
-
-export const createObjMainTable = (
-  selectTableQuery: SelectTableQueryParam,
-  tablesDataList: Record<string, any>[] | undefined
-) => {
-  const mainTableName = selectTableQuery.tableName;
-
-  // Format the name of the main table
-  const mainTableNameFormatted = mainTableName.split(" ").slice(0, 1).join();
-
-  // Check that the data table list is not empty and defined
-  if (!tablesDataList || tablesDataList.length === 0)
-    return {
-      [mainTableNameFormatted]: [],
-    };
-  // Map over the results of the select query array and destructure
-  // the data of the sub table into main table data.
-  return {
-    [mainTableNameFormatted]: createMainTableAndSubTableArr(
-      selectTableQuery,
-      tablesDataList
-    ),
-  };
-};
-
-// Creates array of promises that contains all the data of destructure
-// main and sub table.
-const makeSelectQueryArr = async (
-  mainTableQuery: Record<string, any>,
-  selectTableQuery: SelectOtherTable
-) => {
-  const map = selectTableQuery.selectQueriesParams.map(
-    async (
-      {
-        tableID,
-        tableName,
-        fieldNamesQuery,
-        querySelectLogic,
-        subTableID,
-        idSearch,
-      },
-      i
-    ) => {
-      const queryLogicByTableId = `WHERE ${idSearch || tableID} = $1`;
-
-      // Select query for each table in the array.
-      console.log(mainTableQuery, subTableID);
-      const selectQueryRes = await selectQuery(
-        tableName,
-        fieldNamesQuery,
-        `${querySelectLogic} ${queryLogicByTableId}`,
-        // Get the id from the main table and use it in order
-        // to find the relation data to the main table.
-        [mainTableQuery[subTableID || ""]]
-      );
-
-      // The normalize data of the table and sub table.
-      const normalizeTableAndSubTableData = createObjMainTable(
-        selectTableQuery.selectQueriesParams[i],
-        selectQueryRes as Record<string, any>[]
-      );
-      return normalizeTableAndSubTableData;
-    }
-  );
-
-  return Promise.all(map);
-};
-
-// Select items from many table the db.
-export async function selectFromManyTablesQuery(
-  selectTableQuery: SelectOtherTable,
-  tableName: string,
-  fields = "*",
-  queryLogic = "",
-  queryParams = [] as any[]
-) {
-  // Get the data of the main table which we get the relevant data
-  // to other table.
-  const [mainTableRes] = await selectQuery(
-    tableName,
-    fields,
-    queryLogic,
-    queryParams
-  );
-
-  if (!mainTableRes) throw Error("The query not found");
-  // Get the data of main tables and their sub table array
-  const selectQueriesArr = await makeSelectQueryArr(
-    mainTableRes,
-    selectTableQuery
-  );
-
-  let obj = {};
-
-  selectQueriesArr.forEach((el) => {
-    obj = { ...obj, ...el };
-  });
-  const mainTableNameFormatted = tableName.split(" ").slice(0, 1).join();
-  return { [mainTableNameFormatted]: mainTableRes, ...obj };
 }
 
 // Insert item to the db.
@@ -429,42 +264,6 @@ export async function insertManyQuery(
   return res.rows;
 }
 
-// Insert new complex data to many tables by destructure it to different obj
-// in format that fit the other tables's schemas.
-export async function insertQueryToManyTables(
-  tableName: string,
-  insertDataToOtherTables: InsertOtherTable[] | undefined,
-  obj: Record<string, any>
-) {
-  if (!insertDataToOtherTables || insertDataToOtherTables.length === 0)
-    throw Error("The endpoint is not supported by this data format.");
-
-  const destructureMap = createDestructureArr(insertDataToOtherTables, obj);
-
-  let mainTableObj = destructureObjByKeys(
-    insertDataToOtherTables[0].keysPossible,
-    obj,
-    true
-  );
-
-  // Add the data of other table to the db.
-  const queryOtherTable = await Promise.all(
-    destructureMap.map((el) => insertQueryOneItem(el.tableName, el.obj))
-  );
-
-  // Attach the new ids of the data that was insert to the tables in db,
-  // to the mainTableObj.
-  queryOtherTable.forEach((el) => {
-    const keyValue = Object.entries(el)[0];
-    mainTableObj = { ...mainTableObj, [keyValue[0]]: keyValue[1] };
-  });
-
-  // Insert the mainTableObj to the db.
-  const dataCurrentTable = await insertQueryOneItem(tableName, mainTableObj);
-
-  return dataCurrentTable;
-}
-
 // Prepares the string from item that should update by their id.
 // And update the item.
 export async function updateQuerySingleItem(
@@ -484,56 +283,6 @@ export async function updateQuerySingleItem(
   );
 
   return rows.rows[0];
-}
-
-// Update data  by destructure new complex data to different obj
-// in format that fit the other tables's schemas.
-export async function updateQueryToManyTables(
-  tableName: string,
-  insertDataToOtherTables: InsertOtherTable[] | undefined,
-  obj: Record<string, any>,
-  paramId: string,
-  queryLogic = ""
-) {
-  if (!insertDataToOtherTables || insertDataToOtherTables.length === 0)
-    throw Error("The endpoint is not supported by this data format.");
-
-  let mainTableObj = destructureObjByKeys(
-    insertDataToOtherTables[0].keysPossible,
-    obj,
-    true
-  );
-  const destructureMap = createDestructureArr(insertDataToOtherTables, obj);
-  // Add the data of other table to the db.
-  const queryOtherTables = await Promise.all(
-    destructureMap.map((el) => {
-      const queryLogicEl = `where ${el.id}=$1`;
-      return updateQuerySingleItem(
-        el.tableName,
-        el.obj,
-        obj[el.id],
-        queryLogicEl
-      );
-    })
-  );
-
-  // Attach the new ids of the data that was insert to the tables in db,
-  // to the mainTableObj.
-  queryOtherTables.forEach((el) => {
-    const keyValue = Object.entries(el)[0];
-
-    mainTableObj = { ...mainTableObj, [keyValue[0]]: keyValue[1] };
-  });
-
-  // Insert the mainTableObj to the db.
-  const dataCurrentTable = await updateQuerySingleItem(
-    tableName,
-    mainTableObj,
-    paramId,
-    queryLogic
-  );
-
-  return dataCurrentTable;
 }
 
 // Deletes one item from the db.
