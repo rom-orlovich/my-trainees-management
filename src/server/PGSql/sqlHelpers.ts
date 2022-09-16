@@ -27,14 +27,14 @@ export async function checkIfTableExist(nameTable: string) {
 
 // Makes string from the keys of the obj.
 // This string is used as fieldName in update/insert functions.
-const prepreFieldsName = (obj: Record<string, any>) => {
+const prepareFieldsName = (obj: Record<string, any>) => {
   const keys = createObjKeysArr(obj);
   return keys.reduce((pre, cur) => `${pre}${cur},`, "").slice(0, -1);
 };
 
 // Makes string from the value of the obj.
 // This string is used as the values  in  insert functions.
-const prepreValues = (obj: Record<string, any>, startParma = 1) => {
+const prepareValues = (obj: Record<string, any>, startParma = 1) => {
   const values = createObjValuesArr(obj);
   let fieldParmas = "";
   let lastIndex = 0;
@@ -54,12 +54,12 @@ const prepreValues = (obj: Record<string, any>, startParma = 1) => {
 
 // Makes string from the values object array.
 // This string is used as the values in insert functions.
-const prepreValuesArr = (objArr: Record<string, any>[], startIndex = 1) => {
+const prepareValuesArr = (objArr: Record<string, any>[], startIndex = 1) => {
   let fieldParmasStrAll = "";
   const paramsArrAll = [] as any;
   let lastIndexArr = startIndex;
   objArr.forEach((obj) => {
-    const { fieldParmas, paramsArr, lastIndex } = prepreValues(
+    const { fieldParmas, paramsArr, lastIndex } = prepareValues(
       obj,
       lastIndexArr
     );
@@ -73,7 +73,7 @@ const prepreValuesArr = (objArr: Record<string, any>[], startIndex = 1) => {
 
 // Makes string from the key-value  of object.
 // This string is used as the  key-values in update functions.
-const prepreKeyValuesToUpdate = (obj: Record<string, any>, startIndex = 0) => {
+const prepareKeyValuesToUpdate = (obj: Record<string, any>, startIndex = 0) => {
   let keyValuesStr = "";
   const paramsArr = [] as any;
   const keysValuesEntries = Object.entries(obj);
@@ -125,7 +125,7 @@ const concatQueryWithName = (
 
 // Makes string from the key-value names of object.
 // This string is used as the  key-values in 'where query' in select queries statement.
-const prepreKeyValuesOfNameToSelect = (
+const prepareKeyValuesOfNameToSelect = (
   queryNameParms: Record<string, any>,
   startIndex = 0
 ) => {
@@ -148,7 +148,7 @@ const prepreKeyValuesOfNameToSelect = (
 };
 // Makes string from the key-value of other columns of table.
 // This string is used as the  key-values in 'where query' in select queries statement.
-const prepreKeyValuesOtherColumnToSelect = (
+const prepareKeyValuesOtherColumnToSelect = (
   queryParams: Record<string, any>,
   startIndex = 0
 ) => {
@@ -400,8 +400,8 @@ export async function insertQueryOneItem(
   tableName: string,
   obj: Record<string, any>
 ) {
-  const fieldName = prepreFieldsName(obj);
-  const { fieldParmas, paramsArr } = prepreValues(obj);
+  const fieldName = prepareFieldsName(obj);
+  const { fieldParmas, paramsArr } = prepareValues(obj);
   const res = await insertQuery(tableName, fieldName, fieldParmas, paramsArr);
 
   return res.rows[0];
@@ -414,8 +414,8 @@ export async function insertManyQuery(
   objArr: Record<string, any>[],
   startIndex = 1
 ) {
-  const fieldName = prepreFieldsName(objArr[0]);
-  const { fieldParmasStrAll, paramsArrAll } = prepreValuesArr(
+  const fieldName = prepareFieldsName(objArr[0]);
+  const { fieldParmasStrAll, paramsArrAll } = prepareValuesArr(
     objArr,
     startIndex
   );
@@ -473,7 +473,7 @@ export async function updateQuerySingleItem(
   paramId: string,
   queryLogic = ""
 ) {
-  const { paramsArr, keyValuesStr } = prepreKeyValuesToUpdate(obj, 2);
+  const { paramsArr, keyValuesStr } = prepareKeyValuesToUpdate(obj, 2);
 
   const rows = await updateQuery(
     tableName,
@@ -570,12 +570,12 @@ export async function selectPagination(
   const numResultsReach = offset + numResult;
 
   // Prepres the select query of the pagination and the values of where query.
-  const { keyValuesStrArr, paramsArr } = prepreKeyValuesOtherColumnToSelect(
+  const { keyValuesStrArr, paramsArr } = prepareKeyValuesOtherColumnToSelect(
     queryParams,
     1
   );
   const { keyValuesOfNameStrArr, paramsNamesArr } =
-    prepreKeyValuesOfNameToSelect(queryNameParams, paramsArr.length + 1);
+    prepareKeyValuesOfNameToSelect(queryNameParams, paramsArr.length + 1);
 
   const queryParamsRes = [...paramsArr, ...paramsNamesArr];
 

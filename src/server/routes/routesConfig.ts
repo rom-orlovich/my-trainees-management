@@ -89,7 +89,7 @@ export interface OptionsCRUD {
 }
 
 // The setting of the routes.
-// Each one contains the options CRUD and validate schema to validte
+// Each one contains the options CRUD and validate schema to validate
 // the input of the user.
 //
 
