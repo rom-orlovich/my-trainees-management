@@ -1,8 +1,8 @@
 import * as yup from "yup";
 
 export const musclesGroupSchema = yup.object().shape({
-  muscules_group_id: yup.number().notRequired().nullable(),
-  muscules_group_name: yup.string().required(),
+  muscles_group_id: yup.number().notRequired().nullable(),
+  muscles_group_name: yup.string().required(),
 });
 
 export const notesSchema = yup.object().shape({
@@ -66,7 +66,7 @@ export const equipmentSchema = yup.object().shape({
 export const exercisesListSchema = yup.object().shape({
   exercise_id: yup.number().notRequired().nullable(),
   exercise_name: yup.string().required(),
-  muscules_group_id: yup.number().notRequired().nullable(),
+  muscles_group_id: yup.number().notRequired().nullable(),
   equipment_id: yup.number().notRequired().nullable(),
 });
 

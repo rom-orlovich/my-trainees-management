@@ -11,7 +11,7 @@ import {
   createObjKeysArr,
   createObjValuesArr,
   promiseHandler,
-} from "../utilites/helpers";
+} from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
 

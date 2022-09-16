@@ -55,7 +55,7 @@ import {
   NUTRITION_PROGRAM_ID,
   PROFILE_ID,
   PROFILES_TABLE_NAME,
-} from "../utilites/constants";
+} from "../utilities/constants";
 import { API_ROUTES } from "./apiRoutesConstants";
 
 export interface InsertOtherTable {
@@ -112,7 +112,7 @@ export const leadsOptionsCRUD: OptionsCRUD = {
   validateSchema: leadsSchema.concat(notesSchema),
 };
 
-export const musculesGroupOptionsCRUD: OptionsCRUD = {
+export const musclesGroupOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.MUSCULES_GROUP_ENTITY,
   selectQuery: {
     tableName: `${MUSCULES_GROUP_TABLE_NAME} as mg`,
@@ -218,7 +218,7 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${EXERCISES_LIST_TABLE_NAME} as exer`,
     tableID: EXERCISES_ID,
-    fieldNamesQuery: `exer.* , mg.muscules_group_name , eq.equipment_name `,
+    fieldNamesQuery: `exer.* , mg.muscles_group_name , eq.equipment_name `,
     querySelectLogic: `JOIN ${MUSCULES_GROUP_TABLE_NAME} as mg on 
     mg.${MUSCULE_GROUP_ID}=exer.${MUSCULE_GROUP_ID} JOIN ${EQUIPMENTS_TABLE_NAME} as eq on 
    eq.${EQUIPMENTS_ID}=exer.${EQUIPMENTS_ID} `,
@@ -267,7 +267,7 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
     tableName: `${TRAINING_PROGRAM_TABLE_NAME} as tp`,
     tableID: `tp.${TRAINING_PROGRAM_ID}`,
     fieldNamesQuery: `tp.*, 
-    mg.muscules_group_name, eq.equipment_name,
+    mg.muscles_group_name, eq.equipment_name,
     exer.exercise_name,
     no.name_topic,no.note_text`,
     querySelectLogic: `
@@ -405,7 +405,7 @@ export const routesCRUDArr: {
   },
   {
     baseRoute: API_ROUTES.MUSCULES_GROUP_ROUTE,
-    optionsCRUD: musculesGroupOptionsCRUD,
+    optionsCRUD: musclesGroupOptionsCRUD,
   },
   { baseRoute: API_ROUTES.NOTES_ROUTE, optionsCRUD: notesOptionsCRUD },
   { baseRoute: API_ROUTES.CITIES_ROUTE, optionsCRUD: citiesOptionsCRUD },

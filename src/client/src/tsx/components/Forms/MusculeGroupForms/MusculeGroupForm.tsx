@@ -21,7 +21,7 @@ export function MusculeGroupForm({
         editMode={editMode}
         // pathMove={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCULES_GROUP_LIST_ROUTE}`}
         nameForm="Muscule Group"
-        formProps={{ className: style.form_musculesGroup }}
+        formProps={{ className: style.form_musclesGroup }}
         formOptions={{
           mode: "onChange",
           defaultValues: defaultValues,
@@ -29,23 +29,23 @@ export function MusculeGroupForm({
         }}
       >
         {({ register, formState, reset }) => {
-          const { muscules_group_name } = formState.errors;
+          const { muscles_group_name } = formState.errors;
 
           return (
             <>
               <InputLabel
                 InputProps={{
-                  ...register("muscules_group_name"),
-                  // isError: !!muscules_group_name,
+                  ...register("muscles_group_name"),
+                  // isError: !!muscles_group_name,
                 }}
                 LabelProps={{
-                  htmlFor: "muscules_group_name",
+                  htmlFor: "muscles_group_name",
                   labelText: "Muscules Group",
                 }}
               >
                 <InputErrorMessage
                   nameInput="Muscules group's name"
-                  error={muscules_group_name}
+                  error={muscles_group_name}
                 />
               </InputLabel>
             </>

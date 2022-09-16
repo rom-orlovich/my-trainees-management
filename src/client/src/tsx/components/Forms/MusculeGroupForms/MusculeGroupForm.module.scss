@@ -1,6 +1,6 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 
-.form_musculesGroup {
+.form_musclesGroup {
   span[class*="input_label"] {
     @include flex-dir(null, null, column);
     max-width: 50%;
@@ -23,7 +23,7 @@
 }
 
 @include smartphone() {
-  .form_musculesGroup {
+  .form_musclesGroup {
     div[class*="buttons_container"] {
       width: 100% !important;
     }

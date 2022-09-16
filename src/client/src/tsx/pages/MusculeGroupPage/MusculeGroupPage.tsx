@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import { musculesGroupApi } from "../../redux/api/hooksAPI";
+import { musclesGroupApi } from "../../redux/api/hooksAPI";
 import { MusculesGroupTable as MusclesGroupTableAPi } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 
@@ -16,11 +16,11 @@ function MusculesGroupPage() {
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
           <AutocompleteInput<MusclesGroupTableAPi>
-            keys={["muscules_group_name"]}
-            id={"muscules_group_id"}
+            keys={["muscles_group_name"]}
+            id={"muscles_group_id"}
             loadingSpinnerResult={{ nameData: "Muscules Group" }}
             setSelectOptionValue={setMusclesGroup}
-            useGetData={musculesGroupApi.useGetItemsQuery}
+            useGetData={musclesGroupApi.useGetItemsQuery}
             InputLabelProps={{
               InputProps: { placeholder: "Muscules Group Name" },
               LabelProps: {

@@ -29,7 +29,7 @@ export function TrainingProgramEditExerciseForm() {
         isError,
       }}
     >
-      {({ equipment_name, muscules_group_name, exercise_name, ...rest }) => {
+      {({ equipment_name, muscles_group_name, exercise_name, ...rest }) => {
         return (
           <TrainingProgramForms
             editMode={true}

@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { equipmentsApi, musculesGroupApi } from "../../../redux/api/hooksAPI";
+import { equipmentsApi, musclesGroupApi } from "../../../redux/api/hooksAPI";
 import {
   EquipmentsTable,
   ExercisesTable,
@@ -41,13 +41,13 @@ export function ExerciseForm({
             exercise_id: defaultValues?.exercise_id,
             exercise_name: defaultValues?.exercise_name,
             equipment_id: defaultValues?.equipment_id,
-            muscules_group_id: defaultValues?.muscules_group_id,
+            muscles_group_id: defaultValues?.muscles_group_id,
           },
           resolver: yupResolver(exercisesListSchema),
         }}
       >
         {({ register, formState, control }) => {
-          const { equipment_id, muscules_group_id, exercise_name } =
+          const { equipment_id, muscles_group_id, exercise_name } =
             formState.errors;
 
           return (
@@ -83,7 +83,7 @@ export function ExerciseForm({
               />
 
               <AutocompleteInputRHF<ExercisesTable, MusculesGroupTable>
-                name="muscules_group_id"
+                name="muscles_group_id"
                 control={control}
                 AutocompleteInputProps={{
                   defaultValueID: defaultValues?.exercise_id,
@@ -96,9 +96,9 @@ export function ExerciseForm({
                     link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCULES_GROUP_LIST_ROUTE}/${APP_ROUTE.MUSCULES_GROUP_ADD}`,
                   },
                   loadingSpinnerResult: { nameData: "Muscules Group" },
-                  useGetData: musculesGroupApi.useGetItemsQuery,
-                  id: "muscules_group_id",
-                  keys: ["muscules_group_name"],
+                  useGetData: musclesGroupApi.useGetItemsQuery,
+                  id: "muscles_group_id",
+                  keys: ["muscles_group_name"],
                 }}
               />
             </>

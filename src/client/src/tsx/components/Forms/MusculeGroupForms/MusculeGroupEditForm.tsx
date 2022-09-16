@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import { musculesGroupApi } from "../../../redux/api/hooksAPI";
+import { musclesGroupApi } from "../../../redux/api/hooksAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { MusculeGroupForm } from "./MusculeGroupForm";
 
 export function MusculeGroupEditForm() {
   const id = Number(useParams().id);
-  const [updateItem] = musculesGroupApi.useUpdateItemMutation();
+  const [updateItem] = musclesGroupApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
-    musculesGroupApi.useGetItemByIDQuery(id);
+    musclesGroupApi.useGetItemByIDQuery(id);
   const handleSubmit = updateFunction({
     updateItem,
     id,

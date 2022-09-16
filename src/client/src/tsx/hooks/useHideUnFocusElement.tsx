@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useCallBackFun } from "./utilitesHooks";
+import { useCallBackFun } from "./utilitiesHooks";
 
 function useHideUnFocusElement<E extends HTMLElement>(
   wrapperRef: React.MutableRefObject<E | null>

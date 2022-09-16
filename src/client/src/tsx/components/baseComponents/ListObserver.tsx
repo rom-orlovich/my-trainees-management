@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from "react";
 import { useObserver } from "../../hooks/useObserver";
-import { useCallBackFun } from "../../hooks/utilitesHooks";
+import { useCallBackFun } from "../../hooks/utilitiesHooks";
 import { AnyFun } from "../../types";
 import { ListProps } from "./baseComponentsTypes";
 import List from "./List";

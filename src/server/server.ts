@@ -14,7 +14,7 @@ import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
 import { checkIfTableExist } from "./PGSql/sqlHelpers";
 
-import { INCOMES_TABLE_NAME } from "./utilites/constants";
+import { INCOMES_TABLE_NAME } from "./utilities/constants";
 
 import { routesCRUDArr } from "./routes/routesConfig";
 import { createCRUDroutes } from "./routes/routesCRUD";
@@ -32,7 +32,7 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
 
 let server: Server;
 
-// Connects to the pgSQLDB and initilizes the server listen to port 5000.
+// Connects to the pgSQLDB and initializes the server listen to port 5000.
 client
   .connect()
   .then(async () => {
@@ -45,7 +45,7 @@ client
 
     // Uncomment this line will init the db.
     // This line is for development purpose.
-    // await initDB();
+    await initDB();
 
     server = app.listen(PORT, () => {
       console.log(`listen port ${PORT}`);

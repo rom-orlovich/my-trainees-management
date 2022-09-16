@@ -1,8 +1,8 @@
 import { readFileSync } from "fs";
 import { client } from "./PGSql/DBConnectConfig";
-import { TRAINEES_MANAGEMENT_SQL_PATH } from "./utilites/constants";
+import { TRAINEES_MANAGEMENT_SQL_PATH } from "./utilities/constants";
 
-async function readFromSQLfileAndExcute(path: string) {
+async function readFromSQLfileAndExecute(path: string) {
   const query = readFileSync(path, "utf8");
   await client.query(query);
 }
@@ -10,5 +10,5 @@ async function readFromSQLfileAndExcute(path: string) {
 // Create init trainees management db.
 
 export async function initDB() {
-  await readFromSQLfileAndExcute(TRAINEES_MANAGEMENT_SQL_PATH);
+  await readFromSQLfileAndExecute(TRAINEES_MANAGEMENT_SQL_PATH);
 }

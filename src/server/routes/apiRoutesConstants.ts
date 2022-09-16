@@ -3,8 +3,8 @@
 export enum API_ROUTES {
   LEADS_ROUTE = "/api/leads",
   LEADS_ENTITY = "lead",
-  MUSCULES_GROUP_ROUTE = "/api/musculesGroups",
-  MUSCULES_GROUP_ENTITY = "musculesGroup",
+  MUSCULES_GROUP_ROUTE = "/api/musclesGroups",
+  MUSCULES_GROUP_ENTITY = "musclesGroup",
   NOTES_ROUTE = "/api/notes",
   NOTES_ENTITY = "note",
   CITIES_ROUTE = "/api/cities",

@@ -14,7 +14,7 @@ import {
   updateQueryToManyTables,
 } from "../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
-import { createObjValuesArr, promiseHandler } from "../utilites/helpers";
+import { createObjValuesArr, promiseHandler } from "../utilities/helpers";
 import { handleError } from "./handleErrors";
 
 /**

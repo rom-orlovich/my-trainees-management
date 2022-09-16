@@ -10,8 +10,8 @@ import { OmitKey, PickKey } from "../../types";
 export enum API_ROUTES {
   LEADS_ROUTE = "/api/leads",
   LEADS_ENTITY = "lead",
-  MUSCULES_GROUP_ROUTE = "/api/musculesGroups",
-  MUSCULES_GROUP_ENTITY = "musculesGroup",
+  MUSCULES_GROUP_ROUTE = "/api/musclesGroups",
+  MUSCULES_GROUP_ENTITY = "musclesGroup",
   NOTES_ROUTE = "/api/notes",
   NOTES_ENTITY = "note",
   CITIES_ROUTE = "/api/cities",
@@ -59,8 +59,8 @@ export interface ResponseQueryAPI<T> {
 }
 
 export interface MusculesGroupTable {
-  muscules_group_id?: number;
-  muscules_group_name: string;
+  muscles_group_id?: number;
+  muscles_group_name: string;
 }
 
 export interface NotesTable {
@@ -126,7 +126,7 @@ export interface ExercisesTable {
   equipment_id?: number | null;
   exercise_name: string;
   exercise_id?: number;
-  muscules_group_id: number;
+  muscles_group_id: number;
 }
 
 export interface TrainingProgramsListTable {
@@ -209,7 +209,7 @@ export interface TrainingProgramsList extends TrainingProgramsListTable {
 export interface TrainingProgramExtends {
   exercise_name: null | string;
   equipment_name: null | string;
-  muscules_group_name: null | string;
+  muscles_group_name: null | string;
   reps: null | string;
   sets: number | null;
   rest: null | string;
@@ -241,7 +241,7 @@ export interface TrainingProgramExercise {
   intensity: string;
   rpe: number;
   note_id: number;
-  muscules_group_name: string;
+  muscles_group_name: string;
   equipment_name: string;
   exercise_name: string;
   name_topic: string;
@@ -250,5 +250,5 @@ export interface TrainingProgramExercise {
 
 export type TrainingProgramExerciseOmit = OmitKey<
   TrainingProgramExercise,
-  "equipment_name" | "muscules_group_name" | "exercise_name"
+  "equipment_name" | "muscles_group_name" | "exercise_name"
 >;

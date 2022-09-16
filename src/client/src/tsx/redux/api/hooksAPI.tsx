@@ -30,13 +30,13 @@ export const leadsApi = apiCreateCRUDHooks<LeadsFormProps>({
   listId: "leads_list",
 });
 
-export const musculesGroupApi = apiCreateCRUDHooks<MusculesGroupTable>({
-  reducerPath: "musculesGroupApi",
+export const musclesGroupApi = apiCreateCRUDHooks<MusculesGroupTable>({
+  reducerPath: "musclesGroupApi",
   baseUrl: API_ROUTES.MUSCULES_GROUP_ROUTE,
   singleEntityName: API_ROUTES.MUSCULES_GROUP_ENTITY,
-  listId: "musculesGroup_list",
+  listId: "musclesGroup_list",
 });
-export type ApiCRUD = typeof musculesGroupApi;
+export type ApiCRUD = typeof musclesGroupApi;
 export const notesAPI = apiCreateCRUDHooks<NotesTable>({
   reducerPath: "notesAPI",
   baseUrl: API_ROUTES.NOTES_ROUTE,
@@ -136,7 +136,7 @@ export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlans>({
 
 export const apiCreatCrudArr = [
   leadsApi,
-  musculesGroupApi,
+  musclesGroupApi,
   notesAPI,
   citiesApi,
   locationsApi,

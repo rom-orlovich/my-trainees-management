@@ -18,14 +18,14 @@ DROP TABLE IF EXISTS  "cities" CASCADE;
 DROP TABLE IF EXISTS  "activities" CASCADE;
 DROP TABLE IF EXISTS  "leads" CASCADE;
 DROP TABLE IF EXISTS  "notes" CASCADE;
-DROP TABLE IF EXISTS  "muscules_group" CASCADE;
+DROP TABLE IF EXISTS  "muscles_group" CASCADE;
 
 
 
 
-CREATE TABLE IF NOT EXISTS "muscules_group" (
-  "muscules_group_id" serial PRIMARY KEY ,
-  "muscules_group_name" VARCHAR(20) UNIQUE NOT NULL
+CREATE TABLE IF NOT EXISTS "muscles_group" (
+  "muscles_group_id" serial PRIMARY KEY ,
+  "muscles_group_name" VARCHAR(20) UNIQUE NOT NULL
 );
 
 
@@ -138,11 +138,11 @@ CREATE TABLE IF NOT EXISTS "equipments" (
 CREATE TABLE IF NOT EXISTS "exercises_list" (
   "exercise_id" serial PRIMARY KEY,
   "exercise_name" VARCHAR(50)  NOT NULL,
-  "muscules_group_id" INTEGER NOT NULL,
+  "muscles_group_id" INTEGER NOT NULL,
   "equipment_id" INTEGER DEFAULT NULL,
-      CONSTRAINT fk_muscules_group_id
-      FOREIGN KEY(muscules_group_id) 
-      REFERENCES muscules_group(muscules_group_id)
+      CONSTRAINT fk_muscles_group_id
+      FOREIGN KEY(muscles_group_id) 
+      REFERENCES muscles_group(muscles_group_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE,
      

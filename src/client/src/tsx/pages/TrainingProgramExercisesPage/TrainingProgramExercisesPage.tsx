@@ -20,7 +20,7 @@ const trainingProgramExercisesTransform = ({
   const {
     training_program_row_id,
     exercise_name,
-    muscules_group_name,
+    muscles_group_name,
     equipment_name,
     reps,
     sets,
@@ -33,7 +33,7 @@ const trainingProgramExercisesTransform = ({
   return {
     training_program_row_id,
     exercise_name,
-    muscules_group_name,
+    muscles_group_name,
     equipment_name,
     reps,
     sets,
