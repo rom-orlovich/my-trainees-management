@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS "muscles_group" (
 
 -- CREATE TABLE IF NOT EXISTS "notes" (
 --   "note_id" serial PRIMARY KEY,
-  "name_topic" TEXT NOT NULL,
-  "note_text" TEXT DEFAULT NULL
+  -- "name_topic" TEXT NOT NULL,
+  -- "note_text" TEXT 
 -- );
 
 CREATE TABLE IF NOT EXISTS "leads"(
@@ -41,10 +41,10 @@ CREATE TABLE IF NOT EXISTS "leads"(
 "first_name" VARCHAR(40) NOT NULL,
 "last_name" VARCHAR(40) NOT NULL,
 "phone_number" VARCHAR(12) NOT NULL,
-"email" VARCHAR(255) DEFAULT NULL,
+"email" VARCHAR(255) ,
 "status"  BOOLEAN  DEFAULT FALSE,
 "name_topic" TEXT NOT NULL,
-  "note_text" TEXT DEFAULT NULL
+  "note_text" TEXT 
 
 
 );
@@ -59,14 +59,14 @@ CREATE TABLE IF NOT EXISTS "activities" (
 CREATE TABLE IF NOT EXISTS "cities" (
   "city_id" serial PRIMARY KEY,
   "city_name" VARCHAR(255) UNIQUE NOT NULL,
-  "district" VARCHAR(255) DEFAULT NULL,
-  "population" INTEGER DEFAULT NULL
+  "district" VARCHAR(255) ,
+  "population" INTEGER 
 );
 
 CREATE TABLE IF NOT EXISTS "locations" (
   "location_id" serial PRIMARY KEY,
   "city_id" INTEGER NOT NULL,
-  "street" VARCHAR(255) DEFAULT NULL,
+  "street" VARCHAR(255) ,
    CONSTRAINT fk_city_id
       FOREIGN KEY(city_id) 
       REFERENCES cities(city_id)
@@ -98,8 +98,8 @@ CREATE TABLE IF NOT EXISTS "expenses" (
   "date" DATE NOT NULL,
   "seller_id" INTEGER NOT NULL,
   "expenses_amount" float NOT NULL,
-  "name_topic" TEXT NOT NULL,
-  "note_text" TEXT DEFAULT NULL,
+  "name_topic" TEXT ,
+  "note_text" TEXT ,
 
   CONSTRAINT fk_seller_id
       FOREIGN KEY(seller_id) 
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS "equipments" (
   "equipment_name" VARCHAR(255) UNIQUE NOT NULL,
   "brand" VARCHAR(255) NOT NULL,
   "manufacture_year" INTEGER NOT NULL,
-  "expense_id" INTEGER DEFAULT NULL ,
+  "expense_id" INTEGER  ,
        CONSTRAINT fk_expense_id
       FOREIGN KEY(expense_id) 
       REFERENCES expenses(expense_id)
@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS "exercises_list" (
   "exercise_id" serial PRIMARY KEY,
   "exercise_name" VARCHAR(50)  NOT NULL,
   "muscles_group_id" INTEGER NOT NULL,
-  "equipment_id" INTEGER DEFAULT NULL,
+  "equipment_id" INTEGER ,
       CONSTRAINT fk_muscles_group_id
       FOREIGN KEY(muscles_group_id) 
       REFERENCES muscles_group(muscles_group_id)
@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS "subscription_plans"(
 "plan_name" VARCHAR(50) NOT NULL,
 "current_num_trainings" integer NOT NULL,
 "total_trainings" integer NOT NULL,
-"last_training" date DEFAULT NULL,
+"last_training" date ,
 
 
 
@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS "users"(
     "role" varchar(50) DEFAULT 'trainee',
     "username" varchar(50) UNIQUE,
     "password" varchar(255),
-    "profile_id" INTEGER DEFAULT NULL,
+    "profile_id" INTEGER ,
 CONSTRAINT "role" CHECK ("role" IN ('trainee','admin')),
 CONSTRAINT fk_profile_id 
     FOREIGN KEY(profile_id)
@@ -216,9 +216,9 @@ CREATE TABLE IF NOT EXISTS "training_programs_list"(
   "profile_id" INTEGER ,
     "type_program" VARCHAR(20) , 
      "date_start" DATE NOT NULL,
-     "date_end" DATE DEFAULT NULL,
-     "name_topic" TEXT NOT NULL,
-  "note_text" TEXT DEFAULT NULL,
+     "date_end" DATE ,
+     "name_topic" TEXT ,
+  "note_text" TEXT ,
      
 CONSTRAINT "date_end" CHECK ("date_end">"date_start"),
    ,
@@ -237,9 +237,9 @@ CREATE TABLE IF NOT EXISTS "nutrition_programs_list"(
    "profile_id" INTEGER ,
     "type_program" VARCHAR(20) , 
      "date_start" DATE NOT NULL,
-     "date_end" DATE DEFAULT NULL ,
-    "name_topic" TEXT NOT NULL,
-  "note_text" TEXT DEFAULT NULL,
+     "date_end" DATE  ,
+    "name_topic" TEXT ,
+  "note_text" TEXT ,
       CONSTRAINT fk_profile_id
       FOREIGN KEY(profile_id) 
       REFERENCES profiles(profile_id)
@@ -266,8 +266,8 @@ CREATE TABLE IF NOT EXISTS "training_program"(
   "rest" VARCHAR NOT NULL,
   "intensity" VARCHAR (50) NOT NULL ,
   "rpe" INTEGER NOT NULL,
-  "name_topic" TEXT NOT NULL,
-  "note_text" TEXT DEFAULT NULL,
+  "name_topic" TEXT ,
+  "note_text" TEXT ,
       CONSTRAINT fk_training_programs_list_id
       FOREIGN KEY(training_programs_list_id) 
       REFERENCES training_programs_list(training_programs_list_id)
@@ -291,8 +291,8 @@ CREATE TABLE IF NOT EXISTS "training_program"(
 CREATE TABLE IF NOT EXISTS "nutrition_program" (
   "nutrition_program_id" serial PRIMARY KEY,
   "nutrition_programs_list_id" INTEGER NOT NULL,
-  "name_topic" TEXT NOT NULL,
-  "note_text" TEXT DEFAULT NULL,
+  "name_topic" TEXT ,
+  "note_text" TEXT ,
  
   CONSTRAINT fk_nutrition_programs_list_id
       FOREIGN KEY(nutrition_programs_list_id) 
@@ -310,7 +310,7 @@ CREATE TABLE IF NOT EXISTS "weeks" (
   "nutrition_program_id" INTEGER NOT NULL,
   "date" DATE NOT NULL,
   "day" INTEGER NOT NULL, 
-  "weight" float DEFAULT NULL ,
+  "weight" float  ,
       CONSTRAINT fk_nutrition_program_id
       FOREIGN KEY(nutrition_program_id) 
       REFERENCES nutrition_program(nutrition_program_id)
@@ -358,9 +358,9 @@ CREATE TABLE IF NOT EXISTS "incomes" (
   "activity_id" INTEGER NOT NULL,
   "date_start" DATE NOT NULL,
   "date_end" DATE NOT NULL,
-  "location_id" INTEGER DEFAULT NULL,
-  "name_topic" TEXT NOT NULL,
-  "note_text" TEXT DEFAULT NULL,
+  "location_id" INTEGER ,
+  "name_topic" TEXT ,
+  "note_text" TEXT ,
 
 CONSTRAINT "date_end" check (date_end>date_start),
 
