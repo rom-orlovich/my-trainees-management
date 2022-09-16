@@ -271,17 +271,17 @@ export const createObjMainTable = (
   const mainTableName = selectTableQuery.tableName;
 
   // Format the name of the main table
-  const mainTableNameFormated = mainTableName.split(" ").slice(0, 1).join();
+  const mainTableNameFormatted = mainTableName.split(" ").slice(0, 1).join();
 
   // Check that the data table list is not empty and defined
   if (!tablesDataList || tablesDataList.length === 0)
     return {
-      [mainTableNameFormated]: [],
+      [mainTableNameFormatted]: [],
     };
   // Map over the results of the select query array and destructure
   // the data of the sub table into main table data.
   return {
-    [mainTableNameFormated]: createMainTableAndSubTableArr(
+    [mainTableNameFormatted]: createMainTableAndSubTableArr(
       selectTableQuery,
       tablesDataList
     ),
@@ -360,8 +360,8 @@ export async function selectFromManyTablesQuery(
   selectQueriesArr.forEach((el) => {
     obj = { ...obj, ...el };
   });
-  const mainTableNameFormated = tableName.split(" ").slice(0, 1).join();
-  return { [mainTableNameFormated]: mainTableRes, ...obj };
+  const mainTableNameFormatted = tableName.split(" ").slice(0, 1).join();
+  return { [mainTableNameFormatted]: mainTableRes, ...obj };
 }
 
 // Insert item to the db.
@@ -394,7 +394,7 @@ const updateQuery = async (
   return rows;
 };
 
-// Preppres the string from the item that should insert to the db.
+// Prepares the string from the item that should insert to the db.
 // And insert him in the db.
 export async function insertQueryOneItem(
   tableName: string,
