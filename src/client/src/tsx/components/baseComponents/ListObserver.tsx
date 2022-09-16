@@ -1,13 +1,13 @@
-import React, { useMemo, useRef } from "react";
+import React, { useRef } from "react";
 import { useObserver } from "../../hooks/useObserver";
 import { useCallBackFun } from "../../hooks/utilitiesHooks";
 import { AnyFun } from "../../types";
 import { ListProps } from "./baseComponentsTypes";
 import List from "./List";
 
-function ListObserver<T>({
+function ListObserver<T extends Record<string, any>>({
   fn,
-  optionsObserver,
+
   listProps,
 }: {
   fn: AnyFun;
