@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  FieldValues,
   SubmitHandler,
   useForm,
   UseFormProps,
@@ -16,7 +17,7 @@ import { saveFormState } from "../../../../redux/slices/formValuesStateSlice";
 import { FormProps } from "../../baseComponentsTypes";
 import style from "./Form.module.scss";
 
-type FormRHFProps<TFormValues> = {
+type FormRHFProps<TFormValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFormValues>;
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
   formOptions?: UseFormProps<TFormValues>;
@@ -72,7 +73,7 @@ export default function Form<TFormValues extends Record<string, any>>({
     }
   }, [dispatch, pathMove, goPrevPage, nav]);
 
-  // Side effect of reset the form  after submit was successfull
+  // Side effect of reset the form  after submit was successfully
   // and if the form is not in edit mode so save the empty state values of the form .
   useEffect(() => {
     if (methods.formState.isSubmitSuccessful) {

@@ -49,7 +49,7 @@ function TrainingProgramExercises() {
   const [exercise, setExercise] = useState<string[]>(["", ""]);
 
   const pathName = useLocation().pathname;
-  console.log(pathName);
+
   return (
     <MainRoute mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}>
       <section className={page_style.page_container}>

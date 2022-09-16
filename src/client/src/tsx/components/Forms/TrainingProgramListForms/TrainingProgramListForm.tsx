@@ -18,8 +18,8 @@ export function TrainingProgramListForms({
   return (
     <>
       <Form<TrainingProgramsListTable>
-        buttonNext={true}
-        heading="Training Program Building"
+        buttonNext={!editMode}
+        heading={`Training Program ${!editMode ? "Building" : "Edit"}`}
         onSubmit={onSubmit}
         editMode={editMode}
         formOptions={{
