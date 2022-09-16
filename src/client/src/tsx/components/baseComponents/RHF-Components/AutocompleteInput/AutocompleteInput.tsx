@@ -73,7 +73,7 @@ AutocompleteInputProps<T>) {
   const [lastDataState, setLastData] = useState<any[]>([]);
   const { data, isError, isFetching, isLoading } = useGetData({
     page: page,
-    name: debounce[1],
+    mainName: debounce[1],
   });
   const Data = data as ResponseQueryAPI<T> | undefined;
   const firstRender = useRef(true);
