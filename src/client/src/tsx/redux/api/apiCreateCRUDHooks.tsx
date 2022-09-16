@@ -79,18 +79,6 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
           return [{ type: singleEntityName, id: arg.id }];
         },
       }),
-      // Make an complex update query in the server that update many entities in on query.
-      updateComplexItem: builder.mutation<ResponseMutationAPI, PayloadAPI<T>>({
-        query: ({ id, ...payload }: PayloadAPI<T>) => ({
-          url: `/${singleEntityName}/complexData/${id}`,
-          method: "put",
-          body: payload.payload,
-        }),
-
-        invalidatesTags: (value, err, arg) => {
-          return [{ type: singleEntityName, id: arg.id }];
-        },
-      }),
 
       deleteItem: builder.mutation<ResponseMutationAPI, string>({
         query: (id: string) => ({
@@ -107,22 +95,6 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
           body: payload,
         }),
 
-        invalidatesTags: [{ id: listId, type: singleEntityName }],
-      }),
-      createManyItems: builder.mutation<ResponseMutationAPI, T[]>({
-        query: (payload: T[]) => ({
-          url: `/`,
-          method: "POST",
-          body: payload,
-        }),
-        invalidatesTags: [{ id: listId, type: singleEntityName }],
-      }),
-      createNewComplexData: builder.mutation<ResponseMutationAPI, T[]>({
-        query: (payload: T[]) => ({
-          url: `/complexNewData`,
-          method: "POST",
-          body: payload,
-        }),
         invalidatesTags: [{ id: listId, type: singleEntityName }],
       }),
     }),
