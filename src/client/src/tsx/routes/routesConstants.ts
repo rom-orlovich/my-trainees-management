@@ -18,8 +18,8 @@ export enum APP_ROUTE {
   EQUIPMENT_EDIT = "editEquipmentList",
 
   MUSCLES_GROUP_LIST_ROUTE = "musclesGroupList",
-  MUSCLES_GROUP_ADD = "addNewMusculesGroupList",
-  MUSCLES_GROUP_EDIT = "editMusculesGroupList",
+  MUSCLES_GROUP_ADD = "addNewMusclesGroupList",
+  MUSCLES_GROUP_EDIT = "editMusclesGroupList",
 
   LEADS_ROUTE = "leads",
   LEADS_ROUTE_ADD = "addNewLead",

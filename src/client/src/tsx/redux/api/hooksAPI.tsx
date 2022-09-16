@@ -1,5 +1,5 @@
 import {
-  MusculesGroupTable,
+  MusclesGroupTable,
   CitiesTable,
   ProvidersTable,
   WeeksTable,
@@ -27,7 +27,7 @@ export const leadsApi = apiCreateCRUDHooks<LeadsTableAPI>({
   listId: "leads_list",
 });
 
-export const musclesGroupApi = apiCreateCRUDHooks<MusculesGroupTable>({
+export const musclesGroupApi = apiCreateCRUDHooks<MusclesGroupTable>({
   reducerPath: "musclesGroupApi",
   baseUrl: API_ROUTES.MUSCLES_GROUP_ROUTE,
   singleEntityName: API_ROUTES.MUSCLES_GROUP_ENTITY,

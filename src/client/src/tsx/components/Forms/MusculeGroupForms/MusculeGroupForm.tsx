@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler } from "react-hook-form";
-import { MusculesGroupTable } from "../../../redux/api/interfaceAPI";
+import { MusclesGroupTable } from "../../../redux/api/interfaceAPI";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import { musclesGroupSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
@@ -13,10 +13,10 @@ export function MusculeGroupForm({
   editMode,
   onSubmit,
   defaultValues,
-}: GeneralFormProps<MusculesGroupTable>) {
+}: GeneralFormProps<MusclesGroupTable>) {
   return (
     <>
-      <Form<MusculesGroupTable>
+      <Form<MusclesGroupTable>
         onSubmit={onSubmit}
         editMode={editMode}
         // pathMove={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}`}
@@ -40,11 +40,11 @@ export function MusculeGroupForm({
                 }}
                 LabelProps={{
                   htmlFor: "muscles_group_name",
-                  labelText: "Muscules Group",
+                  labelText: "Muscles Group",
                 }}
               >
                 <InputErrorMessage
-                  nameInput="Muscules group's name"
+                  nameInput="Muscles group's name"
                   error={muscles_group_name}
                 />
               </InputLabel>

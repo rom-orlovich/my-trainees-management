@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { musclesGroupApi } from "../../redux/api/hooksAPI";
-import { MusculesGroupTable as MusclesGroupTableAPi } from "../../redux/api/interfaceAPI";
+import { MusclesGroupTable as MusclesGroupTableAPi } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 
 import { APP_ROUTE } from "../../routes/routesConstants";
 import page_style from "../Page.module.scss";
-import MusculesGroupTable from "./MusculeGroupTable";
+import MusclesGroupTable from "./MusculeGroupTable";
 
-function MusculesGroupPage() {
+function MusclesGroupPage() {
   const [musclesGroup, setMusclesGroup] = useState<string[]>(["", ""]);
   return (
     <MainRoute mainRoutes={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}>
@@ -18,30 +18,28 @@ function MusculesGroupPage() {
           <AutocompleteInput<MusclesGroupTableAPi>
             keys={["muscles_group_name"]}
             id={"muscles_group_id"}
-            loadingSpinnerResult={{ nameData: "Muscules Group" }}
+            loadingSpinnerResult={{ nameData: "Muscles Group" }}
             setSelectOptionValue={setMusclesGroup}
             useGetData={musclesGroupApi.useGetItemsQuery}
             InputLabelProps={{
-              InputProps: { placeholder: "Muscules Group Name" },
+              InputProps: { placeholder: "Muscles Group Name" },
               LabelProps: {
-                labelText: "Search Muscules Group",
+                labelText: "Search Muscles Group",
                 htmlFor: "musclesGroupsSearch",
               },
             }}
           />
 
           <span>
-            <Link to={`${APP_ROUTE.MUSCLES_GROUP_ADD}`}>
-              Add Muscules Group
-            </Link>
+            <Link to={`${APP_ROUTE.MUSCLES_GROUP_ADD}`}>Add Muscles Group</Link>
           </span>
         </div>
         <div className={page_style.page_main_content}>
-          <MusculesGroupTable name={musclesGroup[1]} />
+          <MusclesGroupTable name={musclesGroup[1]} />
         </div>
       </section>
     </MainRoute>
   );
 }
 
-export default MusculesGroupPage;
+export default MusclesGroupPage;

@@ -23,7 +23,7 @@ import CitiesPage from "../pages/CititesPage/CitiesPage";
 import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
-import MusculesGroupPage from "../pages/MusculeGroupPage/MusculeGroupPage";
+import MusclesGroupPage from "../pages/MusculeGroupPage/MusculeGroupPage";
 
 import Settings from "../pages/SettingsPage/SettingsPage";
 
@@ -106,7 +106,7 @@ function AppRoutes() {
           </Route>
           <Route
             path={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}
-            element={<MusculesGroupPage />}
+            element={<MusclesGroupPage />}
           >
             <Route
               path={APP_ROUTE.MUSCLES_GROUP_ADD}

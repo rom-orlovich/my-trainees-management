@@ -4,7 +4,7 @@ import { equipmentsApi, musclesGroupApi } from "../../../redux/api/hooksAPI";
 import {
   EquipmentsTable,
   ExercisesTable,
-  MusculesGroupTable,
+  MusclesGroupTable,
 } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -82,20 +82,20 @@ export function ExerciseForm({
                 }}
               />
 
-              <AutocompleteInputRHF<ExercisesTable, MusculesGroupTable>
+              <AutocompleteInputRHF<ExercisesTable, MusclesGroupTable>
                 name="muscles_group_id"
                 control={control}
                 AutocompleteInputProps={{
                   defaultValueID: defaultValues?.exercise_id,
                   InputLabelProps: {
-                    LabelProps: { labelText: "Muscules Group" },
+                    LabelProps: { labelText: "Muscles Group" },
 
-                    InputProps: { placeholder: "Search Muscules Group" },
+                    InputProps: { placeholder: "Search Muscles Group" },
                   },
                   addOption: {
                     link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}/${APP_ROUTE.MUSCLES_GROUP_ADD}`,
                   },
-                  loadingSpinnerResult: { nameData: "Muscules Group" },
+                  loadingSpinnerResult: { nameData: "Muscles Group" },
                   useGetData: musclesGroupApi.useGetItemsQuery,
                   id: "muscles_group_id",
                   keys: ["muscles_group_name"],

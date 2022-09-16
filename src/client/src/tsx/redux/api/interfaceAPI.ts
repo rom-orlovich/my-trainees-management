@@ -58,7 +58,7 @@ export interface ResponseQueryAPI<T> {
   data: T[];
 }
 
-export interface MusculesGroupTable {
+export interface MusclesGroupTable {
   muscles_group_id?: number;
   muscles_group_name: string;
 }
