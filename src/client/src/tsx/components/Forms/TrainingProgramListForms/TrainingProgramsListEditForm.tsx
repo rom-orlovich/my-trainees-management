@@ -19,7 +19,7 @@ export function TrainingProgramsListEditForm() {
         profile_id: data.profile_id,
         date_start: formatDate(data.date_start) as any,
         date_end: data.date_end ? formatDate(data.date_end) : (null as any),
-        note_id: data?.note_id,
+
         name_topic: data?.name_topic,
         note_text: data.note_text,
       }
