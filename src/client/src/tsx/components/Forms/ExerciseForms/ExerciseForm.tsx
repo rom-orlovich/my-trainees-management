@@ -64,13 +64,12 @@ export function ExerciseForm({
                   defaultValueID: defaultValues?.equipment_id,
                   InputLabelProps: {
                     LabelProps: { labelText: "Equipment" },
-
                     InputProps: { placeholder: "Search Equipment" },
                   },
                   addOption: {
                     link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.EQUIPMENTS_LIST_ROUTE}/${APP_ROUTE.EQUIPMENT_ADD}`,
                   },
-                  loadingSpinnerResult: { nameData: "Exercise" },
+                  loadingSpinnerResult: { nameData: "Equipment" },
                   useGetData: equipmentsApi.useGetItemsQuery,
                   id: "equipment_id",
                   keys: ["equipment_name"],
