@@ -6,12 +6,12 @@
  * the promise is resolved or return [undefined,error] in case
  * the promise is rejected.
  */
-export const promiseHandler = async <T>(promise: Promise<T>) => {
+export const promiseHandler = async <T, E = Error>(promise: Promise<T>) => {
   try {
     const res = await promise;
     return [res as T, undefined] as const;
   } catch (error) {
-    return [undefined, error as Error] as const;
+    return [undefined, error as E] as const;
   }
 };
 export const makeUniqueArr = (arr: any[]) => [...new Set(arr)];

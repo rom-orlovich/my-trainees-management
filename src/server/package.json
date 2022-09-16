@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@rmp135/sql-ts": "^1.13.0",
+    "lodash": "^4.17.21",
     "pg": "^8.7.3",
     "schemats": "^3.0.3",
     "webpack-dev-server": "^4.9.1",

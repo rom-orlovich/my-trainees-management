@@ -15,18 +15,22 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
     getValuesFromDB,
     getValueFromDBbyID,
     createNewValueInDB,
+    validateMiddleware,
     updateValueByID,
     deleteValueByID,
   } = createRoutesControllers(optionsCRUD);
+
   const newRoute = express.Router();
   newRoute.route("/").get(getValuesFromDB);
 
-  newRoute.route(`/${optionsCRUD.singleEntityName}`).post(createNewValueInDB);
+  newRoute
+    .route(`/${optionsCRUD.singleEntityName}`)
+    .post(validateMiddleware, createNewValueInDB);
 
   newRoute
     .route(`/${optionsCRUD.singleEntityName}/:id`)
     .get(getValueFromDBbyID)
-    .put(updateValueByID)
+    .put(validateMiddleware, updateValueByID)
     .delete(deleteValueByID);
   return newRoute;
 }

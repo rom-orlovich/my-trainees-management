@@ -1,20 +1,18 @@
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "express";
+import { DatabaseError } from "pg";
 import * as yup from "yup";
 import {
   createRealQueryKeyValuesObj,
   deleteQuery,
-  insertManyQuery,
   insertQueryOneItem,
-  insertQueryToManyTables,
   selectPagination,
   selectQuery,
   updateQuerySingleItem,
-  updateQueryToManyTables,
 } from "../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
 import { createObjValuesArr, promiseHandler } from "../utilities/helpers";
-import { handleError } from "./handleErrors";
+import { ErrorCodes, ErrorCustomizes } from "./handleErrors";
 
 /**
  *
@@ -34,6 +32,16 @@ export function createRoutesControllers({
 
   validateSchema,
 }: OptionsCRUD) {
+  const validateMiddleware: RequestHandler = async (req, res, next) => {
+    const [valid, errValid] = await promiseHandler<any, yup.ValidationError>(
+      validateSchema.validate(req.body)
+    );
+
+    if (errValid && !valid)
+      throw new ErrorCustomizes({ code: ErrorCodes.INVALID });
+    next();
+  };
+
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res) => {
     const { page, ...rest } = req.query;
@@ -50,45 +58,38 @@ export function createRoutesControllers({
       )
     );
 
-    console.log(err);
-    if (err) return res.status(400).json({ message: "The query not found" });
+    if (err) {
+      throw new ErrorCustomizes(err);
+    }
     return res.status(200).json({ data: data.rows, next: data.next });
   };
 
   // Controller of the get method. Gets one item by ID from the db.
-  const getValueFromDBbyID: RequestHandler = async (req, res) => {
+  const getValueFromDBbyID: RequestHandler = async (req, res, next) => {
     const queryLogic = `${querySelectLogic}  WHERE ${tableID}=$1`;
     const id = Number(req.params.id);
     if (!id) {
-      return res.status(400).json({ message: "Source Not Found" });
+      throw new ErrorCustomizes(new Error("Source Not Found"));
     }
     const [data, err] = await promiseHandler(
       selectQuery(`${tableName}`, `${fieldNamesQuery}`, queryLogic, [id])
     );
-    console.log(err);
-    if (err) return res.status(400).json({ message: "The query not found" });
+
+    if (err) {
+      throw new ErrorCustomizes(err);
+    }
     return res.status(200).json(data[0]);
   };
 
   // Controller of the post method. Create one item  in the db.
-  const createNewValueInDB: RequestHandler = async (req, res) => {
-    const [valid, errValid] = await promiseHandler(
-      validateSchema.validate(req.body)
-    );
-    if (errValid && !valid)
-      return res.status(400).json({ message: errValid?.message });
-
+  const createNewValueInDB: RequestHandler = async (req, res, next) => {
     const [data, err] = await promiseHandler(
       insertQueryOneItem(tableName, req.body)
     );
 
     if (err) {
-      console.log(err);
-      return res
-        .status(400)
-        .json({ message: handleError(err, singleEntityName) });
+      return next(new ErrorCustomizes(err, singleEntityName));
     }
-
     return res.status(200).json({
       message: `The new ${singleEntityName} is added!`,
       id: createObjValuesArr(data)[0],
@@ -98,23 +99,15 @@ export function createRoutesControllers({
   // Controller of the put method.
   // Update one item by his ID in db.
   const updateValueByID: RequestHandler = async (req, res) => {
-    const [valid, errValid] = await promiseHandler(
-      validateSchema.validate(req.body)
-    );
-
-    if (errValid && !valid) {
-      return res.status(400).json({ message: errValid?.message });
-    }
     const queryLogic = `WHERE ${tableID}=$1`;
 
-    const [data, err] = await promiseHandler(
+    const [data, err] = await promiseHandler<any, DatabaseError>(
       updateQuerySingleItem(tableName, req.body, req.params.id, queryLogic)
     );
-    console.log(data);
-    console.log(err);
-    if (err)
-      return res.status(400).json({ message: "Something is went wrong." });
-    return res.status(200).json({
+
+    if (err) throw new ErrorCustomizes(err);
+
+    res.status(200).json({
       message: `The ${singleEntityName} is updated successfully!`,
       id: createObjValuesArr(data)[0],
     });
@@ -125,15 +118,11 @@ export function createRoutesControllers({
   const deleteValueByID: RequestHandler = async (req, res) => {
     const { id } = req.params;
     const queryLogic = `WHERE ${tableID}=$1`;
-
     const [data, err] = await promiseHandler(
       deleteQuery(tableName, queryLogic, [id], true)
     );
 
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ message: "Something is went wrong." });
-    }
+    if (err) if (err) throw new ErrorCustomizes(err);
 
     return res.status(200).json({
       message: `The ${singleEntityName} is deleted successfully!`,
@@ -142,6 +131,7 @@ export function createRoutesControllers({
   };
 
   return {
+    validateMiddleware,
     getValuesFromDB,
     getValueFromDBbyID,
     createNewValueInDB,

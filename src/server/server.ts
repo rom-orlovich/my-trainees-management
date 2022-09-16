@@ -18,6 +18,7 @@ import { INCOMES_TABLE_NAME } from "./utilities/constants";
 
 import { routesCRUDArr } from "./routes/routesConfig";
 import { createCRUDroutes } from "./routes/routesCRUD";
+import { errorHandlerMiddleware } from "./controllers/handleErrors";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -30,35 +31,37 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
   app.use(baseRoute, createCRUDroutes(optionsCRUD));
 });
 
+app.use(errorHandlerMiddleware);
+
 let server: Server;
 
-// Connects to the pgSQLDB and initializes the server listen to port 5000.
-client
-  .connect()
-  .then(async () => {
+// Connects to the psSQL database and initializes the server listen to port 5000.
+async function connectDB() {
+  try {
+    await client.connect();
     console.log(`Connected pgSQL server.`);
 
     // Check if the socks table is exist, otherwise we have to initDB function.
     if (!checkIfTableExist(INCOMES_TABLE_NAME))
-      throw Error("Please init the function initDB in createDBpgsql.ts.");
-    else console.log("The army inventory's DB is initialize.");
+      throw Error("Please init the function initDB in initDB.ts.");
+    else console.log("The database has initialized.");
 
     // Uncomment this line will init the db.
     // This line is for development purpose.
     // await initDB();
-
     server = app.listen(PORT, () => {
       console.log(`listen port ${PORT}`);
     });
-  })
-  .catch((err: Error) => {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     server.close(() => {
       console.log("server is closed");
     });
     client.end();
-  });
+  }
+}
 
+connectDB();
 if (process.env.NODE_ENV === "production") {
   const root = path.join(__dirname, "client");
   app.use(express.static(root));
