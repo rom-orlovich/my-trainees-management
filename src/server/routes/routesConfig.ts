@@ -100,41 +100,16 @@ export interface OptionsCRUD {
 // the input of the user.
 //
 
-// export const leadsOptionsCRUD: OptionsCRUD = {
-//   singleEntityName: API_ROUTES.LEADS_ENTITY,
-//   selectQuery: {
-//     tableName: `${LEADS_TABLE_NAME} as le`,
-//     tableID: `le.${LEADS_TABLE_ID}`,
-//     fieldNamesQuery: `le.*,no.name_topic,no.note_text`,
-//     querySelectLogic: ` LEFT JOIN ${NOTES_TABLE_NAME} as no ON
-//     le.${NOTE_ID}=no.${NOTE_ID}`,
-//   },
-//   insertDataToOtherTables: [
-//     {
-//       tableName: NOTES_TABLE_NAME,
-//       id: NOTE_ID,
-//       keysPossible: [NOTE_ID, "name_topic", "note_text"],
-//     },
-//   ],
-//   validateSchema: leadsSchema.concat(notesSchema),
-// };
 export const leadsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.LEADS_ENTITY,
   selectQuery: {
     tableName: `${LEADS_TABLE_NAME} as le`,
     tableID: `le.${LEADS_TABLE_ID}`,
-    fieldNamesQuery: `le.*,no.name_topic,no.note_text`,
-    querySelectLogic: ` LEFT JOIN ${NOTES_TABLE_NAME} as no ON 
-    le.${NOTE_ID}=no.${NOTE_ID}`,
+    fieldNamesQuery: `le.*`,
+    querySelectLogic: ``,
   },
-  insertDataToOtherTables: [
-    {
-      tableName: NOTES_TABLE_NAME,
-      id: NOTE_ID,
-      keysPossible: [NOTE_ID, "name_topic", "note_text"],
-    },
-  ],
-  validateSchema: leadsSchema.concat(notesSchema),
+
+  validateSchema: leadsSchema,
 };
 
 export const musclesGroupOptionsCRUD: OptionsCRUD = {
@@ -147,16 +122,6 @@ export const musclesGroupOptionsCRUD: OptionsCRUD = {
   },
 
   validateSchema: musclesGroupSchema,
-};
-export const notesOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.NOTES_ENTITY,
-  selectQuery: {
-    tableName: `${NOTES_TABLE_NAME} as n`,
-    tableID: `n.${NOTE_ID}`,
-    fieldNamesQuery: "*",
-    querySelectLogic: "",
-  },
-  validateSchema: notesSchema,
 };
 
 export const citiesOptionsCRUD: OptionsCRUD = {
@@ -199,8 +164,7 @@ export const providersOptionsCRUD: OptionsCRUD = {
     querySelectLogic: `
     JOIN ${LOCATION_TABLE_NAME} as lo on 
     pro.${LOCATION_ID} = lo.${LOCATION_ID}
-    JOIN ${CITIES_TABLE_NAME} as c ON 
-    c.${CITY_ID}=lo.${CITY_ID}
+   
     `,
   },
   validateSchema: providersSchema,
@@ -259,34 +223,16 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TRAINING_PROGRAMS_LIST_TABLE_NAME} as trpl`,
     tableID: `trpl.${TRAINING_PROGRAMS_LIST_ID}`,
-    fieldNamesQuery: `trpl.*, 
-  
-    no.name_topic,no.note_text
- 
-    `,
-
+    fieldNamesQuery: `trpl.*`,
     querySelectLogic: `
     LEFT JOIN ${TRAINING_PROGRAM_TABLE_NAME} as tp ON
-    trpl.${TRAINING_PROGRAMS_LIST_ID}=tp.${TRAINING_PROGRAMS_LIST_ID}
-
-     LEFT JOIN ${NOTES_TABLE_NAME} as no ON 
-     trpl.${NOTE_ID}=no.${NOTE_ID}
-  
-    `,
-
+    trpl.${TRAINING_PROGRAMS_LIST_ID}=tp.${TRAINING_PROGRAMS_LIST_ID}`,
     queryParams: {
       traineeID: PROFILE_ID,
     },
   },
 
-  validateSchema: trainingProgramsListSchema.concat(notesSchema),
-  insertDataToOtherTables: [
-    {
-      tableName: NOTES_TABLE_NAME,
-      id: NOTE_ID,
-      keysPossible: [NOTE_ID, "name_topic", "note_text"],
-    },
-  ],
+  validateSchema: trainingProgramsListSchema,
 };
 
 export const trainingProgramsOptionsCRUD: OptionsCRUD = {
@@ -297,7 +243,7 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `tp.*, 
     mg.muscles_group_name, eq.equipment_name,
     exer.exercise_name,
-    no.name_topic,no.note_text`,
+   `,
     querySelectLogic: `
     LEFT JOIN ${EXERCISES_LIST_TABLE_NAME} as exer ON
     tp.${EXERCISES_ID}=exer.${EXERCISES_ID}
@@ -311,14 +257,8 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
       trainingProgramListID: TRAINING_PROGRAMS_LIST_ID,
     },
   },
-  insertDataToOtherTables: [
-    {
-      tableName: NOTES_TABLE_NAME,
-      id: NOTE_ID,
-      keysPossible: [NOTE_ID, "name_topic", "note_text"],
-    },
-  ],
-  validateSchema: trainingProgramSchema.concat(notesSchema),
+
+  validateSchema: trainingProgramSchema,
 };
 
 export const nutritionProgramOptionsCRUD: OptionsCRUD = {
@@ -341,7 +281,7 @@ export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
     np.week_id,
     np.note_id as week_note_id,
     we.date,we.day,we.weight,
-    no.name_topic,no.note_text`,
+   `,
     querySelectLogic: `
     LEFT JOIN ${PROFILES_TABLE_NAME} as tr ON
     npl.${PROFILE_ID}=tr.${PROFILE_ID}
@@ -349,8 +289,7 @@ export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
     npl.${NUTRITION_PROGRAM_LIST_ID}=np.${NUTRITION_PROGRAM_LIST_ID}
     LEFT JOIN ${WEEKLY_TABLE_NAME} as we ON 
     we.${WEEKLY_ID}=np.${WEEKLY_ID} 
-    LEFT JOIN ${NOTES_TABLE_NAME} as no ON 
-    npl.${NOTE_ID}=no.${NOTE_ID}
+   
     `,
   },
   validateSchema: nutritionProgramsListSchema,
@@ -384,7 +323,9 @@ export const traineesOptionsCRUD: OptionsCRUD = {
    LEFT JOIN ${TRAINING_PROGRAMS_LIST_TABLE_NAME} as tpl ON
    tpl.${PROFILE_ID}=pr.${PROFILE_ID}
    LEFT JOIN ${NUTRITION_PROGRAM_LIST_TABLE_NAME} as npl ON
-   npl.${PROFILE_ID}=pr.${PROFILE_ID}
+   npl.${PROFILE_ID}=pr.${PROFILE_ID},
+   LEFT JOIN ${SUBSCRIPTION_PLANS_TABLE_NAME} as subp ON
+   subp.${PROFILE_ID}=pr.${PROFILE_ID}
 
    `,
     queryNameParam: {
@@ -392,21 +333,21 @@ export const traineesOptionsCRUD: OptionsCRUD = {
       lastName: "last_name",
     },
   },
-  selectOtherTablesQueries: {
-    selectQueriesParams: [
-      {
-        ...trainingProgramsListOptionsCRUD.selectQuery,
-        idSearch: `trpl.${TRAINING_PROGRAMS_LIST_ID}`,
-        subTableID: TRAINING_PROGRAMS_LIST_ID,
-      },
-      {
-        ...nutritionProgramsListOptionsCRUD.selectQuery,
-        subTableID: NUTRITION_PROGRAM_LIST_TABLE_NAME,
-        subTableKeys: { nutritionProgram: ["date", "day", "weight"] },
-      },
-    ],
-    transformFunction: (arg: any) => ({} as any),
-  },
+  // selectOtherTablesQueries: {
+  //   selectQueriesParams: [
+  //     {
+  //       ...trainingProgramsListOptionsCRUD.selectQuery,
+  //       idSearch: `trpl.${TRAINING_PROGRAMS_LIST_ID}`,
+  //       subTableID: TRAINING_PROGRAMS_LIST_ID,
+  //     },
+  //     {
+  //       ...nutritionProgramsListOptionsCRUD.selectQuery,
+  //       subTableID: NUTRITION_PROGRAM_LIST_TABLE_NAME,
+  //       subTableKeys: { nutritionProgram: ["date", "day", "weight"] },
+  //     },
+  //   ],
+  //   transformFunction: (arg: any) => ({} as any),
+  // },
   validateSchema: traineesSchema,
 };
 
@@ -435,7 +376,7 @@ export const routesCRUDArr: {
     baseRoute: API_ROUTES.MUSCLES_GROUP_ROUTE,
     optionsCRUD: musclesGroupOptionsCRUD,
   },
-  { baseRoute: API_ROUTES.NOTES_ROUTE, optionsCRUD: notesOptionsCRUD },
+
   { baseRoute: API_ROUTES.CITIES_ROUTE, optionsCRUD: citiesOptionsCRUD },
   {
     baseRoute: API_ROUTES.LOCATIONS_ROUTE,
