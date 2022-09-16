@@ -1,8 +1,8 @@
 import {
   MusclesGroupTableAPI,
   CitiesTableAPI,
-  ProvidersTable,
-  WeeksTable,
+  ProvidersTableAPI,
+  WeeksTableAPI,
   ExpensesTable,
   EquipmentsTable,
   ExercisesTableAPI,
@@ -47,13 +47,13 @@ export const locationsApi = apiCreateCRUDHooks<LocationsGetRes>({
   singleEntityName: API_ROUTES.LOCATIONS_ENTITY,
   listId: "locations_list",
 });
-export const providersApi = apiCreateCRUDHooks<ProvidersTable>({
+export const providersApi = apiCreateCRUDHooks<ProvidersTableAPI>({
   reducerPath: "providersApi",
   baseUrl: API_ROUTES.PROVIDERS_ROUTE,
   singleEntityName: API_ROUTES.PROVIDERS_ENTITY,
   listId: "providers_list",
 });
-export const weeksApi = apiCreateCRUDHooks<WeeksTable>({
+export const weeksApi = apiCreateCRUDHooks<WeeksTableAPI>({
   reducerPath: "weeksApi",
   baseUrl: API_ROUTES.WEEKS_ROUTE,
   singleEntityName: API_ROUTES.WEEKS_ENTITY,

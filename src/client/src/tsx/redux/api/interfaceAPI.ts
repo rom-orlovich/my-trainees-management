@@ -82,13 +82,13 @@ export interface LocationsTableAPI {
   street?: string | null;
 }
 
-export interface ProvidersTable {
+export interface ProvidersTableAPI {
   location_id: number;
   provider_name: string;
   provider_id?: number;
 }
 
-export interface WeeksTable {
+export interface WeeksTableAPI {
   date: Date;
   day: number;
   week_id?: number;
