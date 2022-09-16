@@ -1,14 +1,20 @@
 import React from "react";
-import { Control, Controller, FieldPath, useForm } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldPath,
+  FieldValues,
+  useForm,
+} from "react-hook-form";
 import InputErrorMessage from "../InputErrorMessage";
 import AutocompleteInput, { AutocompleteInputProps } from "./AutocompleteInput";
 
-interface AutocompleteInputRHFprops<F, O> {
+interface AutocompleteInputRHFprops<F extends FieldValues, O> {
   name: FieldPath<F>;
   control: Control<F>;
   AutocompleteInputProps: AutocompleteInputProps<O, F>;
 }
-function AutocompleteInputRHF<F, O>({
+function AutocompleteInputRHF<F extends FieldValues, O>({
   name,
   control,
   AutocompleteInputProps: {

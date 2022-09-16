@@ -35,7 +35,7 @@ function EquipmentsListPage() {
           </span>
         </div>
         <div className={page_style.page_main_content}>
-          <LeadsTable name={equipment[1]} />
+          <LeadsTable mainName={equipment[1]} />
         </div>
       </section>
     </MainRoute>

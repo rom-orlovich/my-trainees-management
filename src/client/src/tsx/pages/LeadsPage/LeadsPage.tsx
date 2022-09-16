@@ -35,7 +35,7 @@ function LeadsPage() {
         </span>
       </div>
       <div className={page_style.page_main_content}>
-        <LeadsTable name={lead[1]} />
+        <LeadsTable mainName={lead[1]} />
       </div>
     </section>
   );

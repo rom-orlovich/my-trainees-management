@@ -10,14 +10,14 @@ import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
-function CitiesTable({ name }: PageTableProps) {
+function CitiesTable({ mainName }: PageTableProps) {
   const { useGetItemsQuery, useDeleteItemMutation } = citiesApi;
   const [deleteItem] = useDeleteItemMutation();
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.CITY_ROUTE}>
       <TablePagination<CitiesTableInterface>
-        queriesOptions={{ name }}
+        queriesOptions={{ mainName }}
         nameData={"Cities List"}
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}

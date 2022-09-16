@@ -15,7 +15,7 @@ export const transformDataEquipment = (arg: EquipmentsTable) => {
 
   return rest;
 };
-function EquipmentsListTable({ name }: PageTableProps) {
+function EquipmentsListTable({ mainName }: PageTableProps) {
   const { useGetItemsQuery, useDeleteItemMutation } = equipmentsApi;
   const [deleteItem] = useDeleteItemMutation();
 
@@ -23,7 +23,7 @@ function EquipmentsListTable({ name }: PageTableProps) {
     <MainRoute mainRoutes={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}>
       <TablePagination<EquipmentsTable>
         // mainRoute={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}
-        queriesOptions={{ name }}
+        queriesOptions={{ mainName }}
         nameData={"Equipments List"}
         transformFun={transformDataEquipment}
         getAllQuery={useGetItemsQuery}

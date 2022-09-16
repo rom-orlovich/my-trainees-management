@@ -35,7 +35,7 @@ function MusclesGroupPage() {
           </span>
         </div>
         <div className={page_style.page_main_content}>
-          <MusclesGroupTable name={musclesGroup[1]} />
+          <MusclesGroupTable mainName={musclesGroup[1]} />
         </div>
       </section>
     </MainRoute>

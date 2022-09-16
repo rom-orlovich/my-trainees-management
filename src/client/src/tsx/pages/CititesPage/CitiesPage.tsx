@@ -35,7 +35,7 @@ function CitiesPage() {
           </span>
         </div>
         <div className={page_style.page_main_content}>
-          <CitiesTable name={city[1]} />
+          <CitiesTable mainName={city[1]} />
         </div>
       </section>
     </MainRoute>

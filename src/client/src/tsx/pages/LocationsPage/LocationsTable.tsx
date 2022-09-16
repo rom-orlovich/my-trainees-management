@@ -15,14 +15,14 @@ export const transformDataLocation = (arg: LocationsGetRes) => {
 
   return rest;
 };
-function LocationsTable({ name }: PageTableProps) {
+function LocationsTable({ mainName }: PageTableProps) {
   const { useGetItemsQuery, useDeleteItemMutation } = locationsApi;
   const [deleteItem] = useDeleteItemMutation();
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.LOCATION_ROUTE}>
       <TablePagination<LocationsGetRes>
-        queriesOptions={{ name }}
+        queriesOptions={{ mainName }}
         nameData={"Locations List"}
         transformFun={transformDataLocation}
         getAllQuery={useGetItemsQuery}

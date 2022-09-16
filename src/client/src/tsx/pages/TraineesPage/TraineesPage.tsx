@@ -37,7 +37,7 @@ function Trainees() {
         </span>
       </div>
       <div className={page_style.page_main_content}>
-        <TraineesTable name={trainee[1]} />
+        <TraineesTable mainName={trainee[1]} />
       </div>
     </section>
   );

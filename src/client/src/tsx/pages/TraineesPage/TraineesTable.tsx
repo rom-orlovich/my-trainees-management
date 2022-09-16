@@ -27,9 +27,9 @@ export const transformDataTrainee = (arg: TraineeGetRes) => {
   return rest;
 };
 export interface PageTableProps {
-  name?: string;
+  mainName?: string;
 }
-function TraineesTable({ name }: PageTableProps) {
+function TraineesTable({ mainName }: PageTableProps) {
   const { useGetItemsQuery, useDeleteItemMutation } = traineesApi;
   const [deleteItem] = useDeleteItemMutation();
 
@@ -37,7 +37,7 @@ function TraineesTable({ name }: PageTableProps) {
     <MainRoute mainRoutes={[APP_ROUTE.TRAINEES_ROUTE, ""]}>
       <TablePagination<TraineeGetRes>
         mainRoute={APP_ROUTE.TRAINEES_ROUTE}
-        queriesOptions={{ name }}
+        queriesOptions={{ mainName }}
         nameData={"Trainees"}
         transformFun={transformDataTrainee}
         getAllQuery={useGetItemsQuery}

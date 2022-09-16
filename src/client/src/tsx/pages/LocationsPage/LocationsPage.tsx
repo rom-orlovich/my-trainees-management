@@ -35,7 +35,7 @@ function LocationsListPage() {
           </span>
         </div>
         <div className={page_style.page_main_content}>
-          <LeadsTable name={location[1]} />
+          <LeadsTable mainName={location[1]} />
         </div>
       </section>
     </MainRoute>

@@ -36,13 +36,10 @@ export function TablePagination<T extends Record<string, any>>({
     disptach(setPageState({ name: nameData, page: numPage }));
   }, [numPage, disptach, nameData]);
 
-  const { data, isLoading, isError, isFetching } = getAllQuery(
-    {
-      page: numPage,
-      ...queriesOptions,
-    }
-    // { refetchOnMountOrArgChange: true }
-  );
+  const { data, isLoading, isError, isFetching } = getAllQuery({
+    page: numPage,
+    ...queriesOptions,
+  });
 
   const Data = data as ResponseQueryAPI<T> | undefined;
 
