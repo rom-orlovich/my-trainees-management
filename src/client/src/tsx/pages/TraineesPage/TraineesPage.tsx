@@ -3,7 +3,7 @@ import TraineesTable from "./TraineesTable";
 import { Link } from "react-router-dom";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import { TraineeGetRes } from "../../redux/api/interfaceAPI";
+import { TraineeTableAPI } from "../../redux/api/interfaceAPI";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import page_style from "../Page.module.scss";
 
@@ -13,7 +13,7 @@ function Trainees() {
   return (
     <section className={page_style.page_container}>
       <div className={page_style.page_header}>
-        <AutocompleteInput<TraineeGetRes>
+        <AutocompleteInput<TraineeTableAPI>
           keys={["first_name", "last_name"]}
           id={"profile_id"}
           loadingSpinnerResult={{ nameData: "Trainees" }}

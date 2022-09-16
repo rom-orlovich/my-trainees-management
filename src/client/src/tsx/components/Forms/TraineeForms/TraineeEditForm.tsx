@@ -2,7 +2,7 @@ import React from "react";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 
 import {
-  TraineeGetRes,
+  TraineeTableAPI,
   TraineesTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../../redux/hooks";
@@ -40,7 +40,7 @@ export function TraineeEditForm({ id }: { id?: number }) {
       city_name,
 
       ...rest
-    } = body as TraineeGetRes;
+    } = body as TraineeTableAPI;
 
     updateFunction({ id: trainee?.profile_id || 0, updateItem: updateTrainee })(
       rest

@@ -9,8 +9,8 @@ import {
   NutritionProgramsListTable,
   NutritionProgramsTable,
   LocationsGetRes,
-  TraineeGetRes,
-  TrainingProgramExercise,
+  TraineeTableAPI,
+  TrainingProgramExerciseTableAPI,
   API_ROUTES,
   SubscriptionPlansAPI,
   LeadsTableAPI,
@@ -84,12 +84,13 @@ export const trainingProgramsListApi =
     singleEntityName: API_ROUTES.TRAINING_PROGRAMS_LIST_ENTITY,
     listId: "training_programs_list",
   });
-export const trainingProgramsApi = apiCreateCRUDHooks<TrainingProgramExercise>({
-  reducerPath: "trainingProgramsApi",
-  baseUrl: API_ROUTES.TRAINING_PROGRAMS_ROUTE,
-  singleEntityName: API_ROUTES.TRAINING_PROGRAMS_ENTITY,
-  listId: "training_programs_exercises_list",
-});
+export const trainingProgramsApi =
+  apiCreateCRUDHooks<TrainingProgramExerciseTableAPI>({
+    reducerPath: "trainingProgramsApi",
+    baseUrl: API_ROUTES.TRAINING_PROGRAMS_ROUTE,
+    singleEntityName: API_ROUTES.TRAINING_PROGRAMS_ENTITY,
+    listId: "training_programs_exercises_list",
+  });
 export const nutritionProgramsListApi =
   apiCreateCRUDHooks<NutritionProgramsListTable>({
     reducerPath: "nutritionProgramsListApi",
@@ -104,7 +105,7 @@ export const nutritionProgramsApi = apiCreateCRUDHooks<NutritionProgramsTable>({
   listId: "nutrition_programs_weeks_list",
 });
 
-export const traineesApi = apiCreateCRUDHooks<TraineeGetRes>({
+export const traineesApi = apiCreateCRUDHooks<TraineeTableAPI>({
   reducerPath: "traineesApi",
   baseUrl: API_ROUTES.TRAINEES_ROUTE,
   singleEntityName: API_ROUTES.TRAINEES_ENTITY,

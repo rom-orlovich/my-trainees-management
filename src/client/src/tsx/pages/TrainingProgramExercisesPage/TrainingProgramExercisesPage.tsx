@@ -5,7 +5,7 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 import { exercisesApi, trainingProgramsApi } from "../../redux/api/hooksAPI";
 import {
   ExercisesTableAPI,
-  TrainingProgramExercise,
+  TrainingProgramExerciseTableAPI,
 } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
@@ -15,7 +15,7 @@ const trainingProgramExercisesTransform = ({
   training_programs_list_id,
   exercise_id,
   ...data
-}: TrainingProgramExercise) => {
+}: TrainingProgramExerciseTableAPI) => {
   const {
     training_program_row_id,
     exercise_name,

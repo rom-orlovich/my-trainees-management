@@ -174,30 +174,17 @@ export interface SubscriptionPlansAPI {
 
 export type LocationsGetRes = LocationsTableAPI &
   PickKey<CitiesTableAPI, "city_name">;
-export type TraineeGetRes = TraineesTableAPI &
+export type TraineeTableAPI = TraineesTableAPI &
   PickKey<CitiesTableAPI, "city_name"> &
   PickKey<LocationsTableAPI, "street"> &
   PickKey<TrainingProgramsListTableAPI, "training_programs_list_id"> &
   PickKey<NutritionProgramsListTable, "nutrition_programs_list_id">;
 
-export type TraineesExtends = OmitKey<TraineeGetRes, "profile_id"> & {
+export type TraineesExtends = OmitKey<TraineeTableAPI, "profile_id"> & {
   profile_id: number;
 };
 
-export interface TrainingProgramExtends {
-  exercise_name: null | string;
-  equipment_name: null | string;
-  muscles_group_name: null | string;
-  reps: null | string;
-  sets: number | null;
-  rest: null | string;
-  intensity: string;
-  rpe: number | null;
-  exercise_note_text: null | string;
-  exercise_topic_note: null | string;
-}
-
-export interface TrainingProgramExercise {
+export interface TrainingProgramExerciseTableAPI {
   training_program_row_id: number;
   training_programs_list_id: number;
   exercise_id: number;
@@ -213,6 +200,6 @@ export interface TrainingProgramExercise {
   note_text: string | null;
 }
 export type TrainingProgramExerciseOmit = OmitKey<
-  TrainingProgramExercise,
+  TrainingProgramExerciseTableAPI,
   "equipment_name" | "muscles_group_name" | "exercise_name"
 >;
