@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { trainingProgramsListApi } from "../../redux/api/hooksAPI";
-import { TrainingProgramsListTable } from "../../redux/api/interfaceAPI";
+import { TrainingProgramsListTableAPI } from "../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
@@ -13,7 +13,7 @@ const transformTrainingProgramList = ({
   training_programs_list_id,
   type_program,
   ...rest
-}: TrainingProgramsListTable) => {
+}: TrainingProgramsListTableAPI) => {
   return {
     training_programs_list_id,
     type_program: (

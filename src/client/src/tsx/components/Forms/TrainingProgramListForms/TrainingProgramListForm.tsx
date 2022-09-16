@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TrainingProgramsListTable } from "../../../redux/api/interfaceAPI";
+import { TrainingProgramsListTableAPI } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
 
@@ -13,11 +13,11 @@ export function TrainingProgramListForms({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<TrainingProgramsListTable>) {
+}: GeneralFormProps<TrainingProgramsListTableAPI>) {
   const dateNow = new Date();
   return (
     <>
-      <Form<TrainingProgramsListTable>
+      <Form<TrainingProgramsListTableAPI>
         buttonNext={!editMode}
         heading={`Training Program ${!editMode ? "Building" : "Edit"}`}
         onSubmit={onSubmit}

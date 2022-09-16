@@ -122,7 +122,7 @@ export interface ExercisesTableAPI {
   muscles_group_name: string;
 }
 
-export interface TrainingProgramsListTable {
+export interface TrainingProgramsListTableAPI {
   training_programs_list_id: number | null;
   profile_id: number;
   type_program?: string | null;
@@ -190,7 +190,7 @@ export type LocationsGetRes = LocationsTableAPI &
 export type TraineeGetRes = TraineesTable &
   PickKey<CitiesTableAPI, "city_name"> &
   PickKey<LocationsTableAPI, "street"> &
-  PickKey<TrainingProgramsListTable, "training_programs_list_id"> &
+  PickKey<TrainingProgramsListTableAPI, "training_programs_list_id"> &
   PickKey<NutritionProgramsListTable, "nutrition_programs_list_id">;
 
 export type TraineesExtends = OmitKey<TraineeGetRes, "profile_id"> & {
