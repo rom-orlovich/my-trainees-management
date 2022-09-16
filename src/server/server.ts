@@ -4,17 +4,14 @@
 import { config } from "dotenv";
 
 config();
-import express, { ErrorRequestHandler } from "express";
+import express from "express";
 import cors from "cors";
 import path from "path";
 
 import { Server } from "http";
-import { ExpressErrorRequestHandler } from "webpack-dev-server";
+
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
-import { checkIfTableExist } from "./PGSql/sqlHelpers";
-
-import { INCOMES_TABLE_NAME } from "./utilities/constants";
 
 import { routesCRUDArr } from "./routes/routesConfig";
 import { createCRUDroutes } from "./routes/routesCRUD";
@@ -41,14 +38,10 @@ async function connectDB() {
     await client.connect();
     console.log(`Connected pgSQL server.`);
 
-    // Check if the socks table is exist, otherwise we have to initDB function.
-    if (!checkIfTableExist(INCOMES_TABLE_NAME))
-      throw Error("Please init the function initDB in initDB.ts.");
-    else console.log("The database has initialized.");
-
     // Uncomment this line will init the db.
     // This line is for development purpose.
     // await initDB();
+
     server = app.listen(PORT, () => {
       console.log(`listen port ${PORT}`);
     });

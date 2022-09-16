@@ -29,7 +29,8 @@ export interface SelectTableQueryParam {
   querySelectLogic: string; // The query logic
 
   queryParams?: Record<string, string>;
-  queryNameParam?: Record<string, string>; // Field to search by name,the first field with name key is the main query.
+  queryNameParam?: Record<string, string>; // Field to search by name,the first field with name key is the main name query which
+  // the other keys are concat to him.
 }
 
 export interface OptionsCRUD {

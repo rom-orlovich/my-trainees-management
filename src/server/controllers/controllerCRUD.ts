@@ -49,7 +49,7 @@ export function createRoutesControllers({
     const [data, err] = await promiseHandler(
       selectPagination(
         tableID,
-        `${tableName}`,
+        tableName,
         page as string,
         fieldNamesQuery,
         querySelectLogic,

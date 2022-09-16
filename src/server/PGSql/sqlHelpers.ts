@@ -2,23 +2,9 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 
-import {
-  createObjKeysArr,
-  createObjValuesArr,
-  promiseHandler,
-} from "../utilities/helpers";
+import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
-
-// Check if the table name is exist.
-export async function checkIfTableExist(nameTable: string) {
-  const statement = `SELECT EXISTS (SELECT 1
-    FROM information_schema.tables
-    WHERE table_name = $1)`;
-  const [res, err] = await promiseHandler(client.query(statement, [nameTable]));
-  if (res?.rows[0].exists) return true;
-  return false;
-}
 
 // Makes string from the keys of the obj.
 // This string is used as fieldName in update/insert functions.
@@ -47,25 +33,6 @@ const prepareValues = (obj: Record<string, any>, startParma = 1) => {
   };
 };
 
-// Makes string from the values object array.
-// This string is used as the values in insert functions.
-const prepareValuesArr = (objArr: Record<string, any>[], startIndex = 1) => {
-  let fieldParamsStrAll = "";
-  const paramsArrAll = [] as any;
-  let lastIndexArr = startIndex;
-  objArr.forEach((obj) => {
-    const { fieldParams, paramsArr, lastIndex } = prepareValues(
-      obj,
-      lastIndexArr
-    );
-    paramsArrAll.push(...paramsArr);
-    fieldParamsStrAll += `${fieldParams},`;
-    lastIndexArr += lastIndex;
-  });
-  fieldParamsStrAll = fieldParamsStrAll.slice(0, -1);
-  return { paramsArrAll, fieldParamsStrAll, lastIndexArr };
-};
-
 // Makes string from the key-value  of object.
 // This string is used as the  key-values in update functions.
 const prepareKeyValuesToUpdate = (obj: Record<string, any>, startIndex = 0) => {
@@ -80,8 +47,8 @@ const prepareKeyValuesToUpdate = (obj: Record<string, any>, startIndex = 0) => {
   return { keyValuesStr: ` ${keyValuesStr.slice(0, -1)}`, paramsArr };
 };
 // Create from the query params of the request and
-//  from the real queries names a new obj which contains the table column name and his value
-// for the select query.
+//  from the real queries names a new obj which contains the table column name
+// and his value for the select query.
 export const createRealQueryKeyValuesObj = (
   queryFromReq: Record<string, any> | undefined,
   realQueryName: Record<string, string> | undefined
@@ -91,6 +58,7 @@ export const createRealQueryKeyValuesObj = (
 
   let newRealQueryKeyValueObj = {} as Record<string, any>;
   for (const key in realQueryName) {
+    // created the key value obj
     newRealQueryKeyValueObj = {
       ...newRealQueryKeyValueObj,
       [realQueryName[key]]: queryFromReq[key],
@@ -166,25 +134,6 @@ const prepareKeyValuesOtherColumnToSelect = (
   };
 };
 
-// Extracts the keysPossible from the obj or the objkeys from the keyPossible
-// and get new obj from the keys and values that extract.
-const destructureObjByKeys = (
-  keysPossible: string[],
-  obj: Record<string, any>,
-  extractKeysFromObj = false // In false mode there will be new obj from the keys.
-) => {
-  const entries = Object.entries(obj);
-  let newObj = {} as Record<string, any>;
-  entries.forEach(([key, value]) => {
-    if (!extractKeysFromObj) {
-      if (keysPossible.includes(key)) newObj = { ...newObj, [key]: value };
-    } else if (!keysPossible.includes(key))
-      newObj = { ...newObj, [key]: value };
-  });
-
-  return newObj;
-};
-
 // Select items from the db.
 export async function selectQuery(
   tableName: string,
@@ -240,28 +189,6 @@ export async function insertQueryOneItem(
   const res = await insertQuery(tableName, fieldName, fieldParams, paramsArr);
 
   return res.rows[0];
-}
-
-// Prepares the string from  items array that should insert to the db.
-// And insert them in the db.
-export async function insertManyQuery(
-  tableName: string,
-  objArr: Record<string, any>[],
-  startIndex = 1
-) {
-  const fieldName = prepareFieldsName(objArr[0]);
-  const { fieldParamsStrAll, paramsArrAll } = prepareValuesArr(
-    objArr,
-    startIndex
-  );
-  const res = await insertQuery(
-    tableName,
-    fieldName,
-    fieldParamsStrAll,
-    paramsArrAll
-  );
-
-  return res.rows;
 }
 
 // Prepares the string from item that should update by their id.
