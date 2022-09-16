@@ -31,7 +31,7 @@ export interface TdProps {
 }
 
 // Splits the name of the value by '_' , capital thier first letter,
-// and return new formated string.
+// and return new formatted string.
 export const formatThValue = (value: string) => {
   const splitArr = value.split("_");
   if (!splitArr[1]) return captialFirstLetter(value);

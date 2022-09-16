@@ -240,15 +240,15 @@ const createMainTableAndSubTableArr = (
   const mainTableArr: Record<string, any>[] = [];
   const cachedId: string[] = [];
   tablesDataList.forEach((el) => {
-    const formatedTableID = selectTableQuery.tableID
+    const formattedTableID = selectTableQuery.tableID
       .split(".")
       .slice(1)
       .join("");
-    const tableID = el[formatedTableID];
+    const tableID = el[formattedTableID];
     const subTableData = subTableName
       ? {
           [subTableName]: tablesDataList
-            .filter((table) => table[formatedTableID] === tableID)
+            .filter((table) => table[formattedTableID] === tableID)
             .map((filterTable) => destructureObjByKeys(keys, filterTable)),
         }
       : {};

@@ -10,11 +10,11 @@ export const captialFirstLetter = (str: string) =>
 export const formatDate = (date: Date) => {
   const newDate = new Date(date);
 
-  const formated = new Date(
+  const formatted = new Date(
     newDate.getTime() + Math.abs(newDate.getTimezoneOffset() * 60000)
   );
-  formated.setDate(newDate.getDate() + 1);
-  return formated.toLocaleDateString("en-CA");
+  formatted.setDate(newDate.getDate() + 1);
+  return formatted.toLocaleDateString("en-CA");
 };
 
 export const checkIfStrIsValidDate = (value: string) => {
