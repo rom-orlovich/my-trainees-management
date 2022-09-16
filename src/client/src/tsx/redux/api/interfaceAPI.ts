@@ -3,17 +3,12 @@ import { OmitKey, PickKey } from "../../types";
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
 
-// I didn't success import the the table interfaces, and API_ROUTES from the server folder,
-// so i have to create them again here.
-
 // All the endpoints and the entities names.
 export enum API_ROUTES {
   LEADS_ROUTE = "/api/leads",
   LEADS_ENTITY = "lead",
   MUSCLES_GROUP_ROUTE = "/api/musclesGroups",
   MUSCLES_GROUP_ENTITY = "musclesGroup",
-  // NOTES_ROUTE = "/api/notes",
-  // NOTES_ENTITY = "note",
   CITIES_ROUTE = "/api/cities",
   CITIES_ENTITY = "city",
   LOCATIONS_ROUTE = "/api/locations",
@@ -58,16 +53,10 @@ export interface ResponseQueryAPI<T> {
   data: T[];
 }
 
-export interface MusclesGroupTable {
+export interface MusclesGroupTableAPI {
   muscles_group_id?: number;
   muscles_group_name: string;
 }
-
-// export interface NotesTable {
-//   note_id?: number;
-//   note_topic: string | null;
-//   note_text: string | null;
-// }
 
 export interface LeadsTableAPI {
   lead_id?: number;
@@ -125,10 +114,12 @@ export interface EquipmentsTable {
 }
 
 export interface ExercisesTableAPI {
-  equipment_id?: number;
-  exercise_name: string;
   exercise_id?: number;
+  exercise_name: string;
+  equipment_id?: number;
+  equipment_name: string;
   muscles_group_id: number;
+  muscles_group_name: string;
 }
 
 export interface TrainingProgramsListTable {

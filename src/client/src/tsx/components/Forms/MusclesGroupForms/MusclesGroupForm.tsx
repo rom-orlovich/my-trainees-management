@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler } from "react-hook-form";
-import { MusclesGroupTable } from "../../../redux/api/interfaceAPI";
+import { MusclesGroupTableAPI } from "../../../redux/api/interfaceAPI";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import { musclesGroupSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
@@ -13,10 +13,10 @@ export function MusclesGroupForm({
   editMode,
   onSubmit,
   defaultValues,
-}: GeneralFormProps<MusclesGroupTable>) {
+}: GeneralFormProps<MusclesGroupTableAPI>) {
   return (
     <>
-      <Form<MusclesGroupTable>
+      <Form<MusclesGroupTableAPI>
         onSubmit={onSubmit}
         editMode={editMode}
         // pathMove={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}`}

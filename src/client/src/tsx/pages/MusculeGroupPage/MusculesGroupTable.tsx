@@ -2,33 +2,23 @@ import React from "react";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 
-import { exercisesApi } from "../../redux/api/hooksAPI";
-import { ExercisesTableAPI } from "../../redux/api/interfaceAPI";
+import { musclesGroupApi } from "../../redux/api/hooksAPI";
+import { MusclesGroupTableAPI } from "../../redux/api/interfaceAPI";
 
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
-function transformExerciseTable({
-  equipment_id,
-
-  muscles_group_id,
-
-  ...rest
-}: ExercisesTableAPI) {
-  return rest;
-}
-function ExercisesTable({ mainName }: PageTableProps) {
-  const { useGetItemsQuery, useDeleteItemMutation } = exercisesApi;
+function MusclesGroupPage({ mainName }: PageTableProps) {
+  const { useGetItemsQuery, useDeleteItemMutation } = musclesGroupApi;
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <MainRoute mainRoutes={APP_ROUTE.EXERCISES_LIST_ROUTE}>
-      <TablePagination<ExercisesTableAPI>
+    <MainRoute mainRoutes={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}>
+      <TablePagination<MusclesGroupTableAPI>
         queriesOptions={{ mainName }}
-        nameData={"Exercises List"}
-        transformFun={transformExerciseTable}
+        nameData={"Muscles Group List"}
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />
@@ -36,4 +26,4 @@ function ExercisesTable({ mainName }: PageTableProps) {
   );
 }
 
-export default ExercisesTable;
+export default MusclesGroupPage;

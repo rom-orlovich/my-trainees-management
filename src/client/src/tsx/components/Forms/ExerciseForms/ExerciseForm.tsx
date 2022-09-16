@@ -4,7 +4,7 @@ import { equipmentsApi, musclesGroupApi } from "../../../redux/api/hooksAPI";
 import {
   EquipmentsTable,
   ExercisesTableAPI,
-  MusclesGroupTable,
+  MusclesGroupTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -76,7 +76,7 @@ export function ExerciseForm({
                 }}
               />
 
-              <AutocompleteInputRHF<ExercisesTableAPI, MusclesGroupTable>
+              <AutocompleteInputRHF<ExercisesTableAPI, MusclesGroupTableAPI>
                 name="muscles_group_id"
                 control={control}
                 AutocompleteInputProps={{

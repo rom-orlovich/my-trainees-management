@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { musclesGroupApi } from "../../redux/api/hooksAPI";
-import { MusclesGroupTable as MusclesGroupTableAPi } from "../../redux/api/interfaceAPI";
+import { MusclesGroupTableAPI as MusclesGroupTableAPIAPi } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 
 import { APP_ROUTE } from "../../routes/routesConstants";
 import page_style from "../Page.module.scss";
-import MusclesGroupTable from "./MusclesGroupTable";
+import MusclesGroupTableAPI from "./MusclesGroupTable";
 
 function MusclesGroupPage() {
   const [musclesGroup, setMusclesGroup] = useState<string[]>(["", ""]);
@@ -15,7 +15,7 @@ function MusclesGroupPage() {
     <MainRoute mainRoutes={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}>
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
-          <AutocompleteInput<MusclesGroupTableAPi>
+          <AutocompleteInput<MusclesGroupTableAPIAPi>
             keys={["muscles_group_name"]}
             id={"muscles_group_id"}
             loadingSpinnerResult={{ nameData: "Muscles Group" }}
@@ -35,7 +35,7 @@ function MusclesGroupPage() {
           </span>
         </div>
         <div className={page_style.page_main_content}>
-          <MusclesGroupTable mainName={musclesGroup[1]} />
+          <MusclesGroupTableAPI mainName={musclesGroup[1]} />
         </div>
       </section>
     </MainRoute>
