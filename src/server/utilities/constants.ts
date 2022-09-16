@@ -2,12 +2,12 @@
 import { join } from "path";
 import { cwd } from "process";
 
-export const TRAINEES_MANAGEMENT_SQL_FILE = "trainees_management.sql";
+export const CREATE_DB_TABLE_SQL_FILE = "create_db_tables.sql";
 
 export const DB_FOLDER_PATH = join(cwd(), "db");
-export const TRAINEES_MANAGEMENT_SQL_PATH = join(
+export const CREATE_DB_TABLE_SQL_FILE_PATH = join(
   DB_FOLDER_PATH,
-  TRAINEES_MANAGEMENT_SQL_FILE
+  CREATE_DB_TABLE_SQL_FILE
 );
 
 export const WEEKLY_ID = "week_id";
