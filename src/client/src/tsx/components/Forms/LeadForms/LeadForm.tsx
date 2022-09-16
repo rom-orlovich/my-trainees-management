@@ -2,7 +2,7 @@ import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
-  FormWithNotesProps,
+  // FormWithNotesProps,
   GeneralFormProps,
 } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
@@ -14,7 +14,7 @@ import { LeadsTable } from "../../../redux/api/interfaceAPI";
 import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
 import { APP_ROUTE } from "../../../routes/routesConstants";
-export type LeadsFormProps = LeadsTable;
+
 export function LeadForm({
   onSubmit,
   defaultValues,

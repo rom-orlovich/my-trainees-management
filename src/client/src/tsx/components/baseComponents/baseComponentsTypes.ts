@@ -77,4 +77,4 @@ export interface GeneralFormProps<T> {
   fromProps?: FormProps;
 }
 
-export type FormWithNotesProps<T> = T & Omit<NotesTable, "note_id">;
+// export type FormWithNotesProps<T> = T & Omit<NotesTable, "note_id">;
