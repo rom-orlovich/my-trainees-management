@@ -134,7 +134,7 @@ export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlans>({
 //   listId: "incomes_list",
 // });
 
-export const apiCreatCrudArr = [
+export const apiCreateCrudArr = [
   leadsApi,
   musclesGroupApi,
   notesAPI,
@@ -155,12 +155,12 @@ export const apiCreatCrudArr = [
   // incomesApi,
 ];
 
-// Create Reducer arr that contains  object with key of the redcuer name and value the reducer function.
+// Create Reducer arr that contains  object with key of the reducer name and value the reducer function.
 let reducersArr = {};
-apiCreatCrudArr.forEach((value) => {
+apiCreateCrudArr.forEach((value) => {
   reducersArr = { ...reducersArr, [value.reducerPath]: value.reducer };
 });
 export { reducersArr };
 
 // Create middlewareArr from the apiCreateCrudArr.
-export const middlewareArr = apiCreatCrudArr.map((el) => el.middleware);
+export const middlewareArr = apiCreateCrudArr.map((el) => el.middleware);
