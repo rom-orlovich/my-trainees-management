@@ -30,6 +30,7 @@ function AutocompleteInputRHF<F extends FieldValues, O>({
             {...AutocompleteInputProps}
             InputLabelProps={{
               ...InputLabelProps,
+
               LabelProps: { ...LabelProps, htmlFor: name },
               InputProps: { ...InputProps, ref, onBlur },
             }}

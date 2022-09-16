@@ -6,7 +6,7 @@ import {
 } from "react";
 
 import {
-  captialFirstLetter,
+  capitalFirstLetter,
   checkIfStrIsValidDate,
 } from "../../../utilities/helpersFun";
 
@@ -30,12 +30,12 @@ export interface TdProps {
   fitTh?: string;
 }
 
-// Splits the name of the value by '_' , capital thier first letter,
+// Splits the name of the value by '_' , capital their first letter,
 // and return new formatted string.
 export const formatThValue = (value: string) => {
   const splitArr = value.split("_");
-  if (!splitArr[1]) return captialFirstLetter(value);
-  return splitArr.map(captialFirstLetter).join(" ");
+  if (!splitArr[1]) return capitalFirstLetter(value);
+  return splitArr.map(capitalFirstLetter).join(" ");
 };
 
 export function ThCell({ value, ...rest }: ThProps) {

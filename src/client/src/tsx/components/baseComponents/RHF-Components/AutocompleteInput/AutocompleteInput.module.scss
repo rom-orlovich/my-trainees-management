@@ -1,6 +1,6 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 
-.autocomplete_contianer {
+.autocomplete_container {
   position: relative;
   @include flex-dir(null, null);
   max-width: 50%;
@@ -58,7 +58,7 @@
   }
 }
 @include smartphone() {
-  .autocomplete_contianer {
+  .autocomplete_container {
     p[class*="message_spinner"] {
       @include posAbs(100%, 2%, null, null);
     }

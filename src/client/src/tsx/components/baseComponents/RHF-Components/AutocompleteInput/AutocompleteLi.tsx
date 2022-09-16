@@ -1,7 +1,7 @@
 import React from "react";
 import { AnyFun } from "../../../../types";
 import {
-  getEnteriesArrObj,
+  getEntriesArrObj,
   getValuesArrObj,
 } from "../../../../utilities/helpersFun";
 import { ComponentProps, LiProps } from "../../baseComponentsTypes";
@@ -11,7 +11,7 @@ export const createStrFromValuesOfChosenKeys = <T extends Record<string, any>>(
   keys: (keyof T)[]
 ) => {
   if (keys.length === 0) return getValuesArrObj(obj)[0];
-  const keyValue = getEnteriesArrObj(obj);
+  const keyValue = getEntriesArrObj(obj);
   const keysFilter = keyValue.filter(([key, value]) => {
     return keys.includes(key);
   });

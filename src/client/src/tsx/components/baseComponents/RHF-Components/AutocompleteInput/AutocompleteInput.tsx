@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { ControllerRenderProps, Path } from "react-hook-form";
+import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ import useHideUnFocusElement from "../../../../hooks/useHideUnFocusElement";
 
 import { ResponseQueryAPI } from "../../../../redux/api/interfaceAPI";
 
-import { getEnteriesArrObj } from "../../../../utilities/helpersFun";
+import { getEntriesArrObj } from "../../../../utilities/helpersFun";
 import { LiProps } from "../../baseComponentsTypes";
 
 import ListObserver from "../../ListObserver";
@@ -26,7 +26,7 @@ import AutocompleteLi, {
   createStrFromValuesOfChosenKeys,
 } from "./AutocompleteLi";
 
-export interface AutocompleteInputProps<T, O = any> {
+export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   className?: string;
   RHFProps?: Partial<ControllerRenderProps<O, Path<O>>>;
   loadingSpinnerResult?: Partial<LoadingSpinnerProps<T>>;
@@ -63,12 +63,12 @@ function AutocompleteInput<T extends Record<string, any>>({
 AutocompleteInputProps<T>) {
   const [page, setPage] = useState(1);
 
-  const [inputValueName, setinputValue] = useState(["", ""]);
+  const [inputValueName, setInputValue] = useState(["", ""]);
 
   const debounce = useDebounceHook(inputValueName, 500);
 
   const autoCompleteContainerRef = useRef<HTMLDivElement | null>(null);
-  const isVisble = useHideUnFocusElement(autoCompleteContainerRef);
+  const isVisible = useHideUnFocusElement(autoCompleteContainerRef);
 
   const [lastDataState, setLastData] = useState<any[]>([]);
   const { data, isError, isFetching, isLoading } = useGetData({
@@ -97,7 +97,7 @@ AutocompleteInputProps<T>) {
               objData,
               keys || []
             );
-            setinputValue(["", strValues]);
+            setInputValue(["", strValues]);
           }
         }
       }
@@ -106,7 +106,7 @@ AutocompleteInputProps<T>) {
   // set page to first page and reset the data array.
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPage(1);
-    setinputValue(["", e.target.value]);
+    setInputValue(["", e.target.value]);
     setLastData([]);
   };
   // Opens the autocomplete input's options.
@@ -116,8 +116,8 @@ AutocompleteInputProps<T>) {
   };
   // Handle click on option and set the value of that option in the input.
   const handleClickLi = (obj: Record<string, any>) => {
-    const keyValue = getEnteriesArrObj(obj)[0];
-    setinputValue(keyValue);
+    const keyValue = getEntriesArrObj(obj)[0];
+    setInputValue(keyValue);
   };
 
   // Handles the scrolling event of the autocomplete input's options.
@@ -132,7 +132,7 @@ AutocompleteInputProps<T>) {
 
   return (
     <span
-      className={`${style.autocomplete_contianer} ${className}`}
+      className={`${style.autocomplete_container} ${className}`}
       ref={autoCompleteContainerRef}
     >
       <InputLabel
@@ -153,7 +153,7 @@ AutocompleteInputProps<T>) {
         >
           {(data) => {
             return (
-              isVisble && (
+              isVisible && (
                 <ListObserver<T>
                   fn={() => listObserverFun(data)}
                   listProps={{
