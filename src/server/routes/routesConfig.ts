@@ -87,12 +87,37 @@ export interface OptionsCRUD {
   selectOtherTablesQueries?: SelectOtherTable;
   validateSchema: yup.ObjectSchema<any>;
 }
+// export interface OptionsCRUD {
+//   singleEntityName: string; // name of one item
+//   selectQuery: string;
+//   insertDataToOtherTables?: InsertOtherTable[]; // The data of tables we wish to insert data
+//   selectOtherTablesQueries?: SelectOtherTable;
+//   validateSchema: yup.ObjectSchema<any>;
+// }
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
 // the input of the user.
 //
 
+// export const leadsOptionsCRUD: OptionsCRUD = {
+//   singleEntityName: API_ROUTES.LEADS_ENTITY,
+//   selectQuery: {
+//     tableName: `${LEADS_TABLE_NAME} as le`,
+//     tableID: `le.${LEADS_TABLE_ID}`,
+//     fieldNamesQuery: `le.*,no.name_topic,no.note_text`,
+//     querySelectLogic: ` LEFT JOIN ${NOTES_TABLE_NAME} as no ON
+//     le.${NOTE_ID}=no.${NOTE_ID}`,
+//   },
+//   insertDataToOtherTables: [
+//     {
+//       tableName: NOTES_TABLE_NAME,
+//       id: NOTE_ID,
+//       keysPossible: [NOTE_ID, "name_topic", "note_text"],
+//     },
+//   ],
+//   validateSchema: leadsSchema.concat(notesSchema),
+// };
 export const leadsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.LEADS_ENTITY,
   selectQuery: {

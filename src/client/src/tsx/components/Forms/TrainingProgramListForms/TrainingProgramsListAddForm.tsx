@@ -18,15 +18,14 @@ export function TrainingProgramsListAddForm({
   // profile_id: number;
   className?: string;
 }) {
-  console.log("s");
   const profile_id = Number(useParams().id);
-  console.log(profile_id);
+
   const navigate = useNavigate();
   const [addItem] = trainingProgramsListApi.useCreateNewComplexDataMutation();
   const dispatch = useAppDispatch();
   const handleSubmit = (body: TrainingProgramsListFormProps) => {
     // resetGoPrevPagesState disable the behavior of returning to pre page , after submit form.
-    // Insead after submit this form the function will move the user to his training program's exercises list.
+    // Instead after submit this form the function will move the user to his training program's exercises list.
     dispatch(resetGoPrevPageState());
     addFunction({
       addItem,
