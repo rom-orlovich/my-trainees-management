@@ -242,7 +242,7 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
     tableID: `tp.${TRAINING_PROGRAM_ID}`,
     fieldNamesQuery: `tp.*, 
     mg.muscles_group_name, eq.equipment_name,
-    exer.exercise_name,
+    exer.exercise_name
    `,
     querySelectLogic: `
     LEFT JOIN ${EXERCISES_LIST_TABLE_NAME} as exer ON
@@ -251,8 +251,7 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
     exer.${MUSCLE_GROUP_ID} =mg.${MUSCLE_GROUP_ID}
     LEFT JOIN ${EQUIPMENTS_TABLE_NAME} as eq ON
     exer.${EQUIPMENTS_ID}= eq.${EQUIPMENTS_ID}
-    LEFT JOIN ${NOTES_TABLE_NAME} as no ON 
-    tp.${NOTE_ID}=no.${NOTE_ID}`,
+   `,
     queryParams: {
       trainingProgramListID: TRAINING_PROGRAMS_LIST_ID,
     },
@@ -323,11 +322,9 @@ export const traineesOptionsCRUD: OptionsCRUD = {
    LEFT JOIN ${TRAINING_PROGRAMS_LIST_TABLE_NAME} as tpl ON
    tpl.${PROFILE_ID}=pr.${PROFILE_ID}
    LEFT JOIN ${NUTRITION_PROGRAM_LIST_TABLE_NAME} as npl ON
-   npl.${PROFILE_ID}=pr.${PROFILE_ID},
+   npl.${PROFILE_ID}=pr.${PROFILE_ID}
    LEFT JOIN ${SUBSCRIPTION_PLANS_TABLE_NAME} as subp ON
-   subp.${PROFILE_ID}=pr.${PROFILE_ID}
-
-   `,
+   subp.${PROFILE_ID}=pr.${PROFILE_ID} `,
     queryNameParam: {
       name: "first_name",
       lastName: "last_name",
