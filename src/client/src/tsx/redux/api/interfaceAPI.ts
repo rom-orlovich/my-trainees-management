@@ -63,11 +63,11 @@ export interface MusculesGroupTable {
   muscles_group_name: string;
 }
 
-export interface NotesTable {
-  note_id?: number;
-  name_topic: string;
-  note_text?: string | null;
-}
+// export interface NotesTable {
+//   note_id?: number;
+//   name_topic: string | null;
+//   note_text: string | null;
+// }
 
 export interface LeadsTable {
   lead_id?: number;
@@ -77,7 +77,8 @@ export interface LeadsTable {
   phone_number: string;
   email?: string;
   status: boolean;
-  note_id?: number | null;
+  name_topic: string | null;
+  note_text: string | null;
 }
 export interface CitiesTable {
   city_id?: number;
@@ -109,7 +110,8 @@ export interface ExpensesTable {
   date: Date;
   expense_id?: number;
   expenses_amount: number;
-  note_id?: number | null;
+  name_topic: string | null;
+  note_text: string | null;
   product_id: number;
   seller_id: number;
 }
@@ -135,7 +137,8 @@ export interface TrainingProgramsListTable {
   type_program?: string | null;
   date_start: Date;
   date_end?: Date | null;
-  note_id?: number | null;
+  name_topic: string | null;
+  note_text: string | null;
 }
 
 export interface TrainingProgramTable {
@@ -147,7 +150,8 @@ export interface TrainingProgramTable {
   rest: string;
   intensity: string;
   rpe: number;
-  note_id?: number | null;
+  name_topic: string | null;
+  note_text: string | null;
 }
 
 export interface NutritionProgramsListTable {
@@ -156,14 +160,16 @@ export interface NutritionProgramsListTable {
   type_program?: string | null;
   date_start: Date;
   date_end?: Date | null;
-  note_id?: number | null;
+  name_topic: string | null;
+  note_text: string | null;
 }
 
 export interface NutritionProgramsTable {
   nutrition_program_id?: number;
   nutrition_programs_list_id: number;
   week_id: number;
-  note_id?: number | null;
+  name_topic: string | null;
+  note_text: string | null;
 }
 export interface TraineesTable {
   profile_id?: number;
@@ -200,11 +206,10 @@ export type TraineesExtends = OmitKey<TraineeGetRes, "profile_id"> & {
   profile_id: number;
 };
 
-export interface TrainingProgramsList extends TrainingProgramsListTable {
-  name_topic: string;
-  note_text: string;
-  trainingProgram: TrainingProgramExtends[];
-}
+// export interface TrainingProgramsList extends TrainingProgramsListTable {
+//   name_topi?: strin | nullg;
+//   note_tex: string | nullningProgram: TrainingProgramExtends[];
+// }
 
 export interface TrainingProgramExtends {
   exercise_name: null | string;
@@ -219,17 +224,17 @@ export interface TrainingProgramExtends {
   exercise_topic_note: null | string;
 }
 
-export type TrainingProgramsListExtends = OmitKey<
-  TrainingProgramsList,
-  "trainingProgram"
->;
+// export type TrainingProgramsListExtends = OmitKey<
+//   TrainingProgramsList,
+//   "trainingProgram"
+// >;
 
-export interface TraineeExtends {
-  trainees: OmitKey<TraineeGetRes, "profile_id"> & { profile_id: number };
-  training_programs_list: TrainingProgramsListExtends[];
-  nutrition_programs_list: any[];
-  // subscription: MemberExtends[];
-}
+// export interface TraineeExtends {
+//   trainees: OmitKey<TraineeGetRes, "profile_id"> & { profile_id: number };
+//   training_programs_list: TrainingProgramsListExtends[];
+//   nutrition_programs_list: any[];
+//   // subscription: MemberExtends[];
+// }
 
 export interface TrainingProgramExercise {
   training_program_row_id: number;
@@ -240,15 +245,13 @@ export interface TrainingProgramExercise {
   rest: string;
   intensity: string;
   rpe: number;
-  note_id: number;
   muscles_group_name: string;
   equipment_name: string;
   exercise_name: string;
-  name_topic: string;
-  note_text: string;
+  name_topic: string | null;
+  note_text: string | null;
 }
-
-export type TrainingProgramExerciseOmit = OmitKey<
+type TrainingProgramExerciseOmit = OmitKey<
   TrainingProgramExercise,
   "equipment_name" | "muscles_group_name" | "exercise_name"
 >;

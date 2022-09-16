@@ -4,7 +4,7 @@ import {
 } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { ReactNode, ThHTMLAttributes } from "react";
 import { SubmitHandler } from "react-hook-form";
-import { NotesTable } from "../../redux/api/interfaceAPI";
+
 import { TdProps, ThProps } from "./Tables/TableCells";
 
 export interface PropsBasic {
