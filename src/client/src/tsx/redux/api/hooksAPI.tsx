@@ -1,6 +1,5 @@
 import {
   MusculesGroupTable,
-  NotesTable,
   CitiesTable,
   ProvidersTable,
   WeeksTable,
@@ -11,19 +10,17 @@ import {
   NutritionProgramsTable,
   LocationsGetRes,
   TraineeGetRes,
-  TraineeExtends,
   TrainingProgramExercise,
   API_ROUTES,
   SubscriptionPlans,
+  LeadsTable,
+  TrainingProgramsListTable,
 } from "../api/interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
 
-import { LeadsFormProps } from "../../components/Forms/LeadForms/LeadForm";
-import { TrainingProgramsListFormProps } from "../../components/Forms/TrainingProgramListForms/TrainingProgramListForm";
-
 // Each on of the api object contains the CRUD hooks of the endpoint.
-export const leadsApi = apiCreateCRUDHooks<LeadsFormProps>({
+export const leadsApi = apiCreateCRUDHooks<LeadsTable>({
   reducerPath: "leadsApi",
   baseUrl: API_ROUTES.LEADS_ROUTE,
   singleEntityName: API_ROUTES.LEADS_ENTITY,
@@ -37,12 +34,6 @@ export const musclesGroupApi = apiCreateCRUDHooks<MusculesGroupTable>({
   listId: "musclesGroup_list",
 });
 export type ApiCRUD = typeof musclesGroupApi;
-export const notesAPI = apiCreateCRUDHooks<NotesTable>({
-  reducerPath: "notesAPI",
-  baseUrl: API_ROUTES.NOTES_ROUTE,
-  singleEntityName: API_ROUTES.NOTES_ENTITY,
-  listId: "note_list",
-});
 
 export const citiesApi = apiCreateCRUDHooks<CitiesTable>({
   reducerPath: "citiesApi",
@@ -87,7 +78,7 @@ export const exercisesApi = apiCreateCRUDHooks<ExercisesTable>({
   listId: "exercises_list",
 });
 export const trainingProgramsListApi =
-  apiCreateCRUDHooks<TrainingProgramsListFormProps>({
+  apiCreateCRUDHooks<TrainingProgramsListTable>({
     reducerPath: "trainingProgramsListApi",
     baseUrl: API_ROUTES.TRAINING_PROGRAMS_LIST_ROUTE,
     singleEntityName: API_ROUTES.TRAINING_PROGRAMS_LIST_ENTITY,
@@ -113,7 +104,7 @@ export const nutritionProgramsApi = apiCreateCRUDHooks<NutritionProgramsTable>({
   listId: "nutrition_programs_weeks_list",
 });
 
-export const traineesApi = apiCreateCRUDHooks<TraineeGetRes, TraineeExtends>({
+export const traineesApi = apiCreateCRUDHooks<TraineeGetRes>({
   reducerPath: "traineesApi",
   baseUrl: API_ROUTES.TRAINEES_ROUTE,
   singleEntityName: API_ROUTES.TRAINEES_ENTITY,
@@ -137,7 +128,7 @@ export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlans>({
 export const apiCreateCrudArr = [
   leadsApi,
   musclesGroupApi,
-  notesAPI,
+
   citiesApi,
   locationsApi,
   providersApi,
