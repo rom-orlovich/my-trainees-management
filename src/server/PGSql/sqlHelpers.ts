@@ -407,7 +407,7 @@ export async function insertQueryOneItem(
   return res.rows[0];
 }
 
-// Preppres the string from  items array that should insert to the db.
+// Prepares the string from  items array that should insert to the db.
 // And insert them in the db.
 export async function insertManyQuery(
   tableName: string,
@@ -430,7 +430,7 @@ export async function insertManyQuery(
 }
 
 // Insert new complex data to many tables by destructure it to different obj
-// in foramt that fit the other tables's schemas.
+// in format that fit the other tables's schemas.
 export async function insertQueryToManyTables(
   tableName: string,
   insertDataToOtherTables: InsertOtherTable[] | undefined,
@@ -439,7 +439,7 @@ export async function insertQueryToManyTables(
   if (!insertDataToOtherTables || insertDataToOtherTables.length === 0)
     throw Error("The endpoint is not supported by this data format.");
 
-  const destrctureMap = createDestructureArr(insertDataToOtherTables, obj);
+  const destructureMap = createDestructureArr(insertDataToOtherTables, obj);
 
   let mainTableObj = destructureObjByKeys(
     insertDataToOtherTables[0].keysPossible,
@@ -449,7 +449,7 @@ export async function insertQueryToManyTables(
 
   // Add the data of other table to the db.
   const queryOtherTable = await Promise.all(
-    destrctureMap.map((el) => insertQueryOneItem(el.tableName, el.obj))
+    destructureMap.map((el) => insertQueryOneItem(el.tableName, el.obj))
   );
 
   // Attach the new ids of the data that was insert to the tables in db,
@@ -465,7 +465,7 @@ export async function insertQueryToManyTables(
   return dataCurrentTable;
 }
 
-// Preppres the string from item that should update by their id.
+// Prepares the string from item that should update by their id.
 // And update the item.
 export async function updateQuerySingleItem(
   tableName: string,
