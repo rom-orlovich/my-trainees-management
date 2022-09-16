@@ -11,7 +11,7 @@ import {
   locationsSchema,
   subscriptionPlansSchema,
   musclesGroupSchema,
-  notesSchema,
+  // notesSchema,
   nutritionProgramSchema,
   nutritionProgramsListSchema,
   providersSchema,
