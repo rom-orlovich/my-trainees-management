@@ -76,7 +76,7 @@ export interface CitiesTableAPI {
   population?: number | null;
 }
 
-export interface LocationsTable {
+export interface LocationsTableAPI {
   city_id: number;
   location_id: number;
   street?: string | null;
@@ -185,22 +185,17 @@ export interface SubscriptionPlans {
   last_training: Date;
 }
 
-export type LocationsGetRes = LocationsTable &
+export type LocationsGetRes = LocationsTableAPI &
   PickKey<CitiesTableAPI, "city_name">;
 export type TraineeGetRes = TraineesTable &
   PickKey<CitiesTableAPI, "city_name"> &
-  PickKey<LocationsTable, "street"> &
+  PickKey<LocationsTableAPI, "street"> &
   PickKey<TrainingProgramsListTable, "training_programs_list_id"> &
   PickKey<NutritionProgramsListTable, "nutrition_programs_list_id">;
 
 export type TraineesExtends = OmitKey<TraineeGetRes, "profile_id"> & {
   profile_id: number;
 };
-
-// export interface TrainingProgramsList extends TrainingProgramsListTable {
-//   name_topi?: strin | nullg;
-//   note_tex: string | nullningProgram: TrainingProgramExtends[];
-// }
 
 export interface TrainingProgramExtends {
   exercise_name: null | string;
@@ -214,18 +209,6 @@ export interface TrainingProgramExtends {
   exercise_note_text: null | string;
   exercise_topic_note: null | string;
 }
-
-// export type TrainingProgramsListExtends = OmitKey<
-//   TrainingProgramsList,
-//   "trainingProgram"
-// >;
-
-// export interface TraineeExtends {
-//   trainees: OmitKey<TraineeGetRes, "profile_id"> & { profile_id: number };
-//   training_programs_list: TrainingProgramsListExtends[];
-//   nutrition_programs_list: any[];
-//   // subscription: MemberExtends[];
-// }
 
 export interface TrainingProgramExercise {
   training_program_row_id: number;

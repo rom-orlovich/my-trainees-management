@@ -3,7 +3,7 @@ import React from "react";
 import { citiesApi } from "../../../redux/api/hooksAPI";
 import {
   CitiesTableAPI,
-  LocationsTable,
+  LocationsTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -18,9 +18,9 @@ export function LocationForm({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<LocationsTable>) {
+}: GeneralFormProps<LocationsTableAPI>) {
   return (
-    <Form<LocationsTable>
+    <Form<LocationsTableAPI>
       nameForm="Location"
       onSubmit={onSubmit}
       formProps={{ className: style.form_loactions }}
@@ -46,7 +46,7 @@ export function LocationForm({
               <InputErrorMessage nameInput="Street's address" error={street} />
             </InputLabel>
 
-            <AutocompleteInputRHF<LocationsTable, CitiesTableAPI>
+            <AutocompleteInputRHF<LocationsTableAPI, CitiesTableAPI>
               name="city_id"
               control={control}
               AutocompleteInputProps={{
