@@ -4,7 +4,7 @@ import AutocompleteInput from "../../components/baseComponents/RHF-Components/Au
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { exercisesApi, trainingProgramsApi } from "../../redux/api/hooksAPI";
 import {
-  ExercisesTable,
+  ExercisesTableAPI,
   TrainingProgramExercise,
 } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
@@ -54,7 +54,7 @@ function TrainingProgramExercises() {
     <MainRoute mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}>
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
-          <AutocompleteInput<ExercisesTable>
+          <AutocompleteInput<ExercisesTableAPI>
             keys={["exercise_name"]}
             id={"exercise_id"}
             loadingSpinnerResult={{ nameData: "Exercises" }}

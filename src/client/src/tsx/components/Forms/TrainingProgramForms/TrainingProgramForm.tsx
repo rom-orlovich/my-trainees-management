@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { exercisesApi } from "../../../redux/api/hooksAPI";
 import {
-  ExercisesTable,
+  ExercisesTableAPI,
   TrainingProgramExerciseOmit,
 } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/routesConstants";
@@ -42,7 +42,10 @@ export default function TrainingProgramForms({
 
           return (
             <>
-              <AutocompleteInputRHF<TrainingProgramExerciseOmit, ExercisesTable>
+              <AutocompleteInputRHF<
+                TrainingProgramExerciseOmit,
+                ExercisesTableAPI
+              >
                 name="exercise_id"
                 control={control}
                 AutocompleteInputProps={{

@@ -5,7 +5,7 @@ import {
   WeeksTable,
   ExpensesTable,
   EquipmentsTable,
-  ExercisesTable,
+  ExercisesTableAPI,
   NutritionProgramsListTable,
   NutritionProgramsTable,
   LocationsGetRes,
@@ -71,7 +71,7 @@ export const equipmentsApi = apiCreateCRUDHooks<EquipmentsTable>({
   singleEntityName: API_ROUTES.EQUIPMENTS_ENTITY,
   listId: "equipments_list",
 });
-export const exercisesApi = apiCreateCRUDHooks<ExercisesTable>({
+export const exercisesApi = apiCreateCRUDHooks<ExercisesTableAPI>({
   reducerPath: "exercisesApi",
   baseUrl: API_ROUTES.EXERCISES_ROUTE,
   singleEntityName: API_ROUTES.EXERCISES_ENTITY,

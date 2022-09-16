@@ -35,11 +35,11 @@ export function EquipmentForm({
                 InputProps={{ ...register("equipment_name") }}
                 LabelProps={{
                   htmlFor: "equipment_name",
-                  labelText: "Equipement",
+                  labelText: "Equipment",
                 }}
               >
                 <InputErrorMessage
-                  nameInput="Equipement"
+                  nameInput="Equipment"
                   error={equipment_name}
                 />
               </InputLabel>

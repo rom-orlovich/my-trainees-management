@@ -3,7 +3,7 @@ import React from "react";
 import { equipmentsApi, musclesGroupApi } from "../../../redux/api/hooksAPI";
 import {
   EquipmentsTable,
-  ExercisesTable,
+  ExercisesTableAPI,
   MusclesGroupTable,
 } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/routesConstants";
@@ -24,10 +24,10 @@ export function ExerciseForm({
   defaultValues,
   editMode,
   fromProps,
-}: GeneralFormProps<ExercisesTable>) {
+}: GeneralFormProps<ExercisesTableAPI>) {
   return (
     <>
-      <Form<ExercisesTable>
+      <Form<ExercisesTableAPI>
         formProps={{
           className: " " + fromProps?.className,
           ...fromProps,
@@ -62,7 +62,7 @@ export function ExerciseForm({
                 <InputErrorMessage nameInput="Exercise" error={exercise_name} />
               </InputLabel>
 
-              <AutocompleteInputRHF<ExercisesTable, EquipmentsTable>
+              <AutocompleteInputRHF<ExercisesTableAPI, EquipmentsTable>
                 name="equipment_id"
                 control={control}
                 AutocompleteInputProps={{
@@ -82,7 +82,7 @@ export function ExerciseForm({
                 }}
               />
 
-              <AutocompleteInputRHF<ExercisesTable, MusclesGroupTable>
+              <AutocompleteInputRHF<ExercisesTableAPI, MusclesGroupTable>
                 name="muscles_group_id"
                 control={control}
                 AutocompleteInputProps={{

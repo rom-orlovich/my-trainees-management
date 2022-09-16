@@ -1,13 +1,13 @@
 import { musclesGroupApi } from "../../../redux/api/hooksAPI";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
-import { MusculeGroupForm } from "./MusculeGroupForm";
+import { MusclesGroupForm } from "./MusclesGroupForm";
 
-export function MusculeGroupAddForm() {
+export function MusclesGroupAddForm() {
   const [addItem] = musclesGroupApi.useCreateOneItemMutation();
 
   const handleSubmit = addFunction({
     addItem,
   });
 
-  return <MusculeGroupForm onSubmit={handleSubmit}></MusculeGroupForm>;
+  return <MusclesGroupForm onSubmit={handleSubmit}></MusclesGroupForm>;
 }

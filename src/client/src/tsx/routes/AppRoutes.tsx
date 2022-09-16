@@ -10,20 +10,20 @@ import { LeadAddForm } from "../components/Forms/LeadForms/LeadAddForm";
 import LeadEditForm from "../components/Forms/LeadForms/LeadEditForm";
 import { LocationAddForm } from "../components/Forms/LocationForms/LocationAddForm";
 import { LocationEditForm } from "../components/Forms/LocationForms/LocationEditForm";
-import { MusculeGroupAddForm } from "../components/Forms/MusculeGroupForms/MusculeGroupAddForm";
-import { MusculeGroupEditForm } from "../components/Forms/MusculeGroupForms/MusculeGroupEditForm";
+import { MusclesGroupAddForm } from "../components/Forms/MusclesGroupForms/MusclesGroupAddForm";
+import { MusclesGroupEditForm } from "../components/Forms/MusclesGroupForms/MusclesGroupEditForm";
 
 import TraineeAddForm from "../components/Forms/TraineeForms/TraineeAddForm";
 import { TrainingProgramAddExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramAddForm";
 import { TrainingProgramEditExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramEditForm";
 import { TrainingProgramsListAddForm } from "../components/Forms/TrainingProgramListForms/TrainingProgramsListAddForm";
 import { TrainingProgramsListEditForm } from "../components/Forms/TrainingProgramListForms/TrainingProgramsListEditForm";
-import CitiesPage from "../pages/CititesPage/CitiesPage";
+import CitiesPage from "../pages/CitiesPage/CitiesPage";
 
 import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
-import MusclesGroupPage from "../pages/MusculeGroupPage/MusculeGroupPage";
+import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
 
 import Settings from "../pages/SettingsPage/SettingsPage";
 
@@ -87,6 +87,7 @@ function AppRoutes() {
 
         <Route path={APP_ROUTE.EXERCISES_LIST_ROUTE}>
           <Route index />
+
           <Route
             path={APP_ROUTE.EXERCISE_ADD}
             element={<ExerciseAddForm />}
@@ -110,9 +111,9 @@ function AppRoutes() {
           >
             <Route
               path={APP_ROUTE.MUSCLES_GROUP_ADD}
-              element={<MusculeGroupAddForm />}
+              element={<MusclesGroupAddForm />}
             />
-            <Route path=":id" element={<MusculeGroupEditForm />}></Route>
+            <Route path=":id" element={<MusclesGroupEditForm />}></Route>
           </Route>
           <Route
             path={APP_ROUTE.LOCATION_ROUTE}

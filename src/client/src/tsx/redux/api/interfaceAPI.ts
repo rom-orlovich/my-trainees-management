@@ -124,7 +124,7 @@ export interface EquipmentsTable {
   expense_id?: number | null;
 }
 
-export interface ExercisesTable {
+export interface ExercisesTableAPI {
   equipment_id?: number | null;
   exercise_name: string;
   exercise_id?: number;
