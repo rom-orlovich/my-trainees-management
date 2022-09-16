@@ -9,7 +9,7 @@ import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { leadsSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
-import { LeadsTable } from "../../../redux/api/interfaceAPI";
+import { LeadsTableAPI } from "../../../redux/api/interfaceAPI";
 
 import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
@@ -19,9 +19,9 @@ export function LeadForm({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<LeadsTable>) {
+}: GeneralFormProps<LeadsTableAPI>) {
   return (
-    <Form<LeadsTable>
+    <Form<LeadsTableAPI>
       editMode={editMode}
       onSubmit={onSubmit}
       nameForm="Lead"
