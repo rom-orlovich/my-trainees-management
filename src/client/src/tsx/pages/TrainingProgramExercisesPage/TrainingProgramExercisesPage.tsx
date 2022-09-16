@@ -26,7 +26,7 @@ const trainingProgramExercisesTransform = ({
     intensity,
     rest,
     rpe,
-    name_topic,
+    note_topic,
     note_text,
   } = data;
   return {
@@ -39,7 +39,7 @@ const trainingProgramExercisesTransform = ({
     intensity,
     rest,
     rpe,
-    name_topic,
+    note_topic,
     note_text,
   };
 };

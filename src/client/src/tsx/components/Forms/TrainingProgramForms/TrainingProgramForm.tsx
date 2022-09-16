@@ -37,7 +37,7 @@ export default function TrainingProgramForms({
         }}
       >
         {({ register, formState, control }) => {
-          const { sets, rpe, reps, rest, intensity, name_topic, note_text } =
+          const { sets, rpe, reps, rest, intensity, note_topic, note_text } =
             formState.errors;
 
           return (
@@ -123,13 +123,13 @@ export default function TrainingProgramForms({
                 <InputErrorMessage nameInput="Intensity" error={intensity} />
               </InputLabel>
               <InputLabel
-                InputProps={{ ...register("name_topic") }}
+                InputProps={{ ...register("note_topic") }}
                 LabelProps={{
-                  htmlFor: "name_topic",
+                  htmlFor: "note_topic",
                   labelText: "Topic",
                 }}
               >
-                <InputErrorMessage nameInput="Topic" error={name_topic} />
+                <InputErrorMessage nameInput="Topic" error={note_topic} />
               </InputLabel>
 
               <InputLabel

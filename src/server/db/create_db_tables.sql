@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS  "locations" CASCADE;
 DROP TABLE IF EXISTS  "cities" CASCADE;
 DROP TABLE IF EXISTS  "activities" CASCADE;
 DROP TABLE IF EXISTS  "leads" CASCADE;
-DROP TABLE IF EXISTS  "notes" CASCADE;
+
 DROP TABLE IF EXISTS  "muscles_group" CASCADE;
 
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "muscles_group" (
 
 -- CREATE TABLE IF NOT EXISTS "notes" (
 --   "note_id" serial PRIMARY KEY,
-  -- "name_topic" TEXT NOT NULL,
+  -- "note_topic" TEXT NOT NULL,
   -- "note_text" TEXT 
 -- );
 
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS "leads"(
 "phone_number" VARCHAR(12) NOT NULL,
 "email" VARCHAR(255) ,
 "status"  BOOLEAN  DEFAULT FALSE,
-"name_topic" TEXT NOT NULL,
-  "note_text" TEXT 
+"note_topic" TEXT NOT NULL,
+"note_text" TEXT 
 
 
 );
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS "expenses" (
   "date" DATE NOT NULL,
   "seller_id" INTEGER NOT NULL,
   "expenses_amount" float NOT NULL,
-  "name_topic" TEXT ,
+  "note_topic" TEXT ,
   "note_text" TEXT ,
 
   CONSTRAINT fk_seller_id
@@ -217,11 +217,11 @@ CREATE TABLE IF NOT EXISTS "training_programs_list"(
     "type_program" VARCHAR(20) , 
      "date_start" DATE NOT NULL,
      "date_end" DATE ,
-     "name_topic" TEXT ,
-  "note_text" TEXT ,
+     "note_topic" TEXT ,
+     "note_text" TEXT ,
      
 CONSTRAINT "date_end" CHECK ("date_end">"date_start"),
-   ,
+   
 
 
           CONSTRAINT fk_profile_id
@@ -238,7 +238,7 @@ CREATE TABLE IF NOT EXISTS "nutrition_programs_list"(
     "type_program" VARCHAR(20) , 
      "date_start" DATE NOT NULL,
      "date_end" DATE  ,
-    "name_topic" TEXT ,
+    "note_topic" TEXT ,
   "note_text" TEXT ,
       CONSTRAINT fk_profile_id
       FOREIGN KEY(profile_id) 
@@ -266,7 +266,7 @@ CREATE TABLE IF NOT EXISTS "training_program"(
   "rest" VARCHAR NOT NULL,
   "intensity" VARCHAR (50) NOT NULL ,
   "rpe" INTEGER NOT NULL,
-  "name_topic" TEXT ,
+  "note_topic" TEXT ,
   "note_text" TEXT ,
       CONSTRAINT fk_training_programs_list_id
       FOREIGN KEY(training_programs_list_id) 
@@ -291,7 +291,7 @@ CREATE TABLE IF NOT EXISTS "training_program"(
 CREATE TABLE IF NOT EXISTS "nutrition_program" (
   "nutrition_program_id" serial PRIMARY KEY,
   "nutrition_programs_list_id" INTEGER NOT NULL,
-  "name_topic" TEXT ,
+  "note_topic" TEXT ,
   "note_text" TEXT ,
  
   CONSTRAINT fk_nutrition_programs_list_id
@@ -332,14 +332,10 @@ CREATE TABLE IF NOT EXISTS "incomes" (
   "date" DATE NOT NULL,
   "buyer_id" INTEGER NOT NULL,
   "incomes_amount" float NOT NULL,
-  "note_id" INTEGER ,
+  "note_topic" TEXT ,
+  "note_text" TEXT ,
 
 
-   CONSTRAINT fk_note_id
-      FOREIGN KEY(note_id) 
-      REFERENCES notes(note_id)
-      ON DELETE SET NULL
-      ON UPDATE CASCADE,
         CONSTRAINT fk_profile_id
       FOREIGN KEY(buyer_id) 
       REFERENCES profiles(profile_id)
@@ -359,7 +355,7 @@ CREATE TABLE IF NOT EXISTS "incomes" (
   "date_start" DATE NOT NULL,
   "date_end" DATE NOT NULL,
   "location_id" INTEGER ,
-  "name_topic" TEXT ,
+  "note_topic" TEXT ,
   "note_text" TEXT ,
 
 CONSTRAINT "date_end" check (date_end>date_start),

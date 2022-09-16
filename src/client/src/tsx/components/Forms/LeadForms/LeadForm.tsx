@@ -41,7 +41,7 @@ export function LeadForm({
           phone_number,
           status,
           note_text,
-          name_topic,
+          note_topic,
         } = formState.errors;
         return (
           <>
@@ -106,13 +106,13 @@ export function LeadForm({
               <InputErrorMessage nameInput="status" error={status} />
             </Checkbox>
             <InputLabel
-              InputProps={{ ...register("name_topic") }}
+              InputProps={{ ...register("note_topic") }}
               LabelProps={{
-                htmlFor: "name_topic",
+                htmlFor: "note_topic",
                 labelText: "Topic",
               }}
             >
-              <InputErrorMessage nameInput="Topic" error={name_topic} />
+              <InputErrorMessage nameInput="Topic" error={note_topic} />
             </InputLabel>
             <InputLabel
               TextAreaProps={{ ...register("note_text") }}

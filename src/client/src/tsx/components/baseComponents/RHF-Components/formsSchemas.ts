@@ -6,9 +6,9 @@ export const musclesGroupSchema = yup.object().shape({
 });
 
 // export const notesSchema = yup.object().shape({
-//    name_topic: yup.string().required(),
+//    note_topic: yup.string().required(),
 //   note_text: yup.string().notRequired().nullable(),
-//   name_topic: yup.string().required(),
+//   note_topic: yup.string().required(),
 //   note_text: yup.string().notRequired().nullable(),
 // });
 export const leadsSchema = yup.object().shape({
@@ -19,7 +19,7 @@ export const leadsSchema = yup.object().shape({
   phone_number: yup.string().required(),
   email: yup.string().email().notRequired().nullable(),
   status: yup.boolean().required(),
-  name_topic: yup.string().notRequired().default(""),
+  note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
 
@@ -55,7 +55,7 @@ export const expensesSchema = yup.object().shape({
   date: yup.date().required(),
   seller_id: yup.number().required(),
   expenses_amount: yup.number().required(),
-  name_topic: yup.string().notRequired().default(""),
+  note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
 
@@ -84,7 +84,7 @@ export const trainingProgramsListSchema = yup.object().shape({
     .notRequired()
     .nullable()
     .min(yup.ref("date_start"), "End date can't be before start date"),
-  name_topic: yup.string().notRequired().default(""),
+  note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
 
@@ -97,7 +97,7 @@ export const trainingProgramSchema = yup.object().shape({
   reps: yup.string().required(),
   intensity: yup.string().required(),
   rpe: yup.number().required().max(10).min(1),
-  name_topic: yup.string().notRequired().default(""),
+  note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
 
@@ -111,14 +111,14 @@ export const nutritionProgramsListSchema = yup.object().shape({
     .notRequired()
     .nullable()
     .min(yup.ref("date_start"), "End date can't be before start date"),
-  name_topic: yup.string().notRequired().default(""),
+  note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
 export const nutritionProgramSchema = yup.object().shape({
   nutrition_program_id: yup.number().notRequired().nullable(),
   nutrition_program_list_id: yup.number().required(),
   week_id: yup.number().required(),
-  name_topic: yup.string().notRequired().default(""),
+  note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
 
@@ -158,6 +158,6 @@ export const incomesSchema = yup.object().shape({
   date: yup.date().required(),
   buyer_id: yup.number().required(),
   incomes_amount: yup.number().required(),
-  name_topic: yup.string().notRequired().default(""),
+  note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });

@@ -85,7 +85,7 @@ export function createRoutesControllers({
     );
 
     if (err) {
-      // console.log(err);
+      console.log(err);
       return res
         .status(400)
         .json({ message: handleError(err, singleEntityName) });
@@ -101,11 +101,7 @@ export function createRoutesControllers({
   // Create many items in db by sending array of items.
   const createNewValuesInDB: RequestHandler = async (req, res) => {
     const [valid, errValid] = await promiseHandler(
-      yup
-        .array()
-        .of(validateSchema)
-
-        .validate(req.body)
+      yup.array().of(validateSchema).validate(req.body)
     );
 
     if (errValid && !valid)

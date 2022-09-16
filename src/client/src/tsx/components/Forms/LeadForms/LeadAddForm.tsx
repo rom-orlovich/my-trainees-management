@@ -4,7 +4,7 @@ import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import LeadForm from "./LeadForm";
 
 export function LeadAddForm() {
-  const [addItem] = leadsApi.useCreateNewComplexDataMutation();
+  const [addItem] = leadsApi.useCreateOneItemMutation();
 
   const handleSubmit = (body: LeadsTableAPI) => {
     addFunction({

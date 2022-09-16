@@ -65,7 +65,7 @@ export interface MusculesGroupTable {
 
 // export interface NotesTable {
 //   note_id?: number;
-//   name_topic: string | null;
+//   note_topic: string | null;
 //   note_text: string | null;
 // }
 
@@ -77,7 +77,7 @@ export interface LeadsTableAPI {
   phone_number: string;
   email?: string;
   status: boolean;
-  name_topic: string | null;
+  note_topic: string | null;
   note_text: string | null;
 }
 export interface CitiesTable {
@@ -110,7 +110,7 @@ export interface ExpensesTable {
   date: Date;
   expense_id?: number;
   expenses_amount: number;
-  name_topic: string | null;
+  note_topic: string | null;
   note_text: string | null;
   product_id: number;
   seller_id: number;
@@ -137,7 +137,7 @@ export interface TrainingProgramsListTable {
   type_program?: string | null;
   date_start: Date;
   date_end?: Date | null;
-  name_topic: string | null;
+  note_topic: string | null;
   note_text: string | null;
 }
 
@@ -150,7 +150,7 @@ export interface TrainingProgramTable {
   rest: string;
   intensity: string;
   rpe: number;
-  name_topic: string | null;
+  note_topic: string | null;
   note_text: string | null;
 }
 
@@ -160,7 +160,7 @@ export interface NutritionProgramsListTable {
   type_program?: string | null;
   date_start: Date;
   date_end?: Date | null;
-  name_topic: string | null;
+  note_topic: string | null;
   note_text: string | null;
 }
 
@@ -168,7 +168,7 @@ export interface NutritionProgramsTable {
   nutrition_program_id?: number;
   nutrition_programs_list_id: number;
   week_id: number;
-  name_topic: string | null;
+  note_topic: string | null;
   note_text: string | null;
 }
 export interface TraineesTable {
@@ -248,7 +248,7 @@ export interface TrainingProgramExercise {
   muscles_group_name: string;
   equipment_name: string;
   exercise_name: string;
-  name_topic: string | null;
+  note_topic: string | null;
   note_text: string | null;
 }
 export type TrainingProgramExerciseOmit = OmitKey<

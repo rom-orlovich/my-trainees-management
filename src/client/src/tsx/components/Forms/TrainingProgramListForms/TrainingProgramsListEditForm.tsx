@@ -20,13 +20,13 @@ export function TrainingProgramsListEditForm() {
         date_start: formatDate(data.date_start) as any,
         date_end: data.date_end ? formatDate(data.date_end) : (null as any),
 
-        name_topic: data?.name_topic,
+        note_topic: data?.note_topic,
         note_text: data.note_text,
       }
     : ({} as TrainingProgramsListTable);
 
   const handleSubmit = (body: TrainingProgramsListTable) => {
-    const { name_topic, note_text, ...rest } = body;
+    const { note_topic, note_text, ...rest } = body;
 
     updateFunction({
       updateItem,
