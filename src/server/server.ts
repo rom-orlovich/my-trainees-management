@@ -45,7 +45,7 @@ client
 
     // Uncomment this line will init the db.
     // This line is for development purpose.
-    await initDB();
+    // await initDB();
 
     server = app.listen(PORT, () => {
       console.log(`listen port ${PORT}`);
