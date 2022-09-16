@@ -8,7 +8,7 @@ import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
-export const tranformDataTrainee = (arg: TraineeGetRes) => {
+export const transformDataTrainee = (arg: TraineeGetRes) => {
   const {
     training_programs_list_id,
 
@@ -40,7 +40,7 @@ function TraineesTable({ name }: PageTableProps) {
         mainRoute={APP_ROUTE.TRAINEES_ROUTE}
         queriesOptions={{ name }}
         nameData={"Trainees"}
-        transformFun={tranformDataTrainee}
+        transformFun={transformDataTrainee}
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />

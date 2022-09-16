@@ -10,7 +10,7 @@ import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
-export const tranformDataLocation = (arg: LocationsGetRes) => {
+export const transformDataLocation = (arg: LocationsGetRes) => {
   const { city_id, ...rest } = arg;
 
   return rest;
@@ -24,7 +24,7 @@ function LocationsTable({ name }: PageTableProps) {
       <TablePagination<LocationsGetRes>
         queriesOptions={{ name }}
         nameData={"Locations List"}
-        transformFun={tranformDataLocation}
+        transformFun={transformDataLocation}
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />

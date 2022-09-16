@@ -8,7 +8,6 @@ import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import page_style from "../Page.module.scss";
 import CitiesTable from "./CitiesTable";
-import LeadsTable from "./CitiesTable";
 
 function CitiesPage() {
   const [city, setCity] = useState<string[]>(["", ""]);

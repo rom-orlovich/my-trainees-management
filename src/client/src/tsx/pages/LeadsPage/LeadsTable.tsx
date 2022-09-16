@@ -9,7 +9,7 @@ import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
-export const tranformDataLead = (arg: LeadsFormProps) => {
+export const transformDataLead = (arg: LeadsFormProps) => {
   const { note_id, note_text, name_topic, ...rest } = arg;
 
   return rest;
@@ -24,7 +24,7 @@ function LeadsTable({ name }: PageTableProps) {
         mainRoute={APP_ROUTE.LEADS_ROUTE}
         queriesOptions={{ name }}
         nameData={"Leads"}
-        transformFun={tranformDataLead}
+        transformFun={transformDataLead}
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />

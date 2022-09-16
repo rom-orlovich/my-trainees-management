@@ -10,7 +10,7 @@ import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
-export const tranformDataEquipment = (arg: EquipmentsTable) => {
+export const transformDataEquipment = (arg: EquipmentsTable) => {
   const { expense_id, ...rest } = arg;
 
   return rest;
@@ -25,7 +25,7 @@ function EquipmentsListTable({ name }: PageTableProps) {
         // mainRoute={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}
         queriesOptions={{ name }}
         nameData={"Equipments List"}
-        transformFun={tranformDataEquipment}
+        transformFun={transformDataEquipment}
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />
