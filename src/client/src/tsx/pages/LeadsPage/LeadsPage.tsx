@@ -17,7 +17,6 @@ function LeadsPage() {
           keys={["first_name", "last_name"]}
           id={"lead_id"}
           loadingSpinnerResult={{ nameData: "Leads" }}
-          // externalInputValueOnChange={setLead}
           setSelectOptionValue={setLead}
           useGetData={leadsApi.useGetItemsQuery}
           InputLabelProps={{

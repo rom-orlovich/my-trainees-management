@@ -9,10 +9,9 @@ import {
 } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
-import { getEndPoint } from "../../utilities/helpersFun";
+
 import page_style from "../Page.module.scss";
 const trainingProgramExercisesTransform = ({
-  note_id,
   training_programs_list_id,
   exercise_id,
   ...data
@@ -79,7 +78,6 @@ function TrainingProgramExercises() {
             <TablePagination
               transformFun={trainingProgramExercisesTransform}
               queriesOptions={{ trainingProgramListID, name: exercise[1] }}
-              // mainRoute={`{${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${trainingProgramListID}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}}`}
               mainRoute={pathName.slice(1)}
               nameData="Training Program Exercises"
               getAllQuery={trainingProgramsApi.useGetItemsQuery}
