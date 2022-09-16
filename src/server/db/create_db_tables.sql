@@ -29,11 +29,7 @@ CREATE TABLE IF NOT EXISTS "muscles_group" (
 );
 
 
--- CREATE TABLE IF NOT EXISTS "notes" (
---   "note_id" serial PRIMARY KEY,
-  -- "note_topic" TEXT NOT NULL,
-  -- "note_text" TEXT 
--- );
+
 
 CREATE TABLE IF NOT EXISTS "leads"(
 "lead_id"  serial PRIMARY KEY,

@@ -7,7 +7,6 @@ import {
   insertManyQuery,
   insertQueryOneItem,
   insertQueryToManyTables,
-  selectFromManyTablesQuery,
   selectPagination,
   selectQuery,
   updateQuerySingleItem,
@@ -34,7 +33,6 @@ export function createRoutesControllers({
   },
   insertDataToOtherTables,
   validateSchema,
-  selectOtherTablesQueries,
 }: OptionsCRUD) {
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res) => {
@@ -220,7 +218,6 @@ export function createRoutesControllers({
   return {
     getValuesFromDB,
     getValueFromDBbyID,
-
     createNewValueInDB,
     createNewValuesInDB,
     createNewValuesInManyTablesInDB,
