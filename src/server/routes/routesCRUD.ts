@@ -14,22 +14,13 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const {
     getValuesFromDB,
     getValueFromDBbyID,
-
     createNewValueInDB,
-    createNewValuesInManyTablesInDB,
     updateValueByID,
-    updateValuesInManyTablesInDB,
     deleteValueByID,
-
-    createNewValuesInDB,
   } = createRoutesControllers(optionsCRUD);
   const newRoute = express.Router();
-  newRoute.route("/").get(getValuesFromDB).post(createNewValuesInDB);
+  newRoute.route("/").get(getValuesFromDB);
 
-  newRoute.route("/complexNewData").post(createNewValuesInManyTablesInDB);
-  newRoute
-    .route(`/${optionsCRUD.singleEntityName}/complexData/:id`)
-    .put(updateValuesInManyTablesInDB);
   newRoute.route(`/${optionsCRUD.singleEntityName}`).post(createNewValueInDB);
 
   newRoute

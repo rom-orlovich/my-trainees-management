@@ -31,7 +31,7 @@ export function createRoutesControllers({
     queryParams,
     queryNameParam,
   },
-  insertDataToOtherTables,
+
   validateSchema,
 }: OptionsCRUD) {
   // Controller of the get method. Gets data from the db.
@@ -95,50 +95,6 @@ export function createRoutesControllers({
     });
   };
 
-  // Controller of the post method.
-  // Create many items in db by sending array of items.
-  const createNewValuesInDB: RequestHandler = async (req, res) => {
-    const [valid, errValid] = await promiseHandler(
-      yup.array().of(validateSchema).validate(req.body)
-    );
-
-    if (errValid && !valid)
-      return res.status(400).json({ message: errValid?.message });
-    const [data, err] = await promiseHandler(
-      insertManyQuery(tableName, req.body)
-    );
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ message: "Something is went wrong." });
-    }
-    return res.status(200).json({
-      message: `The ${singleEntityName}s are added!`,
-      id: createObjValuesArr(data)[0],
-    });
-  };
-
-  // Controller of the post method. Create items in many different table.
-  const createNewValuesInManyTablesInDB: RequestHandler = async (req, res) => {
-    const [valid, errValid] = await promiseHandler(
-      validateSchema.validate(req.body)
-    );
-    if (errValid && !valid)
-      return res.status(400).json({ message: errValid?.message });
-
-    const [data, err] = await promiseHandler(
-      insertQueryToManyTables(tableName, insertDataToOtherTables, req.body)
-    );
-
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ message: "Something is went wrong." });
-    }
-    return res.status(200).json({
-      message: `The new ${singleEntityName} is added!`,
-      id: createObjValuesArr(data)[0],
-    });
-  };
-
   // Controller of the put method.
   // Update one item by his ID in db.
   const updateValueByID: RequestHandler = async (req, res) => {
@@ -160,36 +116,6 @@ export function createRoutesControllers({
       return res.status(400).json({ message: "Something is went wrong." });
     return res.status(200).json({
       message: `The ${singleEntityName} is updated successfully!`,
-      id: createObjValuesArr(data)[0],
-    });
-  };
-
-  // Controller of the post method. Create items in many different table.
-  const updateValuesInManyTablesInDB: RequestHandler = async (req, res) => {
-    const [valid, errValid] = await promiseHandler(
-      validateSchema.validate(req.body)
-    );
-    if (errValid && !valid)
-      return res.status(400).json({ message: errValid?.message });
-
-    const queryLogic = `WHERE ${tableID}=$1`;
-
-    const [data, err] = await promiseHandler(
-      updateQueryToManyTables(
-        tableName,
-        insertDataToOtherTables,
-        req.body,
-        req.params.id,
-        queryLogic
-      )
-    );
-
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ message: "Something is went wrong." });
-    }
-    return res.status(200).json({
-      message: `The new ${singleEntityName} is updated successfully!`,
       id: createObjValuesArr(data)[0],
     });
   };
@@ -219,10 +145,7 @@ export function createRoutesControllers({
     getValuesFromDB,
     getValueFromDBbyID,
     createNewValueInDB,
-    createNewValuesInDB,
-    createNewValuesInManyTablesInDB,
     updateValueByID,
-    updateValuesInManyTablesInDB,
     deleteValueByID,
   };
 }
