@@ -126,14 +126,14 @@ const concatQueryWithName = (
 // Makes string from the key-value names of object.
 // This string is used as the  key-values in 'where query' in select queries statement.
 const prepareKeyValuesOfNameToSelect = (
-  queryNameParms: Record<string, any>,
+  queryNameParams: Record<string, any>,
   startIndex = 0
 ) => {
-  if (Object.keys(queryNameParms).length === 0)
+  if (Object.keys(queryNameParams).length === 0)
     return { keyValuesOfNameStrArr: [], paramsNamesArr: [] };
   const keyValuesStr = "";
   const paramsArr = [] as any;
-  const keysValuesEntries = Object.entries(queryNameParms);
+  const keysValuesEntries = Object.entries(queryNameParams);
 
   const { columnsNameStr, valueNameParam } = concatQueryWithName(
     keysValuesEntries,
