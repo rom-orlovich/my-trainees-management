@@ -1,16 +1,17 @@
 import React from "react";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
-import { LeadsFormProps } from "../../components/Forms/LeadForms/LeadForm";
+
 import { leadsApi } from "../../redux/api/hooksAPI";
+import { LeadsTable } from "../../redux/api/interfaceAPI";
 
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
-export const transformDataLead = (arg: LeadsFormProps) => {
-  const { note_id, note_text, name_topic, ...rest } = arg;
+export const transformDataLead = (arg: LeadsTable) => {
+  const { note_text, name_topic, ...rest } = arg;
 
   return rest;
 };
@@ -20,7 +21,7 @@ function LeadsTable({ name }: PageTableProps) {
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.LEADS_ROUTE}>
-      <TablePagination<LeadsFormProps>
+      <TablePagination<LeadsTable>
         mainRoute={APP_ROUTE.LEADS_ROUTE}
         queriesOptions={{ name }}
         nameData={"Leads"}

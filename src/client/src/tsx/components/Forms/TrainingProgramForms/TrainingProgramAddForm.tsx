@@ -2,15 +2,13 @@ import { useParams } from "react-router-dom";
 import { trainingProgramsApi } from "../../../redux/api/hooksAPI";
 import { TrainingProgramExerciseOmit } from "../../../redux/api/interfaceAPI";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
-import TrainingProgramForms, {
-  TrainingProgramFormProps,
-} from "./TrainingProgramForm";
+import TrainingProgramForms from "./TrainingProgramForm";
 
 export function TrainingProgramAddExerciseForm() {
   const id = Number(useParams().id);
-  const [addItem] = trainingProgramsApi.useCreateNewComplexDataMutation();
+  const [addItem] = trainingProgramsApi.useCreateOneItemMutation();
 
-  const handleSubmit = (body: TrainingProgramFormProps) => {
+  const handleSubmit = (body: TrainingProgramExerciseOmit) => {
     addFunction({
       addItem,
     })({ ...body, training_programs_list_id: id });

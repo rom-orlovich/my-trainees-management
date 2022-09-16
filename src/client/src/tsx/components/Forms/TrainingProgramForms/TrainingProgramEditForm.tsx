@@ -7,7 +7,7 @@ import TrainingProgramForms from "./TrainingProgramForm";
 
 export function TrainingProgramEditExerciseForm() {
   const id = Number(useParams().id);
-  const [updateItem] = trainingProgramsApi.useUpdateComplexItemMutation();
+  const [updateItem] = trainingProgramsApi.useUpdateItemMutation();
 
   const { data, isLoading, isFetching, isError } =
     trainingProgramsApi.useGetItemByIDQuery(id);

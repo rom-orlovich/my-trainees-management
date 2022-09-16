@@ -24,7 +24,7 @@ export function TrainingProgramsListAddForm({
   const profile_id = Number(useParams().id);
 
   const navigate = useNavigate();
-  const [addItem] = trainingProgramsListApi.useCreateNewComplexDataMutation();
+  const [addItem] = trainingProgramsListApi.useCreateOneItemMutation();
   const dispatch = useAppDispatch();
   const handleSubmit = (body: TrainingProgramsListTable) => {
     // resetGoPrevPagesState disable the behavior of returning to pre page , after submit form.

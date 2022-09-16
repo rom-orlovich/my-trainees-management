@@ -251,7 +251,7 @@ export interface TrainingProgramExercise {
   name_topic: string | null;
   note_text: string | null;
 }
-type TrainingProgramExerciseOmit = OmitKey<
+export type TrainingProgramExerciseOmit = OmitKey<
   TrainingProgramExercise,
   "equipment_name" | "muscles_group_name" | "exercise_name"
 >;

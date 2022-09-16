@@ -5,32 +5,23 @@ import {
   TrainingProgramExerciseOmit,
 } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/routesConstants";
-import {
-  FormWithNotesProps,
-  GeneralFormProps,
-} from "../../baseComponents/baseComponentsTypes";
+import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
-import {
-  notesSchema,
-  trainingProgramSchema,
-} from "../../baseComponents/RHF-Components/formsSchemas";
+import { trainingProgramSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
-
-export type TrainingProgramFormProps =
-  FormWithNotesProps<TrainingProgramExerciseOmit>;
 
 export default function TrainingProgramForms({
   onSubmit,
   defaultValues,
   editMode,
   fromProps,
-}: GeneralFormProps<TrainingProgramFormProps>) {
+}: GeneralFormProps<TrainingProgramExerciseOmit>) {
   return (
     <>
-      <Form<TrainingProgramFormProps>
+      <Form<TrainingProgramExerciseOmit>
         onSubmit={onSubmit}
         editMode={editMode}
         nameForm={"Training Exercise"}
@@ -42,7 +33,7 @@ export default function TrainingProgramForms({
           mode: "onBlur",
 
           defaultValues: defaultValues,
-          resolver: yupResolver(trainingProgramSchema.concat(notesSchema)),
+          resolver: yupResolver(trainingProgramSchema),
         }}
       >
         {({ register, formState, control }) => {
@@ -51,7 +42,7 @@ export default function TrainingProgramForms({
 
           return (
             <>
-              <AutocompleteInputRHF<TrainingProgramFormProps, ExercisesTable>
+              <AutocompleteInputRHF<TrainingProgramExerciseOmit, ExercisesTable>
                 name="exercise_id"
                 control={control}
                 AutocompleteInputProps={{

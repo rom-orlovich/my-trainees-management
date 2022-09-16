@@ -8,7 +8,7 @@ import { TrainingProgramListForms } from "./TrainingProgramListForm";
 
 export function TrainingProgramsListEditForm() {
   const id = Number(useParams().id);
-  const [updateItem] = trainingProgramsListApi.useUpdateComplexItemMutation();
+  const [updateItem] = trainingProgramsListApi.useUpdateItemMutation();
 
   const { data, isLoading, isFetching, isError } =
     trainingProgramsListApi.useGetItemByIDQuery(id);
