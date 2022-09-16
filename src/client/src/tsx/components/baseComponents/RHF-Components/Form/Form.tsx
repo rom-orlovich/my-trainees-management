@@ -104,7 +104,7 @@ export default function Form<TFormValues extends Record<string, any>>({
     };
   }, [location.pathname, location, dispatch, methods, editMode]);
 
-  // Side effect of disabling the submit button if the form is not vaild.
+  // Side effect of disabling the submit button if the form is not valid.
   useEffect(() => {
     if (methods.formState.isValid) setDisabled(false);
   }, [methods.formState.isValid]);

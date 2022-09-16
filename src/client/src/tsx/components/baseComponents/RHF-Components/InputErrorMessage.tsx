@@ -16,9 +16,9 @@ function InputErrorMessage({ error, nameInput }: InputErrorMessageProps) {
     Record<LiteralUnion<keyof RegisterOptions, string>, string>
   > = {
     required: "Require Field",
-    typeError: "Enter vaild input.",
+    typeError: "Enter valid input.",
     email: "Email must be vaiid email.",
-    default: "Enter vaild input.",
+    default: "Enter valid input.",
   };
 
   return (

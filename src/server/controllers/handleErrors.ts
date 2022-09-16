@@ -8,5 +8,5 @@ export function handleError(
 ) {
   if (ErrorCodePgNODE.unique === err.code)
     return `The ${singleEntityName} have already existed`;
-  return "Something is went worng.";
+  return "Something is went wrong.";
 }

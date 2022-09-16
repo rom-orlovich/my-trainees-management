@@ -20,7 +20,7 @@ import { handleError } from "./handleErrors";
 /**
  *
  * @param param0 Options of the CRUD controller routes.
- * @returns Object that contains all the  functions of CRUD conrollers.
+ * @returns Object that contains all the  functions of CRUD controllers.
  */
 export function createRoutesControllers({
   singleEntityName,
@@ -97,10 +97,10 @@ export function createRoutesControllers({
 
   // Controller of the post method. Create one item  in the db.
   const createNewValueInDB: RequestHandler = async (req, res) => {
-    const [vaild, errVaild] = await promiseHandler(
+    const [valid, errVaild] = await promiseHandler(
       validateSchema.validate(req.body)
     );
-    if (errVaild && !vaild)
+    if (errVaild && !valid)
       return res.status(400).json({ message: errVaild?.message });
 
     const [data, err] = await promiseHandler(
@@ -123,7 +123,7 @@ export function createRoutesControllers({
   // Controller of the post method.
   // Create many items in db by sending array of items.
   const createNewValuesInDB: RequestHandler = async (req, res) => {
-    const [vaild, errVaild] = await promiseHandler(
+    const [valid, errVaild] = await promiseHandler(
       yup
         .array()
         .of(validateSchema)
@@ -131,7 +131,7 @@ export function createRoutesControllers({
         .validate(req.body)
     );
 
-    if (errVaild && !vaild)
+    if (errVaild && !valid)
       return res.status(400).json({ message: errVaild?.message });
     const [data, err] = await promiseHandler(
       insertManyQuery(tableName, req.body)
@@ -148,10 +148,10 @@ export function createRoutesControllers({
 
   // Controller of the post method. Create items in many different table.
   const createNewValuesInManyTablesInDB: RequestHandler = async (req, res) => {
-    const [vaild, errVaild] = await promiseHandler(
+    const [valid, errVaild] = await promiseHandler(
       validateSchema.validate(req.body)
     );
-    if (errVaild && !vaild)
+    if (errVaild && !valid)
       return res.status(400).json({ message: errVaild?.message });
 
     const [data, err] = await promiseHandler(
@@ -171,11 +171,11 @@ export function createRoutesControllers({
   // Controller of the put method.
   // Update one item by his ID in db.
   const updateValueByID: RequestHandler = async (req, res) => {
-    const [vaild, errVaild] = await promiseHandler(
+    const [valid, errVaild] = await promiseHandler(
       validateSchema.validate(req.body)
     );
 
-    if (errVaild && !vaild) {
+    if (errVaild && !valid) {
       return res.status(400).json({ message: errVaild?.message });
     }
     const queryLogic = `WHERE ${tableID}=$1`;
@@ -195,10 +195,10 @@ export function createRoutesControllers({
 
   // Controller of the post method. Create items in many different table.
   const updateValuesInManyTablesInDB: RequestHandler = async (req, res) => {
-    const [vaild, errVaild] = await promiseHandler(
+    const [valid, errVaild] = await promiseHandler(
       validateSchema.validate(req.body)
     );
-    if (errVaild && !vaild)
+    if (errVaild && !valid)
       return res.status(400).json({ message: errVaild?.message });
 
     const queryLogic = `WHERE ${tableID}=$1`;
