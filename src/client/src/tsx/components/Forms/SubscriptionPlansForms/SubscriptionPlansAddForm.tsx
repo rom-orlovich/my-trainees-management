@@ -1,6 +1,6 @@
 import React from "react";
 import { subscriptionPlansApi } from "../../../redux/api/hooksAPI";
-import { SubscriptionPlans } from "../../../redux/api/interfaceAPI";
+import { SubscriptionPlansAPI } from "../../../redux/api/interfaceAPI";
 
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import MembersPlansForm from "./SubscriptionPlansForm";
@@ -11,8 +11,8 @@ function MembersPlansAddForm({
   subscriptionPlansID: number;
 }) {
   const [addItem] = subscriptionPlansApi.useCreateOneItemMutation();
-  const handleSubmit = ({ ...rest }: SubscriptionPlans) => {
-    addFunction<SubscriptionPlans>({ addItem })({
+  const handleSubmit = ({ ...rest }: SubscriptionPlansAPI) => {
+    addFunction<SubscriptionPlansAPI>({ addItem })({
       ...rest,
       subscription_plan_id: subscriptionPlansID,
     });

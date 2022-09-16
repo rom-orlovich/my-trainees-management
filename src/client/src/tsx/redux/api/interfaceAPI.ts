@@ -163,7 +163,7 @@ export interface TraineesTableAPI {
   status: boolean;
 }
 
-export interface SubscriptionPlans {
+export interface SubscriptionPlansAPI {
   subscription_plan_id?: number;
   profile_id: number;
   plan_name: string;

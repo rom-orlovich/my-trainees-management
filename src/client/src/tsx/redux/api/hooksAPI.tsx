@@ -12,7 +12,7 @@ import {
   TraineeGetRes,
   TrainingProgramExercise,
   API_ROUTES,
-  SubscriptionPlans,
+  SubscriptionPlansAPI,
   LeadsTableAPI,
   TrainingProgramsListTableAPI,
 } from "../api/interfaceAPI";
@@ -111,7 +111,7 @@ export const traineesApi = apiCreateCRUDHooks<TraineeGetRes>({
   listId: "trainees_list",
 });
 
-export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlans>({
+export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
   reducerPath: "membersPlansApi",
   baseUrl: API_ROUTES.SUBSCRIPTION_PLANS_ROUTE,
   singleEntityName: API_ROUTES.SUBSCRIPTION_PLANS_ENTITY,

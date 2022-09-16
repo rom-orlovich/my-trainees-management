@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { SubscriptionPlans } from "../../../redux/api/interfaceAPI";
+import { SubscriptionPlansAPI } from "../../../redux/api/interfaceAPI";
 import { formatDate } from "../../../utilities/helpersFun";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
@@ -12,7 +12,7 @@ function SubscriptionPlansForm({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<SubscriptionPlans>) {
+}: GeneralFormProps<SubscriptionPlansAPI>) {
   return (
     <>
       <h2> {editMode ? "Edit" : "Add"} Member Plan </h2>
