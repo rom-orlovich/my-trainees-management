@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import { equipmentsApi, leadsApi } from "../../redux/api/hooksAPI";
-import { EquipmentsTable } from "../../redux/api/interfaceAPI";
+import { equipmentsApi } from "../../redux/api/hooksAPI";
+import { EquipmentsTableAPI } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 
 import { APP_ROUTE } from "../../routes/routesConstants";
@@ -15,7 +15,7 @@ function EquipmentsListPage() {
     <MainRoute mainRoutes={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}>
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
-          <AutocompleteInput<EquipmentsTable>
+          <AutocompleteInput<EquipmentsTableAPI>
             keys={["equipment_name"]}
             id={"equipment_id"}
             loadingSpinnerResult={{ nameData: "Equipments" }}

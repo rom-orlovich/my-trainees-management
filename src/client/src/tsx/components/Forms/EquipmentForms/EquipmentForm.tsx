@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 
-import { EquipmentsTable } from "../../../redux/api/interfaceAPI";
+import { EquipmentsTableAPI } from "../../../redux/api/interfaceAPI";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
@@ -13,10 +13,10 @@ export function EquipmentForm({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<EquipmentsTable>) {
+}: GeneralFormProps<EquipmentsTableAPI>) {
   return (
     <>
-      <Form<EquipmentsTable>
+      <Form<EquipmentsTableAPI>
         onSubmit={onSubmit}
         nameForm="Equipment"
         editMode={editMode}

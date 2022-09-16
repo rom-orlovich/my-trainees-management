@@ -3,8 +3,8 @@ import {
   CitiesTableAPI,
   ProvidersTableAPI,
   WeeksTableAPI,
-  ExpensesTable,
-  EquipmentsTable,
+  ExpensesTableAPI,
+  EquipmentsTableAPI,
   ExercisesTableAPI,
   NutritionProgramsListTable,
   NutritionProgramsTable,
@@ -59,13 +59,13 @@ export const weeksApi = apiCreateCRUDHooks<WeeksTableAPI>({
   singleEntityName: API_ROUTES.WEEKS_ENTITY,
   listId: "weeks_list",
 });
-export const expensesApi = apiCreateCRUDHooks<ExpensesTable>({
+export const expensesApi = apiCreateCRUDHooks<ExpensesTableAPI>({
   reducerPath: "expensesApi",
   baseUrl: API_ROUTES.EXPENSES_ROUTE,
   singleEntityName: API_ROUTES.EXERCISES_ENTITY,
   listId: "expenses_list",
 });
-export const equipmentsApi = apiCreateCRUDHooks<EquipmentsTable>({
+export const equipmentsApi = apiCreateCRUDHooks<EquipmentsTableAPI>({
   reducerPath: "equipmentsApi",
   baseUrl: API_ROUTES.EQUIPMENTS_ROUTE,
   singleEntityName: API_ROUTES.EQUIPMENTS_ENTITY,

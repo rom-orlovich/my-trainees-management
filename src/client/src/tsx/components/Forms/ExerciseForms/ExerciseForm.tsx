@@ -2,13 +2,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { equipmentsApi, musclesGroupApi } from "../../../redux/api/hooksAPI";
 import {
-  EquipmentsTable,
+  EquipmentsTableAPI,
   ExercisesTableAPI,
   MusclesGroupTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { exercisesListSchema } from "../../baseComponents/RHF-Components/formsSchemas";
@@ -57,7 +56,7 @@ export function ExerciseForm({
                 <InputErrorMessage nameInput="Exercise" error={exercise_name} />
               </InputLabel>
 
-              <AutocompleteInputRHF<ExercisesTableAPI, EquipmentsTable>
+              <AutocompleteInputRHF<ExercisesTableAPI, EquipmentsTableAPI>
                 name="equipment_id"
                 control={control}
                 AutocompleteInputProps={{

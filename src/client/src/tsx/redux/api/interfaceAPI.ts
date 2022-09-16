@@ -95,7 +95,7 @@ export interface WeeksTableAPI {
   weight?: number | null;
 }
 
-export interface ExpensesTable {
+export interface ExpensesTableAPI {
   date: Date;
   expense_id?: number;
   expenses_amount: number;
@@ -105,7 +105,7 @@ export interface ExpensesTable {
   seller_id: number;
 }
 
-export interface EquipmentsTable {
+export interface EquipmentsTableAPI {
   equipment_id?: number;
   equipment_name: string;
   brand: string;
