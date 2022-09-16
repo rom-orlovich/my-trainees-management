@@ -14,7 +14,7 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const {
     getValuesFromDB,
     getValueFromDBbyID,
-    getExtendsDataByID,
+    // getExtendsDataByID,
     createNewValueInDB,
     createNewValuesInManyTablesInDB,
     updateValueByID,
@@ -32,10 +32,10 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
     .put(updateValuesInManyTablesInDB);
   newRoute.route(`/${optionsCRUD.singleEntityName}`).post(createNewValueInDB);
 
-  newRoute.get(
-    `/${optionsCRUD.singleEntityName}/extendsData/:id`,
-    getExtendsDataByID
-  );
+  // newRoute.get(
+  //   `/${optionsCRUD.singleEntityName}/extendsData/:id`,
+  //   getExtendsDataByID
+  // );
   newRoute
     .route(`/${optionsCRUD.singleEntityName}/:id`)
     .get(getValueFromDBbyID)

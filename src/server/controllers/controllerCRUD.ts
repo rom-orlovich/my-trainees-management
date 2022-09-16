@@ -247,7 +247,7 @@ export function createRoutesControllers({
   return {
     getValuesFromDB,
     getValueFromDBbyID,
-    getExtendsDataByID,
+    // getExtendsDataByID,
     createNewValueInDB,
     createNewValuesInDB,
     createNewValuesInManyTablesInDB,
