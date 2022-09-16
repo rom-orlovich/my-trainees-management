@@ -72,29 +72,6 @@ export function createRoutesControllers({
     return res.status(200).json(data[0]);
   };
 
-  const getExtendsDataByID: RequestHandler = async (req, res) => {
-    const queryLogic = `${querySelectLogic}  WHERE ${tableID}=$1`;
-
-    if (!selectOtherTablesQueries)
-      return res.status(400).json({ message: "Something went wrong.." });
-    const id = Number(req.params.id);
-    if (!id) {
-      return res.status(400).json({ message: "Source Not Found" });
-    }
-    const [data, err] = await promiseHandler(
-      selectFromManyTablesQuery(
-        selectOtherTablesQueries,
-        tableName,
-        fieldNamesQuery,
-        queryLogic,
-        [id]
-      )
-    );
-    console.log(err);
-    if (err) return res.status(400).json({ message: "The query not found" });
-    return res.status(200).json(data);
-  };
-
   // Controller of the post method. Create one item  in the db.
   const createNewValueInDB: RequestHandler = async (req, res) => {
     const [valid, errValid] = await promiseHandler(
@@ -247,7 +224,7 @@ export function createRoutesControllers({
   return {
     getValuesFromDB,
     getValueFromDBbyID,
-    // getExtendsDataByID,
+
     createNewValueInDB,
     createNewValuesInDB,
     createNewValuesInManyTablesInDB,

@@ -67,19 +67,6 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
             : [singleEntityName];
         },
       }),
-      // Get extends data by the server about some one item.
-      getExtendsDataByID: builder.query<K, number>({
-        query: (id: number) => {
-          if (!id) throw new Error("Please enter valid id. ");
-          return `/${singleEntityName}/extendsData/${id}`;
-        },
-
-        transformResponse: (response: K) =>
-          transformData ? transformData(response) : response,
-        keepUnusedDataFor: keepUnusedDataFor ?? 120,
-        providesTags: (value) =>
-          value ? [providerTag(value, singleEntityName)] : [singleEntityName],
-      }),
 
       updateItem: builder.mutation<ResponseMutationAPI, PayloadAPI<T>>({
         query: ({ id, ...payload }: PayloadAPI<T>) => ({
