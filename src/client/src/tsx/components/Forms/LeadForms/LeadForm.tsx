@@ -14,12 +14,12 @@ import { LeadsTable } from "../../../redux/api/interfaceAPI";
 import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
 import { APP_ROUTE } from "../../../routes/routesConstants";
-export type LeadsFormProps = FormWithNotesProps<LeadsTable>;
+
 export function LeadForm({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<LeadsFormProps>) {
+}: GeneralFormProps<LeadsTable>) {
   return (
     <Form<LeadsFormProps>
       editMode={editMode}
