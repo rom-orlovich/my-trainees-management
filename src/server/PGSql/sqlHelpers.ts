@@ -131,7 +131,7 @@ const prepareKeyValuesOfNameToSelect = (
 ) => {
   if (Object.keys(queryNameParams).length === 0)
     return { keyValuesOfNameStrArr: [], paramsNamesArr: [] };
-  const keyValuesStr = "";
+
   const paramsArr = [] as any;
   const keysValuesEntries = Object.entries(queryNameParams);
 

@@ -141,6 +141,9 @@ export const citiesOptionsCRUD: OptionsCRUD = {
     tableID: `c.${CITY_ID}`,
     fieldNamesQuery: "*",
     querySelectLogic: ``,
+    queryNameParam: {
+      name: "city_name",
+    },
   },
 
   validateSchema: citiesSchema,
