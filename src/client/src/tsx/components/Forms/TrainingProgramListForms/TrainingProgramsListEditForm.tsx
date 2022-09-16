@@ -1,12 +1,10 @@
 import { useParams } from "react-router-dom";
 import { trainingProgramsListApi } from "../../../redux/api/hooksAPI";
+import { TrainingProgramsListTable } from "../../../redux/api/interfaceAPI";
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
-import {
-  TrainingProgramsListFormProps,
-  TrainingProgramListForms,
-} from "./TrainingProgramListForm";
+import { TrainingProgramListForms } from "./TrainingProgramListForm";
 
 export function TrainingProgramsListEditForm() {
   const id = Number(useParams().id);
@@ -15,7 +13,7 @@ export function TrainingProgramsListEditForm() {
   const { data, isLoading, isFetching, isError } =
     trainingProgramsListApi.useGetItemByIDQuery(id);
 
-  const defaultData: TrainingProgramsListFormProps = data
+  const defaultData: TrainingProgramsListTable = data
     ? {
         ...data,
         profile_id: data.profile_id,
@@ -25,10 +23,10 @@ export function TrainingProgramsListEditForm() {
         name_topic: data?.name_topic,
         note_text: data.note_text,
       }
-    : ({} as TrainingProgramsListFormProps);
+    : ({} as TrainingProgramsListTable);
 
-  const handleSubmit = (body: TrainingProgramsListFormProps) => {
-    const { note_id, name_topic, note_text, ...rest } = body;
+  const handleSubmit = (body: TrainingProgramsListTable) => {
+    const { name_topic, note_text, ...rest } = body;
 
     updateFunction({
       updateItem,
