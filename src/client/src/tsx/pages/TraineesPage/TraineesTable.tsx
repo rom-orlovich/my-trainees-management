@@ -32,7 +32,6 @@ export interface PageTableProps {
 function TraineesTable({ name }: PageTableProps) {
   const { useGetItemsQuery, useDeleteItemMutation } = traineesApi;
   const [deleteItem] = useDeleteItemMutation();
-  const pathName = useLocation().pathname;
 
   return (
     <MainRoute mainRoutes={[APP_ROUTE.TRAINEES_ROUTE, ""]}>

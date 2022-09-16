@@ -35,7 +35,7 @@ export enum API_ROUTES {
   NUTRITION_PROGRAMS_LIST_ROUTE = "/api/nutritionProgramsList",
   NUTRITION_PROGRAMS_LIST_ENTITY = "nutritionProgramList",
   NUTRITION_PROGRAMS_ROUTE = "/api/nutritionPrograms",
-  NUTRITION_PROGRAMS_ENITITY = "week",
+  NUTRITION_PROGRAMS_ENTITY = "week",
   TRAINEES_ROUTE = "/api/trainees",
   TRAINEES_ENTITY = "trainee",
   SUBSCRIPTION_PLANS_ROUTE = "/api/subscriptionPlans",

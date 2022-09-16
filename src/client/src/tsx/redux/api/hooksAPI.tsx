@@ -109,7 +109,7 @@ export const nutritionProgramsListApi =
 export const nutritionProgramsApi = apiCreateCRUDHooks<NutritionProgramsTable>({
   reducerPath: "nutritionProgramsApi",
   baseUrl: API_ROUTES.NUTRITION_PROGRAMS_ROUTE,
-  singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_ENITITY,
+  singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_ENTITY,
   listId: "nutrition_programs_weeks_list",
 });
 

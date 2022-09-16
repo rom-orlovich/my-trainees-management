@@ -294,7 +294,7 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
 };
 
 export const nutritionProgramOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_ENITITY,
+  singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_ENTITY,
   selectQuery: {
     tableName: `${NUTRITION_PROGRAM_TABLE_NAME} as np`,
     tableID: `np.${NUTRITION_PROGRAM_ID}`,
@@ -394,7 +394,7 @@ export const incomesOptionsCRUD: OptionsCRUD = {
   validateSchema: incomesSchema,
 };
 
-// Array of the baseRoutes and the router paramas.
+// Array of the baseRoutes and the router params.
 export const routesCRUDArr: {
   baseRoute: string;
   optionsCRUD: OptionsCRUD;
