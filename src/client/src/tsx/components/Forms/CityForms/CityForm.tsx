@@ -10,10 +10,12 @@ import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/Input
 export function CityForm({
   onSubmit,
   defaultValues,
+  editMode,
 }: GeneralFormProps<CitiesTable>) {
   return (
     <Form<CitiesTable>
       nameForm="City"
+      editMode={editMode}
       onSubmit={onSubmit}
       formOptions={{
         mode: "onChange",
