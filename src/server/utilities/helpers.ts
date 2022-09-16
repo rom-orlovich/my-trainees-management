@@ -24,7 +24,7 @@ export const makeUniqueArr = (arr: any[]) => [...new Set(arr)];
  * @description Functions that return array of data and error are not constant.
  * The function return the array as constant array.
  */
-export const dataOrErrorResponeAsConst = <T>(
+export const dataOrErrorResponseAsConst = <T>(
   data: T,
   error: Error | undefined
 ) => {
