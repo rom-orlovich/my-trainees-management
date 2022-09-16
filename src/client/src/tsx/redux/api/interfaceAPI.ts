@@ -69,7 +69,7 @@ export interface LeadsTableAPI {
   note_topic: string | null;
   note_text: string | null;
 }
-export interface CitiesTable {
+export interface CitiesTableAPI {
   city_id?: number;
   city_name: string;
   district?: string | null;
@@ -186,9 +186,9 @@ export interface SubscriptionPlans {
 }
 
 export type LocationsGetRes = LocationsTable &
-  PickKey<CitiesTable, "city_name">;
+  PickKey<CitiesTableAPI, "city_name">;
 export type TraineeGetRes = TraineesTable &
-  PickKey<CitiesTable, "city_name"> &
+  PickKey<CitiesTableAPI, "city_name"> &
   PickKey<LocationsTable, "street"> &
   PickKey<TrainingProgramsListTable, "training_programs_list_id"> &
   PickKey<NutritionProgramsListTable, "nutrition_programs_list_id">;

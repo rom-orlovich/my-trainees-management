@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { CitiesTable } from "../../../redux/api/interfaceAPI";
+import { CitiesTableAPI } from "../../../redux/api/interfaceAPI";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { citiesSchema } from "../../baseComponents/RHF-Components/formsSchemas";
@@ -11,9 +11,9 @@ export function CityForm({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<CitiesTable>) {
+}: GeneralFormProps<CitiesTableAPI>) {
   return (
-    <Form<CitiesTable>
+    <Form<CitiesTableAPI>
       nameForm="City"
       editMode={editMode}
       onSubmit={onSubmit}

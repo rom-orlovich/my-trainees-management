@@ -1,6 +1,6 @@
 import {
   MusclesGroupTableAPI,
-  CitiesTable,
+  CitiesTableAPI,
   ProvidersTable,
   WeeksTable,
   ExpensesTable,
@@ -35,7 +35,7 @@ export const musclesGroupApi = apiCreateCRUDHooks<MusclesGroupTableAPI>({
 });
 export type ApiCRUD = typeof musclesGroupApi;
 
-export const citiesApi = apiCreateCRUDHooks<CitiesTable>({
+export const citiesApi = apiCreateCRUDHooks<CitiesTableAPI>({
   reducerPath: "citiesApi",
   baseUrl: API_ROUTES.CITIES_ROUTE,
   singleEntityName: API_ROUTES.CITIES_ENTITY,

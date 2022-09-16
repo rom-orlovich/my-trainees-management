@@ -2,8 +2,8 @@ import React from "react";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 
-import { citiesApi, locationsApi } from "../../redux/api/hooksAPI";
-import { CitiesTable as CitiesTableInterface } from "../../redux/api/interfaceAPI";
+import { citiesApi } from "../../redux/api/hooksAPI";
+import { CitiesTableAPI } from "../../redux/api/interfaceAPI";
 
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
@@ -16,7 +16,7 @@ function CitiesTable({ mainName }: PageTableProps) {
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.CITY_ROUTE}>
-      <TablePagination<CitiesTableInterface>
+      <TablePagination<CitiesTableAPI>
         queriesOptions={{ mainName }}
         nameData={"Cities List"}
         getAllQuery={useGetItemsQuery}

@@ -1,7 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { citiesApi } from "../../../redux/api/hooksAPI";
-import { CitiesTable, LocationsTable } from "../../../redux/api/interfaceAPI";
+import {
+  CitiesTableAPI,
+  LocationsTable,
+} from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
@@ -43,7 +46,7 @@ export function LocationForm({
               <InputErrorMessage nameInput="Street's address" error={street} />
             </InputLabel>
 
-            <AutocompleteInputRHF<LocationsTable, CitiesTable>
+            <AutocompleteInputRHF<LocationsTable, CitiesTableAPI>
               name="city_id"
               control={control}
               AutocompleteInputProps={{
