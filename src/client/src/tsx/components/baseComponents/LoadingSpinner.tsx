@@ -8,7 +8,7 @@ export interface LoadingSpinnerProps<T> {
     isError?: boolean;
     data: T | undefined;
   };
-  messege?: string;
+  message?: string;
   nameData?: string;
   children?: ReactNode | ((data: T) => ReactNode);
 }
@@ -17,7 +17,7 @@ export interface LoadingSpinnerProps<T> {
 // in case of error the function return not found data.
 function LoadingSpinner<T extends object>({
   stateData: { isLoading, isFetching, data },
-  messege,
+  message,
   nameData = "The Data",
 
   children,
@@ -27,7 +27,7 @@ function LoadingSpinner<T extends object>({
 
   const spinner_message = (
     <p className={`message_spinner`}>
-      {messege ? messege : `${nameData} is not found`}
+      {message ? message : `${nameData} is not found`}
     </p>
   );
 

@@ -53,7 +53,7 @@ function TrainingProgramsPage() {
       <div className={page_style.page_main_content}>
         <LoadingSpinner
           stateData={{ data, isError, isFetching, isLoading }}
-          messege="Please Chooose Trainee..."
+          message="Please Choose Trainee..."
         >
           {(data) => {
             if (data.training_programs_list_id) {

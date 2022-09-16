@@ -132,19 +132,6 @@ export interface TrainingProgramsListTableAPI {
   note_text: string | null;
 }
 
-export interface TrainingProgramTable {
-  training_program_row_id: number | null;
-  training_programs_list_id?: number;
-  exercise_id: number;
-  sets: number;
-  reps: string;
-  rest: string;
-  intensity: string;
-  rpe: number;
-  note_topic: string | null;
-  note_text: string | null;
-}
-
 export interface NutritionProgramsListTable {
   nutrition_programs_list_id?: number;
   profile_id: number;
@@ -162,7 +149,7 @@ export interface NutritionProgramsTable {
   note_topic: string | null;
   note_text: string | null;
 }
-export interface TraineesTable {
+export interface TraineesTableAPI {
   profile_id?: number;
   first_name: string;
   last_name: string;
@@ -187,7 +174,7 @@ export interface SubscriptionPlans {
 
 export type LocationsGetRes = LocationsTableAPI &
   PickKey<CitiesTableAPI, "city_name">;
-export type TraineeGetRes = TraineesTable &
+export type TraineeGetRes = TraineesTableAPI &
   PickKey<CitiesTableAPI, "city_name"> &
   PickKey<LocationsTableAPI, "street"> &
   PickKey<TrainingProgramsListTableAPI, "training_programs_list_id"> &

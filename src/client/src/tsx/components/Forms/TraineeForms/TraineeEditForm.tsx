@@ -1,14 +1,17 @@
 import React from "react";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 
-import { TraineeGetRes } from "../../../redux/api/interfaceAPI";
+import {
+  TraineeGetRes,
+  TraineesTableAPI,
+} from "../../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../../redux/hooks";
 
 import { formatDate } from "../../../utilities/helpersFun";
 
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
-import TraineeForm, { TraineeWithMemberProps } from "./TraineeForm";
+import TraineeForm from "./TraineeForm";
 
 export function TraineeEditForm({ id }: { id?: number }) {
   const state = useAppSelector((state) => state.tablesPaginationState);
@@ -28,7 +31,7 @@ export function TraineeEditForm({ id }: { id?: number }) {
     );
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
 
-  const handleSubmit = (body: TraineeWithMemberProps) => {
+  const handleSubmit = (body: TraineesTableAPI) => {
     const {
       profile_id,
       street,
@@ -41,10 +44,7 @@ export function TraineeEditForm({ id }: { id?: number }) {
 
     updateFunction({ id: trainee?.profile_id || 0, updateItem: updateTrainee })(
       rest
-    ).then(() => {
-      // memeberApi's methods will trigger only the data of memeberApi.
-      // Therefore the data of trainees will not refetch so, we need to trigger it manually.
-    });
+    );
   };
 
   return (

@@ -7,7 +7,7 @@ import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMes
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import {
   LocationsGetRes,
-  TraineesTable,
+  TraineesTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { SelectInput } from "../../baseComponents/RHF-Components/SelectInput/SelectInput";
 import { locationsApi } from "../../../redux/api/hooksAPI";
@@ -19,18 +19,16 @@ import { APP_ROUTE } from "../../../routes/routesConstants";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import { OmitKey } from "../../../types";
 
-export type TraineeWithMemberProps = TraineesTable;
-
 export function TraineeForm({
   fromProps,
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<OmitKey<TraineeWithMemberProps, "profile_id">> & {
+}: GeneralFormProps<OmitKey<TraineesTableAPI, "profile_id">> & {
   heading?: string;
 }) {
   return (
-    <Form<TraineeWithMemberProps>
+    <Form<TraineesTableAPI>
       nameForm="Trainee"
       pathMove={`/${APP_ROUTE.TRAINEES_ROUTE}`}
       editMode={editMode}
@@ -131,7 +129,7 @@ export function TraineeForm({
               <InputErrorMessage nameInput="Email" error={email} />
             </InputLabel>
 
-            <AutocompleteInputRHF<TraineeWithMemberProps, LocationsGetRes>
+            <AutocompleteInputRHF<TraineesTableAPI, LocationsGetRes>
               name="location_id"
               control={control}
               AutocompleteInputProps={{

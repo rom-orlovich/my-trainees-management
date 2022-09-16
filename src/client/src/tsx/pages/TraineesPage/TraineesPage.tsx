@@ -6,7 +6,6 @@ import AutocompleteInput from "../../components/baseComponents/RHF-Components/Au
 import { TraineeGetRes } from "../../redux/api/interfaceAPI";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import page_style from "../Page.module.scss";
-import useTrackValues from "../../hooks/useTrackValue";
 
 function Trainees() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);
