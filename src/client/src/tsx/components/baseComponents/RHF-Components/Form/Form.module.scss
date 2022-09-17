@@ -95,7 +95,7 @@ span[class*="checkbox_label"] {
     .buttons_container {
       @include flex-dir(space-between, null);
       max-width: 100%;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       width: 100%;
 
       button,
@@ -109,6 +109,9 @@ span[class*="checkbox_label"] {
         &:hover {
           background-color: #75b1dd;
         }
+      }
+      a {
+        padding: 0.8rem, 1.7rem;
       }
       button {
         &:disabled {
