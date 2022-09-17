@@ -24,6 +24,7 @@ export function TraineeForm({
   onSubmit,
   defaultValues,
   editMode,
+  heading,
 }: GeneralFormProps<OmitKey<TraineesTableAPI, "profile_id">> & {
   heading?: string;
 }) {
@@ -31,6 +32,7 @@ export function TraineeForm({
     <Form<TraineesTableAPI>
       nameForm="Trainee"
       pathMove={`/${APP_ROUTE.TRAINEES_ROUTE}`}
+      heading={heading}
       editMode={editMode}
       formProps={{
         className: " " + fromProps?.className,

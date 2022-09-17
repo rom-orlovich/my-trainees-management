@@ -12,7 +12,9 @@ import TraineeForm from "./TraineeForm";
 
 export function TraineeEditForm({
   traineeData,
+  heading,
 }: {
+  heading?: string;
   traineeData: TraineesTableAPI;
 }) {
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
@@ -24,7 +26,7 @@ export function TraineeEditForm({
       training_programs_list_id,
       nutrition_programs_list_id,
       city_name,
-
+      subscription_plan_id,
       ...rest
     } = body as TraineeTableAPI;
 
@@ -37,6 +39,7 @@ export function TraineeEditForm({
   return (
     <TraineeForm
       editMode={true}
+      heading={heading}
       onSubmit={handleSubmit}
       defaultValues={{
         ...traineeData,

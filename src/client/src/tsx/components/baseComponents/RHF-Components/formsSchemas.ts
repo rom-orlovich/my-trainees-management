@@ -5,12 +5,6 @@ export const musclesGroupSchema = yup.object().shape({
   muscles_group_name: yup.string().required(),
 });
 
-// export const notesSchema = yup.object().shape({
-//    note_topic: yup.string().required(),
-//   note_text: yup.string().notRequired().nullable(),
-//   note_topic: yup.string().required(),
-//   note_text: yup.string().notRequired().nullable(),
-// });
 export const leadsSchema = yup.object().shape({
   lead_id: yup.number().notRequired().nullable(),
   date_lead: yup.date().required(),
@@ -135,7 +129,7 @@ export const traineesSchema = yup.object().shape({
 });
 
 export const subscriptionPlansSchema = yup.object().shape({
-  member_plan_id: yup.number().notRequired().nullable(),
+  subscription_plan_id: yup.number().notRequired().nullable(),
   profile_id: yup.number().required(),
   plan_name: yup.string().required(),
   current_num_trainings: yup

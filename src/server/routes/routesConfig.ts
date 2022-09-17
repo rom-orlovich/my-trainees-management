@@ -266,7 +266,9 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     pr.*, lo.street ,
      c.city_name , 
     tpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID},
-    npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID} `,
+    npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID} ,
+    subp.${TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_ID}
+    `,
     querySelectLogic: `
     JOIN ${TABLES_DATA.LOCATION_TABLE_NAME} as lo ON 
     pr.${TABLES_DATA.LOCATION_ID}=lo.${TABLES_DATA.LOCATION_ID} JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c on 

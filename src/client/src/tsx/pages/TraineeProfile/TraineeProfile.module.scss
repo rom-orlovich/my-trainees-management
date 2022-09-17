@@ -1,0 +1,4 @@
+@use "../../../style/utilities/utilities.scss" as *;
+.TraineeProfile {
+  @include flex-dir(null, center);
+}

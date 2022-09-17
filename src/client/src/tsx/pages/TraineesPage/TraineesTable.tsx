@@ -20,7 +20,7 @@ export const transformDataTrainee = (arg: TraineeTableAPI) => {
     phone_number,
     city_name,
     email,
-
+    subscription_plan_id,
     ...rest
   } = arg;
 

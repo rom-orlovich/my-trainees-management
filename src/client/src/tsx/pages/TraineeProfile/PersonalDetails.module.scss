@@ -1,29 +1,19 @@
 @use "../../../style/utilities/utilities.scss" as *;
-// h2[class*="heading"] {
-//   font-weight: 600;
-//   font-size: 1.8rem;
-// }
-// .form {
-//   span[class*="input_label"] {
-//     @include flex-dir(null, null, column);
-//   }
+.personal_details {
+  max-width: 70%;
+  height: 90%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.07);
+  @include flex-dir(center, center);
+  div[class*="form_container"] {
+    width: 90%;
 
-//   div[class*="buttons_container"],
-//   div[class*="row"] {
-//     max-width: 50%;
-//   }
+    form[class*="Form_form"] {
+      gap: 1.2rem;
 
-//   div[class*="row"] {
-//     @include flex-dir(null, center);
-//     gap: 2rem;
-//   }
-
-//   div[class*="fourth_row"] {
-//     justify-content: space-between;
-//   }
-//   div[class*="buttons_container"] {
-//     button {
-//       padding: 0.8rem 2rem;
-//     }
-//   }
-// }
+      span[class*="AutocompleteInput"] {
+        max-width: 33%;
+      }
+    }
+  }
+}

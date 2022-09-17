@@ -130,7 +130,7 @@ export const traineesSchema = yup.object().shape({
 });
 
 export const subscriptionPlansSchema = yup.object().shape({
-  member_plan_id: yup.number().notRequired().nullable(),
+  subscription_plan_id: yup.number().notRequired().nullable(),
   profile_id: yup.number().required(),
   plan_name: yup.string().required(),
   current_num_trainings: yup
