@@ -15,7 +15,7 @@ function TraineeProfile() {
       stateData={{ data, isError, isFetching, isLoading }}
     >
       {(data) => {
-        return <PersonalDetails id={id}></PersonalDetails>;
+        return <PersonalDetails traineeData={data}></PersonalDetails>;
       }}
     </LoadingSpinner>
   );

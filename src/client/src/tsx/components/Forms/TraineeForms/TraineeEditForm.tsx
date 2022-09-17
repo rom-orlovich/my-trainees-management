@@ -9,26 +9,14 @@ import { useAppSelector } from "../../../redux/hooks";
 
 import { formatDate } from "../../../utilities/helpersFun";
 
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
 
-export function TraineeEditForm({ id }: { id?: number }) {
-  const state = useAppSelector((state) => state.tablesPaginationState);
-
-  const { trainee, isLoading, isFetching, isError } =
-    traineesApi.useGetItemsQuery(
-      { page: state["trainees"] },
-
-      {
-        selectFromResult: (data) => {
-          return {
-            ...data,
-            trainee: data.data?.data.find((el) => el.profile_id === Number(id)),
-          };
-        },
-      }
-    );
+export function TraineeEditForm({
+  traineeData,
+}: {
+  traineeData: TraineesTableAPI;
+}) {
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
 
   const handleSubmit = (body: TraineesTableAPI) => {
@@ -42,33 +30,22 @@ export function TraineeEditForm({ id }: { id?: number }) {
       ...rest
     } = body as TraineeTableAPI;
 
-    updateFunction({ id: trainee?.profile_id || 0, updateItem: updateTrainee })(
-      rest
-    );
+    updateFunction({
+      id: traineeData?.profile_id || 0,
+      updateItem: updateTrainee,
+    })(rest);
   };
 
   return (
-    <LoadingSpinner
-      nameData="Trainee"
-      stateData={{
-        data: trainee,
-        isError,
-        isFetching,
-        isLoading,
+    <TraineeForm
+      editMode={true}
+      onSubmit={handleSubmit}
+      defaultValues={{
+        ...traineeData,
+        date_join: formatDate(traineeData.date_join) as any,
+        birthday: formatDate(traineeData.birthday) as any,
       }}
-    >
-      {(data) => (
-        <TraineeForm
-          editMode={true}
-          onSubmit={handleSubmit}
-          defaultValues={{
-            ...data,
-            date_join: formatDate(data.date_join) as any,
-            birthday: formatDate(data?.birthday) as any,
-          }}
-        ></TraineeForm>
-      )}
-    </LoadingSpinner>
+    ></TraineeForm>
   );
 }
 
