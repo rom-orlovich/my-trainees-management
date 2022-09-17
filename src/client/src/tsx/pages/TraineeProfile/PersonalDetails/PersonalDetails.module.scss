@@ -1,9 +1,5 @@
-@use "../../../style/utilities/utilities.scss" as *;
+@use "../../../../style/utilities/utilities.scss" as *;
 .personal_details {
-  max-width: 70%;
-  height: 90%;
-  border-radius: 5px;
-  box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.07);
   @include flex-dir(center, center);
   div[class*="form_container"] {
     width: 90%;

@@ -1,0 +1,7 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+.programs_tracking {
+  min-width: 100%;
+  min-height: 45%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.07);
+}

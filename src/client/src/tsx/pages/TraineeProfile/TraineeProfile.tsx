@@ -2,7 +2,9 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
 import { traineesApi } from "../../redux/api/hooksAPI";
-import PersonalDetails from "./PersonalDetails";
+import PersonalDetails from "./PersonalDetails/PersonalDetails";
+import ProgramsTracking from "./ProgramsTracking/ProgramsTracking";
+import SubscriptionStatus from "./SubscriptionStatus/SubscriptionStatus";
 import style from "./TraineeProfile.module.scss";
 function TraineeProfile() {
   const id = Number(useParams().id);
@@ -18,10 +20,13 @@ function TraineeProfile() {
         console.log(data);
         return (
           <div className={style.TraineeProfile}>
-            <PersonalDetails traineeData={data} />
-            <div>
-              <div> </div>
-              <div> </div>
+            <div className={style.left_profile}>
+              <PersonalDetails traineeData={data} />
+            </div>
+
+            <div className={style.right_profile}>
+              <SubscriptionStatus></SubscriptionStatus>
+              <ProgramsTracking></ProgramsTracking>
             </div>
           </div>
         );
