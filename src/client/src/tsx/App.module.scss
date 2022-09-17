@@ -10,7 +10,7 @@
 
 .main_layout {
   width: 100vw;
-  height: $SIDE_NAVBAR_HEIGHT;
+  height: $MAIN_LAYOUT_HEIGHT;
   @include flex-dir(null, null, row);
   gap: 1rem;
   .side_bar {

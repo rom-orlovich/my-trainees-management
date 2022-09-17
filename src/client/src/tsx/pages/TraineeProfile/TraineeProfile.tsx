@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import PersonalDetails from "./PersonalDetails";
-
+// import style from "./PersonalDetails.module.scss";
 function TraineeProfile() {
   const id = Number(useParams().id);
   const { data, isError, isFetching, isLoading } =
@@ -15,7 +15,11 @@ function TraineeProfile() {
       stateData={{ data, isError, isFetching, isLoading }}
     >
       {(data) => {
-        return <PersonalDetails traineeData={data}></PersonalDetails>;
+        return (
+          <div>
+            <PersonalDetails traineeData={data}></PersonalDetails>
+          </div>
+        );
       }}
     </LoadingSpinner>
   );

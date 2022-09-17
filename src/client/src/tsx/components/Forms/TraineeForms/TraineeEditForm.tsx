@@ -5,10 +5,8 @@ import {
   TraineeTableAPI,
   TraineesTableAPI,
 } from "../../../redux/api/interfaceAPI";
-import { useAppSelector } from "../../../redux/hooks";
 
 import { formatDate } from "../../../utilities/helpersFun";
-
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
 

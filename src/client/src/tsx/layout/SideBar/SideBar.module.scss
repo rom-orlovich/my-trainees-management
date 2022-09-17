@@ -2,7 +2,7 @@
 
 .sideBar {
   background-color: rgb(25, 71, 154);
-  height: $SIDE_NAVBAR_HEIGHT;
+
   ul {
     margin-top: 3rem;
 
@@ -36,7 +36,6 @@
 @include smartphone() {
   .sideBar {
     display: none;
-
     @include posAbs($HEADER_HEIGHT_SMARTPHONE, 0%, null, null);
     position: fixed;
     @include heightWidth(100vh, 100%);
