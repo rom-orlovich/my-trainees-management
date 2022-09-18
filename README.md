@@ -62,10 +62,10 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 5. **Go to http://localhost:3000 and have fun**!
 
 ## Main Features:
-1. **Create/Read/Update/Delete** - Data of trainees, trainings programs, training program's exercises, muscule groups, equipments, 
+1. **Create/Read/Update/Delete** -The Data of trainees, training programs, training programs's exercises, muscule groups, equipments, 
 leads, cities, locations and app's notes.
-2. **Table paginiation** - Pagination buttons will display when the number of table's rows will be greater than 10 rows.
-3. **Filter table's rows by name** - Filter the table's rows by the name of row.  
+2. **Table paginiation** - Pagination buttons display when the number of table's rows are greater than 10 rows.
+3. **Filter table's rows by name** - Filters the table's rows by the name of row.  
 4. **Infinte scroll autocomplete search input** - Autocomplete input which suggests a list of results from the server. \
  When the number of possible results are greater than 10 results, the users can scroll and fetch more results from the server. 
  
@@ -73,8 +73,8 @@ leads, cities, locations and app's notes.
  1. **Notifications system** -Displaying notifications as output of user activities.
  2. **Trainee Profile Page**- Trainee's Profile page that will display all his personal data, programs and subscription state.  
  3. **Create/Read/Update/Delete** - Data of nutrition programs progress, finicanls systems, providers.
- 4. **Users System**- Trainees will be able to login to thier profiles and track thier progress. \
- Other personal trainers can login and manage thier businesses.
+ 4. **Users System**- Trainees will be able to login thier profiles and track thier progress. \
+ Other personal trainers will be able login and manage thier businesses.
  5. **Statistics Page** - Presonal trainers will have a graphical overview about thier businesses.
 
 
