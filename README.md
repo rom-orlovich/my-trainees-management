@@ -70,10 +70,11 @@ leads, cities and locations.
 Infinte scroll: When there are more than 10 possible suggestions, the users can scroll and fetch more suggestions from the server. 
  
  ## Comeing soon:
- 1. **Notifications System** - Will display notifications for various user activities.
- 2. **Trainee Profile Page** - The page will display all his personal data, programs and his subscription status.  
- 3. **Additional System Data** - Nutrition program's progress, financials system and suppliers.
- 4. **Users System** - Trainees will be able to login thier profiles and track thier progress.\
+ 1. **Notifications System** -Notifications Will display for various user activities.
+ 2. **Sort Table's Rows By Name** -Table will Sort items by name.
+ 3. **Trainee Profile Page** - The page will display all his personal data, programs and his subscription status.  
+ 4. **Additional System Data** - Nutrition program's progress, financials system and suppliers.
+ 5. **Users System** - Trainees will be able to login thier profiles and track thier progress.\
 Multiple personal trainers will be able login and manage thier business.
  5. **Statistics Page** - Presonal trainers will have a graphical overview about thier business.
 
