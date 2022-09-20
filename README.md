@@ -71,7 +71,7 @@ Infinte scroll: When there are more than 10 possible suggestions, the users can 
  
  ## Comeing soon:
  1. **Notifications System** -Notifications Will display for various user activities.
- 2. **Sort Table's Rows By Name** -Table will Sort items by name.
+ 2. **Sort Table's Items By Name** -Table will Sort items by name.
  3. **Trainee Profile Page** - The page will display all his personal data, programs and his subscription status.  
  4. **Additional System Data** - Nutrition program's progress, financials system and suppliers.
  5. **Users System** - Trainees will be able to login thier profiles and track thier progress.\
