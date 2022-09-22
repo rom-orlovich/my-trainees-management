@@ -4,8 +4,6 @@
   gap: 1rem;
   .left_profile {
     @include flex-dir(center, center);
-    border-radius: 5px;
-    box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.07);
     max-width: 70%;
     height: 90%;
   }
@@ -23,8 +21,8 @@
     gap: 2rem;
     .left_profile {
       order: 2;
-      @include flex-dir(null, null, column);
-      max-width: 100%;
+      @include flex-dir(initial, null, column);
+      max-width: 97%;
       height: 90%;
     }
     .right_profile {

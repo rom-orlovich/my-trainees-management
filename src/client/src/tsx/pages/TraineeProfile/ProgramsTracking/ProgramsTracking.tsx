@@ -1,7 +1,12 @@
 import React from "react";
+import Card from "../../../components/baseComponents/Card/Card";
 import style from "./ProgramsTracking.module.scss";
 function ProgramsTracking() {
-  return <div className={style.programs_tracking}>ProgramsTracking</div>;
+  return (
+    <Card>
+      <div className={style.programs_tracking}>ProgramsTracking</div>
+    </Card>
+  );
 }
 
 export default ProgramsTracking;

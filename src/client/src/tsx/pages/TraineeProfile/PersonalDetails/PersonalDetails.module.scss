@@ -3,28 +3,35 @@
   @include flex-dir(center, center);
   div[class*="form_container"] {
     width: 90%;
+    gap: 1.2rem;
 
     form[class*="Form_form"] {
-      gap: 1.2rem;
+      gap: 1.5rem;
       button {
-        width: 50%;
+        width: 30%;
       }
       span[class*="AutocompleteInput"] {
         max-width: 33%;
       }
     }
+    .card_container_personal_details {
+      display: flex;
+    }
   }
 }
 @include smartphone() {
   .personal_details {
-    @include flex-dir(center, center);
+    .card_container_personal_details {
+      display: initial;
+    }
+    @include flex-dir(null, null);
     div[class*="form_container"] {
       width: 90%;
 
       form[class*="Form_form"] {
         gap: 1.2rem;
         button {
-          width: 55%;
+          width: 60%;
         }
         span[class*="AutocompleteInput"] {
           max-width: 100%;

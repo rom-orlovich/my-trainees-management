@@ -46,3 +46,6 @@ export const checkSecValueIncludeOrEqualFirstValue = <T>(
     return val.includes(val2);
   } else return val === val2;
 };
+
+export const genClassName = (...str: string[]) =>
+  str.map((str) => `${str}`).join(" ");

@@ -36,6 +36,9 @@ let server: Server;
 async function connectDB() {
   try {
     await client.connect();
+    client.on("error", (err) => {
+      console.error("something bad has happened!", err.stack);
+    });
     console.log(`Connected pgSQL server.`);
 
     // Uncomment this line will init the db.
