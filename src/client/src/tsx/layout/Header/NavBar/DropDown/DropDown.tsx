@@ -5,7 +5,7 @@ import {
   PropsBasic,
 } from "../../../../components/baseComponents/baseComponentsTypes";
 
-import List from "../../../../components/baseComponents/List";
+import List from "../../../../components/baseComponents/List/List";
 import useHideUnFocusElement from "../../../../hooks/useHideUnFocusElement";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import {

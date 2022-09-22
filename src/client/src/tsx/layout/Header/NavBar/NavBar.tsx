@@ -8,7 +8,7 @@ import {
   LinkData,
   PropsBasic,
 } from "../../../components/baseComponents/baseComponentsTypes";
-import List from "../../../components/baseComponents/List";
+import List from "../../../components/baseComponents/List/List";
 import style from "./NavBar.module.scss";
 import DropDown from "./DropDown/DropDown";
 import { FaUserCircle } from "react-icons/fa";

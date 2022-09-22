@@ -5,7 +5,7 @@ import {
   LinkData,
   PropsBasic,
 } from "../../components/baseComponents/baseComponentsTypes";
-import List from "../../components/baseComponents/List";
+import List from "../../components/baseComponents/List/List";
 
 import { useAppSelector } from "../../redux/hooks";
 import NavLinkLI from "../../components/baseComponents/NavLinkLI";

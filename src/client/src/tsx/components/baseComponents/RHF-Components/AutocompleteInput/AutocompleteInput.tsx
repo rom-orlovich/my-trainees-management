@@ -18,7 +18,7 @@ import { ResponseQueryAPI } from "../../../../redux/api/interfaceAPI";
 import { getEntriesArrObj } from "../../../../utilities/helpersFun";
 import { LiProps } from "../../baseComponentsTypes";
 
-import ListObserver from "../../ListObserver";
+import ListObserver from "../../List/ListObserver";
 import LoadingSpinner, { LoadingSpinnerProps } from "../../LoadingSpinner";
 import { InputLabel, InputLabelProps } from "../InputLabel/InputLabel";
 import style from "./AutocompleteInput.module.scss";

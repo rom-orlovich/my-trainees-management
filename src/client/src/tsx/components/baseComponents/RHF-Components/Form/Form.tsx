@@ -137,7 +137,7 @@ export default function Form<TFormValues extends Record<string, any>>({
           </div>
         ) : (
           <div className={style.buttons_container_edit_back}>
-            {/* <Link to={-1 as any}>Back</Link> */}
+            <Link to={-1 as any}>Back</Link>
             <button type="submit" disabled={disabled}>
               {buttonNext ? "Next" : editModeText}
             </button>

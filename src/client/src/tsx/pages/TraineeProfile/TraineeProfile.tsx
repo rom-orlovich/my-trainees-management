@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import Card from "../../components/baseComponents/Card";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import PersonalDetails from "./PersonalDetails/PersonalDetails";
@@ -21,13 +22,15 @@ function TraineeProfile() {
         return (
           <div className={style.TraineeProfile}>
             <div className={style.left_profile}>
-              <PersonalDetails traineeData={data} />
+              <Card>
+                <PersonalDetails traineeData={data} />
+              </Card>
             </div>
 
-            <div className={style.right_profile}>
+            {/* <div className={style.right_profile}>
               <SubscriptionStatus></SubscriptionStatus>
               <ProgramsTracking></ProgramsTracking>
-            </div>
+            </div> */}
           </div>
         );
       }}

@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import { useObserver } from "../../hooks/useObserver";
-import { useCallBackFun } from "../../hooks/utilitiesHooks";
-import { AnyFun } from "../../types";
-import { ListProps } from "./baseComponentsTypes";
+import { useObserver } from "../../../hooks/useObserver";
+import { useCallBackFun } from "../../../hooks/utilitiesHooks";
+import { AnyFun } from "../../../types";
+import { ListProps } from "../baseComponentsTypes";
 import List from "./List";
 
 function ListObserver<T extends Record<string, any>>({

@@ -1,7 +1,7 @@
 import React from "react";
-import { getKeysArrObj } from "../../utilities/helpersFun";
+import { getKeysArrObj } from "../../../utilities/helpersFun";
 
-import { ListProps } from "./baseComponentsTypes";
+import { ListProps } from "../baseComponentsTypes";
 
 // Render list data of obj by given Li component.
 function List<T extends Record<string, any>>({

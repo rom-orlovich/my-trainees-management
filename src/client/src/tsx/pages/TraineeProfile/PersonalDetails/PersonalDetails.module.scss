@@ -6,9 +6,29 @@
 
     form[class*="Form_form"] {
       gap: 1.2rem;
-
+      button {
+        width: 50%;
+      }
       span[class*="AutocompleteInput"] {
         max-width: 33%;
+      }
+    }
+  }
+}
+@include smartphone() {
+  .personal_details {
+    @include flex-dir(center, center);
+    div[class*="form_container"] {
+      width: 90%;
+
+      form[class*="Form_form"] {
+        gap: 1.2rem;
+        button {
+          width: 55%;
+        }
+        span[class*="AutocompleteInput"] {
+          max-width: 100%;
+        }
       }
     }
   }

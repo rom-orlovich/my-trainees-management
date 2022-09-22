@@ -11,6 +11,7 @@ const configClient: ClientConfig =
         ssl: {
           rejectUnauthorized: false,
         },
+        connectionTimeoutMillis: 0,
       }
     : {
         host: process.env.HOST_PG || "",
