@@ -9,7 +9,8 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 
 const transformTrainingProgramList = ({
   profile_id,
-
+  note_text,
+  note_topic,
   training_programs_list_id,
   type_program,
   ...rest

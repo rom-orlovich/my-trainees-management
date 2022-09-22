@@ -12,11 +12,10 @@ function PersonalDetails({
   className?: string;
   traineeData: TraineeTableAPI;
 }) {
+  console.log(traineeData);
   return (
-    <Card className={style.card_container_personal_details}>
-      <div className={genClassName(style.personal_details, className || "")}>
-        <TraineeEditForm heading=" " traineeData={traineeData} />
-      </div>
+    <Card className={genClassName(style.card_container_personal_details)}>
+      <TraineeEditForm heading="Personal Details" traineeData={traineeData} />
     </Card>
   );
 }

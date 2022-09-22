@@ -21,17 +21,12 @@
 @include smartphone() {
   .training_program_page {
     .header_training_program {
-      // margin: 2rem 0 0 2rem;
-      // margin-top: 2rem;
       padding: 0 1rem;
     }
     .training_program_page_main {
       margin-top: 0rem;
-      // @include flex-dir(center, center);
+
       height: 70vh;
-      // div[class*="form_container"] {
-      //   width: 90%;
-      // }
     }
   }
 }
