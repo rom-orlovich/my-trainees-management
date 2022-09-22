@@ -50,7 +50,7 @@ async function connectDB() {
     server.close(() => {
       console.log("server is closed");
     });
-    client.end();
+    // client.end();
   }
 }
 

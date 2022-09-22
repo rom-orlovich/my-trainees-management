@@ -3,7 +3,7 @@ import {
   UseQuery,
 } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { ReactNode, ThHTMLAttributes } from "react";
-import { SubmitHandler } from "react-hook-form";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 
 import { TdProps, ThProps } from "./Tables/TableCells";
 
@@ -70,11 +70,9 @@ export type FormProps = Partial<
     HTMLFormElement
   >
 >;
-export interface GeneralFormProps<T> {
+export interface GeneralFormProps<T extends FieldValues> {
   editMode?: boolean;
   defaultValues?: T;
   onSubmit: SubmitHandler<T>;
   fromProps?: FormProps;
 }
-
-// export type FormWithNotesProps<T> = T & Omit<NotesTable, "note_id">;

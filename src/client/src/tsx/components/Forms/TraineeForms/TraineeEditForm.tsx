@@ -5,11 +5,12 @@ import {
   TraineeTableAPI,
   TraineesTableAPI,
 } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
-
+import { resetGoPrevPageState } from "../../../redux/slices/apiSideEffectSlice";
 export function TraineeEditForm({
   traineeData,
   heading,
@@ -18,7 +19,8 @@ export function TraineeEditForm({
   traineeData: TraineesTableAPI;
 }) {
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
-
+  const dispatch = useAppDispatch();
+  dispatch(resetGoPrevPageState());
   const handleSubmit = (body: TraineesTableAPI) => {
     const {
       profile_id,
@@ -38,6 +40,7 @@ export function TraineeEditForm({
 
   return (
     <TraineeForm
+      savedChangedButton={true}
       editMode={true}
       heading={heading}
       onSubmit={handleSubmit}

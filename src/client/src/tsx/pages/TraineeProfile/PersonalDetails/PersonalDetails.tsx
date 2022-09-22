@@ -4,8 +4,10 @@ import { TraineeTableAPI } from "../../../redux/api/interfaceAPI";
 
 import style from "./PersonalDetails.module.scss";
 function PersonalDetails({ traineeData }: { traineeData: TraineeTableAPI }) {
+  console.log(traineeData);
   return (
     <div className={style.personal_details}>
+      {/* <div>{traineeData.} </div> */}
       <TraineeEditForm heading="Personal Details" traineeData={traineeData} />
     </div>
   );

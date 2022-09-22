@@ -92,7 +92,20 @@ span[class*="checkbox_label"] {
       flex: 100%;
     }
 
-    .buttons_container {
+    %button {
+      display: block;
+      text-decoration: none;
+      font-size: 1.3rem;
+      color: white;
+      &:hover {
+        background-color: #75b1dd;
+      }
+      &:disabled {
+        background-color: rgb(166, 206, 240);
+      }
+    }
+
+    .buttons_container_edit_back {
       @include flex-dir(space-between, null);
       max-width: 100%;
       margin-top: 0.5rem;
@@ -101,22 +114,21 @@ span[class*="checkbox_label"] {
       button,
       a {
         @include button(rgb(114, 151, 224), 0.5rem, 1.7rem);
-        display: block;
-        text-decoration: none;
 
-        font-size: 1.3rem;
-        color: white;
-        &:hover {
-          background-color: #75b1dd;
-        }
+        @extend %button;
       }
       a {
         padding: 0.8rem, 1.7rem;
       }
+    }
+
+    .buttons_container_save_button {
+      width: 100%;
+      @include flex-dir(center, null);
       button {
-        &:disabled {
-          background-color: rgb(166, 206, 240);
-        }
+        @include button(rgb(114, 151, 224), 0.5rem, 1.7rem);
+        @extend %button;
+        width: 25%;
       }
     }
   }

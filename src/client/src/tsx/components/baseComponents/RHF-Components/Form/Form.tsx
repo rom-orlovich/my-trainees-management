@@ -27,6 +27,7 @@ type FormRHFProps<TFormValues extends FieldValues> = {
   nameForm?: string;
   buttonNext?: boolean;
   pathMove?: string;
+  savedChangedButton?: boolean;
 };
 
 export default function Form<TFormValues extends Record<string, any>>({
@@ -39,6 +40,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   nameForm,
   buttonNext,
   pathMove,
+  savedChangedButton,
 }: FormRHFProps<TFormValues>) {
   const nav = useNavigate();
 
@@ -113,6 +115,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   const handleSubmit = (data: TFormValues) => {
     onSubmit(data);
   };
+  const editModeText = editMode ? "Edit" : "Add";
   return (
     <div className={style.form_container}>
       <div className={style.heading}>
@@ -126,12 +129,20 @@ export default function Form<TFormValues extends Record<string, any>>({
         onSubmit={methods.handleSubmit(handleSubmit)}
       >
         {children(methods)}
-        <div className={style.buttons_container}>
-          <Link to={-1 as any}>Back</Link>
-          <button type="submit" disabled={disabled}>
-            {!buttonNext ? (editMode ? "Edit" : "Add") : "Next"}
-          </button>
-        </div>
+        {savedChangedButton ? (
+          <div className={style.buttons_container_save_button}>
+            <button type="submit" disabled={disabled}>
+              Save Changes
+            </button>
+          </div>
+        ) : (
+          <div className={style.buttons_container_edit_back}>
+            {/* <Link to={-1 as any}>Back</Link> */}
+            <button type="submit" disabled={disabled}>
+              {buttonNext ? "Next" : editModeText}
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
