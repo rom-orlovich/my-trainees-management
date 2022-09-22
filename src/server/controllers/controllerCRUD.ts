@@ -72,7 +72,10 @@ export function createRoutesControllers({
       selectQuery(`${tableName}`, `${fieldNamesQuery}`, queryLogic, [id])
     );
 
-    if (err) return next(new ErrorCustomizes(err));
+    if (err)
+      return next(
+        new ErrorCustomizes(err, `Cannot get exist ${singleEntityName}`)
+      );
 
     return res.status(200).json(data[0]);
   };
@@ -84,7 +87,13 @@ export function createRoutesControllers({
     );
 
     if (err) {
-      return next(new ErrorCustomizes(err, singleEntityName));
+      return next(
+        new ErrorCustomizes(
+          err,
+          `Cannot add new ${singleEntityName}`,
+          singleEntityName
+        )
+      );
     }
     return res.status(200).json({
       message: `The new ${singleEntityName} is added!`,
@@ -101,7 +110,10 @@ export function createRoutesControllers({
       updateQuerySingleItem(tableName, req.body, req.params.id, queryLogic)
     );
 
-    if (err) return next(new ErrorCustomizes(err));
+    if (err)
+      return next(
+        new ErrorCustomizes(err, `Cannot update exist ${singleEntityName}`)
+      );
 
     return res.status(200).json({
       message: `The ${singleEntityName} is updated successfully!`,
@@ -119,7 +131,10 @@ export function createRoutesControllers({
       deleteQuery(tableName, queryLogic, [id], true)
     );
 
-    if (err) return next(new ErrorCustomizes(err));
+    if (err)
+      return next(
+        new ErrorCustomizes(err, `Cannot delete exist ${singleEntityName}`)
+      );
 
     return res.status(200).json({
       message: `The ${singleEntityName} is deleted successfully!`,

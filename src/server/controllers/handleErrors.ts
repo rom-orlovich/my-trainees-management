@@ -15,13 +15,15 @@ export class ErrorCustomizes<
 > {
   error?: E;
   errorPayload: any;
+  action?: string;
   message: string = "Something is went wrong";
   statusCode: number = 400;
-  constructor(error?: E, errorPayload?: any) {
+
+  constructor(error?: E, action?: string, errorPayload?: any) {
     console.log(error);
     this.error = error;
-
     this.errorPayload = errorPayload;
+    this.action = action;
   }
 
   getFieldName() {
@@ -38,7 +40,7 @@ export class ErrorCustomizes<
   handleErrors() {
     if (this.error?.code === ErrorCodes.UNIQUE) {
       const fieldNameArr = this.getFieldName();
-      this.message = `The ${
+      this.message = `${this.action}. The ${
         fieldNameArr || this.errorPayload
       } is already existed`;
     }
