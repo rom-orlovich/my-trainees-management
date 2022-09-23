@@ -5,6 +5,8 @@ import { OmitKey, PickKey } from "../../types";
 
 // All the endpoints and the entities names.
 export enum API_ROUTES {
+  ALERTS_ROUTE = "/api/alerts",
+  ALERTS_ENTITY = "alerts",
   LEADS_ROUTE = "/api/leads",
   LEADS_ENTITY = "lead",
   MUSCLES_GROUP_ROUTE = "/api/musclesGroups",

@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getKeysArrObj } from "../../utilities/helpersFun";
 const initialState: {
   goPrePageBehaviorState: { goPrevPage: boolean; disableGoPrevPage: boolean };
+  fetchAlerts: boolean;
 } = {
   goPrePageBehaviorState: {
     // The response of delete item from the api will have id.
@@ -11,6 +12,7 @@ const initialState: {
     disableGoPrevPage: true,
     goPrevPage: false,
   },
+  fetchAlerts: false,
 };
 export const apiSideEffectSlice = createSlice({
   name: "apiSideEffect",
@@ -33,13 +35,13 @@ export const apiSideEffectSlice = createSlice({
     builder.addMatcher(
       (action: PayloadAction<Record<string, any> | undefined>) => {
         const payload = getKeysArrObj(action.payload || {});
-        if (payload.includes("id")) {
-          return true;
-        } else return false;
+        return payload.includes("id");
       },
-      // If there is success response from the server after submit form,
-      // set goPrevPage to true , in order to go back the previous page.
+
       (state) => {
+        state.fetchAlerts = true;
+        // If there is success response from the server after submit form,
+        // set goPrevPage to true , in order to go back the previous page.
         if (!state.goPrePageBehaviorState.disableGoPrevPage) {
           state.goPrePageBehaviorState.goPrevPage = true;
         }

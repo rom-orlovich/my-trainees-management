@@ -19,8 +19,8 @@ export function TraineeEditForm({
   traineeData: TraineesTableAPI;
 }) {
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
-  const dispatch = useAppDispatch();
-  dispatch(resetGoPrevPageState());
+  // const dispatch = useAppDispatch();
+  // dispatch(resetGoPrevPageState());
   const handleSubmit = (body: TraineesTableAPI) => {
     const {
       profile_id,

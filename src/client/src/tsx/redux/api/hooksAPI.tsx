@@ -118,8 +118,14 @@ export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
   singleEntityName: API_ROUTES.SUBSCRIPTION_PLANS_ENTITY,
   listId: "members_plans_list",
 });
+export const alertsApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
+  reducerPath: "alertsApi",
+  baseUrl: API_ROUTES.ALERTS_ROUTE,
+  singleEntityName: API_ROUTES.ALERTS_ENTITY,
+  listId: "alerts_list",
+});
 
-// export const incomesApi = apiCreateCRUDHooks<Incometable>({
+// export const incomesApi = apiCreateCRUDHooks<Income>({
 //   reducerPath: "incomesApi",
 //   baseUrl: API_ROUTES.INCOMES_ROUTE,
 //   singleEntityName: API_ROUTES.INCOMES_ENTITY,
@@ -144,6 +150,7 @@ export const apiCreateCrudArr = [
   traineesApi,
 
   subscriptionPlansApi,
+  alertsApi,
   // incomesApi,
 ];
 
