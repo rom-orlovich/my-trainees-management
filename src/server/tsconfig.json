@@ -12,5 +12,6 @@
     "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": ["./"],
+  "files": ["./express.d.ts", "./environment.d.ts"],
   "exclude": ["node_modules", "build/**/*", "./tests"]
 }

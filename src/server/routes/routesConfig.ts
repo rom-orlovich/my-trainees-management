@@ -38,6 +38,12 @@ export interface OptionsCRUD {
   singleEntityName: string; // name of one item
   selectQuery: SelectTableQueryParam;
   validateSchema: yup.ObjectSchema<any>;
+  permissions?: {
+    create: boolean;
+    read: boolean;
+    update: boolean;
+    delete: boolean;
+  };
 }
 
 // The setting of the routes.

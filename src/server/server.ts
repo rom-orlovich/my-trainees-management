@@ -16,6 +16,7 @@ import { initDB } from "./initDB";
 import { routesCRUDArr } from "./routes/routesConfig";
 import { createCRUDroutes } from "./routes/routesCRUD";
 import { errorHandlerMiddleware } from "./controllers/handleErrors";
+import { handleAlertsMiddleware } from "./controllers/handleAlerts";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -27,6 +28,7 @@ app.use(cors());
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
   app.use(baseRoute, createCRUDroutes(optionsCRUD));
 });
+app.use(handleAlertsMiddleware);
 
 app.use(errorHandlerMiddleware);
 

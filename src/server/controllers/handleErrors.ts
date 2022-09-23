@@ -27,7 +27,6 @@ export class ErrorCustomizes<
   }
 
   getFieldName() {
-    // Key (identify_num)=(2222222) already exists.
     if (!this.error?.detail) return "";
     const fieldNameArr = this.error.detail
       ?.split(" ")[1]
@@ -46,9 +45,9 @@ export class ErrorCustomizes<
     }
 
     if (this.error?.code === ErrorCodes.INVALID) {
-      this.message = this.errorPayload
-        ? `The ${this.errorPayload} is invalid value`
-        : "The values are invalid";
+      this.message = `The ${this.errorPayload} is invalid`;
+    } else {
+      this.message = `Something went wrong`;
     }
     return this;
   }

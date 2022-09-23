@@ -21,16 +21,42 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   } = createRoutesControllers(optionsCRUD);
 
   const newRoute = express.Router();
-  newRoute.route("/").get(getValuesFromDB);
+  const singleEntityNameEndPoint = `/${optionsCRUD.singleEntityName}`;
+  const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
+  // Check if route has permissions object.
+  if (optionsCRUD.permissions) {
+    const {
+      read,
+      create,
+      update,
+      delete: deleteCRUD,
+    } = optionsCRUD.permissions;
+    read && newRoute.get("/", getValuesFromDB);
+    read && newRoute.get(singleEntityNameEndPointID, getValueFromDBbyID);
+    create &&
+      newRoute.post(
+        singleEntityNameEndPoint,
+        validateMiddleware,
+        createNewValueInDB
+      );
+    update &&
+      newRoute.put(
+        singleEntityNameEndPointID,
+        validateMiddleware,
+        updateValueByID
+      );
+    deleteCRUD && newRoute.delete(singleEntityNameEndPointID, deleteValueByID);
+  } else {
+    newRoute.route("/").get(getValuesFromDB);
+    newRoute
+      .route(singleEntityNameEndPoint)
+      .post(validateMiddleware, createNewValueInDB);
+    newRoute
+      .route(singleEntityNameEndPointID)
+      .get(getValueFromDBbyID)
+      .put(validateMiddleware, updateValueByID)
+      .delete(deleteValueByID);
+  }
 
-  newRoute
-    .route(`/${optionsCRUD.singleEntityName}`)
-    .post(validateMiddleware, createNewValueInDB);
-
-  newRoute
-    .route(`/${optionsCRUD.singleEntityName}/:id`)
-    .get(getValueFromDBbyID)
-    .put(validateMiddleware, updateValueByID)
-    .delete(deleteValueByID);
   return newRoute;
 }

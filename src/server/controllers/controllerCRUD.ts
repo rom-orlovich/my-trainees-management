@@ -11,8 +11,21 @@ import {
   updateQuerySingleItem,
 } from "../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
+import { TABLES_DATA } from "../utilities/constants";
 import { createObjValuesArr, promiseHandler } from "../utilities/helpers";
 import { ErrorCodes, ErrorCustomizes } from "./handleErrors";
+
+const createNewAlert = async (message: string) => {
+  const [_, errData] = await promiseHandler(
+    insertQueryOneItem(TABLES_DATA.ALERTS_TABLE_NAME, {
+      alert_message: message,
+    })
+  );
+
+  if (errData) {
+    console.log(errData);
+  }
+};
 
 /**
  *
@@ -36,7 +49,6 @@ export function createRoutesControllers({
     const [valid, errValid] = await promiseHandler<any, yup.ValidationError>(
       validateSchema.validate(req.body)
     );
-
     if (errValid && !valid)
       next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
     next();
@@ -59,7 +71,6 @@ export function createRoutesControllers({
     );
 
     if (err) return next(new ErrorCustomizes(err));
-
     return res.status(200).json({ data: data.rows, next: data.next });
   };
 
@@ -76,7 +87,6 @@ export function createRoutesControllers({
       return next(
         new ErrorCustomizes(err, `Cannot get exist ${singleEntityName}`)
       );
-
     return res.status(200).json(data[0]);
   };
 
@@ -95,8 +105,10 @@ export function createRoutesControllers({
         )
       );
     }
+    const message = `The new ${singleEntityName} is added!`;
+    await createNewAlert(message);
     return res.status(200).json({
-      message: `The new ${singleEntityName} is added!`,
+      message,
       id: createObjValuesArr(data)[0],
     });
   };
@@ -112,13 +124,24 @@ export function createRoutesControllers({
 
     if (err)
       return next(
-        new ErrorCustomizes(err, `Cannot update exist ${singleEntityName}`)
+        new ErrorCustomizes(
+          err,
+          `Cannot update exist ${singleEntityName}`,
+          singleEntityName
+        )
       );
 
-    return res.status(200).json({
+    const message = `The ${singleEntityName} is updated successfully!`;
+    req.modifiedActionResult = {
       message: `The ${singleEntityName} is updated successfully!`,
+      data,
+    };
+    await createNewAlert(message);
+    return res.status(200).json({
+      message,
       id: createObjValuesArr(data)[0],
     });
+    // return next(); // Continue to alerts handler middleware
   };
 
   // Controller of the delete method.
@@ -136,8 +159,11 @@ export function createRoutesControllers({
         new ErrorCustomizes(err, `Cannot delete exist ${singleEntityName}`)
       );
 
+    const message = `The ${singleEntityName} is deleted successfully!`;
+    await createNewAlert(message);
+
     return res.status(200).json({
-      message: `The ${singleEntityName} is deleted successfully!`,
+      message,
       id: createObjValuesArr(data)[0],
     });
   };
