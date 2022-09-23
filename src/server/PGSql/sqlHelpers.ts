@@ -240,6 +240,7 @@ export async function selectPagination(
   querySelectLogic = "",
   queryParams: Record<string, any> = {},
   queryNameParams: Record<string, any> = {},
+  ascending = true,
   numResult = 10
 ) {
   const numPage = Number(page) - 1;
@@ -276,9 +277,9 @@ export async function selectPagination(
   // Return if the table is empty.
   if (!numTotalRows) return { rows: [], next: false };
 
-  const limitOffsetQuery = `order by ${idField} LIMIT $${
-    queryParamsRes.length + 1
-  } OFFSET $${queryParamsRes.length + 2}`;
+  const limitOffsetQuery = `order by ${idField} ${
+    ascending ? "ASC" : "DESC"
+  } LIMIT $${queryParamsRes.length + 1} OFFSET $${queryParamsRes.length + 2}`;
 
   const rows = await selectQuery(
     tableName,

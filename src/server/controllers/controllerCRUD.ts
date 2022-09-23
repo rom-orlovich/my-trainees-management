@@ -67,8 +67,8 @@ export function createRoutesControllers({
 
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
-    const { page, ...rest } = req.query;
-
+    const { page, asc, ...rest } = req.query;
+    const ascDefault = (asc || true) as boolean;
     const [data, err] = await promiseHandler(
       selectPagination(
         tableID,
@@ -77,7 +77,8 @@ export function createRoutesControllers({
         fieldNamesQuery,
         querySelectLogic,
         createRealQueryKeyValuesObj(rest, queryParams),
-        createRealQueryKeyValuesObj(rest, queryNameParam)
+        createRealQueryKeyValuesObj(rest, queryNameParam),
+        ascDefault
       )
     );
 
