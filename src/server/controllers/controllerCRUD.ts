@@ -13,19 +13,7 @@ import {
 import { OptionsCRUD } from "../routes/routesConfig";
 import { TABLES_DATA } from "../utilities/constants";
 import { createObjValuesArr, promiseHandler } from "../utilities/helpers";
-import { ErrorCodes, ErrorCustomizes } from "./handleErrors";
-
-const createNewAlert = async (message: string) => {
-  const [_, errData] = await promiseHandler(
-    insertQueryOneItem(TABLES_DATA.ALERTS_TABLE_NAME, {
-      alert_message: message,
-    })
-  );
-
-  if (errData) {
-    console.log(errData);
-  }
-};
+import { ActionType, ErrorCodes, ErrorCustomizes } from "./handleErrors";
 
 /**
  *
@@ -45,6 +33,28 @@ export function createRoutesControllers({
 
   validateSchema,
 }: OptionsCRUD) {
+  const createModifiedActionResult = (
+    data: any | undefined,
+    err: Error | undefined,
+    action: ActionType
+  ) => {
+    if (err) {
+      const errorCustomizes = new ErrorCustomizes(
+        err,
+        action,
+        singleEntityName
+      );
+      errorCustomizes.handleErrors();
+
+      return { error: errorCustomizes };
+    }
+    const message = `The ${singleEntityName} is ${action}d successfully!`;
+    return {
+      message,
+      data,
+    };
+  };
+
   const validateMiddleware: RequestHandler = async (req, res, next) => {
     if (!validateSchema) return next();
     const [valid, errValid] = await promiseHandler<any, yup.ValidationError>(
@@ -84,10 +94,7 @@ export function createRoutesControllers({
       selectQuery(`${tableName}`, `${fieldNamesQuery}`, queryLogic, [id])
     );
 
-    if (err)
-      return next(
-        new ErrorCustomizes(err, `Cannot get exist ${singleEntityName}`)
-      );
+    if (err) return next(new ErrorCustomizes(err, "get"));
     return res.status(200).json(data[0]);
   };
 
@@ -97,28 +104,8 @@ export function createRoutesControllers({
       insertQueryOneItem(tableName, req.body)
     );
 
-    if (err) {
-      return next(
-        new ErrorCustomizes(
-          err,
-          `Cannot add new ${singleEntityName}`,
-          singleEntityName
-        )
-      );
-    }
-
-    const message = `The new ${singleEntityName} is added!`;
-    req.modifiedActionResult = {
-      message,
-      data,
-    };
+    req.modifiedActionResult = createModifiedActionResult(data, err, "create");
     return next(); // Continue to alerts handler middleware
-    // const message = `The new ${singleEntityName} is added!`;
-    // await createNewAlert(message);
-    // return res.status(200).json({
-    //   message,
-    //   id: createObjValuesArr(data)[0],
-    // });
   };
 
   // Controller of the put method.
@@ -130,25 +117,8 @@ export function createRoutesControllers({
       updateQuerySingleItem(tableName, req.body, req.params.id, queryLogic)
     );
 
-    if (err)
-      return next(
-        new ErrorCustomizes(
-          err,
-          `Cannot update exist ${singleEntityName}`,
-          singleEntityName
-        )
-      );
+    req.modifiedActionResult = createModifiedActionResult(data, err, "update");
 
-    const message = `The ${singleEntityName} is updated successfully!`;
-    req.modifiedActionResult = {
-      message,
-      data,
-    };
-    // await createNewAlert(message);
-    // return res.status(200).json({
-    //   message,
-    //   id: createObjValuesArr(data)[0],
-    // });
     return next(); // Continue to alerts handler middleware
   };
 
@@ -162,23 +132,12 @@ export function createRoutesControllers({
       deleteQuery(tableName, queryLogic, [id], true)
     );
 
-    if (err)
-      return next(
-        new ErrorCustomizes(err, `Cannot delete exist ${singleEntityName}`)
-      );
-
-    const message = `The ${singleEntityName} is deleted successfully!`;
-    req.modifiedActionResult = {
-      message,
-      data: data[0],
-    };
+    req.modifiedActionResult = createModifiedActionResult(
+      data ? data[0] : undefined,
+      err,
+      "delete"
+    );
     return next(); // Continue to alerts handler middleware
-    // await createNewAlert(message);
-
-    // return res.status(200).json({
-    //   message,
-    //   id: createObjValuesArr(data)[0],
-    // });
   };
 
   return {

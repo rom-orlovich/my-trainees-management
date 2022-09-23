@@ -11,17 +11,21 @@ export const handleAlertsMiddleware: RequestHandler = async (
   next
 ) => {
   if (!req.modifiedActionResult) return next();
-  const { data, message } = req.modifiedActionResult;
+  const { data, message, error } = req.modifiedActionResult;
 
-  const [_, errData] = await promiseHandler(
+  const [_, errAlert] = await promiseHandler(
     insertQueryOneItem(TABLES_DATA.ALERTS_TABLE_NAME, {
-      alert_message: message,
+      alert_message: message || error?.message,
     })
   );
+  if (error) return next(error);
 
-  if (errData) {
-    return next(new ErrorCustomizes(errData));
+  if (errAlert) {
+    const errorCustomizes = new ErrorCustomizes(errAlert);
+    errorCustomizes.handleErrors();
+    return next(errorCustomizes);
   }
+
   return res.status(200).json({
     message,
     id: createObjValuesArr(data)[0],
@@ -37,9 +41,6 @@ export const handleDeleteOldAlerts: RequestHandler = async (req, res, next) => {
       true
     )
   );
-  if (err) {
-    next(new ErrorCustomizes(err));
-  }
-  console.log(data);
+  if (err) next(new ErrorCustomizes(err));
   res.status(200).json("Old alerts are deleted successfully");
 };

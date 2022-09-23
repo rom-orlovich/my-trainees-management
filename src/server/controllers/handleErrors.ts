@@ -1,25 +1,26 @@
 import { ErrorRequestHandler } from "express";
 import { capitalize } from "lodash";
+// import { insertQueryOneItem } from "../PGSql/sqlHelpers";
+// import { TABLES_DATA } from "../utilities/constants";
+// import { promiseHandler } from "../utilities/helpers";
 
 /* eslint-disable no-unused-vars */
 export enum ErrorCodes {
   UNIQUE = "23505",
   INVALID = "22023",
 }
-interface ErrorProps {
-  code: ErrorCodes;
-  message?: string;
-}
+
+export type ActionType = "update" | "delete" | "create" | "get";
 export class ErrorCustomizes<
   E extends Partial<Error> & { detail?: string; code?: string }
 > {
   error?: E;
   errorPayload: any;
-  action?: string;
+  action?: ActionType;
   message: string = "Something is went wrong";
   statusCode: number = 400;
 
-  constructor(error?: E, action?: string, errorPayload?: any) {
+  constructor(error?: E, action?: ActionType, errorPayload?: any) {
     console.log(error);
     this.error = error;
     this.errorPayload = errorPayload;
@@ -37,14 +38,14 @@ export class ErrorCustomizes<
   }
 
   handleErrors() {
+    console.log(this.error?.code);
     if (this.error?.code === ErrorCodes.UNIQUE) {
       const fieldNameArr = this.getFieldName();
-      this.message = `${this.action}. The ${
-        fieldNameArr || this.errorPayload
-      } is already existed`;
-    }
-
-    if (this.error?.code === ErrorCodes.INVALID) {
+      const describeAction = this.action === "create" ? "new" : "exist";
+      this.message = `Cannot ${this.action} ${describeAction} ${
+        this.errorPayload
+      }. The ${fieldNameArr || this.errorPayload} is already existed`;
+    } else if (this.error?.code === ErrorCodes.INVALID) {
       this.message = `The ${this.errorPayload} is invalid`;
     } else {
       this.message = `Something went wrong`;
@@ -53,14 +54,14 @@ export class ErrorCustomizes<
   }
 }
 
-export const errorHandlerMiddleware: ErrorRequestHandler = (
+export const errorHandlerMiddleware: ErrorRequestHandler = async (
   err: InstanceType<typeof ErrorCustomizes>,
   req,
   res,
   next
 ) => {
   if (err) {
-    const { statusCode, message } = err.handleErrors();
+    const { statusCode, message } = err;
     return res.status(statusCode).json({ message });
   }
   return next();
