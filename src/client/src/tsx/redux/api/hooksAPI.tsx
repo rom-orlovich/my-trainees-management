@@ -15,6 +15,7 @@ import {
   SubscriptionPlansAPI,
   LeadsTableAPI,
   TrainingProgramsListTableAPI,
+  AlertsAPI,
 } from "../api/interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -118,7 +119,7 @@ export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
   singleEntityName: API_ROUTES.SUBSCRIPTION_PLANS_ENTITY,
   listId: "members_plans_list",
 });
-export const alertsApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
+export const alertsApi = apiCreateCRUDHooks<AlertsAPI>({
   reducerPath: "alertsApi",
   baseUrl: API_ROUTES.ALERTS_ROUTE,
   singleEntityName: API_ROUTES.ALERTS_ENTITY,

@@ -1,3 +1,4 @@
+import { number, string } from "yup";
 import { OmitKey, PickKey } from "../../types";
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
@@ -53,6 +54,12 @@ export interface ResponseMutationAPI {
 export interface ResponseQueryAPI<T> {
   next: boolean;
   data: T[];
+}
+
+export interface AlertsAPI {
+  alert_id: number;
+  alert_date: Date;
+  alert_message: string;
 }
 
 export interface MusclesGroupTableAPI {

@@ -33,7 +33,7 @@ function DropDown<T extends object>({
   const handleClickEvent = () => {
     dispatch(setOneDropDownOn(liProps?.id || ""));
   };
-  const isVisble = useHideUnFocusElement(dropDownRef);
+  const isVisible = useHideUnFocusElement(dropDownRef);
 
   return (
     <li
@@ -43,7 +43,7 @@ function DropDown<T extends object>({
       ref={dropDownRef}
     >
       {children}
-      {dataLI.length > 0 && state[liProps?.id || ""] && isVisble && (
+      {dataLI.length > 0 && state[liProps?.id || ""] && isVisible && (
         <List
           className={`${style.drop_down_list} ${className} `}
           dataArr={dataLI}

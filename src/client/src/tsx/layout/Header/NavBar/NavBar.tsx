@@ -15,6 +15,7 @@ import { FaUserCircle } from "react-icons/fa";
 
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import NavLinkLI from "../../../components/baseComponents/NavLinkLI";
+import AlertsNotification from "./AlertNotification/AlertsNotification";
 interface NavBarNavLinkLIs<T> {
   id?: string;
   element: ReactNode;
@@ -73,15 +74,7 @@ function NavBarLi(props: NavBarNavLinkLIs<LinkData>) {
     <>{props.element}</>
   );
 }
-function DropDownLiAlert(props: { data: AlertData } & PropsBasic) {
-  return (
-    <li className={props.className}>
-      <span>{props.data.topic}</span>
-      {props.data.message}
-      <span>{props.data.status}</span>
-    </li>
-  );
-}
+
 function NavBar() {
   return (
     <List
@@ -90,9 +83,7 @@ function NavBar() {
       LI={NavBarLi}
       insertChildLast={false}
     >
-      <DropDown dataLI={[]} Li={DropDownLiAlert}>
-        <IoMdNotifications className={style.alert_icon} />
-      </DropDown>
+      <AlertsNotification className={style.alert_icon} />
     </List>
   );
 }
