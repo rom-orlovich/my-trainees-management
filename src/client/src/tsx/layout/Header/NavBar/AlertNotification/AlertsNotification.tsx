@@ -1,4 +1,5 @@
 import React from "react";
+import { AiFillDelete } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner";
@@ -9,16 +10,22 @@ import style from "./AlertsNotification.module.scss";
 interface AlertsNotificationProps extends PropsBasic {}
 
 function DropDownLiAlert(props: { data: AlertsAPI } & PropsBasic) {
+  const [trigger] = alertsApi.useDeleteItemMutation();
+  const deleteFun = () => {
+    console.log("click");
+    trigger && trigger(String(props.data.alert_id));
+  };
   return (
     <li className={`${style.notification_li} ${props.className}`}>
       <div>
         <h3>Text </h3>
-        <div>{props.data.alert_message} </div>
+        <div>{props.data.alert_message.split(".")[0]} </div>
       </div>
       <div>
         <h3>Date</h3>
-        <div>{new Date(props.data.alert_date).toLocaleDateString()}</div>
+        <div>{new Date(props.data.alert_date).toLocaleString()}</div>
       </div>
+      <AiFillDelete onClick={deleteFun} className={style.deleteIcon} />
     </li>
   );
 }

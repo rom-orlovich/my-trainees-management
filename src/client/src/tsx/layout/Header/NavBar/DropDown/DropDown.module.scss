@@ -7,7 +7,9 @@
   @include posAbs(120%, 50%, null, null);
   transform: translate(-50%, 0%);
   @include shadow-block();
-  width: 12rem;
+  min-width: 12rem;
+  width: fit-content;
+  height: fit-content;
   text-align: center;
   background-color: white;
   border-radius: 5px;
