@@ -8,6 +8,7 @@ import { capitalize } from "lodash";
 export enum ErrorCodes {
   UNIQUE = "23505",
   INVALID = "22023",
+  TOO_LONG = "22001",
 }
 
 export type ActionType = "update" | "delete" | "create" | "get";
@@ -38,14 +39,16 @@ export class ErrorCustomizes<
   }
 
   handleErrors() {
-    console.log(this.error?.code);
     if (this.error?.code === ErrorCodes.UNIQUE) {
       const fieldNameArr = this.getFieldName();
       const describeAction = this.action === "create" ? "new" : "exist";
       this.message = `Cannot ${this.action} ${describeAction} ${
         this.errorPayload
       }. The ${fieldNameArr || this.errorPayload} is already existed`;
-    } else if (this.error?.code === ErrorCodes.INVALID) {
+    } else if (this.error?.code === ErrorCodes.TOO_LONG) {
+      this.message = `The ${this.errorPayload} data is invalid`;
+    }
+    if (this.error?.code === ErrorCodes.INVALID) {
       this.message = `The ${this.errorPayload} is invalid`;
     } else {
       this.message = `Something went wrong`;

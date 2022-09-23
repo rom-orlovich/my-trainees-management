@@ -44,6 +44,7 @@ export interface OptionsCRUD {
     update: boolean;
     delete: boolean;
   };
+  logAlert?: boolean;
 }
 
 // The setting of the routes.
@@ -51,13 +52,14 @@ export interface OptionsCRUD {
 // the input of the user.
 
 export const alertsOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.ALERT_ROUTE,
+  singleEntityName: API_ROUTES.ALERT_ENTITY,
   selectQuery: {
     tableName: `${TABLES_DATA.ALERTS_TABLE_NAME} as ale`,
     tableID: `ale.${TABLES_DATA.ALERTS_TABLE_ID}`,
     fieldNamesQuery: `*`,
     querySelectLogic: ``,
   },
+  logAlert: false,
 };
 export const leadsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.LEADS_ENTITY,

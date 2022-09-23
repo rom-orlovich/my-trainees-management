@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner";
 import { alertsApi } from "../../../../redux/api/hooksAPI";
 import { AlertsAPI } from "../../../../redux/api/interfaceAPI";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { disableFetchAlerts } from "../../../../redux/slices/apiSideEffectSlice";
 import DropDown from "../DropDown/DropDown";
 import style from "./AlertsNotification.module.scss";
 interface AlertsNotificationProps extends PropsBasic {}
@@ -12,7 +14,6 @@ interface AlertsNotificationProps extends PropsBasic {}
 function DropDownLiAlert(props: { data: AlertsAPI } & PropsBasic) {
   const [trigger] = alertsApi.useDeleteItemMutation();
   const deleteFun = () => {
-    console.log("click");
     trigger && trigger(String(props.data.alert_id));
   };
   return (
@@ -31,12 +32,21 @@ function DropDownLiAlert(props: { data: AlertsAPI } & PropsBasic) {
 }
 
 function AlertsNotification({ className }: AlertsNotificationProps) {
-  const { data } = alertsApi.useGetItemsQuery(
-    {
-      page: 1,
-    },
-    { pollingInterval: 2 * 60 * 1000 }
+  const { data, refetch } = alertsApi.useGetItemsQuery({
+    page: 1,
+    numResults: 5,
+    asc: false,
+  });
+  const fetchAlerts = useAppSelector(
+    (state) => state.apiSideEffect.fetchAlerts
   );
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (fetchAlerts) {
+      refetch();
+      dispatch(disableFetchAlerts());
+    }
+  }, [fetchAlerts, dispatch]);
 
   return (
     <DropDown dataLI={data?.data || []} Li={DropDownLiAlert}>

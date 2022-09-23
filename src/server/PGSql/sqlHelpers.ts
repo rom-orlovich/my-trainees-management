@@ -143,7 +143,7 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  console.log(statement, queryParams);
+  // console.log(statement, queryParams);
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;
@@ -246,7 +246,7 @@ export async function selectPagination(
   const numPage = Number(page) - 1;
   const offset = numPage * numResult;
   const numResultsReach = offset + numResult;
-
+  console.log(ascending);
   // Prepares the select query of the pagination and the values of where query.
   const { keyValuesStrArr, paramsArr } = prepareKeyValuesOtherColumnToSelect(
     queryParams,

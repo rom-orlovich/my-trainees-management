@@ -23,6 +23,10 @@ export const apiSideEffectSlice = createSlice({
       state.goPrePageBehaviorState.disableGoPrevPage = false;
     },
 
+    // Enable  behavior of go back to previous page.
+    disableFetchAlerts: (state) => {
+      state.fetchAlerts = false;
+    },
     // Reset the goPrePageState.
     resetGoPrevPageState: (state) => {
       state.goPrePageBehaviorState.disableGoPrevPage = true;
@@ -48,5 +52,5 @@ export const apiSideEffectSlice = createSlice({
       }
     ),
 });
-export const { resetGoPrevPageState, enableGoPrevPage } =
+export const { resetGoPrevPageState, enableGoPrevPage, disableFetchAlerts } =
   apiSideEffectSlice.actions;

@@ -9,6 +9,7 @@ declare global {
         message?: string;
         data?: any;
         error?: InstanceType<typeof ErrorCustomizes>;
+        logAlert?: boolean;
       };
     }
   }

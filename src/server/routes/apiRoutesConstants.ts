@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 // All the endpoints and the entities names.
 export enum API_ROUTES {
+  ALERT_ROUTE = "/api/alerts",
+  ALERT_ENTITY = "alert",
   LEADS_ROUTE = "/api/leads",
   LEADS_ENTITY = "lead",
   MUSCLES_GROUP_ROUTE = "/api/musclesGroups",
   MUSCLES_GROUP_ENTITY = "musclesGroup",
-  ALERT_ROUTE = "/api/alerts",
-  ALERT_ENTITY = "alert",
+
   CITIES_ROUTE = "/api/cities",
   CITIES_ENTITY = "city",
   LOCATIONS_ROUTE = "/api/locations",

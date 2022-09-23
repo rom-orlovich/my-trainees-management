@@ -11,21 +11,23 @@ export const handleAlertsMiddleware: RequestHandler = async (
   next
 ) => {
   if (!req.modifiedActionResult) return next();
-  const { data, message, error } = req.modifiedActionResult;
+  const { data, message, error, logAlert } = req.modifiedActionResult;
 
-  const [_, errAlert] = await promiseHandler(
-    insertQueryOneItem(TABLES_DATA.ALERTS_TABLE_NAME, {
-      alert_message: message || error?.message,
-    })
-  );
-  if (error) return next(error);
+  if (logAlert) {
+    const [_, errAlert] = await promiseHandler(
+      insertQueryOneItem(TABLES_DATA.ALERTS_TABLE_NAME, {
+        alert_message: message || error?.message,
+      })
+    );
+    if (error) return next(error);
 
-  if (errAlert) {
-    const errorCustomizes = new ErrorCustomizes(errAlert);
-    errorCustomizes.handleErrors();
-    return next(errorCustomizes);
+    if (errAlert) {
+      const errorCustomizes = new ErrorCustomizes(errAlert);
+      errorCustomizes.handleErrors();
+      return next(errorCustomizes);
+    }
   }
-
+  console.log(data);
   return res.status(200).json({
     message,
     id: createObjValuesArr(data)[0],

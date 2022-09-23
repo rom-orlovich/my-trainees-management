@@ -30,7 +30,7 @@ export function createRoutesControllers({
     queryParams,
     queryNameParam,
   },
-
+  logAlert = true,
   validateSchema,
 }: OptionsCRUD) {
   const createModifiedActionResult = (
@@ -46,12 +46,13 @@ export function createRoutesControllers({
       );
       errorCustomizes.handleErrors();
 
-      return { error: errorCustomizes };
+      return { error: errorCustomizes, logAlert };
     }
     const message = `The ${singleEntityName} is ${action}d successfully!`;
     return {
       message,
       data,
+      logAlert,
     };
   };
 
@@ -67,8 +68,10 @@ export function createRoutesControllers({
 
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
-    const { page, asc, ...rest } = req.query;
-    const ascDefault = (asc || true) as boolean;
+    const { page, asc, numResults, ...rest } = req.query;
+
+    const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
+    const numResultDefault = Number(numResults || 10);
     const [data, err] = await promiseHandler(
       selectPagination(
         tableID,
@@ -78,11 +81,13 @@ export function createRoutesControllers({
         querySelectLogic,
         createRealQueryKeyValuesObj(rest, queryParams),
         createRealQueryKeyValuesObj(rest, queryNameParam),
-        ascDefault
+        ascDefault,
+        numResultDefault
       )
     );
 
     if (err) return next(new ErrorCustomizes(err));
+
     return res.status(200).json({ data: data.rows, next: data.next });
   };
 
@@ -138,6 +143,7 @@ export function createRoutesControllers({
       err,
       "delete"
     );
+
     return next(); // Continue to alerts handler middleware
   };
 

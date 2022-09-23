@@ -23,6 +23,7 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const newRoute = express.Router();
   const singleEntityNameEndPoint = `/${optionsCRUD.singleEntityName}`;
   const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
+
   // Check if route has permissions object.
   if (optionsCRUD.permissions) {
     const {
