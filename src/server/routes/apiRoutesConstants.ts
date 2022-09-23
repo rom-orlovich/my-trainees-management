@@ -5,7 +5,7 @@ export enum API_ROUTES {
   LEADS_ENTITY = "lead",
   MUSCLES_GROUP_ROUTE = "/api/musclesGroups",
   MUSCLES_GROUP_ENTITY = "musclesGroup",
-  ALERT_ROUTE = "api/alerts",
+  ALERT_ROUTE = "/api/alerts",
   ALERT_ENTITY = "alert",
   CITIES_ROUTE = "/api/cities",
   CITIES_ENTITY = "city",

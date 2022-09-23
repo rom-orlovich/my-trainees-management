@@ -226,7 +226,7 @@ export async function deleteQuery(
   }`;
   console.log(statement, queryParams);
   const rows = await client.query(statement, queryParams);
-  return rows.rows[0];
+  return rows.rows;
 }
 
 // Make pagination by select query.

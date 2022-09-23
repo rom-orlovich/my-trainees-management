@@ -46,12 +46,13 @@ export function createRoutesControllers({
   validateSchema,
 }: OptionsCRUD) {
   const validateMiddleware: RequestHandler = async (req, res, next) => {
+    if (!validateSchema) return next();
     const [valid, errValid] = await promiseHandler<any, yup.ValidationError>(
       validateSchema.validate(req.body)
     );
     if (errValid && !valid)
-      next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
-    next();
+      return next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
+    return next();
   };
 
   // Controller of the get method. Gets data from the db.
@@ -105,12 +106,19 @@ export function createRoutesControllers({
         )
       );
     }
+
     const message = `The new ${singleEntityName} is added!`;
-    await createNewAlert(message);
-    return res.status(200).json({
+    req.modifiedActionResult = {
       message,
-      id: createObjValuesArr(data)[0],
-    });
+      data,
+    };
+    return next(); // Continue to alerts handler middleware
+    // const message = `The new ${singleEntityName} is added!`;
+    // await createNewAlert(message);
+    // return res.status(200).json({
+    //   message,
+    //   id: createObjValuesArr(data)[0],
+    // });
   };
 
   // Controller of the put method.
@@ -133,15 +141,15 @@ export function createRoutesControllers({
 
     const message = `The ${singleEntityName} is updated successfully!`;
     req.modifiedActionResult = {
-      message: `The ${singleEntityName} is updated successfully!`,
+      message,
       data,
     };
-    await createNewAlert(message);
-    return res.status(200).json({
-      message,
-      id: createObjValuesArr(data)[0],
-    });
-    // return next(); // Continue to alerts handler middleware
+    // await createNewAlert(message);
+    // return res.status(200).json({
+    //   message,
+    //   id: createObjValuesArr(data)[0],
+    // });
+    return next(); // Continue to alerts handler middleware
   };
 
   // Controller of the delete method.
@@ -160,12 +168,17 @@ export function createRoutesControllers({
       );
 
     const message = `The ${singleEntityName} is deleted successfully!`;
-    await createNewAlert(message);
-
-    return res.status(200).json({
+    req.modifiedActionResult = {
       message,
-      id: createObjValuesArr(data)[0],
-    });
+      data: data[0],
+    };
+    return next(); // Continue to alerts handler middleware
+    // await createNewAlert(message);
+
+    // return res.status(200).json({
+    //   message,
+    //   id: createObjValuesArr(data)[0],
+    // });
   };
 
   return {

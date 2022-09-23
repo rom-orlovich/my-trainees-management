@@ -37,7 +37,7 @@ export interface SelectTableQueryParam {
 export interface OptionsCRUD {
   singleEntityName: string; // name of one item
   selectQuery: SelectTableQueryParam;
-  validateSchema: yup.ObjectSchema<any>;
+  validateSchema?: yup.ObjectSchema<any>;
   permissions?: {
     create: boolean;
     read: boolean;
@@ -49,6 +49,16 @@ export interface OptionsCRUD {
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
 // the input of the user.
+
+export const alertsOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.ALERT_ROUTE,
+  selectQuery: {
+    tableName: `${TABLES_DATA.ALERTS_TABLE_NAME} as ale`,
+    tableID: `ale.${TABLES_DATA.ALERTS_TABLE_ID}`,
+    fieldNamesQuery: `*`,
+    querySelectLogic: ``,
+  },
+};
 export const leadsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.LEADS_ENTITY,
   selectQuery: {
@@ -311,6 +321,10 @@ export const routesCRUDArr: {
   baseRoute: string;
   optionsCRUD: OptionsCRUD;
 }[] = [
+  {
+    baseRoute: API_ROUTES.ALERT_ROUTE,
+    optionsCRUD: alertsOptionsCRUD,
+  },
   {
     baseRoute: API_ROUTES.LEADS_ROUTE,
     optionsCRUD: leadsOptionsCRUD,
