@@ -20,11 +20,11 @@ DROP TABLE IF EXISTS  "leads" CASCADE;
 DROP TABLE IF EXISTS  "muscles_group" CASCADE;
 DROP TABLE IF EXISTS  "alerts" CASCADE;
 
-CREATE TABLE IF NOT EXISTS "alerts"{
+CREATE TABLE IF NOT EXISTS "alerts"(
   "alert_id" serial PRIMARY KEY,
-  "alert_date" DATE NOT NULL DEFAULT now(),
+  "alert_date" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   "alert_message" VARCHAR(255)
-}
+)
 CREATE TABLE IF NOT EXISTS "muscles_group" (
   "muscles_group_id" serial PRIMARY KEY ,
   "muscles_group_name" VARCHAR(20) UNIQUE NOT NULL

@@ -26,7 +26,7 @@ function DropDownLiAlert(
     props.setAlertNotificationState && props.setAlertNotificationState(true);
     trigger && trigger(String(props.data.alert_id));
   };
-
+  console.log(props.data.alert_date);
   return (
     <li
       ref={dropDownRef}
@@ -34,12 +34,11 @@ function DropDownLiAlert(
     >
       <div>
         <p className={style.alert_message}>
-          {props.data.alert_message.split(".")[0]},{" "}
-          <span>{new Date(props.data.alert_date).toLocaleString()} </span>
+          {props.data.alert_message.split(".")[0]}
         </p>
-        {/* <p className={style.date}>
+        <p className={style.date}>
           {new Date(props.data.alert_date).toLocaleString()}{" "}
-        </p> */}
+        </p>
       </div>
 
       <IoMdRemoveCircle onClick={deleteFun} className={style.deleteIcon} />
