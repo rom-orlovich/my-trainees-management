@@ -1,0 +1,21 @@
+@use "../../../style/utilities/utilities.scss" as *;
+
+.settings_page {
+  @include flex-dir(null, null, column);
+  width: 100%;
+  gap: 2rem;
+  margin-left: 2rem;
+  &_header {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  &_links {
+    @include flex-dir(null, null, column);
+
+    gap: 2rem;
+    a {
+      font-size: 1.2rem;
+    }
+  }
+}
