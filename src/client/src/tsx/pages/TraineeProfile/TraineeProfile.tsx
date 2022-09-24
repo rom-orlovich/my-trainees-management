@@ -16,7 +16,6 @@ function TraineeProfile() {
       stateData={{ data, isError, isFetching, isLoading }}
     >
       {(data) => {
-        console.log(data);
         return (
           <TraineeEditForm
             heading="Personal Details"

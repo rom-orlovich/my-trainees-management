@@ -12,7 +12,6 @@ function PersonalDetails({
   className?: string;
   traineeData: TraineeTableAPI;
 }) {
-  console.log(traineeData);
   return (
     <Card className={genClassName(style.card_container_personal_details)}>
       <TraineeEditForm heading="Personal Details" traineeData={traineeData} />
