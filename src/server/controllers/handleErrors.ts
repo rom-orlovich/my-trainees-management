@@ -44,7 +44,7 @@ export class ErrorCustomizes<
       const describeAction = this.action === "create" ? "new" : "exist";
       this.message = `Cannot ${this.action} ${describeAction} ${
         this.errorPayload
-      }.The ${fieldNameArr || this.errorPayload} is already existed`;
+      }. The ${fieldNameArr || this.errorPayload} is already existed`;
     } else if (this.error?.code === ErrorCodes.TOO_LONG) {
       this.message = `The ${this.errorPayload} data is invalid.`;
     } else if (this.error?.code === ErrorCodes.INVALID) {
