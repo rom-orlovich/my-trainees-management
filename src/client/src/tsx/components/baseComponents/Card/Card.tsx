@@ -1,10 +1,13 @@
 import React from "react";
 import { genClassName } from "../../../utilities/helpersFun";
-import { PropsBasic } from "../baseComponentsTypes";
+import { DivProps, PropsBasic } from "../baseComponentsTypes";
 import style from "./Card.module.scss";
-function Card(props: PropsBasic) {
+function Card(props: PropsBasic & { divProps?: DivProps }) {
   return (
-    <div className={genClassName(style.card_container, props.className || "")}>
+    <div
+      {...props.divProps}
+      className={genClassName(style.card_container, props.className)}
+    >
       {props.children}
     </div>
   );

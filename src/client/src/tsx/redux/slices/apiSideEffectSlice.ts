@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { off } from "process";
 
 import { getKeysArrObj } from "../../utilities/helpersFun";
 const initialState: {
   goPrePageBehaviorState: { goPrevPage: boolean; disableGoPrevPage: boolean };
   fetchAlerts: boolean;
+  isModelOpen: boolean;
 } = {
   goPrePageBehaviorState: {
     // The response of delete item from the api will have id.
@@ -13,17 +15,22 @@ const initialState: {
     goPrevPage: false,
   },
   fetchAlerts: false,
+  isModelOpen: false,
 };
 export const apiSideEffectSlice = createSlice({
   name: "apiSideEffect",
   initialState,
   reducers: {
-    // Enable  behavior of go back to previous page.
+    // Enable behavior of go back to previous page.
     enableGoPrevPage: (state) => {
       state.goPrePageBehaviorState.disableGoPrevPage = false;
     },
 
-    // Enable  behavior of go back to previous page.
+    // Enable fetch new alerts.
+    changeModelState: (state) => {
+      state.isModelOpen = !state.isModelOpen;
+    },
+    // Enable fetch new alerts.
     disableFetchAlerts: (state) => {
       state.fetchAlerts = false;
     },
@@ -39,11 +46,16 @@ export const apiSideEffectSlice = createSlice({
     builder.addMatcher(
       (action: PayloadAction<Record<string, any> | undefined>) => {
         const payload = getKeysArrObj(action.payload || {});
-        return payload.includes("id") || payload.includes("status");
+
+        return (
+          payload.includes("id") ||
+          !!(action.payload && action.payload["status" as string] > 400)
+        );
       },
 
       (state) => {
         state.fetchAlerts = true;
+        state.isModelOpen = true;
         // If there is success response from the server after submit form,
         // set goPrevPage to true , in order to go back the previous page.
         if (!state.goPrePageBehaviorState.disableGoPrevPage) {

@@ -23,7 +23,10 @@ export type ComponentProps<T extends object> = {
 export interface ComponentWithArray<T> extends PropsBasic {
   dataArr: T[];
 }
-
+export type DivProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;
 export type LiProps = React.DetailedHTMLProps<
   React.LiHTMLAttributes<HTMLLIElement>,
   HTMLLIElement

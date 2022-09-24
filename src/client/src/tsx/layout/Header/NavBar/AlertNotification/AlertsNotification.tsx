@@ -61,6 +61,7 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (fetchAlerts) {
+      console.log("sclae");
       setScaleUpState(true);
       setTimeout(() => {
         setScaleUpState(false);

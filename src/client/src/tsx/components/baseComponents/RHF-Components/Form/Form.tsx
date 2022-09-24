@@ -70,7 +70,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   useEffect(() => {
     if (goPrevPage) {
       dispatch(resetGoPrevPageState());
-      console.log(pathMove || -1);
+
       nav((pathMove || -1) as any);
     }
   }, [dispatch, pathMove, goPrevPage, nav]);
