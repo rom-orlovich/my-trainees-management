@@ -26,7 +26,7 @@ export const apiSideEffectSlice = createSlice({
       state.goPrePageBehaviorState.disableGoPrevPage = false;
     },
 
-    // Enable fetch new alerts.
+    // Toggle the state of the model.
     changeModelState: (state) => {
       state.isModelOpen = !state.isModelOpen;
     },
@@ -46,16 +46,22 @@ export const apiSideEffectSlice = createSlice({
     builder.addMatcher(
       (action: PayloadAction<Record<string, any> | undefined>) => {
         const payload = getKeysArrObj(action.payload || {});
+        if (payload.includes("id")) console.log(action.payload);
 
         return (
+          // (!action.payload?.message?.includes("alert") &&
           payload.includes("id") ||
           !!(action.payload && action.payload["status" as string] > 400)
         );
       },
 
-      (state) => {
+      (state, action) => {
+        console.log(action);
+        // Enable fetch alerts.
         state.fetchAlerts = true;
-        state.isModelOpen = true;
+        // In order to open the model. The model will not open when there is action on alert.
+        if (!action.payload?.message?.includes("alert"))
+          state.isModelOpen = true;
         // If there is success response from the server after submit form,
         // set goPrevPage to true , in order to go back the previous page.
         if (!state.goPrePageBehaviorState.disableGoPrevPage) {
@@ -64,5 +70,9 @@ export const apiSideEffectSlice = createSlice({
       }
     ),
 });
-export const { resetGoPrevPageState, enableGoPrevPage, disableFetchAlerts } =
-  apiSideEffectSlice.actions;
+export const {
+  resetGoPrevPageState,
+  enableGoPrevPage,
+  disableFetchAlerts,
+  changeModelState,
+} = apiSideEffectSlice.actions;

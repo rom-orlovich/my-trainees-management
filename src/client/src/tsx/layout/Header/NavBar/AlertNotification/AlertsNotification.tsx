@@ -86,9 +86,12 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
         <span
           className={genClassName(
             style.alerts_number,
-            data?.data.length
-              ? style.alerts_number_active
-              : style.alerts_number_unActive,
+
+            data
+              ? data.data.length
+                ? style.alerts_number_active
+                : style.alerts_number_unActive
+              : "",
             scaleUpState ? style.animation_scale_up : ""
           )}
         >
