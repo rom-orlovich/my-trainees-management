@@ -34,17 +34,27 @@ function DropDown<T extends object>({
   setAlertNotificationState,
   Li,
 }: DropDownProps<T>) {
+  const dispatch = useAppDispatch();
+  const menusSliceState = useAppSelector((state) => state.menusSlice);
   const dropDownRef = useRef<HTMLLIElement | null>(null);
-
+  const isMenuSliceStateOpen = menusSliceState[liProps?.id || ""];
+  const handleClickEvent = () => {
+    dispatch(setOneDropDownOn(liProps?.id || ""));
+  };
   const isVisible = useHideUnFocusElement(
     dropDownRef,
     setAlertNotificationState
   );
 
   return (
-    <li {...liProps} className={style.main_li} ref={dropDownRef}>
+    <li
+      {...liProps}
+      className={style.main_li}
+      ref={dropDownRef}
+      onClick={handleClickEvent}
+    >
       {children}
-      {(alertNotificationState || isVisible) &&
+      {(alertNotificationState || (isMenuSliceStateOpen && isVisible)) &&
         (dataLI.length > 0 ? (
           <List
             className={genClassName(style.drop_down_list, className)}
