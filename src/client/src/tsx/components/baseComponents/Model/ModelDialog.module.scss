@@ -1,0 +1,14 @@
+@use "./../../../../style/utilities/utilities.scss" as *;
+#backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  @include posAbs(0%, 0%);
+  @include heightWidth(100%, 100%);
+  z-index: 90;
+}
+.model_card {
+  @include centerAbs();
+  z-index: 100;
+  min-height: 10rem;
+  min-width: 15rem;
+  background-color: white;
+}

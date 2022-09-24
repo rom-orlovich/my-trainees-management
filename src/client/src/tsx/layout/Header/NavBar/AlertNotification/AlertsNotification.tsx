@@ -33,9 +33,7 @@ function DropDownLiAlert(
       className={`${style.notification_li} ${props.className}`}
     >
       <div>
-        <p className={style.alert_message}>
-          {props.data.alert_message.split(".")[0]}
-        </p>
+        <p className={style.alert_message}>{props.data.alert_message}</p>
         <p className={style.date}>
           {new Date(props.data.alert_date).toLocaleString()}{" "}
         </p>
@@ -61,7 +59,6 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (fetchAlerts) {
-      console.log("sclae");
       setScaleUpState(true);
       setTimeout(() => {
         setScaleUpState(false);
@@ -84,7 +81,7 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
       alertNotificationState={alertNotificationState}
       setAlertNotificationState={setAlertNotificationState}
     >
-      <span>
+      <span className={style.alert_icon}>
         <IoMdNotifications className={className} />
         <span
           className={genClassName(
