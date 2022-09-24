@@ -7,13 +7,20 @@
   @include posAbs(120%, 50%, null, null);
   transform: translate(-50%, 0%);
   @include shadow-block();
-  min-width: 12rem;
+  min-width: 15rem;
   width: fit-content;
+
   height: fit-content;
   text-align: center;
   background-color: white;
   border-radius: 5px;
   z-index: 100;
+}
+
+.messageNotFound {
+  @include flex-dir(center, center);
+  cursor: pointer;
+  min-height: 7rem;
 }
 .sec_li {
   @include flex-dir(null, center);

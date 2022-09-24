@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { AiFillDelete } from "react-icons/ai";
+import { IoMdRemoveCircle } from "react-icons/io";
 import { IoMdNotifications } from "react-icons/io";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner";
@@ -19,14 +20,15 @@ function DropDownLiAlert(props: { data: AlertsAPI } & PropsBasic) {
   return (
     <li className={`${style.notification_li} ${props.className}`}>
       <div>
-        <h3>Text </h3>
-        <div>{props.data.alert_message.split(".")[0]} </div>
+        <p className={style.alert_message}>
+          {props.data.alert_message.split(".")[0]}
+        </p>
+        <p className={style.date}>
+          {new Date(props.data.alert_date).toLocaleString()}{" "}
+        </p>
       </div>
-      <div>
-        <h3>Date</h3>
-        <div>{new Date(props.data.alert_date).toLocaleString()}</div>
-      </div>
-      <AiFillDelete onClick={deleteFun} className={style.deleteIcon} />
+
+      <IoMdRemoveCircle onClick={deleteFun} className={style.deleteIcon} />
     </li>
   );
 }
@@ -49,7 +51,11 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   }, [fetchAlerts, dispatch]);
 
   return (
-    <DropDown dataLI={data?.data || []} Li={DropDownLiAlert}>
+    <DropDown
+      dataLI={data?.data || []}
+      Li={DropDownLiAlert}
+      messageNotFound="No Alerts Are Found!"
+    >
       <IoMdNotifications className={className} />
     </DropDown>
   );

@@ -12,12 +12,14 @@ import {
   // setOneDropDownOff,
   setOneDropDownOn,
 } from "../../../../redux/slices/menusSlice";
+import { genClassName } from "../../../../utilities/helpersFun";
 import style from "./DropDown.module.scss";
 
 export type DropDownProps<T extends object> = {
   dataLI: T[];
   Li: (props: PropsBasic & { data: ComponentProps<T> }) => JSX.Element;
   liProps?: LiProps;
+  messageNotFound?: string;
 } & PropsBasic;
 
 function DropDown<T extends object>({
@@ -25,6 +27,7 @@ function DropDown<T extends object>({
   className,
   children,
   liProps,
+  messageNotFound,
   Li,
 }: DropDownProps<T>) {
   const dispatch = useAppDispatch();
@@ -43,15 +46,29 @@ function DropDown<T extends object>({
       ref={dropDownRef}
     >
       {children}
-      {dataLI.length > 0 && state[liProps?.id || ""] && isVisible && (
-        <List
-          className={`${style.drop_down_list} ${className} `}
-          dataArr={dataLI}
-          LI={(data) => {
-            return <Li data={data} className={style.sec_li}></Li>;
-          }}
-        />
-      )}
+      {state[liProps?.id || ""] &&
+        isVisible &&
+        (dataLI.length > 0 ? (
+          <List
+            className={`${style.drop_down_list} ${className} `}
+            dataArr={dataLI}
+            LI={(data) => {
+              return <Li data={data} className={style.sec_li}></Li>;
+            }}
+          />
+        ) : messageNotFound ? (
+          <ul
+            className={genClassName(
+              style.drop_down_list,
+              style.messageNotFound,
+              className
+            )}
+          >
+            <p> {messageNotFound}</p>
+          </ul>
+        ) : (
+          <></>
+        ))}
     </li>
   );
 }

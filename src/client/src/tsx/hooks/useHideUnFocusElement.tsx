@@ -7,8 +7,9 @@ function useHideUnFocusElement<E extends HTMLElement>(
   const [isVisible, setIsVisible] = useState(false);
 
   const handleClickOutside = (event: MouseEvent) => {
-    // Set the visible state true if event of onClick was excute inside
+    // Set the visible state true if event of onClick was execute inside
     // the wrapper element ref.
+    console.log(wrapperRef?.current?.contains(event.target as HTMLElement));
     setIsVisible(!!wrapperRef?.current?.contains(event.target as HTMLElement));
   };
 
