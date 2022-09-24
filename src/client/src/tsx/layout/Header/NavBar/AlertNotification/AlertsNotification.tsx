@@ -40,8 +40,9 @@ function DropDownLiAlert(
           {new Date(props.data.alert_date).toLocaleString()}{" "}
         </p>
       </div>
-
-      <IoMdRemoveCircle onClick={deleteFun} className={style.deleteIcon} />
+      <span>
+        <IoMdRemoveCircle onClick={deleteFun} className={style.deleteIcon} />
+      </span>
     </li>
   );
 }

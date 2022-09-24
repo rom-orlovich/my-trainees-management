@@ -39,7 +39,7 @@ export const apiSideEffectSlice = createSlice({
     builder.addMatcher(
       (action: PayloadAction<Record<string, any> | undefined>) => {
         const payload = getKeysArrObj(action.payload || {});
-        return payload.includes("id");
+        return payload.includes("id") || payload.includes("status");
       },
 
       (state) => {

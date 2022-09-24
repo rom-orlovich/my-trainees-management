@@ -6,8 +6,10 @@
   gap: 2rem;
   margin-left: 2rem;
   &_header {
-    font-size: 1.8rem;
-    font-weight: 500;
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
   }
 
   &_links {
