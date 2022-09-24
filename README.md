@@ -62,19 +62,20 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 5. **Go to http://localhost:3000 and have fun**!
 
 ## Main Features:
-1. **Create/Read/Update/Delete** - Data of trainees, trainings programs, training program's exercises, muscule groups, equipments, 
-leads, cities, locations and app's notes.
-2. **Table paginiation** - Pagination buttons will display when the number of table's rows will be greater than 10 rows.
-3. **Filter table's rows by name** - Filter the table's rows by the name of row.  
-4. **Infinte scroll autocomplete search input** - Autocomplete input which suggests a list of results from the server. \
- When the number of possible results are greater than 10 results, the users can scroll and fetch more results from the server. 
+1. **Modify App's Data** - Create/Read/Update/Delete the following data: Trainees, training programs, training programs's exercises, muscles group, equipments, 
+leads, cities and locations.
+2. **Table Paginiation** - Shows when there are more than 10 items.
+3. **Filter Table's Rows By Name** - Filters the table items by name.  
+4. **Autocomplete Search Input** - Suggests a list of results from the server. \
+Infinte scroll: When there are more than 10 possible suggestions, the users can scroll and fetch more suggestions from the server. 
  
  ## Comeing soon:
- 1. **Notifications system** -Displaying notifications as output of user activities.
- 2. **Trainee Profile Page**- Trainee's Profile page that will display all his personal data, programs and subscription state.  
- 3. **Create/Read/Update/Delete** - Data of nutrition programs progress, finicanls systems, providers.
- 4. **Users System**- Trainees will be able to login to thier profiles and track thier progress. \
- Other personal trainers can login and manage thier businesses.
- 5. **Statistics Page** - Presonal trainers will have a graphical overview about thier businesses.
+ 1. **Notifications System** -Notifications Will display for various user activities.
+ 2. **Sort Table's Items By Name** -Table will Sort items by name.
+ 3. **Trainee Profile Page** - The page will display all his personal data, programs and his subscription status.  
+ 4. **Additional System Data** - Nutrition program's progress, financials system and suppliers.
+ 5. **Users System** - Trainees will be able to login thier profiles and track thier progress.\
+Multiple personal trainers will be able login and manage thier business.
+ 5. **Statistics Page** - Presonal trainers will have a graphical overview about thier business.
 
 
