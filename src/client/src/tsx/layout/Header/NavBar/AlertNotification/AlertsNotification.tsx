@@ -3,12 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { IoMdNotifications } from "react-icons/io";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
-import useHideUnFocusElement from "../../../../hooks/useHideUnFocusElement";
 
 import { alertsApi } from "../../../../redux/api/hooksAPI";
 import { AlertsAPI } from "../../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { disableFetchAlerts } from "../../../../redux/slices/apiSideEffectSlice";
+import { genClassName } from "../../../../utilities/helpersFun";
 import DropDown from "../DropDown/DropDown";
 import style from "./AlertsNotification.module.scss";
 interface AlertsNotificationProps extends PropsBasic {}
@@ -26,7 +26,7 @@ function DropDownLiAlert(
     props.setAlertNotificationState && props.setAlertNotificationState(true);
     trigger && trigger(String(props.data.alert_id));
   };
-  console.log(props.data.alert_date);
+
   return (
     <li
       ref={dropDownRef}
@@ -47,6 +47,7 @@ function DropDownLiAlert(
 }
 
 function AlertsNotification({ className }: AlertsNotificationProps) {
+  const [scaleUpState, setScaleUpState] = useState(false);
   const [alertNotificationState, setAlertNotificationState] = useState(false);
   const { data, refetch } = alertsApi.useGetItemsQuery({
     page: 1,
@@ -59,6 +60,10 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (fetchAlerts) {
+      setScaleUpState(true);
+      setTimeout(() => {
+        setScaleUpState(false);
+      }, 1000);
       refetch();
       dispatch(disableFetchAlerts());
     }
@@ -73,11 +78,24 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
           {...data}
         />
       )}
-      messageNotFound="No Alerts Are Found!"
+      messageNotFound="No alerts was found!"
       alertNotificationState={alertNotificationState}
       setAlertNotificationState={setAlertNotificationState}
     >
-      <IoMdNotifications className={className} />
+      <span>
+        <IoMdNotifications className={className} />
+        <span
+          className={genClassName(
+            style.alerts_number,
+            data?.data.length
+              ? style.alerts_number_active
+              : style.alerts_number_unActive,
+            scaleUpState ? style.animation_scale_up : ""
+          )}
+        >
+          {data?.data.length}
+        </span>
+      </span>
     </DropDown>
   );
 }

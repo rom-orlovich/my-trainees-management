@@ -5,6 +5,7 @@
   padding: 0.8rem;
   gap: 0.5rem;
   height: fit-content;
+
   h3 {
     text-decoration: underline;
   }
@@ -18,5 +19,32 @@
   }
   .date {
     font-size: 0.9rem;
+  }
+}
+.alerts_number {
+  @include posAbs(-7%, null, -8%, null);
+  min-width: 1.8rem;
+  min-height: 0.6rem;
+  border-radius: 50%;
+
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+  @include flex-dir(center, center);
+}
+
+.alerts_number_active {
+  background-color: red;
+}
+.alerts_number_unActive {
+  background-color: rgb(81, 227, 105);
+}
+
+.animation_scale_up {
+  animation: normal 1s scale-up;
+}
+@keyframes scale-up {
+  50% {
+    transform: scale(1.5);
   }
 }

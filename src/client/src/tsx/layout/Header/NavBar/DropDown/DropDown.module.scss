@@ -21,6 +21,8 @@
   @include flex-dir(center, center);
   cursor: pointer;
   min-height: 7rem;
+  font-weight: 500;
+  font-size: 1.2rem;
 }
 .sec_li {
   @include flex-dir(null, center);
