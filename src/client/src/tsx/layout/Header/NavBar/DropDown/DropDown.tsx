@@ -20,6 +20,8 @@ export type DropDownProps<T extends object> = {
   Li: (props: PropsBasic & { data: ComponentProps<T> }) => JSX.Element;
   liProps?: LiProps;
   messageNotFound?: string;
+  disableClickOutSide?: boolean;
+  setS?: React.Dispatch<React.SetStateAction<boolean>>;
 } & PropsBasic;
 
 function DropDown<T extends object>({
@@ -28,29 +30,37 @@ function DropDown<T extends object>({
   children,
   liProps,
   messageNotFound,
+  disableClickOutSide,
+  setS,
   Li,
 }: DropDownProps<T>) {
-  const dispatch = useAppDispatch();
-  const state = useAppSelector((state) => state.menusSlice);
+  // const dispatch = useAppDispatch();
+  const menusSlice = useAppSelector((state) => state.menusSlice);
   const dropDownRef = useRef<HTMLLIElement | null>(null);
-  const handleClickEvent = () => {
-    dispatch(setOneDropDownOn(liProps?.id || ""));
-  };
-  const isVisible = useHideUnFocusElement(dropDownRef);
 
+  // const handleClickEvent = () => {
+  //   dispatch(setOneDropDownOn(liProps?.id || ""));
+  // };
+
+  const isVisible = useHideUnFocusElement(dropDownRef, setS);
+  // if (messageNotFound) {
+  //   // console.log(setS);
+  //   console.log('state[liProps?.id || ""]', menusSlice[liProps?.id || ""]);
+  //   console.log("isVisible", isVisible);
+  //   console.log("disableClickOutSide", disableClickOutSide);
+  // }
   return (
     <li
-      onClick={handleClickEvent}
+      // onClick={handleClickEvent}
       {...liProps}
       className={style.main_li}
       ref={dropDownRef}
     >
       {children}
-      {state[liProps?.id || ""] &&
-        isVisible &&
+      {(disableClickOutSide || isVisible) &&
         (dataLI.length > 0 ? (
           <List
-            className={`${style.drop_down_list} ${className} `}
+            className={genClassName(style.drop_down_list, className)}
             dataArr={dataLI}
             LI={(data) => {
               return <Li data={data} className={style.sec_li}></Li>;

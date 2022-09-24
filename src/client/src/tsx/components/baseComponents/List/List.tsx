@@ -11,14 +11,16 @@ function List<T extends Record<string, any>>({
   children,
   insertChildLast,
   ulProps,
-}: ListProps<T> & { insertChildLast?: boolean }) {
+}: ListProps<T> & {
+  insertChildLast?: boolean;
+}) {
   if (!dataArr[0]) return <> </>;
 
   const keys = getKeysArrObj(dataArr[0]);
   let key = keys[0] + keys[1];
 
   return (
-    <ul {...ulProps} className={className}>
+    <ul {...ulProps} ref={ulProps?.ref} className={className}>
       {!insertChildLast ? children : ""}
       {dataArr.map((el, i) => {
         return <LI key={`${key}${i}`} {...el} />;
