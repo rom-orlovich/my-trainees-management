@@ -75,7 +75,7 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
       )}
       messageNotFound="No Alerts Are Found!"
       alertNotificationState={alertNotificationState}
-      setS={setAlertNotificationState}
+      setAlertNotificationState={setAlertNotificationState}
     >
       <IoMdNotifications className={className} />
     </DropDown>

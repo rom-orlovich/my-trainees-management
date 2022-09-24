@@ -21,7 +21,7 @@ export type DropDownProps<T extends object> = {
   liProps?: LiProps;
   messageNotFound?: string;
   alertNotificationState?: boolean;
-  setS?: React.Dispatch<React.SetStateAction<boolean>>;
+  setAlertNotificationState?: React.Dispatch<React.SetStateAction<boolean>>;
 } & PropsBasic;
 
 function DropDown<T extends object>({
@@ -31,12 +31,15 @@ function DropDown<T extends object>({
   liProps,
   messageNotFound,
   alertNotificationState,
-  setS,
+  setAlertNotificationState,
   Li,
 }: DropDownProps<T>) {
   const dropDownRef = useRef<HTMLLIElement | null>(null);
 
-  const isVisible = useHideUnFocusElement(dropDownRef, setS);
+  const isVisible = useHideUnFocusElement(
+    dropDownRef,
+    setAlertNotificationState
+  );
 
   return (
     <li {...liProps} className={style.main_li} ref={dropDownRef}>
