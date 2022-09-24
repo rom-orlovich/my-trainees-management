@@ -16,14 +16,14 @@ interface AlertsNotificationProps extends PropsBasic {}
 function DropDownLiAlert(
   props: {
     data: AlertsAPI;
-    setS?: React.Dispatch<React.SetStateAction<boolean>>;
+    setAlertNotificationState?: React.Dispatch<React.SetStateAction<boolean>>;
   } & PropsBasic
 ) {
   const dropDownRef = useRef<HTMLLIElement | null>(null);
 
   const [trigger] = alertsApi.useDeleteItemMutation();
   const deleteFun = () => {
-    props.setS && props.setS(true);
+    props.setAlertNotificationState && props.setAlertNotificationState(true);
     trigger && trigger(String(props.data.alert_id));
   };
 
@@ -48,7 +48,7 @@ function DropDownLiAlert(
 }
 
 function AlertsNotification({ className }: AlertsNotificationProps) {
-  const [s, setS] = useState(false);
+  const [alertNotificationState, setAlertNotificationState] = useState(false);
   const { data, refetch } = alertsApi.useGetItemsQuery({
     page: 1,
     numResults: 5,
@@ -68,10 +68,15 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   return (
     <DropDown
       dataLI={data?.data || []}
-      Li={({ ...data }) => <DropDownLiAlert setS={setS} {...data} />}
+      Li={({ ...data }) => (
+        <DropDownLiAlert
+          setAlertNotificationState={setAlertNotificationState}
+          {...data}
+        />
+      )}
       messageNotFound="No Alerts Are Found!"
-      disableClickOutSide={s}
-      setS={setS}
+      alertNotificationState={alertNotificationState}
+      setS={setAlertNotificationState}
     >
       <IoMdNotifications className={className} />
     </DropDown>
