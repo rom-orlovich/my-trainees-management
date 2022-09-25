@@ -39,11 +39,14 @@
 @include smartphone() {
   .page_container {
     margin-top: 0rem;
-    width: 90%;
+    width: 96%;
     .page_header {
       padding: 0 0rem;
       span[class*="auto"] {
         max-width: 60%;
+        label {
+          font-size: 1.15rem;
+        }
       }
       a {
         font-size: 0.7rem;

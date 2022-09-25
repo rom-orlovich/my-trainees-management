@@ -9,6 +9,7 @@ import {
 } from "../../redux/api/interfaceAPI";
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
+import { deleteFunMutation } from "../../utilities/helpersFun";
 
 import page_style from "../Page.module.scss";
 const trainingProgramExercisesTransform = ({
@@ -45,7 +46,7 @@ const trainingProgramExercisesTransform = ({
 function TrainingProgramExercises() {
   const trainingProgramListID = Number(useParams().id);
   const [exercise, setExercise] = useState<string[]>(["", ""]);
-
+  const [deleteItem] = trainingProgramsApi.useDeleteItemMutation();
   const pathName = useLocation().pathname;
 
   return (
@@ -78,6 +79,7 @@ function TrainingProgramExercises() {
               queriesOptions={{ trainingProgramListID, name: exercise[1] }}
               mainRoute={pathName.slice(1)}
               nameData="Training Program Exercises"
+              deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
               getAllQuery={trainingProgramsApi.useGetItemsQuery}
             />
           </MainRoute>

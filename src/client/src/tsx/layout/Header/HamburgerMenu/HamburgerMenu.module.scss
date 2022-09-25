@@ -1,7 +1,7 @@
 @use "./../../../../style/utilities/utilities.scss" as *;
 
 .hamburger_menu {
-  @include heightWidth(2.5rem, 2.5rem);
+  @include heightWidth(2rem, 2rem);
 
   @include flex-dir(space-around, null, column);
   // display: block;
