@@ -32,15 +32,13 @@ const trainingProgramExercisesTransform = ({
   return {
     training_program_row_id,
     exercise_name,
-    muscles_group_name,
+    muscles_group: muscles_group_name,
     equipment_name,
     reps,
     sets,
     intensity,
     rest,
     rpe,
-    note_topic,
-    note_text,
   };
 };
 
