@@ -48,15 +48,15 @@ export const apiSideEffectSlice = createSlice({
         const payload = getKeysArrObj(action.payload || {});
 
         return (
-          // (!action.payload?.message?.includes("alert") &&
           payload.includes("id") ||
-          !!(action.payload && action.payload["status" as string] > 400)
+          !!(action.payload && action.payload["status" as string] >= 400)
         );
       },
 
       (state, action) => {
         // Enable fetch alerts.
         state.fetchAlerts = true;
+
         // In order to open the model. The model will not open when there is action on alert.
         if (!action.payload?.message?.includes("alert"))
           state.isModelOpen = true;

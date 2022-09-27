@@ -24,6 +24,7 @@ function TrainingProgramsPage() {
     if (data && !data.training_programs_list_id)
       navigate(`${trainee[0]}/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`);
   }, [data, trainee, navigate]);
+
   return (
     <section className={page_style.page_container}>
       <div className={page_style.page_header}>

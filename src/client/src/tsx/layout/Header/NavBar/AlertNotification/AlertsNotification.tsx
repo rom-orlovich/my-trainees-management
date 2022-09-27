@@ -88,14 +88,14 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
             style.alerts_number,
 
             data
-              ? data.data.length
+              ? data.countRows
                 ? style.alerts_number_active
                 : style.alerts_number_unActive
               : "",
             scaleUpState ? style.animation_scale_up : ""
           )}
         >
-          {data?.data.length}
+          {data?.countRows}
         </span>
       </span>
     </DropDown>

@@ -54,6 +54,7 @@ export interface ResponseMutationAPI {
 export interface ResponseQueryAPI<T> {
   next: boolean;
   data: T[];
+  countRows: number;
 }
 
 export interface AlertsAPI {

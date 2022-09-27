@@ -274,8 +274,9 @@ export async function selectPagination(
     queryParamsRes
   );
   const numTotalRows = Number(countRows[0].count);
+
   // Return if the table is empty.
-  if (!numTotalRows) return { rows: [], next: false };
+  if (!numTotalRows) return { rows: [], next: false, countRows: 0 };
 
   const limitOffsetQuery = `order by ${idField} ${
     ascending ? "ASC" : "DESC"
@@ -288,5 +289,9 @@ export async function selectPagination(
     [...queryParamsRes, numResult, offset]
   );
 
-  return { rows, next: numResultsReach < numTotalRows };
+  return {
+    rows,
+    next: numResultsReach < numTotalRows,
+    countRows: numTotalRows,
+  };
 }

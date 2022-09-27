@@ -88,7 +88,9 @@ export function createRoutesControllers({
 
     if (err) return next(new ErrorCustomizes(err));
 
-    return res.status(200).json({ data: data.rows, next: data.next });
+    return res
+      .status(200)
+      .json({ data: data.rows, next: data.next, countRows: data.countRows });
   };
 
   // Controller of the get method. Gets one item by ID from the db.
@@ -137,7 +139,7 @@ export function createRoutesControllers({
     const [data, err] = await promiseHandler(
       deleteQuery(tableName, queryLogic, [id], true)
     );
-
+    console.log(data);
     req.modifiedActionResult = createModifiedActionResult(
       data ? data[0] : undefined,
       err,
