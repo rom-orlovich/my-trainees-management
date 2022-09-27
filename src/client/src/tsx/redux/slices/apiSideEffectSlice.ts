@@ -46,15 +46,8 @@ export const apiSideEffectSlice = createSlice({
     builder.addMatcher(
       (action: PayloadAction<Record<string, any> | undefined>) => {
         const payload = getKeysArrObj(action.payload || {});
-        if (
-          payload.includes("id") ||
-          !!(action.payload && action.payload["status" as string] >= 400)
-        )
-          console.log(action.payload);
-        return (
-          payload.includes("id") ||
-          !!(action.payload && action.payload["status" as string] >= 400)
-        );
+
+        return payload.includes("id") || action?.payload?.status >= 400;
       },
 
       (state, action) => {
@@ -66,7 +59,10 @@ export const apiSideEffectSlice = createSlice({
           state.isModelOpen = true;
         // If there is success response from the server after submit form,
         // set goPrevPage to true , in order to go back the previous page.
-        if (!state.goPrePageBehaviorState.disableGoPrevPage) {
+        if (
+          !state.goPrePageBehaviorState.disableGoPrevPage &&
+          action?.payload?.status === undefined
+        ) {
           state.goPrePageBehaviorState.goPrevPage = true;
         }
       }

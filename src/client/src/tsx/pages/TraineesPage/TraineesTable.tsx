@@ -8,37 +8,17 @@ import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
-// export const transformDataTrainee = (arg: TraineeTableAPI) => {
-//   const {
-//     training_programs_list_id,
-
-//     location_id,
-//     nutrition_programs_list_id,
-//     birthday,
-//     identify_num,
-//     street,
-//     phone_number,
-//     city_name,
-//     email,
-//     subscription_plan_id,
-//     ...rest
-//   } = arg;
-
-//   return rest;
-// };
 export const transformDataTrainee = (arg: TraineeTableAPI) => {
   const {
-    // training_programs_list_id,
-
     location_id,
-    // nutrition_programs_list_id,
+
     birthday,
     identify_num,
     street,
     phone_number,
     city_name,
     email,
-    // subscription_plan_id,
+
     ...rest
   } = arg;
 
