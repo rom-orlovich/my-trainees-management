@@ -19,7 +19,8 @@ export const handleAlertsMiddleware: RequestHandler = async (
         alert_message: message || error?.message,
       })
     );
-    if (error) return next(error);
+
+    // if (error) return next(error);
 
     if (errAlert) {
       const errorCustomizes = new ErrorCustomizes(errAlert);
@@ -27,7 +28,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
       return next(errorCustomizes);
     }
   }
-
+  if (error) return next(error);
   return res.status(200).json({
     message,
     id: createObjValuesArr(data)[0],

@@ -11,8 +11,8 @@ import {
   updateQuerySingleItem,
 } from "../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
-import { TABLES_DATA } from "../utilities/constants";
-import { createObjValuesArr, promiseHandler } from "../utilities/helpers";
+
+import { promiseHandler } from "../utilities/helpers";
 import { ActionType, ErrorCodes, ErrorCustomizes } from "./handleErrors";
 
 /**
@@ -44,11 +44,12 @@ export function createRoutesControllers({
         action,
         singleEntityName
       );
+
       errorCustomizes.handleErrors();
 
       return { error: errorCustomizes, logAlert };
     }
-    const message = `The ${singleEntityName} is ${action}d successfully!`;
+    const message = `The ${singleEntityName} was ${action}d successfully!`;
     return {
       message,
       data,
@@ -139,10 +140,17 @@ export function createRoutesControllers({
     const [data, err] = await promiseHandler(
       deleteQuery(tableName, queryLogic, [id], true)
     );
-    console.log(data);
+
+    const noDataError =
+      data && data.length === 0
+        ? {
+            code: ErrorCodes.RESULT_NOT_fOUND,
+            ...new Error("Results weren't found"),
+          }
+        : undefined;
     req.modifiedActionResult = createModifiedActionResult(
-      data ? data[0] : undefined,
-      err,
+      data,
+      noDataError,
       "delete"
     );
 

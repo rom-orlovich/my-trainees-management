@@ -112,11 +112,11 @@ span[class*="checkbox_label"] {
       width: 100%;
       button,
       a {
-        @include button(rgb(114, 151, 224), 0.5rem, 1.7rem);
+        @include button(rgb(114, 151, 224), 0.4rem, 1.7rem);
         @extend %button;
       }
       a {
-        padding: 0.8rem 1.7rem;
+        padding: 0.4rem 1.7rem;
       }
     }
 

@@ -46,7 +46,11 @@ export const apiSideEffectSlice = createSlice({
     builder.addMatcher(
       (action: PayloadAction<Record<string, any> | undefined>) => {
         const payload = getKeysArrObj(action.payload || {});
-
+        if (
+          payload.includes("id") ||
+          !!(action.payload && action.payload["status" as string] >= 400)
+        )
+          console.log(action.payload);
         return (
           payload.includes("id") ||
           !!(action.payload && action.payload["status" as string] >= 400)

@@ -8,7 +8,7 @@ import { alertsApi } from "../../../../redux/api/hooksAPI";
 import { AlertsAPI } from "../../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { disableFetchAlerts } from "../../../../redux/slices/apiSideEffectSlice";
-import { genClassName } from "../../../../utilities/helpersFun";
+import { delayFun, genClassName } from "../../../../utilities/helpersFun";
 import DropDown from "../DropDown/DropDown";
 import style from "./AlertsNotification.module.scss";
 interface AlertsNotificationProps extends PropsBasic {}
@@ -60,11 +60,15 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   useEffect(() => {
     if (fetchAlerts) {
       setScaleUpState(true);
-      setTimeout(() => {
+      // setTimeout(() => {
+      //   setScaleUpState(false);
+      // }, 1000);
+      delayFun(() => {
         setScaleUpState(false);
-      }, 1000);
-      refetch();
-      dispatch(disableFetchAlerts());
+      }, 1000).then(() => {
+        refetch();
+        dispatch(disableFetchAlerts());
+      });
     }
   }, [fetchAlerts, dispatch, refetch]);
 

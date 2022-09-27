@@ -9,6 +9,7 @@ export enum ErrorCodes {
   UNIQUE = "23505",
   INVALID = "22023",
   TOO_LONG = "22001",
+  RESULT_NOT_fOUND = "2RNF",
 }
 
 export type ActionType = "update" | "delete" | "create" | "get";
@@ -49,9 +50,9 @@ export class ErrorCustomizes<
       this.message = `The ${this.errorPayload} data is invalid.`;
     } else if (this.error?.code === ErrorCodes.INVALID) {
       this.message = `The ${this.errorPayload} is invalid.`;
-    } else {
-      this.message = `Something went wrong.`;
-    }
+    } else if (this.error?.code === ErrorCodes.RESULT_NOT_fOUND)
+      this.message = this.error?.message || "";
+
     return this;
   }
 }
