@@ -60,9 +60,7 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   useEffect(() => {
     if (fetchAlerts) {
       setScaleUpState(true);
-      // setTimeout(() => {
-      //   setScaleUpState(false);
-      // }, 1000);
+
       delayFun(() => {
         setScaleUpState(false);
       }, 1000).then(() => {

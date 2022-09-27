@@ -150,7 +150,7 @@ export function createRoutesControllers({
         : undefined;
     req.modifiedActionResult = createModifiedActionResult(
       data,
-      noDataError,
+      err || noDataError,
       "delete"
     );
 

@@ -29,12 +29,12 @@ export function TablePagination<T extends Record<string, any>>({
 } & OmitKey<TableProps<T>, "dataArr">) {
   const { ButtonLeft, ButtonRight, numPage, setNumPage } =
     usePaginationButtons();
-  const disptach = useAppDispatch();
+  const dispatch = useAppDispatch();
   const pathName = useLocation().pathname;
 
   useEffect(() => {
-    disptach(setPageState({ name: nameData, page: numPage }));
-  }, [numPage, disptach, nameData]);
+    dispatch(setPageState({ name: nameData, page: numPage }));
+  }, [numPage, dispatch, nameData]);
 
   const { data, isLoading, isError, isFetching } = getAllQuery({
     page: numPage,
@@ -42,7 +42,7 @@ export function TablePagination<T extends Record<string, any>>({
   });
 
   const Data = data as ResponseQueryAPI<T> | undefined;
-
+  console.log(Data);
   // Side effect that return the pre page when the current page's data is empty.
   useEffect(() => {
     if (Data && Data?.data.length === 0) {

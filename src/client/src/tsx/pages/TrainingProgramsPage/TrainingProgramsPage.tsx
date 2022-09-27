@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { TrainingProgramsListAddForm } from "../../components/Forms/TrainingProgramListForms/TrainingProgramsListAddForm";
-import { traineesApi } from "../../redux/api/hooksAPI";
+import { traineesApi, trainingProgramsListApi } from "../../redux/api/hooksAPI";
 import { TraineeTableAPI } from "../../redux/api/interfaceAPI";
 import TableTrainingProgramList from "./TableTrainingProgramList";
 // import style from "./TrainingPrograms.module.scss";
@@ -11,19 +11,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { APP_ROUTE } from "../../routes/routesConstants";
 
 function TrainingProgramsPage() {
-  const navigate = useNavigate();
   const [trainee, setTrainee] = useState<string[]>(["", ""]);
-  const [trigger, result] = traineesApi.useLazyGetItemByIDQuery();
+
+  const [trigger, result] = trainingProgramsListApi.useLazyGetItemsQuery();
 
   useEffect(() => {
-    if (trainee[0]) trigger(Number(trainee[0]));
+    if (trainee[0]) trigger({ traineeID: Number(trainee[0]) });
   }, [trainee, trigger]);
 
   const { data, isError, isFetching, isLoading } = result;
-  useEffect(() => {
-    if (data && !data.training_programs_list_id)
-      navigate(`${trainee[0]}/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`);
-  }, [data, trainee, navigate]);
 
   return (
     <section className={page_style.page_container}>
@@ -57,13 +53,7 @@ function TrainingProgramsPage() {
           message="Please Choose Trainee..."
         >
           {(data) => {
-            if (data.training_programs_list_id) {
-              return (
-                <TableTrainingProgramList
-                  traineeID={data.profile_id as number}
-                />
-              );
-            }
+            return <TableTrainingProgramList traineeID={Number(trainee[0])} />;
           }}
         </LoadingSpinner>
       </div>

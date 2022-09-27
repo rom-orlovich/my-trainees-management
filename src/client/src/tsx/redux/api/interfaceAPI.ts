@@ -186,14 +186,7 @@ export type LocationsGetRes = LocationsTableAPI &
   PickKey<CitiesTableAPI, "city_name">;
 export type TraineeTableAPI = TraineesTableAPI &
   PickKey<CitiesTableAPI, "city_name"> &
-  PickKey<LocationsTableAPI, "street"> &
-  PickKey<TrainingProgramsListTableAPI, "training_programs_list_id"> &
-  PickKey<SubscriptionPlansAPI, "subscription_plan_id"> &
-  PickKey<NutritionProgramsListTable, "nutrition_programs_list_id">;
-
-export type TraineesExtends = OmitKey<TraineeTableAPI, "profile_id"> & {
-  profile_id: number;
-};
+  PickKey<LocationsTableAPI, "street">;
 
 export interface TrainingProgramExerciseTableAPI {
   training_program_row_id: number;

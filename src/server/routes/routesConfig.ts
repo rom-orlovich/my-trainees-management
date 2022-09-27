@@ -282,21 +282,11 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     tableID: `pr.${TABLES_DATA.PROFILE_ID}`,
     fieldNamesQuery: `
     pr.*, lo.street ,
-     c.city_name , 
-    tpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID},
-    npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID} ,
-    subp.${TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_ID}
-    `,
+     c.city_name `,
     querySelectLogic: `
     JOIN ${TABLES_DATA.LOCATION_TABLE_NAME} as lo ON 
     pr.${TABLES_DATA.LOCATION_ID}=lo.${TABLES_DATA.LOCATION_ID} JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c on 
-   c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} 
-   LEFT JOIN ${TABLES_DATA.TRAINING_PROGRAMS_LIST_TABLE_NAME} as tpl ON
-   tpl.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}
-   LEFT JOIN ${TABLES_DATA.NUTRITION_PROGRAM_LIST_TABLE_NAME} as npl ON
-   npl.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}
-   LEFT JOIN ${TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_NAME} as subp ON
-   subp.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID} `,
+   c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} `,
     queryNameParam: {
       mainName: "first_name",
       lastName: "last_name",

@@ -25,10 +25,10 @@ export function TraineeEditForm({
     const {
       profile_id,
       street,
-      training_programs_list_id,
-      nutrition_programs_list_id,
+      // training_programs_list_id,
+      // nutrition_programs_list_id,
       city_name,
-      subscription_plan_id,
+      // subscription_plan_id,
       ...rest
     } = body as TraineeTableAPI;
 

@@ -64,6 +64,7 @@ export const errorHandlerMiddleware: ErrorRequestHandler = async (
   next
 ) => {
   if (err) {
+    console.log(err);
     const { statusCode, message } = err;
     return res.status(statusCode).json({ message });
   }
