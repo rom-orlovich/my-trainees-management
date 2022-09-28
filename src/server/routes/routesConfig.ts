@@ -51,6 +51,16 @@ export interface OptionsCRUD {
 // Each one contains the options CRUD and validate schema to validate
 // the input of the user.
 
+export const usersOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.USER_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.USERS_TABLE_NAME} as us`,
+    tableID: `ale.${TABLES_DATA.USERS_TABLE_ID}`,
+    fieldNamesQuery: `*`,
+    querySelectLogic: ``,
+  },
+};
+
 export const alertsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.ALERT_ENTITY,
   selectQuery: {
@@ -313,6 +323,10 @@ export const routesCRUDArr: {
   baseRoute: string;
   optionsCRUD: OptionsCRUD;
 }[] = [
+  {
+    baseRoute: API_ROUTES.USERS_ROUTE,
+    optionsCRUD: usersOptionsCRUD,
+  },
   {
     baseRoute: API_ROUTES.ALERT_ROUTE,
     optionsCRUD: alertsOptionsCRUD,

@@ -13,6 +13,8 @@ export const CREATE_DB_TABLE_SQL_FILE_PATH = join(
 export enum TABLES_DATA {
   ALERTS_TABLE_NAME = "alerts",
   ALERTS_TABLE_ID = "alert_id",
+  USERS_TABLE_NAME = "users",
+  USERS_TABLE_ID = "user_id",
   MUSCLES_GROUP_TABLE_NAME = "muscles_group",
   MUSCLE_GROUP_ID = "muscles_group_id",
   LEADS_TABLE_NAME = "leads",
