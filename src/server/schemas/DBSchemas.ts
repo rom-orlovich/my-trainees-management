@@ -156,3 +156,8 @@ export const incomesSchema = yup.object().shape({
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
+
+export const loginSchema = yup.object().shape({
+  username: yup.string().required(),
+  password: yup.string().required(),
+});

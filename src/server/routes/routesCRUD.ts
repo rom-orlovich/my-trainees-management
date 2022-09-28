@@ -15,7 +15,7 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
     getValuesFromDB,
     getValueFromDBbyID,
     createNewValueInDB,
-    validateMiddleware,
+    validateMiddlewareHandler,
     updateValueByID,
     deleteValueByID,
   } = createRoutesControllers(optionsCRUD);
@@ -32,18 +32,19 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
       update,
       delete: deleteCRUD,
     } = optionsCRUD.permissions;
+
     read && newRoute.get("/", getValuesFromDB);
     read && newRoute.get(singleEntityNameEndPointID, getValueFromDBbyID);
     create &&
       newRoute.post(
         singleEntityNameEndPoint,
-        validateMiddleware,
+        validateMiddlewareHandler,
         createNewValueInDB
       );
     update &&
       newRoute.put(
         singleEntityNameEndPointID,
-        validateMiddleware,
+        validateMiddlewareHandler,
         updateValueByID
       );
     deleteCRUD && newRoute.delete(singleEntityNameEndPointID, deleteValueByID);
@@ -51,11 +52,11 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
     newRoute.route("/").get(getValuesFromDB);
     newRoute
       .route(singleEntityNameEndPoint)
-      .post(validateMiddleware, createNewValueInDB);
+      .post(validateMiddlewareHandler, createNewValueInDB);
     newRoute
       .route(singleEntityNameEndPointID)
       .get(getValueFromDBbyID)
-      .put(validateMiddleware, updateValueByID)
+      .put(validateMiddlewareHandler, updateValueByID)
       .delete(deleteValueByID);
   }
 

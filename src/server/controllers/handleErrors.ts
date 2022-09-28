@@ -46,6 +46,7 @@ export class ErrorCustomizes<
       this.message = `Cannot ${this.action} ${describeAction} ${
         this.errorPayload
       }. The ${fieldNameArr || this.errorPayload} is already existed`;
+      this.statusCode = 409;
     } else if (this.error?.code === ErrorCodes.TOO_LONG) {
       this.message = `The ${this.errorPayload} data is invalid.`;
     } else if (this.error?.code === ErrorCodes.INVALID) {

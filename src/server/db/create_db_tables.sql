@@ -49,8 +49,6 @@ CREATE TABLE IF NOT EXISTS "leads"(
 "status"  BOOLEAN  DEFAULT FALSE,
 "note_topic" TEXT NOT NULL,
 "note_text" TEXT 
-
-
 );
 
 
@@ -194,11 +192,11 @@ CONSTRAINT fk_profile_id
 
 CREATE TABLE IF NOT EXISTS "users"(
     "user_id" serial PRIMARY KEY,
-    "role" varchar(50) DEFAULT 'trainee',
+    "role" varchar(50) DEFAULT 'admin',
     "username" varchar(50) UNIQUE,
     "password" varchar(255),
     "profile_id" INTEGER ,
-CONSTRAINT "role" CHECK ("role" IN ('trainee','admin')),
+CONSTRAINT "role" CHECK ("role" IN ('trainee','admin','trainer')),
 CONSTRAINT fk_profile_id 
     FOREIGN KEY(profile_id)
     REFERENCES profiles(profile_id)

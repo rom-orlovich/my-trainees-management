@@ -15,6 +15,20 @@ import { OptionsCRUD } from "../routes/routesConfig";
 import { promiseHandler } from "../utilities/helpers";
 import { ActionType, ErrorCodes, ErrorCustomizes } from "./handleErrors";
 
+export const validateMiddleware: (
+  validateSchema: yup.ObjectSchema<any> | undefined
+) => RequestHandler =
+  (validateSchema: yup.ObjectSchema<any> | undefined) =>
+  async (req, res, next) => {
+    if (!validateSchema) return next();
+    const [valid, errValid] = await promiseHandler<any, yup.ValidationError>(
+      validateSchema.validate(req.body)
+    );
+    if (errValid && !valid)
+      return next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
+    return next();
+  };
+
 /**
  *
  * @param param0 Options of the CRUD controller routes.
@@ -55,16 +69,6 @@ export function createRoutesControllers({
       data,
       logAlert,
     };
-  };
-
-  const validateMiddleware: RequestHandler = async (req, res, next) => {
-    if (!validateSchema) return next();
-    const [valid, errValid] = await promiseHandler<any, yup.ValidationError>(
-      validateSchema.validate(req.body)
-    );
-    if (errValid && !valid)
-      return next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
-    return next();
   };
 
   // Controller of the get method. Gets data from the db.
@@ -158,7 +162,7 @@ export function createRoutesControllers({
   };
 
   return {
-    validateMiddleware,
+    validateMiddlewareHandler: validateMiddleware(validateSchema),
     getValuesFromDB,
     getValueFromDBbyID,
     createNewValueInDB,
