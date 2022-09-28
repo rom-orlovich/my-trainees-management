@@ -11,7 +11,8 @@ export const handleAlertsMiddleware: RequestHandler = async (
   next
 ) => {
   if (!req.modifiedActionResult) return next();
-  const { data, message, error, logAlert } = req.modifiedActionResult;
+  const { data, message, error, logAlert, successStatusCode } =
+    req.modifiedActionResult;
 
   if (logAlert) {
     const [_, errAlert] = await promiseHandler(
@@ -29,7 +30,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
     }
   }
   if (error) return next(error);
-  return res.status(200).json({
+  return res.status(successStatusCode || 200).json({
     message,
     id: createObjValuesArr(data)[0],
   });

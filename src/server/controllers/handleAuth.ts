@@ -1,15 +1,27 @@
 import { RequestHandler } from "webpack-dev-server";
-import { insertQueryOneItem, selectQuery } from "../PGSql/sqlHelpers";
+import { hash } from "bcrypt";
+import { insertQueryOneItem } from "../PGSql/sqlHelpers";
 import { promiseHandler } from "../utilities/helpers";
-import { ErrorCustomizes } from "./handleErrors";
 
-export const register: RequestHandler = async (req, res, next) => {
-  const { password, username } = req.body;
+import { createModifiedActionResult } from "./controllerCRUD";
+import { API_ROUTES } from "../routes/apiRoutesConstants";
 
-  const queryLogic = "where username = $1";
+const createModifiedActionResultFun = createModifiedActionResult(
+  API_ROUTES.USER_ENTITY,
+  true
+);
+export const registerHandler: RequestHandler = async (req, res, next) => {
+  const { password } = req.body;
+  const hashPassword = await hash(password, 10);
   const [user, error] = await promiseHandler(
-    insertQueryOneItem("users", req.body)
+    insertQueryOneItem("users", { ...req.body, password: hashPassword })
+  );
+  req.modifiedActionResult = createModifiedActionResultFun(
+    user,
+    error,
+    "create",
+    201
   );
 
-  if (error) next(error);
+  return next();
 };

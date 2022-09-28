@@ -28,6 +28,33 @@ export const validateMiddleware: (
       return next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
     return next();
   };
+export const createModifiedActionResult =
+  (singleEntityName: string, logAlert: boolean) =>
+  (
+    data: any | undefined,
+    err: Error | undefined,
+    action: ActionType,
+    successStatusCode = 200
+  ) => {
+    if (err) {
+      const errorCustomizes = new ErrorCustomizes(
+        err,
+        action,
+        singleEntityName
+      );
+
+      errorCustomizes.handleErrors();
+
+      return { error: errorCustomizes, logAlert };
+    }
+    const message = `The ${singleEntityName} was ${action}d successfully!`;
+    return {
+      successStatusCode,
+      message,
+      data,
+      logAlert,
+    };
+  };
 
 /**
  *
@@ -47,30 +74,10 @@ export function createRoutesControllers({
   logAlert = true,
   validateSchema,
 }: OptionsCRUD) {
-  const createModifiedActionResult = (
-    data: any | undefined,
-    err: Error | undefined,
-    action: ActionType
-  ) => {
-    if (err) {
-      const errorCustomizes = new ErrorCustomizes(
-        err,
-        action,
-        singleEntityName
-      );
-
-      errorCustomizes.handleErrors();
-
-      return { error: errorCustomizes, logAlert };
-    }
-    const message = `The ${singleEntityName} was ${action}d successfully!`;
-    return {
-      message,
-      data,
-      logAlert,
-    };
-  };
-
+  const createModifiedActionResultFun = createModifiedActionResult(
+    singleEntityName,
+    logAlert
+  );
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
     const { page, asc, numResults, ...rest } = req.query;
@@ -117,7 +124,11 @@ export function createRoutesControllers({
       insertQueryOneItem(tableName, req.body)
     );
 
-    req.modifiedActionResult = createModifiedActionResult(data, err, "create");
+    req.modifiedActionResult = createModifiedActionResultFun(
+      data,
+      err,
+      "create"
+    );
     return next(); // Continue to alerts handler middleware
   };
 
@@ -130,7 +141,11 @@ export function createRoutesControllers({
       updateQuerySingleItem(tableName, req.body, req.params.id, queryLogic)
     );
 
-    req.modifiedActionResult = createModifiedActionResult(data, err, "update");
+    req.modifiedActionResult = createModifiedActionResultFun(
+      data,
+      err,
+      "update"
+    );
 
     return next(); // Continue to alerts handler middleware
   };
@@ -148,11 +163,11 @@ export function createRoutesControllers({
     const noDataError =
       data && data.length === 0
         ? {
-            code: ErrorCodes.RESULT_NOT_fOUND,
+            code: ErrorCodes.RESULT_NOT_FOUND,
             ...new Error("Results weren't found"),
           }
         : undefined;
-    req.modifiedActionResult = createModifiedActionResult(
+    req.modifiedActionResult = createModifiedActionResultFun(
       data,
       err || noDataError,
       "delete"

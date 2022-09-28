@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/jest": "^27.5.2",
     "@types/jquery": "^3.5.14",
@@ -36,6 +37,7 @@
   },
   "dependencies": {
     "@rmp135/sql-ts": "^1.13.0",
+    "bcrypt": "^5.0.1",
     "lodash": "^4.17.21",
     "pg": "^8.7.3",
     "schemats": "^3.0.3",
