@@ -13,6 +13,8 @@ import {
 import { OptionsCRUD } from "../routes/routesConfig";
 
 import { promiseHandler } from "../utilities/helpers";
+import { createModifiedActionResult } from "./handleAlerts";
+
 import { ActionType, ErrorCodes, ErrorCustomizes } from "./handleErrors";
 
 export const validateMiddleware: (
@@ -27,33 +29,6 @@ export const validateMiddleware: (
     if (errValid && !valid)
       return next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
     return next();
-  };
-export const createModifiedActionResult =
-  (singleEntityName: string, logAlert: boolean) =>
-  (
-    data: any | undefined,
-    err: Error | undefined,
-    action: ActionType,
-    successStatusCode = 200
-  ) => {
-    if (err) {
-      const errorCustomizes = new ErrorCustomizes(
-        err,
-        action,
-        singleEntityName
-      );
-
-      errorCustomizes.handleErrors();
-
-      return { error: errorCustomizes, logAlert };
-    }
-    const message = `The ${singleEntityName} was ${action}d successfully!`;
-    return {
-      successStatusCode,
-      message,
-      data,
-      logAlert,
-    };
   };
 
 /**
@@ -125,7 +100,7 @@ export function createRoutesControllers({
     );
 
     req.modifiedActionResult = createModifiedActionResultFun(
-      data,
+      { data },
       err,
       "create"
     );
@@ -142,7 +117,7 @@ export function createRoutesControllers({
     );
 
     req.modifiedActionResult = createModifiedActionResultFun(
-      data,
+      { data },
       err,
       "update"
     );
@@ -167,8 +142,9 @@ export function createRoutesControllers({
             ...new Error("Results weren't found"),
           }
         : undefined;
+
     req.modifiedActionResult = createModifiedActionResultFun(
-      data,
+      { data },
       err || noDataError,
       "delete"
     );

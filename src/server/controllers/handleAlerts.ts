@@ -3,7 +3,33 @@ import { RequestHandler } from "webpack-dev-server";
 import { deleteQuery, insertQueryOneItem } from "../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../utilities/constants";
 import { createObjValuesArr, promiseHandler } from "../utilities/helpers";
-import { ErrorCustomizes } from "./handleErrors";
+import { ActionType, ErrorCustomizes } from "./handleErrors";
+
+export const createModifiedActionResult =
+  (singleEntityName: string, logAlert: boolean) =>
+  (
+    successRes: { statusCode?: number; data: any } | undefined,
+    err: Error | undefined,
+    action: ActionType
+  ) => {
+    if (err) {
+      const errorCustomizes = new ErrorCustomizes(
+        err,
+        action,
+        singleEntityName
+      );
+
+      errorCustomizes.handleErrors();
+
+      return { error: errorCustomizes, logAlert };
+    }
+    const message = `The ${singleEntityName} was ${action}d successfully!`;
+    return {
+      message,
+      successRes,
+      logAlert,
+    };
+  };
 
 export const handleAlertsMiddleware: RequestHandler = async (
   req,
@@ -11,8 +37,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
   next
 ) => {
   if (!req.modifiedActionResult) return next();
-  const { data, message, error, logAlert, successStatusCode } =
-    req.modifiedActionResult;
+  const { successRes, message, error, logAlert } = req.modifiedActionResult;
 
   if (logAlert) {
     const [_, errAlert] = await promiseHandler(
@@ -21,8 +46,6 @@ export const handleAlertsMiddleware: RequestHandler = async (
       })
     );
 
-    // if (error) return next(error);
-
     if (errAlert) {
       const errorCustomizes = new ErrorCustomizes(errAlert);
       errorCustomizes.handleErrors();
@@ -30,9 +53,13 @@ export const handleAlertsMiddleware: RequestHandler = async (
     }
   }
   if (error) return next(error);
-  return res.status(successStatusCode || 200).json({
+
+  if (!successRes) {
+    return next(new Error("Something went wrong"));
+  }
+  return res.status(successRes?.statusCode || 200).json({
     message,
-    id: createObjValuesArr(data)[0],
+    id: createObjValuesArr(successRes!.data)[0],
   });
 };
 

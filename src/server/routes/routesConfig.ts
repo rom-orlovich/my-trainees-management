@@ -55,7 +55,7 @@ export const usersOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.USER_ENTITY,
   selectQuery: {
     tableName: `${TABLES_DATA.USERS_TABLE_NAME} as us`,
-    tableID: `ale.${TABLES_DATA.USERS_TABLE_ID}`,
+    tableID: `us.${TABLES_DATA.USERS_TABLE_ID}`,
     fieldNamesQuery: `*`,
     querySelectLogic: ``,
   },

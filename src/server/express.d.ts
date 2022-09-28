@@ -6,9 +6,8 @@ declare global {
   namespace Express {
     export interface Request {
       modifiedActionResult?: {
-        successStatusCode?: number;
         message?: string;
-        data?: any;
+        successRes?: { data: any; statusCode?: number };
         error?: InstanceType<typeof ErrorCustomizes>;
         logAlert?: boolean;
       };
