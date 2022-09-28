@@ -9,8 +9,8 @@ export const createModifiedActionResult =
   (singleEntityName: string, logAlert: boolean) =>
   (
     successRes: { statusCode?: number; data: any } | undefined,
-    err: Error | undefined,
-    action: ActionType
+    err: { code?: string; message: string } | undefined,
+    action?: ActionType
   ) => {
     if (err) {
       const errorCustomizes = new ErrorCustomizes(

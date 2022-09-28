@@ -139,7 +139,7 @@ export function createRoutesControllers({
       data && data.length === 0
         ? {
             code: ErrorCodes.RESULT_NOT_FOUND,
-            ...new Error("Results weren't found"),
+            message: "Results weren't found",
           }
         : undefined;
 

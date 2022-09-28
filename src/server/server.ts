@@ -21,7 +21,11 @@ import {
   handleDeleteOldAlerts,
 } from "./controllers/handleAlerts";
 import { API_ROUTES } from "./routes/apiRoutesConstants";
-import { registerHandler } from "./controllers/handleAuth";
+import {
+  loginHandler,
+  registerHandler,
+  resetUserDetailsNameHandler,
+} from "./controllers/handleAuth";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -34,6 +38,11 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
   app.use(baseRoute, createCRUDroutes(optionsCRUD));
 });
 app.post(API_ROUTES.REGISTER_ROUTE, registerHandler);
+app.put(
+  `${API_ROUTES.USERS_ROUTE}/:id/resetDetails`,
+  resetUserDetailsNameHandler
+);
+app.post(API_ROUTES.LOGIN_ROUTE, loginHandler);
 app.delete(`${API_ROUTES.ALERT_ROUTE}/oldAlerts`, handleDeleteOldAlerts);
 app.use(handleAlertsMiddleware);
 app.use(errorHandlerMiddleware);

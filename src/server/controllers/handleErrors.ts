@@ -10,6 +10,7 @@ export enum ErrorCodes {
   INVALID = "22023",
   TOO_LONG = "22001",
   RESULT_NOT_FOUND = "2RNF",
+  LOGIN_FAILED = "2LF",
 }
 
 export type ActionType = "update" | "delete" | "create" | "get";
@@ -52,6 +53,8 @@ export class ErrorCustomizes<
     } else if (this.error?.code === ErrorCodes.INVALID) {
       this.message = `The ${this.errorPayload} is invalid.`;
     } else if (this.error?.code === ErrorCodes.RESULT_NOT_FOUND)
+      this.message = this.error?.message || "";
+    else if (this.error?.code === ErrorCodes.LOGIN_FAILED)
       this.message = this.error?.message || "";
 
     return this;
