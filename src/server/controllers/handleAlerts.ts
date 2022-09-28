@@ -5,6 +5,12 @@ import { TABLES_DATA } from "../utilities/constants";
 import { createObjValuesArr, promiseHandler } from "../utilities/helpers";
 import { ActionType, ErrorCustomizes } from "./handleErrors";
 
+/**
+ *
+ * @param singleEntityName  The name of single entity.
+ * @param logAlert If true, the response result will log to the db as alert.
+ * @returns Object that will be used in the alerts handler middleware.
+ */
 export const createModifiedActionResult =
   (singleEntityName: string, logAlert: boolean) =>
   (

@@ -11,6 +11,10 @@ declare global {
         error?: InstanceType<typeof ErrorCustomizes>;
         logAlert?: boolean;
       };
+      auth_data: {
+        user: string;
+        jwt: string;
+      };
     }
   }
 }

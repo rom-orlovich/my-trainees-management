@@ -7,6 +7,8 @@ declare global {
       PORT: number;
       MONGO_DB_URL: string;
       DATABASE_URL: string;
+      ACCESS_TOKEN_KEY: string;
+      REFRESH_TOKEN_KEY: string;
       USER_PG: string;
       PASSWORD: string;
       PORT_PG: number;

@@ -13,7 +13,12 @@ import { API_ROUTES } from "../routes/apiRoutesConstants";
 import { TABLES_DATA } from "../utilities/constants";
 import { createModifiedActionResult } from "./handleAlerts";
 import { ErrorCodes } from "./handleErrors";
+import { genToken } from "./JWT";
 
+export interface User {
+  username: string;
+  password: string;
+}
 const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.USER_ENTITY,
   true
@@ -22,8 +27,12 @@ export const registerHandler: RequestHandler = async (req, res, next) => {
   const { password } = req.body;
   const hashPassword = await hash(password, 10);
   const [user, error] = await promiseHandler(
-    insertQueryOneItem("users", { ...req.body, password: hashPassword })
+    insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
+      ...req.body,
+      password: hashPassword,
+    })
   );
+  // Continue to the alert handler.
   req.modifiedActionResult = createModifiedActionResultFun(
     { data: user, statusCode: 201 },
     error,
@@ -52,6 +61,7 @@ export const resetUserDetailsNameHandler: RequestHandler = async (
       queryLogic
     )
   );
+  // Continue to the alert handler.
   req.modifiedActionResult = createModifiedActionResultFun(
     { data: user, statusCode: 201 },
     error,
@@ -63,27 +73,30 @@ export const resetUserDetailsNameHandler: RequestHandler = async (
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
   const { password, username } = req.body;
-  const [user, error] = await promiseHandler<
-    {
-      username: string;
-      password: string;
-    }[]
-  >(
+
+  // Get the user details from the db by his username
+  const [user, error] = await promiseHandler<User[]>(
     selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where username= $1", [
       username,
     ])
   );
 
+  // Check if the user exist
   if (!user || error) {
-    req.modifiedActionResult = createModifiedActionResultFun(undefined, {
-      code: ErrorCodes.RESULT_NOT_FOUND,
-      message: "User is not exist",
-    });
+    req.modifiedActionResult = createModifiedActionResultFun(
+      undefined,
+      error || {
+        code: ErrorCodes.RESULT_NOT_FOUND,
+        message: "User is not exist",
+      }
+    );
+    // Continue to the alert handler.
     return next();
   }
 
   const hashPassword = await compare(password, user[0].password);
-  console.log();
+
+  // Check if the password from the client is fit to the hash password in the db.
   if (!hashPassword) {
     req.modifiedActionResult = createModifiedActionResultFun(undefined, {
       code: ErrorCodes.LOGIN_FAILED,
@@ -92,5 +105,15 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     return next();
   }
 
-  return res.status(201).send("login success");
+  const accessToken = genToken(user[0], process.env.ACCESS_TOKEN_KEY);
+  const refreshToken = genToken(user[0], process.env.REFRESH_TOKEN_KEY, "10m");
+
+  res.cookie("refresh_token", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    maxAge: 1000 * 60 * 10,
+    sameSite: "none",
+  });
+
+  return res.status(201).json({ user: user[0].username, accessToken });
 };

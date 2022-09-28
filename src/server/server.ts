@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import { config } from "dotenv";
+import cookiesParser from "cookie-parser";
 
 config();
 import express from "express";
@@ -26,16 +27,21 @@ import {
   registerHandler,
   resetUserDetailsNameHandler,
 } from "./controllers/handleAuth";
+import { validateTokenMiddleware } from "./controllers/JWT";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use(cors());
 
 // Init all the routes of the app.
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
-  app.use(baseRoute, createCRUDroutes(optionsCRUD));
+  if (baseRoute === API_ROUTES.USERS_ROUTE) {
+    app.use(baseRoute, validateTokenMiddleware, createCRUDroutes(optionsCRUD));
+  } else app.use(baseRoute, createCRUDroutes(optionsCRUD));
 });
 app.post(API_ROUTES.REGISTER_ROUTE, registerHandler);
 app.put(
