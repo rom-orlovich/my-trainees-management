@@ -20,7 +20,7 @@ import {
   ErrorCodes,
   ErrorCustomizes,
 } from "../../serviceErrors/handleErrors";
-import { validateMiddleware } from "../../validateService/validateMiddleware";
+import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 
 /**
  *
@@ -86,6 +86,7 @@ export function createRoutesControllers({
 
   // Controller of the post method. Create one item  in the db.
   const createNewValueInDB: RequestHandler = async (req, res, next) => {
+    if (req.modifiedActionResult?.error) return next();
     const [data, err] = await promiseHandler(
       insertQueryOneItem(tableName, req.body)
     );
@@ -101,6 +102,7 @@ export function createRoutesControllers({
   // Controller of the put method.
   // Update one item by his ID in db.
   const updateValueByID: RequestHandler = async (req, res, next) => {
+    if (req.modifiedActionResult?.error) return next();
     const queryLogic = `WHERE ${tableID}=$1`;
 
     const [data, err] = await promiseHandler<any, DatabaseError>(

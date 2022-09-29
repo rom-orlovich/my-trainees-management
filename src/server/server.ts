@@ -30,6 +30,7 @@ import {
 } from "./services/serviceAuth/controllers/handleAuth";
 import { validateTokenMiddleware } from "./services/serviceAuth/JWT";
 import authRouter from "./services/serviceAuth/routes/authRouter";
+import { validateMiddleware } from "./services/serviceValidate/validateMiddleware";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -45,12 +46,7 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
     app.use(baseRoute, validateTokenMiddleware, createCRUDroutes(optionsCRUD));
   } else app.use(baseRoute, createCRUDroutes(optionsCRUD));
 });
-// app.post(API_ROUTES.REGISTER_ROUTE, registerHandler);
-// app.put(
-//   `${API_ROUTES.USERS_ROUTE}/:id/resetDetails`,
-//   resetUserDetailsNameHandler
-// );
-// app.post(API_ROUTES.LOGIN_ROUTE, loginHandler);
+
 app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);
 
 app.use(handleAlertsMiddleware);

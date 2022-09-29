@@ -15,7 +15,7 @@ export const createModifiedActionResult =
   (singleEntityName: string, logAlert: boolean) =>
   (
     successRes: { statusCode?: number; data: any } | undefined,
-    err: { code?: string; message: string } | undefined,
+    err: { code?: string; message?: string } | undefined,
     action?: ActionType
   ) => {
     if (err) {
@@ -55,9 +55,11 @@ export const handleAlertsMiddleware: RequestHandler = async (
     if (errAlert) {
       const errorCustomizes = new ErrorCustomizes(errAlert);
       errorCustomizes.handleErrors();
+
       return next(errorCustomizes);
     }
   }
+
   if (error) return next(error);
 
   if (!successRes) {

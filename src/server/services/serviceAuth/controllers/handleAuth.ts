@@ -24,7 +24,9 @@ const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.USER_ENTITY,
   true
 );
+
 export const registerHandler: RequestHandler = async (req, res, next) => {
+  if (req.modifiedActionResult?.error) return next();
   const { password } = req.body;
   const hashPassword = await hash(password, 10);
   const [user, error] = await promiseHandler(
@@ -47,6 +49,7 @@ export const resetUserDetailsNameHandler: RequestHandler = async (
   res,
   next
 ) => {
+  if (req.modifiedActionResult?.error) return next();
   const { id } = req.params;
   const queryLogic = `WHERE ${TABLES_DATA.USERS_TABLE_ID}=$1`;
   const { password } = req.body;
@@ -73,6 +76,7 @@ export const resetUserDetailsNameHandler: RequestHandler = async (
 };
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
+  if (req.modifiedActionResult?.error) return next();
   const { password, username } = req.body;
 
   // Get the user details from the db by his username

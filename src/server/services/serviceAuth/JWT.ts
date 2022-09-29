@@ -22,7 +22,7 @@ export const genToken = (user: User, key: string, expireTime = "10s") =>
   sign({ userName: user.username }, key, {
     expiresIn: expireTime,
   });
-console.log(process.env.ACCESS_TOKEN_SECRET);
+
 export const validateTokenMiddleware: RequestHandler = async (
   req,
   res,

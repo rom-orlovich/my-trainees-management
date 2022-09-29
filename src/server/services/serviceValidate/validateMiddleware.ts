@@ -2,8 +2,13 @@
 import { RequestHandler } from "webpack-dev-server";
 import * as yup from "yup";
 import { promiseHandler } from "../../utilities/helpers";
+import { createModifiedActionResult } from "../serviceAlerts/handleAlerts";
 import { ErrorCodes, ErrorCustomizes } from "../serviceErrors/handleErrors";
 
+const createModifiedActionResultHandler = createModifiedActionResult(
+  "data",
+  true
+);
 export const validateMiddleware: (
   validateSchema: yup.ObjectSchema<any> | undefined
 ) => RequestHandler = (validateSchema) => async (req, res, next) => {
@@ -11,7 +16,13 @@ export const validateMiddleware: (
   const [valid, errValid] = await promiseHandler<any, yup.ValidationError>(
     validateSchema.validate(req.body)
   );
-  if (errValid && !valid)
-    return next(new ErrorCustomizes({ code: ErrorCodes.INVALID }));
+
+  if (errValid && !valid) {
+    req.modifiedActionResult = createModifiedActionResultHandler(undefined, {
+      code: ErrorCodes.INVALID,
+    });
+
+    return next();
+  }
   return next();
 };
