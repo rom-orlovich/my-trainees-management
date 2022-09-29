@@ -6,7 +6,7 @@ import { RequestHandler } from "webpack-dev-server";
 import { promiseHandler } from "../../utilities/helpers";
 import { User } from "./controllers/handleAuth";
 
-function verifyAsync(
+export function verifyAsync(
   token: string,
   key: string
 ): Promise<string | JwtPayload | undefined> {
@@ -19,7 +19,7 @@ function verifyAsync(
 }
 
 export const genToken = (user: User, key: string, expireTime = "10s") =>
-  sign({ userName: user.username }, key, {
+  sign({ username: user.username }, key, {
     expiresIn: expireTime,
   });
 

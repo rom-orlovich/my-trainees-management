@@ -13,7 +13,7 @@ import { API_ROUTES } from "../../apiRoutesConstants";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
 import { ErrorCodes } from "../../serviceErrors/handleErrors";
-import { genToken } from "../JWT";
+import { genToken, verifyAsync } from "../JWT";
 
 export interface User {
   user_id: number;
@@ -44,7 +44,7 @@ export const registerHandler: RequestHandler = async (req, res, next) => {
 
   return next();
 };
-export const resetUserDetailsNameHandler: RequestHandler = async (
+export const changeUserCredentialsHandler: RequestHandler = async (
   req,
   res,
   next
@@ -145,15 +145,57 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
   }
 
   res.cookie("refresh_token", refreshToken, {
-    httpOnly: true,
-    secure: true,
+    // httpOnly: true,
+    // secure: true,
     maxAge: 1000 * 60 * 60 * 24,
-    sameSite: "none",
+    // sameSite: "none",
   });
 
   return res.status(201).json({
     user: user[0].username,
     accessToken,
     message: "Login is success!",
+  });
+};
+
+export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
+  const cookie = req.cookies;
+
+  const refreshToken = cookie.refresh_token;
+  if (!refreshToken) {
+    return res.status(401).end();
+  }
+
+  // Get the user details from the db by his username
+  const [user, error] = await promiseHandler<User[]>(
+    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where refresh_token= $1", [
+      refreshToken,
+    ])
+  );
+
+  // Check if the user exist
+  if (!(user && user[0]) || error) {
+    return res.status(403).end();
+  }
+
+  const [decode, err] = await promiseHandler(
+    verifyAsync(refreshToken, process.env.REFRESH_TOKEN_SECRET)
+  );
+  const userData = decode as { username: string };
+
+  if (err || userData.username !== user[0].username) {
+    return res.status(403).end();
+  }
+
+  const accessToken = genToken(
+    user[0],
+    process.env.ACCESS_TOKEN_SECRET,
+    process.env.EXPIRE_IN_ACCESS_TOKEN
+  );
+
+  return res.status(201).json({
+    username: user[0].username,
+    accessToken,
+    message: "Access token has create successfully!",
   });
 };

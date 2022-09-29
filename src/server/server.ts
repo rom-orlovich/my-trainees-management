@@ -18,19 +18,11 @@ import { initDB } from "./initDB";
 import { routesCRUDArr } from "./services/serviceCRUD/routes/routesConfig";
 import { createCRUDroutes } from "./services/serviceCRUD/routes/routesCRUD";
 import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
-import {
-  handleAlertsMiddleware,
-  handleDeleteOldAlerts,
-} from "./services/serviceAlerts/handleAlerts";
+import { handleAlertsMiddleware } from "./services/serviceAlerts/handleAlerts";
 import { API_ROUTES } from "./services/apiRoutesConstants";
-import {
-  loginHandler,
-  registerHandler,
-  resetUserDetailsNameHandler,
-} from "./services/serviceAuth/controllers/handleAuth";
+
 import { validateTokenMiddleware } from "./services/serviceAuth/JWT";
 import authRouter from "./services/serviceAuth/routes/authRouter";
-import { validateMiddleware } from "./services/serviceValidate/validateMiddleware";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -38,7 +30,7 @@ app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 // Init all the routes of the app.
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
