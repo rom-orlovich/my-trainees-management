@@ -123,7 +123,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
       TABLES_DATA.USERS_TABLE_NAME,
       {
         ...user[0],
-        refreshToken,
+        refresh_token: refreshToken,
       },
       String(user[0].user_id),
       queryLogic
