@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { API_ROUTES } from "../../apiRoutesConstants";
-import { authSchema } from "../../schemas/DBSchemas";
+import { credSchema } from "../../schemas/DBSchemas";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import {
   loginHandler,
@@ -9,14 +9,14 @@ import {
 } from "../controllers/handleAuth";
 
 const authRouter = Router();
-const validateMiddlewareHandler = validateMiddleware(authSchema);
+const validateMiddlewareHandler = validateMiddleware(credSchema);
 authRouter.post(
   API_ROUTES.REGISTER_ROUTE,
   validateMiddlewareHandler,
   registerHandler
 );
 authRouter.put(
-  `${API_ROUTES.USERS_ROUTE}/:id/resetDetails`,
+  API_ROUTES.CHANGE_USER_CRED_ROUTE,
   validateMiddlewareHandler,
   resetUserDetailsNameHandler
 );
