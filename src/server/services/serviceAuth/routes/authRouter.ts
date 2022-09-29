@@ -1,10 +1,10 @@
 import { Router } from "express";
+import { API_ROUTES } from "../../apiRoutesConstants";
 import {
   loginHandler,
   registerHandler,
   resetUserDetailsNameHandler,
 } from "../controllers/handleAuth";
-import { API_ROUTES } from "./apiRoutesConstants";
 
 const authRouter = Router();
 

@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "webpack-dev-server";
-import { deleteQuery, insertQueryOneItem } from "../PGSql/sqlHelpers";
-import { TABLES_DATA } from "../utilities/constants";
-import { createObjValuesArr, promiseHandler } from "../utilities/helpers";
-import { ActionType, ErrorCustomizes } from "./handleErrors";
+import { deleteQuery, insertQueryOneItem } from "../../PGSql/sqlHelpers";
+import { TABLES_DATA } from "../../utilities/constants";
+import { createObjValuesArr, promiseHandler } from "../../utilities/helpers";
+import { ActionType, ErrorCustomizes } from "../serviceErrors/handleErrors";
 
 /**
  *

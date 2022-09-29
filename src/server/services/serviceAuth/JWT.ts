@@ -3,8 +3,8 @@
 import { config } from "dotenv";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { RequestHandler } from "webpack-dev-server";
-import { promiseHandler } from "../utilities/helpers";
-import { User } from "./handleAuth";
+import { promiseHandler } from "../../utilities/helpers";
+import { User } from "./controllers/handleAuth";
 
 function verifyAsync(
   token: string,

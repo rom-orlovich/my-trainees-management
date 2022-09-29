@@ -15,20 +15,20 @@ import { Server } from "http";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
 
-import { routesCRUDArr } from "./routes/routesConfig";
-import { createCRUDroutes } from "./routes/routesCRUD";
-import { errorHandlerMiddleware } from "./controllers/handleErrors";
+import { routesCRUDArr } from "./services/serviceCRUD/routes/routesConfig";
+import { createCRUDroutes } from "./services/serviceCRUD/routes/routesCRUD";
+import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
 import {
   handleAlertsMiddleware,
   handleDeleteOldAlerts,
-} from "./controllers/handleAlerts";
-import { API_ROUTES } from "./routes/apiRoutesConstants";
+} from "./services/serviceAlerts/handleAlerts";
+import { API_ROUTES } from "./services/apiRoutesConstants";
 import {
   loginHandler,
   registerHandler,
   resetUserDetailsNameHandler,
-} from "./controllers/handleAuth";
-import { validateTokenMiddleware } from "./controllers/JWT";
+} from "./services/serviceAuth/controllers/handleAuth";
+import { validateTokenMiddleware } from "./services/serviceAuth/JWT";
 
 const app = express();
 const PORT = process.env.PORT || 5000;

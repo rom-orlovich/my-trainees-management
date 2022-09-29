@@ -9,13 +9,17 @@ import {
   selectPagination,
   selectQuery,
   updateQuerySingleItem,
-} from "../PGSql/sqlHelpers";
+} from "../../../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
 
-import { promiseHandler } from "../utilities/helpers";
-import { createModifiedActionResult } from "./handleAlerts";
+import { promiseHandler } from "../../../utilities/helpers";
+import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
 
-import { ActionType, ErrorCodes, ErrorCustomizes } from "./handleErrors";
+import {
+  ActionType,
+  ErrorCodes,
+  ErrorCustomizes,
+} from "../../serviceErrors/handleErrors";
 
 export const validateMiddleware: (
   validateSchema: yup.ObjectSchema<any> | undefined

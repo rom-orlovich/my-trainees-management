@@ -6,14 +6,14 @@ import {
   insertQueryOneItem,
   selectQuery,
   updateQuerySingleItem,
-} from "../PGSql/sqlHelpers";
-import { promiseHandler } from "../utilities/helpers";
+} from "../../../PGSql/sqlHelpers";
+import { promiseHandler } from "../../../utilities/helpers";
 
-import { API_ROUTES } from "../routes/apiRoutesConstants";
-import { TABLES_DATA } from "../utilities/constants";
-import { createModifiedActionResult } from "./handleAlerts";
-import { ErrorCodes } from "./handleErrors";
-import { genToken } from "./JWT";
+import { API_ROUTES } from "../../apiRoutesConstants";
+import { TABLES_DATA } from "../../../utilities/constants";
+import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
+import { ErrorCodes } from "../../serviceErrors/handleErrors";
+import { genToken } from "../JWT";
 
 export interface User {
   user_id: number;

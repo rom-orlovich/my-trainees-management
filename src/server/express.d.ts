@@ -1,4 +1,4 @@
-import { ErrorCustomizes } from "./controllers/handleErrors";
+import { ErrorCustomizes } from "./services/serviceErrors/handleErrors";
 
 /* eslint-disable no-unused-vars */
 export {};
