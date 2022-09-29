@@ -18,7 +18,7 @@ import {
   trainingProgramSchema,
   trainingProgramsListSchema,
   weeksSchema,
-} from "../../../schemas/DBSchemas";
+} from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
 
