@@ -1,15 +1,28 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
-import { sign, verify } from "jsonwebtoken";
+import { config } from "dotenv";
+import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { RequestHandler } from "webpack-dev-server";
-import { createModifiedActionResult } from "./handleAlerts";
+import { promiseHandler } from "../utilities/helpers";
 import { User } from "./handleAuth";
+
+function verifyAsync(
+  token: string,
+  key: string
+): Promise<string | JwtPayload | undefined> {
+  return new Promise((res, reject) => {
+    verify(token, key, (err, decode) => {
+      if (err) reject(err);
+      res(decode);
+    });
+  });
+}
 
 export const genToken = (user: User, key: string, expireTime = "10s") =>
   sign({ userName: user.username }, key, {
     expiresIn: expireTime,
   });
-
+console.log(process.env.ACCESS_TOKEN_SECRET);
 export const validateTokenMiddleware: RequestHandler = async (
   req,
   res,
@@ -17,21 +30,20 @@ export const validateTokenMiddleware: RequestHandler = async (
 ) => {
   const auth = req.headers.authorization;
   const token = auth?.split(" ")[1];
-  console.log(token);
-  if (!token) {
-    return res.status(401).end();
-  }
-  verify(token, process.env.ACCESS_TOKEN_KEY, (err, decode) => {
-    if (err) {
-      res.status(403);
-    }
-    console.log(decode);
 
-    const userData = decode as { username: string };
-    req.auth_data = {
-      jwt: token,
-      user: userData?.username,
-    };
-    return next();
-  });
+  if (!token) return res.status(401).end();
+
+  const [decode, err] = await promiseHandler(
+    verifyAsync(token, process.env.ACCESS_TOKEN_SECRET)
+  );
+
+  if (err) return res.status(403).end();
+
+  const userData = decode as { username: string };
+  req.auth_data = {
+    jwt: token,
+    user: userData?.username,
+  };
+
+  return next();
 };

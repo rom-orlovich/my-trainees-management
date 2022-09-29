@@ -2,9 +2,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import { config } from "dotenv";
-import cookiesParser from "cookie-parser";
 
 config();
+import cookiesParser from "cookie-parser";
+
 import express from "express";
 import cors from "cors";
 import path from "path";
@@ -49,7 +50,7 @@ app.put(
   resetUserDetailsNameHandler
 );
 app.post(API_ROUTES.LOGIN_ROUTE, loginHandler);
-app.delete(`${API_ROUTES.ALERT_ROUTE}/oldAlerts`, handleDeleteOldAlerts);
+
 app.use(handleAlertsMiddleware);
 app.use(errorHandlerMiddleware);
 

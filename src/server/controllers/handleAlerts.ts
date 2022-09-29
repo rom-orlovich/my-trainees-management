@@ -68,7 +68,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
     id: createObjValuesArr(successRes!.data)[0],
   });
 };
-
+// app.delete(`${API_ROUTES.ALERT_ROUTE}/oldAlerts`, handleDeleteOldAlerts);
 export const handleDeleteOldAlerts: RequestHandler = async (req, res, next) => {
   const [data, err] = await promiseHandler(
     deleteQuery(

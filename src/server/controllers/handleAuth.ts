@@ -16,6 +16,7 @@ import { ErrorCodes } from "./handleErrors";
 import { genToken } from "./JWT";
 
 export interface User {
+  user_id: number;
   username: string;
   password: string;
 }
@@ -105,15 +106,50 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     return next();
   }
 
-  const accessToken = genToken(user[0], process.env.ACCESS_TOKEN_KEY);
-  const refreshToken = genToken(user[0], process.env.REFRESH_TOKEN_KEY, "10m");
+  const accessToken = genToken(
+    user[0],
+    process.env.ACCESS_TOKEN_SECRET,
+    process.env.EXPIRE_IN_ACCESS_TOKEN
+  );
+  const refreshToken = genToken(
+    user[0],
+    process.env.REFRESH_TOKEN_SECRET,
+    process.env.EXPIRE_IN_REFRESH_TOKEN
+  );
+  const queryLogic = `WHERE ${TABLES_DATA.USERS_TABLE_ID}=$1`;
+
+  const [userUpdate, errorUpdate] = await promiseHandler(
+    updateQuerySingleItem(
+      TABLES_DATA.USERS_TABLE_NAME,
+      {
+        ...user[0],
+        refreshToken,
+      },
+      String(user[0].user_id),
+      queryLogic
+    )
+  );
+
+  // Check if there some error in updating the refresh token of user.
+  if (errorUpdate) {
+    req.modifiedActionResult = createModifiedActionResultFun(
+      undefined,
+      errorUpdate,
+      "update"
+    );
+    return next();
+  }
 
   res.cookie("refresh_token", refreshToken, {
     httpOnly: true,
     secure: true,
-    maxAge: 1000 * 60 * 10,
+    maxAge: 1000 * 60 * 60 * 24,
     sameSite: "none",
   });
 
-  return res.status(201).json({ user: user[0].username, accessToken });
+  return res.status(201).json({
+    user: user[0].username,
+    accessToken,
+    message: "Login is success!",
+  });
 };
