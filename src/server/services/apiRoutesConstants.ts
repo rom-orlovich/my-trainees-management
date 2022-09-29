@@ -6,6 +6,7 @@ export enum API_ROUTES {
   REGISTER_ROUTE = "/register",
   LOGIN_ROUTE = "/login",
   REFRESH_TOKEN_ROUTE = "/refreshToken",
+  LOGOUT_ROUTE = "/logout",
   USERS_ROUTE = "/api/users",
   CHANGE_USER_CRED_ROUTE = "/users/:id/changeCredentials",
   USER_ENTITY = "user",

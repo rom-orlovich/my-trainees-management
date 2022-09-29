@@ -199,3 +199,33 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     message: "Access token has create successfully!",
   });
 };
+
+export const logoutHandler: RequestHandler = async (req, res, next) => {
+  const cookie = req.cookies;
+
+  const refreshToken = cookie.refresh_token;
+  console.log(refreshToken);
+  if (!refreshToken) {
+    return res.status(204).json({ message: "Logout success!" });
+  }
+
+  const queryLogic = `WHERE refresh_token=$1`;
+
+  const [userUpdate, errorUpdate] = await promiseHandler(
+    updateQuerySingleItem(
+      TABLES_DATA.USERS_TABLE_NAME,
+      {
+        refresh_token: "",
+      },
+      refreshToken,
+      queryLogic
+    )
+  );
+  console.log(userUpdate);
+  if (errorUpdate || !userUpdate)
+    return res.status(400).json({ message: "No user" });
+
+  res.clearCookie("refresh_token");
+
+  return res.status(204).json({ message: "Logout success!" });
+};
