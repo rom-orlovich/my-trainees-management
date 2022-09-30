@@ -5,10 +5,7 @@ import { promiseHandler } from "../../utilities/helpers";
 import { createModifiedActionResult } from "../serviceAlerts/handleAlerts";
 import { ErrorCodes, ErrorCustomizes } from "../serviceErrors/handleErrors";
 
-const createModifiedActionResultHandler = createModifiedActionResult(
-  "data",
-  true
-);
+const createModifiedActionResultHandler = createModifiedActionResult("data");
 export const validateMiddleware: (
   validateSchema: yup.ObjectSchema<any> | undefined
 ) => RequestHandler = (validateSchema) => async (req, res, next) => {

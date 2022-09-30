@@ -92,9 +92,9 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
       username,
     ])
   );
-
+  console.log(user);
   // Check if the user exist
-  if (!user || error) {
+  if (!(user && user.length > 0) || error) {
     req.modifiedActionResult = createModifiedActionResultFun(
       undefined,
       error || {
@@ -158,9 +158,9 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     sameSite: "strict",
     maxAge: 1000 * 60 * 60 * 24,
   });
-
+  const { password: pwd, ...restUser } = user[0];
   return res.status(201).json({
-    user: user[0].username,
+    user: restUser,
     accessToken,
     message: "Login is success!",
   });
