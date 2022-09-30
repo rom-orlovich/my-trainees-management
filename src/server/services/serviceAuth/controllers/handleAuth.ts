@@ -37,9 +37,9 @@ export const registerHandler: RequestHandler = async (req, res, next) => {
   // Continue to the alert handler.
   req.modifiedActionResult = createModifiedActionResultFun(
     {
-      data: user,
+      data: user ? user[0].username : undefined,
       statusCode: 201,
-      payload: username,
+      messagePayload: username,
     },
     error,
     "create"
@@ -71,9 +71,9 @@ export const changeUserCredentialsHandler: RequestHandler = async (
   // Continue to the alert handler.
   req.modifiedActionResult = createModifiedActionResultFun(
     {
-      data: user,
+      data: user ? user[0].username : undefined,
       statusCode: 201,
-      payload: req.auth_data.username,
+      messagePayload: req.auth_data.username,
     },
     error,
     "update"
@@ -151,6 +151,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     return next();
   }
 
+  // Send refresh token
   res.cookie("refresh_token", refreshToken, {
     httpOnly: true,
     secure: true,

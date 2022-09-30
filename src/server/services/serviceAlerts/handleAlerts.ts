@@ -15,7 +15,11 @@ export const createModifiedActionResult =
   (singleEntityName: string) =>
   (
     successRes:
-      | { statusCode?: number; data: any; payload?: string }
+      | {
+          statusCode?: number;
+          data: any;
+          messagePayload?: string;
+        }
       | undefined,
     err: { code?: string; message?: string } | undefined,
     action?: ActionType,
@@ -33,7 +37,7 @@ export const createModifiedActionResult =
       return { error: errorCustomizes, logAlert };
     }
     const message = `The ${singleEntityName}${
-      successRes?.payload || ""
+      successRes?.messagePayload || ""
     } was ${action}d successfully!`;
     return {
       message,
@@ -70,9 +74,11 @@ export const handleAlertsMiddleware: RequestHandler = async (
   if (!successRes) {
     return next(new Error("Something went wrong"));
   }
+
   return res.status(successRes?.statusCode || 200).json({
     message,
     id: createObjValuesArr(successRes!.data)[0],
+    ...successRes,
   });
 };
 // app.delete(`${API_ROUTES.ALERT_ROUTE}/oldAlerts`, handleDeleteOldAlerts);

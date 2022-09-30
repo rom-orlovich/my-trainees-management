@@ -30,7 +30,7 @@ app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "*", credentials: true }));
 
 // Init all the routes of the app.
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
