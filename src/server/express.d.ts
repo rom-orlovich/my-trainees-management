@@ -12,7 +12,7 @@ declare global {
         logAlert?: boolean;
       };
       auth_data: {
-        user: string;
+        username: string;
         jwt: string;
       };
     }

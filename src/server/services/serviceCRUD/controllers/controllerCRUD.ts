@@ -40,10 +40,8 @@ export function createRoutesControllers({
   logAlert = true,
   validateSchema,
 }: OptionsCRUD) {
-  const createModifiedActionResultFun = createModifiedActionResult(
-    singleEntityName,
-    logAlert
-  );
+  const createModifiedActionResultFun =
+    createModifiedActionResult(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
     const { page, asc, numResults, ...rest } = req.query;
@@ -94,7 +92,8 @@ export function createRoutesControllers({
     req.modifiedActionResult = createModifiedActionResultFun(
       { data },
       err,
-      "create"
+      "create",
+      logAlert
     );
     return next(); // Continue to alerts handler middleware
   };
@@ -112,7 +111,8 @@ export function createRoutesControllers({
     req.modifiedActionResult = createModifiedActionResultFun(
       { data },
       err,
-      "update"
+      "update",
+      logAlert
     );
 
     return next(); // Continue to alerts handler middleware
@@ -139,7 +139,8 @@ export function createRoutesControllers({
     req.modifiedActionResult = createModifiedActionResultFun(
       { data },
       err || noDataError,
-      "delete"
+      "delete",
+      logAlert
     );
 
     return next(); // Continue to alerts handler middleware

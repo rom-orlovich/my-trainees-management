@@ -12,11 +12,14 @@ import { ActionType, ErrorCustomizes } from "../serviceErrors/handleErrors";
  * @returns Object that will be used in the alerts handler middleware.
  */
 export const createModifiedActionResult =
-  (singleEntityName: string, logAlert: boolean) =>
+  (singleEntityName: string) =>
   (
-    successRes: { statusCode?: number; data: any } | undefined,
+    successRes:
+      | { statusCode?: number; data: any; payload?: string }
+      | undefined,
     err: { code?: string; message?: string } | undefined,
-    action?: ActionType
+    action?: ActionType,
+    logAlert = true
   ) => {
     if (err) {
       const errorCustomizes = new ErrorCustomizes(
@@ -29,7 +32,9 @@ export const createModifiedActionResult =
 
       return { error: errorCustomizes, logAlert };
     }
-    const message = `The ${singleEntityName} was ${action}d successfully!`;
+    const message = `The ${singleEntityName}${
+      successRes?.payload || ""
+    } was ${action}d successfully!`;
     return {
       message,
       successRes,

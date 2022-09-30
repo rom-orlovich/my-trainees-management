@@ -42,7 +42,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   const userData = decode as { username: string };
   req.auth_data = {
     jwt: token,
-    user: userData?.username,
+    username: userData?.username,
   };
 
   return next();

@@ -21,15 +21,14 @@ export interface User {
   password: string;
 }
 const createModifiedActionResultFun = createModifiedActionResult(
-  API_ROUTES.USER_ENTITY,
-  true
+  API_ROUTES.USER_ENTITY
 );
 
 export const registerHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
-  const { password } = req.body;
+  const { password, username } = req.body;
   const hashPassword = await hash(password, 10);
-  const [user, error] = await promiseHandler(
+  const [user, error] = await promiseHandler<User[]>(
     insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
       ...req.body,
       password: hashPassword,
@@ -37,7 +36,11 @@ export const registerHandler: RequestHandler = async (req, res, next) => {
   );
   // Continue to the alert handler.
   req.modifiedActionResult = createModifiedActionResultFun(
-    { data: user, statusCode: 201 },
+    {
+      data: user,
+      statusCode: 201,
+      payload: username,
+    },
     error,
     "create"
   );
@@ -67,7 +70,11 @@ export const changeUserCredentialsHandler: RequestHandler = async (
   );
   // Continue to the alert handler.
   req.modifiedActionResult = createModifiedActionResultFun(
-    { data: user, statusCode: 201 },
+    {
+      data: user,
+      statusCode: 201,
+      payload: req.auth_data.username,
+    },
     error,
     "update"
   );
@@ -92,7 +99,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
       undefined,
       error || {
         code: ErrorCodes.RESULT_NOT_FOUND,
-        message: "User is not exist",
+        message: `User ${username} does not exist`,
       }
     );
     // Continue to the alert handler.
@@ -145,10 +152,10 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
   }
 
   res.cookie("refresh_token", refreshToken, {
-    // httpOnly: true,
-    // secure: true,
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
     maxAge: 1000 * 60 * 60 * 24,
-    // sameSite: "none",
   });
 
   return res.status(201).json({
@@ -163,7 +170,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   const refreshToken = cookie.refresh_token;
   if (!refreshToken) {
-    return res.status(401).end();
+    return res.sendStatus(401);
   }
 
   // Get the user details from the db by his username
@@ -175,7 +182,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   // Check if the user exist
   if (!(user && user[0]) || error) {
-    return res.status(403).end();
+    return res.sendStatus(403);
   }
 
   const [decode, err] = await promiseHandler(
@@ -184,7 +191,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   const userData = decode as { username: string };
 
   if (err || userData.username !== user[0].username) {
-    return res.status(403).end();
+    return res.sendStatus(401);
   }
 
   const accessToken = genToken(
@@ -202,11 +209,10 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
 export const logoutHandler: RequestHandler = async (req, res, next) => {
   const cookie = req.cookies;
-
   const refreshToken = cookie.refresh_token;
-  console.log(refreshToken);
+
   if (!refreshToken) {
-    return res.status(204).json({ message: "Logout success!" });
+    return res.status(200).json({ message: "Logout success!" });
   }
 
   const queryLogic = `WHERE refresh_token=$1`;
@@ -221,11 +227,15 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
       queryLogic
     )
   );
-  console.log(userUpdate);
+
   if (errorUpdate || !userUpdate)
     return res.status(400).json({ message: "No user" });
 
-  res.clearCookie("refresh_token");
+  res.clearCookie("refresh_token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  });
 
-  return res.status(204).json({ message: "Logout success!" });
+  return res.status(200).json({ message: "Logout success!" });
 };
