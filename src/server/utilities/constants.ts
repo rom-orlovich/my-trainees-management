@@ -31,6 +31,8 @@ export enum TABLES_DATA {
   EQUIPMENTS_ID = "equipment_id",
   EXERCISES_LIST_TABLE_NAME = "exercises_list",
   EXERCISES_ID = "exercise_id",
+  TRAINEES_TABLE_NAME = "trainees",
+  TRAINEE_ID = "trainee_id",
   PROFILES_TABLE_NAME = "profiles",
   PROFILE_ID = "profile_id",
   SUBSCRIPTION_PLANS_TABLE_NAME = "subscription_plans",

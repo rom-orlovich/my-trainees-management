@@ -32,6 +32,7 @@ export interface SelectTableQueryParam {
   // so the client won't able to know what are the real fields name of the table.
   queryParams?: Record<string, string>;
   queryNameParam?: Record<string, string>;
+  insertInto?: Record<string, string>;
 }
 
 export interface OptionsCRUD {
@@ -213,7 +214,7 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
     trpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}=
     tp.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     queryParams: {
-      traineeID: TABLES_DATA.PROFILE_ID,
+      traineeID: TABLES_DATA.TRAINEE_ID,
     },
   },
 
@@ -264,8 +265,8 @@ export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
     np.note_id as week_note_id,
     we.date,we.day,we.weight`,
     querySelectLogic: `
-    LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as tr ON
-    npl.${TABLES_DATA.PROFILE_ID}=tr.${TABLES_DATA.PROFILE_ID}
+    LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON
+    npl.${TABLES_DATA.TRAINEE_ID}=tr.${TABLES_DATA.TRAINEE_ID}
     LEFT JOIN  ${TABLES_DATA.NUTRITION_PROGRAM_TABLE_NAME} as np ON
     npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}=np.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}
     LEFT JOIN ${TABLES_DATA.WEEKLY_TABLE_NAME} as we ON 
@@ -288,12 +289,15 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
 export const traineesOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.TRAINEES_ENTITY,
   selectQuery: {
-    tableName: `${TABLES_DATA.PROFILES_TABLE_NAME} as pr`,
-    tableID: `pr.${TABLES_DATA.PROFILE_ID}`,
+    tableName: `${TABLES_DATA.TRAINEES_TABLE_NAME} as tr`,
+    tableID: `tr.${TABLES_DATA.TRAINEE_ID}`,
     fieldNamesQuery: `
+    tr.trainee_id,tr.user_id,
     pr.*, lo.street ,
      c.city_name `,
     querySelectLogic: `
+    JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr ON 
+    tr.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}
     JOIN ${TABLES_DATA.LOCATION_TABLE_NAME} as lo ON 
     pr.${TABLES_DATA.LOCATION_ID}=lo.${TABLES_DATA.LOCATION_ID} JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c on 
    c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} `,
@@ -312,8 +316,8 @@ export const incomesOptionsCRUD: OptionsCRUD = {
     tableName: `${TABLES_DATA.INCOMES_TABLE_NAME} as in`,
     tableID: `in.${TABLES_DATA.INCOME_ID}`,
     fieldNamesQuery: ` in.*, pr.first_name,pr.last_name,`,
-    querySelectLogic: `JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr ON 
-    pr.${TABLES_DATA.PROFILE_ID}=in.buyer_id `,
+    querySelectLogic: `JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as pr ON 
+    pr.${TABLES_DATA.TRAINEE_ID}=in.buyer_id `,
   },
   validateSchema: incomesSchema,
 };

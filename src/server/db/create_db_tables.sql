@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS  "nutrition_program" CASCADE;
 DROP TABLE IF EXISTS  "nutrition_programs_list" CASCADE;
 DROP TABLE IF EXISTS  "training_program" CASCADE;
 DROP TABLE IF EXISTS  "training_programs_list" CASCADE;
-DROP TABLE IF EXISTS  "profiles" CASCADE;
+DROP TABLE IF EXISTS  "trainees" CASCADE;
 DROP TABLE IF EXISTS  "subscription_plans" CASCADE;
 DROP TABLE IF EXISTS  "users" CASCADE;
 DROP TABLE IF EXISTS  "exercises_list" CASCADE;
@@ -18,13 +18,36 @@ DROP TABLE IF EXISTS  "cities" CASCADE;
 DROP TABLE IF EXISTS  "activities" CASCADE;
 DROP TABLE IF EXISTS  "leads" CASCADE;
 DROP TABLE IF EXISTS  "muscles_group" CASCADE;
+DROP TABLE IF EXISTS  "profiles" CASCADE;
 DROP TABLE IF EXISTS  "alerts" CASCADE;
+
 
 CREATE TABLE IF NOT EXISTS "alerts"(
   "alert_id" serial PRIMARY KEY,
   "alert_date" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   "alert_message" VARCHAR(255)
 )
+
+CREATE TABLE IF NOT EXISTS "profiles" (
+  "profile_id" serial PRIMARY KEY,
+  "first_name" VARCHAR(255) NOT NULL,
+  "last_name" VARCHAR(255) NOT NULL,
+  "gender" VARCHAR (20) NOT NULL,
+  "identify_num" VARCHAR(15) UNIQUE NOT NULL ,
+  "birthday" DATE NOT NULL,
+  "email" VARCHAR(255) UNIQUE NOT NULL,
+  "phone_number" VARCHAR(12) NOT NULL,
+  "location_id" INTEGER NOT NULL,
+  "date_join" DATE NOT NULL,
+  "status" BOOLEAN DEFAULT FALSE,
+ 
+  CONSTRAINT fk_location_id
+      FOREIGN KEY(location_id) 
+      REFERENCES locations(location_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS "muscles_group" (
   "muscles_group_id" serial PRIMARY KEY ,
   "muscles_group_name" VARCHAR(20) UNIQUE NOT NULL
@@ -150,41 +173,39 @@ CREATE TABLE IF NOT EXISTS "exercises_list" (
       ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS "trainees" (
+  "trainee_id" serial PRIMARY KEY,
+  "user_id" INTEGER,
+  "profile_id" INTEGER,
 
-
-
-CREATE TABLE IF NOT EXISTS "profiles" (
-  "profile_id" serial PRIMARY KEY,
-  "first_name" VARCHAR(255) NOT NULL,
-  "last_name" VARCHAR(255) NOT NULL,
-  "gender" VARCHAR (20) NOT NULL,
-  "identify_num" VARCHAR(15) UNIQUE NOT NULL ,
-  "birthday" DATE NOT NULL,
-  "email" VARCHAR(255) UNIQUE NOT NULL,
-  "phone_number" VARCHAR(12) NOT NULL,
-  "location_id" INTEGER NOT NULL,
-  "date_join" DATE NOT NULL,
-  "status" BOOLEAN DEFAULT FALSE,
- 
-  CONSTRAINT fk_location_id
-      FOREIGN KEY(location_id) 
-      REFERENCES locations(location_id)
+CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+      
+      CONSTRAINT fk_profile_id 
+    FOREIGN KEY(profile_id)
+    REFERENCES profiles(profile_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
 
+
+
+
 CREATE TABLE IF NOT EXISTS "subscription_plans"(
 "subscription_plan_id" serial PRIMARY KEY,
-"profile_id" INTEGER NOT NULL,
+"trainee_id" INTEGER NOT NULL,
 "plan_name" VARCHAR(50) NOT NULL,
 "current_num_trainings" integer NOT NULL,
 "total_trainings" integer NOT NULL,
 "last_training" date ,
 
-CONSTRAINT fk_profile_id 
-    FOREIGN KEY(profile_id)
-    REFERENCES profiles(profile_id)
+CONSTRAINT fk_trainee_id 
+    FOREIGN KEY(trainee_id)
+    REFERENCES trainees(trainee_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
@@ -211,7 +232,7 @@ CONSTRAINT fk_profile_id
 
 CREATE TABLE IF NOT EXISTS "training_programs_list"(
   "training_programs_list_id" serial PRIMARY KEY,
-  "profile_id" INTEGER ,
+  "trainee_id" INTEGER ,
     "type_program" VARCHAR(20) , 
      "date_start" DATE NOT NULL,
      "date_end" DATE ,
@@ -222,9 +243,9 @@ CONSTRAINT "date_end" CHECK ("date_end">"date_start"),
    
 
 
-          CONSTRAINT fk_profile_id
-      FOREIGN KEY(profile_id) 
-      REFERENCES profiles(profile_id)
+          CONSTRAINT fk_trainee_id
+      FOREIGN KEY(trainee_id) 
+      REFERENCES trainees(trainee_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 
@@ -232,15 +253,15 @@ CONSTRAINT "date_end" CHECK ("date_end">"date_start"),
 );
 CREATE TABLE IF NOT EXISTS "nutrition_programs_list"(
   "nutrition_programs_list_id"  serial PRIMARY KEY,
-   "profile_id" INTEGER ,
+   "trainee_id" INTEGER ,
     "type_program" VARCHAR(20) , 
      "date_start" DATE NOT NULL,
      "date_end" DATE  ,
     "note_topic" TEXT ,
   "note_text" TEXT ,
-      CONSTRAINT fk_profile_id
-      FOREIGN KEY(profile_id) 
-      REFERENCES profiles(profile_id)
+      CONSTRAINT fk_trainee_id
+      FOREIGN KEY(trainee_id) 
+      REFERENCES trainees(trainee_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE,
 
@@ -334,9 +355,9 @@ CREATE TABLE IF NOT EXISTS "incomes" (
   "note_text" TEXT ,
 
 
-        CONSTRAINT fk_profile_id
+        CONSTRAINT fk_trainee_id
       FOREIGN KEY(buyer_id) 
-      REFERENCES profiles(profile_id)
+      REFERENCES trainees(trainee_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
@@ -377,7 +398,7 @@ CONSTRAINT "date_end" check (date_end>date_start),
 CREATE TABLE IF NOT EXISTS "participants_group" (
   "participant_groupe_id" serial PRIMARY KEY,
   "schedule_id" INTEGER NOT NULL,
-  "profiles_id" INTEGER NOT NULL,
+  "trainees_id" INTEGER NOT NULL,
 
    CONSTRAINT fk_schedule_id
       FOREIGN KEY(schedule_id) 
@@ -385,9 +406,9 @@ CREATE TABLE IF NOT EXISTS "participants_group" (
       ON DELETE SET NULL
       ON UPDATE CASCADE,
 
-     CONSTRAINT fk_profile_id
-      FOREIGN KEY(profiles_id) 
-      REFERENCES profiles(profile_id)
+     CONSTRAINT fk_trainee_id
+      FOREIGN KEY(trainees_id) 
+      REFERENCES trainees(trainee_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );

@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
-import { config } from "dotenv";
+
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { RequestHandler } from "webpack-dev-server";
 import { promiseHandler } from "../../utilities/helpers";
