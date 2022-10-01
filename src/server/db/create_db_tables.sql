@@ -26,31 +26,6 @@ CREATE TABLE IF NOT EXISTS "alerts"(
   "alert_id" serial PRIMARY KEY,
   "alert_date" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   "alert_message" VARCHAR(255)
-)
-
-CREATE TABLE IF NOT EXISTS "profiles" (
-  "profile_id" serial PRIMARY KEY,
-  "first_name" VARCHAR(255) NOT NULL,
-  "last_name" VARCHAR(255) NOT NULL,
-  "gender" VARCHAR (20) NOT NULL,
-  "identify_num" VARCHAR(15) UNIQUE NOT NULL ,
-  "birthday" DATE NOT NULL,
-  "email" VARCHAR(255) UNIQUE NOT NULL,
-  "phone_number" VARCHAR(12) NOT NULL,
-  "location_id" INTEGER NOT NULL,
-  "date_join" DATE NOT NULL,
-  "status" BOOLEAN DEFAULT FALSE,
- 
-  CONSTRAINT fk_location_id
-      FOREIGN KEY(location_id) 
-      REFERENCES locations(location_id)
-      ON DELETE SET NULL
-      ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS "muscles_group" (
-  "muscles_group_id" serial PRIMARY KEY ,
-  "muscles_group_name" VARCHAR(20) UNIQUE NOT NULL
 );
 
 
@@ -58,8 +33,6 @@ CREATE TABLE IF NOT EXISTS "muscles_group" (
   "muscles_group_id" serial PRIMARY KEY ,
   "muscles_group_name" VARCHAR(20) UNIQUE NOT NULL
 );
-
-
 
 
 CREATE TABLE IF NOT EXISTS "leads"(
@@ -98,6 +71,27 @@ CREATE TABLE IF NOT EXISTS "locations" (
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS "profiles" (
+  "profile_id" serial PRIMARY KEY,
+  "first_name" VARCHAR(255) NOT NULL,
+  "last_name" VARCHAR(255) NOT NULL,
+  "gender" VARCHAR (20) NOT NULL,
+  "identify_num" VARCHAR(15) UNIQUE NOT NULL ,
+  "birthday" DATE NOT NULL,
+  "email" VARCHAR(255) UNIQUE NOT NULL,
+  "phone_number" VARCHAR(12) NOT NULL,
+  "location_id" INTEGER NOT NULL,
+  "date_join" DATE NOT NULL,
+  "status" BOOLEAN DEFAULT FALSE,
+ 
+  CONSTRAINT fk_location_id
+      FOREIGN KEY(location_id) 
+      REFERENCES locations(location_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+);
+
 
 
 CREATE TABLE IF NOT EXISTS "providers" (
@@ -173,6 +167,29 @@ CREATE TABLE IF NOT EXISTS "exercises_list" (
       ON UPDATE CASCADE
 );
 
+
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS "users"(
+    "user_id" serial PRIMARY KEY,
+    "role" varchar(50) DEFAULT 'admin',
+    "username" varchar(50) UNIQUE,
+    "password" varchar(255),
+    "refresh_token" varchar(255),
+    "profile_id" INTEGER ,
+CONSTRAINT "role" CHECK ("role" IN ('trainee','admin','trainer')),
+CONSTRAINT fk_profile_id 
+    FOREIGN KEY(profile_id)
+    REFERENCES profiles(profile_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+) ;
+
 CREATE TABLE IF NOT EXISTS "trainees" (
   "trainee_id" serial PRIMARY KEY,
   "user_id" INTEGER,
@@ -191,10 +208,6 @@ CONSTRAINT fk_user_id
       ON UPDATE CASCADE
 );
 
-
-
-
-
 CREATE TABLE IF NOT EXISTS "subscription_plans"(
 "subscription_plan_id" serial PRIMARY KEY,
 "trainee_id" INTEGER NOT NULL,
@@ -210,21 +223,6 @@ CONSTRAINT fk_trainee_id
       ON UPDATE CASCADE
 );
 
-
-CREATE TABLE IF NOT EXISTS "users"(
-    "user_id" serial PRIMARY KEY,
-    "role" varchar(50) DEFAULT 'admin',
-    "username" varchar(50) UNIQUE,
-    "password" varchar(255),
-    "refresh_token" varchar(255),
-    "profile_id" INTEGER ,
-CONSTRAINT "role" CHECK ("role" IN ('trainee','admin','trainer')),
-CONSTRAINT fk_profile_id 
-    FOREIGN KEY(profile_id)
-    REFERENCES profiles(profile_id)
-      ON DELETE SET NULL
-      ON UPDATE CASCADE
-) ;
 
 
 
@@ -272,7 +270,6 @@ CONSTRAINT "date_end" CHECK ("date_end">"date_start")
 
 
 );
-
 
 
 
@@ -344,7 +341,6 @@ CREATE TABLE IF NOT EXISTS "weeks" (
 
 
 
-
 CREATE TABLE IF NOT EXISTS "incomes" (
   "income_id" serial PRIMARY KEY,
   "income_name" VARCHAR(255) NOT NULL,
@@ -393,6 +389,8 @@ CONSTRAINT "date_end" check (date_end>date_start),
       ON UPDATE CASCADE
 
 );
+
+
 
 
 CREATE TABLE IF NOT EXISTS "participants_group" (
