@@ -94,6 +94,7 @@ export function createRoutesControllers({
     const [data, err] = await promiseHandler(
       insertNewTableData(tableName, req.body, modifiedOtherTable)
     );
+    // Rollback the query if there is error.
     if (err) {
       await client.query("ROLLBACK");
     }
@@ -123,6 +124,10 @@ export function createRoutesControllers({
         modifiedOtherTable
       )
     );
+    // Rollback the query if there is error.
+    if (err) {
+      await client.query("ROLLBACK");
+    }
 
     req.modifiedActionResult = createModifiedActionResultFun(
       { data },

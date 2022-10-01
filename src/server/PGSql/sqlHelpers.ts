@@ -323,9 +323,10 @@ export const insertNewTableData = async (
 
   // If modifiedOtherTable is not exist so it will insert the data regularly .
   if (modifiedOtherTable) {
+    // Begin transaction
     await client.query("BEGIN");
     const { otherTableName, values, otherTableID } = modifiedOtherTable;
-    // Spread the data the relate tp the main table and the data that relate to the sec table.
+    // Spread the data that relate to the main table and the data that relate to the sec table.
     const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
       reqBody,
       values
@@ -342,6 +343,7 @@ export const insertNewTableData = async (
       [otherTableID]: otherTableData[otherTableID],
     });
     data = { ...mainTableData, ...otherTableData };
+    // End transaction
     await client.query("COMMIT");
   } else {
     data = await insertQueryOneItem(mainTableName, reqBody);
@@ -363,15 +365,17 @@ export const updateExistTableData = async (
   let data;
 
   if (modifiedOtherTable) {
+    // Begin transaction
     await client.query("BEGIN");
 
     const { otherTableName, values, otherTableID } = modifiedOtherTable;
     const queryLogic1 = `WHERE ${mainTableID}=$1`;
+    // Spread the data that relate to the main table and the data that relate to the sec table.
     const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
       reqBody,
       values
     );
-
+    // Update the main table and get the id of the other table.
     const mainTableData = await updateQuerySingleItem(
       mainTableName,
       {
@@ -382,6 +386,7 @@ export const updateExistTableData = async (
     );
     const queryLogic2 = `WHERE ${otherTableID}=$1`;
 
+    // Update the sec table.
     const otherTableData = await updateQuerySingleItem(
       otherTableName,
       includeKeyValueObj,
@@ -390,6 +395,7 @@ export const updateExistTableData = async (
     );
 
     data = { ...mainTableData, ...otherTableData };
+    // End transaction
     await client.query("COMMIT");
   } else {
     data = await insertQueryOneItem(mainTableName, reqBody);

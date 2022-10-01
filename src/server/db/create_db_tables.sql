@@ -141,13 +141,13 @@ CREATE TABLE IF NOT EXISTS "providers" (
   "provider_id" serial PRIMARY KEY ,
   "provider_name" VARCHAR(255) UNIQUE NOT NULL,
   "location_id" INTEGER NOT NULL,
-
+  "user_id" INTEGER,
   CONSTRAINT fk_location_id
       FOREIGN KEY(location_id) 
       REFERENCES locations(location_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE,
-          "user_id" INTEGER,
+
   CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
@@ -413,8 +413,8 @@ CREATE TABLE IF NOT EXISTS "incomes" (
       REFERENCES trainees(trainee_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE,
-         CONSTRAINT fk_user_id 
 
+    CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
       ON DELETE SET NULL
@@ -435,7 +435,7 @@ CREATE TABLE IF NOT EXISTS "incomes" (
   "location_id" INTEGER ,
   "note_topic" TEXT ,
   "note_text" TEXT ,
-   "user_id" INTEGER,
+  "user_id" INTEGER,
 
 
 CONSTRAINT "date_end" check (date_end>date_start),

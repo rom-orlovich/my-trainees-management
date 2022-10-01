@@ -8,13 +8,13 @@ function PublicRoute() {
   const [refreshToken, state] = authApi.useLazyRefreshTokenQuery();
   // const location = useLocation();
   const nav = useNavigate();
-  useEffect(() => {
-    if (!token) {
-      refreshToken({}).then(() => nav("/"));
-    } else {
-      nav("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!token) {
+  //     refreshToken({}).then(() => nav("/"));
+  //   } else {
+  //     nav("/");
+  //   }
+  // }, []);
   return <Outlet />;
 }
 

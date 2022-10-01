@@ -17,27 +17,17 @@ import { APP_ROUTE } from "../../routes/routesConstants";
 
 function LoginPage() {
   const [login] = authApi.useLoginMutation();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const nav = useNavigate();
-  const location = useLocation();
-  const token = useAppSelector((state) => state.authSlice.accessToken);
+  // const location = useLocation();
+  // const token = useAppSelector((state) => state.authSlice.accessToken);
   const onSubmit = (body: LoginApi) =>
     login(body)
       .unwrap()
       .then(({ message, ...rest }) => {
-        // dispatch(setLogin({ accessToken: rest.accessToken, user: rest.user }));
         nav("/");
       });
 
-  // useEffect(() => {
-  //   console.log(token);
-  //   if (token) {
-  //     nav("/");
-  //   }
-  //   // return () => {
-  //   //   refreshToken({});
-  //   // };
-  // }, []);
   return (
     <Form<LoginApi>
       onSubmit={onSubmit}
