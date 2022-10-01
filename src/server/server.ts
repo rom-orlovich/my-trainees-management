@@ -62,9 +62,10 @@ async function connectDB() {
     });
   } catch (error) {
     console.log(error);
-    server.close(() => {
-      console.log("server is closed");
-    });
+    if (server)
+      server.close(() => {
+        console.log("server is closed");
+      });
     // client.end();
   }
 }

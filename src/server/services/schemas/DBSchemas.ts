@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
 export const musclesGroupSchema = yup.object().shape({
+  trainer_id: yup.number().notRequired().nullable().default(1),
   muscles_group_id: yup.number().notRequired().nullable(),
   muscles_group_name: yup.string().required(),
 });
@@ -116,9 +117,8 @@ export const nutritionProgramSchema = yup.object().shape({
 });
 
 export const traineesSchema = yup.object().shape({
-  // trainee_id: yup.number().notRequired().nullable(),
-  user_id: yup.number().required(),
-  // profile_id: yup.number().notRequired().nullable(),
+  user_id: yup.number().notRequired().nullable(),
+  trainer_id: yup.number().notRequired().nullable().default(1),
   first_name: yup.string().required(),
   last_name: yup.string().required(),
   gender: yup.string().required(),
