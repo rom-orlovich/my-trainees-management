@@ -25,14 +25,14 @@ export function TraineeForm({
   defaultValues,
   editMode,
   heading,
-  savedChangedButton,
+  changeButtonContainer,
 }: GeneralFormProps<OmitKey<TraineesTableAPI, "profile_id">> & {
   heading?: string;
-  savedChangedButton?: boolean;
+  changeButtonContainer?: boolean;
 }) {
   return (
     <Form<TraineesTableAPI>
-      savedChangedButton={savedChangedButton}
+      changeButtonContainer={changeButtonContainer}
       nameForm="Trainee"
       pathMove={`/${APP_ROUTE.TRAINEES_ROUTE}`}
       heading={heading}

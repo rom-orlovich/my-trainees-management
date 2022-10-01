@@ -27,7 +27,9 @@ type FormRHFProps<TFormValues extends FieldValues> = {
   nameForm?: string;
   buttonNext?: boolean;
   pathMove?: string;
-  savedChangedButton?: boolean;
+  changeButtonContainer?: boolean;
+  authButtonsContainer?: boolean;
+  isLoginMode?: boolean;
 };
 
 export default function Form<TFormValues extends Record<string, any>>({
@@ -40,7 +42,9 @@ export default function Form<TFormValues extends Record<string, any>>({
   nameForm,
   buttonNext,
   pathMove,
-  savedChangedButton,
+  changeButtonContainer,
+  authButtonsContainer,
+  isLoginMode,
 }: FormRHFProps<TFormValues>) {
   const nav = useNavigate();
 
@@ -70,7 +74,6 @@ export default function Form<TFormValues extends Record<string, any>>({
   useEffect(() => {
     if (goPrevPage) {
       dispatch(resetGoPrevPageState());
-
       nav((pathMove || -1) as any);
     }
   }, [dispatch, pathMove, goPrevPage, nav]);
@@ -116,6 +119,7 @@ export default function Form<TFormValues extends Record<string, any>>({
     onSubmit(data);
   };
   const editModeText = editMode ? "Edit" : "Add";
+  const authModeText = isLoginMode ? "Login" : "Sign Up";
   return (
     <div className={style.form_container}>
       <div className={style.heading}>
@@ -129,10 +133,16 @@ export default function Form<TFormValues extends Record<string, any>>({
         onSubmit={methods.handleSubmit(handleSubmit)}
       >
         {children(methods)}
-        {savedChangedButton ? (
+        {changeButtonContainer ? (
           <div className={style.buttons_container_save_button}>
             <button type="submit" disabled={disabled}>
               Save Changes
+            </button>
+          </div>
+        ) : authButtonsContainer ? (
+          <div className={style.buttons_container_save_button}>
+            <button type="submit" disabled={disabled}>
+              {authModeText}
             </button>
           </div>
         ) : (

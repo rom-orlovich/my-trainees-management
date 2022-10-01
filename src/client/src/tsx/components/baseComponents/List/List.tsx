@@ -10,7 +10,7 @@ function List<T extends Record<string, any>>({
   className,
   children,
   insertChildLast,
-  ulProps,
+  UlProps,
 }: ListProps<T> & {
   insertChildLast?: boolean;
 }) {
@@ -20,7 +20,7 @@ function List<T extends Record<string, any>>({
   let key = keys[0] + keys[1];
 
   return (
-    <ul {...ulProps} ref={ulProps?.ref} className={className}>
+    <ul {...UlProps} ref={UlProps?.ref} className={className}>
       {!insertChildLast ? children : ""}
       {dataArr.map((el, i) => {
         return <LI key={`${key}${i}`} {...el} />;

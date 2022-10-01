@@ -6,6 +6,8 @@ import { menusSlice } from "./slices/menusSlice";
 import { formValuesState } from "./slices/formValuesStateSlice";
 import { tablesPaginationState } from "./slices/trackTablePagesSlice";
 import { apiSideEffectSlice } from "./slices/apiSideEffectSlice";
+import { authSlice } from "./slices/authSlice";
+import { authApi } from "./api/authAPI";
 
 //Configure the reducers and the middlewares of redux.
 export const store = configureStore({
@@ -14,11 +16,13 @@ export const store = configureStore({
     menusSlice: menusSlice.reducer,
     formValuesState: formValuesState.reducer,
     apiSideEffect: apiSideEffectSlice.reducer,
+    authSlice: authSlice.reducer,
+    authApi: authApi.reducer,
     ...reducersArr,
   },
 
   middleware: (defaultMiddleware) =>
-    [...defaultMiddleware(), ...middlewareArr] as any,
+    [...defaultMiddleware(), ...middlewareArr, authApi.middleware] as any,
 });
 
 setupListeners(store.dispatch);

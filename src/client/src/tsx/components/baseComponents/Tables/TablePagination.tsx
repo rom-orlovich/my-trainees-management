@@ -42,7 +42,7 @@ export function TablePagination<T extends Record<string, any>>({
   });
 
   const Data = data as ResponseQueryAPI<T> | undefined;
-  console.log(Data);
+
   // Side effect that return the pre page when the current page's data is empty.
   useEffect(() => {
     if (Data && Data?.data.length === 0) {
@@ -56,24 +56,24 @@ export function TablePagination<T extends Record<string, any>>({
       stateData={{ data: Data, isLoading, isError, isFetching }}
     >
       {(data) => {
-        const trasnformData = transformFun
+        const transformData = transformFun
           ? { next: data.next, data: data.data.map(transformFun) }
           : data;
 
-        return trasnformData.data.length > 0 ? (
+        return transformData.data.length > 0 ? (
           <>
             <div className={style.tablePagination_container}>
               <Table
                 mainRoute={mainRoute || pathName.slice(1)}
                 Th={Th}
                 Td={Td}
-                dataArr={trasnformData.data}
+                dataArr={transformData.data}
                 deleteItemFun={deleteItemFun}
               ></Table>
             </div>
             <div className={style.buttons_container}>
               <ButtonLeft className={style.left_button} />
-              {trasnformData.next && (
+              {transformData.next && (
                 <ButtonRight className={style.right_button} />
               )}
             </div>

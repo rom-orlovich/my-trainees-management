@@ -1,4 +1,3 @@
-import { number, string } from "yup";
 import { OmitKey, PickKey } from "../../types";
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
@@ -6,6 +5,14 @@ import { OmitKey, PickKey } from "../../types";
 
 // All the endpoints and the entities names.
 export enum API_ROUTES {
+  API_AUTH_ROUTE = "/api/auth",
+  REGISTER_ROUTE = "/register",
+  LOGIN_ROUTE = "/login",
+  REFRESH_TOKEN_ROUTE = "/refreshToken",
+  LOGOUT_ROUTE = "/logout",
+  USERS_ROUTE = "/api/users",
+  CHANGE_USER_CRED_ROUTE = "/users/:id/changeCredentials",
+  USER_ENTITY = "user",
   ALERTS_ROUTE = "/api/alerts",
   ALERTS_ENTITY = "alert",
   LEADS_ROUTE = "/api/leads",
@@ -49,6 +56,11 @@ export interface PayloadAPI<T> {
 export interface ResponseMutationAPI {
   message: string;
   id?: number;
+}
+export interface ResponseMutationAuthAPI {
+  accessToken: string;
+  message: string;
+  user: User;
 }
 
 export interface ResponseQueryAPI<T> {
@@ -207,3 +219,13 @@ export type TrainingProgramExerciseOmit = OmitKey<
   TrainingProgramExerciseTableAPI,
   "equipment_name" | "muscles_group_name" | "exercise_name"
 >;
+
+export interface LoginApi {
+  username: string;
+  password: string;
+}
+
+export interface User {
+  User_id: number;
+  username: string;
+}

@@ -39,7 +39,7 @@ export function TraineeEditForm({
 
   return (
     <TraineeForm
-      // savedChangedButton={true}
+      // changeButtonContainer={true}
       editMode={true}
       heading={heading}
       onSubmit={handleSubmit}

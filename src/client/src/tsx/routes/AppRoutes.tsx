@@ -25,6 +25,7 @@ import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
 import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
+import LoginPage from "../pages/LoginPage/LoginPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
 
 import Settings from "../pages/SettingsPage/SettingsPage";
@@ -34,109 +35,116 @@ import Trainees from "../pages/TraineesPage/TraineesPage";
 import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
 import TrainingProgramsPage from "../pages/TrainingProgramsPage/TrainingProgramsPage";
 import MainRoute from "./MainRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 import { APP_ROUTE } from "./routesConstants";
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<App />}>
-        <Route index element={<Trainees />} />
-        <Route path={APP_ROUTE.TRAINEES_ROUTE}>
+      <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
+      <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<App />}>
           <Route index element={<Trainees />} />
-          <Route path=":id" element={<TraineeProfile />} />
-          <Route
-            path={APP_ROUTE.TRAINEES_ROUTE_ADD}
-            element={<TraineeAddForm />}
-          />
-        </Route>
-
-        <Route path={APP_ROUTE.LEADS_ROUTE}>
-          <Route index element={<LeadsPage />} />
-          <Route path={APP_ROUTE.LEADS_ROUTE_ADD} element={<LeadAddForm />} />
-          <Route path=":id" element={<LeadEditForm />}></Route>
-        </Route>
-
-        <Route path={APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}>
-          <Route index element={<TrainingProgramsPage />}></Route>
-          <Route
-            path={`:id`}
-            element={<TrainingProgramsListEditForm />}
-          ></Route>
-          <Route
-            path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
-            element={<TrainingProgramsListAddForm />}
-          ></Route>
-          <Route
-            path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
-            element={
-              <MainRoute
-                mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
-              >
-                <TrainingProgramExercises />
-              </MainRoute>
-            }
-          >
+          <Route path={APP_ROUTE.TRAINEES_ROUTE}>
+            <Route index element={<Trainees />} />
+            <Route path=":id" element={<TraineeProfile />} />
             <Route
-              path={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}
-              element={<TrainingProgramAddExerciseForm />}
-            ></Route>
+              path={APP_ROUTE.TRAINEES_ROUTE_ADD}
+              element={<TraineeAddForm />}
+            />
+          </Route>
+
+          <Route path={APP_ROUTE.LEADS_ROUTE}>
+            <Route index element={<LeadsPage />} />
+            <Route path={APP_ROUTE.LEADS_ROUTE_ADD} element={<LeadAddForm />} />
+            <Route path=":id" element={<LeadEditForm />}></Route>
+          </Route>
+
+          <Route path={APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}>
+            <Route index element={<TrainingProgramsPage />}></Route>
             <Route
               path={`:id`}
-              element={<TrainingProgramEditExerciseForm />}
+              element={<TrainingProgramsListEditForm />}
             ></Route>
+            <Route
+              path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
+              element={<TrainingProgramsListAddForm />}
+            ></Route>
+            <Route
+              path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
+              element={
+                <MainRoute
+                  mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
+                >
+                  <TrainingProgramExercises />
+                </MainRoute>
+              }
+            >
+              <Route
+                path={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}
+                element={<TrainingProgramAddExerciseForm />}
+              ></Route>
+              <Route
+                path={`:id`}
+                element={<TrainingProgramEditExerciseForm />}
+              ></Route>
+            </Route>
+          </Route>
+
+          <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />}>
+            <Route
+              path={APP_ROUTE.EXERCISES_LIST_ROUTE}
+              element={<ExercisesPage />}
+            >
+              <Route
+                path={APP_ROUTE.EXERCISE_ADD}
+                element={<ExerciseAddForm />}
+              ></Route>
+              <Route path=":id" element={<ExerciseEditForm />}></Route>
+            </Route>
+            <Route
+              path={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}
+              element={<EquipmentsListPage />}
+            >
+              <Route
+                path={APP_ROUTE.EQUIPMENT_ADD}
+                element={<EquipmentAddForm />}
+              ></Route>
+              <Route path=":id" element={<EquipmentEditForm />}></Route>
+            </Route>
+            <Route
+              path={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}
+              element={<MusclesGroupPage />}
+            >
+              <Route
+                path={APP_ROUTE.MUSCLES_GROUP_ADD}
+                element={<MusclesGroupAddForm />}
+              />
+              <Route path=":id" element={<MusclesGroupEditForm />}></Route>
+            </Route>
+            <Route
+              path={APP_ROUTE.LOCATION_ROUTE}
+              element={<LocationsListPage />}
+            >
+              <Route
+                path={APP_ROUTE.LOCATION_ROUTE_ADD}
+                element={<LocationAddForm />}
+              />
+              <Route path=":id" element={<LocationEditForm />} />
+            </Route>
+
+            <Route path={APP_ROUTE.CITY_ROUTE} element={<CitiesPage />}>
+              <Route
+                path={APP_ROUTE.CITY_ROUTE_ADD}
+                element={<CityAddForm />}
+              />
+              <Route path=":id" element={<CityEditForm />} />
+            </Route>
           </Route>
         </Route>
 
-        <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />}>
-          <Route
-            path={APP_ROUTE.EXERCISES_LIST_ROUTE}
-            element={<ExercisesPage />}
-          >
-            <Route
-              path={APP_ROUTE.EXERCISE_ADD}
-              element={<ExerciseAddForm />}
-            ></Route>
-            <Route path=":id" element={<ExerciseEditForm />}></Route>
-          </Route>
-          <Route
-            path={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}
-            element={<EquipmentsListPage />}
-          >
-            <Route
-              path={APP_ROUTE.EQUIPMENT_ADD}
-              element={<EquipmentAddForm />}
-            ></Route>
-            <Route path=":id" element={<EquipmentEditForm />}></Route>
-          </Route>
-          <Route
-            path={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}
-            element={<MusclesGroupPage />}
-          >
-            <Route
-              path={APP_ROUTE.MUSCLES_GROUP_ADD}
-              element={<MusclesGroupAddForm />}
-            />
-            <Route path=":id" element={<MusclesGroupEditForm />}></Route>
-          </Route>
-          <Route
-            path={APP_ROUTE.LOCATION_ROUTE}
-            element={<LocationsListPage />}
-          >
-            <Route
-              path={APP_ROUTE.LOCATION_ROUTE_ADD}
-              element={<LocationAddForm />}
-            />
-            <Route path=":id" element={<LocationEditForm />} />
-          </Route>
-
-          <Route path={APP_ROUTE.CITY_ROUTE} element={<CitiesPage />}>
-            <Route path={APP_ROUTE.CITY_ROUTE_ADD} element={<CityAddForm />} />
-            <Route path=":id" element={<CityEditForm />} />
-          </Route>
-        </Route>
+        {/* <Route path="*" element={<App />} /> */}
       </Route>
-
-      <Route path="*" element={<App />} />
     </Routes>
   );
 }

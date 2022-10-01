@@ -23,7 +23,7 @@ export function LocationForm({
     <Form<LocationsTableAPI>
       nameForm="Location"
       onSubmit={onSubmit}
-      formProps={{ className: style.form_loactions }}
+      formProps={{ className: style.form_locations }}
       editMode={editMode}
       formOptions={{
         mode: "onChange",

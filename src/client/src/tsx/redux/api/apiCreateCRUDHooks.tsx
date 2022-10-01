@@ -47,8 +47,8 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
           params,
         }),
 
-        transformResponse: (reponse: ResponseQueryAPI<T>) => {
-          return transformDataArr ? transformDataArr(reponse) : reponse;
+        transformResponse: (response: ResponseQueryAPI<T>) => {
+          return transformDataArr ? transformDataArr(response) : response;
         },
         providesTags: (result) => {
           return providerTags(result?.data, singleEntityName, listId);

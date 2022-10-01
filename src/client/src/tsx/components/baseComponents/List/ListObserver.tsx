@@ -24,7 +24,7 @@ function ListObserver<T extends Record<string, any>>({
   useObserver(lastEl, listRef, observerFn);
   return (
     <List<T>
-      ulProps={{ ref: listRef, ...listProps.ulProps }}
+      UlProps={{ ref: listRef, ...listProps.UlProps }}
       {...listProps}
       insertChildLast={true}
     >

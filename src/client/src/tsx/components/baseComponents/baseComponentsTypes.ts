@@ -31,9 +31,13 @@ export type LiProps = React.DetailedHTMLProps<
   React.LiHTMLAttributes<HTMLLIElement>,
   HTMLLIElement
 >;
-export type ulProps = React.DetailedHTMLProps<
+export type UlProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLUListElement>,
   HTMLUListElement
+>;
+export type AnchorProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
 >;
 
 export interface LinkData {
@@ -58,7 +62,7 @@ export interface NavLinkLIProps extends PropsBasic {
 export type ExcludeKey<T> = Exclude<keyof T, "key">;
 export interface ListProps<T extends Record<string, any>>
   extends ComponentWithArray<T> {
-  ulProps?: ulProps;
+  UlProps?: UlProps;
   LI: LiComponentProps<T>;
 }
 

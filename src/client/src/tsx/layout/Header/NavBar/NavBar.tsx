@@ -16,6 +16,8 @@ import { FaUserCircle } from "react-icons/fa";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import NavLinkLI from "../../../components/baseComponents/NavLinkLI";
 import AlertsNotification from "./AlertNotification/AlertsNotification";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setLogout } from "../../../redux/slices/authSlice";
 interface NavBarNavLinkLIs<T> {
   id?: string;
   element: ReactNode;
@@ -44,7 +46,7 @@ const navBarLink: NavBarNavLinkLIs<LinkData>[] = [
     dataLinks: [
       { to: "", text: "Profile" },
       { to: `/${APP_ROUTE.SETTINGS_ROUTE}`, text: "Setting" },
-      { to: "", text: "Logout" },
+      { to: `/${APP_ROUTE.LOGIN_ROUTE}`, text: "Logout" },
     ],
   },
   {
@@ -58,7 +60,21 @@ function DropDownNavLinkLI({
   data,
   className,
 }: { data: LinkData } & PropsBasic) {
-  return <NavLinkLI liProps={{ className: className }} linkData={data} />;
+  const dispatch = useAppDispatch();
+  const handleLogOut = () => {
+    dispatch(setLogout());
+  };
+  const checkLogoutText = data.text === "Logout";
+  const onClickProps = checkLogoutText ? { onClick: handleLogOut } : {};
+  return (
+    <NavLinkLI
+      liProps={{
+        className: className,
+        ...onClickProps,
+      }}
+      linkData={data}
+    />
+  );
 }
 
 function NavBarLi(props: NavBarNavLinkLIs<LinkData>) {
