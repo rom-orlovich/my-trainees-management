@@ -1,12 +1,13 @@
 import * as yup from "yup";
 
 export const musclesGroupSchema = yup.object().shape({
-  trainer_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable().default(1),
   muscles_group_id: yup.number().notRequired().nullable(),
   muscles_group_name: yup.string().required(),
 });
 
 export const leadsSchema = yup.object().shape({
+  user_id: yup.number().notRequired().nullable().default(1),
   lead_id: yup.number().notRequired().nullable(),
   date_lead: yup.date().required(),
   first_name: yup.string().required(),
@@ -18,6 +19,7 @@ export const leadsSchema = yup.object().shape({
   note_text: yup.string().notRequired().default(""),
 });
 export const citiesSchema = yup.object().shape({
+  user_id: yup.number().notRequired().nullable().default(1),
   city_id: yup.number().notRequired().nullable(),
   city_name: yup.string().required(),
   district: yup.string().required(),
@@ -25,12 +27,14 @@ export const citiesSchema = yup.object().shape({
 });
 
 export const locationsSchema = yup.object().shape({
+  user_id: yup.number().notRequired().nullable().default(1),
   location_id: yup.number().notRequired().nullable(),
   city_id: yup.number().required(),
   street: yup.string().notRequired().nullable(),
 });
 
 export const providersSchema = yup.object().shape({
+  user_id: yup.number().notRequired().nullable().default(1),
   provider_id: yup.number().notRequired().nullable(),
   provider_name: yup.string().required(),
   location_id: yup.number().required(),
@@ -44,6 +48,7 @@ export const weeksSchema = yup.object().shape({
 });
 
 export const expensesSchema = yup.object().shape({
+  user_id: yup.number().notRequired().nullable().default(1),
   expense_id: yup.number().notRequired().nullable(),
   product_id: yup.number().required(),
   date: yup.date().required(),
@@ -54,6 +59,7 @@ export const expensesSchema = yup.object().shape({
 });
 
 export const equipmentSchema = yup.object().shape({
+  user_id: yup.number().notRequired().nullable().default(1),
   equipment_id: yup.number().notRequired().nullable(),
   equipment_name: yup.string().required(),
   brand: yup.string().required(),
@@ -62,6 +68,7 @@ export const equipmentSchema = yup.object().shape({
 });
 
 export const exercisesListSchema = yup.object().shape({
+  user_id: yup.number().notRequired().nullable().default(1),
   exercise_id: yup.number().notRequired().nullable(),
   exercise_name: yup.string().required(),
   muscles_group_id: yup.number().notRequired().nullable(),
@@ -70,7 +77,7 @@ export const exercisesListSchema = yup.object().shape({
 
 export const trainingProgramsListSchema = yup.object().shape({
   training_programs_list_id: yup.number().notRequired().nullable(),
-  profile_id: yup.number().required(),
+  trainee_id: yup.number().required(),
   type_program: yup.string().required(),
   date_start: yup.date().required(),
   date_end: yup
@@ -97,7 +104,7 @@ export const trainingProgramSchema = yup.object().shape({
 
 export const nutritionProgramsListSchema = yup.object().shape({
   nutrition_programs_list_id: yup.number().notRequired().nullable(),
-  profile_id: yup.number().required(),
+  trainee_id: yup.number().required(),
   type_program: yup.string().required(),
   date_start: yup.date().required(),
   date_end: yup
@@ -118,7 +125,7 @@ export const nutritionProgramSchema = yup.object().shape({
 
 export const traineesSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable(),
-  trainer_id: yup.number().notRequired().nullable().default(1),
+  trainer_user_id: yup.number().notRequired().nullable().default(1),
   first_name: yup.string().required(),
   last_name: yup.string().required(),
   gender: yup.string().required(),
@@ -133,7 +140,7 @@ export const traineesSchema = yup.object().shape({
 
 export const subscriptionPlansSchema = yup.object().shape({
   subscription_plan_id: yup.number().notRequired().nullable(),
-  profile_id: yup.number().required(),
+  trainee_id: yup.number().required(),
   plan_name: yup.string().required(),
   current_num_trainings: yup
     .number()
@@ -157,6 +164,7 @@ export const incomesSchema = yup.object().shape({
   incomes_amount: yup.number().required(),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
+  user_id: yup.number().notRequired().nullable().default(1),
 });
 
 export const credSchema = yup.object().shape({
