@@ -34,9 +34,10 @@ app.use(cors({ origin: "*", credentials: true }));
 
 // Init all the routes of the app.
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
-  if (baseRoute === API_ROUTES.USERS_ROUTE) {
-    app.use(baseRoute, validateTokenMiddleware, createCRUDroutes(optionsCRUD));
-  } else app.use(baseRoute, createCRUDroutes(optionsCRUD));
+  // if (baseRoute === API_ROUTES.USERS_ROUTE) {
+  //   app.use(baseRoute, validateTokenMiddleware, createCRUDroutes(optionsCRUD));
+  // } else
+  app.use(baseRoute, validateTokenMiddleware, createCRUDroutes(optionsCRUD));
 });
 
 app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);
