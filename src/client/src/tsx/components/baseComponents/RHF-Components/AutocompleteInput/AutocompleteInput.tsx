@@ -44,6 +44,7 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   setSelectOptionValue?: React.Dispatch<React.SetStateAction<string[]>>;
   children?: ReactNode;
   defaultValueID?: number;
+  queriesOptions?: Record<string, any>;
 }
 
 function AutocompleteInput<T extends Record<string, any>>({
@@ -59,8 +60,8 @@ function AutocompleteInput<T extends Record<string, any>>({
   children,
   addOption,
   RHFProps,
-}: // externalInputValueOnChange,
-AutocompleteInputProps<T>) {
+  queriesOptions,
+}: AutocompleteInputProps<T>) {
   const [page, setPage] = useState(1);
 
   const [inputValueName, setInputValue] = useState(["", ""]);
@@ -74,6 +75,7 @@ AutocompleteInputProps<T>) {
   const { data, isError, isFetching, isLoading } = useGetData({
     page: page,
     mainName: debounce[1],
+    ...queriesOptions,
   });
   const Data = data as ResponseQueryAPI<T> | undefined;
   const firstRender = useRef(true);
