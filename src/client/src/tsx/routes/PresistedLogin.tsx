@@ -6,7 +6,7 @@ import { useAppSelector } from "../redux/hooks";
 
 function PersistedLogin() {
   const token = useAppSelector((state) => state.authSlice.accessToken);
-  const [refreshToken, { isLoading, isError, isFetching, data }] =
+  const [refreshToken, { isLoading, isError, isFetching, data, status }] =
     authApi.useLazyRefreshTokenQuery();
 
   const nav = useNavigate();
@@ -15,7 +15,10 @@ function PersistedLogin() {
     if (!token) {
       refreshToken({});
     }
-  }, []);
+    if (isError) nav("/login");
+    // console.log(status);
+  }, [token, refreshToken, isError, nav]);
+
   return token ? (
     <Outlet />
   ) : (

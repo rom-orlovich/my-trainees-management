@@ -83,17 +83,35 @@ export const changeUserCredentialsHandler: RequestHandler = async (
   return next();
 };
 
+const createAdmin = async (username: string, password: string) => {
+  if (username === "admin280797@gmail.com" && password === "123admin123") {
+    const hashPassword = await hash("123admin123", 10);
+    const refreshToken = genToken(
+      { username, password: hashPassword, user_id: 1 },
+      process.env.REFRESH_TOKEN_SECRET,
+      process.env.EXPIRE_IN_REFRESH_TOKEN
+    );
+    const [user, error] = await promiseHandler<User[]>(
+      insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
+        refresh_token: refreshToken,
+        username: "admin123",
+        password: hashPassword,
+      })
+    );
+  }
+};
+
 export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
   const { password, username } = req.body;
-
+  // await createAdmin(username, password);
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
     selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where username= $1", [
       username,
     ])
   );
-  console.log(user);
+
   // Check if the user exist
   if (!(user && user.length > 0) || error) {
     req.modifiedActionResult = createModifiedActionResultFun(
@@ -101,7 +119,9 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
       error || {
         code: ErrorCodes.RESULT_NOT_FOUND,
         message: `User ${username} does not exist`,
-      }
+      },
+      "get",
+      false
     );
     // Continue to the alert handler.
     return next();

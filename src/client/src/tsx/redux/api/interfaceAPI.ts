@@ -70,19 +70,20 @@ export interface ResponseQueryAPI<T> {
 }
 
 export interface AlertsAPI {
-  user_id: number;
+  user_id?: number;
   alert_id: number;
   alert_date: Date;
   alert_message: string;
 }
 
 export interface MusclesGroupTableAPI {
+  user_id?: number;
   muscles_group_id?: number;
   muscles_group_name: string;
 }
 
 export interface LeadsTableAPI {
-  user_id: number;
+  user_id?: number;
   lead_id?: number;
   date_lead: Date;
   first_name: string;
@@ -94,6 +95,7 @@ export interface LeadsTableAPI {
   note_text: string | null;
 }
 export interface CitiesTableAPI {
+  user_id?: number;
   city_id?: number;
   city_name: string;
   district?: string | null;
@@ -101,13 +103,14 @@ export interface CitiesTableAPI {
 }
 
 export interface LocationsTableAPI {
+  user_id?: number;
   city_id: number;
   location_id: number;
   street?: string | null;
 }
 
 export interface ProvidersTableAPI {
-  user_id: number;
+  user_id?: number;
   location_id: number;
   provider_name: string;
   provider_id?: number;
@@ -121,7 +124,7 @@ export interface WeeksTableAPI {
 }
 
 export interface ExpensesTableAPI {
-  user_id: number;
+  user_id?: number;
   date: Date;
   expense_id?: number;
   expenses_amount: number;
@@ -132,7 +135,7 @@ export interface ExpensesTableAPI {
 }
 
 export interface EquipmentsTableAPI {
-  user_id: number;
+  user_id?: number;
   equipment_id?: number;
   equipment_name: string;
   brand: string;
@@ -141,7 +144,7 @@ export interface EquipmentsTableAPI {
 }
 
 export interface ExercisesTableAPI {
-  user_id: number;
+  user_id?: number;
   exercise_id?: number;
   exercise_name: string;
   equipment_id?: number;
@@ -152,7 +155,7 @@ export interface ExercisesTableAPI {
 
 export interface TrainingProgramsListTableAPI {
   training_programs_list_id: number | null;
-  profile_id: number;
+  trainee_id: number;
   type_program?: string | null;
   date_start: Date;
   date_end?: Date | null;
@@ -161,8 +164,9 @@ export interface TrainingProgramsListTableAPI {
 }
 
 export interface NutritionProgramsListTable {
+  user_id?: number;
   nutrition_programs_list_id?: number;
-  profile_id: number;
+  trainee_id: number;
   type_program?: string | null;
   date_start: Date;
   date_end?: Date | null;
@@ -178,8 +182,9 @@ export interface NutritionProgramsTable {
   note_text: string | null;
 }
 export interface TraineesTableAPI {
+  trainer_id?: number;
   trainee_id?: number;
-  user_id: number;
+  user_id?: number;
   profile_id?: number;
   first_name: string;
   last_name: string;

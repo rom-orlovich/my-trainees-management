@@ -8,7 +8,7 @@ import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 const transformTrainingProgramList = ({
-  profile_id,
+  trainee_id,
   note_text,
   note_topic,
   training_programs_list_id,

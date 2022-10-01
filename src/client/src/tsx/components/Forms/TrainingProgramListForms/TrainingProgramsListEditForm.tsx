@@ -16,7 +16,7 @@ export function TrainingProgramsListEditForm() {
   const defaultData: TrainingProgramsListTableAPI = data
     ? {
         ...data,
-        profile_id: data.profile_id,
+        trainee_id: data.trainee_id,
         date_start: formatDate(data.date_start) as any,
         date_end: data.date_end ? formatDate(data.date_end) : (null as any),
 

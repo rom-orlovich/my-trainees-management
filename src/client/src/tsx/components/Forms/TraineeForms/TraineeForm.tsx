@@ -32,7 +32,7 @@ export function TraineeForm({
   changeButtonContainer?: boolean;
 }) {
   const user_id = useAppSelector((state) => state.authSlice.user?.user_id);
-  console.log(user_id);
+
   return (
     <Form<TraineesTableAPI>
       changeButtonContainer={changeButtonContainer}
@@ -65,7 +65,7 @@ export function TraineeForm({
           date_join,
           status,
         } = formState.errors;
-        console.log(getValues());
+
         return (
           <>
             <InputLabel
