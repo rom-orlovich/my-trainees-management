@@ -2,7 +2,7 @@
 // All the endpoints and the entities names.
 export enum API_ROUTES {
   API_AUTH_ROUTE = "/api/auth",
-  REGISTER_ROUTE = "/register",
+  SIGN_UP_ROUTE = "/signup",
   LOGIN_ROUTE = "/login",
   REFRESH_TOKEN_ROUTE = "/refreshToken",
   LOGOUT_ROUTE = "/logout",

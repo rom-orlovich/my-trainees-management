@@ -18,6 +18,7 @@ import { formatDate } from "../../../utilities/helpersFun";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import { OmitKey } from "../../../types";
+import { useAppSelector } from "../../../redux/hooks";
 
 export function TraineeForm({
   fromProps,
@@ -26,10 +27,12 @@ export function TraineeForm({
   editMode,
   heading,
   changeButtonContainer,
-}: GeneralFormProps<OmitKey<TraineesTableAPI, "profile_id">> & {
+}: GeneralFormProps<OmitKey<TraineesTableAPI, "trainee_id" | "profile_id">> & {
   heading?: string;
   changeButtonContainer?: boolean;
 }) {
+  const user_id = useAppSelector((state) => state.authSlice.user?.user_id);
+  console.log(user_id);
   return (
     <Form<TraineesTableAPI>
       changeButtonContainer={changeButtonContainer}
@@ -44,11 +47,13 @@ export function TraineeForm({
       onSubmit={onSubmit}
       formOptions={{
         mode: "onChange",
-        defaultValues: { ...defaultValues },
-        resolver: yupResolver(traineesSchema.omit(["profile_id"])),
+        defaultValues: { ...defaultValues, user_id: user_id },
+        resolver: yupResolver(
+          traineesSchema.omit(["profile_id", "trainee_id"])
+        ),
       }}
     >
-      {({ register, formState, control }) => {
+      {({ register, formState, control, getValues }) => {
         const {
           first_name,
           last_name,
@@ -60,7 +65,7 @@ export function TraineeForm({
           date_join,
           status,
         } = formState.errors;
-
+        console.log(getValues());
         return (
           <>
             <InputLabel

@@ -22,37 +22,6 @@ DROP TABLE IF EXISTS  "profiles" CASCADE;
 DROP TABLE IF EXISTS  "alerts" CASCADE;
 
 
-CREATE TABLE IF NOT EXISTS "alerts"(
-  "alert_id" serial PRIMARY KEY,
-  "alert_date" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  "alert_message" VARCHAR(255)
-);
-
-
-CREATE TABLE IF NOT EXISTS "muscles_group" (
-  "muscles_group_id" serial PRIMARY KEY ,
-  "muscles_group_name" VARCHAR(20) UNIQUE NOT NULL
-);
-
-
-CREATE TABLE IF NOT EXISTS "leads"(
-"lead_id"  serial PRIMARY KEY,
-"date_lead" DATE NOT NULL,
-"first_name" VARCHAR(40) NOT NULL,
-"last_name" VARCHAR(40) NOT NULL,
-"phone_number" VARCHAR(12) NOT NULL,
-"email" VARCHAR(255) ,
-"status"  BOOLEAN  DEFAULT FALSE,
-"note_topic" TEXT NOT NULL,
-"note_text" TEXT 
-);
-
-
-
-CREATE TABLE IF NOT EXISTS "activities" (
-  "activity_id" serial PRIMARY KEY,
-  "activity_name" VARCHAR(255) UNIQUE NOT NULL
-);
 
 CREATE TABLE IF NOT EXISTS "cities" (
   "city_id" serial PRIMARY KEY,
@@ -92,6 +61,80 @@ CREATE TABLE IF NOT EXISTS "profiles" (
       ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS "users"(
+    "user_id" serial PRIMARY KEY,
+    "role" varchar(50) DEFAULT 'admin',
+    "username" varchar(50) UNIQUE,
+    "password" varchar(255),
+    "refresh_token" varchar(255),
+    "profile_id" INTEGER ,
+CONSTRAINT "role" CHECK ("role" IN ('trainee','admin','trainer')),
+CONSTRAINT fk_profile_id 
+    FOREIGN KEY(profile_id)
+    REFERENCES profiles(profile_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+) ;
+
+CREATE TABLE IF NOT EXISTS "alerts"(
+  "alert_id" serial PRIMARY KEY,
+  "alert_date" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  "alert_message" VARCHAR(255),
+    "user_id" INTEGER,
+  CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+);
+
+
+CREATE TABLE IF NOT EXISTS "muscles_group" (
+  "muscles_group_id" serial PRIMARY KEY ,
+  "muscles_group_name" VARCHAR(20) UNIQUE NOT NULL,
+  "user_id" INTEGER,
+  CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+);
+
+
+CREATE TABLE IF NOT EXISTS "leads"(
+"lead_id"  serial PRIMARY KEY,
+"date_lead" DATE NOT NULL,
+"first_name" VARCHAR(40) NOT NULL,
+"last_name" VARCHAR(40) NOT NULL,
+"phone_number" VARCHAR(12) NOT NULL,
+"email" VARCHAR(255) ,
+"status"  BOOLEAN  DEFAULT FALSE,
+"note_topic" TEXT NOT NULL,
+"note_text" TEXT ,
+    "user_id" INTEGER,
+  CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+);
+
+
+
+CREATE TABLE IF NOT EXISTS "activities" (
+  "activity_id" serial PRIMARY KEY,
+  "activity_name" VARCHAR(255) UNIQUE NOT NULL,   
+   "user_id" INTEGER,
+  CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+);
+
+
+
+
 
 
 CREATE TABLE IF NOT EXISTS "providers" (
@@ -102,6 +145,12 @@ CREATE TABLE IF NOT EXISTS "providers" (
   CONSTRAINT fk_location_id
       FOREIGN KEY(location_id) 
       REFERENCES locations(location_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+          "user_id" INTEGER,
+  CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
@@ -119,10 +168,17 @@ CREATE TABLE IF NOT EXISTS "expenses" (
   "expenses_amount" float NOT NULL,
   "note_topic" TEXT ,
   "note_text" TEXT ,
+   "user_id" INTEGER,
+
 
   CONSTRAINT fk_seller_id
       FOREIGN KEY(seller_id) 
       REFERENCES providers(provider_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+        CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 
@@ -135,10 +191,16 @@ CREATE TABLE IF NOT EXISTS "equipments" (
   "equipment_name" VARCHAR(255) UNIQUE NOT NULL,
   "brand" VARCHAR(255) NOT NULL,
   "manufacture_year" INTEGER NOT NULL,
-  "expense_id" INTEGER  ,
+  "expense_id" INTEGER,
+  "user_id" INTEGER,
        CONSTRAINT fk_expense_id
       FOREIGN KEY(expense_id) 
       REFERENCES expenses(expense_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE ,
+        CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
@@ -154,6 +216,7 @@ CREATE TABLE IF NOT EXISTS "exercises_list" (
   "exercise_name" VARCHAR(50)  NOT NULL,
   "muscles_group_id" INTEGER NOT NULL,
   "equipment_id" INTEGER ,
+    "user_id" INTEGER,
       CONSTRAINT fk_muscles_group_id
       FOREIGN KEY(muscles_group_id) 
       REFERENCES muscles_group(muscles_group_id)
@@ -163,6 +226,12 @@ CREATE TABLE IF NOT EXISTS "exercises_list" (
        CONSTRAINT fk_equipment_id
       FOREIGN KEY(equipment_id) 
       REFERENCES equipments(equipment_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+
+      CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
@@ -175,20 +244,9 @@ CREATE TABLE IF NOT EXISTS "exercises_list" (
 
 
 
-CREATE TABLE IF NOT EXISTS "users"(
-    "user_id" serial PRIMARY KEY,
-    "role" varchar(50) DEFAULT 'admin',
-    "username" varchar(50) UNIQUE,
-    "password" varchar(255),
-    "refresh_token" varchar(255),
-    "profile_id" INTEGER ,
-CONSTRAINT "role" CHECK ("role" IN ('trainee','admin','trainer')),
-CONSTRAINT fk_profile_id 
-    FOREIGN KEY(profile_id)
-    REFERENCES profiles(profile_id)
-      ON DELETE SET NULL
-      ON UPDATE CASCADE
-) ;
+
+
+
 
 CREATE TABLE IF NOT EXISTS "trainees" (
   "trainee_id" serial PRIMARY KEY,
@@ -238,9 +296,6 @@ CREATE TABLE IF NOT EXISTS "training_programs_list"(
      "note_text" TEXT ,
      
 CONSTRAINT "date_end" CHECK ("date_end">"date_start"),
-   
-
-
           CONSTRAINT fk_trainee_id
       FOREIGN KEY(trainee_id) 
       REFERENCES trainees(trainee_id)
@@ -349,11 +404,19 @@ CREATE TABLE IF NOT EXISTS "incomes" (
   "incomes_amount" float NOT NULL,
   "note_topic" TEXT ,
   "note_text" TEXT ,
+   "user_id" INTEGER,
+    
 
 
         CONSTRAINT fk_trainee_id
       FOREIGN KEY(buyer_id) 
       REFERENCES trainees(trainee_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+         CONSTRAINT fk_user_id 
+
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
@@ -372,6 +435,8 @@ CREATE TABLE IF NOT EXISTS "incomes" (
   "location_id" INTEGER ,
   "note_topic" TEXT ,
   "note_text" TEXT ,
+   "user_id" INTEGER,
+
 
 CONSTRAINT "date_end" check (date_end>date_start),
 
@@ -385,6 +450,12 @@ CONSTRAINT "date_end" check (date_end>date_start),
   CONSTRAINT fk_location_id
       FOREIGN KEY(location_id) 
       REFERENCES locations(location_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+
+             CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 

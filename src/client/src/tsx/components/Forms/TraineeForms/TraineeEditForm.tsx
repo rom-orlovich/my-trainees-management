@@ -23,16 +23,16 @@ export function TraineeEditForm({
   // dispatch(resetGoPrevPageState());
   const handleSubmit = (body: TraineesTableAPI) => {
     const {
-      profile_id,
       street,
-
+      profile_id,
+      trainee_id,
       city_name,
 
       ...rest
     } = body as TraineeTableAPI;
 
     updateFunction({
-      id: traineeData?.profile_id || 0,
+      id: traineeData?.trainee_id || 0,
       updateItem: updateTrainee,
     })(rest);
   };

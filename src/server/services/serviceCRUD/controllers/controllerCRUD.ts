@@ -10,6 +10,7 @@ import {
   selectPagination,
   selectQuery,
   spreadObj,
+  updateExistTableData,
   updateQuerySingleItem,
 } from "../../../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
@@ -23,6 +24,7 @@ import {
   ErrorCustomizes,
 } from "../../serviceErrors/handleErrors";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
+import { client } from "../../../PGSql/DBConnectConfig";
 
 /**
  *
@@ -89,29 +91,12 @@ export function createRoutesControllers({
   const createNewValueInDB: RequestHandler = async (req, res, next) => {
     if (req.modifiedActionResult?.error) return next();
 
-    // if (modifiedOtherTable) {
-    //   const { otherTableName, values } = modifiedOtherTable;
-    //   const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
-    //     req.body,
-    //     values
-    //   );
-    //   const mainTableData = await insertQueryOneItem(
-    //     tableName,
-    //     excludedKeyValueObj
-    //   );
-    //   const otherTableData = await insertQueryOneItem(
-    //     otherTableName,
-    //     includeKeyValueObj
-    //   );
-    // } else {
-    //   const [data, err] = await promiseHandler(
-    //     insertQueryOneItem(tableName, req.body)
-    //   );
-    // }
-
     const [data, err] = await promiseHandler(
       insertNewTableData(tableName, req.body, modifiedOtherTable)
     );
+    if (err) {
+      await client.query("ROLLBACK");
+    }
 
     req.modifiedActionResult = createModifiedActionResultFun(
       { data },
@@ -126,10 +111,17 @@ export function createRoutesControllers({
   // Update one item by his ID in db.
   const updateValueByID: RequestHandler = async (req, res, next) => {
     if (req.modifiedActionResult?.error) return next();
-    const queryLogic = `WHERE ${tableID}=$1`;
+    // const queryLogic = `WHERE ${tableID}=$1`;
 
     const [data, err] = await promiseHandler<any, DatabaseError>(
-      updateQuerySingleItem(tableName, req.body, req.params.id, queryLogic)
+      // updateQuerySingleItem(tableName, req.body, req.params.id, queryLogic)
+      updateExistTableData(
+        tableName,
+        req.body,
+        tableID,
+        req.params.id,
+        modifiedOtherTable
+      )
     );
 
     req.modifiedActionResult = createModifiedActionResultFun(

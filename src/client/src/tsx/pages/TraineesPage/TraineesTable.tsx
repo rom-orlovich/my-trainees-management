@@ -11,6 +11,8 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 export const transformDataTrainee = (arg: TraineeTableAPI) => {
   const {
     location_id,
+    user_id,
+    profile_id,
 
     birthday,
     identify_num,

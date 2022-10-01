@@ -6,7 +6,7 @@ import { OmitKey, PickKey } from "../../types";
 // All the endpoints and the entities names.
 export enum API_ROUTES {
   API_AUTH_ROUTE = "/api/auth",
-  REGISTER_ROUTE = "/register",
+  SIGN_UP_ROUTE = "/register",
   LOGIN_ROUTE = "/login",
   REFRESH_TOKEN_ROUTE = "/refreshToken",
   LOGOUT_ROUTE = "/logout",
@@ -173,7 +173,8 @@ export interface NutritionProgramsTable {
 }
 export interface TraineesTableAPI {
   trainee_id?: number;
-  // user_id: number;
+  user_id: number;
+  profile_id?: number;
   first_name: string;
   last_name: string;
   gender: string;
@@ -227,6 +228,6 @@ export interface LoginApi {
 }
 
 export interface User {
-  User_id: number;
+  user_id: number;
   username: string;
 }

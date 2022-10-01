@@ -24,7 +24,7 @@ const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.USER_ENTITY
 );
 
-export const registerHandler: RequestHandler = async (req, res, next) => {
+export const sigUpHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
   const { password, username } = req.body;
   const hashPassword = await hash(password, 10);
@@ -37,12 +37,13 @@ export const registerHandler: RequestHandler = async (req, res, next) => {
   // Continue to the alert handler.
   req.modifiedActionResult = createModifiedActionResultFun(
     {
-      data: user ? user[0].username : undefined,
+      data: user,
       statusCode: 201,
       messagePayload: username,
     },
     error,
-    "create"
+    "create",
+    false
   );
 
   return next();
@@ -200,9 +201,9 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     process.env.ACCESS_TOKEN_SECRET,
     process.env.EXPIRE_IN_ACCESS_TOKEN
   );
-
+  console.log(user[0]);
   return res.status(201).json({
-    username: user[0],
+    user: user[0],
     accessToken,
     message: "Access token has create successfully!",
   });

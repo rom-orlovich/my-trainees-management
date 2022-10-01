@@ -32,7 +32,11 @@ export interface SelectTableQueryParam {
   // so the client won't able to know what are the real fields name of the table.
   queryParams?: Record<string, string>;
   queryNameParam?: Record<string, string>;
-  modifiedOtherTable?: { otherTableName: string; values: string[] };
+  modifiedOtherTable?: {
+    otherTableName: string;
+    values: string[];
+    otherTableID: string;
+  };
 }
 
 export interface OptionsCRUD {
@@ -293,7 +297,8 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     tableID: `tr.${TABLES_DATA.TRAINEE_ID}`,
     fieldNamesQuery: `
     tr.trainee_id,tr.user_id,
-    pr.*, lo.street ,
+    pr.*, 
+    lo.street ,
      c.city_name `,
     querySelectLogic: `
     JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr ON 
@@ -305,8 +310,10 @@ export const traineesOptionsCRUD: OptionsCRUD = {
       mainName: "first_name",
       lastName: "last_name",
     },
+
     modifiedOtherTable: {
       otherTableName: TABLES_DATA.PROFILES_TABLE_NAME,
+      otherTableID: "profile_id",
       values: [
         "first_name",
         "last_name",

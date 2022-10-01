@@ -34,6 +34,7 @@ export const authSlice = createSlice({
         (state, action) => {
           const payload = action.payload;
           state.user = payload.user;
+          console.log(payload.user);
           state.accessToken = payload.accessToken;
         }
       )

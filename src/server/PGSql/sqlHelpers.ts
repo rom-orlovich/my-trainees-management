@@ -2,6 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 
+import e from "express";
 import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
@@ -303,7 +304,7 @@ export const spreadObj = (obj: Record<string, any>, values: string[]) => {
     const keyValue = { [key]: obj[key] };
     if (values.includes(key))
       includeKeyValueObj = { ...includeKeyValueObj, ...keyValue };
-    excludedKeyValueObj = { ...excludedKeyValueObj, ...keyValue };
+    else excludedKeyValueObj = { ...excludedKeyValueObj, ...keyValue };
   }
 
   return { includeKeyValueObj, excludedKeyValueObj };
@@ -315,25 +316,81 @@ export const insertNewTableData = async (
   modifiedOtherTable?: {
     otherTableName: string;
     values: string[];
+    otherTableID: string;
+  }
+) => {
+  let data;
+
+  // If modifiedOtherTable is not exist so it will insert the data regularly .
+  if (modifiedOtherTable) {
+    await client.query("BEGIN");
+    const { otherTableName, values, otherTableID } = modifiedOtherTable;
+    // Spread the data the relate tp the main table and the data that relate to the sec table.
+    const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
+      reqBody,
+      values
+    );
+    // Create new item in sec table that relate to the main table.
+    const otherTableData = await insertQueryOneItem(
+      otherTableName,
+      includeKeyValueObj
+    );
+
+    // Create new item in main table and attach the new id  from the sec table.
+    const mainTableData = await insertQueryOneItem(mainTableName, {
+      ...excludedKeyValueObj,
+      [otherTableID]: otherTableData[otherTableID],
+    });
+    data = { ...mainTableData, ...otherTableData };
+    await client.query("COMMIT");
+  } else {
+    data = await insertQueryOneItem(mainTableName, reqBody);
+  }
+  return data;
+};
+
+export const updateExistTableData = async (
+  mainTableName: string,
+  reqBody: Record<string, any>,
+  mainTableID: string,
+  paramID: string,
+  modifiedOtherTable?: {
+    otherTableName: string;
+    values: string[];
+    otherTableID: string;
   }
 ) => {
   let data;
 
   if (modifiedOtherTable) {
-    const { otherTableName, values } = modifiedOtherTable;
+    await client.query("BEGIN");
+
+    const { otherTableName, values, otherTableID } = modifiedOtherTable;
+    const queryLogic1 = `WHERE ${mainTableID}=$1`;
     const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
       reqBody,
       values
     );
-    const mainTableData = await insertQueryOneItem(
+
+    const mainTableData = await updateQuerySingleItem(
       mainTableName,
-      excludedKeyValueObj
+      {
+        ...excludedKeyValueObj,
+      },
+      paramID,
+      queryLogic1
     );
-    const otherTableData = await insertQueryOneItem(
+    const queryLogic2 = `WHERE ${otherTableID}=$1`;
+
+    const otherTableData = await updateQuerySingleItem(
       otherTableName,
-      includeKeyValueObj
+      includeKeyValueObj,
+      mainTableData[otherTableID],
+      queryLogic2
     );
-    data = [...mainTableData, ...otherTableData];
+
+    data = { ...mainTableData, ...otherTableData };
+    await client.query("COMMIT");
   } else {
     data = await insertQueryOneItem(mainTableName, reqBody);
   }

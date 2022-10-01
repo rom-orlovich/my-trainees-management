@@ -9,6 +9,7 @@ export enum ErrorCodes {
   UNIQUE = "23505",
   INVALID = "22023",
   TOO_LONG = "22001",
+  NOT_COLUMN_FOUND = "42703",
   RESULT_NOT_FOUND = "2RNF",
   LOGIN_FAILED = "2LF",
 }
@@ -48,6 +49,9 @@ export class ErrorCustomizes<
         this.errorPayload
       }. The ${fieldNameArr || this.errorPayload} is already existed`;
       this.statusCode = 409;
+    } else if (this.error?.code === ErrorCodes.NOT_COLUMN_FOUND) {
+      const describeAction = this.action === "create" ? "new" : "exist";
+      this.message = `Cannot ${this.action} ${describeAction} ${this.errorPayload}.`;
     } else if (this.error?.code === ErrorCodes.TOO_LONG) {
       this.message = `The ${this.errorPayload} data is invalid.`;
     } else if (this.error?.code === ErrorCodes.INVALID) {

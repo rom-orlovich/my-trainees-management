@@ -112,7 +112,9 @@ export default function Form<TFormValues extends Record<string, any>>({
 
   // Side effect of disabling the submit button if the form is not valid.
   useEffect(() => {
-    if (methods.formState.isValid) setDisabled(false);
+    if (methods.formState.isValid) {
+      setDisabled(false);
+    }
   }, [methods.formState.isValid]);
 
   const handleSubmit = (data: TFormValues) => {
