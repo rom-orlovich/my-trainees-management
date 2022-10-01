@@ -4,21 +4,31 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 
 import { citiesApi } from "../../redux/api/hooksAPI";
 import { CitiesTableAPI } from "../../redux/api/interfaceAPI";
+import { useAppSelector } from "../../redux/hooks";
+import { getAuthState } from "../../redux/slices/authSlice";
 
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
-function CitiesTable({ mainName }: PageTableProps) {
+const cityTransformFun = ({ user_id, ...rest }: CitiesTableAPI) => {
+  return rest;
+};
+function CitiesTable({
+  mainName,
+  queriesOptions,
+}: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = citiesApi;
+  const authState = useAppSelector(getAuthState);
   const [deleteItem] = useDeleteItemMutation();
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.CITY_ROUTE}>
       <TablePagination<CitiesTableAPI>
-        queriesOptions={{ mainName }}
+        queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Cities List"}
+        transformFun={cityTransformFun}
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />

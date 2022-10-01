@@ -9,10 +9,11 @@ import TableTrainingProgramList from "./TableTrainingProgramList";
 import page_style from "../Page.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { APP_ROUTE } from "../../routes/routesConstants";
+import { useAppSelector } from "../../redux/hooks";
 
 function TrainingProgramsPage() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);
-
+  const userID = useAppSelector((state) => state.authSlice.user?.user_id);
   const [trigger, result] = trainingProgramsListApi.useLazyGetItemsQuery();
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function TrainingProgramsPage() {
           id={"profile_id"}
           loadingSpinnerResult={{ nameData: "Trainees" }}
           setSelectOptionValue={setTrainee}
+          queriesOptions={{ trainerUserId: userID }}
           useGetData={traineesApi.useGetItemsQuery}
           InputLabelProps={{
             InputProps: { placeholder: "Trainee Name" },

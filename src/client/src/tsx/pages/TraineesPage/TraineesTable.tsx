@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import { TraineeTableAPI } from "../../redux/api/interfaceAPI";
+import { useAppSelector } from "../../redux/hooks";
+import { getAuthState } from "../../redux/slices/authSlice";
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
@@ -29,7 +31,10 @@ export const transformDataTrainee = (arg: TraineeTableAPI) => {
 export interface PageTableProps {
   mainName?: string;
 }
-function TraineesTable({ mainName }: PageTableProps) {
+function TraineesTable({
+  mainName,
+  queriesOptions,
+}: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = traineesApi;
   const [deleteItem] = useDeleteItemMutation();
 
@@ -37,7 +42,7 @@ function TraineesTable({ mainName }: PageTableProps) {
     <MainRoute mainRoutes={[APP_ROUTE.TRAINEES_ROUTE, ""]}>
       <TablePagination<TraineeTableAPI>
         mainRoute={APP_ROUTE.TRAINEES_ROUTE}
-        queriesOptions={{ mainName }}
+        queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Trainees"}
         transformFun={transformDataTrainee}
         getAllQuery={useGetItemsQuery}

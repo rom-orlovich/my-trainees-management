@@ -6,16 +6,20 @@ import AutocompleteInput from "../../components/baseComponents/RHF-Components/Au
 import { TraineeTableAPI } from "../../redux/api/interfaceAPI";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import page_style from "../Page.module.scss";
+import { useAppSelector } from "../../redux/hooks";
+import { getAuthState } from "../../redux/slices/authSlice";
 
 function Trainees() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);
-  // useTrackValues(trainee);
+  const authSliceState = useAppSelector(getAuthState);
+  const queriesOptions = { trainerUserId: authSliceState.user?.user_id };
   return (
     <section className={page_style.page_container}>
       <div className={page_style.page_header}>
         <AutocompleteInput<TraineeTableAPI>
           keys={["first_name", "last_name"]}
           id={"profile_id"}
+          queriesOptions={queriesOptions}
           loadingSpinnerResult={{ nameData: "Trainees" }}
           setSelectOptionValue={setTrainee}
           useGetData={traineesApi.useGetItemsQuery}
@@ -36,7 +40,7 @@ function Trainees() {
         </span>
       </div>
       <div className={page_style.page_main_content}>
-        <TraineesTable mainName={trainee[1]} />
+        <TraineesTable mainName={trainee[1]} queriesOptions={queriesOptions} />
       </div>
     </section>
   );

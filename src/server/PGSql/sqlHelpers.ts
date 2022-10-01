@@ -124,7 +124,7 @@ const prepareKeyValuesOtherColumnToSelect = (
   const keysValuesEntries = Object.entries(queryParams);
 
   keysValuesEntries.forEach(([key, value], index) => {
-    keyValuesStr += `${key}=$${paramsArr.length + startIndex}`;
+    keyValuesStr += ` ${key}=$${paramsArr.length + startIndex}`;
     if (index !== keysValuesEntries.length - 1)
       keyValuesStr += `${keyValuesStr} and`;
     paramsArr.push(value);

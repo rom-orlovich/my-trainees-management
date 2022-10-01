@@ -117,6 +117,9 @@ export const citiesOptionsCRUD: OptionsCRUD = {
     queryNameParam: {
       mainName: "city_name",
     },
+    queryParams: {
+      userID: "user_id",
+    },
   },
 
   validateSchema: citiesSchema,
@@ -309,6 +312,9 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     queryNameParam: {
       mainName: "first_name",
       lastName: "last_name",
+    },
+    queryParams: {
+      trainerUserId: "trainer_user_id",
     },
 
     modifiedOtherTable: {

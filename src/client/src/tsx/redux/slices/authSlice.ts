@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 import { authApi } from "../api/authAPI";
 import { User } from "../api/interfaceAPI";
+import { useAppSelector } from "../hooks";
+import { RootState } from "../store";
 const initialState: { user: User | null; accessToken: string | null } = {
   user: null,
   accessToken: null,
@@ -8,16 +11,7 @@ const initialState: { user: User | null; accessToken: string | null } = {
 export const authSlice = createSlice({
   name: "authState",
   initialState,
-  reducers: {
-    // setLogin: (state, action: PayloadAction<typeof initialState>) => {
-    //   state.accessToken = action.payload.accessToken;
-    //   state.user = action.payload.user;
-    // },
-    // setLogout: (state) => {
-    //   state.accessToken = null;
-    //   state.user = null;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) =>
     builder
       .addMatcher(
@@ -45,4 +39,4 @@ export const authSlice = createSlice({
 });
 
 export const {} = authSlice.actions;
-// export const { setLogin, setLogout } = authSlice.actions;
+export const getAuthState = (state: RootState) => state.authSlice;

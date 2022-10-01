@@ -72,6 +72,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   const isVisible = useHideUnFocusElement(autoCompleteContainerRef);
 
   const [lastDataState, setLastData] = useState<any[]>([]);
+
   const { data, isError, isFetching, isLoading } = useGetData({
     page: page,
     mainName: debounce[1],
