@@ -83,24 +83,6 @@ export const changeUserCredentialsHandler: RequestHandler = async (
   return next();
 };
 
-const createAdmin = async (username: string, password: string) => {
-  if (username === "admin280797@gmail.com" && password === "123admin123") {
-    const hashPassword = await hash("123admin123", 10);
-    const refreshToken = genToken(
-      { username, password: hashPassword, user_id: 1 },
-      process.env.REFRESH_TOKEN_SECRET,
-      process.env.EXPIRE_IN_REFRESH_TOKEN
-    );
-    const [user, error] = await promiseHandler<User[]>(
-      insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
-        refresh_token: refreshToken,
-        username: "admin123",
-        password: hashPassword,
-      })
-    );
-  }
-};
-
 export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
   const { password, username } = req.body;
