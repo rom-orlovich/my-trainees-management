@@ -121,8 +121,6 @@ CREATE TABLE IF NOT EXISTS "leads"(
       ON UPDATE CASCADE
 );
 
-
-
 CREATE TABLE IF NOT EXISTS "activities" (
   "activity_id" serial PRIMARY KEY,
   "activity_name" VARCHAR(255) UNIQUE NOT NULL,   
@@ -133,10 +131,6 @@ CREATE TABLE IF NOT EXISTS "activities" (
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
-
-
-
-
 
 
 CREATE TABLE IF NOT EXISTS "providers" (
@@ -158,11 +152,6 @@ CREATE TABLE IF NOT EXISTS "providers" (
 );
 
 
-
-
-
-
-
 CREATE TABLE IF NOT EXISTS "expenses" (
   "expense_id" serial PRIMARY KEY,
   "date" DATE NOT NULL,
@@ -171,7 +160,6 @@ CREATE TABLE IF NOT EXISTS "expenses" (
   "note_topic" TEXT ,
   "note_text" TEXT ,
    "user_id" INTEGER DEFAULT 1,
-
 
   CONSTRAINT fk_seller_id
       FOREIGN KEY(seller_id) 
@@ -184,7 +172,6 @@ CREATE TABLE IF NOT EXISTS "expenses" (
       ON DELETE SET NULL
       ON UPDATE CASCADE
 
- 
 );
 
 
@@ -233,9 +220,6 @@ CREATE TABLE IF NOT EXISTS "exercises_list" (
 );
 
 
-
-
-
 CREATE TABLE IF NOT EXISTS "trainees" (
   "trainee_id" serial PRIMARY KEY,
   "trainer_user_id" INTEGER DEFAULT 1,
@@ -275,8 +259,6 @@ CONSTRAINT fk_trainee_id
       ON UPDATE CASCADE
 );
 
-
-
 CREATE TABLE IF NOT EXISTS "training_programs_list"(
   "training_programs_list_id" serial PRIMARY KEY,
   "trainee_id" INTEGER ,
@@ -292,9 +274,9 @@ CONSTRAINT "date_end" CHECK ("date_end">"date_start"),
       REFERENCES trainees(trainee_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
-
-   
 );
+
+
 CREATE TABLE IF NOT EXISTS "nutrition_programs_list"(
   "nutrition_programs_list_id"  serial PRIMARY KEY,
    "trainee_id" INTEGER ,
@@ -337,12 +319,7 @@ CREATE TABLE IF NOT EXISTS "training_program"(
       ON DELETE SET NULL
       ON UPDATE CASCADE
       
-  
-     
 );
-
-
-
 
 
 CREATE TABLE IF NOT EXISTS "nutrition_program" (
@@ -355,12 +332,8 @@ CREATE TABLE IF NOT EXISTS "nutrition_program" (
       FOREIGN KEY(nutrition_programs_list_id) 
       REFERENCES nutrition_programs_list(nutrition_programs_list_id)
       ON DELETE SET NULL
-      ON UPDATE CASCADE
-
-      
+      ON UPDATE CASCADE 
 );
-
-
 
 CREATE TABLE IF NOT EXISTS "weeks" (
   "week_id" serial PRIMARY KEY,
@@ -374,11 +347,6 @@ CREATE TABLE IF NOT EXISTS "weeks" (
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
-
-
-
-
-
 
 
 
@@ -406,11 +374,6 @@ CREATE TABLE IF NOT EXISTS "incomes" (
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
-
-
-
-
-
 
 
  CREATE TABLE IF NOT EXISTS "schedule" (
