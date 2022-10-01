@@ -6,34 +6,38 @@ import { addFunction } from "../../components/baseComponents/RHF-Components/Form
 import { credSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
-import { useLoginMutation } from "../../redux/api/authAPI";
+import { authApi } from "../../redux/api/authAPI";
 import {
   LoginApi,
   ResponseMutationAuthAPI,
 } from "../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setLogin, setLogout } from "../../redux/slices/authSlice";
+// import { setLogin, setLogout } from "../../redux/slices/authSlice";
 import { APP_ROUTE } from "../../routes/routesConstants";
 
 function LoginPage() {
-  const [login] = useLoginMutation();
+  const [login] = authApi.useLoginMutation();
   const dispatch = useAppDispatch();
   const nav = useNavigate();
   const location = useLocation();
-  useEffect(() => {
-    if (location.pathname === APP_ROUTE.LOGOUT_ROUTE) {
-      console.log(location.pathname);
-      dispatch(setLogout());
-    }
-  }, [location.pathname]);
-
+  const token = useAppSelector((state) => state.authSlice.accessToken);
   const onSubmit = (body: LoginApi) =>
     login(body)
       .unwrap()
       .then(({ message, ...rest }) => {
-        dispatch(setLogin({ accessToken: rest.accessToken, user: rest.user }));
+        // dispatch(setLogin({ accessToken: rest.accessToken, user: rest.user }));
         nav("/");
       });
+
+  // useEffect(() => {
+  //   console.log(token);
+  //   if (token) {
+  //     nav("/");
+  //   }
+  //   // return () => {
+  //   //   refreshToken({});
+  //   // };
+  // }, []);
   return (
     <Form<LoginApi>
       onSubmit={onSubmit}

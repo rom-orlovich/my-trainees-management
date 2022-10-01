@@ -1,4 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import {
+  BaseQueryFn,
+  createApi,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/dist/query/react";
 import { API_ROUTES, ResponseMutationAuthAPI } from "./interfaceAPI";
 
 export const authApi = createApi({
@@ -8,14 +12,20 @@ export const authApi = createApi({
     login: builder.mutation<ResponseMutationAuthAPI, any>({
       query: (credentials) => {
         return {
-          url: "/login",
+          url: API_ROUTES.LOGIN_ROUTE,
           method: "post",
-          //   credentials: "include",
           body: { ...credentials },
         };
       },
     }),
+    logout: builder.query({
+      query: () => ({ url: API_ROUTES.LOGOUT_ROUTE }),
+    }),
+    refreshToken: builder.query<ResponseMutationAuthAPI, any>({
+      query: () => ({
+        url: API_ROUTES.REFRESH_TOKEN_ROUTE,
+        credentials: "include",
+      }),
+    }),
   }),
 });
-
-export const { useLoginMutation } = authApi;

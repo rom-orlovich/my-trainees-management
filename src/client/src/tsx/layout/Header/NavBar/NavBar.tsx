@@ -17,7 +17,8 @@ import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import NavLinkLI from "../../../components/baseComponents/NavLinkLI";
 import AlertsNotification from "./AlertNotification/AlertsNotification";
 import { useAppDispatch } from "../../../redux/hooks";
-import { setLogout } from "../../../redux/slices/authSlice";
+// import { setLogout } from "../../../redux/slices/authSlice";
+import { authApi } from "../../../redux/api/authAPI";
 interface NavBarNavLinkLIs<T> {
   id?: string;
   element: ReactNode;
@@ -60,9 +61,9 @@ function DropDownNavLinkLI({
   data,
   className,
 }: { data: LinkData } & PropsBasic) {
-  const dispatch = useAppDispatch();
+  const [logout] = authApi.useLazyLogoutQuery();
   const handleLogOut = () => {
-    dispatch(setLogout());
+    logout({}).unwrap();
   };
   const checkLogoutText = data.text === "Logout";
   const onClickProps = checkLogoutText ? { onClick: handleLogOut } : {};

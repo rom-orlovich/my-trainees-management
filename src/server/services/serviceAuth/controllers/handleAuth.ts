@@ -202,7 +202,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   );
 
   return res.status(201).json({
-    username: user[0].username,
+    username: user[0],
     accessToken,
     message: "Access token has create successfully!",
   });

@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { authApi } from "../redux/api/authAPI";
 import { useAppSelector } from "../redux/hooks";
-import { setLogout } from "../redux/slices/authSlice";
 import { APP_ROUTE } from "./routesConstants";
 
 function ProtectedRoute() {
   const token = useAppSelector((state) => state.authSlice.accessToken);
+  const [refreshToken, state] = authApi.useLazyRefreshTokenQuery();
   const location = useLocation();
-  const dispatch = useDispatch();
-  console.log(token);
+
   // useEffect(() => {
-  //   if (location.pathname === APP_ROUTE.LOGOUT_ROUTE) {
-  //     dispatch(setLogout());
+  //   if (!token) {
+  //     refreshToken({});
   //   }
-  // }, [location.pathname]);
+  // }, []);
+
   return token ? (
     <Outlet />
   ) : (

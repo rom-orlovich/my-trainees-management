@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { providerTag, providerTags } from "../reduxHelpers";
+import { RootState } from "../store";
 import {
   PayloadAPI,
   ResponseMutationAPI,
@@ -39,7 +40,17 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
   return createApi({
     tagTypes: [singleEntityName],
     reducerPath,
-    baseQuery: fetchBaseQuery({ baseUrl }),
+    baseQuery: fetchBaseQuery({
+      baseUrl,
+      prepareHeaders: (headers, api) => {
+        const state = api.getState() as RootState;
+        const token = state.authSlice.accessToken;
+        if (token) {
+          headers.set("authorization", `Bearer ${token}`);
+        }
+        return headers;
+      },
+    }),
     endpoints: (builder) => ({
       getItems: builder.query<ResponseQueryAPI<T>, Record<string, any>>({
         query: (params: Record<string, any>) => ({
