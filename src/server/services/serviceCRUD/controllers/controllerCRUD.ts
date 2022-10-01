@@ -5,9 +5,11 @@ import * as yup from "yup";
 import {
   createRealQueryKeyValuesObj,
   deleteQuery,
+  insertNewTableData,
   insertQueryOneItem,
   selectPagination,
   selectQuery,
+  spreadObj,
   updateQuerySingleItem,
 } from "../../../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
@@ -36,6 +38,7 @@ export function createRoutesControllers({
     querySelectLogic,
     queryParams,
     queryNameParam,
+    modifiedOtherTable,
   },
   logAlert = true,
   validateSchema,
@@ -85,8 +88,29 @@ export function createRoutesControllers({
   // Controller of the post method. Create one item  in the db.
   const createNewValueInDB: RequestHandler = async (req, res, next) => {
     if (req.modifiedActionResult?.error) return next();
+
+    // if (modifiedOtherTable) {
+    //   const { otherTableName, values } = modifiedOtherTable;
+    //   const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
+    //     req.body,
+    //     values
+    //   );
+    //   const mainTableData = await insertQueryOneItem(
+    //     tableName,
+    //     excludedKeyValueObj
+    //   );
+    //   const otherTableData = await insertQueryOneItem(
+    //     otherTableName,
+    //     includeKeyValueObj
+    //   );
+    // } else {
+    //   const [data, err] = await promiseHandler(
+    //     insertQueryOneItem(tableName, req.body)
+    //   );
+    // }
+
     const [data, err] = await promiseHandler(
-      insertQueryOneItem(tableName, req.body)
+      insertNewTableData(tableName, req.body, modifiedOtherTable)
     );
 
     req.modifiedActionResult = createModifiedActionResultFun(

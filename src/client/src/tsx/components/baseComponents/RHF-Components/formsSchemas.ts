@@ -116,8 +116,22 @@ export const nutritionProgramSchema = yup.object().shape({
   note_text: yup.string().notRequired().default(""),
 });
 
+// export const traineesSchema = yup.object().shape({
+//   profile_id: yup.number().notRequired().nullable(),
+//   first_name: yup.string().required(),
+//   last_name: yup.string().required(),
+//   gender: yup.string().required(),
+//   identify_num: yup.string().required(),
+//   birthday: yup.date().required(),
+//   email: yup.string().email().notRequired().nullable(),
+//   phone_number: yup.string().max(12).required(),
+//   location_id: yup.number().required(),
+// });
+
 export const traineesSchema = yup.object().shape({
-  profile_id: yup.number().notRequired().nullable(),
+  // trainee_id: yup.number().notRequired().nullable(),
+  // user_id: yup.number().required(),
+  // profile_id: yup.number().notRequired().nullable(),
   first_name: yup.string().required(),
   last_name: yup.string().required(),
   gender: yup.string().required(),
@@ -126,6 +140,8 @@ export const traineesSchema = yup.object().shape({
   email: yup.string().email().notRequired().nullable(),
   phone_number: yup.string().max(12).required(),
   location_id: yup.number().required(),
+  date_join: yup.date().required(),
+  status: yup.boolean().required(),
 });
 
 export const subscriptionPlansSchema = yup.object().shape({

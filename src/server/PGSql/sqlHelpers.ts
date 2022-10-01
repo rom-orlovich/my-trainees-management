@@ -295,3 +295,47 @@ export async function selectPagination(
     countRows: numTotalRows,
   };
 }
+
+export const spreadObj = (obj: Record<string, any>, values: string[]) => {
+  let includeKeyValueObj = {};
+  let excludedKeyValueObj = {};
+  for (const key in obj) {
+    const keyValue = { [key]: obj[key] };
+    if (values.includes(key))
+      includeKeyValueObj = { ...includeKeyValueObj, ...keyValue };
+    excludedKeyValueObj = { ...excludedKeyValueObj, ...keyValue };
+  }
+
+  return { includeKeyValueObj, excludedKeyValueObj };
+};
+
+export const insertNewTableData = async (
+  mainTableName: string,
+  reqBody: Record<string, any>,
+  modifiedOtherTable?: {
+    otherTableName: string;
+    values: string[];
+  }
+) => {
+  let data;
+
+  if (modifiedOtherTable) {
+    const { otherTableName, values } = modifiedOtherTable;
+    const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
+      reqBody,
+      values
+    );
+    const mainTableData = await insertQueryOneItem(
+      mainTableName,
+      excludedKeyValueObj
+    );
+    const otherTableData = await insertQueryOneItem(
+      otherTableName,
+      includeKeyValueObj
+    );
+    data = [...mainTableData, ...otherTableData];
+  } else {
+    data = await insertQueryOneItem(mainTableName, reqBody);
+  }
+  return data;
+};

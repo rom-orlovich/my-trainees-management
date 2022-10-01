@@ -172,7 +172,8 @@ export interface NutritionProgramsTable {
   note_text: string | null;
 }
 export interface TraineesTableAPI {
-  profile_id?: number;
+  trainee_id?: number;
+  // user_id: number;
   first_name: string;
   last_name: string;
   gender: string;

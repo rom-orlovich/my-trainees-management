@@ -116,7 +116,9 @@ export const nutritionProgramSchema = yup.object().shape({
 });
 
 export const traineesSchema = yup.object().shape({
-  profile_id: yup.number().notRequired().nullable(),
+  // trainee_id: yup.number().notRequired().nullable(),
+  user_id: yup.number().required(),
+  // profile_id: yup.number().notRequired().nullable(),
   first_name: yup.string().required(),
   last_name: yup.string().required(),
   gender: yup.string().required(),

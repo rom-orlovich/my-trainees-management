@@ -32,7 +32,7 @@ export interface SelectTableQueryParam {
   // so the client won't able to know what are the real fields name of the table.
   queryParams?: Record<string, string>;
   queryNameParam?: Record<string, string>;
-  insertInto?: Record<string, string>;
+  modifiedOtherTable?: { otherTableName: string; values: string[] };
 }
 
 export interface OptionsCRUD {
@@ -304,6 +304,21 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     queryNameParam: {
       mainName: "first_name",
       lastName: "last_name",
+    },
+    modifiedOtherTable: {
+      otherTableName: TABLES_DATA.PROFILES_TABLE_NAME,
+      values: [
+        "first_name",
+        "last_name",
+        "gender",
+        "identify_num",
+        "birthday",
+        "email",
+        "phone_number",
+        "location_id",
+        "date_join",
+        "status",
+      ],
     },
   },
 
