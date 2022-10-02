@@ -31,13 +31,13 @@ export const validateTokenMiddleware: RequestHandler = async (
   const auth = req.headers.authorization;
   const token = auth?.split(" ")[1];
 
-  if (!token) return res.status(401).end();
+  if (!token) return res.sendStatus(401);
 
   const [decode, err] = await promiseHandler(
     verifyAsync(token, process.env.ACCESS_TOKEN_SECRET)
   );
 
-  if (err) return res.status(403).end();
+  if (err) return res.sendStatus(403);
 
   const userData = decode as { username: string };
   req.auth_data = {
