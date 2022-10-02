@@ -20,8 +20,15 @@ function Table<T extends object>({
 }: TableProps<T> & { mainRoute: string }) {
   const TH = Th ? Th : ThCell;
   const TD = Td ? Td : TdCell;
+  const newDataArr = dataArr.map((obj: T) => {
+    let newObj = {};
+    for (let key in obj) {
+      if (key !== "user_id") newObj = { ...newObj, [key]: obj[key] };
+    }
+    return newObj;
+  });
 
-  const keys = getKeysArrObj(dataArr[0])
+  const keys = getKeysArrObj(newDataArr[0])
     .slice(1)
     .map(formatThValue)
     .concat("Actions");
@@ -35,7 +42,7 @@ function Table<T extends object>({
         </tr>
       </thead>
       <tbody>
-        {dataArr.map((obj, row) => {
+        {newDataArr.map((obj, row) => {
           const values = getValuesArrObj(obj);
           const valuesWithOutID = values.slice(1);
           return (

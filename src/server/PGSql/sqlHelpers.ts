@@ -363,13 +363,13 @@ export const updateExistTableData = async (
   }
 ) => {
   let data;
-
+  const mainTableQueryLogic = `WHERE ${mainTableID}=$1`;
   if (modifiedOtherTable) {
     // Begin transaction
     await client.query("BEGIN");
 
     const { otherTableName, values, otherTableID } = modifiedOtherTable;
-    const queryLogic1 = `WHERE ${mainTableID}=$1`;
+
     // Spread the data that relate to the main table and the data that relate to the sec table.
     const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
       reqBody,
@@ -382,23 +382,28 @@ export const updateExistTableData = async (
         ...excludedKeyValueObj,
       },
       paramID,
-      queryLogic1
+      mainTableQueryLogic
     );
-    const queryLogic2 = `WHERE ${otherTableID}=$1`;
+    const secTableQueryLogic = `WHERE ${otherTableID}=$1`;
 
     // Update the sec table.
     const otherTableData = await updateQuerySingleItem(
       otherTableName,
       includeKeyValueObj,
       mainTableData[otherTableID],
-      queryLogic2
+      secTableQueryLogic
     );
 
     data = { ...mainTableData, ...otherTableData };
     // End transaction
     await client.query("COMMIT");
   } else {
-    data = await insertQueryOneItem(mainTableName, reqBody);
+    data = await updateQuerySingleItem(
+      mainTableName,
+      reqBody,
+      paramID,
+      mainTableQueryLogic
+    );
   }
   return data;
 };

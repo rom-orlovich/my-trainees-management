@@ -7,7 +7,7 @@ import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMes
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import {
   LocationsGetRes,
-  TraineesTableAPI,
+  TraineesBaseTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { SelectInput } from "../../baseComponents/RHF-Components/SelectInput/SelectInput";
 import { locationsApi } from "../../../redux/api/hooksAPI";
@@ -27,14 +27,16 @@ export function TraineeForm({
   editMode,
   heading,
   changeButtonContainer,
-}: GeneralFormProps<OmitKey<TraineesTableAPI, "trainee_id" | "profile_id">> & {
+}: GeneralFormProps<
+  OmitKey<TraineesBaseTableAPI, "trainee_id" | "profile_id">
+> & {
   heading?: string;
   changeButtonContainer?: boolean;
 }) {
   const user_id = useAppSelector((state) => state.authSlice.user?.user_id);
 
   return (
-    <Form<TraineesTableAPI>
+    <Form<TraineesBaseTableAPI>
       changeButtonContainer={changeButtonContainer}
       nameForm="Trainee"
       pathMove={`/${APP_ROUTE.TRAINEES_ROUTE}`}
@@ -139,14 +141,13 @@ export function TraineeForm({
               <InputErrorMessage nameInput="Email" error={email} />
             </InputLabel>
 
-            <AutocompleteInputRHF<TraineesTableAPI, LocationsGetRes>
+            <AutocompleteInputRHF<TraineesBaseTableAPI, LocationsGetRes>
               name="location_id"
               control={control}
               AutocompleteInputProps={{
                 defaultValueID: defaultValues?.location_id,
                 InputLabelProps: {
                   LabelProps: { labelText: "Locations" },
-
                   InputProps: { placeholder: "Search Location" },
                 },
                 addOption: {

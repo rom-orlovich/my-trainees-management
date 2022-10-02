@@ -1,8 +1,11 @@
 import { useParams } from "react-router-dom";
 import { trainingProgramsApi } from "../../../redux/api/hooksAPI";
-import { TrainingProgramExerciseOmit } from "../../../redux/api/interfaceAPI";
+import {
+  TrainingProgramExerciseOmit,
+  TrainingProgramExerciseTableAPI,
+} from "../../../redux/api/interfaceAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
-import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TrainingProgramForms from "./TrainingProgramForm";
 
 export function TrainingProgramEditExerciseForm() {
@@ -11,13 +14,12 @@ export function TrainingProgramEditExerciseForm() {
 
   const { data, isLoading, isFetching, isError } =
     trainingProgramsApi.useGetItemByIDQuery(id);
-
-  const handleSubmit = (body: TrainingProgramExerciseOmit) => {
+  const updateFunction = useUpdateFunction();
+  const handleSubmit = (body: TrainingProgramExerciseOmit) =>
     updateFunction({
       updateItem,
       id,
     })(body);
-  };
 
   return (
     <LoadingSpinner

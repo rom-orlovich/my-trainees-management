@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { equipmentsApi } from "../../../redux/api/hooksAPI";
+import { EquipmentsTableAPI } from "../../../redux/api/interfaceAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
-import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { EquipmentForm } from "./EquipmentForm";
 
 export function EquipmentEditForm() {
@@ -10,10 +11,12 @@ export function EquipmentEditForm() {
   const [updateItem, state] = equipmentsApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     equipmentsApi.useGetItemByIDQuery(id);
-  const handleSubmit = updateFunction({
-    updateItem,
-    id,
-  });
+  const updateFunction = useUpdateFunction();
+  const handleSubmit = (body: EquipmentsTableAPI) =>
+    updateFunction({
+      updateItem,
+      id,
+    })(body);
 
   return (
     <LoadingSpinner

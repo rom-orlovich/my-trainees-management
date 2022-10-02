@@ -16,7 +16,7 @@ export function TrainingProgramsListAddForm({
 }: {
   className?: string;
 }) {
-  const profile_id = Number(useParams().id);
+  const trainee_id = Number(useParams().id);
 
   const navigate = useNavigate();
   const [addItem] = trainingProgramsListApi.useCreateOneItemMutation();
@@ -25,9 +25,11 @@ export function TrainingProgramsListAddForm({
     // resetGoPrevPagesState disable the behavior of returning to pre page , after submit form.
     // Instead after submit this form the function will move the user to his training program's exercises list.
     dispatch(resetGoPrevPageState());
+
+    console.log(body);
     addFunction({
       addItem,
-    })({ ...body, profile_id: profile_id }).then((response) => {
+    })({ ...body, trainee_id }).then((response) => {
       const Response = response as unknown as { data: ResponseMutationAPI };
 
       navigate(

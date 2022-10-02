@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 const initialState: {
   defaultValues: Record<string, any>;
@@ -22,13 +23,14 @@ export const formValuesState = createSlice({
     },
     saveFormResponse: (
       state,
-      action: PayloadAction<{ url: string; values: Record<string, any> }>
+      action: PayloadAction<{ url: string; response: Record<string, any> }>
     ) => {
       state.formResponse = {
         ...state.formResponse,
-        [action.payload.url]: action.payload.values,
+        [action.payload.url]: action.payload.response,
       };
     },
   },
 });
 export const { saveFormState, saveFormResponse } = formValuesState.actions;
+export const formsState = (state: RootState) => state.formValuesState;

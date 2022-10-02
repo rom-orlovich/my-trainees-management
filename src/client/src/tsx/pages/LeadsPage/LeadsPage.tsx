@@ -20,7 +20,7 @@ function LeadsPage() {
         <AutocompleteInput<LeadsTableAPI>
           keys={["first_name", "last_name"]}
           id={"lead_id"}
-          queriesOptions={{ ...queriesOptions }}
+          queriesOptions={queriesOptions}
           loadingSpinnerResult={{ nameData: "Leads" }}
           setSelectOptionValue={setLead}
           useGetData={leadsApi.useGetItemsQuery}

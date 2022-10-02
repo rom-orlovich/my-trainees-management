@@ -22,7 +22,7 @@ function LocationsListPage() {
           <AutocompleteInput<LocationsGetRes>
             keys={["street", "city_name"]}
             id={"location_id"}
-            queriesOptions={{ ...queriesOptions }}
+            queriesOptions={queriesOptions}
             loadingSpinnerResult={{ nameData: "Locations" }}
             setSelectOptionValue={setLocation}
             useGetData={locationsApi.useGetItemsQuery}

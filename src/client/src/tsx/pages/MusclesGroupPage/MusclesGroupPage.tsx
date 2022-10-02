@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { musclesGroupApi } from "../../redux/api/hooksAPI";
 import { MusclesGroupTableAPI } from "../../redux/api/interfaceAPI";
+import { useAppSelector } from "../../redux/hooks";
+import { getAuthState } from "../../redux/slices/authSlice";
 import MainRoute from "../../routes/MainRoute";
 
 import { APP_ROUTE } from "../../routes/routesConstants";
@@ -10,6 +12,8 @@ import page_style from "../Page.module.scss";
 import MusclesGroupTable from "./MusclesGroupTable";
 
 function MusclesGroupPage() {
+  const authState = useAppSelector(getAuthState);
+  const queriesOptions = { userID: authState.user?.user_id };
   const [musclesGroup, setMusclesGroup] = useState<string[]>(["", ""]);
   return (
     <MainRoute mainRoutes={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}>
@@ -18,6 +22,7 @@ function MusclesGroupPage() {
           <AutocompleteInput<MusclesGroupTableAPI>
             keys={["muscles_group_name"]}
             id={"muscles_group_id"}
+            queriesOptions={queriesOptions}
             loadingSpinnerResult={{ nameData: "Muscles Group" }}
             setSelectOptionValue={setMusclesGroup}
             useGetData={musclesGroupApi.useGetItemsQuery}

@@ -12,7 +12,6 @@ import { PageTableProps } from "../TraineesPage/TraineesTable";
 
 export const transformDataLead = (arg: LeadsTableAPI) => {
   const { note_text, note_topic, ...rest } = arg;
-
   return rest;
 };
 function LeadsTable({

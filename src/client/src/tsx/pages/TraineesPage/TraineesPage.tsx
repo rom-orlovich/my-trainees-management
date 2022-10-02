@@ -3,7 +3,7 @@ import TraineesTable from "./TraineesTable";
 import { Link } from "react-router-dom";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import { TraineeTableAPI } from "../../redux/api/interfaceAPI";
+import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import page_style from "../Page.module.scss";
 import { useAppSelector } from "../../redux/hooks";
@@ -16,7 +16,7 @@ function Trainees() {
   return (
     <section className={page_style.page_container}>
       <div className={page_style.page_header}>
-        <AutocompleteInput<TraineeTableAPI>
+        <AutocompleteInput<TraineesTableExtendsAPI>
           keys={["first_name", "last_name"]}
           id={"profile_id"}
           queriesOptions={queriesOptions}

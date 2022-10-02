@@ -55,7 +55,19 @@ export class ErrorCustomizes<
     } else if (this.error?.code === ErrorCodes.TOO_LONG) {
       this.message = `The ${this.errorPayload} data is invalid.`;
     } else if (this.error?.code === ErrorCodes.INVALID) {
-      this.message = `The ${this.errorPayload} is invalid.`;
+      const fullErrorMessage = this.error.message?.split(" ");
+      // Extract the invalid word from the error message.
+      const invalidField = fullErrorMessage ? fullErrorMessage[0] : "";
+      const invalidFieldFormatted = invalidField
+        .split("_")
+        .map((el, i) => capitalize(el))
+        .join(" ");
+
+      const newErrorMessage = `${invalidFieldFormatted} ${
+        fullErrorMessage?.slice(1).join(" ") || ""
+      }`;
+
+      this.message = newErrorMessage || `The ${this.errorPayload} is invalid.`;
     } else if (this.error?.code === ErrorCodes.RESULT_NOT_FOUND)
       this.message = this.error?.message || "";
     else if (this.error?.code === ErrorCodes.LOGIN_FAILED)

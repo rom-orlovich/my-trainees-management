@@ -6,7 +6,7 @@ import { LeadsTableAPI } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
-import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import LeadsForm from "./LeadForm";
 
 function LeadEditForm() {
@@ -15,19 +15,19 @@ function LeadEditForm() {
   const [updateItem] = leadsApi.useUpdateItemMutation();
   const { data, isFetching, isError, isLoading } =
     leadsApi.useGetItemByIDQuery(id);
-
-  const handleSubmit = (body: LeadsTableAPI) => {
+  const updateFunction = useUpdateFunction();
+  const handleSubmit = (body: LeadsTableAPI) =>
     updateFunction({
       updateItem,
       id,
     })(body);
-  };
+
   return (
     <LoadingSpinner
       nameData="Lead"
       stateData={{ data, isFetching, isError, isLoading }}
     >
-      {(data) => (
+      {({ lead_id, ...data }) => (
         <LeadsForm
           editMode={true}
           onSubmit={handleSubmit}

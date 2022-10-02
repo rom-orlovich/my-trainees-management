@@ -9,7 +9,7 @@ import {
   NutritionProgramsListTable,
   NutritionProgramsTable,
   LocationsGetRes,
-  TraineeTableAPI,
+  TraineesTableExtendsAPI,
   TrainingProgramExerciseTableAPI,
   API_ROUTES,
   SubscriptionPlansAPI,
@@ -106,7 +106,7 @@ export const nutritionProgramsApi = apiCreateCRUDHooks<NutritionProgramsTable>({
   listId: "nutrition_programs_weeks_list",
 });
 
-export const traineesApi = apiCreateCRUDHooks<TraineeTableAPI>({
+export const traineesApi = apiCreateCRUDHooks<TraineesTableExtendsAPI>({
   reducerPath: "traineesApi",
   baseUrl: API_ROUTES.TRAINEES_ROUTE,
   singleEntityName: API_ROUTES.TRAINEES_ENTITY,

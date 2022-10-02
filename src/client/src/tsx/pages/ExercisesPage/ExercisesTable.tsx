@@ -12,7 +12,6 @@ import { PageTableProps } from "../TraineesPage/TraineesTable";
 
 function transformExerciseTable({
   equipment_id,
-
   muscles_group_id,
 
   ...rest

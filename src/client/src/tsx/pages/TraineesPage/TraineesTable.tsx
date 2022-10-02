@@ -3,14 +3,14 @@ import { useLocation } from "react-router-dom";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { traineesApi } from "../../redux/api/hooksAPI";
-import { TraineeTableAPI } from "../../redux/api/interfaceAPI";
+import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
-export const transformDataTrainee = (arg: TraineeTableAPI) => {
+export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
   const {
     location_id,
     user_id,
@@ -40,7 +40,7 @@ function TraineesTable({
 
   return (
     <MainRoute mainRoutes={[APP_ROUTE.TRAINEES_ROUTE, ""]}>
-      <TablePagination<TraineeTableAPI>
+      <TablePagination<TraineesTableExtendsAPI>
         mainRoute={APP_ROUTE.TRAINEES_ROUTE}
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Trainees"}

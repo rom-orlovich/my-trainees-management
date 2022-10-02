@@ -3,7 +3,7 @@ import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { TrainingProgramsListAddForm } from "../../components/Forms/TrainingProgramListForms/TrainingProgramsListAddForm";
 import { traineesApi, trainingProgramsListApi } from "../../redux/api/hooksAPI";
-import { TraineeTableAPI } from "../../redux/api/interfaceAPI";
+import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 import TableTrainingProgramList from "./TableTrainingProgramList";
 // import style from "./TrainingPrograms.module.scss";
 import page_style from "../Page.module.scss";
@@ -27,7 +27,7 @@ function TrainingProgramsPage() {
   return (
     <section className={page_style.page_container}>
       <div className={page_style.page_header}>
-        <AutocompleteInput<TraineeTableAPI>
+        <AutocompleteInput<TraineesTableExtendsAPI>
           keys={["first_name", "last_name"]}
           id={"profile_id"}
           loadingSpinnerResult={{ nameData: "Trainees" }}

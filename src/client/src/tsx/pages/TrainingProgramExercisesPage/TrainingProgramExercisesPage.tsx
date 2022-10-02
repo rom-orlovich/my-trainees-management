@@ -27,8 +27,6 @@ const trainingProgramExercisesTransform = ({
     intensity,
     rest,
     rpe,
-    note_topic,
-    note_text,
   } = data;
   return {
     training_program_row_id,

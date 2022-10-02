@@ -17,6 +17,7 @@ export const validateMiddleware: (
   if (errValid && !valid) {
     req.modifiedActionResult = createModifiedActionResultHandler(undefined, {
       code: ErrorCodes.INVALID,
+      message: errValid.message,
     });
 
     return next();

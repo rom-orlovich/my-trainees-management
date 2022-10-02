@@ -1,16 +1,22 @@
 import React from "react";
 import { subscriptionPlansApi } from "../../../redux/api/hooksAPI";
+import { SubscriptionPlansAPI } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
-import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import MembersPlansForm from "./SubscriptionPlansForm";
 
 function MembersPlansEditForm({ id }: { id: number }) {
   const { data, isError, isFetching, isLoading } =
     subscriptionPlansApi.useGetItemByIDQuery(id);
   const [updateItem] = subscriptionPlansApi.useUpdateItemMutation();
-  const handleSubmit = updateFunction({ id, updateItem });
+  const updateFunction = useUpdateFunction();
+  const handleSubmit = (body: SubscriptionPlansAPI) =>
+    updateFunction({
+      updateItem,
+      id,
+    })(body);
 
   return (
     <LoadingSpinner

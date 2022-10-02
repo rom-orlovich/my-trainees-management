@@ -181,7 +181,7 @@ export interface NutritionProgramsTable {
   note_topic: string | null;
   note_text: string | null;
 }
-export interface TraineesTableAPI {
+export interface TraineesBaseTableAPI {
   trainer_id?: number;
   trainee_id?: number;
   user_id?: number;
@@ -209,7 +209,7 @@ export interface SubscriptionPlansAPI {
 
 export type LocationsGetRes = LocationsTableAPI &
   PickKey<CitiesTableAPI, "city_name">;
-export type TraineeTableAPI = TraineesTableAPI &
+export type TraineesTableExtendsAPI = TraineesBaseTableAPI &
   PickKey<CitiesTableAPI, "city_name"> &
   PickKey<LocationsTableAPI, "street">;
 

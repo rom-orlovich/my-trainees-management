@@ -2,13 +2,13 @@ import React from "react";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 
 import {
-  TraineeTableAPI,
-  TraineesTableAPI,
+  TraineesTableExtendsAPI,
+  TraineesBaseTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 
 import { formatDate } from "../../../utilities/helpersFun";
-import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
 import { resetGoPrevPageState } from "../../../redux/slices/apiSideEffectSlice";
 export function TraineeEditForm({
@@ -16,20 +16,14 @@ export function TraineeEditForm({
   heading,
 }: {
   heading?: string;
-  traineeData: TraineesTableAPI;
+  traineeData: TraineesBaseTableAPI;
 }) {
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
-  // const dispatch = useAppDispatch();
-  // dispatch(resetGoPrevPageState());
-  const handleSubmit = (body: TraineesTableAPI) => {
-    const {
-      street,
-      profile_id,
-      trainee_id,
-      city_name,
 
-      ...rest
-    } = body as TraineeTableAPI;
+  const updateFunction = useUpdateFunction();
+
+  const handleSubmit = (body: TraineesBaseTableAPI) => {
+    const { profile_id, trainee_id, ...rest } = body as TraineesBaseTableAPI;
 
     updateFunction({
       id: traineeData?.trainee_id || 0,
