@@ -46,16 +46,16 @@ export const apiSideEffectSlice = createSlice({
     builder.addMatcher(
       (action: PayloadAction<Record<string, any> | undefined>) => {
         const payload = getKeysArrObj(action.payload || {});
-        return payload.includes("id") || action?.payload?.status >= 400;
+        return action.payload?.statusCode === 201;
       },
 
       (state, action) => {
-        // Enable fetch alerts.
+        // // Enable fetch alerts.
         state.fetchAlerts = true;
 
-        // In order to open the model. The model will not open when there is action on alert.
-        if (!action.payload?.message?.includes("alert"))
-          state.isModelOpen = true;
+        // // In order to open the model. The model will not open when there is action on alert.
+        // if (!action.payload?.message?.includes("alert"))
+        //   state.isModelOpen = true;
         // If there is success response from the server after submit form,
         // set goPrevPage to true , in order to go back the previous page.
         if (

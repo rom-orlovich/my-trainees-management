@@ -22,6 +22,7 @@ function DropDownLiAlert(
   const dropDownRef = useRef<HTMLLIElement | null>(null);
 
   const [trigger] = alertsApi.useDeleteItemMutation();
+  // Delete the alert and keep the window open
   const deleteFun = () => {
     props.setAlertNotificationState && props.setAlertNotificationState(true);
     trigger && trigger(String(props.data.alert_id));
@@ -60,7 +61,6 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   useEffect(() => {
     if (fetchAlerts) {
       setScaleUpState(true);
-
       delayFun(() => {
         setScaleUpState(false);
       }, 1000).then(() => {

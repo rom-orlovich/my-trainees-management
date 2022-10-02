@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SubmitHandler } from "react-hook-form";
+
 import { MusclesGroupTableAPI } from "../../../redux/api/interfaceAPI";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import { musclesGroupSchema } from "../../baseComponents/RHF-Components/formsSchemas";
@@ -7,7 +7,6 @@ import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMes
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import style from "./MusclesGroupForm.module.scss";
-import { APP_ROUTE } from "../../../routes/routesConstants";
 
 export function MusclesGroupForm({
   editMode,

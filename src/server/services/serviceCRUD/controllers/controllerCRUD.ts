@@ -100,7 +100,7 @@ export function createRoutesControllers({
     }
 
     req.modifiedActionResult = createModifiedActionResultFun(
-      { data },
+      { data, statusCode: 201 },
       err,
       "create",
       logAlert
@@ -130,7 +130,7 @@ export function createRoutesControllers({
     }
 
     req.modifiedActionResult = createModifiedActionResultFun(
-      { data },
+      { data, statusCode: 201 },
       err,
       "update",
       logAlert
@@ -158,7 +158,7 @@ export function createRoutesControllers({
         : undefined;
 
     req.modifiedActionResult = createModifiedActionResultFun(
-      { data },
+      { data, statusCode: 200 },
       err || noDataError,
       "delete",
       logAlert

@@ -38,6 +38,8 @@ function DropDown<T extends object>({
   const menusSliceState = useAppSelector((state) => state.menusSlice);
   const dropDownRef = useRef<HTMLLIElement | null>(null);
   const isMenuSliceStateOpen = menusSliceState[liProps?.id || ""];
+
+  // Close the dropdown after click on li. Otherwise, the dropdown will stay open.
   const handleClickEvent = () => {
     dispatch(setOneDropDownOn(liProps?.id || ""));
   };

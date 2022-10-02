@@ -81,6 +81,8 @@ export const handleAlertsMiddleware: RequestHandler = async (
     ...successRes,
   });
 };
+
+// NOTE: NOT DELETE!!
 // app.delete(`${API_ROUTES.ALERT_ROUTE}/oldAlerts`, handleDeleteOldAlerts);
 export const handleDeleteOldAlerts: RequestHandler = async (req, res, next) => {
   const [data, err] = await promiseHandler(

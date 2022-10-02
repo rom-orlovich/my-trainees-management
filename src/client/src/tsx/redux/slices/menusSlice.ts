@@ -8,7 +8,6 @@ export const menusSlice = createSlice({
       for (const x in state) {
         if (x !== actions.payload) state[x] = false;
       }
-
       state[actions.payload] = !state[actions.payload];
       return state;
     },
