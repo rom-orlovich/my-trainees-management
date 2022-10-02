@@ -49,7 +49,6 @@ export const authSlice = createSlice({
         (
           action: PayloadAction<Record<string, any> | undefined, string, any>
         ) => {
-          console.log(action?.payload);
           return action?.payload?.originalStatus >= 403;
         },
         (state) => {

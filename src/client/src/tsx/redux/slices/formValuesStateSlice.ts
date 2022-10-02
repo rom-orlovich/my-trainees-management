@@ -2,8 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: {
   defaultValues: Record<string, any>;
+  formResponse: Record<string, any>;
 } = {
   defaultValues: {},
+  formResponse: {},
 };
 export const formValuesState = createSlice({
   name: "formState",
@@ -18,6 +20,15 @@ export const formValuesState = createSlice({
         [action.payload.url]: action.payload.values,
       };
     },
+    saveFormResponse: (
+      state,
+      action: PayloadAction<{ url: string; values: Record<string, any> }>
+    ) => {
+      state.formResponse = {
+        ...state.formResponse,
+        [action.payload.url]: action.payload.values,
+      };
+    },
   },
 });
-export const { saveFormState } = formValuesState.actions;
+export const { saveFormState, saveFormResponse } = formValuesState.actions;
