@@ -2,9 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { off } from "process";
 
 import { getKeysArrObj } from "../../utilities/helpersFun";
+
+import { RootState } from "../store";
 const initialState: {
   goPrePageBehaviorState: { goPrevPage: boolean; disableGoPrevPage: boolean };
   fetchAlerts: boolean;
+  isAlertsOpen: boolean;
   isModelOpen: boolean;
 } = {
   goPrePageBehaviorState: {
@@ -14,6 +17,7 @@ const initialState: {
     disableGoPrevPage: true,
     goPrevPage: false,
   },
+  isAlertsOpen: false,
   fetchAlerts: false,
   isModelOpen: false,
 };
@@ -29,6 +33,10 @@ export const apiSideEffectSlice = createSlice({
     // Toggle the state of the model.
     changeModelState: (state) => {
       state.isModelOpen = !state.isModelOpen;
+    },
+    // Toggle the state of the alert.
+    changeAlertsState: (state) => {
+      state.isAlertsOpen = !state.isAlertsOpen;
     },
     // Enable fetch new alerts.
     disableFetchAlerts: (state) => {
@@ -52,7 +60,6 @@ export const apiSideEffectSlice = createSlice({
       (state, action) => {
         // // Enable fetch alerts.
         state.fetchAlerts = true;
-
         // // In order to open the model. The model will not open when there is action on alert.
         // if (!action.payload?.message?.includes("alert"))
         //   state.isModelOpen = true;
@@ -72,4 +79,7 @@ export const {
   enableGoPrevPage,
   disableFetchAlerts,
   changeModelState,
+  changeAlertsState,
 } = apiSideEffectSlice.actions;
+
+export const getApiSideEffect = (state: RootState) => state.apiSideEffect;

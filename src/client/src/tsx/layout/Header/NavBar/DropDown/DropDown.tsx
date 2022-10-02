@@ -1,4 +1,4 @@
-import React, { MouseEvent, useRef } from "react";
+import React, { MouseEvent, useEffect, useRef } from "react";
 import {
   ComponentProps,
   LiProps,
@@ -8,6 +8,7 @@ import {
 import List from "../../../../components/baseComponents/List/List";
 import useHideUnFocusElement from "../../../../hooks/useHideUnFocusElement";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { getApiSideEffect } from "../../../../redux/slices/apiSideEffectSlice";
 import {
   // setOneDropDownOff,
   setOneDropDownOn,
@@ -43,6 +44,7 @@ function DropDown<T extends object>({
   const handleClickEvent = () => {
     dispatch(setOneDropDownOn(liProps?.id || ""));
   };
+
   const isVisible = useHideUnFocusElement(
     dropDownRef,
     setAlertNotificationState

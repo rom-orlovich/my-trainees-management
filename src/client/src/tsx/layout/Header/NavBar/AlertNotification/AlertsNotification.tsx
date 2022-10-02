@@ -7,7 +7,11 @@ import { PropsBasic } from "../../../../components/baseComponents/baseComponents
 import { alertsApi } from "../../../../redux/api/hooksAPI";
 import { AlertsAPI } from "../../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { disableFetchAlerts } from "../../../../redux/slices/apiSideEffectSlice";
+import {
+  changeAlertsState,
+  disableFetchAlerts,
+  getApiSideEffect,
+} from "../../../../redux/slices/apiSideEffectSlice";
 import { delayFun, genClassName } from "../../../../utilities/helpersFun";
 import DropDown from "../DropDown/DropDown";
 import style from "./AlertsNotification.module.scss";
@@ -31,7 +35,7 @@ function DropDownLiAlert(
   return (
     <li
       ref={dropDownRef}
-      className={`${style.notification_li} ${props.className}`}
+      className={`${style.notification_li}  ${props.className}`}
     >
       <div>
         <p className={style.alert_message}>{props.data.alert_message}</p>
@@ -47,28 +51,38 @@ function DropDownLiAlert(
 }
 
 function AlertsNotification({ className }: AlertsNotificationProps) {
+  const apiSideEffect = useAppSelector(getApiSideEffect);
   const [scaleUpState, setScaleUpState] = useState(false);
+
   const [alertNotificationState, setAlertNotificationState] = useState(false);
+
+  useEffect(() => {
+    if (apiSideEffect.isAlertsOpen) {
+      setAlertNotificationState(apiSideEffect.isAlertsOpen);
+      delayFun(() => {
+        dispatch(changeAlertsState());
+      }, 1000);
+    }
+  }, [apiSideEffect.isAlertsOpen]);
   const { data, refetch } = alertsApi.useGetItemsQuery({
     page: 1,
     numResults: 5,
     asc: false,
   });
-  const fetchAlerts = useAppSelector(
-    (state) => state.apiSideEffect.fetchAlerts
-  );
+
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (fetchAlerts) {
+    if (apiSideEffect.fetchAlerts) {
+      dispatch(changeAlertsState());
       setScaleUpState(true);
+      refetch();
       delayFun(() => {
         setScaleUpState(false);
       }, 1000).then(() => {
-        refetch();
         dispatch(disableFetchAlerts());
       });
     }
-  }, [fetchAlerts, dispatch, refetch]);
+  }, [apiSideEffect.fetchAlerts, dispatch, refetch]);
 
   return (
     <DropDown
@@ -88,7 +102,6 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
         <span
           className={genClassName(
             style.alerts_number,
-
             data
               ? data.countRows
                 ? style.alerts_number_active

@@ -54,6 +54,14 @@
       transform: scale(1.5);
     }
   }
+  .new_item_animation {
+    animation: normal 1s new_item;
+  }
+  @keyframes new_item {
+    50% {
+      background-color: green;
+    }
+  }
 }
 
 @include smartphone() {
