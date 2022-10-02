@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import {
   FieldValues,
   SubmitHandler,
@@ -117,9 +117,10 @@ export default function Form<TFormValues extends Record<string, any>>({
     }
   }, [methods.formState.isValid]);
 
-  const handleSubmit = (data: TFormValues) => {
+  const handleSubmit = async (data: TFormValues) => {
     onSubmit(data);
   };
+
   const editModeText = editMode ? "Edit" : "Add";
   const authModeText = isLoginMode ? "Login" : "Sign Up";
   return (
@@ -135,6 +136,8 @@ export default function Form<TFormValues extends Record<string, any>>({
         onSubmit={methods.handleSubmit(handleSubmit)}
       >
         {children(methods)}
+
+        <p> </p>
         {changeButtonContainer ? (
           <div className={style.buttons_container_save_button}>
             <button type="submit" disabled={disabled}>

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { exercisesApi } from "../../redux/api/hooksAPI";
 import { ExercisesTableAPI } from "../../redux/api/interfaceAPI";
+import { useAppSelector } from "../../redux/hooks";
+import { getAuthState } from "../../redux/slices/authSlice";
 import MainRoute from "../../routes/MainRoute";
 
 import { APP_ROUTE } from "../../routes/routesConstants";
@@ -11,6 +13,8 @@ import ExercisesTable from "./ExercisesTable";
 
 function ExercisesPage() {
   const [exercise, setExercise] = useState<string[]>(["", ""]);
+  const authState = useAppSelector(getAuthState);
+  const queriesOptions = { userID: authState.user?.user_id };
   return (
     <MainRoute mainRoutes={APP_ROUTE.EXERCISES_LIST_ROUTE}>
       <section className={page_style.page_container}>
@@ -18,6 +22,7 @@ function ExercisesPage() {
           <AutocompleteInput<ExercisesTableAPI>
             keys={["exercise_name"]}
             id={"exercise_id"}
+            queriesOptions={{ ...queriesOptions }}
             loadingSpinnerResult={{ nameData: "Exercises" }}
             setSelectOptionValue={setExercise}
             useGetData={exercisesApi.useGetItemsQuery}

@@ -23,7 +23,7 @@ function CitiesPage() {
           <AutocompleteInput<CitiesTableAPI>
             keys={["city_name"]}
             id={"city_id"}
-            queriesOptions={{ userID: authState.user?.user_id }}
+            queriesOptions={{ ...queriesOptions }}
             loadingSpinnerResult={{ nameData: "Cities" }}
             setSelectOptionValue={setCity}
             useGetData={citiesApi.useGetItemsQuery}

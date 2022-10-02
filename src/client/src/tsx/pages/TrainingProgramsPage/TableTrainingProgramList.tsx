@@ -28,13 +28,16 @@ const transformTrainingProgramList = ({
   };
 };
 
-function TableTrainingProgramList({ traineeID }: { traineeID: number }) {
+function TableTrainingProgramList({
+  traineeID,
+  queriesOptions,
+}: { traineeID: number } & { queriesOptions?: Record<string, any> }) {
   const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
   return (
     <TablePagination
       transformFun={transformTrainingProgramList}
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
-      queriesOptions={{ traineeID }}
+      queriesOptions={{ traineeID, ...queriesOptions }}
       mainRoute={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}`}
       nameData="Training Program List"
       getAllQuery={trainingProgramsListApi.useGetItemsQuery}

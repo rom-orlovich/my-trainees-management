@@ -10,10 +10,12 @@ import page_style from "../Page.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { useAppSelector } from "../../redux/hooks";
+import { getAuthState } from "../../redux/slices/authSlice";
 
 function TrainingProgramsPage() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);
-  const userID = useAppSelector((state) => state.authSlice.user?.user_id);
+  const authState = useAppSelector(getAuthState);
+  const queriesOptions = { userID: authState.user?.user_id };
   const [trigger, result] = trainingProgramsListApi.useLazyGetItemsQuery();
 
   useEffect(() => {
@@ -30,7 +32,7 @@ function TrainingProgramsPage() {
           id={"profile_id"}
           loadingSpinnerResult={{ nameData: "Trainees" }}
           setSelectOptionValue={setTrainee}
-          queriesOptions={{ trainerUserId: userID }}
+          queriesOptions={{ trainerUserId: queriesOptions.userID }}
           useGetData={traineesApi.useGetItemsQuery}
           InputLabelProps={{
             InputProps: { placeholder: "Trainee Name" },
@@ -55,7 +57,12 @@ function TrainingProgramsPage() {
           message="Please Choose Trainee..."
         >
           {(data) => {
-            return <TableTrainingProgramList traineeID={Number(trainee[0])} />;
+            return (
+              <TableTrainingProgramList
+                traineeID={Number(trainee[0])}
+                queriesOptions={queriesOptions}
+              />
+            );
           }}
         </LoadingSpinner>
       </div>

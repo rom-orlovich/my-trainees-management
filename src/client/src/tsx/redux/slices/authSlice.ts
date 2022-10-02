@@ -4,14 +4,23 @@ import { authApi } from "../api/authAPI";
 import { User } from "../api/interfaceAPI";
 import { useAppSelector } from "../hooks";
 import { RootState } from "../store";
-const initialState: { user: User | null; accessToken: string | null } = {
+const initialState: {
+  user: User | null;
+  accessToken: string | null;
+  isTokenExpired: boolean;
+} = {
   user: null,
   accessToken: null,
+  isTokenExpired: false,
 };
 export const authSlice = createSlice({
   name: "authState",
   initialState,
-  reducers: {},
+  reducers: {
+    changeIsTokenExpiredState(state) {
+      state.isTokenExpired = !state.isTokenExpired;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addMatcher(
@@ -35,8 +44,16 @@ export const authSlice = createSlice({
       .addMatcher(authApi.endpoints.logout.matchFulfilled, (state, action) => {
         state.user = null;
         state.accessToken = null;
-      }),
+      })
+      .addMatcher(
+        (action: PayloadAction<Record<string, any> | undefined>) => {
+          return action.payload?.statusCode >= 403;
+        },
+        (state) => {
+          state.isTokenExpired = true;
+        }
+      ),
 });
 
-export const {} = authSlice.actions;
+export const { changeIsTokenExpiredState } = authSlice.actions;
 export const getAuthState = (state: RootState) => state.authSlice;

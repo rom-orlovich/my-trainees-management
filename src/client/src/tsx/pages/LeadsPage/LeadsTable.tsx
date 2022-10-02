@@ -15,7 +15,10 @@ export const transformDataLead = (arg: LeadsTableAPI) => {
 
   return rest;
 };
-function LeadsTable({ mainName }: PageTableProps) {
+function LeadsTable({
+  mainName,
+  queriesOptions,
+}: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = leadsApi;
   const [deleteItem] = useDeleteItemMutation();
 
@@ -23,7 +26,7 @@ function LeadsTable({ mainName }: PageTableProps) {
     <MainRoute mainRoutes={APP_ROUTE.LEADS_ROUTE}>
       <TablePagination<LeadsTableAPI>
         mainRoute={APP_ROUTE.LEADS_ROUTE}
-        queriesOptions={{ mainName }}
+        queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Leads"}
         transformFun={transformDataLead}
         getAllQuery={useGetItemsQuery}

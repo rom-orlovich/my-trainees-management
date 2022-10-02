@@ -1,15 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { off } from "process";
-
-import { getKeysArrObj } from "../../utilities/helpersFun";
 
 import { RootState } from "../store";
-const initialState: {
-  goPrePageBehaviorState: { goPrevPage: boolean; disableGoPrevPage: boolean };
-  fetchAlerts: boolean;
-  isAlertsOpen: boolean;
-  isModelOpen: boolean;
-} = {
+const initialState = {
   goPrePageBehaviorState: {
     // The response of delete item from the api will have id.
     // therefore the page will return to the pre page.
@@ -53,7 +45,6 @@ export const apiSideEffectSlice = createSlice({
     // of update/add/delete method.
     builder.addMatcher(
       (action: PayloadAction<Record<string, any> | undefined>) => {
-        const payload = getKeysArrObj(action.payload || {});
         return action.payload?.statusCode === 201;
       },
 
@@ -61,8 +52,7 @@ export const apiSideEffectSlice = createSlice({
         // // Enable fetch alerts.
         state.fetchAlerts = true;
         // // In order to open the model. The model will not open when there is action on alert.
-        // if (!action.payload?.message?.includes("alert"))
-        //   state.isModelOpen = true;
+
         // If there is success response from the server after submit form,
         // set goPrevPage to true , in order to go back the previous page.
         if (

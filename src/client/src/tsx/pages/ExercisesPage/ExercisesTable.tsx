@@ -19,14 +19,17 @@ function transformExerciseTable({
 }: ExercisesTableAPI) {
   return rest;
 }
-function ExercisesTable({ mainName }: PageTableProps) {
+function ExercisesTable({
+  mainName,
+  queriesOptions,
+}: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = exercisesApi;
   const [deleteItem] = useDeleteItemMutation();
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.EXERCISES_LIST_ROUTE}>
       <TablePagination<ExercisesTableAPI>
-        queriesOptions={{ mainName }}
+        queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Exercises List"}
         transformFun={transformExerciseTable}
         getAllQuery={useGetItemsQuery}

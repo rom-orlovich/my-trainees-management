@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { locationsApi } from "../../redux/api/hooksAPI";
 import { LocationsGetRes } from "../../redux/api/interfaceAPI";
+import { useAppSelector } from "../../redux/hooks";
+import { getAuthState } from "../../redux/slices/authSlice";
 import MainRoute from "../../routes/MainRoute";
 
 import { APP_ROUTE } from "../../routes/routesConstants";
@@ -11,6 +13,8 @@ import LeadsTable from "./LocationsTable";
 
 function LocationsListPage() {
   const [location, setLocation] = useState<string[]>(["", ""]);
+  const authState = useAppSelector(getAuthState);
+  const queriesOptions = { userID: authState.user?.user_id };
   return (
     <MainRoute mainRoutes={APP_ROUTE.LOCATION_ROUTE}>
       <section className={page_style.page_container}>
@@ -18,6 +22,7 @@ function LocationsListPage() {
           <AutocompleteInput<LocationsGetRes>
             keys={["street", "city_name"]}
             id={"location_id"}
+            queriesOptions={{ ...queriesOptions }}
             loadingSpinnerResult={{ nameData: "Locations" }}
             setSelectOptionValue={setLocation}
             useGetData={locationsApi.useGetItemsQuery}

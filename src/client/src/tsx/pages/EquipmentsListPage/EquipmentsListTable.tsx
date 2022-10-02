@@ -11,18 +11,21 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
 export const transformDataEquipment = (arg: EquipmentsTableAPI) => {
-  const { expense_id, ...rest } = arg;
+  const { expense_id, user_id, ...rest } = arg;
 
   return rest;
 };
-function EquipmentsListTable({ mainName }: PageTableProps) {
+function EquipmentsListTable({
+  mainName,
+  queriesOptions,
+}: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = equipmentsApi;
   const [deleteItem] = useDeleteItemMutation();
 
   return (
     <MainRoute mainRoutes={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}>
       <TablePagination<EquipmentsTableAPI>
-        queriesOptions={{ mainName }}
+        queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Equipments List"}
         transformFun={transformDataEquipment}
         getAllQuery={useGetItemsQuery}

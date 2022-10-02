@@ -20,7 +20,7 @@ function CitiesTable({
   queriesOptions,
 }: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = citiesApi;
-  const authState = useAppSelector(getAuthState);
+
   const [deleteItem] = useDeleteItemMutation();
 
   return (
