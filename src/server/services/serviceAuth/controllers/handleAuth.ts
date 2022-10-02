@@ -119,7 +119,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     });
     return next();
   }
-
+  console.log(process.env.EXPIRE_IN_ACCESS_TOKEN);
   const accessToken = genToken(
     user[0],
     process.env.ACCESS_TOKEN_SECRET,

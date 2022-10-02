@@ -34,7 +34,6 @@ export const addFunction = <T extends Record<string, any>>({
     try {
       const res = await addItem(body);
       sideEffect && sideEffect();
-
       console.log(res);
       return Promise.resolve(res);
     } catch (error) {

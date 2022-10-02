@@ -36,7 +36,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   const [decode, err] = await promiseHandler(
     verifyAsync(token, process.env.ACCESS_TOKEN_SECRET)
   );
-
+  console.log(decode);
   if (err) return res.sendStatus(403);
 
   const userData = decode as { username: string };

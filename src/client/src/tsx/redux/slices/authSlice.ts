@@ -46,8 +46,11 @@ export const authSlice = createSlice({
         state.accessToken = null;
       })
       .addMatcher(
-        (action: PayloadAction<Record<string, any> | undefined>) => {
-          return action.payload?.statusCode >= 403;
+        (
+          action: PayloadAction<Record<string, any> | undefined, string, any>
+        ) => {
+          console.log(action?.payload);
+          return action?.payload?.originalStatus >= 403;
         },
         (state) => {
           state.isTokenExpired = true;
