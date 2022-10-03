@@ -1,6 +1,7 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import {
   FieldValues,
+  Path,
   SubmitHandler,
   useForm,
   UseFormProps,
@@ -10,9 +11,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import {
   enableGoPrevPage,
+  getApiSideEffect,
   resetGoPrevPageState,
 } from "../../../../redux/slices/apiSideEffectSlice";
-import { saveFormState } from "../../../../redux/slices/formValuesStateSlice";
+import {
+  getFormsState,
+  saveErrorForm,
+  saveFormState,
+} from "../../../../redux/slices/formValuesStateSlice";
+import { genClassName } from "../../../../utilities/helpersFun";
 
 import { FormProps } from "../../baseComponentsTypes";
 import style from "./Form.module.scss";
@@ -46,23 +53,24 @@ export default function Form<TFormValues extends Record<string, any>>({
   authButtonsContainer,
   isLoginMode,
 }: FormRHFProps<TFormValues>) {
+  const [disabled, setDisabled] = useState(true);
+
   const nav = useNavigate();
 
   const location = useLocation();
-  const defaultValue = useAppSelector(
-    (state) => state.formValuesState.defaultValues
-  );
-  const goPrevPage = useAppSelector(
-    (state) => state.apiSideEffect.goPrePageBehaviorState.goPrevPage
-  );
+
+  const { defaultValues, errors } = useAppSelector(getFormsState);
+
+  const {
+    goPrePageBehaviorState: { goPrevPage },
+  } = useAppSelector(getApiSideEffect);
   const dispatch = useAppDispatch();
-  const [disabled, setDisabled] = useState(true);
 
   const methods = useForm<TFormValues>({
     ...formOptions,
     defaultValues: {
       ...formOptions?.defaultValues,
-      ...defaultValue[location.pathname],
+      ...defaultValues[location.pathname],
     },
   });
   // Side effect that enable the goPrePage state only for form components.
@@ -117,9 +125,29 @@ export default function Form<TFormValues extends Record<string, any>>({
     }
   }, [methods.formState.isValid]);
 
+  // Reset the error from the server.
+  useEffect(() => {
+    if (methods.formState.isValidating)
+      if (errors[location.pathname])
+        dispatch(saveErrorForm({ url: location.pathname, error: "" }));
+  }, [errors[location.pathname], methods.formState.isValidating]);
+
   const handleSubmit = async (data: TFormValues) => {
-    onSubmit(data);
+    try {
+      await onSubmit(data);
+    } catch (error) {
+      const Error = error as {
+        data: { errorField: Path<TFormValues>; message: string };
+      };
+      dispatch(
+        saveErrorForm({ url: location.pathname, error: Error.data.message })
+      );
+    }
   };
+
+  useEffect(() => {
+    if (errorMessage) console.log(errorMessage);
+  }, [errorMessage]);
 
   const editModeText = editMode ? "Edit" : "Add";
   const authModeText = isLoginMode ? "Login" : "Sign Up";
@@ -136,8 +164,13 @@ export default function Form<TFormValues extends Record<string, any>>({
         onSubmit={methods.handleSubmit(handleSubmit)}
       >
         {children(methods)}
-
-        <p> </p>
+        {errors[location.pathname] ? (
+          <p className={genClassName(style.form_error_message)}>
+            {errors[location.pathname]}
+          </p>
+        ) : (
+          <></>
+        )}
         {changeButtonContainer ? (
           <div className={style.buttons_container_save_button}>
             <button type="submit" disabled={disabled}>

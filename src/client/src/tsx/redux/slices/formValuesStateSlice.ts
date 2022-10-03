@@ -3,10 +3,10 @@ import { RootState } from "../store";
 
 const initialState: {
   defaultValues: Record<string, any>;
-  formResponse: Record<string, any>;
+  errors: Record<string, any>;
 } = {
   defaultValues: {},
-  formResponse: {},
+  errors: {},
 };
 export const formValuesState = createSlice({
   name: "formState",
@@ -21,16 +21,16 @@ export const formValuesState = createSlice({
         [action.payload.url]: action.payload.values,
       };
     },
-    saveFormResponse: (
+    saveErrorForm: (
       state,
-      action: PayloadAction<{ url: string; response: Record<string, any> }>
+      action: PayloadAction<{ url: string; error: string }>
     ) => {
-      state.formResponse = {
-        ...state.formResponse,
-        [action.payload.url]: action.payload.response,
+      state.errors = {
+        ...state.defaultValues,
+        [action.payload.url]: action.payload.error,
       };
     },
   },
 });
-export const { saveFormState, saveFormResponse } = formValuesState.actions;
-export const formsState = (state: RootState) => state.formValuesState;
+export const { saveFormState, saveErrorForm } = formValuesState.actions;
+export const getFormsState = (state: RootState) => state.formValuesState;

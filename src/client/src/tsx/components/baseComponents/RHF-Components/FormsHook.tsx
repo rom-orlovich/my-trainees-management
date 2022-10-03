@@ -1,12 +1,11 @@
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+import { BaseQueryError } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { saveFormResponse } from "../../../redux/slices/formValuesStateSlice";
 import { AnyFun } from "../../../types";
 
 export const useUpdateFunction = <T extends Record<string, any>>() => {
-  const dispatch = useDispatch();
-  const { pathname } = useLocation();
   const handleSubmit =
     ({
       sideEffect,
@@ -19,10 +18,9 @@ export const useUpdateFunction = <T extends Record<string, any>>() => {
     }) =>
     async (body: T) => {
       try {
-        const res = await updateItem({ payload: body, id });
+        const res = await updateItem({ payload: body, id }).unwrap();
         console.log(res);
         sideEffect && sideEffect();
-        dispatch(saveFormResponse({ url: pathname, response: res }));
         return Promise.resolve(res);
       } catch (error) {
         console.log(error);

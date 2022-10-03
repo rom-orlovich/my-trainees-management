@@ -25,6 +25,7 @@ export function CityForm({
     >
       {({ register, formState }) => {
         const { city_name, district, population } = formState.errors;
+
         return (
           <>
             <InputLabel

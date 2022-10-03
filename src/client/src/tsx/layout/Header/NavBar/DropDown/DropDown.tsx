@@ -31,15 +31,16 @@ function DropDown<T extends object>({
   children,
   liProps,
   messageNotFound,
-  alertNotificationState, // In order alerts notification dropdown will stay open after delete notification.
-  setAlertNotificationState,
+  alertNotificationState,
+  setAlertNotificationState, // In order alerts notification dropdown will stay open after delete notification.
   Li,
 }: DropDownProps<T>) {
   const dispatch = useAppDispatch();
-
+  const menusSliceState = useAppSelector((state) => state.menusSlice);
   const dropDownRef = useRef<HTMLLIElement | null>(null);
+  const isMenuSliceStateOpen = menusSliceState[liProps?.id || ""];
 
-  // // Close other dropdowns after click on specific li. Otherwise, the dropdown will stay open.
+  // // Close other dropdown after click on specific li. Otherwise, the dropdown will stay open.
   const handleClickEvent = () => {
     dispatch(setOneDropDownOn(liProps?.id || ""));
   };
@@ -57,7 +58,7 @@ function DropDown<T extends object>({
       onClick={handleClickEvent}
     >
       {children}
-      {(alertNotificationState || isVisible) &&
+      {(alertNotificationState || (isMenuSliceStateOpen && isVisible)) &&
         (dataLI.length > 0 ? (
           <List
             className={genClassName(style.drop_down_list, className)}

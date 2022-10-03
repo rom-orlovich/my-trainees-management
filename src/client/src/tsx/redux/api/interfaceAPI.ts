@@ -57,6 +57,10 @@ export interface ResponseMutationAPI {
   message: string;
   id?: number;
 }
+export interface ErrorResponseMutationAPI {
+  data: { message: string };
+  status: number;
+}
 export interface ResponseMutationAuthAPI {
   accessToken: string;
   message: string;

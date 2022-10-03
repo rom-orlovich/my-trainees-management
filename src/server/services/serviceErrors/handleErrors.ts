@@ -23,6 +23,7 @@ export class ErrorCustomizes<
   action?: ActionType;
   message: string = "Something is went wrong";
   statusCode: number = 400;
+  errorFieldValue: Record<string, any> = {};
 
   constructor(error?: E, action?: ActionType, errorPayload?: any) {
     console.log(error);
@@ -32,22 +33,23 @@ export class ErrorCustomizes<
   }
 
   getFieldName() {
-    if (!this.error?.detail) return "";
-    const fieldNameArr = this.error.detail
-      ?.split(" ")[1]
-      .split("=")[0]
-      .slice(1, -1)
-      .split("_");
-    return fieldNameArr.map((el) => capitalize(el)).join(" ");
+    if (!this.error?.detail) return;
+    const detail = this.error.detail?.split(" ")[1].split("=");
+
+    const field = detail[0].slice(1, -1);
+
+    this.errorFieldValue = { field };
   }
 
   handleErrors() {
     if (this.error?.code === ErrorCodes.UNIQUE) {
-      const fieldNameArr = this.getFieldName();
+      this.getFieldName();
       const describeAction = this.action === "create" ? "new" : "exist";
       this.message = `Cannot ${this.action} ${describeAction} ${
         this.errorPayload
-      }. The ${fieldNameArr || this.errorPayload} is already existed`;
+      }. The ${
+        this.errorFieldValue?.field || this.errorPayload
+      } is already existed`;
       this.statusCode = 409;
     } else if (this.error?.code === ErrorCodes.NOT_COLUMN_FOUND) {
       const describeAction = this.action === "create" ? "new" : "exist";
@@ -84,8 +86,8 @@ export const errorHandlerMiddleware: ErrorRequestHandler = async (
   next
 ) => {
   if (err) {
-    console.log(err);
     const { statusCode, message } = err;
+
     return res.status(statusCode).json({ message });
   }
   return next();
