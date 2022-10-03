@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { exercisesApi } from "../../../redux/api/hooksAPI";
 import { ExercisesTableAPI } from "../../../redux/api/interfaceAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
-import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ExerciseForm } from "./ExerciseForm";
 
 export function ExerciseEditForm() {
@@ -11,7 +11,6 @@ export function ExerciseEditForm() {
   const [updateItem, state] = exercisesApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     exercisesApi.useGetItemByIDQuery(id);
-  const updateFunction = useUpdateFunction();
 
   const handleSubmit = (body: ExercisesTableAPI) =>
     updateFunction({

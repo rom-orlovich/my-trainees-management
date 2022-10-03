@@ -7,7 +7,7 @@ import {
 } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
-import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
 export function TraineeEditForm({
   traineeData: { street, city_name, ...traineeData },
@@ -17,8 +17,6 @@ export function TraineeEditForm({
   traineeData: TraineesTableExtendsAPI;
 }) {
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
-
-  const updateFunction = useUpdateFunction();
 
   const handleSubmit = ({
     profile_id,

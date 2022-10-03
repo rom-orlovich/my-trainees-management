@@ -90,6 +90,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   // and if the form is not in edit mode so save the empty state values of the form .
   useEffect(() => {
     if (methods.formState.isSubmitSuccessful) {
+      console.log("yes");
       methods.reset();
       if (!editMode)
         dispatch(
@@ -127,10 +128,10 @@ export default function Form<TFormValues extends Record<string, any>>({
 
   // Reset the error from the server.
   useEffect(() => {
-    if (methods.formState.isValidating)
+    if (methods.formState.isDirty)
       if (errors[location.pathname])
         dispatch(saveErrorForm({ url: location.pathname, error: "" }));
-  }, [errors[location.pathname], methods.formState.isValidating]);
+  }, [errors[location.pathname], methods.formState.isDirty]);
 
   const handleSubmit = async (data: TFormValues) => {
     try {

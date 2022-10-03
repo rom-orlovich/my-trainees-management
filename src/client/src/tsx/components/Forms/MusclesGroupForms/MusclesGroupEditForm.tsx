@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { musclesGroupApi } from "../../../redux/api/hooksAPI";
 import { MusclesGroupTableAPI } from "../../../redux/api/interfaceAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
-import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { MusclesGroupForm } from "./MusclesGroupForm";
 
 export function MusclesGroupEditForm() {
@@ -10,7 +10,7 @@ export function MusclesGroupEditForm() {
   const [updateItem] = musclesGroupApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     musclesGroupApi.useGetItemByIDQuery(id);
-  const updateFunction = useUpdateFunction();
+
   const handleSubmit = (body: MusclesGroupTableAPI) =>
     updateFunction({
       updateItem,

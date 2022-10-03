@@ -5,7 +5,7 @@ import {
   TrainingProgramExerciseTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
-import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TrainingProgramForms from "./TrainingProgramForm";
 
 export function TrainingProgramEditExerciseForm() {
@@ -14,7 +14,7 @@ export function TrainingProgramEditExerciseForm() {
 
   const { data, isLoading, isFetching, isError } =
     trainingProgramsApi.useGetItemByIDQuery(id);
-  const updateFunction = useUpdateFunction();
+
   const handleSubmit = (body: TrainingProgramExerciseOmit) =>
     updateFunction({
       updateItem,

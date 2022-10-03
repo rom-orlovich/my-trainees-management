@@ -3,7 +3,7 @@ import { trainingProgramsListApi } from "../../../redux/api/hooksAPI";
 import { TrainingProgramsListTableAPI } from "../../../redux/api/interfaceAPI";
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
-import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { TrainingProgramListForms } from "./TrainingProgramListForm";
 
 export function TrainingProgramsListEditForm() {
@@ -27,13 +27,11 @@ export function TrainingProgramsListEditForm() {
   // const handleSubmit = (body: TrainingProgramsListTableAPI) => {
   //   const { note_topic, note_text, ...rest } = body;
 
-  //   useUpdateFunction({
+  //   updateFunction({
   //     updateItem,
   //     id,
   //   })({ ...body });
   // };
-
-  const updateFunction = useUpdateFunction();
 
   const handleSubmit = (body: TrainingProgramsListTableAPI) => {
     updateFunction({
