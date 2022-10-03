@@ -1,8 +1,5 @@
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
-import { BaseQueryError } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+
 import { AnyFun } from "../../../types";
 
 export const useUpdateFunction = <T extends Record<string, any>>() => {
