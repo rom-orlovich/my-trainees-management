@@ -5,26 +5,26 @@ import {
   TraineesTableExtendsAPI,
   TraineesBaseTableAPI,
 } from "../../../redux/api/interfaceAPI";
-import { useAppDispatch } from "../../../redux/hooks";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import { useUpdateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
-import { resetGoPrevPageState } from "../../../redux/slices/apiSideEffectSlice";
 export function TraineeEditForm({
-  traineeData,
+  traineeData: { street, city_name, ...traineeData },
   heading,
 }: {
   heading?: string;
-  traineeData: TraineesBaseTableAPI;
+  traineeData: TraineesTableExtendsAPI;
 }) {
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
 
   const updateFunction = useUpdateFunction();
 
-  const handleSubmit = (body: TraineesBaseTableAPI) => {
-    const { profile_id, trainee_id, ...rest } = body as TraineesBaseTableAPI;
-
+  const handleSubmit = ({
+    profile_id,
+    trainee_id,
+    ...rest
+  }: TraineesBaseTableAPI) => {
     updateFunction({
       id: traineeData?.trainee_id || 0,
       updateItem: updateTrainee,

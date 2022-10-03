@@ -58,7 +58,11 @@ function DropDown<T extends object>({
       onClick={handleClickEvent}
     >
       {children}
-      {(alertNotificationState || (isMenuSliceStateOpen && isVisible)) &&
+      {(alertNotificationState ||
+        //   isMenuSliceStateOpen
+
+        // &&
+        isVisible) &&
         (dataLI.length > 0 ? (
           <List
             className={genClassName(style.drop_down_list, className)}
