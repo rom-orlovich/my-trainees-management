@@ -145,10 +145,6 @@ export default function Form<TFormValues extends Record<string, any>>({
     }
   };
 
-  useEffect(() => {
-    if (errorMessage) console.log(errorMessage);
-  }, [errorMessage]);
-
   const editModeText = editMode ? "Edit" : "Add";
   const authModeText = isLoginMode ? "Login" : "Sign Up";
   return (
