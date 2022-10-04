@@ -96,7 +96,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
   const { password, username } = req.body;
   // eslint-disable-next-line no-use-before-define
-  await createAdmin(username, password);
+  // await createAdmin(username, password);
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
     selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where username= $1", [
@@ -181,10 +181,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   const authData = req.auth_data;
-  console.log(authData);
-  // if (!authData.) {
-  //   return res.sendStatus(401);
-  // }
+  // console.log(authData);
 
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
@@ -201,12 +198,8 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   const [decode, err] = await promiseHandler(
     verifyAsync(user[0].refresh_token, process.env.REFRESH_TOKEN_SECRET)
   );
-  // const userData = decode as { username: string };
 
-  if (
-    err
-    // || userData.username !== user[0].username
-  ) {
+  if (err) {
     return res.sendStatus(401);
   }
 
@@ -224,6 +217,8 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     maxAge: EXPIRE_AT,
   });
 
+  console.log("user login", user[0]);
+
   return res.status(201).json({
     user: user[0],
     expireAt: EXPIRE_AT,
@@ -232,13 +227,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 };
 
 export const logoutHandler: RequestHandler = async (req, res, next) => {
-  // const cookie = req.cookies;
-  // const refreshToken = cookie.refresh_token;
   const authData = req.auth_data;
-
-  // if (!refreshToken) {
-  //   return res.status(200).json({ message: "Logout success!" });
-  // }
 
   const queryLogic = `WHERE username=$1`;
 

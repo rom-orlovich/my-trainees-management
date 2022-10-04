@@ -37,7 +37,6 @@ export const validateTokenMiddleware: RequestHandler = async (
   );
 
   if (err) return res.sendStatus(403);
-  console.log("decode", decode);
 
   const userData = decode as { username: string };
 
