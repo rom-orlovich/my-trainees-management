@@ -19,12 +19,15 @@ export interface User {
   user_id: number;
   username: string;
   password: string;
+  refresh_token: string;
 }
+const EXPIRE_AT =
+  1000 * 60 * Number(process.env.EXPIRE_IN_ACCESS_TOKEN.slice(0, -1));
 const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.USER_ENTITY
 );
 
-export const sigUpHandler: RequestHandler = async (req, res, next) => {
+export const signUpHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
   const { password, username } = req.body;
   const hashPassword = await hash(password, 10);
@@ -132,7 +135,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
   );
   const queryLogic = `WHERE ${TABLES_DATA.USERS_TABLE_ID}=$1`;
 
-  const [userUpdate, errorUpdate] = await promiseHandler(
+  const [userUpdate, errorUpdate] = await promiseHandler<User[]>(
     updateQuerySingleItem(
       TABLES_DATA.USERS_TABLE_NAME,
       {
@@ -153,34 +156,33 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     );
     return next();
   }
-
+  console.log(EXPIRE_AT);
   // Send refresh token
-  res.cookie("refresh_token", refreshToken, {
+  res.cookie("access_token", accessToken, {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: EXPIRE_AT,
   });
-  const { password: pwd, ...restUser } = user[0];
+  const { password: pwd, refresh_token: refreshToken1, ...restUser } = user[0];
   return res.status(201).json({
     user: restUser,
-    accessToken,
+    expireAt: EXPIRE_AT,
     message: "Login is success!",
   });
 };
 
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
-  const cookie = req.cookies;
-
-  const refreshToken = cookie.refresh_token;
-  if (!refreshToken) {
-    return res.sendStatus(401);
-  }
+  const authData = req.auth_data;
+  console.log(authData);
+  // if (!authData.) {
+  //   return res.sendStatus(401);
+  // }
 
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
-    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where refresh_token= $1", [
-      refreshToken,
+    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where username= $1", [
+      authData.username,
     ])
   );
 
@@ -190,11 +192,14 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   }
 
   const [decode, err] = await promiseHandler(
-    verifyAsync(refreshToken, process.env.REFRESH_TOKEN_SECRET)
+    verifyAsync(user[0].refresh_token, process.env.REFRESH_TOKEN_SECRET)
   );
-  const userData = decode as { username: string };
+  // const userData = decode as { username: string };
 
-  if (err || userData.username !== user[0].username) {
+  if (
+    err
+    // || userData.username !== user[0].username
+  ) {
     return res.sendStatus(401);
   }
 
@@ -203,23 +208,32 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     process.env.ACCESS_TOKEN_SECRET,
     process.env.EXPIRE_IN_ACCESS_TOKEN
   );
-  console.log(user[0]);
+
+  // Send refresh token
+  res.cookie("access_token", accessToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    maxAge: EXPIRE_AT,
+  });
+
   return res.status(201).json({
     user: user[0],
-    accessToken,
+    expireAt: EXPIRE_AT,
     message: "Access token has create successfully!",
   });
 };
 
 export const logoutHandler: RequestHandler = async (req, res, next) => {
-  const cookie = req.cookies;
-  const refreshToken = cookie.refresh_token;
+  // const cookie = req.cookies;
+  // const refreshToken = cookie.refresh_token;
+  const authData = req.auth_data;
 
-  if (!refreshToken) {
-    return res.status(200).json({ message: "Logout success!" });
-  }
+  // if (!refreshToken) {
+  //   return res.status(200).json({ message: "Logout success!" });
+  // }
 
-  const queryLogic = `WHERE refresh_token=$1`;
+  const queryLogic = `WHERE username=$1`;
 
   const [userUpdate, errorUpdate] = await promiseHandler(
     updateQuerySingleItem(
@@ -227,7 +241,7 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
       {
         refresh_token: "",
       },
-      refreshToken,
+      authData.username,
       queryLogic
     )
   );
@@ -235,7 +249,7 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
   if (errorUpdate || !userUpdate)
     return res.status(400).json({ message: "No user" });
 
-  res.clearCookie("refresh_token", {
+  res.clearCookie("access_token", {
     httpOnly: true,
     secure: true,
     sameSite: "strict",

@@ -28,20 +28,24 @@ export const validateTokenMiddleware: RequestHandler = async (
   res,
   next
 ) => {
-  const auth = req.headers.authorization;
-  const token = auth?.split(" ")[1];
-
-  if (!token) return res.sendStatus(401);
+  // const auth = req.headers.authorization;
+  // const token = auth?.split(" ")[1];
+  // const cookie = req.cookies;
+  // const refreshToken = cookie.refresh_token;
+  const accessToken = req.cookies.access_token;
+  if (!accessToken) return res.sendStatus(401);
 
   const [decode, err] = await promiseHandler(
-    verifyAsync(token, process.env.ACCESS_TOKEN_SECRET)
+    verifyAsync(accessToken, process.env.ACCESS_TOKEN_SECRET)
   );
 
   if (err) return res.sendStatus(403);
+  console.log("decode", decode);
 
   const userData = decode as { username: string };
+
   req.auth_data = {
-    jwt: token,
+    jwt: accessToken,
     username: userData?.username,
   };
 

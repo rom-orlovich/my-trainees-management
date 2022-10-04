@@ -62,7 +62,7 @@ export interface ErrorResponseMutationAPI {
   status: number;
 }
 export interface ResponseMutationAuthAPI {
-  accessToken: string;
+  expireAt: number;
   message: string;
   user: User;
 }

@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "../redux/hooks";
+import { getAuthState } from "../redux/slices/authSlice";
 import { APP_ROUTE } from "./routesConstants";
 
 function ProtectedRoute() {
-  const token = useAppSelector((state) => state.authSlice.accessToken);
+  const authState = useAppSelector(getAuthState);
   const location = useLocation();
 
-  return token ? (
+  return !!authState.user ? (
     <Outlet />
   ) : (
     <Navigate to={APP_ROUTE.LOGIN_ROUTE} state={{ from: location }} replace />

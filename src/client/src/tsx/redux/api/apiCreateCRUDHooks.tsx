@@ -44,10 +44,10 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
       baseUrl,
       prepareHeaders: (headers, api) => {
         const state = api.getState() as RootState;
-        const token = state.authSlice.accessToken;
-        if (token) {
-          headers.set("authorization", `Bearer ${token}`);
-        }
+        // const token = state.authSlice.accessToken;
+        // if (token) {
+        //   headers.set("authorization", `Bearer ${token}`);
+        // }
         return headers;
       },
     }),

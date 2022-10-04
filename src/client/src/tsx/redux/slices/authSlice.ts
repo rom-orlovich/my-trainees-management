@@ -6,19 +6,20 @@ import { useAppSelector } from "../hooks";
 import { RootState } from "../store";
 const initialState: {
   user: User | null;
-  accessToken: string | null;
-  isTokenExpired: boolean;
+  expireAt: number;
+  // accessToken: string | null;
+  // firstD: boolean;
 } = {
   user: null,
-  accessToken: null,
-  isTokenExpired: false,
+  // accessToken: null,
+  expireAt: 0,
 };
 export const authSlice = createSlice({
   name: "authState",
   initialState,
   reducers: {
     changeIsTokenExpiredState(state) {
-      state.isTokenExpired = !state.isTokenExpired;
+      // state.isTokenExpired = !state.isTokenExpired;
     },
   },
   extraReducers: (builder) =>
@@ -29,7 +30,7 @@ export const authSlice = createSlice({
         (state, action) => {
           const payload = action.payload;
           state.user = payload.user;
-          state.accessToken = payload.accessToken;
+          // state.accessToken = payload.accessToken;
         }
       )
       .addMatcher(
@@ -37,24 +38,25 @@ export const authSlice = createSlice({
         (state, action) => {
           const payload = action.payload;
           state.user = payload.user;
-          console.log(payload.user);
-          state.accessToken = payload.accessToken;
+          state.expireAt = action.payload.expireAt;
+          // console.log(payload.user);
+          // state.accessToken = payload.accessToken;
         }
       )
       .addMatcher(authApi.endpoints.logout.matchFulfilled, (state, action) => {
         state.user = null;
-        state.accessToken = null;
-      })
-      .addMatcher(
-        (
-          action: PayloadAction<Record<string, any> | undefined, string, any>
-        ) => {
-          return action?.payload?.originalStatus >= 403;
-        },
-        (state) => {
-          state.isTokenExpired = true;
-        }
-      ),
+        // state.accessToken = null;
+      }),
+  // .addMatcher(
+  //   (
+  //     action: PayloadAction<Record<string, any> | undefined, string, any>
+  //   ) => {
+  //     return action?.payload?.originalStatus >= 403;
+  //   },
+  //   (state) => {
+  //     state.isTokenExpired = true;
+  //   }
+  // ),
 });
 
 export const { changeIsTokenExpiredState } = authSlice.actions;
