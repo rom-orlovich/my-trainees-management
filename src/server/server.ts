@@ -33,6 +33,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
+      "http://10.100.102.74:3000",
       "https://my-trainees-management.herokuapp.com/",
       "http://localhost:3000",
     ],

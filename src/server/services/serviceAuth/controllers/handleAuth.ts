@@ -2,6 +2,7 @@
 import { RequestHandler } from "webpack-dev-server";
 import { hash, compare } from "bcrypt";
 import { update } from "lodash";
+import { CookieOptions } from "express";
 import {
   insertQueryOneItem,
   selectQuery,
@@ -26,6 +27,11 @@ const EXPIRE_AT =
 const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.USER_ENTITY
 );
+const COOKIES_OPTIONS: CookieOptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "strict",
+};
 
 export const signUpHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
@@ -156,15 +162,15 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     );
     return next();
   }
-  console.log(EXPIRE_AT);
+
   // Send refresh token
   res.cookie("access_token", accessToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "strict",
     maxAge: EXPIRE_AT,
+    ...COOKIES_OPTIONS,
   });
+
   const { password: pwd, refresh_token: refreshToken1, ...restUser } = user[0];
+
   return res.status(201).json({
     user: restUser,
     expireAt: EXPIRE_AT,
@@ -249,11 +255,7 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
   if (errorUpdate || !userUpdate)
     return res.status(400).json({ message: "No user" });
 
-  res.clearCookie("access_token", {
-    httpOnly: true,
-    secure: true,
-    sameSite: "strict",
-  });
+  res.clearCookie("access_token", COOKIES_OPTIONS);
 
   return res.status(200).json({ message: "Logout success!" });
 };

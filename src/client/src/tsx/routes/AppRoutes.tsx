@@ -152,7 +152,7 @@ function AppRoutes() {
             </Route>
           </Route>
         </Route>
-        <Route path="*" element={<PublicRoute />} />
+        <Route path="*" element={<h1> not found</h1>} />
       </Route>
     </Routes>
   );

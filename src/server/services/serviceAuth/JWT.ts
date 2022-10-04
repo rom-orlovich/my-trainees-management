@@ -33,6 +33,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   // const cookie = req.cookies;
   // const refreshToken = cookie.refresh_token;
   const accessToken = req.cookies.access_token;
+  console.log(accessToken);
   if (!accessToken) return res.sendStatus(401);
 
   const [decode, err] = await promiseHandler(

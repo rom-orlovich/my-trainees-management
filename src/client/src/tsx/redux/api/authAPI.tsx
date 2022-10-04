@@ -7,7 +7,10 @@ import { API_ROUTES, ResponseMutationAuthAPI } from "./interfaceAPI";
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: API_ROUTES.API_AUTH_ROUTE }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: API_ROUTES.API_AUTH_ROUTE,
+    credentials: "include",
+  }),
   endpoints: (builder) => ({
     login: builder.mutation<ResponseMutationAuthAPI, any>({
       query: (credentials) => {
