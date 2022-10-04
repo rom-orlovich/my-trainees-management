@@ -62,7 +62,7 @@ async function connectDB() {
     });
     console.log(`Connected pgSQL server.`);
 
-    // Uncomment this line will init the db.
+    // Uncomment this line will init the  db.
     // This line is for development purpose.
     // await initDB();
 

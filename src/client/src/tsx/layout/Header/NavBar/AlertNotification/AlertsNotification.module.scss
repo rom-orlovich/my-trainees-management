@@ -73,6 +73,9 @@
 }
 
 @include smartphone() {
+  .notification_li {
+    padding: 1rem;
+  }
   .alert_icon {
     .alerts_number {
       @include posAbs(-20%, null, -10%, null);

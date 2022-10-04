@@ -25,7 +25,10 @@ const config: webpack.Configuration = {
         use: ["ts-loader"],
         include: [path.resolve(__dirname, "../")],
       },
-
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
@@ -36,7 +39,15 @@ const config: webpack.Configuration = {
   resolve: {
     extensions: [".ts", ".js"],
   },
-  externals: ["mongodb-client-encryption", "pg-native"],
+  externals: [
+    "mongodb-client-encryption",
+    "pg-native",
+    // "node-gyp",
+    // "npm",
+    // "nock",
+    // "aws-sdk",
+    // "mock-aws-s3",
+  ],
   plugins: [new ESLintPlugin()],
 };
 

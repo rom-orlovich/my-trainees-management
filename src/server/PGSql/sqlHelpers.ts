@@ -124,14 +124,14 @@ const prepareKeyValuesOtherColumnToSelect = (
   const keysValuesEntries = Object.entries(queryParams);
 
   keysValuesEntries.forEach(([key, value], index) => {
-    keyValuesStr += ` ${key}=$${paramsArr.length + startIndex}`;
+    keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
     if (index !== keysValuesEntries.length - 1)
-      keyValuesStr += `${keyValuesStr} and`;
-    paramsArr.push(value);
+      keyValuesStr += value ? `${keyValuesStr} and` : "";
+    value && paramsArr.push(value);
   });
   // EXAM: keyValuesStrArr : profile_id=$1,
   return {
-    keyValuesStrArr: [`${keyValuesStr} `],
+    keyValuesStrArr: keyValuesStr ? [keyValuesStr] : [],
     paramsArr,
   };
 };
@@ -144,7 +144,7 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  console.log(statement, queryParams);
+  // console.log(statement, queryParams);
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;
@@ -159,7 +159,7 @@ const insertQuery = async (
 ) => {
   const statement = `INSERT INTO ${tableName} (${fieldName})
    VALUES ${fieldParams} RETURNING *`;
-  console.log(statement, paramArr);
+  // console.log(statement, paramArr);
   const res = await client.query(statement, paramArr);
 
   return res;
@@ -175,7 +175,7 @@ const updateQuery = async (
 ) => {
   const statement = `UPDATE ${tableName} SET ${keyValuesStr}
   ${queryLogic} RETURNING *`;
-  console.log(statement, [paramId, ...paramsArr]);
+  // console.log(statement, [paramId, ...paramsArr]);
   const rows = await client.query(statement, [paramId, ...paramsArr]);
   return rows;
 };
@@ -225,7 +225,7 @@ export async function deleteQuery(
   const statement = `DELETE FROM ${tableName} ${queryLogic} ${
     returnValue ? "RETURNING *" : ""
   }`;
-  console.log(statement, queryParams);
+  // console.log(statement, queryParams);
   const rows = await client.query(statement, queryParams);
   return rows.rows;
 }
@@ -260,7 +260,7 @@ export async function selectPagination(
 
   // To create string with 'and' between the queries string.
   const queryStrJoin = [...keyValuesStrArr, ...keyValuesOfNameStrArr].join(
-    " and "
+    keyValuesStrArr.length > 0 ? " and " : ""
   );
 
   const queryStrResult = `${querySelectLogic} ${

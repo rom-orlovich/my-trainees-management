@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "webpack-dev-server";
-import { hash, compare } from "bcrypt";
-import { update } from "lodash";
+import { hash, compare } from "bcryptjs";
+
 import { CookieOptions } from "express";
 import {
   insertQueryOneItem,
@@ -23,7 +23,7 @@ export interface User {
   refresh_token: string;
 }
 const EXPIRE_AT =
-  1000 * 60 * Number(process.env.EXPIRE_IN_ACCESS_TOKEN.slice(0, -1));
+  1000 * 60 * Number(process.env.EXPIRE_IN_ACCESS_TOKEN?.slice(0, -1) || 15);
 const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.USER_ENTITY
 );
@@ -95,7 +95,8 @@ export const changeUserCredentialsHandler: RequestHandler = async (
 export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
   const { password, username } = req.body;
-  // await createAdmin(username, password);
+  // eslint-disable-next-line no-use-before-define
+  await createAdmin(username, password);
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
     selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where username= $1", [
@@ -259,3 +260,24 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
 
   return res.status(200).json({ message: "Logout success!" });
 };
+
+async function createAdmin(username: string, password: string) {
+  if (
+    username === process.env.ADMIN_USER &&
+    password === process.env.ADMIN_PSW
+  ) {
+    const hashPassword = await hash(process.env.ADMIN_PSW, 10);
+    const refreshToken = genToken(
+      { username, password: hashPassword, user_id: 1, refresh_token: "" },
+      process.env.REFRESH_TOKEN_SECRET,
+      process.env.EXPIRE_IN_REFRESH_TOKEN
+    );
+    const [user, error] = await promiseHandler<User[]>(
+      insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
+        refresh_token: refreshToken,
+        username: process.env.ADMIN_USER,
+        password: hashPassword,
+      })
+    );
+  }
+}

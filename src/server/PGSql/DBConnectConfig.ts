@@ -3,7 +3,7 @@
 import { Client, ClientConfig } from "pg";
 
 // NOTE: Changing the mode of NODE_ENV can change the db location local db or remote db.
-// The options are: "development" | "production"
+// The options are:  "development" | "production"
 const configClient: ClientConfig =
   process.env.NODE_ENV === "production"
     ? {
