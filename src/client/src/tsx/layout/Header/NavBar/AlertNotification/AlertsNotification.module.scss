@@ -1,11 +1,20 @@
 @use "./../../../../../style/utilities/utilities.scss" as *;
+
+.ul_notifications {
+  li {
+    background-color: rgb(235, 235, 235);
+  }
+  li:first-child {
+    background-color: rgb(255, 255, 255);
+  }
+}
+
 .notification_li {
   @include flex-dir(space-between, center, row);
-
   min-width: 20rem;
   padding: 0.8rem;
-
   height: fit-content;
+  background-color: white;
 
   h3 {
     text-decoration: underline;
@@ -32,7 +41,6 @@
     min-width: 1.8rem;
     min-height: 0.6rem;
     border-radius: 50%;
-
     font-size: 1.1rem;
     font-weight: 500;
     color: white;

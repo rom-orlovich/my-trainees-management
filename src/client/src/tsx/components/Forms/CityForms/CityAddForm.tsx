@@ -12,5 +12,5 @@ export function CityAddForm() {
       addItem,
     })(body);
 
-  return <CityForm onSubmit={handleSubmit}></CityForm>;
+  return <CityForm onSubmit={handleSubmit} />;
 }

@@ -79,8 +79,12 @@ function DropDownNavLinkLI({
 }
 
 function NavBarLi(props: NavBarNavLinkLIs<LinkData>) {
+  const className =
+    props?.id === "profileButton" ? style.profile_drop_down : "";
+
   return props.id !== "hamburgerMenu" ? (
     <DropDown
+      className={className}
       liProps={{ id: props.id }}
       Li={DropDownNavLinkLI}
       dataLI={props.dataLinks}

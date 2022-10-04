@@ -43,26 +43,36 @@ export const apiSideEffectSlice = createSlice({
   extraReducers: (builder) =>
     // Checks when there is success response from the server after submit form
     // of update/add/delete method.
-    builder.addMatcher(
-      (action: PayloadAction<Record<string, any> | undefined>) => {
-        return action.payload?.statusCode === 201;
-      },
+    builder
+      .addMatcher(
+        (action: PayloadAction<Record<string, any> | undefined>) => {
+          return action.payload?.statusCode === 201;
+        },
 
-      (state, action) => {
-        // // Enable fetch alerts.
-        state.fetchAlerts = true;
-        // // In order to open the model. The model will not open when there is action on alert.
+        (state, action) => {
+          // // Enable fetch alerts.
+          state.fetchAlerts = true;
+          /// In order to open the model. The model will not open when there is action on alert.
 
-        // If there is success response from the server after submit form,
-        // set goPrevPage to true , in order to go back the previous page.
-        if (
-          !state.goPrePageBehaviorState.disableGoPrevPage &&
-          action?.payload?.status === undefined
-        ) {
-          state.goPrePageBehaviorState.goPrevPage = true;
+          // If there is success response from the server after submit form,
+          // set goPrevPage to true , in order to go back the previous page.
+          if (
+            !state.goPrePageBehaviorState.disableGoPrevPage &&
+            action?.payload?.status === undefined
+          ) {
+            state.goPrePageBehaviorState.goPrevPage = true;
+          }
         }
-      }
-    ),
+      )
+      .addMatcher(
+        (action: PayloadAction<Record<string, any> | undefined>) => {
+          return action.payload?.status >= 400;
+        },
+        (state) => {
+          state.fetchAlerts = true;
+          // state.isModelOpen = true;
+        }
+      ),
 });
 export const {
   resetGoPrevPageState,

@@ -90,11 +90,13 @@ export default function Form<TFormValues extends Record<string, any>>({
   // and if the form is not in edit mode so save the empty state values of the form .
   useEffect(() => {
     if (methods.formState.isSubmitSuccessful) {
-      console.log("yes");
       methods.reset();
       if (!editMode)
         dispatch(
-          saveFormState({ url: location.pathname, values: methods.getValues() })
+          saveFormState({
+            url: location.pathname,
+            values: methods.getValues(),
+          })
         );
     }
   }, [
@@ -113,7 +115,10 @@ export default function Form<TFormValues extends Record<string, any>>({
     return () => {
       if (!editMode) {
         dispatch(
-          saveFormState({ url: location.pathname, values: methods.getValues() })
+          saveFormState({
+            url: location.pathname,
+            values: methods.getValues(),
+          })
         );
       }
     };
@@ -126,13 +131,6 @@ export default function Form<TFormValues extends Record<string, any>>({
     }
   }, [methods.formState.isValid]);
 
-  // Reset the error from the server.
-  useEffect(() => {
-    if (methods.formState.isDirty)
-      if (errors[location.pathname])
-        dispatch(saveErrorForm({ url: location.pathname, error: "" }));
-  }, [errors[location.pathname], methods.formState.isDirty]);
-
   const handleSubmit = async (data: TFormValues) => {
     try {
       await onSubmit(data);
@@ -140,9 +138,7 @@ export default function Form<TFormValues extends Record<string, any>>({
       const Error = error as {
         data: { errorField: Path<TFormValues>; message: string };
       };
-      dispatch(
-        saveErrorForm({ url: location.pathname, error: Error.data.message })
-      );
+      console.log(Error);
     }
   };
 
@@ -161,13 +157,7 @@ export default function Form<TFormValues extends Record<string, any>>({
         onSubmit={methods.handleSubmit(handleSubmit)}
       >
         {children(methods)}
-        {errors[location.pathname] ? (
-          <p className={genClassName(style.form_error_message)}>
-            {errors[location.pathname]}
-          </p>
-        ) : (
-          <></>
-        )}
+
         {changeButtonContainer ? (
           <div className={style.buttons_container_save_button}>
             <button type="submit" disabled={disabled}>

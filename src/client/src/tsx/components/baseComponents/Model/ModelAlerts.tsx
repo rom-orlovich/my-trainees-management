@@ -21,12 +21,12 @@ function ModelAlerts() {
       numResults: 1,
       asc: false,
     });
-  // useEffect(() => {
-  //   if (fetchAlerts) {
-  //     refetch();
-  //     dispatch(disableFetchAlerts());
-  //   }
-  // }, [fetchAlerts, dispatch, refetch]);
+  useEffect(() => {
+    if (fetchAlerts) {
+      refetch();
+      dispatch(disableFetchAlerts());
+    }
+  }, [fetchAlerts, dispatch, refetch]);
 
   return (
     <Model>

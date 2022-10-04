@@ -87,6 +87,7 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   return (
     <DropDown
       dataLI={data?.data || []}
+      className={style.ul_notifications}
       Li={({ ...data }) => (
         <DropDownLiAlert
           setAlertNotificationState={setAlertNotificationState}

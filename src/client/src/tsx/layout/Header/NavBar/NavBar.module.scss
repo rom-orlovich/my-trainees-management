@@ -23,6 +23,10 @@
     @extend %icon;
     @include heightWidth(2.5rem, 2.5rem);
   }
+
+  .profile_drop_down {
+    min-width: 12.5rem;
+  }
 }
 @include smartphone() {
   .navBar {

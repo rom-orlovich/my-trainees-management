@@ -81,8 +81,9 @@ CONSTRAINT fk_profile_id
 CREATE TABLE IF NOT EXISTS "alerts"(
   "alert_id" serial PRIMARY KEY,
   "alert_date" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
   "alert_message" VARCHAR(255),
-    "user_id" INTEGER DEFAULT 1,
+  "user_id" INTEGER DEFAULT 1,
   CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
