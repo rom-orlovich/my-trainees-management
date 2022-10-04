@@ -184,8 +184,22 @@ export const incomesSchema = yup.object().shape({
   note_text: yup.string().notRequired().default(""),
   user_id: yup.number().notRequired().nullable().default(1),
 });
-export const credSchema = yup.object().shape({
+export const loginSchema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().required(),
   // confirm_password: yup.string().equals(["password"]),
+});
+export const signUpSchema = yup.object().shape({
+  username: yup.string().required(),
+  password: yup
+    .string()
+    .required("Required")
+    .min(8, "Must be 8 characters or more")
+    .matches(/[a-z]+/, "One lowercase character")
+    .matches(/[A-Z]+/, "One uppercase character")
+    .matches(/[@$!%*#?&]+/, "One special character")
+    .matches(/\d+/, "One number"),
+  confirm_password: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
 });

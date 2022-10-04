@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { API_ROUTES } from "../../apiRoutesConstants";
-import { credSchema } from "../../schemas/DBSchemas";
+import { loginSchema } from "../../schemas/DBSchemas";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import {
   loginHandler,
@@ -12,7 +12,7 @@ import {
 import { validateTokenMiddleware } from "../JWT";
 
 const authRouter = Router();
-const validateMiddlewareHandler = validateMiddleware(credSchema);
+const validateMiddlewareHandler = validateMiddleware(loginSchema);
 authRouter.get(
   API_ROUTES.REFRESH_TOKEN_ROUTE,
   validateTokenMiddleware,

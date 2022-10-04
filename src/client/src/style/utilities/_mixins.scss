@@ -58,3 +58,9 @@
     @content;
   }
 }
+
+@mixin classMatcher($select) {
+  [class*="#{$select}"] {
+    @content;
+  }
+}

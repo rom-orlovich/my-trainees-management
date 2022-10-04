@@ -1,38 +1,37 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import path from "path";
-import React, { useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Card from "../../components/baseComponents/Card/Card";
 import Form from "../../components/baseComponents/RHF-Components/Form/Form";
-import { loginSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
+import { signUpSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { authApi } from "../../redux/api/authAPI";
-import { LoginForm } from "../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../routes/routesConstants";
-import { relativePath } from "../../utilities/helpersFun";
+import { SignUpForm } from "../../redux/api/interfaceAPI";
 import style from "../HomeCardForm.module.scss";
-function LoginPage() {
-  const [login] = authApi.useLoginMutation();
+function SignUpPage() {
+  const [signUp] = authApi.useSignUpMutation();
+  const { pathname } = useLocation();
   const nav = useNavigate();
-  const onSubmit = (body: LoginForm) =>
-    login(body)
+
+  const onSubmit = (body: SignUpForm) =>
+    signUp({ credentials: body, endPoint: pathname })
       .unwrap()
-      .then(({ ...rest }) => {
-        nav(`/${APP_ROUTE.DASHBOARD}`);
+      .then(({ message, ...rest }) => {
+        nav("/login");
       });
 
   return (
     <Card className={style.card_form}>
-      <Form<LoginForm>
+      <Form<SignUpForm>
         onSubmit={onSubmit}
-        heading={"Login"}
+        heading={"Sign Up"}
         authButtonsContainer={true}
-        isLoginMode={true}
+        isLoginMode={false}
         formOptions={{
-          resolver: yupResolver(loginSchema),
+          resolver: yupResolver(signUpSchema),
           mode: "all",
-          defaultValues: { username: "", password: "" },
+          defaultValues: { username: "", password: "", confirmPassword: "" },
         }}
       >
         {({ register, formState }) => {
@@ -58,17 +57,24 @@ function LoginPage() {
                   error={errors.password}
                 />
               </InputLabel>
+              <InputLabel
+                LabelProps={{ labelText: "Confirm Password" }}
+                InputProps={{
+                  ...register("confirmPassword"),
+                  type: "password",
+                }}
+              >
+                <InputErrorMessage
+                  nameInput="Confirm Password"
+                  error={errors.confirmPassword}
+                />
+              </InputLabel>
             </>
           );
         }}
       </Form>
-      <div>
-        <NavLink to={relativePath(APP_ROUTE.SIGN_UP)}>
-          Don't have an account?{" "}
-        </NavLink>
-      </div>
     </Card>
   );
 }
 
-export default LoginPage;
+export default SignUpPage;

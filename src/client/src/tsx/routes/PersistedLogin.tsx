@@ -6,6 +6,7 @@ import LoadingSpinner from "../components/baseComponents/LoadingSpinner";
 import { authApi } from "../redux/api/authAPI";
 import { useAppSelector } from "../redux/hooks";
 import { getAuthState } from "../redux/slices/authSlice";
+import { APP_ROUTE } from "./routesConstants";
 export const SUBTRACT_EXPIRE_TIME = 1000 * 60 * 10;
 
 function PersistedLogin() {
@@ -19,7 +20,7 @@ function PersistedLogin() {
   const nav = useNavigate();
 
   useEffect(() => {
-    if (isError) nav("/login");
+    if (isError) nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
     refreshToken({});
   }, [isError, refreshToken, nav]);
 

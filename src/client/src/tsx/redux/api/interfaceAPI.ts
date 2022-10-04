@@ -6,7 +6,7 @@ import { OmitKey, PickKey } from "../../types";
 // All the endpoints and the entities names.
 export enum API_ROUTES {
   API_AUTH_ROUTE = "/api/auth",
-  SIGN_UP_ROUTE = "/register",
+  SIGN_UP_ROUTE = "/signUp",
   LOGIN_ROUTE = "/login",
   REFRESH_TOKEN_ROUTE = "/refreshToken",
   LOGOUT_ROUTE = "/logout",
@@ -237,9 +237,14 @@ export type TrainingProgramExerciseOmit = OmitKey<
   "equipment_name" | "muscles_group_name" | "exercise_name"
 >;
 
-export interface LoginApi {
+export interface LoginForm {
   username: string;
   password: string;
+}
+export interface SignUpForm {
+  username: string;
+  password: string;
+  confirmPassword: string;
 }
 
 export interface User {

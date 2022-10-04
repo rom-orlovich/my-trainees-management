@@ -167,7 +167,7 @@ export const incomesSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable().default(1),
 });
 
-export const credSchema = yup.object().shape({
+export const loginSchema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().required(),
 });

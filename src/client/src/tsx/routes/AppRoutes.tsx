@@ -23,19 +23,21 @@ import CitiesPage from "../pages/CitiesPage/CitiesPage";
 
 import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
 import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
+import HomePage from "../pages/HomePage/HomePage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
 
 import Settings from "../pages/SettingsPage/SettingsPage";
+import SignUpPage from "../pages/SignUpPage/SignUpPage";
 
 import TraineeProfile from "../pages/TraineeProfile/TraineeProfile";
 import Trainees from "../pages/TraineesPage/TraineesPage";
 import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
 import TrainingProgramsPage from "../pages/TrainingProgramsPage/TrainingProgramsPage";
 import MainRoute from "./MainRoute";
-import PersistedLogin from "./PresistedLogin";
+import PersistedLogin from "./PersistedLogin";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 
@@ -44,11 +46,13 @@ function AppRoutes() {
   return (
     <Routes>
       <Route element={<PublicRoute />}>
-        <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
-
+        <Route path={APP_ROUTE.HOME_PAGE} element={<HomePage />}>
+          <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
+          <Route path={APP_ROUTE.SIGN_UP} element={<SignUpPage />}></Route>
+        </Route>
         <Route element={<PersistedLogin />}>
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<App />}>
+            <Route path={APP_ROUTE.DASHBOARD} element={<App />}>
               <Route index element={<Trainees />} />
               <Route path={APP_ROUTE.TRAINEES_ROUTE}>
                 <Route index element={<Trainees />} />

@@ -1,0 +1,5 @@
+@use "../../../style/utilities/utilities.scss" as *;
+.homePage_container {
+  @include flex-dir(center, center);
+  height: 100vh;
+}
