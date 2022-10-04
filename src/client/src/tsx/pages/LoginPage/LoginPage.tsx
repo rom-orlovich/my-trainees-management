@@ -2,18 +2,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Form from "../../components/baseComponents/RHF-Components/Form/Form";
-import { addFunction } from "../../components/baseComponents/RHF-Components/FormsHook";
 import { credSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { authApi } from "../../redux/api/authAPI";
-import {
-  LoginApi,
-  ResponseMutationAuthAPI,
-} from "../../redux/api/interfaceAPI";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-// import { setLogin, setLogout } from "../../redux/slices/authSlice";
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { LoginApi } from "../../redux/api/interfaceAPI";
 
 function LoginPage() {
   const [login] = authApi.useLoginMutation();
@@ -34,7 +27,11 @@ function LoginPage() {
       heading={"Login"}
       authButtonsContainer={true}
       isLoginMode={true}
-      formOptions={{ resolver: yupResolver(credSchema), mode: "all" }}
+      formOptions={{
+        resolver: yupResolver(credSchema),
+        mode: "all",
+        defaultValues: { username: "", password: "" },
+      }}
     >
       {({ register, formState }) => {
         const { errors } = formState;

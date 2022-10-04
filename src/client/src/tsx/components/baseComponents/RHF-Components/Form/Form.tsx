@@ -73,6 +73,8 @@ export default function Form<TFormValues extends Record<string, any>>({
       ...defaultValues[location.pathname],
     },
   });
+
+  useEffect(() => {}, []);
   // Side effect that enable the goPrePage state only for form components.
   useEffect(() => {
     dispatch(enableGoPrevPage());
@@ -138,7 +140,8 @@ export default function Form<TFormValues extends Record<string, any>>({
       const Error = error as {
         data: { errorField: Path<TFormValues>; message: string };
       };
-      console.log(Error);
+
+      methods.setError("server" as any, { message: Error.data.message });
     }
   };
 
@@ -152,12 +155,21 @@ export default function Form<TFormValues extends Record<string, any>>({
         </h2>
       </div>
       <form
+        onFocus={() => {
+          methods.clearErrors();
+        }}
         {...formProps}
         className={`${style.form} ${formProps?.className || ""}`}
         onSubmit={methods.handleSubmit(handleSubmit)}
       >
         {children(methods)}
-
+        {methods.formState.errors?.server?.message ? (
+          <p className={style.form_error_message}>
+            {methods.formState.errors?.server?.message as string}
+          </p>
+        ) : (
+          <></>
+        )}
         {changeButtonContainer ? (
           <div className={style.buttons_container_save_button}>
             <button type="submit" disabled={disabled}>

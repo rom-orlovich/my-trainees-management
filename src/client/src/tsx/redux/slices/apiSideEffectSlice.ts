@@ -69,7 +69,7 @@ export const apiSideEffectSlice = createSlice({
           return action.payload?.status >= 400;
         },
         (state) => {
-          state.fetchAlerts = true;
+          // state.fetchAlerts = true;
           // state.isModelOpen = true;
         }
       ),
