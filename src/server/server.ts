@@ -30,7 +30,15 @@ app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(cors({ origin: "*", credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "https://my-trainees-management.herokuapp.com/",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  })
+);
 
 // Init all the routes of the app.
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
