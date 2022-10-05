@@ -40,7 +40,7 @@ function LocationsListPage() {
           </span>
         </div>
         <div className={page_style.page_main_content}>
-          <LeadsTable mainName={location[1]} />
+          <LeadsTable mainName={location[1]} queriesOptions={queriesOptions} />
         </div>
       </section>
     </MainRoute>

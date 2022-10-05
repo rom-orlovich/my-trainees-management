@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
+import useGetUserID from "../../hooks/useGetUserID";
 import { citiesApi } from "../../redux/api/hooksAPI";
 import { CitiesTableAPI } from "../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../redux/hooks";
@@ -14,8 +15,8 @@ import CitiesTable from "./CitiesTable";
 
 function CitiesPage() {
   const [city, setCity] = useState<string[]>(["", ""]);
-  const authState = useAppSelector(getAuthState);
-  const queriesOptions = { userID: authState.user?.user_id };
+
+  const queriesOptions = { userID: useGetUserID().user_id };
   return (
     <MainRoute mainRoutes={APP_ROUTE.CITY_ROUTE}>
       <section className={page_style.page_container}>
