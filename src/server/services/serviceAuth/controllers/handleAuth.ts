@@ -128,13 +128,21 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     });
     return next();
   }
+  const userSignature = {
+    role: user[0].role,
+    user_id: user[0].user_id,
+    username: user[0].username,
+  };
+
   const accessToken = genToken(
-    user[0],
+    userSignature,
     process.env.ACCESS_TOKEN_SECRET,
     process.env.EXPIRE_IN_ACCESS_TOKEN
   );
+
+  // const hash2=await hash(process.env.REFRESH_TOKEN_SECRET, 10);
   const refreshToken = genToken(
-    user[0],
+    userSignature,
     process.env.REFRESH_TOKEN_SECRET,
     process.env.EXPIRE_IN_REFRESH_TOKEN
   );
@@ -170,11 +178,24 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
   const { password: pwd, refresh_token: refreshToken1, ...restUser } = user[0];
 
-  return res.status(201).json({
-    user: restUser,
-    expireAt: REFRESH_IN,
-    message: "Login is success!",
-  });
+  req.auth_data = {
+    ...userSignature,
+    jwt: accessToken,
+  };
+
+  req.modifiedActionResult = createModifiedActionResultFun(
+    {
+      message: "Login is success!",
+      data: {
+        user: restUser,
+        expireAt: REFRESH_IN,
+        message: "Login is success!",
+      },
+      statusCode: 201,
+    },
+    errorUpdate
+  );
+  return next();
 };
 export const changeUserCredentialsHandler: RequestHandler = async (
   req,
@@ -213,11 +234,10 @@ export const changeUserCredentialsHandler: RequestHandler = async (
 
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   const authData = req.auth_data;
-  // console.log(authData);
 
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
-    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where username= $1", [
+    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where username=$1", [
       authData.username,
     ])
   );
@@ -234,9 +254,14 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   if (err) {
     return res.sendStatus(401);
   }
+  const userSignature = {
+    role: user[0].role,
+    user_id: user[0].user_id,
+    username: user[0].username,
+  };
 
   const accessToken = genToken(
-    user[0],
+    userSignature,
     process.env.ACCESS_TOKEN_SECRET,
     process.env.EXPIRE_IN_ACCESS_TOKEN
   );
@@ -250,6 +275,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   });
 
   console.log("user login current data", user[0]);
+
   const { password: pwd, refresh_token: refreshToken1, ...restUser } = user[0];
 
   return res.status(201).json({

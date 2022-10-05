@@ -18,14 +18,14 @@ export function verifyAsync(
   });
 }
 
-export const genToken = (user: User, key: string, expireTime = "10s") =>
-  sign(
-    { username: user.username, user_id: user.user_id, role: user.role },
-    key,
-    {
-      expiresIn: expireTime,
-    }
-  );
+export const genToken = (
+  obj: Record<string, any>,
+  key: string,
+  expireTime = "10s"
+) =>
+  sign(obj, key, {
+    expiresIn: expireTime,
+  });
 
 export const validateTokenMiddleware: RequestHandler = async (
   req,
@@ -40,7 +40,10 @@ export const validateTokenMiddleware: RequestHandler = async (
     verifyAsync(accessToken, process.env.ACCESS_TOKEN_SECRET)
   );
 
-  if (err) return res.sendStatus(403);
+  if (err) {
+    console.log("err-tokens check", err);
+    return res.sendStatus(403);
+  }
 
   const userData = decode as {
     username: string;

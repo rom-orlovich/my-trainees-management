@@ -100,7 +100,7 @@ export function createRoutesControllers({
     }
 
     req.modifiedActionResult = createModifiedActionResultFun(
-      { data, statusCode: 201 },
+      { data, statusCode: 201, sendDataID: true },
       err,
       "create",
       logAlert
@@ -112,10 +112,8 @@ export function createRoutesControllers({
   // Update one item by his ID in db.
   const updateValueByID: RequestHandler = async (req, res, next) => {
     if (req.modifiedActionResult?.error) return next();
-    // const queryLogic = `WHERE ${tableID}=$1`;
 
     const [data, err] = await promiseHandler<any, DatabaseError>(
-      // updateQuerySingleItem(tableName, req.body, req.params.id, queryLogic)
       updateExistTableData(
         tableName,
         req.body,
@@ -130,7 +128,7 @@ export function createRoutesControllers({
     }
 
     req.modifiedActionResult = createModifiedActionResultFun(
-      { data, statusCode: 201 },
+      { data, statusCode: 201, sendDataID: true },
       err,
       "update",
       logAlert
@@ -158,7 +156,7 @@ export function createRoutesControllers({
         : undefined;
 
     req.modifiedActionResult = createModifiedActionResultFun(
-      { data, statusCode: 200 },
+      { data, statusCode: 200, sendDataID: true },
       err || noDataError,
       "delete",
       logAlert

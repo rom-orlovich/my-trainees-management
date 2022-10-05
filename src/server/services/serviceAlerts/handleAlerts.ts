@@ -1,9 +1,24 @@
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "webpack-dev-server";
+import { ModifiedActionResult } from "../../express";
 import { deleteQuery, insertQueryOneItem } from "../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../utilities/constants";
 import { createObjValuesArr, promiseHandler } from "../../utilities/helpers";
 import { ActionType, ErrorCustomizes } from "../serviceErrors/handleErrors";
+
+export const createDataIDwithMessage = (
+  message: {
+    singleEntityName: string;
+    action?: string;
+    messagePayload?: string;
+  },
+  data?: Record<string, any>
+) => ({
+  message: `The ${message.singleEntityName}${
+    message.messagePayload || ""
+  } was ${message.action}d successfully!`,
+  data: { id: createObjValuesArr(data || {})[0] },
+});
 
 /**
  *
@@ -14,17 +29,17 @@ import { ActionType, ErrorCustomizes } from "../serviceErrors/handleErrors";
 export const createModifiedActionResult =
   (singleEntityName: string) =>
   (
-    successRes:
-      | {
-          statusCode?: number;
-          data: any;
-          messagePayload?: string;
-        }
-      | undefined,
-    err: { code?: string; message?: string } | undefined,
+    successRes?: {
+      sendDataID?: boolean;
+      message?: string;
+      statusCode?: number;
+      data: any;
+      messagePayload?: string;
+    },
+    err?: { code?: string; message?: string },
     action?: ActionType,
     logAlert = true
-  ) => {
+  ): ModifiedActionResult => {
     if (err) {
       const errorCustomizes = new ErrorCustomizes(
         err,
@@ -36,12 +51,22 @@ export const createModifiedActionResult =
 
       return { error: errorCustomizes, logAlert };
     }
-    const message = `The ${singleEntityName}${
-      successRes?.messagePayload || ""
-    } was ${action}d successfully!`;
+
+    const response = successRes?.sendDataID
+      ? createDataIDwithMessage({
+          action,
+          messagePayload: successRes?.messagePayload,
+          singleEntityName,
+        })
+      : {
+          message: successRes?.message,
+          data: successRes?.data,
+        };
+
     return {
-      message,
-      successRes,
+      successRes: {
+        response,
+      },
       logAlert,
     };
   };
@@ -52,12 +77,12 @@ export const handleAlertsMiddleware: RequestHandler = async (
   next
 ) => {
   if (!req.modifiedActionResult) return next();
-  const { successRes, message, error, logAlert } = req.modifiedActionResult;
+  const { successRes, error, logAlert } = req.modifiedActionResult;
 
   if (logAlert) {
     const [_, errAlert] = await promiseHandler(
       insertQueryOneItem(TABLES_DATA.ALERTS_TABLE_NAME, {
-        alert_message: message || error?.message,
+        alert_message: error ? error?.message : successRes?.response.message,
         user_id: req.auth_data.user_id,
       })
     );
@@ -65,7 +90,6 @@ export const handleAlertsMiddleware: RequestHandler = async (
     if (errAlert) {
       const errorCustomizes = new ErrorCustomizes(errAlert);
       errorCustomizes.handleErrors();
-
       return next(errorCustomizes);
     }
   }
@@ -76,11 +100,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
     return next(new Error("Something went wrong"));
   }
 
-  return res.status(successRes?.statusCode || 200).json({
-    message,
-    id: createObjValuesArr(successRes!.data)[0],
-    ...successRes,
-  });
+  return res.status(successRes?.statusCode || 200).json(successRes.response);
 };
 
 // NOTE: NOT DELETE!!
