@@ -190,7 +190,13 @@ export const loginSchema = yup.object().shape({
   // confirm_password: yup.string().equals(["password"]),
 });
 export const signUpSchema = yup.object().shape({
-  username: yup.string().required(),
+  username: yup
+    .string()
+    .required()
+    .matches(/^(?=.{8,20}$)/, "Must be 8 -20 characters")
+    .matches(/(?![_.])/, "No _ or . at the beginning ")
+    .matches(/[a-zA-Z0-9._]/, "Characters are required"),
+
   password: yup
     .string()
     .required("Required")
@@ -199,7 +205,8 @@ export const signUpSchema = yup.object().shape({
     .matches(/[A-Z]+/, "One uppercase character")
     .matches(/[@$!%*#?&]+/, "One special character")
     .matches(/\d+/, "One number"),
-  confirm_password: yup
+  confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required(),
 });

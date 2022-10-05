@@ -19,7 +19,7 @@ function LoginPage() {
     login(body)
       .unwrap()
       .then(({ ...rest }) => {
-        nav(`/${APP_ROUTE.DASHBOARD}`);
+        nav(`/${APP_ROUTE.HOME_PAGE}`);
       });
 
   return (
@@ -64,7 +64,7 @@ function LoginPage() {
       </Form>
       <div>
         <NavLink to={relativePath(APP_ROUTE.SIGN_UP)}>
-          Don't have an account?{" "}
+          Don't have an account? Try it Free!
         </NavLink>
       </div>
     </Card>

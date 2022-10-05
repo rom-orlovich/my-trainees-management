@@ -1,10 +1,9 @@
 import React, { ReactNode } from "react";
 
 import { RiAddCircleFill } from "react-icons/ri";
-import { IoMdNotifications } from "react-icons/io";
+
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import {
-  AlertData,
   LinkData,
   PropsBasic,
 } from "../../../components/baseComponents/baseComponentsTypes";
@@ -16,9 +15,10 @@ import { FaUserCircle } from "react-icons/fa";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import NavLinkLI from "../../../components/baseComponents/NavLinkLI";
 import AlertsNotification from "./AlertNotification/AlertsNotification";
-import { useAppDispatch } from "../../../redux/hooks";
-// import { setLogout } from "../../../redux/slices/authSlice";
+
 import { authApi } from "../../../redux/api/authAPI";
+
+import { relativePath } from "../../../utilities/helpersFun";
 interface NavBarNavLinkLIs<T> {
   id?: string;
   element: ReactNode;
@@ -45,9 +45,12 @@ const navBarLink: NavBarNavLinkLIs<LinkData>[] = [
     id: "profileButton",
     element: <FaUserCircle className={style.profile_icon} />,
     dataLinks: [
-      { to: "", text: "Profile" },
-      { to: `/${APP_ROUTE.SETTINGS_ROUTE}`, text: "Setting" },
-      { to: `/${APP_ROUTE.LOGIN_ROUTE}`, text: "Logout" },
+      { to: relativePath(APP_ROUTE.PROFILE_ROUTE), text: "Profile" },
+      {
+        to: relativePath(APP_ROUTE.SETTINGS_ROUTE),
+        text: "Setting",
+      },
+      { to: relativePath(APP_ROUTE.LOGIN_ROUTE), text: "Logout" },
     ],
   },
   {

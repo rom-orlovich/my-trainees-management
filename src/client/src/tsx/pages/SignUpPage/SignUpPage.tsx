@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Card from "../../components/baseComponents/Card/Card";
 import Form from "../../components/baseComponents/RHF-Components/Form/Form";
 import { signUpSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
@@ -8,6 +8,8 @@ import InputErrorMessage from "../../components/baseComponents/RHF-Components/In
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { authApi } from "../../redux/api/authAPI";
 import { SignUpForm } from "../../redux/api/interfaceAPI";
+import { APP_ROUTE } from "../../routes/routesConstants";
+import { relativePath } from "../../utilities/helpersFun";
 import style from "../HomeCardForm.module.scss";
 function SignUpPage() {
   const [signUp] = authApi.useSignUpMutation();
@@ -15,10 +17,10 @@ function SignUpPage() {
   const nav = useNavigate();
 
   const onSubmit = (body: SignUpForm) =>
-    signUp({ credentials: body, endPoint: pathname })
+    signUp({ credentials: body, endPoint: "newTrainer" })
       .unwrap()
       .then(({ message, ...rest }) => {
-        nav("/login");
+        nav(relativePath(APP_ROUTE.LOGIN_ROUTE));
       });
 
   return (
@@ -73,6 +75,11 @@ function SignUpPage() {
           );
         }}
       </Form>
+      <div className={style.card_form_footer}>
+        <NavLink to={relativePath(APP_ROUTE.LOGIN_ROUTE)}>
+          Do Have an account? It's time to login!
+        </NavLink>
+      </div>
     </Card>
   );
 }

@@ -17,15 +17,17 @@ function InputErrorMessage({ error, nameInput }: InputErrorMessageProps) {
   > = {
     required: "Require Field",
     typeError: "Enter valid input.",
-    email: "Email must be vaiid email.",
-    default: "Enter valid input.",
+    email: "Email must be valid email.",
+    default: error?.message,
   };
 
   return (
     <>
       {error?.message && (
         <p className="error_message" style={{ color: "red" }}>
-          {messages[error.type || "default"]}
+          {/* {messages[error.type || "default"]}
+           */}
+          {error.message}
         </p>
       )}
     </>

@@ -1,9 +1,9 @@
 export enum APP_ROUTE {
-  HOME_PAGE = "/",
+  HOME_PAGE = "",
   SIGN_UP = "signUp",
   LOGIN_ROUTE = "login",
   LOGOUT_ROUTE = "logout",
-  DASHBOARD = "/dashboard",
+
   TRAINEES_ROUTE = "trainees",
   TRAINEES_ROUTE_ADD = "addNewTrainee",
 
@@ -41,4 +41,5 @@ export enum APP_ROUTE {
   NOTES_ROUTE_ADD = "addNotes",
 
   SETTINGS_ROUTE = "settings",
+  PROFILE_ROUTE = "profile",
 }

@@ -8,9 +8,11 @@ import {
   refreshTokenHandler,
   logoutHandler,
   signUpHandler,
+  createUserRoleMiddleware,
 } from "../controllers/handleAuth";
 import { validateTokenMiddleware } from "../JWT";
 
+const routesRole = ["newTrainer", "newTrainee", "admin"];
 const authRouter = Router();
 const validateMiddlewareHandler = validateMiddleware(loginSchema);
 authRouter.get(
@@ -19,11 +21,16 @@ authRouter.get(
   refreshTokenHandler
 );
 authRouter.get(API_ROUTES.LOGOUT_ROUTE, validateTokenMiddleware, logoutHandler);
-authRouter.post(
-  API_ROUTES.SIGN_UP_ROUTE,
-  validateMiddlewareHandler,
-  signUpHandler
-);
+
+routesRole.forEach((route) => {
+  authRouter.post(
+    `${API_ROUTES.SIGN_UP_ROUTE}/${route}`,
+    validateMiddlewareHandler,
+    createUserRoleMiddleware,
+    signUpHandler
+  );
+});
+
 authRouter.post(
   API_ROUTES.LOGIN_ROUTE,
   validateMiddlewareHandler,

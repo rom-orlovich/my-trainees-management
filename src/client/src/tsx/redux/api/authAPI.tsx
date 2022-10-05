@@ -34,7 +34,7 @@ export const authApi = createApi({
         endPoint,
       }) => {
         return {
-          url: `${API_ROUTES.SIGN_UP_ROUTE}${endPoint}`,
+          url: `${API_ROUTES.SIGN_UP_ROUTE}/${endPoint}`,
           method: "post",
           body: { ...credentials },
         };

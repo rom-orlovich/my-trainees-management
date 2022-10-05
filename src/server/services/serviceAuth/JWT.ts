@@ -4,7 +4,7 @@
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { RequestHandler } from "webpack-dev-server";
 import { promiseHandler } from "../../utilities/helpers";
-import { User } from "./controllers/handleAuth";
+import { User, UserRoles } from "./controllers/handleAuth";
 
 export function verifyAsync(
   token: string,
@@ -19,9 +19,13 @@ export function verifyAsync(
 }
 
 export const genToken = (user: User, key: string, expireTime = "10s") =>
-  sign({ username: user.username }, key, {
-    expiresIn: expireTime,
-  });
+  sign(
+    { username: user.username, user_id: user.user_id, role: user.role },
+    key,
+    {
+      expiresIn: expireTime,
+    }
+  );
 
 export const validateTokenMiddleware: RequestHandler = async (
   req,
@@ -38,11 +42,17 @@ export const validateTokenMiddleware: RequestHandler = async (
 
   if (err) return res.sendStatus(403);
 
-  const userData = decode as { username: string };
+  const userData = decode as {
+    username: string;
+    user_id: number;
+    role: UserRoles;
+  };
 
   req.auth_data = {
     jwt: accessToken,
     username: userData?.username,
+    user_id: userData?.user_id,
+    role: userData.role,
   };
 
   return next();

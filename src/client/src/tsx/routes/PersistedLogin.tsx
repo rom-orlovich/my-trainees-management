@@ -7,22 +7,23 @@ import { authApi } from "../redux/api/authAPI";
 import { useAppSelector } from "../redux/hooks";
 import { getAuthState } from "../redux/slices/authSlice";
 import { APP_ROUTE } from "./routesConstants";
-export const SUBTRACT_EXPIRE_TIME = 1000 * 60 * 10;
+export const SUBTRACT_EXPIRE_TIME = 1000 * 60 * 5;
 
 function PersistedLogin() {
   const authState = useAppSelector(getAuthState);
 
-  const [refreshToken, { isLoading, isError, isFetching, data }] =
-    authApi.useLazyRefreshTokenQuery({
+  const { isLoading, isError, isFetching, data } = authApi.useRefreshTokenQuery(
+    {
       pollingInterval: authState.expireAt - SUBTRACT_EXPIRE_TIME,
-    });
-
+    }
+  );
+  console.log(authState.expireAt - SUBTRACT_EXPIRE_TIME);
   const nav = useNavigate();
 
   useEffect(() => {
     if (isError) nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
-    refreshToken({});
-  }, [isError, refreshToken, nav]);
+    // refreshToken({});
+  }, [isError, nav]);
 
   return !!authState.user ? (
     <Outlet />

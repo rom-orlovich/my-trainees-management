@@ -26,7 +26,7 @@ import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
 import HomePage from "../pages/HomePage/HomePage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
-import LoginPage from "../pages/LoginPage/LoginPage";
+import LoginPage from "../pages/SignInPage/LoginPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
 
 import Settings from "../pages/SettingsPage/SettingsPage";
@@ -42,6 +42,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 
 import { APP_ROUTE } from "./routesConstants";
+import ProfilePage from "../pages/ProfilePage/ProfilePage";
 function AppRoutes() {
   return (
     <Routes>
@@ -52,7 +53,11 @@ function AppRoutes() {
         </Route>
         <Route element={<PersistedLogin />}>
           <Route element={<ProtectedRoute />}>
-            <Route path={APP_ROUTE.DASHBOARD} element={<App />}>
+            <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
+              <Route
+                path={APP_ROUTE.PROFILE_ROUTE}
+                element={<ProfilePage />}
+              ></Route>
               <Route index element={<Trainees />} />
               <Route path={APP_ROUTE.TRAINEES_ROUTE}>
                 <Route index element={<Trainees />} />

@@ -1,10 +1,10 @@
 @use "../../style/utilities/utilities.scss" as *;
 .card_form {
   width: 22rem;
-  height: 25rem;
+  height: 28rem;
   padding: 1rem;
-  @include flex-dir(center, center, column);
-  gap: 0.5rem;
+  @include flex-dir(space-evenly, center, column);
+  gap: 0.7rem;
   @include classMatcher("Form_form_container") {
     width: 100%;
     @include classMatcher("Form_form") {
@@ -17,7 +17,36 @@
           width: 50%;
         }
       }
-      margin-bottom: 0.8rem;
     }
+  }
+  .card_form_footer {
+  }
+}
+@include smartphone() {
+  .card_form {
+    width: 20rem;
+
+    padding: 1rem;
+    @include flex-dir(center, center, column);
+    gap: 0.5rem;
+    @include classMatcher("Form_form_container") {
+      min-height: fit-content;
+      justify-content: center;
+      width: 100%;
+      @include classMatcher("Form_form") {
+        width: 100%;
+        @include classMatcher("input_label") {
+          max-width: 100%;
+        }
+        @include classMatcher("Form_buttons_container_save_button") {
+          button {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+  .card_form_footer {
+    font-size: 0.9rem;
   }
 }

@@ -16,13 +16,16 @@ import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
 import { ErrorCodes } from "../../serviceErrors/handleErrors";
 import { genToken, verifyAsync } from "../JWT";
 
+export type UserRoles = "admin" | "trainee" | "trainer";
 export interface User {
   user_id: number;
   username: string;
   password: string;
   refresh_token: string;
+  role: UserRoles;
 }
-const EXPIRE_AT =
+
+const REFRESH_AT =
   1000 * 60 * Number(process.env.EXPIRE_IN_ACCESS_TOKEN?.slice(0, -1) || 15);
 const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.USER_ENTITY
@@ -33,6 +36,30 @@ const COOKIES_OPTIONS: CookieOptions = {
   sameSite: "strict",
 };
 
+export const createUserRoleMiddleware: RequestHandler = async (
+  req,
+  res,
+  next
+) => {
+  const endPoint = req.path.split("/")[2];
+
+  if (endPoint === "newTrainer") {
+    req.signUp_data = {
+      role: "trainer",
+    };
+  } else if (endPoint === "trainee") {
+    req.signUp_data = {
+      role: "trainee",
+    };
+  } else {
+    req.signUp_data = {
+      role: "admin",
+    };
+  }
+
+  next();
+};
+
 export const signUpHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
   const { password, username } = req.body;
@@ -40,13 +67,15 @@ export const signUpHandler: RequestHandler = async (req, res, next) => {
   const [user, error] = await promiseHandler<User[]>(
     insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
       ...req.body,
+      role: req.signUp_data.role,
       password: hashPassword,
     })
   );
+
   // Continue to the alert handler.
   req.modifiedActionResult = createModifiedActionResultFun(
     {
-      data: user,
+      data: { username },
       statusCode: 201,
       messagePayload: username,
     },
@@ -57,46 +86,11 @@ export const signUpHandler: RequestHandler = async (req, res, next) => {
 
   return next();
 };
-export const changeUserCredentialsHandler: RequestHandler = async (
-  req,
-  res,
-  next
-) => {
-  if (req.modifiedActionResult?.error) return next();
-  const { id } = req.params;
-  const queryLogic = `WHERE ${TABLES_DATA.USERS_TABLE_ID}=$1`;
-  const { password } = req.body;
-  const hashPassword = await hash(password, 10);
-  const [user, error] = await promiseHandler(
-    updateQuerySingleItem(
-      TABLES_DATA.USERS_TABLE_NAME,
-      {
-        ...req.body,
-        password: hashPassword,
-      },
-      id,
-      queryLogic
-    )
-  );
-  // Continue to the alert handler.
-  req.modifiedActionResult = createModifiedActionResultFun(
-    {
-      data: user ? user[0].username : undefined,
-      statusCode: 201,
-      messagePayload: req.auth_data.username,
-    },
-    error,
-    "update"
-  );
-
-  return next();
-};
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
   const { password, username } = req.body;
-  // eslint-disable-next-line no-use-before-define
-  // await createAdmin(username, password);
+
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
     selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", "where username= $1", [
@@ -129,7 +123,6 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     });
     return next();
   }
-
   const accessToken = genToken(
     user[0],
     process.env.ACCESS_TOKEN_SECRET,
@@ -166,7 +159,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
   // Send refresh token
   res.cookie("access_token", accessToken, {
-    maxAge: EXPIRE_AT,
+    maxAge: REFRESH_AT,
     ...COOKIES_OPTIONS,
   });
 
@@ -174,9 +167,43 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
   return res.status(201).json({
     user: restUser,
-    expireAt: EXPIRE_AT,
+    expireAt: REFRESH_AT,
     message: "Login is success!",
   });
+};
+export const changeUserCredentialsHandler: RequestHandler = async (
+  req,
+  res,
+  next
+) => {
+  if (req.modifiedActionResult?.error) return next();
+  const { id } = req.params;
+  const queryLogic = `WHERE ${TABLES_DATA.USERS_TABLE_ID}=$1`;
+  const { password } = req.body;
+  const hashPassword = await hash(password, 10);
+  const [user, error] = await promiseHandler(
+    updateQuerySingleItem(
+      TABLES_DATA.USERS_TABLE_NAME,
+      {
+        ...req.body,
+        password: hashPassword,
+      },
+      id,
+      queryLogic
+    )
+  );
+  // Continue to the alert handler.
+  req.modifiedActionResult = createModifiedActionResultFun(
+    {
+      data: user ? user[0].username : undefined,
+      statusCode: 201,
+      messagePayload: req.auth_data.username,
+    },
+    error,
+    "update"
+  );
+
+  return next();
 };
 
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
@@ -214,14 +241,15 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    maxAge: EXPIRE_AT,
+    maxAge: REFRESH_AT,
   });
 
-  console.log("user login", user[0]);
+  console.log("user login current data", user[0]);
+  const { password: pwd, refresh_token: refreshToken1, ...restUser } = user[0];
 
   return res.status(201).json({
-    user: user[0],
-    expireAt: EXPIRE_AT,
+    user: restUser,
+    expireAt: REFRESH_AT,
     message: "Access token has create successfully!",
   });
 };
@@ -257,7 +285,13 @@ async function createAdmin(username: string, password: string) {
   ) {
     const hashPassword = await hash(process.env.ADMIN_PSW, 10);
     const refreshToken = genToken(
-      { username, password: hashPassword, user_id: 1, refresh_token: "" },
+      {
+        username,
+        password: hashPassword,
+        user_id: 1,
+        refresh_token: "",
+        role: "admin",
+      },
       process.env.REFRESH_TOKEN_SECRET,
       process.env.EXPIRE_IN_REFRESH_TOKEN
     );

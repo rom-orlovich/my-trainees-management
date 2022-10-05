@@ -73,6 +73,9 @@ export const alertsOptionsCRUD: OptionsCRUD = {
     tableID: `ale.${TABLES_DATA.ALERTS_TABLE_ID}`,
     fieldNamesQuery: `*`,
     querySelectLogic: ``,
+    queryParams: {
+      userID: "user_id",
+    },
   },
   logAlert: false,
 };

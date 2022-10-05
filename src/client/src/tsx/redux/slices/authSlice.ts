@@ -7,27 +7,20 @@ import { RootState } from "../store";
 const initialState: {
   user: User | null;
   expireAt: number;
-  activeRefreshToken: boolean;
 } = {
   user: null,
   expireAt: 0,
-  activeRefreshToken: true,
 };
 export const authSlice = createSlice({
   name: "authState",
   initialState,
-  reducers: {
-    activeRefreshToken(state) {
-      state.activeRefreshToken = true;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) =>
     builder
       .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
         const payload = action.payload;
         state.user = payload.user;
         state.expireAt = action.payload.expireAt;
-        state.activeRefreshToken = false;
       })
       .addMatcher(
         authApi.endpoints.refreshToken.matchFulfilled,
@@ -41,5 +34,5 @@ export const authSlice = createSlice({
         state.user = null;
       }),
 });
-export const { activeRefreshToken } = authSlice.actions;
+
 export const getAuthState = (state: RootState) => state.authSlice;

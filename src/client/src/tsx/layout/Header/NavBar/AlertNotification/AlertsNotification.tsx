@@ -12,6 +12,7 @@ import {
   disableFetchAlerts,
   getApiSideEffect,
 } from "../../../../redux/slices/apiSideEffectSlice";
+import { getAuthState } from "../../../../redux/slices/authSlice";
 import { delayFun, genClassName } from "../../../../utilities/helpersFun";
 import DropDown from "../DropDown/DropDown";
 import style from "./AlertsNotification.module.scss";
@@ -52,8 +53,11 @@ function DropDownLiAlert(
 
 function AlertsNotification({ className }: AlertsNotificationProps) {
   const apiSideEffect = useAppSelector(getApiSideEffect);
+  const authState = useAppSelector(getAuthState);
+  const queriesOptions = { userID: authState.user?.user_id };
   const [scaleUpState, setScaleUpState] = useState(false);
 
+  const dispatch = useAppDispatch();
   const [alertNotificationState, setAlertNotificationState] = useState(false);
 
   useEffect(() => {
@@ -63,14 +67,14 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
         dispatch(changeAlertsState());
       }, 1000);
     }
-  }, [apiSideEffect.isAlertsOpen]);
+  }, [apiSideEffect.isAlertsOpen, dispatch]);
   const { data, refetch } = alertsApi.useGetItemsQuery({
     page: 1,
     numResults: 5,
     asc: false,
+    ...queriesOptions,
   });
 
-  const dispatch = useAppDispatch();
   useEffect(() => {
     if (apiSideEffect.fetchAlerts) {
       dispatch(changeAlertsState());

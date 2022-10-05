@@ -156,7 +156,7 @@ export default function Form<TFormValues extends Record<string, any>>({
       </div>
       <form
         onFocus={() => {
-          methods.clearErrors();
+          methods.clearErrors("server" as any);
         }}
         {...formProps}
         className={`${style.form} ${formProps?.className || ""}`}
