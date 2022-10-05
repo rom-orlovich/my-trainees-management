@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import useGetUserID from "../../../hooks/useGetUserID";
 
 import { SubscriptionPlansAPI } from "../../../redux/api/interfaceAPI";
 import { formatDate } from "../../../utilities/helpersFun";
@@ -19,8 +20,8 @@ function SubscriptionPlansForm({
       <Form
         onSubmit={onSubmit}
         formOptions={{
-          resolver: yupResolver(subscriptionPlansSchema.omit(["profile_id"])),
-          defaultValues: defaultValues,
+          resolver: yupResolver(subscriptionPlansSchema.omit(["trainee_id"])),
+          defaultValues: { ...defaultValues },
           mode: "onBlur",
         }}
       >

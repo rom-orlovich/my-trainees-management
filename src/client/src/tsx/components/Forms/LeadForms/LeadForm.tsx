@@ -15,6 +15,9 @@ import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import { OmitKey } from "../../../types";
+import { useAppSelector } from "../../../redux/hooks";
+import { getAuthState } from "../../../redux/slices/authSlice";
+import useGetUserID from "../../../hooks/useGetUserID";
 
 export function LeadForm({
   onSubmit,
@@ -29,7 +32,7 @@ export function LeadForm({
       pathMove={`/${APP_ROUTE.LEADS_ROUTE}`}
       formOptions={{
         mode: "onChange",
-        defaultValues: defaultValues,
+        defaultValues: { user_id: useGetUserID().user_id, ...defaultValues },
         resolver: yupResolver(leadsSchema),
       }}
     >

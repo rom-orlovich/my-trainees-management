@@ -5,6 +5,7 @@ import {
   TraineesTableExtendsAPI,
   TraineesBaseTableAPI,
 } from "../../../redux/api/interfaceAPI";
+import { getAuthState } from "../../../redux/slices/authSlice";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";

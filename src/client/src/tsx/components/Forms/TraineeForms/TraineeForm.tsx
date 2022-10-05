@@ -19,6 +19,8 @@ import { APP_ROUTE } from "../../../routes/routesConstants";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import { OmitKey } from "../../../types";
 import { useAppSelector } from "../../../redux/hooks";
+import { getAuthState } from "../../../redux/slices/authSlice";
+import useGetUserID from "../../../hooks/useGetUserID";
 
 export function TraineeForm({
   fromProps,
@@ -33,8 +35,6 @@ export function TraineeForm({
   heading?: string;
   changeButtonContainer?: boolean;
 }) {
-  const user_id = useAppSelector((state) => state.authSlice.user?.user_id);
-
   return (
     <Form<TraineesBaseTableAPI>
       changeButtonContainer={changeButtonContainer}
@@ -49,7 +49,10 @@ export function TraineeForm({
       onSubmit={onSubmit}
       formOptions={{
         mode: "onChange",
-        defaultValues: { ...defaultValues, user_id: user_id },
+        defaultValues: {
+          ...defaultValues,
+          trainer_id: useGetUserID().user_id,
+        },
         resolver: yupResolver(
           traineesSchema.omit(["profile_id", "trainee_id"])
         ),

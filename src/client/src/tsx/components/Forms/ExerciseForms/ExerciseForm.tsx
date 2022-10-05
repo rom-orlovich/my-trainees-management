@@ -1,11 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
+import useGetUserID from "../../../hooks/useGetUserID";
 import { equipmentsApi, musclesGroupApi } from "../../../redux/api/hooksAPI";
 import {
   EquipmentsTableAPI,
   ExercisesTableAPI,
   MusclesGroupTableAPI,
 } from "../../../redux/api/interfaceAPI";
+import { useAppSelector } from "../../../redux/hooks";
+import { getAuthState } from "../../../redux/slices/authSlice";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
@@ -33,6 +36,7 @@ export function ExerciseForm({
         formOptions={{
           mode: "onChange",
           defaultValues: {
+            user_id: useGetUserID().user_id,
             exercise_id: defaultValues?.exercise_id,
             exercise_name: defaultValues?.exercise_name,
             equipment_id: defaultValues?.equipment_id,

@@ -7,6 +7,9 @@ import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMes
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import style from "./MusclesGroupForm.module.scss";
+import { getAuthState } from "../../../redux/slices/authSlice";
+import { useAppSelector } from "../../../redux/hooks";
+import useGetUserID from "../../../hooks/useGetUserID";
 
 export function MusclesGroupForm({
   editMode,
@@ -23,7 +26,7 @@ export function MusclesGroupForm({
         formProps={{ className: style.form_musclesGroup }}
         formOptions={{
           mode: "onChange",
-          defaultValues: defaultValues,
+          defaultValues: { user_id: useGetUserID().user_id, ...defaultValues },
           resolver: yupResolver(musclesGroupSchema),
         }}
       >

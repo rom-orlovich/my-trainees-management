@@ -204,7 +204,7 @@ export interface TraineesBaseTableAPI {
 
 export interface SubscriptionPlansAPI {
   subscription_plan_id?: number;
-  profile_id: number;
+  trainee_id: number;
   plan_name: string;
   current_num_trainings: number;
   total_trainings: number;
