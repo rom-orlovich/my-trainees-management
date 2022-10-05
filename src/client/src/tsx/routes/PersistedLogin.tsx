@@ -17,7 +17,7 @@ function PersistedLogin() {
       pollingInterval: authState.expireAt - SUBTRACT_EXPIRE_TIME,
     }
   );
-  console.log(authState.expireAt - SUBTRACT_EXPIRE_TIME);
+
   const nav = useNavigate();
 
   useEffect(() => {
