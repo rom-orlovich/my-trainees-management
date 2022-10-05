@@ -51,7 +51,7 @@ export function TraineeForm({
         mode: "onChange",
         defaultValues: {
           ...defaultValues,
-          trainer_id: useGetUserID().user_id,
+          trainer_user_id: useGetUserID().user_id,
         },
         resolver: yupResolver(
           traineesSchema.omit(["profile_id", "trainee_id"])
