@@ -25,8 +25,13 @@ export interface User {
   role: UserRoles;
 }
 
-const REFRESH_AT =
-  1000 * 60 * Number(process.env.EXPIRE_IN_ACCESS_TOKEN?.slice(0, -1) || 15);
+const REFRESH_IN =
+  1000 * 60 * Number(process.env.REFRESH_IN_ACCESS_TOKEN?.slice(0, -1) || 15);
+const EXPIRE_IN =
+  1000 *
+  60 *
+  60 *
+  Number(process.env.EXPIRE_IN_ACCESS_TOKEN?.slice(0, -1) || 2);
 const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.USER_ENTITY
 );
@@ -159,7 +164,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
   // Send refresh token
   res.cookie("access_token", accessToken, {
-    maxAge: REFRESH_AT,
+    maxAge: EXPIRE_IN,
     ...COOKIES_OPTIONS,
   });
 
@@ -167,7 +172,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
   return res.status(201).json({
     user: restUser,
-    expireAt: REFRESH_AT,
+    expireAt: REFRESH_IN,
     message: "Login is success!",
   });
 };
@@ -241,7 +246,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    maxAge: REFRESH_AT,
+    maxAge: EXPIRE_IN,
   });
 
   console.log("user login current data", user[0]);
@@ -249,7 +254,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   return res.status(201).json({
     user: restUser,
-    expireAt: REFRESH_AT,
+    expireAt: REFRESH_IN,
     message: "Access token has create successfully!",
   });
 };
