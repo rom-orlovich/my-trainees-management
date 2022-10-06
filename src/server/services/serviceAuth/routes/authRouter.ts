@@ -3,14 +3,15 @@ import { API_ROUTES } from "../../apiRoutesConstants";
 import { loginSchema } from "../../schemas/DBSchemas";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import {
-  loginHandler,
-  changeUserCredentialsHandler,
-  refreshTokenHandler,
-  logoutHandler,
-  signUpHandler,
   createUserRoleMiddleware,
-} from "../controllers/handleAuth";
-import { validateTokenMiddleware } from "../JWT";
+  validateTokenMiddleware,
+} from "../controllers/authMiddleware";
+
+import { changeUserCredentialsHandler } from "../controllers/handleChangeCredentials";
+import { loginHandler } from "../controllers/handleLogin";
+import { logoutHandler } from "../controllers/handleLogout";
+import { refreshTokenHandler } from "../controllers/handleRefreshToken";
+import { signUpHandler } from "../controllers/handleSignUp";
 
 const routesRole = ["newTrainer", "newTrainee", "admin"];
 const authRouter = Router();

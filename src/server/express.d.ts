@@ -1,4 +1,4 @@
-import { UserRoles } from "./services/serviceAuth/controllers/handleAuth";
+import { UserRoles } from "./services/serviceAuth/utilities/authHelpers";
 import { ErrorCustomizes } from "./services/serviceErrors/handleErrors";
 
 export interface ModifiedActionResult {
