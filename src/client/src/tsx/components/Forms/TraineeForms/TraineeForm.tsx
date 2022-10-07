@@ -18,8 +18,7 @@ import { formatDate } from "../../../utilities/helpersFun";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import { OmitKey } from "../../../types";
-import { useAppSelector } from "../../../redux/hooks";
-import { getAuthState } from "../../../redux/slices/authSlice";
+
 import useGetUserID from "../../../hooks/useGetUserID";
 
 export function TraineeForm({
@@ -35,6 +34,8 @@ export function TraineeForm({
   heading?: string;
   changeButtonContainer?: boolean;
 }) {
+  const authState = useGetUserID();
+  const queriesOptions = { userID: authState.user_id };
   return (
     <Form<TraineesBaseTableAPI>
       changeButtonContainer={changeButtonContainer}
@@ -58,7 +59,7 @@ export function TraineeForm({
         ),
       }}
     >
-      {({ register, formState, control, getValues }) => {
+      {({ register, formState, control }) => {
         const {
           first_name,
           last_name,
@@ -148,6 +149,7 @@ export function TraineeForm({
               name="location_id"
               control={control}
               AutocompleteInputProps={{
+                queriesOptions,
                 defaultValueID: defaultValues?.location_id,
                 InputLabelProps: {
                   LabelProps: { labelText: "Locations" },

@@ -42,17 +42,7 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
   return createApi({
     tagTypes: [singleEntityName],
     reducerPath,
-    // baseQuery: fetchBaseQuery({
-    //   baseUrl,
-    //   prepareHeaders: (headers, api) => {
-    //     const state = api.getState() as RootState;
-    //     const token = state.authSlice.accessToken;
-    //     if (token) {
-    //       headers.set("authorization", `Bearer ${token}`);
-    //     }
-    //     return headers;
-    //   },
-    // }),
+
     baseQuery: baseQueryWithReauth(baseUrl),
     endpoints: (builder) => ({
       getItems: builder.query<ResponseQueryAPI<T>, Record<string, any>>({

@@ -3,8 +3,6 @@ import React from "react";
 import useGetUserID from "../../../hooks/useGetUserID";
 
 import { EquipmentsTableAPI } from "../../../redux/api/interfaceAPI";
-import { useAppSelector } from "../../../redux/hooks";
-import { getAuthState } from "../../../redux/slices/authSlice";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";

@@ -6,8 +6,7 @@ import {
   CitiesTableAPI,
   LocationsTableAPI,
 } from "../../../redux/api/interfaceAPI";
-import { useAppSelector } from "../../../redux/hooks";
-import { getAuthState } from "../../../redux/slices/authSlice";
+
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
@@ -17,6 +16,7 @@ import { locationsSchema } from "../../baseComponents/RHF-Components/formsSchema
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import style from "./LocationForms.module.scss";
+
 export function LocationForm({
   onSubmit,
   defaultValues,
@@ -56,7 +56,6 @@ export function LocationForm({
                 defaultValueID: defaultValues?.city_id,
                 InputLabelProps: {
                   LabelProps: { labelText: "City Name" },
-
                   InputProps: { placeholder: "Search City" },
                 },
                 addOption: {

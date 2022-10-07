@@ -12,15 +12,14 @@ export const SUBTRACT_EXPIRE_TIME = 1000 * 60 * 10;
 function PersistedLogin() {
   const authState = useAppSelector(getAuthState);
 
-  const { isLoading, isError, isFetching, data } = authApi.useRefreshTokenQuery(
-    {},
-    { pollingInterval: SUBTRACT_EXPIRE_TIME }
-  );
+  const { isLoading, isError, isFetching, data, refetch } =
+    authApi.useRefreshTokenQuery({}, { pollingInterval: SUBTRACT_EXPIRE_TIME });
 
   const nav = useNavigate();
 
   useEffect(() => {
     if (isError) nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
+    if (!authState.accessToken) refetch();
 
     console.log(authState.accessToken);
   }, [isError, nav, authState]);

@@ -7,8 +7,7 @@ import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMes
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import style from "./MusclesGroupForm.module.scss";
-import { getAuthState } from "../../../redux/slices/authSlice";
-import { useAppSelector } from "../../../redux/hooks";
+
 import useGetUserID from "../../../hooks/useGetUserID";
 
 export function MusclesGroupForm({

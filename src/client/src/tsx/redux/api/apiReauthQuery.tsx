@@ -28,6 +28,7 @@ export const baseQueryWithReauth =
     let result = await baseQuery(args, api, extraOptions);
 
     if (result.error && result.error.status === 401) {
+      console.log(result.error.status);
       // try to get a new token
       const refreshResult = await baseQuery(
         `${API_ROUTES.API_AUTH_ROUTE}/${API_ROUTES.REFRESH_TOKEN_ROUTE}`,

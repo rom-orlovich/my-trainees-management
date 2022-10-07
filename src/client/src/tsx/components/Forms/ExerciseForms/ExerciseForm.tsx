@@ -23,6 +23,8 @@ export function ExerciseForm({
   editMode,
   fromProps,
 }: GeneralFormProps<ExercisesTableAPI>) {
+  const authState = useGetUserID();
+  const queriesOptions = { userID: authState.user_id };
   return (
     <>
       <Form<ExercisesTableAPI>
@@ -64,6 +66,7 @@ export function ExerciseForm({
                 name="equipment_id"
                 control={control}
                 AutocompleteInputProps={{
+                  queriesOptions,
                   defaultValueID: defaultValues?.equipment_id,
                   InputLabelProps: {
                     LabelProps: { labelText: "Equipment" },
@@ -84,6 +87,7 @@ export function ExerciseForm({
                 control={control}
                 AutocompleteInputProps={{
                   defaultValueID: defaultValues?.exercise_id,
+
                   InputLabelProps: {
                     LabelProps: { labelText: "Muscles Group" },
 

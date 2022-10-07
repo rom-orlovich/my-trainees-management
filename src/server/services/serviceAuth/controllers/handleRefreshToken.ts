@@ -18,15 +18,18 @@ import {
 } from "../utilities/authHelpers";
 
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
-  const refreshToken = req.cookies.refresh_token;
+  const preRefreshToken = req.cookies.refresh_token;
   const queryLogic = "where refresh_token=$1";
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
-    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", queryLogic, [refreshToken])
+    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", queryLogic, [
+      preRefreshToken,
+    ])
   );
 
   // Check if the user exist
   if (!(user && user[0]) || error) {
+    console.log(user, error);
     return res.sendStatus(403);
   }
 
@@ -47,26 +50,29 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   };
   const timeRemain = Math.floor(Decode.exp - new Date().getTime() / 1000);
 
-  const refreshToken2 = genToken(
+  const newRefreshToken = genToken(
     userSignature,
     process.env.REFRESH_TOKEN_SECRET,
     timeRemain
   );
+  console.info("username", user[0].username);
+  console.log("preRefreshToken", preRefreshToken);
+  console.log("newRefreshToken", newRefreshToken);
 
   // eslint-disable-next-line no-unused-vars
   const [userUpdate, errorUpdate] = await promiseHandler<User[]>(
     updateQuerySingleItem(
       TABLES_DATA.USERS_TABLE_NAME,
       {
-        refresh_token: refreshToken2,
+        refresh_token: newRefreshToken,
       },
-      refreshToken,
+      preRefreshToken,
       queryLogic
     )
   );
 
   // Send refresh token
-  res.cookie("refresh_token", refreshToken2, {
+  res.cookie("refresh_token", newRefreshToken, {
     maxAge: timeRemain,
     ...COOKIES_OPTIONS,
   });
@@ -78,13 +84,6 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   );
 
   const { password: pwd, refresh_token: refreshToken1, ...restUser } = user[0];
-
-  // return res.status(201).json({
-  //   user: restUser,
-  //   accessToken,
-  //   message: "Access token has create successfully!",
-
-  // });
 
   req.modifiedActionResult = createModifiedActionResultFun(
     {

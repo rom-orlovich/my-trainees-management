@@ -16,7 +16,6 @@ import CitiesTable from "./CitiesTable";
 function CitiesPage() {
   const [city, setCity] = useState<string[]>(["", ""]);
 
-  const queriesOptions = { userID: useGetUserID().user_id };
   return (
     <MainRoute mainRoutes={APP_ROUTE.CITY_ROUTE}>
       <section className={page_style.page_container}>
@@ -24,7 +23,6 @@ function CitiesPage() {
           <AutocompleteInput<CitiesTableAPI>
             keys={["city_name"]}
             id={"city_id"}
-            queriesOptions={{ ...queriesOptions }}
             loadingSpinnerResult={{ nameData: "Cities" }}
             setSelectOptionValue={setCity}
             useGetData={citiesApi.useGetItemsQuery}
@@ -42,7 +40,7 @@ function CitiesPage() {
           </span>
         </div>
         <div className={page_style.page_main_content}>
-          <CitiesTable mainName={city[1]} queriesOptions={queriesOptions} />
+          <CitiesTable mainName={city[1]} />
         </div>
       </section>
     </MainRoute>
