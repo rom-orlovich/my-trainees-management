@@ -40,8 +40,6 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   const Decode = decode as { exp: number; iat: number };
 
-  console.log(Decode);
-
   const userSignature = {
     role: user[0].role,
     user_id: user[0].user_id,
@@ -78,8 +76,6 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     process.env.ACCESS_TOKEN_SECRET,
     process.env.EXPIRE_IN_ACCESS_TOKEN
   );
-
-  console.log("user login current data", user[0]);
 
   const { password: pwd, refresh_token: refreshToken1, ...restUser } = user[0];
 

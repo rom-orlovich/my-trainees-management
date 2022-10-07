@@ -20,7 +20,6 @@ function PersistedLogin() {
   const nav = useNavigate();
 
   useEffect(() => {
-    console.log(isError);
     if (isError) nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
 
     console.log(authState.accessToken);

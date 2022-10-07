@@ -72,9 +72,10 @@ export class ErrorCustomizes<
       this.message = newErrorMessage || `The ${this.errorPayload} is invalid.`;
     } else if (this.error?.code === ErrorCodes.RESULT_NOT_FOUND)
       this.message = this.error?.message || "";
-    else if (this.error?.code === ErrorCodes.LOGIN_FAILED)
+    else if (this.error?.code === ErrorCodes.LOGIN_FAILED) {
       this.message = this.error?.message || "";
-
+      this.statusCode = 401;
+    }
     return this;
   }
 }

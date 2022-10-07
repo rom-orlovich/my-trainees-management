@@ -15,6 +15,7 @@ import {
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
+
   const { password, username } = req.body;
   const queryLogic = `WHERE username=$1`;
   // Get the user details from the db by his username
@@ -45,6 +46,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
       code: ErrorCodes.LOGIN_FAILED,
       message: "Login has failed",
     });
+
     return next(); // Continue to the alert handler.
   }
 
