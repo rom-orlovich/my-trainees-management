@@ -42,10 +42,15 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
   // Check if the password from the client is fit to the hash password in the db.
   if (!hashPassword) {
-    req.modifiedActionResult = createModifiedActionResultFun(undefined, {
-      code: ErrorCodes.LOGIN_FAILED,
-      message: "Login has failed",
-    });
+    req.modifiedActionResult = createModifiedActionResultFun(
+      undefined,
+      {
+        code: ErrorCodes.LOGIN_FAILED,
+        message: "Login has failed. Username or password are not correct.",
+      },
+      "create",
+      false
+    );
 
     return next(); // Continue to the alert handler.
   }

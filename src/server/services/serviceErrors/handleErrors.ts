@@ -26,7 +26,7 @@ export class ErrorCustomizes<
   errorFieldValue: Record<string, any> = {};
 
   constructor(error?: E, action?: ActionType, errorPayload?: any) {
-    console.log(error);
+    console.log("error log", error);
     this.error = error;
     this.errorPayload = errorPayload;
     this.action = action;

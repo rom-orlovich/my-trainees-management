@@ -84,7 +84,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
     const [_, errAlert] = await promiseHandler(
       insertQueryOneItem(TABLES_DATA.ALERTS_TABLE_NAME, {
         alert_message: error ? error?.message : successRes?.response.message,
-        user_id: req.auth_data.user_id,
+        user_id: req.auth_data?.user_id,
       })
     );
 
