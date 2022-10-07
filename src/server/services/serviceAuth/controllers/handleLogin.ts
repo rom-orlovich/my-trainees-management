@@ -105,7 +105,6 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
   req.modifiedActionResult = createModifiedActionResultFun(
     {
       message,
-
       data: {
         user: restUser,
         accessToken,

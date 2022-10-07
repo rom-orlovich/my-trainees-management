@@ -101,7 +101,9 @@ export const handleAlertsMiddleware: RequestHandler = async (
     return next(new Error("Something went wrong"));
   }
 
-  return res.status(successRes?.statusCode || 200).json(successRes.response);
+  return res
+    .status(successRes?.statusCode || 200)
+    .json({ statusCode: successRes?.statusCode, ...successRes.response });
 };
 
 // NOTE: NOT DELETE!!

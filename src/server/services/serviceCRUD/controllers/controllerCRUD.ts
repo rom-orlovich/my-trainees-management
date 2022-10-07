@@ -6,12 +6,9 @@ import {
   createRealQueryKeyValuesObj,
   deleteQuery,
   insertNewTableData,
-  insertQueryOneItem,
   selectPagination,
   selectQuery,
-  spreadObj,
   updateExistTableData,
-  updateQuerySingleItem,
 } from "../../../PGSql/sqlHelpers";
 import { OptionsCRUD } from "../routes/routesConfig";
 

@@ -1,13 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { BaseQueryFn } from "@reduxjs/toolkit/dist/query";
-import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
-import {
-  FetchBaseQueryArgs,
-  FetchBaseQueryMeta,
-} from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
+import { FetchBaseQueryMeta } from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
+import { Action } from "history";
 
 import { RootState } from "../store";
+
+export interface PayloadSideEffect {
+  message?: string;
+  data: any;
+  statusCode?: number | undefined;
+}
+
 const initialState = {
   goPrePageBehaviorState: {
     // The response of delete item from the api will have id.
@@ -54,11 +57,8 @@ export const apiSideEffectSlice = createSlice({
 
     builder
       .addMatcher(
-        (action: { meta: { baseQueryMeta: FetchBaseQueryMeta } }) => {
-          if (action?.meta?.baseQueryMeta?.response?.status === 201) {
-            console.log(action);
-          }
-          return action?.meta?.baseQueryMeta?.response?.status === 201;
+        (action: PayloadAction<PayloadSideEffect>) => {
+          return action.payload?.statusCode === 201;
         },
 
         (state, action) => {
@@ -78,11 +78,11 @@ export const apiSideEffectSlice = createSlice({
       )
       .addMatcher(
         (action: PayloadAction<Record<string, any> | undefined>) => {
-          return action.payload?.status >= 400;
+          return action.payload?.statusCode === 201;
         },
         (state) => {
-          // state.fetchAlerts = true;
-          // state.isModelOpen = true;
+          // // Enable fetch alerts.
+          state.fetchAlerts = true;
         }
       ),
 });
