@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { BaseQueryFn } from "@reduxjs/toolkit/dist/query";
+import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
+import {
+  FetchBaseQueryArgs,
+  FetchBaseQueryMeta,
+} from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
+
 import { RootState } from "../store";
 const initialState = {
   goPrePageBehaviorState: {
@@ -40,13 +47,18 @@ export const apiSideEffectSlice = createSlice({
       state.goPrePageBehaviorState.goPrevPage = false;
     },
   },
+
   extraReducers: (builder) =>
     // Checks when there is success response from the server after submit form
     // of update/add/delete method.
+
     builder
       .addMatcher(
-        (action: PayloadAction<Record<string, any> | undefined>) => {
-          return action.payload?.statusCode === 201;
+        (action: { meta: { baseQueryMeta: FetchBaseQueryMeta } }) => {
+          if (action?.meta?.baseQueryMeta?.response?.status === 201) {
+            console.log(action);
+          }
+          return action?.meta?.baseQueryMeta?.response?.status === 201;
         },
 
         (state, action) => {

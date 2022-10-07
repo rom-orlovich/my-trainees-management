@@ -1,8 +1,4 @@
-import {
-  BaseQueryFn,
-  createApi,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/dist/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import {
   API_ROUTES,
   ResponseMutationAuthAPI,

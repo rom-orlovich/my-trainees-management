@@ -13,19 +13,19 @@ function PersistedLogin() {
   const authState = useAppSelector(getAuthState);
 
   const { isLoading, isError, isFetching, data } = authApi.useRefreshTokenQuery(
-    {
-      pollingInterval: authState.expireAt - SUBTRACT_EXPIRE_TIME,
-    }
+    {}
   );
 
   const nav = useNavigate();
 
   useEffect(() => {
+    console.log(isError);
     if (isError) nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
-    // refreshToken({});
-  }, [isError, nav]);
 
-  return !!authState.user ? (
+    console.log(authState.accessToken);
+  }, [isError, nav, authState]);
+
+  return authState.accessToken ? (
     <Outlet />
   ) : (
     <LoadingSpinner stateData={{ isLoading, isError, isFetching, data }}>

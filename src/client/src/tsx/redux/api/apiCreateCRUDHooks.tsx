@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { providerTag, providerTags } from "../reduxHelpers";
 import { RootState } from "../store";
+import { baseQueryWithReauth } from "./apiReauthQuery";
 import {
   PayloadAPI,
   ResponseMutationAPI,
@@ -28,6 +29,7 @@ interface OptionsAPI<T, K> {
  * @param OptionsApi.transformDataArr- Function that will make some transform to one item.
  * @returns Api object with CRUD hooks for the given endpoint.
  */
+
 export function apiCreateCRUDHooks<T extends object, K extends object = any>({
   reducerPath,
   baseUrl,
@@ -40,17 +42,18 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
   return createApi({
     tagTypes: [singleEntityName],
     reducerPath,
-    baseQuery: fetchBaseQuery({
-      baseUrl,
-      prepareHeaders: (headers, api) => {
-        const state = api.getState() as RootState;
-        // const token = state.authSlice.accessToken;
-        // if (token) {
-        //   headers.set("authorization", `Bearer ${token}`);
-        // }
-        return headers;
-      },
-    }),
+    // baseQuery: fetchBaseQuery({
+    //   baseUrl,
+    //   prepareHeaders: (headers, api) => {
+    //     const state = api.getState() as RootState;
+    //     const token = state.authSlice.accessToken;
+    //     if (token) {
+    //       headers.set("authorization", `Bearer ${token}`);
+    //     }
+    //     return headers;
+    //   },
+    // }),
+    baseQuery: baseQueryWithReauth(baseUrl),
     endpoints: (builder) => ({
       getItems: builder.query<ResponseQueryAPI<T>, Record<string, any>>({
         query: (params: Record<string, any>) => ({
@@ -65,7 +68,7 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
           return providerTags(result?.data, singleEntityName, listId);
         },
 
-        keepUnusedDataFor: keepUnusedDataFor ?? 60,
+        keepUnusedDataFor: keepUnusedDataFor ?? 120,
       }),
       getItemByID: builder.query<T, number>({
         query: (id: number) => `/${singleEntityName}/${id}`,

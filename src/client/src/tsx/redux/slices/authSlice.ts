@@ -6,10 +6,10 @@ import { User } from "../api/interfaceAPI";
 import { RootState } from "../store";
 const initialState: {
   user: User | null;
-  expireAt: number;
+  accessToken: string | null;
 } = {
   user: null,
-  expireAt: 0,
+  accessToken: null,
 };
 export const authSlice = createSlice({
   name: "authState",
@@ -20,18 +20,21 @@ export const authSlice = createSlice({
       .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
         const payload = action.payload;
         state.user = payload.user;
-        state.expireAt = action.payload.expireAt;
+
+        state.accessToken = payload.accessToken;
       })
       .addMatcher(
         authApi.endpoints.refreshToken.matchFulfilled,
         (state, action) => {
           const payload = action.payload;
           state.user = payload.user;
-          state.expireAt = action.payload.expireAt;
+
+          state.accessToken = payload.accessToken;
         }
       )
       .addMatcher(authApi.endpoints.logout.matchFulfilled, (state, action) => {
         state.user = null;
+        state.accessToken = null;
       }),
 });
 
