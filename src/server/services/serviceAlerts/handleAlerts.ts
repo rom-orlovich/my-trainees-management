@@ -60,11 +60,12 @@ export const createModifiedActionResult =
         })
       : {
           message: successRes?.message,
-          data: successRes?.data,
+          ...successRes?.data,
         };
 
     return {
       successRes: {
+        statusCode: successRes?.statusCode,
         response,
       },
       logAlert,

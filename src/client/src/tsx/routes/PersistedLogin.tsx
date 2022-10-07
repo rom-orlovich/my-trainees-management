@@ -7,13 +7,14 @@ import { authApi } from "../redux/api/authAPI";
 import { useAppSelector } from "../redux/hooks";
 import { getAuthState } from "../redux/slices/authSlice";
 import { APP_ROUTE } from "./routesConstants";
-export const SUBTRACT_EXPIRE_TIME = 1000 * 60 * 5;
+export const SUBTRACT_EXPIRE_TIME = 1000 * 60 * 10;
 
 function PersistedLogin() {
   const authState = useAppSelector(getAuthState);
 
   const { isLoading, isError, isFetching, data } = authApi.useRefreshTokenQuery(
-    {}
+    {},
+    { pollingInterval: SUBTRACT_EXPIRE_TIME }
   );
 
   const nav = useNavigate();

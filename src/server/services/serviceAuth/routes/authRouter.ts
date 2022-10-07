@@ -16,12 +16,8 @@ import { signUpHandler } from "../controllers/handleSignUp";
 const routesRole = ["newTrainer", "newTrainee", "admin"];
 const authRouter = Router();
 const validateMiddlewareHandler = validateMiddleware(loginSchema);
-authRouter.get(
-  API_ROUTES.REFRESH_TOKEN_ROUTE,
-  validateTokenMiddleware,
-  refreshTokenHandler
-);
-authRouter.get(API_ROUTES.LOGOUT_ROUTE, validateTokenMiddleware, logoutHandler);
+authRouter.get(API_ROUTES.REFRESH_TOKEN_ROUTE, refreshTokenHandler);
+authRouter.get(API_ROUTES.LOGOUT_ROUTE, logoutHandler);
 
 routesRole.forEach((route) => {
   authRouter.post(

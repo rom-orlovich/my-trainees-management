@@ -25,13 +25,13 @@ export interface User {
   role: UserRoles;
 }
 
-export const REFRESH_IN =
-  1000 * 60 * Number(process.env.REFRESH_IN_ACCESS_TOKEN?.slice(0, -1) || 15);
+// export const REFRESH_IN =
+//   1000 * 60 * Number(process.env.EXPIRE_IN_REFRESH_TOKEN?.slice(0, -1) || 15);
 export const EXPIRE_IN =
   1000 *
   60 *
   60 *
-  Number(process.env.EXPIRE_IN_ACCESS_TOKEN?.slice(0, -1) || 2);
+  Number(process.env.EXPIRE_IN_REFRESH_TOKEN?.slice(0, -1) || 2);
 
 export const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.USER_ENTITY
@@ -56,7 +56,7 @@ export function verifyAsync(
 export const genToken = (
   obj: Record<string, any>,
   key: string,
-  expireTime = "10s"
+  expireTime: string | number
 ) =>
   sign(obj, key, {
     expiresIn: expireTime,

@@ -15,9 +15,7 @@ declare global {
       HOST_PG: string;
 
       ACCESS_TOKEN_SECRET: string;
-
       REFRESH_TOKEN_SECRET: string;
-      REFRESH_IN_ACCESS_TOKEN: string;
       EXPIRE_IN_ACCESS_TOKEN: string;
       EXPIRE_IN_REFRESH_TOKEN: string;
     }

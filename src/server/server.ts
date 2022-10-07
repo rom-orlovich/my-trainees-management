@@ -21,8 +21,8 @@ import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
 import { handleAlertsMiddleware } from "./services/serviceAlerts/handleAlerts";
 import { API_ROUTES } from "./services/apiRoutesConstants";
 
-import { validateTokenMiddleware } from "./services/serviceAuth/JWT";
 import authRouter from "./services/serviceAuth/routes/authRouter";
+import { validateTokenMiddleware } from "./services/serviceAuth/controllers/authMiddleware";
 
 const app = express();
 const PORT = process.env.PORT || 5000;

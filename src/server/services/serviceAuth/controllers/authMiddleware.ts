@@ -8,7 +8,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   res,
   next
 ) => {
-  const accessToken = req.cookies.access_token;
+  const accessToken = req.headers.authorization?.split("Bearer ")[1];
 
   if (!accessToken) return res.sendStatus(401);
 
