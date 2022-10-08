@@ -25,6 +25,7 @@ export const signUpHandler: RequestHandler = async (req, res, next) => {
       data: { username },
       statusCode: 201,
       messagePayload: username,
+      sendDataID: true,
     },
     error,
     "create",

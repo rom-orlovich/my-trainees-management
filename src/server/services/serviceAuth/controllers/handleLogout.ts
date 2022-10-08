@@ -12,13 +12,13 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
   // console.log("handle logout");
   const refreshToken = req.cookies.refresh_token;
 
-  const queryLogic = `where  $1=some(refresh_tokens)`;
+  const queryLogic = `where $1=some(refresh_tokens)`;
 
   // Get the user details from the db by his username
   let [user, error] = await promiseHandler<User[]>(
     selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", queryLogic, [refreshToken])
   );
-  if (!user || !error) return res.status(400).json({ message: "No user" });
+  if (!user || error) return res.status(400).json({ message: "No user" });
 
   [user, error] = await promiseHandler(
     updateQuerySingleItem(
@@ -33,7 +33,7 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
     )
   );
 
-  if (!user || !error) return res.status(400).json({ message: "No user" });
+  if (!user || error) return res.status(400).json({ message: "No user" });
 
   res.clearCookie("refresh_token", COOKIES_OPTIONS);
 

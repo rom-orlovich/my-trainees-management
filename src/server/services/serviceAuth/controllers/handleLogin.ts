@@ -15,7 +15,7 @@ import {
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
-
+  const preRefreshToken = req.cookies.refresh_token;
   const { password, username } = req.body;
   const queryLogic = `WHERE username=$1`;
   // Get the user details from the db by his username
@@ -79,7 +79,12 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     updateQuerySingleItem(
       TABLES_DATA.USERS_TABLE_NAME,
       {
-        refresh_tokens: [...user[0].refresh_tokens, refreshToken],
+        refresh_tokens: [
+          ...user[0].refresh_tokens.filter(
+            (token) => token !== preRefreshToken
+          ),
+          refreshToken,
+        ],
       },
       username,
       queryLogic

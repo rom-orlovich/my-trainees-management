@@ -19,7 +19,7 @@ function PersistedLogin() {
 
   useEffect(() => {
     if (!authState.accessToken) trigger({});
-  }, [isError, nav, authState]);
+  }, [authState.accessToken, trigger]);
 
   return authState.accessToken ? (
     <Outlet />

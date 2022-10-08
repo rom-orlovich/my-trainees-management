@@ -58,7 +58,10 @@ export const apiSideEffectSlice = createSlice({
     builder
       .addMatcher(
         (action: PayloadAction<PayloadSideEffect>) => {
-          return action.payload?.statusCode === 201;
+          return (
+            action.payload?.statusCode === 201 &&
+            !action.payload?.message?.includes("Login")
+          );
         },
 
         (state, action) => {
@@ -80,7 +83,7 @@ export const apiSideEffectSlice = createSlice({
         (action: PayloadAction<Record<string, any> | undefined>) => {
           return (
             action.payload?.statusCode === 201 &&
-            !action.payload.message.includes("token")
+            !action.payload?.message?.includes("token")
           );
         },
         (state) => {

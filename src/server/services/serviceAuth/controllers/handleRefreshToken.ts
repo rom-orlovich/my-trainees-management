@@ -34,7 +34,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
       updateQuerySingleItem(
         TABLES_DATA.USERS_TABLE_NAME,
         {
-          refresh_token: [],
+          refresh_tokens: [],
         },
         preRefreshToken,
         queryLogic
@@ -113,6 +113,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   const { password: pwd, refresh_tokens: refreshToken1, ...restUser } = user[0];
 
+  console.log(user[0]);
   req.modifiedActionResult = createModifiedActionResultFun(
     {
       message: "Access token has create successfully!",

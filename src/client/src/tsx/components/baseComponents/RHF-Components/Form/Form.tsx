@@ -140,8 +140,8 @@ export default function Form<TFormValues extends Record<string, any>>({
       const Error = error as {
         data: { errorField: Path<TFormValues>; message: string };
       };
-
-      methods.setError("server" as any, { message: Error.data.message });
+      console.log(Error);
+      methods.setError("server" as any, { message: Error.data?.message });
     }
   };
 
