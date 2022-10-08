@@ -31,17 +31,7 @@ CREATE TABLE IF NOT EXISTS "cities" (
   "user_id" integer DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS "locations" (
-  "location_id" serial PRIMARY KEY,
-  "city_id" INTEGER NOT NULL,
-  "street" VARCHAR(255) ,
-  "user_id" integer DEFAULT 1,
-   CONSTRAINT fk_city_id
-      FOREIGN KEY(city_id) 
-      REFERENCES cities(city_id)
-      ON DELETE SET NULL
-      ON UPDATE CASCADE
-);
+
 
 CREATE TABLE IF NOT EXISTS "profiles" (
   "profile_id" serial PRIMARY KEY,
@@ -52,15 +42,9 @@ CREATE TABLE IF NOT EXISTS "profiles" (
   "birthday" DATE NOT NULL,
   "email" VARCHAR(255) UNIQUE NOT NULL,
   "phone_number" VARCHAR(12) NOT NULL,
-  "location_id" INTEGER NOT NULL,
+  "location_id" INTEGER NOT NULL ,
   "date_join" DATE NOT NULL,
-  "status" BOOLEAN DEFAULT FALSE,
- 
-  CONSTRAINT fk_location_id
-      FOREIGN KEY(location_id) 
-      REFERENCES locations(location_id)
-      ON DELETE SET NULL
-      ON UPDATE CASCADE
+  "status" BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS "users"(
@@ -77,6 +61,31 @@ CONSTRAINT fk_profile_id
       ON DELETE SET NULL
       ON UPDATE CASCADE
 ) ;
+
+CREATE TABLE IF NOT EXISTS "locations" (
+  "location_id" serial PRIMARY KEY,
+  "city_id" INTEGER NOT NULL,
+  "street" VARCHAR(255) ,
+  "user_id" integer DEFAULT 1,
+   CONSTRAINT fk_city_id
+      FOREIGN KEY(city_id) 
+      REFERENCES cities(city_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+        CONSTRAINT fk_user_id 
+    FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+);
+
+--Constraint of fk_location_id should be after the creation of table locations;
+ALTER TABLE "profiles" add 
+  CONSTRAINT fk_location_id
+      FOREIGN KEY(location_id) 
+      REFERENCES locations(location_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE;
 
 CREATE TABLE IF NOT EXISTS "alerts"(
   "alert_id" serial PRIMARY KEY,

@@ -14,6 +14,7 @@ import {
 } from "../utilities/authHelpers";
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
+  console.log("handle login");
   if (req.modifiedActionResult?.error) return next();
 
   const { password, username } = req.body;

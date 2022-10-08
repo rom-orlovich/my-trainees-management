@@ -17,6 +17,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   );
 
   if (err) {
+    console.log(err);
     return res.sendStatus(403);
   }
 

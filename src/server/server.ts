@@ -23,6 +23,7 @@ import { API_ROUTES } from "./services/apiRoutesConstants";
 
 import authRouter from "./services/serviceAuth/routes/authRouter";
 import { validateTokenMiddleware } from "./services/serviceAuth/controllers/authMiddleware";
+import { createAdmin } from "./services/serviceAuth/utilities/authHelpers";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -65,6 +66,7 @@ async function connectDB() {
     // Uncomment this line will init the  db.
     // This line is for development purpose.
     // await initDB();
+    // await createAdmin();
 
     server = app.listen(PORT, () => {
       console.log(`listen port ${PORT}`);

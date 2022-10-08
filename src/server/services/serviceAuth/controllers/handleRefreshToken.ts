@@ -18,7 +18,9 @@ import {
 } from "../utilities/authHelpers";
 
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
+  console.log("handle refresh");
   const preRefreshToken = req.cookies.refresh_token;
+  // console.log(preRefreshToken);
   const queryLogic = "where refresh_token=$1";
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
@@ -29,7 +31,8 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   // Check if the user exist
   if (!(user && user[0]) || error) {
-    console.log(user, error);
+    console.log("user", user);
+    console.log("error", error);
     return res.sendStatus(403);
   }
 
@@ -70,8 +73,11 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
       queryLogic
     )
   );
+  console.log("userUpdate", userUpdate);
+  console.log("errorUpdate", errorUpdate);
 
   // Send refresh token
+  res.clearCookie("refresh_token");
   res.cookie("refresh_token", newRefreshToken, {
     maxAge: timeRemain,
     ...COOKIES_OPTIONS,

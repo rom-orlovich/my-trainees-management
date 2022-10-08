@@ -144,7 +144,10 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  // console.log(statement, queryParams);
+  if (tableName === "users") {
+    console.log("statement", statement);
+    console.log("queryParams", queryParams);
+  }
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;
@@ -176,6 +179,10 @@ const updateQuery = async (
   const statement = `UPDATE ${tableName} SET ${keyValuesStr}
   ${queryLogic} RETURNING *`;
   // console.log(statement, [paramId, ...paramsArr]);
+  if (tableName === "users") {
+    console.log("statement", statement);
+    console.log("queryParams", [paramId, ...paramsArr]);
+  }
   const rows = await client.query(statement, [paramId, ...paramsArr]);
   return rows;
 };

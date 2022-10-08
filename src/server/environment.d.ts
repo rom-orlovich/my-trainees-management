@@ -13,7 +13,8 @@ declare global {
       PORT_PG: number;
       DB_NAME_PG: string;
       HOST_PG: string;
-
+      ADMIN_USER: string;
+      ADMIN_PSW: string;
       ACCESS_TOKEN_SECRET: string;
       REFRESH_TOKEN_SECRET: string;
       EXPIRE_IN_ACCESS_TOKEN: string;

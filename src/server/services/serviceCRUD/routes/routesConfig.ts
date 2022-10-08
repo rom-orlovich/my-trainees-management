@@ -147,7 +147,7 @@ export const locationsOptionsCRUD: OptionsCRUD = {
       cityName: "city_name",
     },
     queryParams: {
-      userID: "user_id",
+      userID: "lo.user_id",
     },
   },
   validateSchema: locationsSchema,
@@ -165,7 +165,7 @@ export const providersOptionsCRUD: OptionsCRUD = {
       mainName: "provider_name",
     },
     queryParams: {
-      userID: "user_id",
+      userID: "pro.user_id",
     },
   },
   validateSchema: providersSchema,
@@ -192,7 +192,7 @@ export const expensesOptionsCRUD: OptionsCRUD = {
    ex.seller_id=pr.${TABLES_DATA.PROVIDERS_ID}
    `,
     queryParams: {
-      userID: "user_id",
+      userID: "ex.user_id",
     },
   },
 
@@ -210,7 +210,7 @@ export const equipmentsOptionsCRUD: OptionsCRUD = {
       mainName: "equipment_name",
     },
     queryParams: {
-      userID: "user_id",
+      userID: "eq.user_id",
     },
   },
   validateSchema: equipmentSchema,
@@ -229,7 +229,7 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
       mainName: "exercise_name",
     },
     queryParams: {
-      userID: "user_id",
+      userID: "exer.user_id",
     },
   },
   validateSchema: exercisesListSchema,
@@ -315,7 +315,7 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `subp.*`,
     querySelectLogic: ``,
     queryParams: {
-      userID: "user_id",
+      userID: "subp.user_id",
     },
   },
 
@@ -376,7 +376,7 @@ export const incomesOptionsCRUD: OptionsCRUD = {
     querySelectLogic: `JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as pr ON 
     pr.${TABLES_DATA.TRAINEE_ID}=in.buyer_id `,
     queryParams: {
-      userID: "user_id",
+      userID: "in.user_id",
     },
   },
   validateSchema: incomesSchema,
