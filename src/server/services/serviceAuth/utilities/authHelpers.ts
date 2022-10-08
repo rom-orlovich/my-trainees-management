@@ -21,7 +21,7 @@ export interface User {
   user_id: number;
   username: string;
   password: string;
-  refresh_token: string;
+  refresh_tokens: string[];
   role: UserRoles;
 }
 

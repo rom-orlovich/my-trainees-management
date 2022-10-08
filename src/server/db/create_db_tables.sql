@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS "users"(
     "role" varchar(50) DEFAULT 'admin',
     "username" varchar(50) UNIQUE,
     "password" varchar(255),
-    "refresh_token" varchar(255),
+    "refresh_tokens" TEXT[],
     "profile_id" INTEGER ,
 CONSTRAINT "role" CHECK ("role" IN ('trainee','admin','trainer')),
 CONSTRAINT fk_profile_id 

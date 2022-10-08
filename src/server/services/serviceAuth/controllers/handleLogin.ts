@@ -79,7 +79,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     updateQuerySingleItem(
       TABLES_DATA.USERS_TABLE_NAME,
       {
-        refresh_token: refreshToken,
+        refresh_tokens: [...user[0].refresh_tokens, refreshToken],
       },
       username,
       queryLogic
@@ -108,7 +108,12 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
   };
   const message = "Login is success!";
 
-  const { password: pwd, refresh_token: refreshToken1, ...restUser } = user[0];
+  console.log("user[0]", user[0]);
+  const {
+    password: pwd,
+    refresh_tokens: refreshTokenArr,
+    ...restUser
+  } = user[0];
   req.modifiedActionResult = createModifiedActionResultFun(
     {
       message,

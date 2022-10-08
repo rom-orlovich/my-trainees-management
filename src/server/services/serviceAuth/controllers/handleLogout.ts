@@ -6,27 +6,34 @@ import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
 import { ErrorCodes } from "../../serviceErrors/handleErrors";
 
-import { COOKIES_OPTIONS } from "../utilities/authHelpers";
+import { COOKIES_OPTIONS, User } from "../utilities/authHelpers";
 
 export const logoutHandler: RequestHandler = async (req, res, next) => {
   // console.log("handle logout");
   const refreshToken = req.cookies.refresh_token;
 
-  const queryLogic = `WHERE refresh_token=$1`;
+  const queryLogic = `where  $1=some(refresh_tokens)`;
 
-  const [userUpdate, errorUpdate] = await promiseHandler(
+  // Get the user details from the db by his username
+  let [user, error] = await promiseHandler<User[]>(
+    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", queryLogic, [refreshToken])
+  );
+  if (!user || !error) return res.status(400).json({ message: "No user" });
+
+  [user, error] = await promiseHandler(
     updateQuerySingleItem(
       TABLES_DATA.USERS_TABLE_NAME,
       {
-        refresh_token: "",
+        refresh_tokens: user[0].refresh_tokens.filter(
+          (token) => token !== refreshToken
+        ),
       },
       refreshToken,
       queryLogic
     )
   );
 
-  if (errorUpdate || !userUpdate)
-    return res.status(400).json({ message: "No user" });
+  if (!user || !error) return res.status(400).json({ message: "No user" });
 
   res.clearCookie("refresh_token", COOKIES_OPTIONS);
 

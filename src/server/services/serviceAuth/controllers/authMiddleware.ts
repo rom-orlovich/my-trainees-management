@@ -8,7 +8,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   res,
   next
 ) => {
-  console.log("handle token middleware");
+  // console.log("handle token middleware");
   const accessToken = req.headers.authorization?.split("Bearer ")[1];
 
   if (!accessToken) {
@@ -19,7 +19,6 @@ export const validateTokenMiddleware: RequestHandler = async (
     verifyAsync(accessToken, process.env.ACCESS_TOKEN_SECRET)
   );
 
-  console.log("decode", decode);
   if (err) {
     console.log("err", err);
     return res.sendStatus(403);
