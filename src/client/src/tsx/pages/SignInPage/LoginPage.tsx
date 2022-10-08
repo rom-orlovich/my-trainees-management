@@ -20,7 +20,8 @@ function LoginPage() {
       .unwrap()
       .then(({ ...rest }) => {
         nav(`/${APP_ROUTE.HOME_PAGE}`);
-      });
+      })
+      .catch(console.log);
 
   return (
     <Card className={style.card_form}>

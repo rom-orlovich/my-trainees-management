@@ -8,16 +8,20 @@ export const validateTokenMiddleware: RequestHandler = async (
   res,
   next
 ) => {
+  console.log("handle token middleware");
   const accessToken = req.headers.authorization?.split("Bearer ")[1];
 
-  if (!accessToken) return res.sendStatus(401);
+  if (!accessToken) {
+    return res.sendStatus(401);
+  }
 
   const [decode, err] = await promiseHandler(
     verifyAsync(accessToken, process.env.ACCESS_TOKEN_SECRET)
   );
 
+  console.log("decode", decode);
   if (err) {
-    console.log(err);
+    console.log("err", err);
     return res.sendStatus(403);
   }
 

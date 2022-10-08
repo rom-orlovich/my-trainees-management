@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
+import { AnyFun } from "../../types";
 import { getValuesArrObj } from "../../utilities/helpersFun";
 import style from "./LoadingSpinner.module.scss";
 export interface LoadingSpinnerProps<T> {
@@ -8,6 +9,7 @@ export interface LoadingSpinnerProps<T> {
     isError?: boolean;
     data: T | undefined;
   };
+  isErrorFun?: AnyFun;
   message?: string;
   nameData?: string;
   children?: ReactNode | ((data: T) => ReactNode);
@@ -16,12 +18,16 @@ export interface LoadingSpinnerProps<T> {
 // Return children as function with the exist data or as regular children type or
 // in case of error the function return not found data.
 function LoadingSpinner<T extends object>({
-  stateData: { isLoading, isFetching, data },
+  stateData: { isLoading, isFetching, data, isError },
+  isErrorFun,
   message,
   nameData = "The Data",
-
   children,
 }: LoadingSpinnerProps<T>) {
+  useEffect(() => {
+    isErrorFun && isError && isErrorFun();
+  }, [isError, isErrorFun]);
+
   if (isLoading || isFetching)
     return <p className="loading_spinner"> Loading...</p>;
 

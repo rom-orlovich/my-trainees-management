@@ -20,7 +20,7 @@ import {
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   console.log("handle refresh");
   const preRefreshToken = req.cookies.refresh_token;
-  // console.log(preRefreshToken);
+  // console.log("preRefreshToken", preRefreshToken);
   const queryLogic = "where refresh_token=$1";
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
@@ -58,9 +58,9 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     process.env.REFRESH_TOKEN_SECRET,
     timeRemain
   );
-  console.info("username", user[0].username);
-  console.log("preRefreshToken", preRefreshToken);
-  console.log("newRefreshToken", newRefreshToken);
+  // console.info("username", user[0].username);
+  // console.log("preRefreshToken", preRefreshToken);
+  // console.log("newRefreshToken", newRefreshToken);
 
   // eslint-disable-next-line no-unused-vars
   const [userUpdate, errorUpdate] = await promiseHandler<User[]>(
@@ -73,13 +73,13 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
       queryLogic
     )
   );
-  console.log("userUpdate", userUpdate);
-  console.log("errorUpdate", errorUpdate);
-
+  // console.log("userUpdate", userUpdate);
+  // console.log("errorUpdate", errorUpdate);
+  // console.log(timeRemain);
   // Send refresh token
-  res.clearCookie("refresh_token");
+  // res.clearCookie("refresh_token");
   res.cookie("refresh_token", newRefreshToken, {
-    maxAge: timeRemain,
+    maxAge: timeRemain * 1000,
     ...COOKIES_OPTIONS,
   });
 

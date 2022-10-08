@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { authApi } from "../api/authAPI";
 import { User } from "../api/interfaceAPI";
@@ -11,30 +11,49 @@ const initialState: {
   user: null,
   accessToken: null,
 };
+
+const setLoginUserDataReducer = (
+  state: {
+    user: User | null;
+    accessToken: string | null;
+  },
+  action: {
+    payload: any;
+    type: string;
+  }
+) => {
+  const payload = action.payload;
+  state.user = payload.user;
+  state.accessToken = payload.accessToken;
+};
+
+const setLogoutReducer = (state: {
+  user: User | null;
+  accessToken: string | null;
+}) => {
+  state.user = null;
+  state.accessToken = null;
+};
+
 export const authSlice = createSlice({
   name: "authState",
   initialState,
-  reducers: {},
+  reducers: {
+    setLogout: setLogoutReducer,
+    setLoginUserData: setLoginUserDataReducer,
+  },
   extraReducers: (builder) =>
     builder
-      .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
-        const payload = action.payload;
-        state.user = payload.user;
-        state.accessToken = payload.accessToken;
-      })
+      .addMatcher(
+        authApi.endpoints.login.matchFulfilled,
+        setLoginUserDataReducer
+      )
       .addMatcher(
         authApi.endpoints.refreshToken.matchFulfilled,
-        (state, action) => {
-          const payload = action.payload;
-          state.user = payload.user;
-
-          state.accessToken = payload.accessToken;
-        }
+        setLoginUserDataReducer
       )
-      .addMatcher(authApi.endpoints.logout.matchFulfilled, (state, action) => {
-        state.user = null;
-        state.accessToken = null;
-      }),
+      .addMatcher(authApi.endpoints.logout.matchFulfilled, setLogoutReducer),
 });
 
+export const { setLoginUserData, setLogout } = authSlice.actions;
 export const getAuthState = (state: RootState) => state.authSlice;

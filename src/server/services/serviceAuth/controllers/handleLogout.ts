@@ -9,7 +9,7 @@ import { ErrorCodes } from "../../serviceErrors/handleErrors";
 import { COOKIES_OPTIONS } from "../utilities/authHelpers";
 
 export const logoutHandler: RequestHandler = async (req, res, next) => {
-  console.log("handle logout");
+  // console.log("handle logout");
   const refreshToken = req.cookies.refresh_token;
 
   const queryLogic = `WHERE refresh_token=$1`;

@@ -12,22 +12,22 @@ export const SUBTRACT_EXPIRE_TIME = 1000 * 60 * 10;
 function PersistedLogin() {
   const authState = useAppSelector(getAuthState);
 
-  const { isLoading, isError, isFetching, data, refetch } =
-    authApi.useRefreshTokenQuery({}, { pollingInterval: SUBTRACT_EXPIRE_TIME });
+  const [trigger, { isLoading, isError, isFetching, data }] =
+    authApi.useLazyRefreshTokenQuery({});
 
   const nav = useNavigate();
 
   useEffect(() => {
-    if (isError) nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
-    if (!authState.accessToken) refetch();
-
-    console.log(authState.accessToken);
+    if (!authState.accessToken) trigger({});
   }, [isError, nav, authState]);
 
   return authState.accessToken ? (
     <Outlet />
   ) : (
-    <LoadingSpinner stateData={{ isLoading, isError, isFetching, data }}>
+    <LoadingSpinner
+      isErrorFun={() => nav(`/${APP_ROUTE.LOGIN_ROUTE}`)}
+      stateData={{ isLoading, isError, isFetching, data }}
+    >
       {(data) => <Outlet />}
     </LoadingSpinner>
   );

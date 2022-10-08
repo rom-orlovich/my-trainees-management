@@ -5,12 +5,14 @@ import {
   SignUpForm,
 } from "./interfaceAPI";
 
+export const apiAuthBaseQuery = fetchBaseQuery({
+  baseUrl: API_ROUTES.API_AUTH_ROUTE,
+  credentials: "include",
+});
+
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: API_ROUTES.API_AUTH_ROUTE,
-    credentials: "include",
-  }),
+  baseQuery: apiAuthBaseQuery,
   endpoints: (builder) => ({
     login: builder.mutation<ResponseMutationAuthAPI, any>({
       query: (credentials) => {

@@ -63,7 +63,7 @@ export const apiSideEffectSlice = createSlice({
 
         (state, action) => {
           // // Enable fetch alerts.
-          state.fetchAlerts = true;
+          // state.fetchAlerts = true;
           /// In order to open the model. The model will not open when there is action on alert.
 
           // If there is success response from the server after submit form,
@@ -78,7 +78,10 @@ export const apiSideEffectSlice = createSlice({
       )
       .addMatcher(
         (action: PayloadAction<Record<string, any> | undefined>) => {
-          return action.payload?.statusCode === 201;
+          return (
+            action.payload?.statusCode === 201 &&
+            !action.payload.message.includes("token")
+          );
         },
         (state) => {
           // // Enable fetch alerts.
