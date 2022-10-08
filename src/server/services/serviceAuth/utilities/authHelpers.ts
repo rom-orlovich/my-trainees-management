@@ -76,7 +76,7 @@ export async function createAdmin() {
   );
   const [user, error] = await promiseHandler<User[]>(
     insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
-      refresh_token: refreshToken,
+      refresh_tokens: [refreshToken],
       username: process.env.ADMIN_USER,
       password: hashPassword,
     })

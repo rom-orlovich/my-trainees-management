@@ -19,12 +19,23 @@ import AlertsNotification from "./AlertNotification/AlertsNotification";
 import { authApi } from "../../../redux/api/authAPI";
 
 import { relativePath } from "../../../utilities/helpersFun";
+import useGetUserID from "../../../hooks/useGetUserID";
 interface NavBarNavLinkLIs<T> {
   id?: string;
   element: ReactNode;
   dataLinks: T[];
 }
 
+function Welcome() {
+  return (
+    <>
+      <span style={{ fontWeight: "400" }}> Welcome, </span>
+      <span style={{ fontSize: "1.2rem", fontWeight: "600" }}>
+        {`${useGetUserID().authState.user?.username}!`}
+      </span>
+    </>
+  );
+}
 const navBarLink: NavBarNavLinkLIs<LinkData>[] = [
   {
     id: "addIconButton",
@@ -45,7 +56,8 @@ const navBarLink: NavBarNavLinkLIs<LinkData>[] = [
     id: "profileButton",
     element: <FaUserCircle className={style.profile_icon} />,
     dataLinks: [
-      { to: relativePath(APP_ROUTE.PROFILE_ROUTE), text: "Profile" },
+      { to: relativePath(APP_ROUTE.PROFILE_ROUTE), icon: <Welcome /> },
+      // { to: relativePath(APP_ROUTE.PROFILE_ROUTE), text: "Profile" },
       {
         to: relativePath(APP_ROUTE.SETTINGS_ROUTE),
         text: "Setting",

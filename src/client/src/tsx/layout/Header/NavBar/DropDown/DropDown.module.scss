@@ -25,7 +25,7 @@
 }
 .sec_li {
   @include flex-dir(null, center);
-  height: 3.5rem;
+  height: 4rem;
   &:hover {
     background-color: rgb(190, 230, 249);
   }
