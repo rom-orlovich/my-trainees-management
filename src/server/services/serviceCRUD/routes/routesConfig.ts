@@ -21,6 +21,7 @@ import {
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
+import { UserRoles, USER_ROLES } from "../../serviceAuth/utilities/authHelpers";
 
 export interface SelectTableQueryParam {
   tableName: string;
@@ -39,18 +40,85 @@ export interface SelectTableQueryParam {
   };
 }
 
+// export type ROLE_ADMIN = ["admin"];
+// export type ROLE_TRAINER = ["admin", "trainer"];
+// export type ROLE_TRAINEE = ["admin", "trainer", "trainee"];
+
+export const ROLE_ADMIN = ["admin"] as const;
+export const ROLE_TRAINER = ["admin", "trainer"] as const;
+export const ROLE_ALL = ["admin", "trainer", "trainee"] as const;
+export type PermissionsRolesType =
+  | typeof ROLE_ADMIN
+  | typeof ROLE_TRAINER
+  | typeof ROLE_ALL;
+export interface Permissions {
+  type: PermissionsRolesType;
+  operations?: {
+    delete: PermissionsRolesType;
+    update: PermissionsRolesType;
+    create: PermissionsRolesType;
+  };
+}
+
 export interface OptionsCRUD {
   singleEntityName: string; // name of one item
   selectQuery: SelectTableQueryParam;
   validateSchema?: yup.ObjectSchema<any>;
-  permissions?: {
-    create: boolean;
-    read: boolean;
-    update: boolean;
-    delete: boolean;
-  };
+  permissions: Permissions;
   logAlert?: boolean;
 }
+
+export const PERMISSION_ADMIN: Permissions = { type: ROLE_ADMIN };
+export const PERMISSION_ALL_WITHOUT_UPDATE: Permissions = {
+  type: ROLE_ALL,
+  operations: {
+    delete: ROLE_ALL,
+    update: ROLE_ADMIN,
+    create: ROLE_ALL,
+  },
+};
+export const PERMISSION_TRAINER_WITHOUT_DELETE: Permissions = {
+  type: ROLE_TRAINER,
+  operations: {
+    delete: ROLE_ADMIN,
+    update: ROLE_TRAINER,
+    create: ROLE_TRAINER,
+  },
+};
+export const PERMISSION_TRAINER_ONLY_CREATE: Permissions = {
+  type: ROLE_TRAINER,
+  operations: {
+    delete: ROLE_ADMIN,
+    update: ROLE_ADMIN,
+    create: ROLE_TRAINER,
+  },
+};
+export const PERMISSION_TRAINER: Permissions = {
+  type: ROLE_TRAINER,
+  operations: {
+    delete: ROLE_TRAINER,
+    update: ROLE_TRAINER,
+    create: ROLE_TRAINER,
+  },
+};
+export const PERMISSION_TRAINEE_ONLY_UPDATE: Permissions = {
+  type: ROLE_ALL,
+  operations: {
+    delete: ROLE_TRAINER,
+    update: ROLE_ALL,
+    create: ROLE_TRAINER,
+  },
+};
+export const PERMISSION_TRAINEE_ONLY_READ: Permissions = {
+  type: ROLE_ALL,
+  operations: {
+    delete: ROLE_TRAINER,
+    update: ROLE_TRAINER,
+    create: ROLE_TRAINER,
+  },
+};
+
+export const PERMISSION_ALL: Permissions = { type: ROLE_ALL };
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
@@ -64,6 +132,7 @@ export const usersOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `*`,
     querySelectLogic: ``,
   },
+  permissions: PERMISSION_ADMIN,
 };
 
 export const alertsOptionsCRUD: OptionsCRUD = {
@@ -77,8 +146,10 @@ export const alertsOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
+  permissions: PERMISSION_ALL_WITHOUT_UPDATE,
   logAlert: false,
 };
+
 export const leadsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.LEADS_ENTITY,
   selectQuery: {
@@ -94,6 +165,7 @@ export const leadsOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
+  permissions: PERMISSION_TRAINER,
 
   validateSchema: leadsSchema,
 };
@@ -112,7 +184,7 @@ export const musclesGroupOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
-
+  permissions: PERMISSION_TRAINER_WITHOUT_DELETE,
   validateSchema: musclesGroupSchema,
 };
 
@@ -130,7 +202,7 @@ export const citiesOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
-
+  permissions: PERMISSION_TRAINER_WITHOUT_DELETE,
   validateSchema: citiesSchema,
 };
 
@@ -150,6 +222,7 @@ export const locationsOptionsCRUD: OptionsCRUD = {
       userID: "lo.user_id",
     },
   },
+  permissions: PERMISSION_TRAINER,
   validateSchema: locationsSchema,
 };
 export const providersOptionsCRUD: OptionsCRUD = {
@@ -168,6 +241,7 @@ export const providersOptionsCRUD: OptionsCRUD = {
       userID: "pro.user_id",
     },
   },
+  permissions: PERMISSION_TRAINER,
   validateSchema: providersSchema,
 };
 
@@ -179,6 +253,7 @@ export const weeksOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: "*",
     querySelectLogic: ``,
   },
+  permissions: PERMISSION_TRAINER,
   validateSchema: weeksSchema,
 };
 
@@ -195,7 +270,7 @@ export const expensesOptionsCRUD: OptionsCRUD = {
       userID: "ex.user_id",
     },
   },
-
+  permissions: PERMISSION_TRAINER,
   validateSchema: expensesSchema,
 };
 
@@ -213,6 +288,7 @@ export const equipmentsOptionsCRUD: OptionsCRUD = {
       userID: "eq.user_id",
     },
   },
+  permissions: PERMISSION_TRAINER,
   validateSchema: equipmentSchema,
 };
 
@@ -232,6 +308,7 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
       userID: "exer.user_id",
     },
   },
+  permissions: PERMISSION_TRAINER,
   validateSchema: exercisesListSchema,
 };
 
@@ -249,7 +326,7 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
       traineeID: TABLES_DATA.TRAINEE_ID,
     },
   },
-
+  permissions: PERMISSION_TRAINEE_ONLY_READ,
   validateSchema: trainingProgramsListSchema,
 };
 
@@ -272,7 +349,7 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
       trainingProgramListID: TABLES_DATA.TRAINING_PROGRAMS_LIST_ID,
     },
   },
-
+  permissions: PERMISSION_TRAINEE_ONLY_UPDATE,
   validateSchema: trainingProgramSchema,
 };
 
@@ -284,6 +361,7 @@ export const nutritionProgramOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `*`,
     querySelectLogic: ``,
   },
+  permissions: PERMISSION_TRAINEE_ONLY_READ,
   validateSchema: nutritionProgramSchema,
 };
 
@@ -304,6 +382,7 @@ export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
     LEFT JOIN ${TABLES_DATA.WEEKLY_TABLE_NAME} as we ON 
     we.${TABLES_DATA.WEEKLY_ID}=np.${TABLES_DATA.WEEKLY_ID} `,
   },
+  permissions: PERMISSION_TRAINEE_ONLY_UPDATE,
   validateSchema: nutritionProgramsListSchema,
 };
 
@@ -318,7 +397,7 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
       userID: "subp.user_id",
     },
   },
-
+  permissions: PERMISSION_TRAINER,
   validateSchema: subscriptionPlansSchema,
 };
 
@@ -363,7 +442,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
       ],
     },
   },
-
+  permissions: PERMISSION_TRAINER,
   validateSchema: traineesSchema,
 };
 
@@ -379,6 +458,7 @@ export const incomesOptionsCRUD: OptionsCRUD = {
       userID: "in.user_id",
     },
   },
+  permissions: PERMISSION_TRAINER,
   validateSchema: incomesSchema,
 };
 

@@ -156,7 +156,7 @@ function AutocompleteInput<T extends Record<string, any>>({
         >
           {(data) => {
             return (
-              isFetching ||
+              isLoading ||
               (isVisible && (
                 <ListObserver<T>
                   fn={() => listObserverFun(data)}

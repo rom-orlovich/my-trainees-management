@@ -25,40 +25,40 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
 
   // Check if route has permissions object.
-  if (optionsCRUD.permissions) {
-    const {
-      read,
-      create,
-      update,
-      delete: deleteCRUD,
-    } = optionsCRUD.permissions;
+  // if (optionsCRUD.permissions.operations) {
+  //   const {
 
-    read && newRoute.get("/", getValuesFromDB);
-    read && newRoute.get(singleEntityNameEndPointID, getValueFromDBbyID);
-    create &&
-      newRoute.post(
-        singleEntityNameEndPoint,
-        validateMiddlewareHandler,
-        createNewValueInDB
-      );
-    update &&
-      newRoute.put(
-        singleEntityNameEndPointID,
-        validateMiddlewareHandler,
-        updateValueByID
-      );
-    deleteCRUD && newRoute.delete(singleEntityNameEndPointID, deleteValueByID);
-  } else {
-    newRoute.route("/").get(getValuesFromDB);
-    newRoute
-      .route(singleEntityNameEndPoint)
-      .post(validateMiddlewareHandler, createNewValueInDB);
-    newRoute
-      .route(singleEntityNameEndPointID)
-      .get(getValueFromDBbyID)
-      .put(validateMiddlewareHandler, updateValueByID)
-      .delete(deleteValueByID);
-  }
+  //     create,
+  //     update,
+  //     delete: deleteCRUD,
+  //   } = optionsCRUD.permissions.operations;
+
+  //   newRoute.get("/", getValuesFromDB);
+  //    newRoute.get(singleEntityNameEndPointID, getValueFromDBbyID);
+  //   create &&
+  //     newRoute.post(
+  //       singleEntityNameEndPoint,
+  //       validateMiddlewareHandler,
+  //       createNewValueInDB
+  //     );
+  //   update &&
+  //     newRoute.put(
+  //       singleEntityNameEndPointID,
+  //       validateMiddlewareHandler,
+  //       updateValueByID
+  //     );
+  //   deleteCRUD && newRoute.delete(singleEntityNameEndPointID, deleteValueByID);
+  // } else {
+  newRoute.route("/").get(getValuesFromDB);
+  newRoute
+    .route(singleEntityNameEndPoint)
+    .post(validateMiddlewareHandler, createNewValueInDB);
+  newRoute
+    .route(singleEntityNameEndPointID)
+    .get(getValueFromDBbyID)
+    .put(validateMiddlewareHandler, updateValueByID)
+    .delete(deleteValueByID);
+  // }
 
   return newRoute;
 }

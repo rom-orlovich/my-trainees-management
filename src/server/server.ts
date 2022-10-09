@@ -22,7 +22,10 @@ import { handleAlertsMiddleware } from "./services/serviceAlerts/handleAlerts";
 import { API_ROUTES } from "./services/apiRoutesConstants";
 
 import authRouter from "./services/serviceAuth/routes/authRouter";
-import { validateTokenMiddleware } from "./services/serviceAuth/controllers/authMiddleware";
+import {
+  validateRolePermission,
+  validateTokenMiddleware,
+} from "./services/serviceAuth/controllers/authMiddleware";
 import { createAdmin } from "./services/serviceAuth/utilities/authHelpers";
 
 const app = express();
@@ -44,7 +47,12 @@ app.use(
 
 // Init all the routes of the app.
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
-  app.use(baseRoute, validateTokenMiddleware, createCRUDroutes(optionsCRUD));
+  app.use(
+    baseRoute,
+    validateTokenMiddleware,
+    validateRolePermission(optionsCRUD.permissions),
+    createCRUDroutes(optionsCRUD)
+  );
 });
 
 app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);

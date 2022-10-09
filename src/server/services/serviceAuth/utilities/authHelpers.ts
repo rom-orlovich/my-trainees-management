@@ -17,6 +17,13 @@ import { TABLES_DATA } from "../../../utilities/constants";
 import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
 
 export type UserRoles = "admin" | "trainee" | "trainer";
+
+export enum USER_ROLES {
+  ADMIN = "admin",
+  TRAINEE = "trainee",
+  TRAINER = "trainer",
+}
+
 export interface User {
   user_id: number;
   username: string;
