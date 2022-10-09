@@ -16,7 +16,7 @@ const initialState = {
     // The response of delete item from the api will have id.
     // therefore the page will return to the pre page.
     // Enable this behavior only for specific components like forms.
-    disableGoPrevPage: true,
+    disableGoPrevPage: false,
     goPrevPage: false,
   },
   isAlertsOpen: false,
@@ -65,18 +65,15 @@ export const apiSideEffectSlice = createSlice({
         },
 
         (state, action) => {
-          // // Enable fetch alerts.
-          // state.fetchAlerts = true;
-          /// In order to open the model. The model will not open when there is action on alert.
+          // / In order to open the model. The model will not open when there is action on alert.
 
           // If there is success response from the server after submit form,
           // set goPrevPage to true , in order to go back the previous page.
           if (
             !state.goPrePageBehaviorState.disableGoPrevPage &&
             action?.payload?.status === undefined
-          ) {
+          )
             state.goPrePageBehaviorState.goPrevPage = true;
-          }
         }
       )
       .addMatcher(

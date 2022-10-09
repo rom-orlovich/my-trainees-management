@@ -36,7 +36,6 @@ export function ExerciseForm({
         onSubmit={onSubmit}
         nameForm={"Exercise"}
         formOptions={{
-          mode: "onChange",
           defaultValues: {
             user_id: useGetUserID().user_id,
             exercise_id: defaultValues?.exercise_id,
@@ -44,6 +43,8 @@ export function ExerciseForm({
             equipment_id: defaultValues?.equipment_id,
             muscles_group_id: defaultValues?.muscles_group_id,
           },
+          mode: "onChange",
+          reValidateMode: "onBlur",
           resolver: yupResolver(exercisesListSchema),
         }}
       >

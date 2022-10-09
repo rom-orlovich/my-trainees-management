@@ -62,7 +62,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   const { defaultValues, errors } = useAppSelector(getFormsState);
 
   const {
-    goPrePageBehaviorState: { goPrevPage },
+    goPrePageBehaviorState: { goPrevPage, disableGoPrevPage },
   } = useAppSelector(getApiSideEffect);
   const dispatch = useAppDispatch();
 
@@ -73,42 +73,42 @@ export default function Form<TFormValues extends Record<string, any>>({
       ...defaultValues[location.pathname],
     },
   });
-
-  useEffect(() => {}, []);
-  // Side effect that enable the goPrePage state only for form components.
-  useEffect(() => {
-    dispatch(enableGoPrevPage());
-  }, [dispatch]);
+  // dispatch(enableGoPrevPage());
+  // useEffect(() => {}, []);
+  // // Side effect that enable the goPrePage state only for form components.
+  // useEffect(() => {
+  // dispatch(enableGoPrevPage());
+  // }, [dispatch]);
 
   // Side effect of return the to the previous page after the api response a response with id.
-  useEffect(() => {
-    if (goPrevPage) {
-      dispatch(resetGoPrevPageState());
-      nav((pathMove || -1) as any);
-    }
-  }, [dispatch, pathMove, goPrevPage, nav]);
+  // useEffect(() => {
+  //   if (goPrevPage) {
+  //     dispatch(resetGoPrevPageState());
+  //     nav((pathMove || -1) as any);
+  //   }
+  // }, [dispatch, pathMove, goPrevPage, nav]);
 
   // Side effect of reset the form  after submit was successfully
   // and if the form is not in edit mode so save the empty state values of the form .
-  useEffect(() => {
-    if (methods.formState.isSubmitSuccessful) {
-      methods.reset();
-      if (!editMode)
-        dispatch(
-          saveFormState({
-            url: location.pathname,
-            values: methods.getValues(),
-          })
-        );
-    }
-  }, [
-    nav,
-    editMode,
-    methods.formState.isSubmitSuccessful,
-    methods,
-    dispatch,
-    location.pathname,
-  ]);
+  // useEffect(() => {
+  //   if (methods.formState.isSubmitSuccessful) {
+  //     methods.reset();
+  //     if (!editMode)
+  //       dispatch(
+  //         saveFormState({
+  //           url: location.pathname,
+  //           values: methods.getValues(),
+  //         })
+  //       );
+  //   }
+  // }, [
+  //   nav,
+  //   editMode,
+  //   methods.formState.isSubmitSuccessful,
+  //   methods,
+  //   dispatch,
+  //   location.pathname,
+  // ]);
 
   // Side effect if the form is not in edit mode.
   // saves the form state values after the user exit from the form component
@@ -135,7 +135,25 @@ export default function Form<TFormValues extends Record<string, any>>({
 
   const handleSubmit = async (data: TFormValues) => {
     try {
+      console.log("disableGoPrevPage", disableGoPrevPage);
       await onSubmit(data);
+
+      methods.reset();
+      if (!editMode)
+        dispatch(
+          saveFormState({
+            url: location.pathname,
+            values: methods.getValues(),
+          })
+        );
+      console.log(goPrevPage, "goPrevPage");
+
+      if (disableGoPrevPage) {
+        dispatch(enableGoPrevPage());
+      }
+      if (goPrevPage) {
+        nav((pathMove || -1) as any);
+      }
     } catch (error) {
       const Error = error as {
         data: { errorField: Path<TFormValues>; message: string };

@@ -26,7 +26,6 @@ export function TrainingProgramsListAddForm({
     // Instead after submit this form the function will move the user to his training program's exercises list.
     dispatch(resetGoPrevPageState());
 
-    console.log(body);
     addFunction({
       addItem,
     })({ ...body, trainee_id }).then((response) => {

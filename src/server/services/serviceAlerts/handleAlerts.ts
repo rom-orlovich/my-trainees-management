@@ -53,11 +53,14 @@ export const createModifiedActionResult =
     }
 
     const response = successRes?.sendDataID
-      ? createDataIDwithMessage({
-          action,
-          messagePayload: successRes?.messagePayload,
-          singleEntityName,
-        })
+      ? createDataIDwithMessage(
+          {
+            action,
+            messagePayload: successRes?.messagePayload,
+            singleEntityName,
+          },
+          successRes?.data
+        )
       : {
           message: successRes?.message,
           ...successRes?.data,
