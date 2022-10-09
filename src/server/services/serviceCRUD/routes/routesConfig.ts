@@ -132,6 +132,7 @@ export const usersOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `us.user_id,us.username,us.role`,
     querySelectLogic: ``,
   },
+
   permissions: PERMISSION_ADMIN,
 };
 
