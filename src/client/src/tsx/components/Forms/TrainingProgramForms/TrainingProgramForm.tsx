@@ -30,8 +30,6 @@ export default function TrainingProgramForms({
           ...fromProps,
         }}
         formOptions={{
-          mode: "onBlur",
-
           defaultValues: defaultValues,
           resolver: yupResolver(trainingProgramSchema),
         }}

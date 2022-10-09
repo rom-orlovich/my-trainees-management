@@ -12,11 +12,9 @@ import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import {
   enableGoPrevPage,
   getApiSideEffect,
-  resetGoPrevPageState,
 } from "../../../../redux/slices/apiSideEffectSlice";
 import {
   getFormsState,
-  saveErrorForm,
   saveFormState,
 } from "../../../../redux/slices/formValuesStateSlice";
 import { genClassName } from "../../../../utilities/helpersFun";
@@ -53,13 +51,13 @@ export default function Form<TFormValues extends Record<string, any>>({
   authButtonsContainer,
   isLoginMode,
 }: FormRHFProps<TFormValues>) {
-  const [disabled, setDisabled] = useState(true);
+  // const [disabled, setDisabled] = useState(true);
 
   const nav = useNavigate();
 
   const location = useLocation();
 
-  const { defaultValues, errors } = useAppSelector(getFormsState);
+  const { defaultValues } = useAppSelector(getFormsState);
 
   const {
     goPrePageBehaviorState: { goPrevPage, disableGoPrevPage },
@@ -68,6 +66,8 @@ export default function Form<TFormValues extends Record<string, any>>({
 
   const methods = useForm<TFormValues>({
     ...formOptions,
+    mode: "onBlur",
+    reValidateMode: "onBlur",
     defaultValues: {
       ...formOptions?.defaultValues,
       ...defaultValues[location.pathname],
@@ -127,17 +127,15 @@ export default function Form<TFormValues extends Record<string, any>>({
   }, [location.pathname, location, dispatch, methods, editMode]);
 
   // Side effect of disabling the submit button if the form is not valid.
-  useEffect(() => {
-    if (methods.formState.isValid) {
-      setDisabled(false);
-    }
-  }, [methods.formState.isValid]);
+  // useEffect(() => {
+  //   if (methods.formState.isValid) {
+  //     setDisabled(false);
+  //   }
+  // }, [methods.formState.isValid]);
 
   const handleSubmit = async (data: TFormValues) => {
     try {
-      console.log("disableGoPrevPage", disableGoPrevPage);
       await onSubmit(data);
-
       methods.reset();
       if (!editMode)
         dispatch(
@@ -146,7 +144,6 @@ export default function Form<TFormValues extends Record<string, any>>({
             values: methods.getValues(),
           })
         );
-      console.log(goPrevPage, "goPrevPage");
 
       if (disableGoPrevPage) {
         dispatch(enableGoPrevPage());
@@ -190,20 +187,20 @@ export default function Form<TFormValues extends Record<string, any>>({
         )}
         {changeButtonContainer ? (
           <div className={style.buttons_container_save_button}>
-            <button type="submit" disabled={disabled}>
+            <button type="submit" disabled={!methods.formState.isValid}>
               Save Changes
             </button>
           </div>
         ) : authButtonsContainer ? (
           <div className={style.buttons_container_save_button}>
-            <button type="submit" disabled={disabled}>
+            <button type="submit" disabled={!methods.formState.isValid}>
               {authModeText}
             </button>
           </div>
         ) : (
           <div className={style.buttons_container_edit_back}>
             <Link to={-1 as any}>Back</Link>
-            <button type="submit" disabled={disabled}>
+            <button type="submit" disabled={!methods.formState.isValid}>
               {buttonNext ? "Next" : editModeText}
             </button>
           </div>

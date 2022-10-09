@@ -63,14 +63,12 @@ function AutocompleteInput<T extends Record<string, any>>({
   queriesOptions,
 }: AutocompleteInputProps<T>) {
   const [page, setPage] = useState(1);
-
+  // The first element in array is the id of the option. The sec element is the input value.
   const [inputValueName, setInputValue] = useState(["", ""]);
-
+  // Debounce the input value change.
   const debounce = useDebounceHook(inputValueName, 500);
-
   const autoCompleteContainerRef = useRef<HTMLDivElement | null>(null);
   const isVisible = useHideUnFocusElement(autoCompleteContainerRef);
-
   const [lastDataState, setLastData] = useState<any[]>([]);
 
   const { data, isError, isFetching, isLoading } = useGetData({
@@ -82,8 +80,10 @@ function AutocompleteInput<T extends Record<string, any>>({
   const firstRender = useRef(true);
 
   useEffect(() => {
+    // The parent element's access to the value of the Autocomplete component.
     setSelectOptionValue && setSelectOptionValue(debounce);
-    if (debounce[0]) RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
+    // React hook form Autocomplete component need only the id of the option.
+    debounce[0] && RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
   }, [debounce, RHFProps, setSelectOptionValue]);
 
   // Set default value by given id , when the data is defined and the id
@@ -124,7 +124,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   };
 
   // Handles the scrolling event of the autocomplete input's options.
-  // If there is next page , add the new result to the data array,
+  // If there is next page, add the new result to the data array,
   // and update the page number to the next page.
   const listObserverFun = <T,>(data: ResponseQueryAPI<T>) => {
     if (data.next) {
@@ -156,7 +156,8 @@ function AutocompleteInput<T extends Record<string, any>>({
         >
           {(data) => {
             return (
-              isVisible && (
+              isFetching ||
+              (isVisible && (
                 <ListObserver<T>
                   fn={() => listObserverFun(data)}
                   listProps={{
@@ -179,7 +180,7 @@ function AutocompleteInput<T extends Record<string, any>>({
                         : [...lastDataState, ...data.data],
                   }}
                 />
-              )
+              ))
             );
           }}
         </LoadingSpinner>

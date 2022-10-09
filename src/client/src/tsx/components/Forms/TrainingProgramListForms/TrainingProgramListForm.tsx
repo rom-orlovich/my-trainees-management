@@ -23,7 +23,6 @@ export function TrainingProgramListForms({
         onSubmit={onSubmit}
         editMode={editMode}
         formOptions={{
-          mode: "onChange",
           defaultValues: defaultValues,
           resolver: yupResolver(trainingProgramsListSchema),
         }}

@@ -13,26 +13,6 @@ export function TrainingProgramsListEditForm() {
   const { data, isLoading, isFetching, isError } =
     trainingProgramsListApi.useGetItemByIDQuery(id);
 
-  // const defaultData: TrainingProgramsListTableAPI = data
-  //   ? {
-  // ...data,
-  // trainee_id: data.trainee_id,
-  // date_start: formatDate(data.date_start) as any,
-  // date_end: data.date_end ? formatDate(data.date_end) : (null as any),
-  // note_topic: data?.note_topic,
-  // note_text: data.note_text,
-  //     }
-  //   : ({} as TrainingProgramsListTableAPI);
-
-  // const handleSubmit = (body: TrainingProgramsListTableAPI) => {
-  //   const { note_topic, note_text, ...rest } = body;
-
-  //   updateFunction({
-  //     updateItem,
-  //     id,
-  //   })({ ...body });
-  // };
-
   const handleSubmit = (body: TrainingProgramsListTableAPI) => {
     updateFunction({
       id,

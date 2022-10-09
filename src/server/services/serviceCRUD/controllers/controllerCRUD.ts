@@ -49,7 +49,7 @@ export function createRoutesControllers({
     const { page, asc, numResults, ...rest } = req.query;
 
     const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
-    const numResultDefault = Number(numResults || 10);
+    const numResultDefault = Number(numResults || 5);
     const [data, err] = await promiseHandler(
       selectPagination(
         tableID,

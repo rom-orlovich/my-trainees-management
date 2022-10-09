@@ -43,8 +43,7 @@ export function ExerciseForm({
             equipment_id: defaultValues?.equipment_id,
             muscles_group_id: defaultValues?.muscles_group_id,
           },
-          mode: "onChange",
-          reValidateMode: "onBlur",
+
           resolver: yupResolver(exercisesListSchema),
         }}
       >

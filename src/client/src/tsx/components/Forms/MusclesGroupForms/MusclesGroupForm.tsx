@@ -24,7 +24,6 @@ export function MusclesGroupForm({
         nameForm="Muscles Group"
         formProps={{ className: style.form_musclesGroup }}
         formOptions={{
-          mode: "onChange",
           defaultValues: { user_id: useGetUserID().user_id, ...defaultValues },
           resolver: yupResolver(musclesGroupSchema),
         }}

@@ -8,11 +8,10 @@ export function useObserver<E extends HTMLElement, L extends HTMLElement>(
 ) {
   useEffect(() => {
     let el: Element | undefined;
-
     const observer = new IntersectionObserver(
-      (enteries) => {
+      (entries) => {
         if (!observerRoot.current) return;
-        if (enteries[0].isIntersecting) {
+        if (entries[0].isIntersecting) {
           fn();
         }
       },

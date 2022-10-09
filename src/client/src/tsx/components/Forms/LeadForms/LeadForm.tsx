@@ -29,7 +29,6 @@ export function LeadForm({
       nameForm="Lead"
       pathMove={`/${APP_ROUTE.LEADS_ROUTE}`}
       formOptions={{
-        mode: "onChange",
         defaultValues: { user_id: useGetUserID().user_id, ...defaultValues },
         resolver: yupResolver(leadsSchema),
       }}

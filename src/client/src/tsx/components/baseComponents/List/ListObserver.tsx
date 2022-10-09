@@ -17,11 +17,7 @@ function ListObserver<T extends Record<string, any>>({
   const lastEl = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<null | HTMLUListElement>(null);
 
-  const observerFn = useCallBackFun(() => {
-    fn();
-  });
-
-  useObserver(lastEl, listRef, observerFn);
+  useObserver(lastEl, listRef, fn);
   return (
     <List<T>
       UlProps={{ ref: listRef, ...listProps.UlProps }}
