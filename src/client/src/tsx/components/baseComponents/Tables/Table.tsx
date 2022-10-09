@@ -23,13 +23,11 @@ function Table<T extends Record<string, any>>({
   const newDataArr = dataArr.map((obj: T) => {
     let newObj = {};
 
+    console.log(obj);
     for (let key in obj) {
-      console.log(obj["username"]);
-      if (!obj["username"] && key !== "user_id")
+      if (key === "user_id" && obj["username"]) {
         newObj = { ...newObj, [key]: obj[key] };
-      else {
-        newObj = { ...newObj, [key]: obj[key] };
-      }
+      } else if (key !== "user_id") newObj = { ...newObj, [key]: obj[key] };
     }
     return newObj;
   });

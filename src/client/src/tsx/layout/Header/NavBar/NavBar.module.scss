@@ -9,7 +9,7 @@
   @include flex-dir(null, center);
   gap: 5rem;
   padding-right: 0rem;
-  margin-right: 3rem;
+  margin-right: 3.5rem;
   .profile_icon {
     @extend %icon;
     @include heightWidth(3.2rem, 3.2rem);
@@ -25,7 +25,7 @@
   }
 
   .profile_drop_down {
-    min-width: 12.5rem;
+    min-width: 13.5rem;
   }
 }
 @include smartphone() {

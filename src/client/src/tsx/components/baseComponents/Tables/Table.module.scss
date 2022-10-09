@@ -30,7 +30,7 @@ th {
 }
 
 td[class*="active"] {
-  color: rgb(14, 222, 14);
+  color: rgb(42 207 42);
 }
 td[class*="unactive"] {
   color: red;
@@ -71,7 +71,9 @@ tr:nth-child(even) {
     display: block;
     width: 100%;
   }
-
+  tr:nth-child(even) {
+    background-color: rgb(242 245 255);
+  }
   tr {
     margin-bottom: 1rem;
     background-color: none;

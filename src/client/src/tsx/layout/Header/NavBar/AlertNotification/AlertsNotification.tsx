@@ -26,15 +26,17 @@ function DropDownLiAlert(
 ) {
   const dropDownRef = useRef<HTMLLIElement | null>(null);
 
-  const [trigger] = alertsApi.useDeleteItemMutation();
+  const [deleteOne] = alertsApi.useDeleteItemMutation();
+  const [deleteAll] = alertsApi.useDeleteAllMutation();
   // Delete the alert and keep the window open
   const deleteFun = () => {
     props.setAlertNotificationState && props.setAlertNotificationState(true);
-    trigger && trigger(String(props.data.alert_id));
+    deleteOne(String(props.data.alert_id));
   };
   const deleteAllFun = () => {
     // props.setAlertNotificationState && props.setAlertNotificationState(true);
-    trigger && trigger(String(props.data.alert_id));
+    props.setAlertNotificationState && props.setAlertNotificationState(true);
+    deleteAll({});
   };
 
   return (
@@ -44,7 +46,7 @@ function DropDownLiAlert(
     >
       <div>
         <span className={style.deleteAll}>
-          <VscClearAll />
+          <VscClearAll onClick={deleteAllFun} />
         </span>
         <p className={style.alert_message}>{props.data.alert_message}</p>
         <p className={style.date}>

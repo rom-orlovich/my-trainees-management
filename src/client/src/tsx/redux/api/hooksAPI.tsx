@@ -128,11 +128,22 @@ export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
   singleEntityName: API_ROUTES.SUBSCRIPTION_PLANS_ENTITY,
   listId: "members_plans_list",
 });
+
 export const alertsApi = apiCreateCRUDHooks<AlertsAPI>({
   reducerPath: "alertsApi",
   baseUrl: API_ROUTES.ALERTS_ROUTE,
   singleEntityName: API_ROUTES.ALERTS_ENTITY,
   listId: "alerts_list",
+}).injectEndpoints({
+  endpoints: (builder) => ({
+    deleteAll: builder.mutation({
+      query: () => ({
+        url: ``,
+        method: "delete",
+      }),
+      invalidatesTags: [{ type: API_ROUTES.ALERTS_ENTITY, id: "alerts_list" }],
+    }),
+  }),
 });
 
 // export const incomesApi = apiCreateCRUDHooks<Income>({

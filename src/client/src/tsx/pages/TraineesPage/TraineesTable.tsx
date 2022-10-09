@@ -4,8 +4,7 @@ import { useLocation } from "react-router-dom";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
-import { useAppSelector } from "../../redux/hooks";
-import { getAuthState } from "../../redux/slices/authSlice";
+
 import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
@@ -15,18 +14,26 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
     location_id,
     user_id,
     profile_id,
-
     birthday,
     identify_num,
     street,
     phone_number,
     city_name,
     email,
+    date_join,
+    last_name,
+    first_name,
+    trainee_id,
+    trainer_user_id,
 
     ...rest
   } = arg;
 
-  return rest;
+  return {
+    id: arg.trainee_id,
+    full_name: arg.first_name + " " + arg.last_name,
+    ...rest,
+  };
 };
 export interface PageTableProps {
   mainName?: string;

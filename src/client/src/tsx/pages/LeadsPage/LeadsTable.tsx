@@ -11,8 +11,22 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
 export const transformDataLead = (arg: LeadsTableAPI) => {
-  const { note_text, note_topic, ...rest } = arg;
-  return rest;
+  const {
+    note_text,
+    note_topic,
+    lead_id,
+    first_name,
+    last_name,
+    date_lead,
+    ...rest
+  } = arg;
+
+  return {
+    id: lead_id,
+    date: date_lead,
+    full_name: first_name + " " + last_name,
+    ...rest,
+  };
 };
 function LeadsTable({
   mainName,

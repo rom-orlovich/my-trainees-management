@@ -60,7 +60,7 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
     createCRUDroutes(optionsCRUD)
   );
 });
-app.use(
+app.delete(
   API_ROUTES.ALERT_ROUTE,
   validateTokenMiddleware,
   validateRolePermission(PERMISSION_ALL_WITHOUT_UPDATE),
