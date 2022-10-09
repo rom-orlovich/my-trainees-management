@@ -25,13 +25,17 @@
   padding: 0.8rem;
   height: fit-content;
   background-color: white;
-
+  div {
+    width: 100%;
+  }
   h3 {
     text-decoration: underline;
   }
   .alert_message {
     font-size: 1.1rem;
     font-weight: 500;
+    padding: 0.5rem;
+    line-height: 1.2;
   }
   .deleteIcon {
     font-size: 1.7rem;

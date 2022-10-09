@@ -9,7 +9,7 @@ import page_style from "../Page.module.scss";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 
-function Trainees() {
+function TraineesPage() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);
   const authSliceState = useAppSelector(getAuthState);
   const queriesOptions = { trainerUserId: authSliceState.user?.user_id };
@@ -46,4 +46,4 @@ function Trainees() {
   );
 }
 
-export default Trainees;
+export default TraineesPage;

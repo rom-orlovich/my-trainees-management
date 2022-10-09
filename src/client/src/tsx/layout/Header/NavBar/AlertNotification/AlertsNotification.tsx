@@ -16,6 +16,7 @@ import { getAuthState } from "../../../../redux/slices/authSlice";
 import { delayFun, genClassName } from "../../../../utilities/helpersFun";
 import DropDown from "../DropDown/DropDown";
 import style from "./AlertsNotification.module.scss";
+import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 interface AlertsNotificationProps extends PropsBasic {}
 
 function DropDownLiAlert(
@@ -38,7 +39,11 @@ function DropDownLiAlert(
     props.setAlertNotificationState && props.setAlertNotificationState(true);
     deleteAll({});
   };
+  const username = useGetUserLoginData().authState.user?.username;
 
+  const messageAlert = props.data.alert_message.includes("Login")
+    ? `Welcome back, ${username}!  `
+    : props.data.alert_message;
   return (
     <li
       ref={dropDownRef}
@@ -48,11 +53,12 @@ function DropDownLiAlert(
         <span className={style.deleteAll}>
           <VscClearAll onClick={deleteAllFun} />
         </span>
-        <p className={style.alert_message}>{props.data.alert_message}</p>
+        <p className={style.alert_message}>{messageAlert}</p>
         <p className={style.date}>
           {new Date(props.data.alert_date).toLocaleString()}
         </p>
       </div>
+
       <span>
         <IoMdRemoveCircle onClick={deleteFun} className={style.deleteIcon} />
       </span>
