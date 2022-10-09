@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import useGetUserID from "../../hooks/useGetUserID";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import { equipmentsApi } from "../../redux/api/hooksAPI";
 import { EquipmentsTableAPI } from "../../redux/api/interfaceAPI";
 
@@ -14,7 +14,7 @@ import LeadsTable from "./EquipmentsListTable";
 function EquipmentsListPage() {
   const [equipment, setEquipment] = useState<string[]>(["", ""]);
 
-  const authState = useGetUserID();
+  const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
     <MainRoute mainRoutes={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}>

@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import useGetUserID from "../../../hooks/useGetUserID";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { CitiesTableAPI } from "../../../redux/api/interfaceAPI";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -21,7 +21,10 @@ export function CityForm({
       onSubmit={onSubmit}
       formOptions={{
         mode: "onChange",
-        defaultValues: { user_id: useGetUserID().user_id, ...defaultValues },
+        defaultValues: {
+          user_id: useGetUserLoginData().user_id,
+          ...defaultValues,
+        },
         resolver: yupResolver(citiesSchema),
       }}
     >

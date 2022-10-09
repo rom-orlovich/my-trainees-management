@@ -1,6 +1,7 @@
 import React from "react";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 
 import { musclesGroupApi } from "../../redux/api/hooksAPI";
 import { MusclesGroupTableAPI } from "../../redux/api/interfaceAPI";
@@ -16,6 +17,7 @@ const transformMuscleGroup = ({
 }: MusclesGroupTableAPI) => {
   return { muscles_group_id, muscles_group: muscles_group_name };
 };
+
 function MusclesGroupTable({
   mainName,
   queriesOptions,
@@ -30,7 +32,11 @@ function MusclesGroupTable({
         transformFun={transformMuscleGroup}
         nameData={"Muscles Group List"}
         getAllQuery={useGetItemsQuery}
-        deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
+        deleteItemFun={
+          useGetUserLoginData().authState.user?.role === "admin"
+            ? (id) => deleteFunMutation(id, deleteItem)
+            : undefined
+        }
       />
     </MainRoute>
   );

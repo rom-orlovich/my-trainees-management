@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import useGetUserID from "../../../hooks/useGetUserID";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { equipmentsApi, musclesGroupApi } from "../../../redux/api/hooksAPI";
 import {
   EquipmentsTableAPI,
@@ -23,7 +23,7 @@ export function ExerciseForm({
   editMode,
   fromProps,
 }: GeneralFormProps<ExercisesTableAPI>) {
-  const authState = useGetUserID();
+  const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
     <>
@@ -37,7 +37,7 @@ export function ExerciseForm({
         nameForm={"Exercise"}
         formOptions={{
           defaultValues: {
-            user_id: useGetUserID().user_id,
+            user_id: useGetUserLoginData().user_id,
             exercise_id: defaultValues?.exercise_id,
             exercise_name: defaultValues?.exercise_name,
             equipment_id: defaultValues?.equipment_id,

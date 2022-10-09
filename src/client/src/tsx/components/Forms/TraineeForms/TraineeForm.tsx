@@ -19,7 +19,7 @@ import { APP_ROUTE } from "../../../routes/routesConstants";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import { OmitKey } from "../../../types";
 
-import useGetUserID from "../../../hooks/useGetUserID";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 export function TraineeForm({
   fromProps,
@@ -34,7 +34,7 @@ export function TraineeForm({
   heading?: string;
   changeButtonContainer?: boolean;
 }) {
-  const authState = useGetUserID();
+  const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
     <Form<TraineesBaseTableAPI>
@@ -52,7 +52,7 @@ export function TraineeForm({
         mode: "onChange",
         defaultValues: {
           ...defaultValues,
-          trainer_user_id: useGetUserID().user_id,
+          trainer_user_id: useGetUserLoginData().user_id,
         },
         resolver: yupResolver(
           traineesSchema.omit(["profile_id", "trainee_id"])

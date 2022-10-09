@@ -19,7 +19,7 @@ import AlertsNotification from "./AlertNotification/AlertsNotification";
 import { authApi } from "../../../redux/api/authAPI";
 
 import { relativePath } from "../../../utilities/helpersFun";
-import useGetUserID from "../../../hooks/useGetUserID";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 interface NavBarNavLinkLIs<T> {
   id?: string;
   element: ReactNode;
@@ -31,7 +31,7 @@ function Welcome() {
     <>
       <span style={{ fontWeight: "400" }}> Welcome, </span>
       <span style={{ fontSize: "1.2rem", fontWeight: "600" }}>
-        {`${useGetUserID().authState.user?.username}!`}
+        {`${useGetUserLoginData().authState.user?.username}!`}
       </span>
     </>
   );

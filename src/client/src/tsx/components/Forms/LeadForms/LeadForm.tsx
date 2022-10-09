@@ -15,7 +15,7 @@ import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 
-import useGetUserID from "../../../hooks/useGetUserID";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 export function LeadForm({
   onSubmit,
@@ -29,7 +29,10 @@ export function LeadForm({
       nameForm="Lead"
       pathMove={`/${APP_ROUTE.LEADS_ROUTE}`}
       formOptions={{
-        defaultValues: { user_id: useGetUserID().user_id, ...defaultValues },
+        defaultValues: {
+          user_id: useGetUserLoginData().user_id,
+          ...defaultValues,
+        },
         resolver: yupResolver(leadsSchema),
       }}
     >

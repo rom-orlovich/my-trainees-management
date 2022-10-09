@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import useGetUserID from "../../../hooks/useGetUserID";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { citiesApi } from "../../../redux/api/hooksAPI";
 import {
   CitiesTableAPI,
@@ -30,7 +30,10 @@ export function LocationForm({
       editMode={editMode}
       formOptions={{
         mode: "onChange",
-        defaultValues: { user_id: useGetUserID().user_id, ...defaultValues },
+        defaultValues: {
+          user_id: useGetUserLoginData().user_id,
+          ...defaultValues,
+        },
         resolver: yupResolver(locationsSchema),
       }}
     >

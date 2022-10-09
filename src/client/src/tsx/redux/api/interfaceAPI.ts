@@ -250,4 +250,5 @@ export interface SignUpForm {
 export interface User {
   user_id: number;
   username: string;
+  role: "admin" | "trainer" | "trainee";
 }
