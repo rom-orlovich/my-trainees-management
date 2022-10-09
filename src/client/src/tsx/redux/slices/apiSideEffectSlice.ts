@@ -17,7 +17,7 @@ const initialState = {
     // therefore the page will return to the pre page.
     // Enable this behavior only for specific components like forms.
     disableGoPrevPage: false,
-    goPrevPage: false,
+    goPrevPage: true,
   },
   isAlertsOpen: false,
   fetchAlerts: false,
@@ -29,7 +29,10 @@ export const apiSideEffectSlice = createSlice({
   reducers: {
     // Enable behavior of go back to previous page.
     enableGoPrevPage: (state) => {
-      state.goPrePageBehaviorState.disableGoPrevPage = false;
+      state.goPrePageBehaviorState.goPrevPage = true;
+    },
+    disableGoPrevPage: (state) => {
+      state.goPrePageBehaviorState.goPrevPage = false;
     },
 
     // Toggle the state of the model.
@@ -45,10 +48,6 @@ export const apiSideEffectSlice = createSlice({
       state.fetchAlerts = false;
     },
     // Reset the goPrePageState.
-    resetGoPrevPageState: (state) => {
-      state.goPrePageBehaviorState.disableGoPrevPage = true;
-      state.goPrePageBehaviorState.goPrevPage = false;
-    },
   },
 
   extraReducers: (builder) =>
@@ -65,14 +64,9 @@ export const apiSideEffectSlice = createSlice({
         },
 
         (state, action) => {
-          // / In order to open the model. The model will not open when there is action on alert.
-
           // If there is success response from the server after submit form,
           // set goPrevPage to true , in order to go back the previous page.
-          if (
-            !state.goPrePageBehaviorState.disableGoPrevPage &&
-            action?.payload?.status === undefined
-          )
+          if (action?.payload?.status === undefined)
             state.goPrePageBehaviorState.goPrevPage = true;
         }
       )
@@ -90,8 +84,8 @@ export const apiSideEffectSlice = createSlice({
       ),
 });
 export const {
-  resetGoPrevPageState,
   enableGoPrevPage,
+  disableGoPrevPage,
   disableFetchAlerts,
   changeModelState,
   changeAlertsState,

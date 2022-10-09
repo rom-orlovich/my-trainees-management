@@ -15,10 +15,16 @@ import { Server } from "http";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
 
-import { routesCRUDArr } from "./services/serviceCRUD/routes/routesConfig";
+import {
+  PERMISSION_ALL_WITHOUT_UPDATE,
+  routesCRUDArr,
+} from "./services/serviceCRUD/routes/routesConfig";
 import { createCRUDroutes } from "./services/serviceCRUD/routes/routesCRUD";
 import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
-import { handleAlertsMiddleware } from "./services/serviceAlerts/handleAlerts";
+import {
+  handleAlertsMiddleware,
+  handleDeleteAllUserAlerts,
+} from "./services/serviceAlerts/handleAlerts";
 import { API_ROUTES } from "./services/apiRoutesConstants";
 
 import authRouter from "./services/serviceAuth/routes/authRouter";
@@ -54,6 +60,12 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
     createCRUDroutes(optionsCRUD)
   );
 });
+app.use(
+  API_ROUTES.ALERT_ROUTE,
+  validateTokenMiddleware,
+  validateRolePermission(PERMISSION_ALL_WITHOUT_UPDATE),
+  handleDeleteAllUserAlerts
+);
 
 app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);
 

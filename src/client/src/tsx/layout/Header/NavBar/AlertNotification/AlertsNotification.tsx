@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
+// import { MdDeleteSweep } from "react-icons/md";
+import { VscClearAll } from "react-icons/vsc";
 
-import { IoMdRemoveCircle } from "react-icons/io";
-import { IoMdNotifications } from "react-icons/io";
+import { IoMdNotifications, IoMdRemoveCircle } from "react-icons/io";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 
 import { alertsApi } from "../../../../redux/api/hooksAPI";
 import { AlertsAPI } from "../../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import {
-  changeAlertsState,
   disableFetchAlerts,
   getApiSideEffect,
 } from "../../../../redux/slices/apiSideEffectSlice";
@@ -32,6 +32,10 @@ function DropDownLiAlert(
     props.setAlertNotificationState && props.setAlertNotificationState(true);
     trigger && trigger(String(props.data.alert_id));
   };
+  const deleteAllFun = () => {
+    // props.setAlertNotificationState && props.setAlertNotificationState(true);
+    trigger && trigger(String(props.data.alert_id));
+  };
 
   return (
     <li
@@ -39,9 +43,12 @@ function DropDownLiAlert(
       className={`${style.notification_li}  ${props.className}`}
     >
       <div>
+        <span className={style.deleteAll}>
+          <VscClearAll />
+        </span>
         <p className={style.alert_message}>{props.data.alert_message}</p>
         <p className={style.date}>
-          {new Date(props.data.alert_date).toLocaleString()}{" "}
+          {new Date(props.data.alert_date).toLocaleString()}
         </p>
       </div>
       <span>
@@ -60,14 +67,6 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
   const dispatch = useAppDispatch();
   const [alertNotificationState, setAlertNotificationState] = useState(false);
 
-  useEffect(() => {
-    if (apiSideEffect.isAlertsOpen) {
-      setAlertNotificationState(apiSideEffect.isAlertsOpen);
-      delayFun(() => {
-        dispatch(changeAlertsState());
-      }, 1000);
-    }
-  }, [apiSideEffect.isAlertsOpen, dispatch]);
   const { data, refetch } = alertsApi.useGetItemsQuery({
     page: 1,
     numResults: 5,
@@ -75,9 +74,21 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
     ...queriesOptions,
   });
 
+  // If there is new alert
+  // useEffect(() => {
+  //   if (apiSideEffect.isAlertsOpen) {
+  //     setAlertNotificationState(apiSideEffect.isAlertsOpen);
+  //     delayFun(() => {
+  //       dispatch(changeAlertsState());
+  //     }, 1000);
+  //   }
+  // }, [apiSideEffect.isAlertsOpen, dispatch]);
+
+  // If there is new response from the server, the fetch alert will be true,
+  // in order to refetch new alerts and activate the alert icons effect.
   useEffect(() => {
     if (apiSideEffect.fetchAlerts) {
-      dispatch(changeAlertsState());
+      setAlertNotificationState(true);
       setScaleUpState(true);
       refetch();
       delayFun(() => {
@@ -85,6 +96,7 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
       }, 1000).then(() => {
         dispatch(disableFetchAlerts());
       });
+      // setAlertNotificationState(false);
     }
   }, [apiSideEffect.fetchAlerts, dispatch, refetch]);
 

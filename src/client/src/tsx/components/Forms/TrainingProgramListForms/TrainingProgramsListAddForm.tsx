@@ -5,7 +5,8 @@ import {
   TrainingProgramsListTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import { resetGoPrevPageState } from "../../../redux/slices/apiSideEffectSlice";
+import { disableGoPrevPage } from "../../../redux/slices/apiSideEffectSlice";
+
 import {} from "../../../redux/slices/formValuesStateSlice";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
@@ -24,7 +25,7 @@ export function TrainingProgramsListAddForm({
   const handleSubmit = (body: TrainingProgramsListTableAPI) => {
     // resetGoPrevPagesState disable the behavior of returning to pre page , after submit form.
     // Instead after submit this form the function will move the user to his training program's exercises list.
-    dispatch(resetGoPrevPageState());
+    dispatch(disableGoPrevPage());
 
     addFunction({
       addItem,

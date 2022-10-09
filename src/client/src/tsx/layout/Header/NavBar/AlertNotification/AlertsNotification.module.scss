@@ -2,9 +2,19 @@
 
 .ul_notifications {
   li {
+    .deleteAll {
+      display: none;
+    }
     background-color: rgb(235, 235, 235);
   }
   li:first-child {
+    .deleteAll {
+      cursor: pointer;
+      display: block;
+      color: rgb(242, 61, 61);
+      font-size: 1.5rem;
+      @include posAbs(0.5%, null, 2%, null);
+    }
     background-color: rgb(255, 255, 255);
   }
 }
@@ -24,7 +34,7 @@
     font-weight: 500;
   }
   .deleteIcon {
-    font-size: 2rem;
+    font-size: 1.7rem;
     color: rgb(242, 61, 61);
     cursor: pointer;
   }

@@ -33,6 +33,7 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
     )
   );
 
+  console.log("user", user);
   if (!user || error) return res.status(400).json({ message: "No user" });
 
   res.clearCookie("refresh_token", COOKIES_OPTIONS);

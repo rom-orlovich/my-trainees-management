@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import path from "path";
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Card from "../../components/baseComponents/Card/Card";
 import Form from "../../components/baseComponents/RHF-Components/Form/Form";
@@ -9,18 +10,23 @@ import InputErrorMessage from "../../components/baseComponents/RHF-Components/In
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { authApi } from "../../redux/api/authAPI";
 import { LoginForm } from "../../redux/api/interfaceAPI";
+import { disableGoPrevPage } from "../../redux/slices/apiSideEffectSlice";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { relativePath } from "../../utilities/helpersFun";
 import style from "../HomeCardForm.module.scss";
 function LoginPage() {
   const [login] = authApi.useLoginMutation();
+  const dispatch = useDispatch();
   const nav = useNavigate();
-  const onSubmit = (body: LoginForm) =>
+
+  const onSubmit = (body: LoginForm) => {
+    dispatch(disableGoPrevPage());
     login(body)
       .unwrap()
       .then(({ ...rest }) => {
         nav(`/${APP_ROUTE.HOME_PAGE}`);
       });
+  };
 
   return (
     <Card className={style.card_form}>

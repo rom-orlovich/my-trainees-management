@@ -123,3 +123,21 @@ export const handleDeleteOldAlerts: RequestHandler = async (req, res, next) => {
   if (err) next(new ErrorCustomizes(err));
   res.status(200).json("Old alerts are deleted successfully");
 };
+
+export const handleDeleteAllUserAlerts: RequestHandler = async (
+  req,
+  res,
+  next
+) => {
+  const { user_id: userID } = req.auth_data;
+  const [data, err] = await promiseHandler(
+    deleteQuery(
+      TABLES_DATA.ALERTS_TABLE_NAME,
+      `where user_id=$1`,
+      [userID],
+      true
+    )
+  );
+  if (err) next(new ErrorCustomizes(err));
+  res.status(200).json("Old alerts are deleted successfully");
+};

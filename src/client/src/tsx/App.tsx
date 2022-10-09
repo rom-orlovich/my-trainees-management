@@ -8,7 +8,7 @@ function App() {
   // Basic layout of the app.
   return (
     <>
-      <ModelAlerts />
+      {/* <ModelAlerts /> */}
       <Header className={style.header} />
 
       <Main className={style.main_layout}>
