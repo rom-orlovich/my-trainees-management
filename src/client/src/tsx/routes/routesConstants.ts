@@ -3,8 +3,9 @@ export enum APP_ROUTE {
   SIGN_UP = "signUp",
   LOGIN_ROUTE = "login",
   LOGOUT_ROUTE = "logout",
-
+  USERS_ROUTE = "users",
   TRAINEES_ROUTE = "trainees",
+
   TRAINEES_ROUTE_ADD = "addNewTrainee",
 
   TRAINING_PROGRAMS_LIST_ROUTE = "trainingProgramsList",

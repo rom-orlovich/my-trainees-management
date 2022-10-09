@@ -69,25 +69,21 @@ export const genToken = (
     expiresIn: expireTime,
   });
 
-export async function createAdmin() {
-  const hashPassword = await hash(process.env.ADMIN_PSW, 10);
+export async function createUser(
+  password: string,
+  username: string,
+  role: UserRoles
+) {
+  const hashPassword = await hash(password, 10);
 
-  const refreshToken = genToken(
-    {
-      username: process.env.ADMIN_USER,
-      user_id: 1,
-      role: "admin",
-    },
-    process.env.REFRESH_TOKEN_SECRET,
-    process.env.EXPIRE_IN_REFRESH_TOKEN
-  );
   const [user, error] = await promiseHandler<User[]>(
     insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
-      refresh_tokens: [refreshToken],
-      username: process.env.ADMIN_USER,
+      role,
+      refresh_tokens: [],
+      username,
       password: hashPassword,
     })
   );
-  console.log(refreshToken);
+
   console.log(error);
 }

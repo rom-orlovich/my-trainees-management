@@ -15,6 +15,8 @@ declare global {
       HOST_PG: string;
       ADMIN_USER: string;
       ADMIN_PSW: string;
+      EXAMPLE_USER: string;
+      EXAMPLE_PSW: string;
       ACCESS_TOKEN_SECRET: string;
       REFRESH_TOKEN_SECRET: string;
       EXPIRE_IN_ACCESS_TOKEN: string;

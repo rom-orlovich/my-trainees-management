@@ -43,6 +43,7 @@ import PublicRoute from "./PublicRoute";
 
 import { APP_ROUTE } from "./routesConstants";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import UsersPage from "../pages/UsersPage/UsersPage";
 function AppRoutes() {
   return (
     <Routes>
@@ -66,6 +67,15 @@ function AppRoutes() {
                   path={APP_ROUTE.TRAINEES_ROUTE_ADD}
                   element={<TraineeAddForm />}
                 />
+              </Route>
+              <Route index element={<UsersPage />} />
+              <Route path={APP_ROUTE.USERS_ROUTE}>
+                <Route index element={<UsersPage />} />
+                {/* <Route path=":id" element={<TraineeProfile />} />
+                <Route
+                  path={APP_ROUTE.TRAINEES_ROUTE_ADD}
+                  element={<TraineeAddForm />}
+                /> */}
               </Route>
 
               <Route path={APP_ROUTE.LEADS_ROUTE}>

@@ -16,9 +16,18 @@ import {
   LeadsTableAPI,
   TrainingProgramsListTableAPI,
   AlertsAPI,
+  User,
+  UserAPI,
 } from "../api/interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
+
+export const usersApi = apiCreateCRUDHooks<UserAPI>({
+  reducerPath: "usersApi",
+  baseUrl: API_ROUTES.USERS_ROUTE,
+  singleEntityName: API_ROUTES.USER_ENTITY,
+  listId: "users_list",
+});
 
 // Each on of the api object contains the CRUD hooks of the endpoint.
 export const leadsApi = apiCreateCRUDHooks<LeadsTableAPI>({
@@ -149,7 +158,7 @@ export const apiCreateCrudArr = [
   nutritionProgramsListApi,
   nutritionProgramsApi,
   traineesApi,
-
+  usersApi,
   subscriptionPlansApi,
   alertsApi,
   // incomesApi,

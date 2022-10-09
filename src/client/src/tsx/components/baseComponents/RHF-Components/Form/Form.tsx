@@ -135,6 +135,7 @@ export default function Form<TFormValues extends Record<string, any>>({
 
   const handleSubmit = async (data: TFormValues) => {
     try {
+      console.log(disableGoPrevPage);
       await onSubmit(data);
       methods.reset();
       if (!editMode)
@@ -145,9 +146,9 @@ export default function Form<TFormValues extends Record<string, any>>({
           })
         );
 
-      if (disableGoPrevPage) {
-        dispatch(enableGoPrevPage());
-      }
+      // if (disableGoPrevPage) {
+      //   dispatch(enableGoPrevPage());
+      // }
       if (goPrevPage) {
         nav((pathMove || -1) as any);
       }

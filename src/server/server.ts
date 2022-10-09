@@ -26,7 +26,7 @@ import {
   validateRolePermission,
   validateTokenMiddleware,
 } from "./services/serviceAuth/controllers/authMiddleware";
-import { createAdmin } from "./services/serviceAuth/utilities/authHelpers";
+import { createUser } from "./services/serviceAuth/utilities/authHelpers";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -74,7 +74,12 @@ async function connectDB() {
     // Uncomment this line will init the  db.
     // This line is for development purpose.
     // await initDB();
-    // await createAdmin();
+    // await createUser(process.env.ADMIN_PSW, process.env.ADMIN_USER, "admin");
+    // await createUser(
+    //   process.env.EXAMPLE_PSW,
+    //   process.env.EXAMPLE_USER,
+    //   "trainer"
+    // );
 
     server = app.listen(PORT, () => {
       console.log(`listen port ${PORT}`);

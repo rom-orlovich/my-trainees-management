@@ -252,3 +252,9 @@ export interface User {
   username: string;
   role: "admin" | "trainer" | "trainee";
 }
+export interface UserAPI {
+  user_id: number;
+  username: string;
+  role: "admin" | "trainer" | "trainee";
+  profile_id: number | null;
+}

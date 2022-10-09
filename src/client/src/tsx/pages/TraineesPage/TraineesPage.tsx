@@ -18,7 +18,7 @@ function Trainees() {
       <div className={page_style.page_header}>
         <AutocompleteInput<TraineesTableExtendsAPI>
           keys={["first_name", "last_name"]}
-          id={"profile_id"}
+          id={"trainee_id"}
           queriesOptions={queriesOptions}
           loadingSpinnerResult={{ nameData: "Trainees" }}
           setSelectOptionValue={setTrainee}

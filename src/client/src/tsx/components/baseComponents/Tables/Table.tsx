@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 // Creates dynamic data table with action of edit and remove.
 // customizes the table by Td and Th cells component.
-function Table<T extends object>({
+function Table<T extends Record<string, any>>({
   dataArr,
   className,
   Td,
@@ -22,8 +22,14 @@ function Table<T extends object>({
   const TD = Td ? Td : TdCell;
   const newDataArr = dataArr.map((obj: T) => {
     let newObj = {};
+
     for (let key in obj) {
-      if (key !== "user_id") newObj = { ...newObj, [key]: obj[key] };
+      console.log(obj["username"]);
+      if (!obj["username"] && key !== "user_id")
+        newObj = { ...newObj, [key]: obj[key] };
+      else {
+        newObj = { ...newObj, [key]: obj[key] };
+      }
     }
     return newObj;
   });
@@ -32,6 +38,7 @@ function Table<T extends object>({
     .slice(1)
     .map(formatThValue)
     .concat("Actions");
+
   return (
     <table className={`${className || ""} `}>
       <thead>
@@ -45,6 +52,7 @@ function Table<T extends object>({
         {newDataArr.map((obj, row) => {
           const values = getValuesArrObj(obj);
           const valuesWithOutID = values.slice(1);
+
           return (
             <tr key={`${values[0]}${row}`}>
               {valuesWithOutID.map((value, col) => (

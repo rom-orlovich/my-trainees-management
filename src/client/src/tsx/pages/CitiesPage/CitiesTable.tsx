@@ -1,6 +1,7 @@
 import React from "react";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 
 import { citiesApi } from "../../redux/api/hooksAPI";
 import { CitiesTableAPI } from "../../redux/api/interfaceAPI";
@@ -24,7 +25,11 @@ function CitiesTable({
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Cities List"}
         getAllQuery={useGetItemsQuery}
-        deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
+        deleteItemFun={
+          useGetUserLoginData().authState.user?.role === "admin"
+            ? (id) => deleteFunMutation(id, deleteItem)
+            : undefined
+        }
       />
     </MainRoute>
   );

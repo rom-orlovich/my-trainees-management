@@ -15,8 +15,11 @@ import { AiFillSchedule } from "react-icons/ai";
 import style from "./SideBar.module.scss";
 import { useDispatch } from "react-redux";
 import { setOneDropDownOn } from "../../redux/slices/menusSlice";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
+import useCheckRole from "../../hooks/useCheckRole";
+import { FaUsers, FaUserShield } from "react-icons/fa";
 
-const sideBarLink: LinkData[] = [
+const sideBarLinkTrainer: LinkData[] = [
   {
     to: APP_ROUTE.TRAINEES_ROUTE,
     text: "Trainees",
@@ -32,6 +35,15 @@ const sideBarLink: LinkData[] = [
     text: "Programs",
     icon: <AiFillSchedule className={style.icon} />,
   },
+];
+const sideBarLinkAdmin: LinkData[] = [
+  {
+    to: APP_ROUTE.USERS_ROUTE,
+    text: "Users",
+    icon: <FaUserShield className={style.icon} />,
+  },
+
+  ...sideBarLinkTrainer,
 ];
 
 function Li(link: LinkData) {
@@ -50,13 +62,16 @@ function Li(link: LinkData) {
 }
 function SideBar({ className }: PropsBasic) {
   const state = useAppSelector((state) => state.menusSlice);
+  const dataArr = useCheckRole().isAdmin
+    ? sideBarLinkAdmin
+    : sideBarLinkTrainer;
   return (
     <section
       className={`${style.sideBar} ${className} ${
         state["hamburgerMenu"] ? style.display_block : ""
       }`}
     >
-      <List dataArr={sideBarLink} LI={Li}></List>
+      <List dataArr={dataArr} LI={Li}></List>
     </section>
   );
 }

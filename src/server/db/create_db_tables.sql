@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS "leads"(
 
 CREATE TABLE IF NOT EXISTS "activities" (
   "activity_id" serial PRIMARY KEY,
-  "activity_name" VARCHAR(255) UNIQUE NOT NULL,   
+  "activity_name" VARCHAR(255)  NOT NULL,   
   "user_id" INTEGER DEFAULT 1,
   CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS "activities" (
 
 CREATE TABLE IF NOT EXISTS "providers" (
   "provider_id" serial PRIMARY KEY ,
-  "provider_name" VARCHAR(255) UNIQUE NOT NULL,
+  "provider_name" VARCHAR(255)  NOT NULL,
   "location_id" INTEGER NOT NULL,
   "user_id" INTEGER DEFAULT 1,
   CONSTRAINT fk_location_id
@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS "expenses" (
 
 CREATE TABLE IF NOT EXISTS "equipments" (
   "equipment_id" serial PRIMARY KEY,
-  "equipment_name" VARCHAR(255) UNIQUE NOT NULL,
+  "equipment_name" VARCHAR(255)  NOT NULL,
   "brand" VARCHAR(255) NOT NULL,
   "manufacture_year" INTEGER NOT NULL,
   "expense_id" INTEGER,

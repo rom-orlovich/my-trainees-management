@@ -129,7 +129,7 @@ export const usersOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.USERS_TABLE_NAME} as us`,
     tableID: `us.${TABLES_DATA.USERS_TABLE_ID}`,
-    fieldNamesQuery: `*`,
+    fieldNamesQuery: `us.user_id,us.username,us.role`,
     querySelectLogic: ``,
   },
   permissions: PERMISSION_ADMIN,
