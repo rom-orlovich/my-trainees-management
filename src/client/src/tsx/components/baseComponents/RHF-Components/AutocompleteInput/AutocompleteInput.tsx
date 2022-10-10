@@ -77,34 +77,27 @@ function AutocompleteInput<T extends Record<string, any>>({
     ...queriesOptions,
   });
   const Data = data as ResponseQueryAPI<T> | undefined;
-  const firstRender = useRef(true);
+
+  // Set default value by given id, when the data is defined and the id
+  // is exist in the data array, update the input value.
+  if (Data)
+    if (defaultValueID) {
+      const objData = Data.data.find((el) => el[id] === defaultValueID);
+      if (objData) {
+        // Create string of values from chosen keys.
+        const strValues = createStrFromValuesOfChosenKeys(objData, keys || []);
+        setInputValue(["", strValues]);
+      }
+    }
 
   useEffect(() => {
-    // The parent element's access to the value of the Autocomplete component.
+    //The parent element's access to the value of the Autocomplete component.
     setSelectOptionValue && setSelectOptionValue(debounce);
     // React hook form Autocomplete component need only the id of the option.
     debounce[0] && RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
   }, [debounce, RHFProps, setSelectOptionValue]);
 
-  // Set default value by given id , when the data is defined and the id
-  // is exist in the data array, update the input value.
-  useEffect(() => {
-    if (Data)
-      if (firstRender.current) {
-        firstRender.current = false;
-        if (defaultValueID) {
-          const objData = Data.data.find((el) => el[id] === defaultValueID);
-          if (objData) {
-            // Create string of values from chosen keys.
-            const strValues = createStrFromValuesOfChosenKeys(
-              objData,
-              keys || []
-            );
-            setInputValue(["", strValues]);
-          }
-        }
-      }
-  }, [Data, defaultValueID, id, keys]);
+
   // Handle the input change value ,open the option,
   // set page to first page and reset the data array.
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

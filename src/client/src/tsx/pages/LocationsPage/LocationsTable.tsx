@@ -11,9 +11,9 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
 export const transformDataLocation = (arg: LocationsGetRes) => {
-  const { city_id, ...rest } = arg;
+  const { city_id, location_id, city_name, user_id, ...rest } = arg;
 
-  return rest;
+  return { location_id, city: city_name, ...rest };
 };
 function LocationsTable({
   mainName,

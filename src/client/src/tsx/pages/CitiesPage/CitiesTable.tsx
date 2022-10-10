@@ -10,7 +10,11 @@ import MainRoute from "../../routes/MainRoute";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
+export const transformDataCity = (arg: CitiesTableAPI) => {
+  const { city_name, city_id, ...rest } = arg;
 
+  return { city_id, city: city_name, ...rest };
+};
 function CitiesTable({
   mainName,
   queriesOptions,
@@ -25,6 +29,7 @@ function CitiesTable({
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Cities List"}
         getAllQuery={useGetItemsQuery}
+        transformFun={transformDataCity}
         deleteItemFun={
           useGetUserLoginData().authState.user?.role === "admin"
             ? (id) => deleteFunMutation(id, deleteItem)

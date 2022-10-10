@@ -32,7 +32,7 @@ const sideBarLinkTrainer: LinkData[] = [
   },
   {
     to: APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE,
-    text: "Programs",
+    text: "Training Program",
     icon: <AiFillSchedule className={style.icon} />,
   },
 ];
@@ -67,9 +67,8 @@ function SideBar({ className }: PropsBasic) {
     : sideBarLinkTrainer;
   return (
     <section
-      className={`${style.sideBar} ${className} ${
-        state["hamburgerMenu"] ? style.display_block : ""
-      }`}
+      className={`${style.sideBar} ${className} ${state["hamburgerMenu"] ? style.display_block : ""
+        }`}
     >
       <List dataArr={dataArr} LI={Li}></List>
     </section>

@@ -13,10 +13,12 @@ import { PageTableProps } from "../TraineesPage/TraineesTable";
 function transformExerciseTable({
   equipment_id,
   muscles_group_id,
-
+  exercise_name, muscles_group_name, equipment_name,
+  user_id,
+  exercise_id,
   ...rest
 }: ExercisesTableAPI) {
-  return rest;
+  return { exercise_id, exercise: exercise_name, muscles_group: muscles_group_name, equipment: equipment_name };
 }
 function ExercisesTable({
   mainName,

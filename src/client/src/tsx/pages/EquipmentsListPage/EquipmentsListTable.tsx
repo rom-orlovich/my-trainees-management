@@ -11,9 +11,9 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
 export const transformDataEquipment = (arg: EquipmentsTableAPI) => {
-  const { expense_id, ...rest } = arg;
+  const { expense_id, equipment_id, equipment_name, ...rest } = arg;
 
-  return rest;
+  return { equipment_id, equipment: equipment_name, ...rest };
 };
 function EquipmentsListTable({
   mainName,
