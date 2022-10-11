@@ -43,4 +43,5 @@ export enum API_ROUTES {
   SUBSCRIPTION_PLANS_ENTITY = "subscription",
   INCOMES_ROUTE = "/api/incomes",
   INCOMES_ENTITY = "income",
+  MAIL_ROUTE = "api/mail",
 }

@@ -34,12 +34,14 @@ import {
 } from "./services/serviceAuth/controllers/authMiddleware";
 import { createUser } from "./services/serviceAuth/utilities/authHelpers";
 
-const app = express();
 const PORT = process.env.PORT || 5000;
+
+const app = express();
 app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Cors middleware
 app.use(
   cors({
     origin: [
@@ -51,7 +53,10 @@ app.use(
   })
 );
 
-// Init all the routes of the app.
+// Init auth route.
+app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);
+
+// Init all CRUD routes of the app.
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
   app.use(
     baseRoute,
@@ -60,6 +65,8 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
     createCRUDroutes(optionsCRUD)
   );
 });
+
+// Delete all user's alerts rotues.
 app.delete(
   API_ROUTES.ALERT_ROUTE,
   validateTokenMiddleware,
@@ -67,9 +74,10 @@ app.delete(
   handleDeleteAllUserAlerts
 );
 
-app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);
-
+// Init alerts middleware.
 app.use(handleAlertsMiddleware);
+
+// Init Error route.
 app.use(errorHandlerMiddleware);
 
 let server: Server;
