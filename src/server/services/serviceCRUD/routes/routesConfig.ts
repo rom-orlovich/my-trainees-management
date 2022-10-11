@@ -22,6 +22,15 @@ import {
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import { UserRoles, USER_ROLES } from "../../serviceAuth/utilities/authHelpers";
+import {
+  Permissions,
+  PERMISSION_ADMIN,
+  PERMISSION_ALL_WITHOUT_UPDATE,
+  PERMISSION_TRAINEE_ONLY_READ,
+  PERMISSION_TRAINEE_ONLY_UPDATE,
+  PERMISSION_TRAINER,
+  PERMISSION_TRAINER_WITHOUT_DELETE,
+} from "../../usersPermission";
 
 export interface SelectTableQueryParam {
   tableName: string;
@@ -40,26 +49,6 @@ export interface SelectTableQueryParam {
   };
 }
 
-// export type ROLE_ADMIN = ["admin"];
-// export type ROLE_TRAINER = ["admin", "trainer"];
-// export type ROLE_TRAINEE = ["admin", "trainer", "trainee"];
-
-export const ROLE_ADMIN = ["admin"] as const;
-export const ROLE_TRAINER = ["admin", "trainer"] as const;
-export const ROLE_ALL = ["admin", "trainer", "trainee"] as const;
-export type PermissionsRolesType =
-  | typeof ROLE_ADMIN
-  | typeof ROLE_TRAINER
-  | typeof ROLE_ALL;
-export interface Permissions {
-  type: PermissionsRolesType;
-  operations?: {
-    delete: PermissionsRolesType;
-    update: PermissionsRolesType;
-    create: PermissionsRolesType;
-  };
-}
-
 export interface OptionsCRUD {
   singleEntityName: string; // name of one item
   selectQuery: SelectTableQueryParam;
@@ -67,58 +56,6 @@ export interface OptionsCRUD {
   permissions: Permissions;
   logAlert?: boolean;
 }
-
-export const PERMISSION_ADMIN: Permissions = { type: ROLE_ADMIN };
-export const PERMISSION_ALL_WITHOUT_UPDATE: Permissions = {
-  type: ROLE_ALL,
-  operations: {
-    delete: ROLE_ALL,
-    update: ROLE_ADMIN,
-    create: ROLE_ALL,
-  },
-};
-export const PERMISSION_TRAINER_WITHOUT_DELETE: Permissions = {
-  type: ROLE_TRAINER,
-  operations: {
-    delete: ROLE_ADMIN,
-    update: ROLE_TRAINER,
-    create: ROLE_TRAINER,
-  },
-};
-export const PERMISSION_TRAINER_ONLY_CREATE: Permissions = {
-  type: ROLE_TRAINER,
-  operations: {
-    delete: ROLE_ADMIN,
-    update: ROLE_ADMIN,
-    create: ROLE_TRAINER,
-  },
-};
-export const PERMISSION_TRAINER: Permissions = {
-  type: ROLE_TRAINER,
-  operations: {
-    delete: ROLE_TRAINER,
-    update: ROLE_TRAINER,
-    create: ROLE_TRAINER,
-  },
-};
-export const PERMISSION_TRAINEE_ONLY_UPDATE: Permissions = {
-  type: ROLE_ALL,
-  operations: {
-    delete: ROLE_TRAINER,
-    update: ROLE_ALL,
-    create: ROLE_TRAINER,
-  },
-};
-export const PERMISSION_TRAINEE_ONLY_READ: Permissions = {
-  type: ROLE_ALL,
-  operations: {
-    delete: ROLE_TRAINER,
-    update: ROLE_TRAINER,
-    create: ROLE_TRAINER,
-  },
-};
-
-export const PERMISSION_ALL: Permissions = { type: ROLE_ALL };
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate

@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS "profiles" (
 CREATE TABLE IF NOT EXISTS "users"(
     "user_id" serial PRIMARY KEY,
     "role" varchar(50) DEFAULT 'admin',
+    "email" VARCHAR(255) NULL,
     "username" varchar(50) UNIQUE,
     "password" varchar(255),
     "refresh_tokens" TEXT[] DEFAULT '{}',

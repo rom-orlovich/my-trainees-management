@@ -25,7 +25,11 @@ import {
   handleAlertsMiddleware,
   handleDeleteAllUserAlerts,
 } from "./services/serviceAlerts/handleAlerts";
-import { API_ROUTES } from "./services/apiRoutesConstants";
+import {
+  API_ROUTES,
+  URL_HEROKU_CLIENT,
+  URL_REACT_CLIENT,
+} from "./services/apiRoutesConstants";
 
 import authRouter from "./services/serviceAuth/routes/authRouter";
 import {
@@ -45,11 +49,7 @@ app.use(express.json());
 // Cors middleware.
 app.use(
   cors({
-    origin: [
-      "http://10.100.102.74:3000",
-      "https://my-trainees-management.herokuapp.com/",
-      "http://localhost:3000",
-    ],
+    origin: [URL_HEROKU_CLIENT, URL_REACT_CLIENT],
     credentials: true,
   })
 );
@@ -67,7 +67,7 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
   );
 });
 
-// Delete all user's alerts rotues.
+// Delete all user's alerts routes.
 app.delete(
   API_ROUTES.ALERT_ROUTE,
   validateTokenMiddleware,

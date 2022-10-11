@@ -1,6 +1,6 @@
 import { RequestHandler } from "webpack-dev-server";
 import { promiseHandler } from "../../../utilities/helpers";
-import { Permissions } from "../../serviceCRUD/routes/routesConfig";
+import { Permissions } from "../../usersPermission";
 
 import { UserRoles, verifyAsync } from "../utilities/authHelpers";
 

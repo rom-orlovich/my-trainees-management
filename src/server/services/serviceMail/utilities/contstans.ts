@@ -1,4 +1,6 @@
 import { google } from "googleapis";
+import Mail from "nodemailer/lib/mailer";
+import { AuthenticationTypeOAuth2 } from "nodemailer/lib/smtp-connection";
 
 export const OAuth2 = {
   clientId: process.env.GMAIL_API_CLIENT_ID,
@@ -7,7 +9,7 @@ export const OAuth2 = {
   redirectUrl: process.env.GMAIL_API_REDIRECT_URI,
 };
 
-export const USER_MAIL = {
+export const MY_USER_MAIL: AuthenticationTypeOAuth2 = {
   type: "OAuth2",
   user: "mytraineesmanagement@gmail.com",
   clientId: OAuth2.clientId,
@@ -15,7 +17,7 @@ export const USER_MAIL = {
   refreshToken: OAuth2.refreshToken,
 };
 
-export const MAIL_OPTIONS = {
+export const MAIL_OPTIONS: Mail.Options = {
   from: "mytraineesmanagement@gmail.com>",
   to: "madman280797@gmail.com",
   subject: "Gmail API NodeJS",

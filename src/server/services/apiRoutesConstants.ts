@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 // All the endpoints and the entities names.
+
 export enum API_ROUTES {
   API_AUTH_ROUTE = "/api/auth",
   SIGN_UP_ROUTE = "/signup",
@@ -45,3 +46,9 @@ export enum API_ROUTES {
   INCOMES_ENTITY = "income",
   MAIL_ROUTE = "/api/mail",
 }
+
+export const URL_REACT_CLIENT = "http://localhost:3000";
+export const URL_HEROKU_CLIENT = "https://my-trainees-management.herokuapp.com";
+
+export const URL_CUR_CLIENT =
+  process.env.NODE_ENV === "development" ? URL_REACT_CLIENT : URL_HEROKU_CLIENT;
