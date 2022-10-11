@@ -79,7 +79,7 @@ export function createRoutesControllers({
     const [data, err] = await promiseHandler(
       selectQuery(`${tableName}`, `${fieldNamesQuery}`, queryLogic, [id])
     );
-
+    console.log(id);
     if (err) return next(new ErrorCustomizes(err, "get"));
     return res.status(200).json(data[0]);
   };

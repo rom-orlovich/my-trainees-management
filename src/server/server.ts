@@ -73,7 +73,7 @@ app.delete(
   handleDeleteAllUserAlerts
 );
 
-app.use(API_ROUTES.MAIL_ROUTE, mailRouter);
+// app.use(API_ROUTES.MAIL_ROUTE, mailRouter);
 
 // Init alerts middleware.
 app.use(handleAlertsMiddleware);

@@ -1,3 +1,4 @@
+import { authApi } from "../../../redux/api/authAPI";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 import { TraineesBaseTableAPI } from "../../../redux/api/interfaceAPI";
 
@@ -5,8 +6,9 @@ import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
 
 export function TraineeAddForm() {
-  const [addTrainee] = traineesApi.useCreateOneItemMutation();
+  const [addTrainee] = authApi.useRegisterTraineeMutation();
   const handleSubmit = (body: TraineesBaseTableAPI) => {
+ 
     addFunction({
       addItem: addTrainee,
     })(body);

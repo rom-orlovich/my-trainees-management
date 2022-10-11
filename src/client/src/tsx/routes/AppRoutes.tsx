@@ -44,6 +44,7 @@ import PublicRoute from "./PublicRoute";
 import { APP_ROUTE } from "./routesConstants";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import UsersPage from "../pages/UsersPage/UsersPage";
+import SignUpPageNewTrainee from "../pages/SignUpPage/SignUpPageNewTrainee";
 function AppRoutes() {
   return (
     <Routes>
@@ -51,6 +52,7 @@ function AppRoutes() {
         <Route path={APP_ROUTE.HOME_PAGE} element={<HomePage />}>
           <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
           <Route path={APP_ROUTE.SIGN_UP} element={<SignUpPage />}></Route>
+          <Route path={APP_ROUTE.SIGN_UP_TRAINEE} element={<SignUpPageNewTrainee />}></Route>
         </Route>
         <Route element={<PersistedLogin />}>
           <Route element={<ProtectedRoute />}>

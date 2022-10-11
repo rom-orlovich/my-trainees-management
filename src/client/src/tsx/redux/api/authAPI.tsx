@@ -13,7 +13,9 @@ export const apiAuthBaseQuery = fetchBaseQuery({
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: apiAuthBaseQuery,
+  tagTypes:[API_ROUTES.TRAINEES_ENTITY],
   endpoints: (builder) => ({
+  
     login: builder.mutation<ResponseMutationAuthAPI, any>({
       query: (credentials) => {
         return {
@@ -48,4 +50,9 @@ export const authApi = createApi({
       }),
     }),
   }),
-});
+}).injectEndpoints({endpoints:(builder)=>({
+  registerTrainee:builder.mutation({
+    query:(body)=>
+   ({ url:API_ROUTES.REGISTER_TRAINEE_ROUTE , "method":"POST",body})
+  ,"invalidatesTags":[{ type: API_ROUTES.TRAINEES_ENTITY, id: "trainees_list" }]})
+})});

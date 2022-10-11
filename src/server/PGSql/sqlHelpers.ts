@@ -144,10 +144,11 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  // if (tableName === "users") {
-  //   console.log("statement", statement);
-  //   console.log("queryParams", queryParams);
-  // }
+  console.log(tableName);
+  if (tableName === "trainees as tr") {
+    console.log("statement", statement);
+    console.log("queryParams", queryParams);
+  }
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;

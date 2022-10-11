@@ -24,31 +24,6 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const singleEntityNameEndPoint = `/${optionsCRUD.singleEntityName}`;
   const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
 
-  // Check if route has permissions object.
-  // if (optionsCRUD.permissions.operations) {
-  //   const {
-
-  //     create,
-  //     update,
-  //     delete: deleteCRUD,
-  //   } = optionsCRUD.permissions.operations;
-
-  //   newRoute.get("/", getValuesFromDB);
-  //    newRoute.get(singleEntityNameEndPointID, getValueFromDBbyID);
-  //   create &&
-  //     newRoute.post(
-  //       singleEntityNameEndPoint,
-  //       validateMiddlewareHandler,
-  //       createNewValueInDB
-  //     );
-  //   update &&
-  //     newRoute.put(
-  //       singleEntityNameEndPointID,
-  //       validateMiddlewareHandler,
-  //       updateValueByID
-  //     );
-  //   deleteCRUD && newRoute.delete(singleEntityNameEndPointID, deleteValueByID);
-  // } else {
   newRoute.route("/").get(getValuesFromDB);
   newRoute
     .route(singleEntityNameEndPoint)

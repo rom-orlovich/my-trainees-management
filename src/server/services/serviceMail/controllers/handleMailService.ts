@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import axios from "axios";
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
+
 import {
   clientMailOAuth,
   MAIL_OPTIONS,
@@ -35,38 +36,41 @@ export const handleGetUser: RequestHandler = async (req, res) => {
     res.send(error);
   }
 };
-// const link = `${URL_CUR_CLIENT}${API_ROUTES.SIGN_UP_ROUTE}`;
-// const MAIL_MESSAGE = {
-//   subject: "",
-//   text: `Create account in this link ${link}`,
-// };
 
-// export const sendEmail = async (
-//   to: string,
-//   message: { text: string; subject: string },
-//   id?: string
-// ) => {
-//   const { token } = await clientMailOAuth.getAccessToken();
+export const sendEmail = async (
+  to: string,
+  message: { text: string; subject: string }
+) => {
+  let result1;
+  try {
+    const { token } = await clientMailOAuth.getAccessToken();
+    console.log("token", token);
+    const mailOptions: Mail.Options = {
+      ...MAIL_OPTIONS,
+      to,
 
-//   const mailOptions: Mail.Options = {
-//     ...MAIL_OPTIONS,
-//     to,
+      ...message,
+    };
 
-//     ...message,
-//   };
+    if (token) {
+      const transport = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          accessToken: token,
+          ...MY_USER_MAIL,
+        },
+      });
 
-//   if (token) {
-//     const transport = nodemailer.createTransport({
-//       service: "gmail",
-//       auth: {
-//         accessToken: token,
-//         ...MY_USER_MAIL,
-//       },
-//     });
-
-//     // const result = await transport.sendMail(mailOptions);
-//   }
-// };
+      // eslint-disable-next-line no-unused-vars
+      result1 = await transport.sendMail(mailOptions);
+    }
+    console.log("result1", result1);
+    return result1;
+  } catch (error) {
+    console.log("error", error);
+    return error;
+  }
+};
 
 export const handleSendEmail: RequestHandler = async (req, res) => {
   console.log("enter");

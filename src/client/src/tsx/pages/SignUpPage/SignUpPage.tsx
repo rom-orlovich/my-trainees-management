@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Card from "../../components/baseComponents/Card/Card";
-import Form from "../../components/baseComponents/RHF-Components/Form/Form";
+import Form, { FormRHFProps } from "../../components/baseComponents/RHF-Components/Form/Form";
 import { signUpSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
@@ -13,17 +13,15 @@ import { disableGoPrevPage } from "../../redux/slices/apiSideEffectSlice";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { relativePath } from "../../utilities/helpersFun";
 import style from "../HomeCardForm.module.scss";
-function SignUpPage() {
+function SignUpPage({defaultValues}:{defaultValues?:{email:string,id:number}}) {
   const [signUp] = authApi.useSignUpMutation();
-  const dispatch=useDispatch()
-  const { pathname } = useLocation();
-  const nav = useNavigate();
+
 
   const onSubmit = async (body: SignUpForm) =>
    {
-    
-return  signUp({ credentials: body, endPoint: "newTrainer" }).unwrap()
+return  signUp({ credentials: body, endPoint: defaultValues? `newTrainee/${defaultValues.id}` : "newTrainer" }).unwrap()
 }
+console.log(defaultValues?.email);
   return (
     <Card className={style.card_form}>
       <Form<SignUpForm>
@@ -31,11 +29,10 @@ return  signUp({ credentials: body, endPoint: "newTrainer" }).unwrap()
         heading={"Sign Up"}
         authButtonsContainer={true}
         isLoginMode={false}
-        pathMove={relativePath(APP_ROUTE.LOGIN_ROUTE)}
+        pathMove={defaultValues? "" : relativePath(APP_ROUTE.LOGIN_ROUTE) }
         formOptions={{
           resolver: yupResolver(signUpSchema),
-          mode: "all",
-          defaultValues: { email:"",username: "", password: "", confirmPassword: "" },
+          defaultValues:  { email: defaultValues ? defaultValues.email : "",username: "", password: "", confirmPassword: "" },
         }}
       >
         {({ register, formState }) => {

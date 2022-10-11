@@ -22,7 +22,7 @@ import { genClassName } from "../../../../utilities/helpersFun";
 import { FormProps } from "../../baseComponentsTypes";
 import style from "./Form.module.scss";
 
-type FormRHFProps<TFormValues extends FieldValues> = {
+export type FormRHFProps<TFormValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFormValues>;
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
   formOptions?: UseFormProps<TFormValues>;

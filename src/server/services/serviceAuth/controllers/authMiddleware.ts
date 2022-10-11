@@ -11,7 +11,8 @@ export const validateTokenMiddleware: RequestHandler = async (
 ) => {
   // console.log("handle token middleware");
   const accessToken = req.headers.authorization?.split("Bearer ")[1];
-
+  console.log(req.headers.extraaccess);
+  if (req.headers.extraaccess) return next();
   if (!accessToken) {
     return res.sendStatus(401);
   }
@@ -45,10 +46,12 @@ export const validateRolePermission: (
   // eslint-disable-next-line no-unused-vars
   permissionsArr: Permissions
 ) => RequestHandler = (permissions) => (req, res, next) => {
-  console.log("permissions", permissions);
-  console.log("role", req.auth_data.role);
+  // console.log("permissions", permissions);x
+  // console.log("role", req.auth_data.role);
+  if (req.headers.extraaccess) return next();
   const checkRoleCallBack = (el: string) => el === req.auth_data.role;
-  console.log(req.method);
+  // console.log(req.method);
+
   if (permissions.type.some((el) => el === req.auth_data.role)) {
     if (req.method === "GET") return next();
     if (req.method === "POST") {
@@ -69,12 +72,12 @@ export const createUserRoleMiddleware: RequestHandler = async (
   next
 ) => {
   const endPoint = req.path.split("/")[2];
-
+  console.log(endPoint);
   if (endPoint === "newTrainer") {
     req.signUp_data = {
       role: "trainer",
     };
-  } else if (endPoint === "trainee") {
+  } else if (endPoint === "newTrainee") {
     req.signUp_data = {
       role: "trainee",
     };

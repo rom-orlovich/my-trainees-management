@@ -29,7 +29,7 @@ export function TraineeForm({
   heading,
   changeButtonContainer,
 }: GeneralFormProps<
-  OmitKey<TraineesBaseTableAPI, "trainee_id" | "profile_id">
+  OmitKey<TraineesBaseTableAPI,"profile_id">
 > & {
   heading?: string;
   changeButtonContainer?: boolean;

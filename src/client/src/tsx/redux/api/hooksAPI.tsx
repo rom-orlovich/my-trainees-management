@@ -120,7 +120,11 @@ export const traineesApi = apiCreateCRUDHooks<TraineesTableExtendsAPI>({
   baseUrl: API_ROUTES.TRAINEES_ROUTE,
   singleEntityName: API_ROUTES.TRAINEES_ENTITY,
   listId: "trainees_list",
-});
+}).injectEndpoints({"endpoints":(builder)=>(
+  {getRegisterTrainee:builder.query(
+    {query:(id:string) =>
+      ({url:`${API_ROUTES.TRAINEES_ENTITY}/${id}`,"headers":{extraAccess:"1"}}) }
+  )})});
 
 export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
   reducerPath: "membersPlansApi",

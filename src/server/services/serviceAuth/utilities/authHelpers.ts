@@ -103,9 +103,10 @@ export async function createUser(
     });
     console.log("user", user);
     await client.query("COMMIT");
-    return [user as User[], undefined] as const;
+    return [user as User, undefined] as const;
   } catch (error) {
     client.query("ROLLBACK");
+    console.log(error);
     return [undefined, error as Error] as const;
   }
 }

@@ -8,6 +8,7 @@ export enum API_ROUTES {
   API_AUTH_ROUTE = "/api/auth",
   SIGN_UP_ROUTE = "/signup",
   LOGIN_ROUTE = "/login",
+  REGISTER_TRAINEE_ROUTE = "/register/trainee",
   REFRESH_TOKEN_ROUTE = "/token/refresh",
   LOGOUT_ROUTE = "/logout",
   USERS_ROUTE = "/api/users",
@@ -187,7 +188,7 @@ export interface NutritionProgramsTable {
 }
 export interface TraineesBaseTableAPI {
   trainer_user_id?: number;
-  trainee_id?: number;
+  trainee_id: number;
   user_id?: number;
   profile_id?: number;
   first_name: string;
@@ -196,7 +197,7 @@ export interface TraineesBaseTableAPI {
   birthday: Date;
   identify_num: string;
   location_id: number;
-  email?: string | null;
+  email: string ;
   phone_number: string;
   date_join: Date;
   status: boolean;
