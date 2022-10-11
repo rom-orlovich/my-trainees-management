@@ -33,6 +33,7 @@ import {
   validateTokenMiddleware,
 } from "./services/serviceAuth/controllers/authMiddleware";
 import { createUser } from "./services/serviceAuth/utilities/authHelpers";
+import mailRouter from "./services/serviceMail/routes/mailRoutes";
 
 const PORT = process.env.PORT || 5000;
 
@@ -41,7 +42,7 @@ app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Cors middleware
+// Cors middleware.
 app.use(
   cors({
     origin: [
@@ -73,6 +74,8 @@ app.delete(
   validateRolePermission(PERMISSION_ALL_WITHOUT_UPDATE),
   handleDeleteAllUserAlerts
 );
+
+app.use(API_ROUTES.MAIL_ROUTE, mailRouter);
 
 // Init alerts middleware.
 app.use(handleAlertsMiddleware);
