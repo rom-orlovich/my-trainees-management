@@ -95,10 +95,16 @@ async function connectDB() {
     // Uncomment this line will init the  db.
     // This line is for development purpose.
     // await initDB();
-    // await createUser(process.env.ADMIN_PSW, process.env.ADMIN_USER, "admin");
     // await createUser(
-    //   process.env.EXAMPLE_PSW,
+    //   process.env.ADMIN_EMAIL,
+    //   process.env.ADMIN_USER,
+    //   process.env.ADMIN_PSW,
+    //   "admin"
+    // );
+    // await createUser(
+    //   process.env.EXAMPLE_EMAIL,
     //   process.env.EXAMPLE_USER,
+    //   process.env.EXAMPLE_PSW,
     //   "trainer"
     // );
 

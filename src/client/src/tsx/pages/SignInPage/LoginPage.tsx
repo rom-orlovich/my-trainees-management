@@ -17,15 +17,15 @@ import style from "../HomeCardForm.module.scss";
 function LoginPage() {
   const [login] = authApi.useLoginMutation();
   const dispatch = useDispatch();
-  const nav = useNavigate();
+  // const nav = useNavigate();
 
   const onSubmit = (body: LoginForm) => {
     dispatch(disableGoPrevPage());
     login(body)
       .unwrap()
-      .then(({ ...rest }) => {
-        nav(`/${APP_ROUTE.HOME_PAGE}`);
-      });
+      // .then(({ ...rest }) => {
+      //   // nav(`/${APP_ROUTE.HOME_PAGE}`);
+      // });
   };
 
   return (
@@ -35,6 +35,7 @@ function LoginPage() {
         heading={"Login"}
         authButtonsContainer={true}
         isLoginMode={true}
+        pathMove={relativePath(APP_ROUTE.HOME_PAGE)}
         formOptions={{
           resolver: yupResolver(loginSchema),
           mode: "all",

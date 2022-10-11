@@ -40,5 +40,5 @@ export function TrainingProgramsListAddForm({
     });
   };
 
-  return <TrainingProgramListForms onSubmit={handleSubmit} />;
+  return <TrainingProgramListForms  onSubmit={handleSubmit} />;
 }

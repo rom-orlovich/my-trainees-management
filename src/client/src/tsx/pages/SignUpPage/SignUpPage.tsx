@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Card from "../../components/baseComponents/Card/Card";
 import Form from "../../components/baseComponents/RHF-Components/Form/Form";
@@ -8,21 +9,21 @@ import InputErrorMessage from "../../components/baseComponents/RHF-Components/In
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { authApi } from "../../redux/api/authAPI";
 import { SignUpForm } from "../../redux/api/interfaceAPI";
+import { disableGoPrevPage } from "../../redux/slices/apiSideEffectSlice";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { relativePath } from "../../utilities/helpersFun";
 import style from "../HomeCardForm.module.scss";
 function SignUpPage() {
   const [signUp] = authApi.useSignUpMutation();
+  const dispatch=useDispatch()
   const { pathname } = useLocation();
   const nav = useNavigate();
 
-  const onSubmit = (body: SignUpForm) =>
-    signUp({ credentials: body, endPoint: "newTrainer" })
-      .unwrap()
-      .then(({ message, ...rest }) => {
-        nav(relativePath(APP_ROUTE.LOGIN_ROUTE));
-      });
-
+  const onSubmit = async (body: SignUpForm) =>
+   {
+    
+return  signUp({ credentials: body, endPoint: "newTrainer" }).unwrap()
+}
   return (
     <Card className={style.card_form}>
       <Form<SignUpForm>
@@ -30,6 +31,7 @@ function SignUpPage() {
         heading={"Sign Up"}
         authButtonsContainer={true}
         isLoginMode={false}
+        pathMove={relativePath(APP_ROUTE.LOGIN_ROUTE)}
         formOptions={{
           resolver: yupResolver(signUpSchema),
           mode: "all",

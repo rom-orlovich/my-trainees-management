@@ -14,7 +14,7 @@ export const createDataIDwithMessage = (
   },
   data?: Record<string, any>
 ) => ({
-  message: `The ${message.singleEntityName}${
+  message: `The ${message.singleEntityName} ${
     message.messagePayload || ""
   } was ${message.action}d successfully!`,
   data: { id: createObjValuesArr(data || {})[0] },
@@ -103,7 +103,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
   if (!successRes) {
     return next(new Error("Something went wrong"));
   }
-
+  console.log({ statusCode: successRes?.statusCode, ...successRes.response });
   return res
     .status(successRes?.statusCode || 200)
     .json({ statusCode: successRes?.statusCode, ...successRes.response });

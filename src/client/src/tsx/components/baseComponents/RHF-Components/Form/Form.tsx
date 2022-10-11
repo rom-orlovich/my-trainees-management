@@ -60,7 +60,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   const { defaultValues } = useAppSelector(getFormsState);
 
   const {
-    goPrePageBehaviorState: { goPrevPage, disableGoPrevPage },
+    goPrePageBehaviorState: { goPrevPage },
   } = useAppSelector(getApiSideEffect);
   const dispatch = useAppDispatch();
 
@@ -108,9 +108,10 @@ export default function Form<TFormValues extends Record<string, any>>({
             values: methods.getValues(),
           })
         );
-
+  
       if (goPrevPage) {
         nav((pathMove || -1) as any);
+    
       }
       dispatch(enableGoPrevPage());
     } catch (error) {

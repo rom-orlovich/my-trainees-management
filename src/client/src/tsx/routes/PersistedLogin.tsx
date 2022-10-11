@@ -18,7 +18,7 @@ function PersistedLogin() {
   const nav = useNavigate();
 
   useEffect(() => {
-    if (!authState.accessToken) trigger({});
+    if (!authState.accessToken ) trigger({});
     console.log("authState.accessToken", authState.accessToken);
   }, [authState.accessToken, trigger]);
 
@@ -27,7 +27,7 @@ function PersistedLogin() {
   ) : (
     <LoadingSpinner
       isErrorFun={() => {
-        console.log("s");
+
         nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
       }}
       stateData={{ isLoading, isError, isFetching, data }}

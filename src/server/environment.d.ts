@@ -15,8 +15,11 @@ declare global {
       HOST_PG: string;
 
       ADMIN_USER: string;
+      ADMIN_EMAIL: string;
       ADMIN_PSW: string;
+
       EXAMPLE_USER: string;
+      EXAMPLE_EMAIL: string;
       EXAMPLE_PSW: string;
 
       ACCESS_TOKEN_SECRET: string;

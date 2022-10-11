@@ -16,7 +16,7 @@ const initialState = {
     // The response of delete item from the api will have id.
     // therefore the page will return to the pre page.
     // Enable this behavior only for specific components like forms.
-    disableGoPrevPage: false,
+    // disableGoPrevPage: false,
     goPrevPage: true,
   },
   isAlertsOpen: false,
@@ -66,8 +66,10 @@ export const apiSideEffectSlice = createSlice({
         (state, action) => {
           // If there is success response from the server after submit form,
           // set goPrevPage to true , in order to go back the previous page.
-          if (action?.payload?.status === undefined)
-            state.goPrePageBehaviorState.goPrevPage = true;
+          if (action?.payload?.status !== undefined)
+           {
+       
+            state.goPrePageBehaviorState.goPrevPage = false};
         }
       )
       .addMatcher(

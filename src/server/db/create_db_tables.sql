@@ -40,10 +40,10 @@ CREATE TABLE IF NOT EXISTS "profiles" (
   "gender" VARCHAR (20),
   "identify_num" VARCHAR(15),
   "birthday" DATE,
-  "email" VARCHAR(255),
+  "email" VARCHAR(255) UNIQUE,
   "phone_number" VARCHAR(12),
   "location_id" INTEGER,
-  "date_join" DATA,
+  "date_join" DATE,
   "status" BOOLEAN DEFAULT FALSE
 );
 

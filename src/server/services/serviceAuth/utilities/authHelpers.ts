@@ -15,6 +15,7 @@ import { promiseHandler } from "../../../utilities/helpers";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
+import { client } from "../../../PGSql/DBConnectConfig";
 
 export type UserRoles = "admin" | "trainee" | "trainer";
 
@@ -70,20 +71,41 @@ export const genToken = (
   });
 
 export async function createUser(
-  password: string,
+  email: string,
   username: string,
-  role: UserRoles
+  password: string,
+  role: UserRoles,
+  updateID?: string
 ) {
-  const hashPassword = await hash(password, 10);
+  try {
+    await client.query("BEGIN");
+    const hashPassword = await hash(password, 10);
+    let profile;
+    if (updateID) {
+      profile = updateQuerySingleItem(
+        TABLES_DATA.PROFILES_TABLE_NAME,
+        { email },
+        updateID,
+        `where ${TABLES_DATA.PROFILE_ID}=$1`
+      );
+    } else
+      profile = await insertQueryOneItem(TABLES_DATA.PROFILES_TABLE_NAME, {
+        email,
+      });
 
-  const [user, error] = await promiseHandler<User[]>(
-    insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
+    console.log("profile", profile);
+    const user = await insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
       role,
       refresh_tokens: [],
       username,
       password: hashPassword,
-    })
-  );
-
-  console.log(error);
+      profile_id: profile.profile_id,
+    });
+    console.log("user", user);
+    await client.query("COMMIT");
+    return [user as User[], undefined] as const;
+  } catch (error) {
+    client.query("ROLLBACK");
+    return [undefined, error as Error] as const;
+  }
 }
