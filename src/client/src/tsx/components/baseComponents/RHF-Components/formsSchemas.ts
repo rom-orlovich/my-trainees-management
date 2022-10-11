@@ -124,23 +124,7 @@ export const nutritionProgramSchema = yup.object().shape({
   note_text: yup.string().notRequired().default(""),
 });
 
-// export const traineesSchema = yup.object().shape({
 
-// export const traineesSchema = yup.object().shape({
-//   // trainee_id: yup.number().notRequired().nullable(),
-//   user_id: yup.number().required(),
-
-//   first_name: yup.string().required(),
-//   last_name: yup.string().required(),
-//   gender: yup.string().required(),
-//   identify_num: yup.string().required(),
-//   birthday: yup.date().required(),
-//   email: yup.string().email().notRequired().nullable(),
-//   phone_number: yup.string().max(12).required(),
-//   location_id: yup.number().required(),
-//   date_join: yup.date().required(),
-//   status: yup.boolean().required(),
-// });
 export const traineesSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable(),
   trainer_user_id: yup.number().notRequired().nullable().default(1),
@@ -187,16 +171,16 @@ export const incomesSchema = yup.object().shape({
 export const loginSchema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().required(),
-  // confirm_password: yup.string().equals(["password"]),
+ 
 });
 export const signUpSchema = yup.object().shape({
+  email:yup.string().email().required("Must be valid email"),
   username: yup
     .string()
     .required()
     .matches(/^(?=.{8,20}$)/, "Must be 8 -20 characters")
     .matches(/(?![_.])/, "No _ or . at the beginning ")
     .matches(/[a-zA-Z0-9._]/, "Characters are required"),
-
   password: yup
     .string()
     .required("Required")
@@ -210,3 +194,5 @@ export const signUpSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match")
     .required(),
 });
+
+export const forgetPasswordSchema=signUpSchema.concat(signUpSchema.pick(["password","confirmPassword"]))

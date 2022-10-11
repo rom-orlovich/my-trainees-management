@@ -33,7 +33,7 @@ function SignUpPage() {
         formOptions={{
           resolver: yupResolver(signUpSchema),
           mode: "all",
-          defaultValues: { username: "", password: "", confirmPassword: "" },
+          defaultValues: { email:"",username: "", password: "", confirmPassword: "" },
         }}
       >
         {({ register, formState }) => {
@@ -49,7 +49,16 @@ function SignUpPage() {
                   nameInput="Username"
                   error={errors.username}
                 />
+              </InputLabel>     <InputLabel
+                LabelProps={{ labelText: "Email" }}
+                InputProps={{ ...register("email") }}
+              >
+                <InputErrorMessage
+                  nameInput="Email"
+                  error={errors.email}
+                />
               </InputLabel>
+
               <InputLabel
                 LabelProps={{ labelText: "Password" }}
                 InputProps={{ ...register("password"), type: "password" }}

@@ -35,22 +35,21 @@ CREATE TABLE IF NOT EXISTS "cities" (
 
 CREATE TABLE IF NOT EXISTS "profiles" (
   "profile_id" serial PRIMARY KEY,
-  "first_name" VARCHAR(255) NOT NULL,
-  "last_name" VARCHAR(255) NOT NULL,
-  "gender" VARCHAR (20) NOT NULL,
-  "identify_num" VARCHAR(15) NOT NULL ,
-  "birthday" DATE NOT NULL,
-  "email" VARCHAR(255) NOT NULL,
-  "phone_number" VARCHAR(12) NOT NULL,
-  "location_id" INTEGER NOT NULL ,
-  "date_join" DATE NOT NULL,
+  "first_name" VARCHAR(255),
+  "last_name" VARCHAR(255),
+  "gender" VARCHAR (20),
+  "identify_num" VARCHAR(15),
+  "birthday" DATE,
+  "email" VARCHAR(255),
+  "phone_number" VARCHAR(12),
+  "location_id" INTEGER,
+  "date_join" DATA,
   "status" BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS "users"(
     "user_id" serial PRIMARY KEY,
     "role" varchar(50) DEFAULT 'admin',
-    "email" VARCHAR(255) NULL,
     "username" varchar(50) UNIQUE,
     "password" varchar(255),
     "refresh_tokens" TEXT[] DEFAULT '{}',

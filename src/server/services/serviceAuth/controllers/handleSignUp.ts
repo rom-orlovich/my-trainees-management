@@ -9,13 +9,29 @@ import { createModifiedActionResultFun, User } from "../utilities/authHelpers";
 
 export const signUpHandler: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
-  const { password, username } = req.body;
+  const { password, username, email } = req.body;
   const hashPassword = await hash(password, 10);
+  const [profile, profileError] = await promiseHandler<
+    { profile_id: number }[]
+  >(insertQueryOneItem(TABLES_DATA.PROFILES_TABLE_NAME, { email }));
+
+  if (profileError) {
+    req.modifiedActionResult = createModifiedActionResultFun(
+      undefined,
+      profileError,
+      "create",
+      false
+    );
+
+    return next();
+  }
+  console.log("profile", profile);
   const [user, error] = await promiseHandler<User[]>(
     insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
       ...req.body,
       role: req.signUp_data.role,
       password: hashPassword,
+      profile_id: profile[0].profile_id,
     })
   );
 

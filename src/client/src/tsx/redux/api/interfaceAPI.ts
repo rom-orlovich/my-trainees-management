@@ -242,6 +242,7 @@ export interface LoginForm {
   password: string;
 }
 export interface SignUpForm {
+  email:string
   username: string;
   password: string;
   confirmPassword: string;
@@ -252,9 +253,10 @@ export interface User {
   username: string;
   role: "admin" | "trainer" | "trainee";
 }
-export interface UserAPI {
-  user_id: number;
-  username: string;
-  role: "admin" | "trainer" | "trainee";
-  profile_id: number | null;
+
+export interface UserAPI extends User 
+{  
+  email:string
+  profile_id: number | null
 }
+

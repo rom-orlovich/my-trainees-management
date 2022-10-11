@@ -15,10 +15,7 @@ import { Server } from "http";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
 
-import {
-  PERMISSION_ALL_WITHOUT_UPDATE,
-  routesCRUDArr,
-} from "./services/serviceCRUD/routes/routesConfig";
+import { routesCRUDArr } from "./services/serviceCRUD/routes/routesConfig";
 import { createCRUDroutes } from "./services/serviceCRUD/routes/routesCRUD";
 import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
 import {
@@ -38,6 +35,7 @@ import {
 } from "./services/serviceAuth/controllers/authMiddleware";
 import { createUser } from "./services/serviceAuth/utilities/authHelpers";
 import mailRouter from "./services/serviceMail/routes/mailRoutes";
+import { PERMISSION_ALL_WITHOUT_UPDATE } from "./services/usersPermission";
 
 const PORT = process.env.PORT || 5000;
 

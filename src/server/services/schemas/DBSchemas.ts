@@ -171,3 +171,7 @@ export const loginSchema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().required(),
 });
+export const signUpSchema = loginSchema.concat(
+  yup.object().shape({ email: yup.string().email().required() })
+);
+export const changePasswordSchema = loginSchema.omit(["username"]);

@@ -21,7 +21,7 @@ import {
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
-import { UserRoles, USER_ROLES } from "../../serviceAuth/utilities/authHelpers";
+
 import {
   Permissions,
   PERMISSION_ADMIN,
@@ -66,8 +66,9 @@ export const usersOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.USERS_TABLE_NAME} as us`,
     tableID: `us.${TABLES_DATA.USERS_TABLE_ID}`,
-    fieldNamesQuery: `us.user_id,us.username,us.role`,
-    querySelectLogic: ``,
+    fieldNamesQuery: `us.user_id,us.username,us.role,pr.email`,
+    querySelectLogic: `JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr ON 
+    pr.${TABLES_DATA.PROFILE_ID}=us.${TABLES_DATA.PROFILE_ID}`,
   },
 
   permissions: PERMISSION_ADMIN,

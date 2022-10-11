@@ -16,7 +16,7 @@ import {
   LeadsTableAPI,
   TrainingProgramsListTableAPI,
   AlertsAPI,
-  User,
+
   UserAPI,
 } from "../api/interfaceAPI";
 

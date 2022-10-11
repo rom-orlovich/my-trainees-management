@@ -6,7 +6,7 @@ import {
   clientMailOAuth,
   MAIL_OPTIONS,
   MY_USER_MAIL,
-} from "../utilities/contstans";
+} from "../utilities/contestant";
 import { API_ROUTES, URL_CUR_CLIENT } from "../../apiRoutesConstants";
 
 export const generateConfig = (url: string, accessToken: string) => ({
@@ -35,9 +35,37 @@ export const handleGetUser: RequestHandler = async (req, res) => {
     res.send(error);
   }
 };
+// const link = `${URL_CUR_CLIENT}${API_ROUTES.SIGN_UP_ROUTE}`;
+// const MAIL_MESSAGE = {
+//   subject: "",
+//   text: `Create account in this link ${link}`,
+// };
 
-// export const sendEmail = (to: string,) => {
+// export const sendEmail = async (
+//   to: string,
+//   message: { text: string; subject: string },
+//   id?: string
+// ) => {
+//   const { token } = await clientMailOAuth.getAccessToken();
 
+//   const mailOptions: Mail.Options = {
+//     ...MAIL_OPTIONS,
+//     to,
+
+//     ...message,
+//   };
+
+//   if (token) {
+//     const transport = nodemailer.createTransport({
+//       service: "gmail",
+//       auth: {
+//         accessToken: token,
+//         ...MY_USER_MAIL,
+//       },
+//     });
+
+//     // const result = await transport.sendMail(mailOptions);
+//   }
 // };
 
 export const handleSendEmail: RequestHandler = async (req, res) => {

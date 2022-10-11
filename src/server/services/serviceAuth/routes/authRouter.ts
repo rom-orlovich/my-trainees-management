@@ -1,6 +1,10 @@
 import { Router } from "express";
 import { API_ROUTES } from "../../apiRoutesConstants";
-import { loginSchema } from "../../schemas/DBSchemas";
+import {
+  changePasswordSchema,
+  loginSchema,
+  signUpSchema,
+} from "../../schemas/DBSchemas";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import {
   createUserRoleMiddleware,
@@ -15,14 +19,18 @@ import { signUpHandler } from "../controllers/handleSignUp";
 
 const routesRole = ["newTrainer", "newTrainee", "admin"];
 const authRouter = Router();
-const validateMiddlewareHandler = validateMiddleware(loginSchema);
+const validateMiddlewareHandlerLogin = validateMiddleware(loginSchema);
+const validateMiddlewareHandlerSignUp = validateMiddleware(signUpSchema);
+const validateMiddlewareHandlerChangePassword =
+  validateMiddleware(changePasswordSchema);
+
 authRouter.get(API_ROUTES.REFRESH_TOKEN_ROUTE, refreshTokenHandler);
 authRouter.get(API_ROUTES.LOGOUT_ROUTE, logoutHandler);
 
 routesRole.forEach((route) => {
   authRouter.post(
     `${API_ROUTES.SIGN_UP_ROUTE}/${route}`,
-    validateMiddlewareHandler,
+    validateMiddlewareHandlerSignUp,
     createUserRoleMiddleware,
     signUpHandler
   );
@@ -30,13 +38,13 @@ routesRole.forEach((route) => {
 
 authRouter.post(
   API_ROUTES.LOGIN_ROUTE,
-  validateMiddlewareHandler,
+  validateMiddlewareHandlerLogin,
   loginHandler
 );
 authRouter.put(
   API_ROUTES.CHANGE_USER_CRED_ROUTE,
   validateTokenMiddleware,
-  validateMiddlewareHandler,
+  validateMiddlewareHandlerChangePassword,
 
   changeUserCredentialsHandler
 );
