@@ -46,6 +46,7 @@ export function createRoutesControllers({
     createModifiedActionResult(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
+    console.log("enter getValuesFromDB");
     const { page, asc, numResults, ...rest } = req.query;
 
     const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
@@ -73,6 +74,7 @@ export function createRoutesControllers({
 
   // Controller of the get method. Gets one item by ID from the db.
   const getValueFromDBbyID: RequestHandler = async (req, res, next) => {
+    console.log("enter getValueFromDBbyID");
     const queryLogic = `${querySelectLogic}  WHERE ${tableID}=$1`;
     const id = Number(req.params.id);
 
@@ -80,6 +82,7 @@ export function createRoutesControllers({
       selectQuery(`${tableName}`, `${fieldNamesQuery}`, queryLogic, [id])
     );
     console.log(id);
+
     if (err) return next(new ErrorCustomizes(err, "get"));
     return res.status(200).json(data[0]);
   };

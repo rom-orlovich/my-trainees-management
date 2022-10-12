@@ -1,5 +1,10 @@
 import express from "express";
 
+import { API_ROUTES } from "../../apiRoutesConstants";
+import { traineesSchema } from "../../schemas/DBSchemas";
+import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
+import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
+
 import { createRoutesControllers } from "../controllers/controllerCRUD";
 
 import { OptionsCRUD } from "./routesConfig";
@@ -24,6 +29,16 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const singleEntityNameEndPoint = `/${optionsCRUD.singleEntityName}`;
   const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
 
+  if (optionsCRUD.singleEntityName === API_ROUTES.TRAINEES_ENTITY) {
+    const validateMiddlewareRegisterTrainee =
+      validateMiddleware(traineesSchema);
+    newRoute.post(
+      API_ROUTES.REGISTER_TRAINEE_ROUTE,
+      validateMiddlewareRegisterTrainee,
+      handleRegisterTrainee
+    );
+  }
+
   newRoute.route("/").get(getValuesFromDB);
   newRoute
     .route(singleEntityNameEndPoint)
@@ -33,7 +48,6 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
     .get(getValueFromDBbyID)
     .put(validateMiddlewareHandler, updateValueByID)
     .delete(deleteValueByID);
-  // }
 
   return newRoute;
 }

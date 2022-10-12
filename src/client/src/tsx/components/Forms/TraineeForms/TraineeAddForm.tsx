@@ -6,7 +6,7 @@ import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
 
 export function TraineeAddForm() {
-  const [addTrainee] = authApi.useRegisterTraineeMutation();
+  const [addTrainee] = traineesApi.useRegisterTraineeMutation();
   const handleSubmit = (body: TraineesBaseTableAPI) => {
  
     addFunction({

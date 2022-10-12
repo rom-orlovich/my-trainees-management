@@ -68,7 +68,7 @@ export const sendEmail = async (
     return result1;
   } catch (error) {
     console.log("error", error);
-    return error;
+    throw error;
   }
 };
 

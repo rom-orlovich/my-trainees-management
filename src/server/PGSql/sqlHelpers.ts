@@ -144,11 +144,11 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  console.log(tableName);
-  if (tableName === "trainees as tr") {
-    console.log("statement", statement);
-    console.log("queryParams", queryParams);
-  }
+  // console.log(tableName);
+  // if (tableName === "trainees as tr") {
+  //   console.log("statement", statement);
+  //   console.log("queryParams", queryParams);
+  // }
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;
@@ -232,7 +232,7 @@ export async function deleteQuery(
 ) {
   const statement = `DELETE FROM ${tableName} ${queryLogic} ${
     returnValue ? "RETURNING *" : ""
-  }`;
+  } `;
   // console.log(statement, queryParams);
   const rows = await client.query(statement, queryParams);
   return rows.rows;

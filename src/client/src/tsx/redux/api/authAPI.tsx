@@ -50,9 +50,4 @@ export const authApi = createApi({
       }),
     }),
   }),
-}).injectEndpoints({endpoints:(builder)=>({
-  registerTrainee:builder.mutation({
-    query:(body)=>
-   ({ url:API_ROUTES.REGISTER_TRAINEE_ROUTE , "method":"POST",body})
-  ,"invalidatesTags":[{ type: API_ROUTES.TRAINEES_ENTITY, id: "trainees_list" }]})
-})});
+});

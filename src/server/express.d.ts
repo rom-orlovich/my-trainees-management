@@ -31,6 +31,13 @@ declare global {
         jwt: string;
         role: UserRoles;
       };
+
+      signUp_verify_trainee: {
+        profile_id: string;
+        email: number;
+        jwt: string;
+      };
+
       signUp_data: {
         role: UserRoles;
       };

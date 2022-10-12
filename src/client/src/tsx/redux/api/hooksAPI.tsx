@@ -122,9 +122,20 @@ export const traineesApi = apiCreateCRUDHooks<TraineesTableExtendsAPI>({
   listId: "trainees_list",
 }).injectEndpoints({"endpoints":(builder)=>(
   {getRegisterTrainee:builder.query(
-    {query:(id:string) =>
-      ({url:`${API_ROUTES.TRAINEES_ENTITY}/${id}`,"headers":{extraAccess:"1"}}) }
-  )})});
+    {query:({id,verifyToken}:{id:string,verifyToken:string})=>
+    {
+    
+      return ({url:`${API_ROUTES.TRAINEES_ENTITY}/${id}`,headers:{authorization:`Bearer ${verifyToken}`}})}
+  
+  } 
+  ),
+  registerTrainee:builder.mutation({
+    query:(body)=>
+   ({ url:API_ROUTES.REGISTER_TRAINEE_ROUTE , "method":"POST",body})
+  ,"invalidatesTags":[{ type: API_ROUTES.TRAINEES_ENTITY, id: "trainees_list" }]})
+}
+
+)})
 
 export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
   reducerPath: "membersPlansApi",

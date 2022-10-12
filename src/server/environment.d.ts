@@ -27,6 +27,7 @@ declare global {
       EXPIRE_IN_ACCESS_TOKEN: string;
       EXPIRE_IN_REFRESH_TOKEN: string;
 
+      GMAIL_API_VERIFY_TIME: string;
       GMAIL_API_CLIENT_ID: string;
       GMAIL_API_CLIENT_SECRET: string;
       GMAIL_API_REDIRECT_URI: string;

@@ -1,32 +1,62 @@
 import { RequestHandler } from "webpack-dev-server";
+import { selectQuery, updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
+import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
 import { Permissions } from "../../usersPermission";
 
 import { UserRoles, verifyAsync } from "../utilities/authHelpers";
+
+const checkTraineeHaveToken = async (token: string) => {
+  // const [trainee] = await promiseHandler(
+  //   updateQuerySingleItem(
+  //     TABLES_DATA.TRAINEES_TABLE_NAME,
+  //     { sign_up_token: "" },
+  //     token,
+  //     `where sign_up_token=$1`
+  //   )
+  // );
+  // eslint-disable-next-line no-unused-vars
+  const [trainee, errorTrainee] = await promiseHandler(
+    selectQuery(
+      TABLES_DATA.TRAINEES_TABLE_NAME,
+      "*",
+      "where sign_up_token=$1",
+      [token]
+    )
+  );
+  console.log(trainee ? trainee[0] : "");
+  return trainee && trainee[0];
+};
 
 export const validateTokenMiddleware: RequestHandler = async (
   req,
   res,
   next
 ) => {
-  // console.log("handle token middleware");
   const accessToken = req.headers.authorization?.split("Bearer ")[1];
-  console.log(req.headers.extraaccess);
-  if (req.headers.extraaccess) return next();
+
   if (!accessToken) {
     return res.sendStatus(401);
   }
-
   const [decode, err] = await promiseHandler(
     verifyAsync(accessToken, process.env.ACCESS_TOKEN_SECRET)
   );
+  const Decode = decode as Record<string, any>;
+  console.log(Decode);
 
+  if (Decode?.profile_id) {
+    if (await checkTraineeHaveToken(accessToken)) {
+      console.log("tre");
+      return next();
+    }
+    return res.sendStatus(401);
+  }
   if (err) {
     console.log("err", err);
     return res.sendStatus(403);
   }
 
-  const userData = decode as {
+  const userData = Decode as {
     username: string;
     user_id: number;
     role: UserRoles;
@@ -46,12 +76,7 @@ export const validateRolePermission: (
   // eslint-disable-next-line no-unused-vars
   permissionsArr: Permissions
 ) => RequestHandler = (permissions) => (req, res, next) => {
-  // console.log("permissions", permissions);x
-  // console.log("role", req.auth_data.role);
-  if (req.headers.extraaccess) return next();
   const checkRoleCallBack = (el: string) => el === req.auth_data.role;
-  // console.log(req.method);
-
   if (permissions.type.some((el) => el === req.auth_data.role)) {
     if (req.method === "GET") return next();
     if (req.method === "POST") {
@@ -72,7 +97,7 @@ export const createUserRoleMiddleware: RequestHandler = async (
   next
 ) => {
   const endPoint = req.path.split("/")[2];
-  console.log(endPoint);
+
   if (endPoint === "newTrainer") {
     req.signUp_data = {
       role: "trainer",

@@ -4,7 +4,6 @@ import {
   changePasswordSchema,
   loginSchema,
   signUpSchema,
-  traineesSchema,
 } from "../../schemas/DBSchemas";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import {
@@ -16,28 +15,18 @@ import { changeUserCredentialsHandler } from "../controllers/handleChangeCredent
 import { loginHandler } from "../controllers/handleLogin";
 import { logoutHandler } from "../controllers/handleLogout";
 import { refreshTokenHandler } from "../controllers/handleRefreshToken";
-import { handleRegisterTrainee } from "../controllers/handleRegisterTrainee";
-import {
-  signUpHandlerTrainer,
-  signUpHandlerTrainee,
-} from "../controllers/handleSignUp";
+import { signUpHandlerTrainee } from "../controllers/handleSignUpTrainee";
 
-// const routesRole = ["newTrainer", "trainee/:id", "admin"];
+import { signUpHandlerTrainer } from "../controllers/handleSignUpTrainer";
+
 const authRouter = Router();
 const validateMiddlewareHandlerLogin = validateMiddleware(loginSchema);
 const validateMiddlewareHandlerSignUp = validateMiddleware(signUpSchema);
 const validateMiddlewareHandlerChangePassword =
   validateMiddleware(changePasswordSchema);
-const validateMiddlewareRegisterTrainee = validateMiddleware(traineesSchema);
 
 authRouter.get(API_ROUTES.REFRESH_TOKEN_ROUTE, refreshTokenHandler);
 authRouter.get(API_ROUTES.LOGOUT_ROUTE, logoutHandler);
-
-authRouter.post(
-  API_ROUTES.REGISTER_TRAINEE_ROUTE,
-  validateMiddlewareRegisterTrainee,
-  handleRegisterTrainee
-);
 
 authRouter.post(
   `${API_ROUTES.SIGN_UP_ROUTE}/newTrainer`,
@@ -47,8 +36,9 @@ authRouter.post(
 );
 authRouter.post(
   `${API_ROUTES.SIGN_UP_ROUTE}/newTrainee/:id`,
+  validateTokenMiddleware,
   validateMiddlewareHandlerSignUp,
-  createUserRoleMiddleware,
+  // createUserRoleMiddleware,
   signUpHandlerTrainee
 );
 
