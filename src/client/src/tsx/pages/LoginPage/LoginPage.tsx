@@ -33,12 +33,13 @@ function LoginPage() {
       <Form<LoginForm>
         onSubmit={onSubmit}
         heading={"Login"}
+        formProps={{ className: style.login_form }}
         authButtonsContainer={true}
         isLoginMode={true}
         pathMove={relativePath(APP_ROUTE.HOME_PAGE)}
         formOptions={{
           resolver: yupResolver(loginSchema),
-          mode: "all",
+          // mode: "all",
           defaultValues: { username: "example123", password: "example123" },
         }}
       >
@@ -72,6 +73,11 @@ function LoginPage() {
       <div>
         <NavLink to={relativePath(APP_ROUTE.SIGN_UP)}>
           Don't have an account? Try it Free!
+        </NavLink>
+      </div>
+      <div>
+        <NavLink to={relativePath(APP_ROUTE.FORGET_PASSWORD_PAGE)}>
+          Forget password?
         </NavLink>
       </div>
     </Card>

@@ -3,11 +3,12 @@
   width: 22rem;
   height: 30rem;
   padding: 1rem;
+
   @include flex-dir(space-evenly, center, column);
   gap: 0.1rem;
   @include classMatcher("Form_form_container") {
     width: 100%;
-    height: 100%;
+    height: 70%;
     @include classMatcher("Form_form") {
       gap: 0.6rem;
       width: 100%;
@@ -22,6 +23,7 @@
       }
     }
   }
+
   .card_form_footer {
   }
 }

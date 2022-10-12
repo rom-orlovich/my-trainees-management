@@ -1,4 +1,5 @@
-import { SyntheticEvent, useEffect, useRef, useState } from "react";
+/* eslint-disable no-nested-ternary */
+import React, { useEffect } from "react";
 import {
   FieldValues,
   Path,
@@ -77,8 +78,8 @@ export default function Form<TFormValues extends Record<string, any>>({
   // Side effect if the form is not in edit mode.
   // saves the form state values after the user exit from the form component
   // and the component wll unmount.
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (!editMode) {
         dispatch(
           saveFormState({
@@ -87,15 +88,9 @@ export default function Form<TFormValues extends Record<string, any>>({
           })
         );
       }
-    };
-  }, [location.pathname, location, dispatch, methods, editMode]);
-
-  // Side effect of disabling the submit button if the form is not valid.
-  // useEffect(() => {
-  //   if (methods.formState.isValid) {
-  //     setDisabled(false);
-  //   }
-  // }, [methods.formState.isValid]);
+    },
+    [location.pathname, location, dispatch, methods, editMode]
+  );
 
   const handleSubmit = async (data: TFormValues) => {
     try {
@@ -108,10 +103,9 @@ export default function Form<TFormValues extends Record<string, any>>({
             values: methods.getValues(),
           })
         );
-  
+
       if (goPrevPage) {
         nav((pathMove || -1) as any);
-    
       }
       dispatch(enableGoPrevPage());
     } catch (error) {
@@ -125,6 +119,28 @@ export default function Form<TFormValues extends Record<string, any>>({
 
   const editModeText = editMode ? "Edit" : "Add";
   const authModeText = isLoginMode ? "Login" : "Sign Up";
+
+  const buttonContainer = changeButtonContainer ? (
+    <div className={style.buttons_container_save_button}>
+      <button type="submit" disabled={!methods.formState.isValid}>
+        Save Changes
+      </button>
+    </div>
+  ) : authButtonsContainer ? (
+    <div className={style.buttons_container_save_button}>
+      <button type="submit" disabled={!methods.formState.isValid}>
+        {authModeText}
+      </button>
+    </div>
+  ) : (
+    <div className={style.buttons_container_edit_back}>
+      <Link to={-1 as any}>Back</Link>
+      <button type="submit" disabled={!methods.formState.isValid}>
+        {buttonNext ? "Next" : editModeText}
+      </button>
+    </div>
+  );
+
   return (
     <div className={style.form_container}>
       <div className={style.heading}>
@@ -148,26 +164,7 @@ export default function Form<TFormValues extends Record<string, any>>({
         ) : (
           <></>
         )}
-        {changeButtonContainer ? (
-          <div className={style.buttons_container_save_button}>
-            <button type="submit" disabled={!methods.formState.isValid}>
-              Save Changes
-            </button>
-          </div>
-        ) : authButtonsContainer ? (
-          <div className={style.buttons_container_save_button}>
-            <button type="submit" disabled={!methods.formState.isValid}>
-              {authModeText}
-            </button>
-          </div>
-        ) : (
-          <div className={style.buttons_container_edit_back}>
-            <Link to={-1 as any}>Back</Link>
-            <button type="submit" disabled={!methods.formState.isValid}>
-              {buttonNext ? "Next" : editModeText}
-            </button>
-          </div>
-        )}
+        {buttonContainer}
       </form>
     </div>
   );
