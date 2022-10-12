@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 
 import { RiAddCircleFill } from "react-icons/ri";
 
+import { FaUserCircle } from "react-icons/fa";
 import { APP_ROUTE } from "../../../routes/routesConstants";
 import {
   LinkData,
@@ -10,7 +11,6 @@ import {
 import List from "../../../components/baseComponents/List/List";
 import style from "./NavBar.module.scss";
 import DropDown from "./DropDown/DropDown";
-import { FaUserCircle } from "react-icons/fa";
 
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import NavLinkLI from "../../../components/baseComponents/NavLinkLI";
@@ -20,6 +20,7 @@ import { authApi } from "../../../redux/api/authAPI";
 
 import { relativePath } from "../../../utilities/helpersFun";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+
 interface NavBarNavLinkLIs<T> {
   id?: string;
   element: ReactNode;
@@ -85,7 +86,7 @@ function DropDownNavLinkLI({
   return (
     <NavLinkLI
       liProps={{
-        className: className,
+        className,
         ...onClickProps,
       }}
       linkData={data}

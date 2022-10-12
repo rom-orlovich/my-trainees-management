@@ -28,7 +28,7 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
     const signUpGmailToken = genToken(
       { email, profile_id: profile.profile_id },
       process.env.ACCESS_TOKEN_SECRET,
-      process.env.GMAIL_API_VERIFY_TIME
+      process.env.GMAIL_API_VERIFY_TIME || ""
     );
 
     const trainee = await insertNewTableData(TABLES_DATA.TRAINEES_TABLE_NAME, {
@@ -52,7 +52,9 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
       subject: "Welcome to My-Trainees-Management-app",
       text: `Create account in this link ${link}`,
     };
-    const result = sendEmail(email, message);
+    const result = sendEmail(email, message).catch((value) => {
+      console.log(value);
+    });
     console.log(result);
   } catch (error) {
     await client.query("ROLLBACK");

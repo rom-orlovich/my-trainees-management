@@ -14,18 +14,18 @@ import { disableGoPrevPage } from "../../redux/slices/apiSideEffectSlice";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { relativePath } from "../../utilities/helpersFun";
 import style from "../HomeCardForm.module.scss";
+
 function LoginPage() {
   const [login] = authApi.useLoginMutation();
   const dispatch = useDispatch();
   // const nav = useNavigate();
 
-  const onSubmit = (body: LoginForm) => {
+  const onSubmit = async (body: LoginForm) => {
     dispatch(disableGoPrevPage());
-    login(body)
-      .unwrap()
-      // .then(({ ...rest }) => {
-      //   // nav(`/${APP_ROUTE.HOME_PAGE}`);
-      // });
+    await login(body).unwrap();
+    // .then(({ ...rest }) => {
+    //   // nav(`/${APP_ROUTE.HOME_PAGE}`);
+    // });
   };
 
   return (
