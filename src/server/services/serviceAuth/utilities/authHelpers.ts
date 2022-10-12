@@ -82,7 +82,7 @@ export async function createUser(
     const hashPassword = await hash(password, 10);
     let profile;
     if (updateID) {
-      profile = updateQuerySingleItem(
+      profile = await updateQuerySingleItem(
         TABLES_DATA.PROFILES_TABLE_NAME,
         { email },
         updateID,
@@ -105,8 +105,8 @@ export async function createUser(
     await client.query("COMMIT");
     return [user as User, undefined] as const;
   } catch (error) {
-    client.query("ROLLBACK");
-    console.log(error);
+    await client.query("ROLLBACK");
+    console.log("error", error);
     return [undefined, error as Error] as const;
   }
 }

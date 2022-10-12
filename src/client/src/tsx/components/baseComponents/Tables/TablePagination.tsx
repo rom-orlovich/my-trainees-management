@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -11,6 +12,7 @@ import { TableProps } from "../baseComponentsTypes";
 import LoadingSpinner from "../LoadingSpinner";
 import Table from "./Table";
 import style from "./TablePagination.module.scss";
+
 export function TablePagination<T extends Record<string, any>>({
   Td,
   Th,

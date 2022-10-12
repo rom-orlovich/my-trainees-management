@@ -31,12 +31,13 @@ module.exports = {
     ],
     "no-plusplus": ["off"],
     "no-unused-expressions": ["error", { allowShortCircuit: true }],
+
     "import/prefer-default-export": ["off"],
     "import/extensions": ["error", "never"],
     "import/no-unresolved": [2],
     "spaced-comment": ["error", "always"],
     quotes: ["error", "double", { allowTemplateLiterals: true }],
-    "no-unused-vars": "error",
+    "no-unused-vars": "warn",
     "import/no-extraneous-dependencies": [
       "error",
       {

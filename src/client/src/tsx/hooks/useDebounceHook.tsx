@@ -7,7 +7,7 @@ export function useDebounceHook<T>(value: T, sec: number) {
     }, sec);
 
     return () => {
-      clearTimeout(timer);
+clearTimeout(timer);
     };
   }, [value, sec]);
   if (debounceState) return debounceState;

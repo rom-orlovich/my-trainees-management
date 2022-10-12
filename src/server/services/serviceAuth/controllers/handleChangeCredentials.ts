@@ -32,7 +32,7 @@ export const changeUserCredentialsHandler: RequestHandler = async (
     {
       data: user ? user[0].username : undefined,
       statusCode: 201,
-      messagePayload: req.auth_data.username,
+      messagePayload: req?.auth_data?.username || "",
     },
     error,
     "update"

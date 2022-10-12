@@ -129,12 +129,11 @@ export const handleDeleteAllUserAlerts: RequestHandler = async (
   res,
   next
 ) => {
-  const { user_id: userID } = req.auth_data;
   const [data, err] = await promiseHandler(
     deleteQuery(
       TABLES_DATA.ALERTS_TABLE_NAME,
       `where user_id=$1`,
-      [userID],
+      [req.auth_data?.user_id],
       true
     )
   );

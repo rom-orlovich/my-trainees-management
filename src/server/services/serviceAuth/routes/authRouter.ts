@@ -6,10 +6,7 @@ import {
   signUpSchema,
 } from "../../schemas/DBSchemas";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
-import {
-  createUserRoleMiddleware,
-  validateTokenMiddleware,
-} from "../controllers/authMiddleware";
+import { validateTokenMiddleware } from "../controllers/authMiddleware";
 
 import { changeUserCredentialsHandler } from "../controllers/handleChangeCredentials";
 import { loginHandler } from "../controllers/handleLogin";
@@ -29,19 +26,17 @@ authRouter.get(API_ROUTES.REFRESH_TOKEN_ROUTE, refreshTokenHandler);
 authRouter.get(API_ROUTES.LOGOUT_ROUTE, logoutHandler);
 
 authRouter.post(
-  `${API_ROUTES.SIGN_UP_ROUTE}/newTrainer`,
+  `${API_ROUTES.SIGN_UP_ROUTE}/trainer`,
   validateMiddlewareHandlerSignUp,
-  createUserRoleMiddleware,
+
   signUpHandlerTrainer
 );
 authRouter.post(
-  `${API_ROUTES.SIGN_UP_ROUTE}/newTrainee/:id`,
-  validateTokenMiddleware,
+  `${API_ROUTES.SIGN_UP_ROUTE}/trainee/:profileID`,
+  // validateTokenMiddleware,
   validateMiddlewareHandlerSignUp,
-  // createUserRoleMiddleware,
   signUpHandlerTrainee
 );
-
 authRouter.post(
   API_ROUTES.LOGIN_ROUTE,
   validateMiddlewareHandlerLogin,

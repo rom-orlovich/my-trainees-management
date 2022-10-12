@@ -43,9 +43,8 @@ export interface SelectTableQueryParam {
   queryParams?: Record<string, string>;
   queryNameParam?: Record<string, string>;
   modifiedOtherTable?: {
-    otherTableName: string;
-    values: string[];
-    otherTableID: string;
+    update: { otherTableName: string; values: string[]; otherTableID: string };
+    delete: { otherTableName: string; otherTableID: string };
   };
 }
 
@@ -361,25 +360,32 @@ export const traineesOptionsCRUD: OptionsCRUD = {
       mainName: "first_name",
       lastName: "last_name",
     },
+
     queryParams: {
       trainerUserId: "trainer_user_id",
     },
 
     modifiedOtherTable: {
-      otherTableName: TABLES_DATA.PROFILES_TABLE_NAME,
-      otherTableID: "profile_id",
-      values: [
-        "first_name",
-        "last_name",
-        "gender",
-        "identify_num",
-        "birthday",
-        "email",
-        "phone_number",
-        "location_id",
-        "date_join",
-        "status",
-      ],
+      update: {
+        otherTableName: TABLES_DATA.PROFILES_TABLE_NAME,
+        otherTableID: "profile_id",
+        values: [
+          "first_name",
+          "last_name",
+          "gender",
+          "identify_num",
+          "birthday",
+          "email",
+          "phone_number",
+          "location_id",
+          "date_join",
+          "status",
+        ],
+      },
+      delete: {
+        otherTableName: TABLES_DATA.PROFILES_TABLE_NAME,
+        otherTableID: "profile_id",
+      },
     },
   },
   permissions: PERMISSION_TRAINER,

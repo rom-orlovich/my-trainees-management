@@ -1,10 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { RequestHandler } from "webpack-dev-server";
-import { client } from "../../../PGSql/DBConnectConfig";
-import { updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
-import { TABLES_DATA } from "../../../utilities/constants";
-
+import { RequestHandler } from "express";
 import {
   createModifiedActionResultFun,
   createUser,
@@ -12,13 +8,22 @@ import {
 
 export const signUpHandlerTrainer: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
-  const { password, username, email } = req.body;
 
+  const { password, username, email } = req.body;
+  if (!req?.signUp_data?.role) {
+    req.modifiedActionResult = createModifiedActionResultFun(
+      undefined,
+      { message: "Role is undefined" },
+      "create",
+      false
+    );
+    return next();
+  }
   const [user, error] = await createUser(
     email || "",
     username,
     password,
-    req.signUp_data.role
+    "trainer"
   );
 
   // Continue to the alert handler.

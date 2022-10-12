@@ -1,27 +1,31 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+
+import { NavLink } from "react-router-dom";
 import Card from "../../components/baseComponents/Card/Card";
-import Form, { FormRHFProps } from "../../components/baseComponents/RHF-Components/Form/Form";
+import Form from "../../components/baseComponents/RHF-Components/Form/Form";
 import { signUpSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { authApi } from "../../redux/api/authAPI";
 import { SignUpForm } from "../../redux/api/interfaceAPI";
-import { disableGoPrevPage } from "../../redux/slices/apiSideEffectSlice";
+
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { relativePath } from "../../utilities/helpersFun";
 import style from "../HomeCardForm.module.scss";
-function SignUpPage({defaultValues}:{defaultValues?:{email:string,id:number}}) {
+
+function SignUpPage({
+  defaultValues,
+}: {
+  defaultValues?: { email: string; id: number };
+}) {
   const [signUp] = authApi.useSignUpMutation();
-
-
   const onSubmit = async (body: SignUpForm) =>
-   {
-return  signUp({ credentials: body, endPoint: defaultValues? `newTrainee/${defaultValues.id}` : "newTrainer" }).unwrap()
-}
-console.log(defaultValues?.email);
+    signUp({
+      credentials: body,
+      endPoint: defaultValues ? `trainee/${defaultValues.id}` : "trainer",
+    }).unwrap();
+
   return (
     <Card className={style.card_form}>
       <Form<SignUpForm>
@@ -29,10 +33,15 @@ console.log(defaultValues?.email);
         heading={"Sign Up"}
         authButtonsContainer={true}
         isLoginMode={false}
-        pathMove={defaultValues? "" : relativePath(APP_ROUTE.LOGIN_ROUTE) }
+        pathMove={relativePath(APP_ROUTE.LOGIN_ROUTE)}
         formOptions={{
           resolver: yupResolver(signUpSchema),
-          defaultValues:  { email: defaultValues ? defaultValues.email : "",username: "", password: "", confirmPassword: "" },
+          defaultValues: {
+            email: defaultValues ? defaultValues.email : "",
+            username: "",
+            password: "",
+            confirmPassword: "",
+          },
         }}
       >
         {({ register, formState }) => {
@@ -48,16 +57,13 @@ console.log(defaultValues?.email);
                   nameInput="Username"
                   error={errors.username}
                 />
-              </InputLabel>     <InputLabel
+              </InputLabel>{" "}
+              <InputLabel
                 LabelProps={{ labelText: "Email" }}
                 InputProps={{ ...register("email") }}
               >
-                <InputErrorMessage
-                  nameInput="Email"
-                  error={errors.email}
-                />
+                <InputErrorMessage nameInput="Email" error={errors.email} />
               </InputLabel>
-
               <InputLabel
                 LabelProps={{ labelText: "Password" }}
                 InputProps={{ ...register("password"), type: "password" }}

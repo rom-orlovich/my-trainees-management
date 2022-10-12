@@ -121,12 +121,12 @@ export const traineesApi = apiCreateCRUDHooks<TraineesTableExtendsAPI>({
   singleEntityName: API_ROUTES.TRAINEES_ENTITY,
   listId: "trainees_list",
 }).injectEndpoints({"endpoints":(builder)=>(
-  {getRegisterTrainee:builder.query(
+  {getRegisterTrainee:builder.query<TraineesTableExtendsAPI,any>(
     {query:({id,verifyToken}:{id:string,verifyToken:string})=>
     {
-    
-      return ({url:`${API_ROUTES.TRAINEES_ENTITY}/${id}`,headers:{authorization:`Bearer ${verifyToken}`}})}
-  
+    const headers= new Headers()
+    headers.set("authorization",`Bearer ${verifyToken}`)
+      return ({url:`${API_ROUTES.TRAINEES_ENTITY}/${id}`,headers:headers})}
   } 
   ),
   registerTrainee:builder.mutation({

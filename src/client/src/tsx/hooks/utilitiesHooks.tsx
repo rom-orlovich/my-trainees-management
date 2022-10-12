@@ -14,7 +14,7 @@ export const useEffectOnce = (cbMount: AnyFun, cbUnmount?: AnyFun) => {
       isActivated.current = false;
       cbMount();
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    //eslint-disable-next-line @typescript-eslint/no-unused-expressions
     () => {
       if (cbUnmount) return cbUnmount();
     };

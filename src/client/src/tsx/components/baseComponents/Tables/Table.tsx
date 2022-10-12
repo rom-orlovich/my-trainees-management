@@ -1,12 +1,13 @@
+/* eslint-disable no-restricted-syntax */
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 
+import { Link } from "react-router-dom";
 import { getKeysArrObj, getValuesArrObj } from "../../../utilities/helpersFun";
 import { TableProps } from "../baseComponentsTypes";
 import { formatThValue, TdCell, ThCell } from "./TableCells";
 import style from "./Table.module.scss";
-import { Link } from "react-router-dom";
 
 // Creates dynamic data table with action of edit and remove.
 // customizes the table by Td and Th cells component.
@@ -18,14 +19,13 @@ function Table<T extends Record<string, any>>({
   mainRoute,
   deleteItemFun,
 }: TableProps<T> & { mainRoute: string }) {
-  const TH = Th ? Th : ThCell;
-  const TD = Td ? Td : TdCell;
+  const TH = Th || ThCell;
+  const TD = Td || TdCell;
   const newDataArr = dataArr.map((obj: T) => {
     let newObj = {};
 
-
-    for (let key in obj) {
-      if (key === "user_id" && obj["username"]) {
+    for (const key in obj) {
+      if (key === "user_id" && obj.username) {
         newObj = { ...newObj, [key]: obj[key] };
       } else if (key !== "user_id") newObj = { ...newObj, [key]: obj[key] };
     }
@@ -41,9 +41,9 @@ function Table<T extends Record<string, any>>({
     <table className={`${className || ""} `}>
       <thead>
         <tr>
-          {keys.map((el, i) => {
-            return <TH key={i} value={el}></TH>;
-          })}
+          {keys.map((el, i) => (
+            <TH key={i} value={el}></TH>
+          ))}
         </tr>
       </thead>
       <tbody>

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "express";
 import { client } from "../../../PGSql/DBConnectConfig";
@@ -8,27 +9,38 @@ import { createModifiedActionResultFun } from "./handleRegisterTrainee";
 
 export const signUpHandlerTrainee: RequestHandler = async (req, res, next) => {
   if (req.modifiedActionResult?.error) return next();
-  const { id } = req.params;
+  const { profileID } = req.params;
   const { password, username, email } = req.body;
   const [user, errorUser] = await createUser(
     email || "",
     username,
     password,
     "trainee",
-    id
+    profileID
   );
+  if (errorUser) {
+    console.log("errorUser", errorUser);
+    req.modifiedActionResult = createModifiedActionResultFun(
+      undefined,
+      errorUser,
+      "create",
+      false
+    );
+    return next();
+  }
 
   try {
     await client.query("BEGIN");
 
     const trainee = await updateQuerySingleItem(
       TABLES_DATA.TRAINEES_TABLE_NAME,
-      { user_id: user?.user_id },
-      id,
+      { user_id: user?.user_id, sign_up_token: "" },
+      profileID,
       `where ${TABLES_DATA.TRAINEE_ID}=$1`
     );
 
     await client.query("COMMIT");
+
     req.modifiedActionResult = createModifiedActionResultFun(
       {
         data: { username },

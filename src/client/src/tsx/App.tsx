@@ -5,15 +5,12 @@ import SideBar from "./layout/SideBar/SideBar";
 import style from "./App.module.scss";
 import ModelAlerts from "./components/baseComponents/Model/ModelAlerts";
 
-
-
 function App() {
   // Basic layout of the app.
   return (
     <>
       {/* <ModelAlerts /> */}
       <Header className={style.header} />
-
       <Main className={style.main_layout}>
         <SideBar className={style.side_bar} />
         <section className={style.main_content}>

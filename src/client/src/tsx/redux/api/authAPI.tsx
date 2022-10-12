@@ -13,17 +13,14 @@ export const apiAuthBaseQuery = fetchBaseQuery({
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: apiAuthBaseQuery,
-  tagTypes:[API_ROUTES.TRAINEES_ENTITY],
+  tagTypes: [API_ROUTES.TRAINEES_ENTITY],
   endpoints: (builder) => ({
-  
     login: builder.mutation<ResponseMutationAuthAPI, any>({
-      query: (credentials) => {
-        return {
-          url: API_ROUTES.LOGIN_ROUTE,
-          method: "post",
-          body: { ...credentials },
-        };
-      },
+      query: (credentials) => ({
+        url: API_ROUTES.LOGIN_ROUTE,
+        method: "post",
+        body: { ...credentials },
+      }),
     }),
     signUp: builder.mutation<
       any,
@@ -32,13 +29,11 @@ export const authApi = createApi({
       query: ({
         credentials: { confirmPassword, ...credentials },
         endPoint,
-      }) => {
-        return {
-          url: `${API_ROUTES.SIGN_UP_ROUTE}/${endPoint}`,
-          method: "post",
-          body: { ...credentials },
-        };
-      },
+      }) => ({
+        url: `${API_ROUTES.SIGN_UP_ROUTE}/${endPoint}`,
+        method: "post",
+        body: { ...credentials },
+      }),
     }),
     logout: builder.query({
       query: () => ({ url: API_ROUTES.LOGOUT_ROUTE }),

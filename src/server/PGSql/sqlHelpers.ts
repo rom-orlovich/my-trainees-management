@@ -3,7 +3,13 @@
 /* eslint-disable no-unused-vars */
 
 import e from "express";
-import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
+import { writeFile } from "fs/promises";
+import { DB_FOLDER_PATH } from "../utilities/constants";
+import {
+  createObjKeysArr,
+  createObjValuesArr,
+  promiseHandler,
+} from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
 
@@ -163,7 +169,7 @@ const insertQuery = async (
 ) => {
   const statement = `INSERT INTO ${tableName} (${fieldName})
    VALUES ${fieldParams} RETURNING *`;
-  // console.log(statement, paramArr);
+
   const res = await client.query(statement, paramArr);
 
   return res;
@@ -196,6 +202,7 @@ export async function insertQueryOneItem(
 ) {
   const fieldName = prepareFieldsName(obj);
   const { fieldParams, paramsArr } = prepareValues(obj);
+
   const res = await insertQuery(tableName, fieldName, fieldParams, paramsArr);
 
   return res.rows[0];
@@ -414,4 +421,44 @@ export const updateExistTableData = async (
     );
   }
   return data;
+};
+
+export const deleteTableWithOtherTableData = async (
+  mainTableName: string,
+  mainTableID: string,
+  paramID: string,
+  modifiedOtherTable?: {
+    otherTableName: string;
+    otherTableID: string;
+  }
+) => {
+  let mainTableData;
+  const mainTableQueryLogic = `WHERE ${mainTableID}=$1`;
+  if (modifiedOtherTable) {
+    const { otherTableID, otherTableName } = modifiedOtherTable;
+    await client.query("BEGIN");
+
+    mainTableData = await deleteQuery(
+      mainTableName,
+      mainTableQueryLogic,
+      [paramID],
+      true
+    );
+    const secTableQueryLogic = `WHERE ${otherTableID}=$1`;
+    const otherTableData = await deleteQuery(
+      otherTableName,
+      secTableQueryLogic,
+      [mainTableData[0][otherTableID]],
+      true
+    );
+
+    await client.query("COMMIT");
+  } else
+    mainTableData = await deleteQuery(
+      mainTableName,
+      mainTableQueryLogic,
+      [paramID],
+      true
+    );
+  return mainTableData;
 };

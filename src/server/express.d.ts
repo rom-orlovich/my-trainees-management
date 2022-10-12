@@ -25,20 +25,20 @@ declare global {
   namespace Express {
     export interface Request {
       modifiedActionResult?: ModifiedActionResult;
-      auth_data: {
+      auth_data?: {
         username: string;
         user_id: number;
         jwt: string;
         role: UserRoles;
       };
 
-      signUp_verify_trainee: {
+      signUp_verify_trainee?: {
         profile_id: string;
         email: number;
         jwt: string;
       };
 
-      signUp_data: {
+      signUp_data?: {
         role: UserRoles;
       };
     }

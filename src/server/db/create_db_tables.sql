@@ -58,7 +58,7 @@ CONSTRAINT "role" CHECK ("role" IN ('trainee','admin','trainer')),
 CONSTRAINT fk_profile_id 
     FOREIGN KEY(profile_id)
     REFERENCES profiles(profile_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 ) ;
 
@@ -70,12 +70,12 @@ CREATE TABLE IF NOT EXISTS "locations" (
    CONSTRAINT fk_city_id
       FOREIGN KEY(city_id) 
       REFERENCES cities(city_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
         CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -84,7 +84,7 @@ ALTER TABLE "profiles" add
   CONSTRAINT fk_location_id
       FOREIGN KEY(location_id) 
       REFERENCES locations(location_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE;
 
 CREATE TABLE IF NOT EXISTS "alerts"(
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS "alerts"(
   CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS "muscles_group" (
   CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS "leads"(
   CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS "activities" (
   CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -151,13 +151,13 @@ CREATE TABLE IF NOT EXISTS "providers" (
   CONSTRAINT fk_location_id
       FOREIGN KEY(location_id) 
       REFERENCES locations(location_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
         
   CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -174,12 +174,12 @@ CREATE TABLE IF NOT EXISTS "expenses" (
   CONSTRAINT fk_seller_id
       FOREIGN KEY(seller_id) 
       REFERENCES providers(provider_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
         CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 
 );
@@ -195,12 +195,12 @@ CREATE TABLE IF NOT EXISTS "equipments" (
        CONSTRAINT fk_expense_id
       FOREIGN KEY(expense_id) 
       REFERENCES expenses(expense_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE ,
         CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -213,19 +213,19 @@ CREATE TABLE IF NOT EXISTS "exercises_list" (
       CONSTRAINT fk_muscles_group_id
       FOREIGN KEY(muscles_group_id) 
       REFERENCES muscles_group(muscles_group_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
      
        CONSTRAINT fk_equipment_id
       FOREIGN KEY(equipment_id) 
       REFERENCES equipments(equipment_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
 
       CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -239,19 +239,19 @@ CREATE TABLE IF NOT EXISTS "trainees" (
 CONSTRAINT fk_trainer_user_id 
     FOREIGN KEY(trainer_user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
 
 CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
       
       CONSTRAINT fk_profile_id 
     FOREIGN KEY(profile_id)
     REFERENCES profiles(profile_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -266,7 +266,7 @@ CREATE TABLE IF NOT EXISTS "subscription_plans"(
 CONSTRAINT fk_trainee_id 
     FOREIGN KEY(trainee_id)
     REFERENCES trainees(trainee_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -283,7 +283,7 @@ CONSTRAINT "date_end" CHECK ("date_end">"date_start"),
           CONSTRAINT fk_trainee_id
       FOREIGN KEY(trainee_id) 
       REFERENCES trainees(trainee_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -299,7 +299,7 @@ CREATE TABLE IF NOT EXISTS "nutrition_programs_list"(
       CONSTRAINT fk_trainee_id
       FOREIGN KEY(trainee_id) 
       REFERENCES trainees(trainee_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
 
 CONSTRAINT "date_end" CHECK ("date_end">"date_start")
@@ -321,13 +321,13 @@ CREATE TABLE IF NOT EXISTS "training_program"(
       CONSTRAINT fk_training_programs_list_id
       FOREIGN KEY(training_programs_list_id) 
       REFERENCES training_programs_list(training_programs_list_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
       
         CONSTRAINT fk_exercise_id
       FOREIGN KEY(exercise_id) 
       REFERENCES exercises_list(exercise_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
       
 );
@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS "nutrition_program" (
   CONSTRAINT fk_nutrition_programs_list_id
       FOREIGN KEY(nutrition_programs_list_id) 
       REFERENCES nutrition_programs_list(nutrition_programs_list_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE 
 );
 
@@ -355,7 +355,7 @@ CREATE TABLE IF NOT EXISTS "weeks" (
       CONSTRAINT fk_nutrition_program_id
       FOREIGN KEY(nutrition_program_id) 
       REFERENCES nutrition_program(nutrition_program_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -373,13 +373,13 @@ CREATE TABLE IF NOT EXISTS "incomes" (
         CONSTRAINT fk_trainee_id
       FOREIGN KEY(buyer_id) 
       REFERENCES trainees(trainee_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
          CONSTRAINT fk_user_id 
 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );
 
@@ -401,19 +401,19 @@ CONSTRAINT "date_end" check (date_end>date_start),
    CONSTRAINT fk_activity_id
       FOREIGN KEY(activity_id) 
       REFERENCES activities(activity_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
 
   CONSTRAINT fk_location_id
       FOREIGN KEY(location_id) 
       REFERENCES locations(location_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
 
              CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 
 );
@@ -427,12 +427,12 @@ CREATE TABLE IF NOT EXISTS "participants_group" (
    CONSTRAINT fk_schedule_id
       FOREIGN KEY(schedule_id) 
       REFERENCES schedule(schedule_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE,
 
      CONSTRAINT fk_trainee_id
       FOREIGN KEY(trainees_id) 
       REFERENCES trainees(trainee_id)
-      ON DELETE CASCADE
+      ON DELETE SET NULL
       ON UPDATE CASCADE
 );

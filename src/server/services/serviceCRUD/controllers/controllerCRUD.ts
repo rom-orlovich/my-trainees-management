@@ -5,7 +5,9 @@ import * as yup from "yup";
 import {
   createRealQueryKeyValuesObj,
   deleteQuery,
+  deleteTableWithOtherTableData,
   insertNewTableData,
+  insertQueryOneItem,
   selectPagination,
   selectQuery,
   updateExistTableData,
@@ -92,7 +94,7 @@ export function createRoutesControllers({
     if (req.modifiedActionResult?.error) return next();
 
     const [data, err] = await promiseHandler(
-      insertNewTableData(tableName, req.body, modifiedOtherTable)
+      await insertQueryOneItem(tableName, req.body)
     );
     // Rollback the query if there is error.
     if (err) {
@@ -119,7 +121,7 @@ export function createRoutesControllers({
         req.body,
         tableID,
         req.params.id,
-        modifiedOtherTable
+        modifiedOtherTable?.update
       )
     );
     // Rollback the query if there is error.
@@ -143,8 +145,14 @@ export function createRoutesControllers({
     const { id } = req.params;
     const queryLogic = `WHERE ${tableID}=$1`;
 
-    const [data, err] = await promiseHandler(
-      deleteQuery(tableName, queryLogic, [id], true)
+    // const [data, err] = await promiseHandler(
+    //   deleteQuery(tableName, queryLogic, [id], true)
+    // );
+    const [data, err] = await deleteTableWithOtherTableData(
+      tableName,
+      tableID,
+      req.params.id,
+      modifiedOtherTable?.delete
     );
 
     const noDataError =

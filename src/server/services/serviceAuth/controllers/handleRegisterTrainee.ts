@@ -52,7 +52,7 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
       subject: "Welcome to My-Trainees-Management-app",
       text: `Create account in this link ${link}`,
     };
-    const result = await sendEmail(email, message);
+    const result = sendEmail(email, message);
     console.log(result);
   } catch (error) {
     await client.query("ROLLBACK");

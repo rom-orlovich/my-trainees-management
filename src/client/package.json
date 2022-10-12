@@ -51,6 +51,8 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.25.0",
+    "prettier": "^2.7.1",
     "typescript-plugin-css-modules": "^3.4.0"
   }
 }
