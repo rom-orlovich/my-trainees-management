@@ -6,8 +6,8 @@ import { insertNewTableData } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES, URL_REACT_CLIENT } from "../../apiRoutesConstants";
 import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
-import { sendEmail } from "../../serviceMail/controllers/handleMailService";
-import { genToken } from "../utilities/authHelpers";
+
+import { genToken, sendEmail } from "../utilities/authHelpers";
 import { TokenType } from "./authMiddleware";
 
 export const prepareLogAlert = createModifiedActionResult(

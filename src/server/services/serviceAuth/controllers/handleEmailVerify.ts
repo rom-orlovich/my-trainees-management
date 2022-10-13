@@ -4,8 +4,12 @@ import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
 import { API_ROUTES, URL_CUR_CLIENT } from "../../apiRoutesConstants";
 
-import { sendEmail } from "../../serviceMail/controllers/handleMailService";
-import { prepareLogAlert, genToken, User } from "../utilities/authHelpers";
+import {
+  prepareLogAlert,
+  genToken,
+  User,
+  sendEmail,
+} from "../utilities/authHelpers";
 import { TokenType } from "./authMiddleware";
 
 export const handleEmailVerify: RequestHandler = async (req, res, next) => {

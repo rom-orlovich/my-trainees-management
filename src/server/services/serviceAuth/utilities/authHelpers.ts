@@ -1,21 +1,25 @@
 /* eslint-disable no-unused-vars */
-import { RequestHandler } from "webpack-dev-server";
-import { hash, compare } from "bcryptjs";
 
+import { hash } from "bcryptjs";
+import nodemailer from "nodemailer";
 import { CookieOptions } from "express";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 
+import Mail from "nodemailer/lib/mailer";
 import {
   insertQueryOneItem,
-  selectQuery,
   updateQuerySingleItem,
 } from "../../../PGSql/sqlHelpers";
-import { promiseHandler } from "../../../utilities/helpers";
 
 import { API_ROUTES } from "../../apiRoutesConstants";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
 import { client } from "../../../PGSql/DBConnectConfig";
+import {
+  clientMailOAuth,
+  MAIL_OPTIONS,
+  MY_USER_MAIL,
+} from "../../googleApiConstants";
 
 export type UserRoles = "admin" | "trainee" | "trainer";
 
@@ -108,3 +112,42 @@ export async function createUser(
     return [undefined, error as Error] as const;
   }
 }
+
+export const sendEmail = async (
+  to: string,
+  message: { text: string; subject: string }
+) => {
+  let result1;
+  try {
+    const { token } = await clientMailOAuth.getAccessToken();
+    console.log("token", token);
+    const mailOptions: Mail.Options = {
+      ...MAIL_OPTIONS,
+      to,
+
+      ...message,
+    };
+
+    if (token) {
+      const transport = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          accessToken: token,
+          ...MY_USER_MAIL,
+        },
+        socketTimeout: 1000 * 3,
+        connectionTimeout: 1000 * 3,
+        greetingTimeout: 1000 * 3,
+      });
+
+      // eslint-disable-next-line no-unused-vars
+      result1 = await transport.sendMail(mailOptions);
+      transport.close();
+    }
+    console.log("result1", result1);
+    return result1;
+  } catch (error) {
+    console.log("error", error);
+    throw error;
+  }
+};
