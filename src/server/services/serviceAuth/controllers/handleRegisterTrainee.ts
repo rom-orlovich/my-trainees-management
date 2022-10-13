@@ -8,6 +8,7 @@ import { API_ROUTES, URL_REACT_CLIENT } from "../../apiRoutesConstants";
 import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
 import { sendEmail } from "../../serviceMail/controllers/handleMailService";
 import { genToken } from "../utilities/authHelpers";
+import { TokenType } from "./authMiddleware";
 
 export const createModifiedActionResultFun = createModifiedActionResult(
   API_ROUTES.TRAINEES_ENTITY
@@ -26,7 +27,11 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
     console.log(profile.profile_id);
 
     const signUpGmailToken = genToken(
-      { email, profile_id: profile.profile_id },
+      {
+        email,
+        profile_id: profile.profile_id,
+        tokenType: TokenType.VERIFY_SIGN_UP,
+      },
       process.env.ACCESS_TOKEN_SECRET,
       process.env.GMAIL_API_VERIFY_TIME || ""
     );

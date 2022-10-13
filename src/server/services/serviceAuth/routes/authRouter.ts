@@ -56,7 +56,7 @@ authRouter.post(
 );
 
 authRouter.put(
-  `users/:userID${API_ROUTES.CHANGE_USER_CRED_ROUTE}`,
+  `/users/:userID${API_ROUTES.CHANGE_USER_CRED_ROUTE}`,
   validateTokenMiddleware,
   validateMiddlewareHandlerChangeUserCredSchema,
   changeUserCredentialsHandler

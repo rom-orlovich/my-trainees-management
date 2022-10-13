@@ -23,9 +23,6 @@ function LoginPage() {
   const onSubmit = async (body: LoginForm) => {
     dispatch(disableGoPrevPage());
     await login(body).unwrap();
-    // .then(({ ...rest }) => {
-    //   // nav(`/${APP_ROUTE.HOME_PAGE}`);
-    // });
   };
 
   return (

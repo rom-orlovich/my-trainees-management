@@ -10,6 +10,7 @@ export const validateMiddleware: (
   validateSchema: yup.ObjectSchema<any> | undefined
 ) => RequestHandler = (validateSchema) => async (req, res, next) => {
   if (!validateSchema) return next();
+
   const [valid, errValid] = await promiseHandler<any, yup.ValidationError>(
     validateSchema.validate(req.body)
   );

@@ -13,7 +13,7 @@ export const apiAuthBaseQuery = fetchBaseQuery({
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: apiAuthBaseQuery,
-  tagTypes: [API_ROUTES.TRAINEES_ENTITY],
+
   endpoints: (builder) => ({
     signUp: builder.mutation<
       any,
@@ -46,7 +46,7 @@ export const authApi = createApi({
       }
     >({
       query: ({ verifyToken, userID, ...credentials }) => ({
-        url: `users/${userID}${API_ROUTES.CHANGE_USER_CRED_ROUTE} ${API_ROUTES.CHANGE_USER_CRED_ROUTE}`,
+        url: `/users/${userID}${API_ROUTES.CHANGE_USER_CRED_ROUTE}`,
         method: "PUT",
         body: { ...credentials },
         headers: { authorization: `Bearer ${verifyToken}` },

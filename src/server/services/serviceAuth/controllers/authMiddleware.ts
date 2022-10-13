@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { RequestHandler } from "webpack-dev-server";
 // eslint-disable-next-line no-unused-vars
 import { selectQuery, updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
@@ -7,6 +8,10 @@ import { Permissions } from "../../usersPermission";
 
 import { UserRoles, verifyAsync } from "../utilities/authHelpers";
 
+export enum TokenType {
+  VERIFY_SIGN_UP = 1,
+  VERIFY_CHANGE_CRED = 2,
+}
 const checkTraineeHaveToken = async (token: string, profileID: number) => {
   // eslint-disable-next-line no-unused-vars
   const [trainee, errorTrainee] = await promiseHandler(
@@ -21,14 +26,14 @@ const checkTraineeHaveToken = async (token: string, profileID: number) => {
 
   return trainee && trainee[0];
 };
-const checkUsersHaveToken = async (token: string, email: number) => {
+const checkUsersHaveToken = async (token: string, userID: number) => {
   // eslint-disable-next-line no-unused-vars
   const [user, errorUser] = await promiseHandler(
     selectQuery(
       TABLES_DATA.USERS_TABLE_NAME,
       "*",
-      `where verify_token=$1 and email=$2`,
-      [token, email]
+      `where verify_token=$1 and user_id=$2`,
+      [token, userID]
     )
   );
   if (errorUser) return false;
@@ -42,7 +47,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   next
 ) => {
   const accessToken = req.headers.authorization?.split("Bearer ")[1];
-
+  console.log(accessToken);
   if (!accessToken) {
     return res.sendStatus(401);
   }
@@ -51,7 +56,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   );
   const Decode = decode as Record<string, any>;
 
-  if (Decode?.profile_id) {
+  if (Decode?.profile_id && Decode.tokenType === TokenType.VERIFY_SIGN_UP) {
     if (await checkTraineeHaveToken(accessToken, Decode?.profile_id)) {
       req.signUp_data = {
         role: "trainer",
@@ -61,8 +66,8 @@ export const validateTokenMiddleware: RequestHandler = async (
     return res.sendStatus(401);
   }
 
-  if (Decode?.email) {
-    if (await checkUsersHaveToken(accessToken, Decode?.email)) {
+  if (Decode?.user_id && Decode.tokenType === TokenType.VERIFY_CHANGE_CRED) {
+    if (await checkUsersHaveToken(accessToken, Decode?.user_id)) {
       return next();
     }
     return res.sendStatus(401);

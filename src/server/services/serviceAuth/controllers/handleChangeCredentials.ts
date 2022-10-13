@@ -22,6 +22,7 @@ export const changeUserCredentialsHandler: RequestHandler = async (
       {
         ...req.body,
         password: hashPassword,
+        verify_token: "",
       },
       userID,
       queryLogic
@@ -30,7 +31,7 @@ export const changeUserCredentialsHandler: RequestHandler = async (
   // Continue to the alert handler.
   req.modifiedActionResult = createModifiedActionResultFun(
     {
-      data: user ? user[0].username : undefined,
+      data: user ? user.username : undefined,
       statusCode: 201,
       messagePayload: req?.auth_data?.username || "",
     },

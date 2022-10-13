@@ -59,13 +59,14 @@ export const sendEmail = async (
           accessToken: token,
           ...MY_USER_MAIL,
         },
-        // socketTimeout: 1000 * 3,
+        socketTimeout: 1000 * 3,
         connectionTimeout: 1000 * 3,
-        // greetingTimeout: 1000 * 3,
+        greetingTimeout: 1000 * 3,
       });
 
       // eslint-disable-next-line no-unused-vars
       result1 = await transport.sendMail(mailOptions);
+      transport.close();
     }
     console.log("result1", result1);
     return result1;

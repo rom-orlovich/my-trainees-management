@@ -186,10 +186,10 @@ const updateQuery = async (
   const statement = `UPDATE ${tableName} SET ${keyValuesStr}
   ${queryLogic} RETURNING *`;
   // console.log(statement, [paramId, ...paramsArr]);
-  // if (tableName === "users") {
-  //   console.log("statement", statement);
-  //   console.log("queryParams", [paramId, ...paramsArr]);
-  // }
+  if (tableName === "users") {
+    console.log("statement", statement);
+    console.log("queryParams", [paramId, ...paramsArr]);
+  }
   const rows = await client.query(statement, [paramId, ...paramsArr]);
   return rows;
 };

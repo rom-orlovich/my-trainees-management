@@ -193,7 +193,7 @@ export const signUpSchema = yup.object().shape({
     .required(),
 });
 
-export const forgetPasswordSchema = signUpSchema.pick([
+export const resetPasswordSchema = signUpSchema.pick([
   "password",
   "confirmPassword",
 ]);
