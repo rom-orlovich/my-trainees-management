@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import path from "path";
-import React, { useEffect } from "react";
+
+import React from "react";
 import { useDispatch } from "react-redux";
 
 import Card from "../../components/baseComponents/Card/Card";
@@ -9,7 +9,7 @@ import { loginSchema } from "../../components/baseComponents/RHF-Components/form
 import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { authApi } from "../../redux/api/authAPI";
-import { ChangePasswordForm, LoginForm } from "../../redux/api/interfaceAPI";
+import { ChangePasswordForm } from "../../redux/api/interfaceAPI";
 import { disableGoPrevPage } from "../../redux/slices/apiSideEffectSlice";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { relativePath } from "../../utilities/helpersFun";
@@ -35,7 +35,7 @@ function ChangePasswordPage() {
         pathMove={relativePath(APP_ROUTE.HOME_PAGE)}
         formOptions={{
           resolver: yupResolver(loginSchema),
-          // mode: "all",
+
           defaultValues: {
             password: "",
             confirmPassword: "",

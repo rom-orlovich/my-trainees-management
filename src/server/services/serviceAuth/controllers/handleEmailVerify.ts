@@ -46,7 +46,7 @@ where email=$1
     return next();
   }
 
-  const link = `${URL_CUR_CLIENT}${API_ROUTES.API_AUTH_ROUTE}/users/${user[0].user_id}/${API_ROUTES.CHANGE_USER_CRED_ROUTE}?verify=${verifyToken}`;
+  const link = `${URL_CUR_CLIENT}/users/${user[0].user_id}/${API_ROUTES.CHANGE_USER_CRED_ROUTE}?verify=${verifyToken}`;
 
   const message = {
     text: "Rest your password",

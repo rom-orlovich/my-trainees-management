@@ -46,6 +46,7 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import UsersPage from "../pages/UsersPage/UsersPage";
 import SignUpPageNewTrainee from "../pages/SignUpPage/SignUpPageNewTrainee";
 import EmailVerifyPage from "../pages/EmailVerifyPage/EmailVerifyPage";
+import ChangePasswordPage from "../pages/ChangePasswordPage/ChangePasswordPage";
 
 function AppRoutes() {
   return (
@@ -54,6 +55,10 @@ function AppRoutes() {
         <Route path={APP_ROUTE.HOME_PAGE} element={<HomePage />}>
           <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
           <Route path={APP_ROUTE.SIGN_UP} element={<SignUpPage />}></Route>
+          <Route
+            path={APP_ROUTE.CHANGE_USER_CRED_ROUTE}
+            element={<ChangePasswordPage />}
+          ></Route>
           <Route
             path={APP_ROUTE.EMAIL_VERIFY_ROUTE}
             element={<EmailVerifyPage />}
