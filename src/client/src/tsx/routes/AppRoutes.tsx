@@ -45,7 +45,7 @@ import { APP_ROUTE } from "./routesConstants";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import UsersPage from "../pages/UsersPage/UsersPage";
 import SignUpPageNewTrainee from "../pages/SignUpPage/SignUpPageNewTrainee";
-import ForgetPasswordPage from "../pages/ForgetPasswordPage/ForgetPasswordPage";
+import EmailVerifyPage from "../pages/EmailVerifyPage/EmailVerifyPage";
 
 function AppRoutes() {
   return (
@@ -55,8 +55,8 @@ function AppRoutes() {
           <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
           <Route path={APP_ROUTE.SIGN_UP} element={<SignUpPage />}></Route>
           <Route
-            path={APP_ROUTE.FORGET_PASSWORD_PAGE}
-            element={<ForgetPasswordPage />}
+            path={APP_ROUTE.EMAIL_VERIFY_ROUTE}
+            element={<EmailVerifyPage />}
           ></Route>
           <Route
             path={APP_ROUTE.SIGN_UP_TRAINEE}

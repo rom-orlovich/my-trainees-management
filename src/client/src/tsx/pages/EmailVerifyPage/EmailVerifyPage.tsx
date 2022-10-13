@@ -8,7 +8,7 @@ import { signUpSchema } from "../../components/baseComponents/RHF-Components/for
 import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { authApi } from "../../redux/api/authAPI";
-import { SignUpForm } from "../../redux/api/interfaceAPI";
+import { EmailVerifyForm, SignUpForm } from "../../redux/api/interfaceAPI";
 
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { relativePath } from "../../utilities/helpersFun";
@@ -19,8 +19,9 @@ function ForgetPasswordPage({
 }: {
   defaultValues?: { email: string; id: number };
 }) {
-  const [signUp] = authApi.useSignUpMutation();
-  const onSubmit = async (body: SignUpForm) => {};
+  const [emailVerify] = authApi.useEmailVerifyMutation();
+  const onSubmit = async ({ email }: EmailVerifyForm) =>
+    emailVerify(email).unwrap();
   // signUp({
   //   credentials: body,
   //   endPoint: defaultValues ? `trainee/${defaultValues.id}` : "trainer",
@@ -28,7 +29,7 @@ function ForgetPasswordPage({
 
   return (
     <Card className={style.card_form}>
-      <Form<SignUpForm>
+      <Form<EmailVerifyForm>
         onSubmit={onSubmit}
         heading={"Enter Email"}
         authButtonsContainer={true}
@@ -37,10 +38,8 @@ function ForgetPasswordPage({
         formOptions={{
           resolver: yupResolver(signUpSchema),
           defaultValues: {
-            email: defaultValues ? defaultValues.email : "",
-            username: "",
-            password: "",
-            confirmPassword: "",
+            email: "",
+            confirmEmail: "",
           },
         }}
       >
@@ -54,6 +53,15 @@ function ForgetPasswordPage({
                 InputProps={{ ...register("email") }}
               >
                 <InputErrorMessage nameInput="Email" error={errors.email} />
+              </InputLabel>
+              <InputLabel
+                LabelProps={{ labelText: "Confirm Email" }}
+                InputProps={{ ...register("confirmEmail") }}
+              >
+                <InputErrorMessage
+                  nameInput="Confirm Email"
+                  error={errors.confirmEmail}
+                />
               </InputLabel>
             </>
           );

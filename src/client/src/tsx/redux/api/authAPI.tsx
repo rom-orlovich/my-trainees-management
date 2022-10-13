@@ -15,13 +15,6 @@ export const authApi = createApi({
   baseQuery: apiAuthBaseQuery,
   tagTypes: [API_ROUTES.TRAINEES_ENTITY],
   endpoints: (builder) => ({
-    login: builder.mutation<ResponseMutationAuthAPI, any>({
-      query: (credentials) => ({
-        url: API_ROUTES.LOGIN_ROUTE,
-        method: "post",
-        body: { ...credentials },
-      }),
-    }),
     signUp: builder.mutation<
       any,
       { credentials: SignUpForm; endPoint: string }
@@ -35,14 +28,29 @@ export const authApi = createApi({
         body: { ...credentials },
       }),
     }),
-    logout: builder.query({
-      query: () => ({ url: API_ROUTES.LOGOUT_ROUTE }),
+
+    emailVerify: builder.mutation({
+      query: (email: string) => ({
+        url: API_ROUTES.EMAIL_VERIFY_ROUTE,
+        method: "POST",
+        body: { email },
+      }),
+    }),
+    login: builder.mutation<ResponseMutationAuthAPI, any>({
+      query: (credentials) => ({
+        url: API_ROUTES.LOGIN_ROUTE,
+        method: "post",
+        body: { ...credentials },
+      }),
     }),
     refreshToken: builder.query<ResponseMutationAuthAPI, any>({
       query: () => ({
         url: API_ROUTES.REFRESH_TOKEN_ROUTE,
         credentials: "include",
       }),
+    }),
+    logout: builder.query({
+      query: () => ({ url: API_ROUTES.LOGOUT_ROUTE }),
     }),
   }),
 });

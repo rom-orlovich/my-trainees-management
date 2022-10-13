@@ -76,7 +76,7 @@ function LoginPage() {
         </NavLink>
       </div>
       <div>
-        <NavLink to={relativePath(APP_ROUTE.FORGET_PASSWORD_PAGE)}>
+        <NavLink to={relativePath(APP_ROUTE.EMAIL_VERIFY_ROUTE)}>
           Forget password?
         </NavLink>
       </div>

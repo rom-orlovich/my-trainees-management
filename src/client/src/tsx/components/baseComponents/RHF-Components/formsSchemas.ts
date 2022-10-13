@@ -124,7 +124,6 @@ export const nutritionProgramSchema = yup.object().shape({
   note_text: yup.string().notRequired().default(""),
 });
 
-
 export const traineesSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable(),
   trainer_user_id: yup.number().notRequired().nullable().default(1),
@@ -171,10 +170,9 @@ export const incomesSchema = yup.object().shape({
 export const loginSchema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().required(),
- 
 });
 export const signUpSchema = yup.object().shape({
-  email:yup.string().email().required("Must be valid email"),
+  email: yup.string().email().required("Must be valid email"),
   username: yup
     .string()
     .required()
@@ -195,4 +193,16 @@ export const signUpSchema = yup.object().shape({
     .required(),
 });
 
-export const forgetPasswordSchema=signUpSchema.concat(signUpSchema.pick(["password","confirmPassword"]))
+export const forgetPasswordSchema = signUpSchema.pick([
+  "password",
+  "confirmPassword",
+]);
+
+export const emailVerifySchema = signUpSchema.pick(["email"]).concat(
+  yup.object().shape({
+    confirmEmail: yup
+      .string()
+      .oneOf([yup.ref("email"), null], "Email must match")
+      .required(),
+  })
+);

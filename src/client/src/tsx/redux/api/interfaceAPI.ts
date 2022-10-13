@@ -7,6 +7,7 @@ import { OmitKey, PickKey } from "../../types";
 export enum API_ROUTES {
   API_AUTH_ROUTE = "/api/auth",
   SIGN_UP_ROUTE = "/signup",
+  EMAIL_VERIFY_ROUTE = "/email/verify",
   LOGIN_ROUTE = "/login",
   REGISTER_TRAINEE_ROUTE = "/register/trainee",
   REFRESH_TOKEN_ROUTE = "/token/refresh",
@@ -197,7 +198,7 @@ export interface TraineesBaseTableAPI {
   birthday: Date;
   identify_num: string;
   location_id: number;
-  email: string ;
+  email: string;
   phone_number: string;
   date_join: Date;
   status: boolean;
@@ -243,10 +244,15 @@ export interface LoginForm {
   password: string;
 }
 export interface SignUpForm {
-  email:string
+  email: string;
   username: string;
   password: string;
   confirmPassword: string;
+}
+export interface EmailVerifyForm {
+  email: string;
+
+  confirmEmail: string;
 }
 
 export interface User {
@@ -255,9 +261,7 @@ export interface User {
   role: "admin" | "trainer" | "trainee";
 }
 
-export interface UserAPI extends User 
-{  
-  email:string
-  profile_id: number | null
+export interface UserAPI extends User {
+  email: string;
+  profile_id: number | null;
 }
-

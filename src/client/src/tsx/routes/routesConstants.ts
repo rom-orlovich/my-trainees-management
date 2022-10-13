@@ -2,7 +2,7 @@
 export enum APP_ROUTE {
   HOME_PAGE = "",
   SIGN_UP = "signUp",
-  FORGET_PASSWORD_PAGE = "forgetPassword",
+  EMAIL_VERIFY_ROUTE = "email/verify",
   SIGN_UP_TRAINEE = "signUp/trainee/:id",
   LOGIN_ROUTE = "login",
   LOGOUT_ROUTE = "logout",

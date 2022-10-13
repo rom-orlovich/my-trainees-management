@@ -16,9 +16,8 @@ import {
   LeadsTableAPI,
   TrainingProgramsListTableAPI,
   AlertsAPI,
-
   UserAPI,
-} from "../api/interfaceAPI";
+} from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
 
@@ -120,22 +119,27 @@ export const traineesApi = apiCreateCRUDHooks<TraineesTableExtendsAPI>({
   baseUrl: API_ROUTES.TRAINEES_ROUTE,
   singleEntityName: API_ROUTES.TRAINEES_ENTITY,
   listId: "trainees_list",
-}).injectEndpoints({"endpoints":(builder)=>(
-  {getRegisterTrainee:builder.query<TraineesTableExtendsAPI,any>(
-    {query:({id,verifyToken}:{id:string,verifyToken:string})=>
-    {
-    const headers= new Headers()
-    headers.set("authorization",`Bearer ${verifyToken}`)
-      return ({url:`${API_ROUTES.TRAINEES_ENTITY}/${id}`,headers:headers})}
-  } 
-  ),
-  registerTrainee:builder.mutation({
-    query:(body)=>
-   ({ url:API_ROUTES.REGISTER_TRAINEE_ROUTE , "method":"POST",body})
-  ,"invalidatesTags":[{ type: API_ROUTES.TRAINEES_ENTITY, id: "trainees_list" }]})
-}
-
-)})
+}).injectEndpoints({
+  endpoints: (builder) => ({
+    getRegisterTrainee: builder.query<TraineesTableExtendsAPI, any>({
+      query: ({ id, verifyToken }: { id: string; verifyToken: string }) => {
+        const headers = new Headers();
+        headers.set("authorization", `Bearer ${verifyToken}`);
+        return { url: `${API_ROUTES.TRAINEES_ENTITY}/${id}`, headers };
+      },
+    }),
+    registerTrainee: builder.mutation({
+      query: (body) => ({
+        url: API_ROUTES.REGISTER_TRAINEE_ROUTE,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: [
+        { type: API_ROUTES.TRAINEES_ENTITY, id: "trainees_list" },
+      ],
+    }),
+  }),
+});
 
 export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
   reducerPath: "membersPlansApi",
@@ -191,6 +195,7 @@ export const apiCreateCrudArr = [
 ];
 
 // Create Reducer arr that contains  object with key of the reducer name and value the reducer function.
+// eslint-disable-next-line import/no-mutable-exports
 let reducersArr = {};
 apiCreateCrudArr.forEach((value) => {
   reducersArr = { ...reducersArr, [value.reducerPath]: value.reducer };
