@@ -10,7 +10,7 @@ import { TABLES_DATA } from "../../../utilities/constants";
 
 import {
   COOKIES_OPTIONS,
-  createModifiedActionResultFun,
+  prepareLogAlert,
   genToken,
   User,
   verifyAsync,
@@ -87,12 +87,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     )
   );
   if (!userUpdate || errorUpdate) {
-    req.modifiedActionResult = createModifiedActionResultFun(
-      undefined,
-      errorUpdate,
-      "update",
-      false
-    );
+    req.logAlertInfo = prepareLogAlert(undefined, errorUpdate, "update", false);
     console.log("userUpdate", userUpdate);
     console.log("errorUpdate", errorUpdate);
     return next();
@@ -114,7 +109,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   const { password: pwd, refresh_tokens: refreshToken1, ...restUser } = user[0];
 
   console.log(user[0]);
-  req.modifiedActionResult = createModifiedActionResultFun(
+  req.logAlertInfo = prepareLogAlert(
     {
       message: "Access token has create successfully!",
 

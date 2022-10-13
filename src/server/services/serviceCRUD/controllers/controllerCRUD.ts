@@ -44,8 +44,7 @@ export function createRoutesControllers({
   logAlert = true,
   validateSchema,
 }: OptionsCRUD) {
-  const createModifiedActionResultFun =
-    createModifiedActionResult(singleEntityName);
+  const prepareLogAlert = createModifiedActionResult(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
     console.log("enter getValuesFromDB");
@@ -76,7 +75,6 @@ export function createRoutesControllers({
 
   // Controller of the get method. Gets one item by ID from the db.
   const getValueFromDBbyID: RequestHandler = async (req, res, next) => {
-    console.log("enter getValueFromDBbyID");
     const queryLogic = `${querySelectLogic}  WHERE ${tableID}=$1`;
     const id = Number(req.params.id);
 
@@ -91,7 +89,7 @@ export function createRoutesControllers({
 
   // Controller of the post method. Create one item  in the db.
   const createNewValueInDB: RequestHandler = async (req, res, next) => {
-    if (req.modifiedActionResult?.error) return next();
+    if (req.logAlertInfo?.error) return next();
 
     const [data, err] = await promiseHandler(
       await insertQueryOneItem(tableName, req.body)
@@ -101,7 +99,7 @@ export function createRoutesControllers({
       await client.query("ROLLBACK");
     }
 
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },
       err,
       "create",
@@ -113,7 +111,7 @@ export function createRoutesControllers({
   // Controller of the put method.
   // Update one item by his ID in db.
   const updateValueByID: RequestHandler = async (req, res, next) => {
-    if (req.modifiedActionResult?.error) return next();
+    if (req.logAlertInfo?.error) return next();
 
     const [data, err] = await promiseHandler<any, DatabaseError>(
       updateExistTableData(
@@ -129,7 +127,7 @@ export function createRoutesControllers({
       await client.query("ROLLBACK");
     }
 
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },
       err,
       "update",
@@ -163,7 +161,7 @@ export function createRoutesControllers({
           }
         : undefined;
 
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 200, sendDataID: true },
       err || noDataError,
       "delete",

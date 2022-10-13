@@ -5,10 +5,10 @@ import { client } from "../../../PGSql/DBConnectConfig";
 import { updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { createUser } from "../utilities/authHelpers";
-import { createModifiedActionResultFun } from "./handleRegisterTrainee";
+import { prepareLogAlert } from "./handleRegisterTrainee";
 
 export const signUpHandlerTrainee: RequestHandler = async (req, res, next) => {
-  if (req.modifiedActionResult?.error) return next();
+  if (req.logAlertInfo?.error) return next();
   const { profileID } = req.params;
   const { password, username, email } = req.body;
   const [user, errorUser] = await createUser(
@@ -20,12 +20,7 @@ export const signUpHandlerTrainee: RequestHandler = async (req, res, next) => {
   );
   if (errorUser) {
     console.log("errorUser", errorUser);
-    req.modifiedActionResult = createModifiedActionResultFun(
-      undefined,
-      errorUser,
-      "create",
-      false
-    );
+    req.logAlertInfo = prepareLogAlert(undefined, errorUser, "create", false);
     return next();
   }
 
@@ -41,7 +36,7 @@ export const signUpHandlerTrainee: RequestHandler = async (req, res, next) => {
 
     await client.query("COMMIT");
 
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       {
         data: { username },
         statusCode: 201,
@@ -54,7 +49,7 @@ export const signUpHandlerTrainee: RequestHandler = async (req, res, next) => {
     );
   } catch (error) {
     await client.query("ROLLBACK");
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       undefined,
       error as Error,
       "create",

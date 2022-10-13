@@ -24,7 +24,7 @@ export {};
 declare global {
   namespace Express {
     export interface Request {
-      modifiedActionResult?: ModifiedActionResult;
+      logAlertInfo?: ModifiedActionResult;
       auth_data?: {
         username: string;
         user_id: number;

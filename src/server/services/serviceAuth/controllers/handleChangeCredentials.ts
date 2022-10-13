@@ -4,14 +4,14 @@ import { updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
 
-import { createModifiedActionResultFun } from "../utilities/authHelpers";
+import { prepareLogAlert } from "../utilities/authHelpers";
 
 export const changeUserCredentialsHandler: RequestHandler = async (
   req,
   res,
   next
 ) => {
-  if (req.modifiedActionResult?.error) return next();
+  if (req.logAlertInfo?.error) return next();
   const { userID } = req.params;
   const queryLogic = `WHERE ${TABLES_DATA.USERS_TABLE_ID}=$1`;
   const { password } = req.body;
@@ -29,7 +29,7 @@ export const changeUserCredentialsHandler: RequestHandler = async (
     )
   );
   // Continue to the alert handler.
-  req.modifiedActionResult = createModifiedActionResultFun(
+  req.logAlertInfo = prepareLogAlert(
     {
       data: user ? user.username : undefined,
       statusCode: 201,

@@ -5,11 +5,7 @@ import { promiseHandler } from "../../../utilities/helpers";
 import { API_ROUTES, URL_CUR_CLIENT } from "../../apiRoutesConstants";
 
 import { sendEmail } from "../../serviceMail/controllers/handleMailService";
-import {
-  createModifiedActionResultFun,
-  genToken,
-  User,
-} from "../utilities/authHelpers";
+import { prepareLogAlert, genToken, User } from "../utilities/authHelpers";
 import { TokenType } from "./authMiddleware";
 
 export const handleEmailVerify: RequestHandler = async (req, res, next) => {
@@ -26,7 +22,7 @@ where email=$1
   if (errorUser || !(user && user[0])) {
     console.log("errorUser", errorUser);
     console.log("user", user);
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       undefined,
       {
         message: `${email} is not found`,
@@ -58,7 +54,7 @@ where email=$1
   if (updateError || !updateUser) {
     console.log("updateError", updateError);
     console.log("updateUser", updateUser);
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       undefined,
       {
         message: `User update Error`,
@@ -80,7 +76,7 @@ where email=$1
 
   console.log(sendEmailResult);
 
-  req.modifiedActionResult = createModifiedActionResultFun(
+  req.logAlertInfo = prepareLogAlert(
     { data: { email }, message: `Email was sent to ${email}`, statusCode: 200 },
     undefined,
     "get"

@@ -7,14 +7,14 @@ import { ErrorCodes } from "../../serviceErrors/handleErrors";
 
 import {
   COOKIES_OPTIONS,
-  createModifiedActionResultFun,
+  prepareLogAlert,
   EXPIRE_IN,
   genToken,
   User,
 } from "../utilities/authHelpers";
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
-  if (req.modifiedActionResult?.error) return next();
+  if (req.logAlertInfo?.error) return next();
   const preRefreshToken = req.cookies.refresh_token;
   const { password, username } = req.body;
   const queryLogic = `WHERE username=$1`;
@@ -25,7 +25,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
   // Check if the user exist
   if (!(user && user.length > 0) || error) {
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       undefined,
       error || {
         code: ErrorCodes.RESULT_NOT_FOUND,
@@ -42,7 +42,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
   // Check if the password from the client is fit to the hash password in the db.
   if (!hashPassword) {
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       undefined,
       {
         code: ErrorCodes.LOGIN_FAILED,
@@ -94,11 +94,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
 
   // Check if there some error in updating the refresh token of user.
   if (errorUpdate) {
-    req.modifiedActionResult = createModifiedActionResultFun(
-      undefined,
-      errorUpdate,
-      "update"
-    );
+    req.logAlertInfo = prepareLogAlert(undefined, errorUpdate, "update");
     // Continue to the alert handler.
     return next();
   }
@@ -121,7 +117,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     refresh_tokens: refreshTokenArr,
     ...restUser
   } = user[0];
-  req.modifiedActionResult = createModifiedActionResultFun(
+  req.logAlertInfo = prepareLogAlert(
     {
       message,
       data: {

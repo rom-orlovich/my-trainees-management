@@ -80,8 +80,8 @@ export const handleAlertsMiddleware: RequestHandler = async (
   res,
   next
 ) => {
-  if (!req.modifiedActionResult) return next();
-  const { successRes, error, logAlert } = req.modifiedActionResult;
+  if (!req.logAlertInfo) return next();
+  const { successRes, error, logAlert } = req.logAlertInfo;
 
   if (logAlert) {
     const [_, errAlert] = await promiseHandler(

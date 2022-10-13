@@ -10,7 +10,7 @@ import { sendEmail } from "../../serviceMail/controllers/handleMailService";
 import { genToken } from "../utilities/authHelpers";
 import { TokenType } from "./authMiddleware";
 
-export const createModifiedActionResultFun = createModifiedActionResult(
+export const prepareLogAlert = createModifiedActionResult(
   API_ROUTES.TRAINEES_ENTITY
 );
 
@@ -40,7 +40,7 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
       trainer_user_id,
       sign_up_token: signUpGmailToken,
     });
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       { data: trainee, statusCode: 201, sendDataID: true },
       undefined,
       "create",
@@ -59,7 +59,7 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
     });
   } catch (error) {
     await client.query("ROLLBACK");
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       undefined,
       error as Error,
       "create",

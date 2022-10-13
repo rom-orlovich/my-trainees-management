@@ -1,17 +1,14 @@
 /* eslint-disable no-unused-vars */
 
 import { RequestHandler } from "express";
-import {
-  createModifiedActionResultFun,
-  createUser,
-} from "../utilities/authHelpers";
+import { prepareLogAlert, createUser } from "../utilities/authHelpers";
 
 export const signUpHandlerTrainer: RequestHandler = async (req, res, next) => {
-  if (req.modifiedActionResult?.error) return next();
+  if (req.logAlertInfo?.error) return next();
 
   const { password, username, email } = req.body;
   if (!req?.signUp_data?.role) {
-    req.modifiedActionResult = createModifiedActionResultFun(
+    req.logAlertInfo = prepareLogAlert(
       undefined,
       { message: "Role is undefined" },
       "create",
@@ -27,7 +24,7 @@ export const signUpHandlerTrainer: RequestHandler = async (req, res, next) => {
   );
 
   // Continue to the alert handler.
-  req.modifiedActionResult = createModifiedActionResultFun(
+  req.logAlertInfo = prepareLogAlert(
     {
       data: { username },
       statusCode: 201,
