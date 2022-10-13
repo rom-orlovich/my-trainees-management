@@ -8,18 +8,18 @@ import { Client, ClientConfig } from "pg";
 const configClient: ClientConfig =
   process.env.NODE_ENV === "production"
     ? {
-      connectionString: process.env.DATABASE_URL,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-      connectionTimeoutMillis: 0,
-    }
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+        connectionTimeoutMillis: 0,
+      }
     : {
-      host: process.env.HOST_PG || "",
-      database: process.env.DB_NAME_PG || "",
-      port: Number(process.env.PORT_PG),
-      user: process.env.USER_PG || "",
-      password: process.env.PASSWORD || "",
-    };
+        host: process.env.HOST_PG || "",
+        database: process.env.DB_NAME_PG || "",
+        port: Number(process.env.PORT_PG),
+        user: process.env.USER_PG || "",
+        password: process.env.PASSWORD || "",
+      };
 
 export const client = new Client(configClient);

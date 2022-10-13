@@ -6,7 +6,7 @@ const path = require("path");
 
 const packageJson = {
   name: "My Trainees Management",
-  version: "1.0.0",
+  version: "2.0.0",
   description: "",
   scripts: {
     start: "node ./server/*.js",
