@@ -15,7 +15,7 @@ import {
 import { OptionsCRUD } from "../routes/routesConfig";
 
 import { promiseHandler } from "../../../utilities/helpers";
-import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
+import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 
 import {
   ActionType,
@@ -44,7 +44,7 @@ export function createRoutesControllers({
   logAlert = true,
   validateSchema,
 }: OptionsCRUD) {
-  const prepareLogAlert = createModifiedActionResult(singleEntityName);
+  const prepareLogAlert = createLogAlertInfo(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
     console.log("enter getValuesFromDB");

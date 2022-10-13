@@ -26,7 +26,7 @@ export const createDataIDwithMessage = (
  * @param logAlert If true, the response result will log to the db as alert.
  * @returns Object that will be used in the alerts handler middleware.
  */
-export const createModifiedActionResult =
+export const createLogAlertInfo =
   (singleEntityName: string) =>
   (
     successRes?: {

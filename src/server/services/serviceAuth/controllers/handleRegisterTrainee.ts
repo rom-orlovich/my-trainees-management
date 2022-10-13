@@ -5,14 +5,12 @@ import { client } from "../../../PGSql/DBConnectConfig";
 import { insertNewTableData } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES, URL_REACT_CLIENT } from "../../apiRoutesConstants";
-import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
+import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 
 import { genToken, sendEmail } from "../utilities/authHelpers";
 import { TokenType } from "./validateAuthMiddleware";
 
-export const prepareLogAlert = createModifiedActionResult(
-  API_ROUTES.TRAINEES_ENTITY
-);
+export const prepareLogAlert = createLogAlertInfo(API_ROUTES.TRAINEES_ENTITY);
 
 export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
   const { trainer_user_id, email, ...rest } = req.body;

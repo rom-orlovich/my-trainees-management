@@ -13,7 +13,7 @@ import {
 
 import { API_ROUTES } from "../../apiRoutesConstants";
 import { TABLES_DATA } from "../../../utilities/constants";
-import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
+import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 import { client } from "../../../PGSql/DBConnectConfig";
 import {
   clientMailOAuth,
@@ -43,9 +43,7 @@ export const EXPIRE_IN =
   60 *
   Number(process.env.EXPIRE_IN_REFRESH_TOKEN?.slice(0, -1) || 2);
 
-export const prepareLogAlert = createModifiedActionResult(
-  API_ROUTES.USER_ENTITY
-);
+export const prepareLogAlert = createLogAlertInfo(API_ROUTES.USER_ENTITY);
 export const COOKIES_OPTIONS: CookieOptions = {
   httpOnly: true,
   secure: true,

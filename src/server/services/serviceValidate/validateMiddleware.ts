@@ -2,10 +2,10 @@
 import { RequestHandler } from "webpack-dev-server";
 import * as yup from "yup";
 import { promiseHandler } from "../../utilities/helpers";
-import { createModifiedActionResult } from "../serviceAlerts/handleAlerts";
+import { createLogAlertInfo } from "../serviceAlerts/handleAlerts";
 import { ErrorCodes, ErrorCustomizes } from "../serviceErrors/handleErrors";
 
-const createModifiedActionResultHandler = createModifiedActionResult("data");
+const createLogAlertInfoHandler = createLogAlertInfo("data");
 export const validateMiddleware: (
   validateSchema: yup.ObjectSchema<any> | undefined
 ) => RequestHandler = (validateSchema) => async (req, res, next) => {
@@ -16,7 +16,7 @@ export const validateMiddleware: (
   );
 
   if (errValid && !valid) {
-    req.logAlertInfo = createModifiedActionResultHandler(undefined, {
+    req.logAlertInfo = createLogAlertInfoHandler(undefined, {
       code: ErrorCodes.INVALID,
       message: errValid.message,
     });
