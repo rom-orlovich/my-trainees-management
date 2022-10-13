@@ -51,8 +51,8 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
       "create",
       false
     );
-
-    return next(); // Continue to the alert handler.
+    // Continue to the alert handler.
+    return next();
   }
 
   // Generate tokens
@@ -74,6 +74,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     process.env.EXPIRE_IN_REFRESH_TOKEN
   );
 
+  // Replace the previous refresh token of the same device by new one.
   // eslint-disable-next-line no-unused-vars
   const [userUpdate, errorUpdate] = await promiseHandler<User[]>(
     updateQuerySingleItem(
@@ -98,7 +99,8 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
       errorUpdate,
       "update"
     );
-    return next(); // Continue to the alert handler.
+    // Continue to the alert handler.
+    return next();
   }
 
   // Send refresh token

@@ -19,8 +19,6 @@ export const MY_USER_MAIL: AuthenticationTypeOAuth2 = {
 
 export const MAIL_OPTIONS: Mail.Options = {
   from: "mytraineesmanagement@gmail.com>",
-  // to: "madman280797@gmail.com",
-  // subject: "Gmail API NodeJS",
 };
 
 export const clientMailOAuth = new google.auth.OAuth2(

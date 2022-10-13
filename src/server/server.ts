@@ -33,8 +33,7 @@ import {
   validateRolePermission,
   validateTokenMiddleware,
 } from "./services/serviceAuth/controllers/authMiddleware";
-import { createUser } from "./services/serviceAuth/utilities/authHelpers";
-import mailRouter from "./services/serviceMail/routes/mailRoutes";
+
 import { PERMISSION_ALL_WITHOUT_UPDATE } from "./services/usersPermission";
 
 const PORT = process.env.PORT || 5000;
@@ -54,7 +53,7 @@ app.use(
 
 // Init auth route.
 app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);
-// console.log(authRouter);
+
 // Init all CRUD routes of the app.
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
   app.use(

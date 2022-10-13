@@ -62,7 +62,6 @@ where email=$1
       undefined,
       {
         message: `User update Error`,
-        // code: ErrorCodes.RESULT_NOT_FOUND,
       },
       "update",
       false
@@ -76,10 +75,9 @@ where email=$1
     subject: "Rest your password",
     text: `Enter here: ${link}`,
   };
-  // eslint-disable-next-line no-unused-vars
+
   const sendEmailResult = await sendEmail(email, message);
-  // .then(console.log)
-  // .catch(console.log);
+
   console.log(sendEmailResult);
 
   req.modifiedActionResult = createModifiedActionResultFun(

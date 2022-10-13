@@ -16,7 +16,7 @@ export const createModifiedActionResultFun = createModifiedActionResult(
 
 export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
   const { trainer_user_id, email, ...rest } = req.body;
-  console.log(req.hostname);
+
   try {
     await client.query("BEGIN");
 
@@ -24,7 +24,6 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
       email,
       ...rest,
     });
-    console.log(profile.profile_id);
 
     const signUpGmailToken = genToken(
       {
@@ -47,8 +46,6 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
       "create",
       true
     );
-    console.log("profile", profile);
-    console.log("trainee", trainee);
 
     await client.query("COMMIT");
 
@@ -57,10 +54,9 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
       subject: "Welcome to My-Trainees-Management-app",
       text: `Create account in this link ${link}`,
     };
-    const result = sendEmail(email, message).catch((value) => {
+    sendEmail(email, message).catch((value) => {
       console.log(value);
     });
-    console.log(result);
   } catch (error) {
     await client.query("ROLLBACK");
     req.modifiedActionResult = createModifiedActionResultFun(

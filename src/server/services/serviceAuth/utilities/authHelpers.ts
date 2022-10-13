@@ -33,8 +33,6 @@ export interface User {
   role: UserRoles;
 }
 
-// export const REFRESH_IN =
-//   1000 * 60 * Number(process.env.EXPIRE_IN_REFRESH_TOKEN?.slice(0, -1) || 15);
 export const EXPIRE_IN =
   1000 *
   60 *

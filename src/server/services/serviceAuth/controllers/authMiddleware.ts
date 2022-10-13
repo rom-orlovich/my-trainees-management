@@ -48,6 +48,7 @@ export const validateTokenMiddleware: RequestHandler = async (
 ) => {
   const accessToken = req.headers.authorization?.split("Bearer ")[1];
   console.log(accessToken);
+
   if (!accessToken) {
     return res.sendStatus(401);
   }
