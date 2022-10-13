@@ -32,7 +32,7 @@ import authRouter from "./services/serviceAuth/routes/authRouter";
 import {
   validateRolePermission,
   validateTokenMiddleware,
-} from "./services/serviceAuth/controllers/authMiddleware";
+} from "./services/serviceAuth/controllers/validateAuthMiddleware";
 
 import { PERMISSION_ALL_WITHOUT_UPDATE } from "./services/usersPermission";
 

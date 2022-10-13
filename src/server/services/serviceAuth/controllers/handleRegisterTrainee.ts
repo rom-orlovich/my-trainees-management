@@ -8,7 +8,7 @@ import { API_ROUTES, URL_REACT_CLIENT } from "../../apiRoutesConstants";
 import { createModifiedActionResult } from "../../serviceAlerts/handleAlerts";
 
 import { genToken, sendEmail } from "../utilities/authHelpers";
-import { TokenType } from "./authMiddleware";
+import { TokenType } from "./validateAuthMiddleware";
 
 export const prepareLogAlert = createModifiedActionResult(
   API_ROUTES.TRAINEES_ENTITY

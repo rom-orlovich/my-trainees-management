@@ -10,7 +10,7 @@ import {
   User,
   sendEmail,
 } from "../utilities/authHelpers";
-import { TokenType } from "./authMiddleware";
+import { TokenType } from "./validateAuthMiddleware";
 
 export const handleEmailVerify: RequestHandler = async (req, res, next) => {
   const { email } = req.body;
