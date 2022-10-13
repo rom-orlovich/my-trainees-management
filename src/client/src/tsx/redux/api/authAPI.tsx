@@ -24,7 +24,7 @@ export const authApi = createApi({
         endPoint,
       }) => ({
         url: `${API_ROUTES.SIGN_UP_ROUTE}/${endPoint}`,
-        method: "post",
+        method: "POST",
         body: { ...credentials },
       }),
     }),
@@ -36,10 +36,26 @@ export const authApi = createApi({
         body: { email },
       }),
     }),
+    changeCredentials: builder.mutation<
+      any,
+      {
+        username?: string;
+        password?: string;
+        userID: string;
+        verifyToken: string;
+      }
+    >({
+      query: ({ verifyToken, userID, ...credentials }) => ({
+        url: `users/${userID}${API_ROUTES.CHANGE_USER_CRED_ROUTE} ${API_ROUTES.CHANGE_USER_CRED_ROUTE}`,
+        method: "PUT",
+        body: { ...credentials },
+        headers: { authorization: `Bearer ${verifyToken}` },
+      }),
+    }),
     login: builder.mutation<ResponseMutationAuthAPI, any>({
       query: (credentials) => ({
         url: API_ROUTES.LOGIN_ROUTE,
-        method: "post",
+        method: "POST",
         body: { ...credentials },
       }),
     }),

@@ -59,6 +59,9 @@ export const sendEmail = async (
           accessToken: token,
           ...MY_USER_MAIL,
         },
+        // socketTimeout: 1000 * 3,
+        connectionTimeout: 1000 * 3,
+        // greetingTimeout: 1000 * 3,
       });
 
       // eslint-disable-next-line no-unused-vars

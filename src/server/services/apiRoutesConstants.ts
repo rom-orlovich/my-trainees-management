@@ -10,7 +10,7 @@ export enum API_ROUTES {
   REGISTER_TRAINEE_ROUTE = "/register/trainee",
   LOGOUT_ROUTE = "/logout",
   USERS_ROUTE = "/api/users",
-  CHANGE_USER_CRED_ROUTE = "/users/:id/changeCredentials",
+  CHANGE_USER_CRED_ROUTE = "/credentials/change",
   USER_ENTITY = "user",
   ALERT_ROUTE = "/api/alerts",
   ALERT_ENTITY = "alert",

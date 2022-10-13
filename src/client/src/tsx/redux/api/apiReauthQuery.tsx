@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   BaseQueryFn,
@@ -31,7 +32,7 @@ export const baseQueryWithReauth =
     let result = await baseQuery(args, api, extraOptions);
 
     if (result.error) {
-      let resultError = result.error as { originalStatus: number };
+      const resultError = result.error as { originalStatus: number };
       if (resultError.originalStatus === 403) {
         // try to get a new token
         const refreshResult = await apiAuthBaseQuery(

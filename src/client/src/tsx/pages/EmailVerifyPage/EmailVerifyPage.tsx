@@ -4,7 +4,10 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Card from "../../components/baseComponents/Card/Card";
 import Form from "../../components/baseComponents/RHF-Components/Form/Form";
-import { signUpSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
+import {
+  emailVerifySchema,
+  signUpSchema,
+} from "../../components/baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { authApi } from "../../redux/api/authAPI";
@@ -14,18 +17,10 @@ import { APP_ROUTE } from "../../routes/routesConstants";
 import { relativePath } from "../../utilities/helpersFun";
 import style from "../HomeCardForm.module.scss";
 
-function ForgetPasswordPage({
-  defaultValues,
-}: {
-  defaultValues?: { email: string; id: number };
-}) {
+function ForgetPasswordPage() {
   const [emailVerify] = authApi.useEmailVerifyMutation();
   const onSubmit = async ({ email }: EmailVerifyForm) =>
     emailVerify(email).unwrap();
-  // signUp({
-  //   credentials: body,
-  //   endPoint: defaultValues ? `trainee/${defaultValues.id}` : "trainer",
-  // }).unwrap();
 
   return (
     <Card className={style.card_form}>
@@ -36,7 +31,7 @@ function ForgetPasswordPage({
         isLoginMode={false}
         pathMove={relativePath(APP_ROUTE.LOGIN_ROUTE)}
         formOptions={{
-          resolver: yupResolver(signUpSchema),
+          resolver: yupResolver(emailVerifySchema),
           defaultValues: {
             email: "",
             confirmEmail: "",

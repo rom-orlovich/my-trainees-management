@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS "users"(
     "username" varchar(50) UNIQUE,
     "password" varchar(255),
     "refresh_tokens" TEXT[] DEFAULT '{}',
+    "verify_token" TEXT,
     "profile_id" INTEGER ,
 CONSTRAINT "role" CHECK ("role" IN ('trainee','admin','trainer')),
 CONSTRAINT fk_profile_id 
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS "trainees" (
   "trainer_user_id" INTEGER DEFAULT 1,
   "user_id" INTEGER,
   "profile_id" INTEGER,
-  "sign_up_token" VARCHAR(255),
+  "sign_up_token" TEXT,
 CONSTRAINT fk_trainer_user_id 
     FOREIGN KEY(trainer_user_id)
     REFERENCES users(user_id)

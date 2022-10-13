@@ -8,26 +8,32 @@ import { Permissions } from "../../usersPermission";
 import { UserRoles, verifyAsync } from "../utilities/authHelpers";
 
 const checkTraineeHaveToken = async (token: string, profileID: number) => {
-  // const [trainee] = await promiseHandler(
-  //   updateQuerySingleItem(
-  //     TABLES_DATA.TRAINEES_TABLE_NAME,
-  //     { sign_up_token: "" },
-  //     token,
-  //     `where sign_up_token=$1`
-  //   )
-  // );
   // eslint-disable-next-line no-unused-vars
   const [trainee, errorTrainee] = await promiseHandler(
     selectQuery(
       TABLES_DATA.TRAINEES_TABLE_NAME,
       "*",
-      "where sign_up_token=$1 and profile_id=$2",
+      `where sign_up_token=$1 and profile_id=$2`,
       [token, profileID]
     )
   );
   if (errorTrainee) return false;
 
   return trainee && trainee[0];
+};
+const checkUsersHaveToken = async (token: string, email: number) => {
+  // eslint-disable-next-line no-unused-vars
+  const [user, errorUser] = await promiseHandler(
+    selectQuery(
+      TABLES_DATA.USERS_TABLE_NAME,
+      "*",
+      `where verify_token=$1 and email=$2`,
+      [token, email]
+    )
+  );
+  if (errorUser) return false;
+
+  return user && user[0];
 };
 
 export const validateTokenMiddleware: RequestHandler = async (
@@ -54,6 +60,14 @@ export const validateTokenMiddleware: RequestHandler = async (
     }
     return res.sendStatus(401);
   }
+
+  if (Decode?.email) {
+    if (await checkUsersHaveToken(accessToken, Decode?.email)) {
+      return next();
+    }
+    return res.sendStatus(401);
+  }
+
   if (err) {
     console.log("err", err);
     return res.sendStatus(403);

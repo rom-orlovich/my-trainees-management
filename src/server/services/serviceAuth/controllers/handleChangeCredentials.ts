@@ -12,7 +12,7 @@ export const changeUserCredentialsHandler: RequestHandler = async (
   next
 ) => {
   if (req.modifiedActionResult?.error) return next();
-  const { id } = req.params;
+  const { userID } = req.params;
   const queryLogic = `WHERE ${TABLES_DATA.USERS_TABLE_ID}=$1`;
   const { password } = req.body;
   const hashPassword = await hash(password, 10);
@@ -23,7 +23,7 @@ export const changeUserCredentialsHandler: RequestHandler = async (
         ...req.body,
         password: hashPassword,
       },
-      id,
+      userID,
       queryLogic
     )
   );

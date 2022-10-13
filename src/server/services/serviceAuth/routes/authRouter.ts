@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import {
-  changePasswordSchema,
+  changeUserCredSchema,
   emailVerifySchema,
   loginSchema,
   signUpSchema,
@@ -24,8 +24,8 @@ const validateMiddlewareHandlerSignUp = validateMiddleware(signUpSchema);
 const validateMiddlewareHandlerEmailVerify =
   validateMiddleware(emailVerifySchema);
 
-const validateMiddlewareHandlerChangePassword =
-  validateMiddleware(changePasswordSchema);
+const validateMiddlewareHandlerChangeUserCredSchema =
+  validateMiddleware(changeUserCredSchema);
 
 authRouter.post(
   `${API_ROUTES.SIGN_UP_ROUTE}/trainer`,
@@ -56,10 +56,9 @@ authRouter.post(
 );
 
 authRouter.put(
-  API_ROUTES.CHANGE_USER_CRED_ROUTE,
+  `users/:userID${API_ROUTES.CHANGE_USER_CRED_ROUTE}`,
   validateTokenMiddleware,
-  validateMiddlewareHandlerChangePassword,
-
+  validateMiddlewareHandlerChangeUserCredSchema,
   changeUserCredentialsHandler
 );
 

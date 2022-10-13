@@ -13,7 +13,7 @@ export enum API_ROUTES {
   REFRESH_TOKEN_ROUTE = "/token/refresh",
   LOGOUT_ROUTE = "/logout",
   USERS_ROUTE = "/api/users",
-  CHANGE_USER_CRED_ROUTE = "/users/:id/changeCredentials",
+  CHANGE_USER_CRED_ROUTE = "/credentials/change",
   USER_ENTITY = "user",
   ALERTS_ROUTE = "/api/alerts",
   ALERTS_ENTITY = "alert",
@@ -50,7 +50,11 @@ export enum API_ROUTES {
   INCOMES_ROUTE = "/api/incomes",
   INCOMES_ENTITY = "income",
 }
-
+export interface User {
+  user_id: number;
+  username: string;
+  role: "admin" | "trainer" | "trainee";
+}
 export interface PayloadAPI<T> {
   id: number;
   payload: T;
@@ -249,16 +253,13 @@ export interface SignUpForm {
   password: string;
   confirmPassword: string;
 }
+export interface ChangePasswordForm {
+  password: string;
+  confirmPassword: string;
+}
 export interface EmailVerifyForm {
   email: string;
-
   confirmEmail: string;
-}
-
-export interface User {
-  user_id: number;
-  username: string;
-  role: "admin" | "trainer" | "trainee";
 }
 
 export interface UserAPI extends User {
