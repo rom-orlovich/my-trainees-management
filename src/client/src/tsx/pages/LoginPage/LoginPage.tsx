@@ -37,7 +37,7 @@ function LoginPage() {
         formOptions={{
           resolver: yupResolver(loginSchema),
           // mode: "all",
-          defaultValues: { username: "example123", password: "example123" },
+          defaultValues: { username: "trainer123", password: "trainer123" },
         }}
       >
         {({ register, formState }) => {

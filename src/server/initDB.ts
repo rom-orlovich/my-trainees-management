@@ -22,10 +22,16 @@ export async function initDB() {
     "admin"
   );
   await createUser(
-    process.env.EXAMPLE_EMAIL,
-    process.env.EXAMPLE_USER,
-    process.env.EXAMPLE_PSW,
+    process.env.TRAINER_EMAIL,
+    process.env.TRAINER_USER,
+    process.env.TRAINER_PSW,
     "trainer"
+  );
+  await createUser(
+    process.env.TRAINEE_EMAIL,
+    process.env.TRAINEE_USER,
+    process.env.TRAINEE_PSW,
+    "trainee"
   );
 
   await readFromSQLfileAndExecute(CREATE_DUMMY_DATA_FILE_PATH);

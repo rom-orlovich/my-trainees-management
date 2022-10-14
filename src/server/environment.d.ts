@@ -18,9 +18,13 @@ declare global {
       ADMIN_EMAIL: string;
       ADMIN_PSW: string;
 
-      EXAMPLE_USER: string;
-      EXAMPLE_EMAIL: string;
-      EXAMPLE_PSW: string;
+      TRAINER_USER: string;
+      TRAINER_EMAIL: string;
+      TRAINER_PSW: string;
+
+      TRAINEE_USER: string;
+      TRAINEE_EMAIL: string;
+      TRAINEE_PSW: string;
 
       ACCESS_TOKEN_SECRET: string;
       REFRESH_TOKEN_SECRET: string;
