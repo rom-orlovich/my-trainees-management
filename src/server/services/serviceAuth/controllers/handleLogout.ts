@@ -11,6 +11,7 @@ import { COOKIES_OPTIONS, User } from "../utilities/authHelpers";
 export const logoutHandler: RequestHandler = async (req, res, next) => {
   // console.log("handle logout");
   const refreshToken = req.cookies.refresh_token;
+  res.clearCookie("refresh_token", COOKIES_OPTIONS);
 
   const queryLogic = `where $1=some(refresh_tokens)`;
 
@@ -35,8 +36,6 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
 
   console.log("user", user);
   if (!user || error) return res.status(400).json({ message: "No user" });
-
-  res.clearCookie("refresh_token", COOKIES_OPTIONS);
 
   return res.status(200).json({ message: "Logout success!" });
 };

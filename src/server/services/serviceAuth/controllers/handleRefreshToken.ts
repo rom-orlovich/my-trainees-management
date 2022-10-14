@@ -19,6 +19,7 @@ import {
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   console.log("handle refresh");
   const preRefreshToken = req.cookies.refresh_token;
+  res.clearCookie("refresh_token", COOKIES_OPTIONS);
   // console.log("preRefreshToken", preRefreshToken);
   const queryLogic = "where $1=some(refresh_tokens)";
   // Get the user details from the db by his username
@@ -42,6 +43,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     );
     console.log("userUpdate", userUpdate);
     console.log("errorUpdate", errorUpdate);
+
     return res.sendStatus(403);
   }
 

@@ -21,48 +21,49 @@ import { authApi } from "../../../../redux/api/authAPI";
 import { relativePath } from "../../../../utilities/helpersFun";
 
 import Welcome from "../Welcome/Welcome";
+import { NavBarNavLinkLI } from "../../../../layout/NavBarLinks";
 
-interface NavBarNavLinkLI<T> {
-  id?: string;
-  element: ReactNode;
-  dataLinks: T[];
-}
+// interface NavBarNavLinkLI<T> {
+//   id?: string;
+//   element: ReactNode;
+//   dataLinks: T[];
+// }
 
-const navBarLink: NavBarNavLinkLI<LinkData>[] = [
-  {
-    id: "addIconButton",
-    element: <RiAddCircleFill className={style.add_icon} />,
-    dataLinks: [
-      {
-        to: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
-        text: "Add Trainee",
-      },
-      {
-        to: `/${APP_ROUTE.LEADS_ROUTE}/${APP_ROUTE.LEADS_ROUTE_ADD}`,
-        text: "Add Lead",
-      },
-    ],
-  },
+// const navBarLink: NavBarNavLinkLI<LinkData>[] = [
+//   {
+//     id: "addIconButton",
+//     element: <RiAddCircleFill className={style.add_icon} />,
+//     dataLinks: [
+//       {
+//         to: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
+//         text: "Add Trainee",
+//       },
+//       {
+//         to: `/${APP_ROUTE.LEADS_ROUTE}/${APP_ROUTE.LEADS_ROUTE_ADD}`,
+//         text: "Add Lead",
+//       },
+//     ],
+//   },
 
-  {
-    id: "profileButton",
-    element: <FaUserCircle className={style.profile_icon} />,
-    dataLinks: [
-      { to: relativePath(APP_ROUTE.PROFILE_ROUTE), icon: <Welcome /> },
+//   {
+//     id: "profileButton",
+//     element: <FaUserCircle className={style.profile_icon} />,
+//     dataLinks: [
+//       { to: relativePath(APP_ROUTE.PROFILE_ROUTE), icon: <Welcome /> },
 
-      {
-        to: relativePath(APP_ROUTE.SETTINGS_ROUTE),
-        text: "Setting",
-      },
-      { to: relativePath(APP_ROUTE.LOGIN_ROUTE), text: "Logout" },
-    ],
-  },
-  {
-    id: "hamburgerMenu",
-    element: <HamburgerMenu />,
-    dataLinks: [],
-  },
-];
+//       {
+//         to: relativePath(APP_ROUTE.SETTINGS_ROUTE),
+//         text: "Setting",
+//       },
+//       { to: relativePath(APP_ROUTE.LOGIN_ROUTE), text: "Logout" },
+//     ],
+//   },
+//   {
+//     id: "hamburgerMenu",
+//     element: <HamburgerMenu />,
+//     dataLinks: [],
+//   },
+// ];
 
 function DropDownNavLinkLI({
   data,

@@ -15,12 +15,12 @@
       a {
         @include flex-dir(space-between, center, null);
 
-        padding: 1rem 1.5rem;
+        padding: 0.8rem 1.5rem;
         text-decoration: none;
         color: white;
         width: 100%;
         font-weight: 500;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         .icon {
           font-size: 1.7rem;
         }

@@ -56,9 +56,9 @@ function DropDown<T extends object>({
     // The isVisible state will be false if click event was executed outside the dropdown's elements area.
     // The isMenuSliceStateOpen will be true in one dropdown element if the dropdown was clicked
     // and false in other dropdowns's state.
-    if (alertNotificationState || (isMenuSliceStateOpen && isVisible))
+    if (alertNotificationState || (isVisible && isMenuSliceStateOpen))
       if (dataLI.length > 0)
-        // If there is li the dropdown will be display.
+        // If there is any li the dropdown list will be display.
         // Else if there is message to display the message will display instead.
         return (
           <List

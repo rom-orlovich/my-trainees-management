@@ -15,7 +15,9 @@ import {
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.logAlertInfo?.error) return next();
+
   const preRefreshToken = req.cookies.refresh_token;
+  res.clearCookie("refresh_token", COOKIES_OPTIONS);
   const { password, username } = req.body;
   const queryLogic = `WHERE username=$1`;
   // Get the user details from the db by his username

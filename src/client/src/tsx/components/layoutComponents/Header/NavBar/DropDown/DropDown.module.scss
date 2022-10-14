@@ -25,12 +25,13 @@
 }
 .sec_li {
   @include flex-dir(null, center);
-  height: 5rem;
+  height: 4rem;
+  padding: 0.5rem;
   &:hover {
     background-color: rgb(190, 230, 249);
   }
   a {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: rgb(75, 74, 74);
     width: 100%;
     text-decoration: none;

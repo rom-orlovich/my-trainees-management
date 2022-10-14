@@ -15,32 +15,32 @@ import { useAppSelector } from "../../../redux/hooks";
 import useCheckRole from "../../../hooks/useCheckRole";
 import List from "../../baseComponents/List/List";
 
-const sideBarLinkTrainer: LinkData[] = [
-  {
-    to: APP_ROUTE.TRAINEES_ROUTE,
-    text: "Trainees",
-    icon: <BsFillPeopleFill className={style.icon} />,
-  },
-  {
-    to: APP_ROUTE.LEADS_ROUTE,
-    text: "Leads",
-    icon: <SiGoogleads className={style.icon} />,
-  },
-  {
-    to: APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE,
-    text: "Training Program",
-    icon: <AiFillSchedule className={style.icon} />,
-  },
-];
-const sideBarLinkAdmin: LinkData[] = [
-  {
-    to: APP_ROUTE.USERS_ROUTE,
-    text: "Users",
-    icon: <FaUserShield className={style.icon} />,
-  },
+// const TRAINER_SIDE_BAR_LINKS: LinkData[] = [
+//   {
+//     to: APP_ROUTE.TRAINEES_ROUTE,
+//     text: "Trainees",
+//     icon: <BsFillPeopleFill className={style.icon} />,
+//   },
+//   {
+//     to: APP_ROUTE.LEADS_ROUTE,
+//     text: "Leads",
+//     icon: <SiGoogleads className={style.icon} />,
+//   },
+//   {
+//     to: APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE,
+//     text: "Training Program",
+//     icon: <AiFillSchedule className={style.icon} />,
+//   },
+// ];
+// const ADMIN_SIDE_BAR_LINKS: LinkData[] = [
+//   {
+//     to: APP_ROUTE.USERS_ROUTE,
+//     text: "Users",
+//     icon: <FaUserShield className={style.icon} />,
+//   },
 
-  ...sideBarLinkTrainer,
-];
+//   ...TRAINER_SIDE_BAR_LINKS,
+// ];
 
 function Li(link: LinkData) {
   const dispatch = useDispatch();
@@ -56,18 +56,19 @@ function Li(link: LinkData) {
     />
   );
 }
-function SideBar({ className }: PropsBasic) {
+function SideBar({
+  className,
+  sideBarLinks,
+}: PropsBasic & { sideBarLinks: LinkData[] }) {
   const state = useAppSelector(getMenuSliceState);
-  const dataArr = useCheckRole().isAdmin
-    ? sideBarLinkAdmin
-    : sideBarLinkTrainer;
+
   return (
     <section
       className={`${style.sideBar} ${className} ${
         state.hamburgerMenu ? style.display_block : ""
       }`}
     >
-      <List dataArr={dataArr} LI={Li}></List>
+      <List dataArr={sideBarLinks} LI={Li}></List>
     </section>
   );
 }
