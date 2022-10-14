@@ -1,10 +1,13 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { setOneDropDownOn } from "../../../../redux/slices/menusSlice";
+import {
+  getMenuSliceState,
+  setOneDropDownOn,
+} from "../../../../redux/slices/menusSlice";
 import style from "./HamburgerMenu.module.scss";
 
 function HamburgerMenu() {
-  const state = useAppSelector((state) => state.menusSlice);
+  const state = useAppSelector(getMenuSliceState);
   const dispatch = useAppDispatch();
   const handleClickEvent = () => {
     dispatch(setOneDropDownOn("hamburgerMenu"));

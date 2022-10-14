@@ -18,6 +18,7 @@ import style from "./DropDown.module.scss";
 
 export type DropDownProps<T extends object> = {
   dataLI: T[];
+  // eslint-disable-next-line no-unused-vars, no-undef
   Li: (props: PropsBasic & { data: ComponentProps<T> }) => JSX.Element;
   liProps?: LiProps;
   messageNotFound?: string;
@@ -50,22 +51,24 @@ function DropDown<T extends object>({
     setAlertNotificationState
   );
 
-  return (
-    <li
-      {...liProps}
-      className={style.main_li}
-      ref={dropDownRef}
-      onClick={handleClickEvent}
-    >
-      {children}
-      {(alertNotificationState || (isMenuSliceStateOpen && isVisible)) &&
-        (dataLI.length > 0 ? (
+  const DropDownList = () => {
+    // If alertNotification state is true, the alerts dropdown will stay open independently the state of isMenuSliceStateOpen and isVisible.
+    // The isVisible state will be false if click event was executed outside the dropdown's elements area.
+    // The isMenuSliceStateOpen will be true in one dropdown element if the dropdown was clicked
+    // and false in other dropdowns's state.
+    if (alertNotificationState || (isMenuSliceStateOpen && isVisible))
+      if (dataLI.length > 0)
+        // If there is li the dropdown will be display.
+        // Else if there is message to display the message will display instead.
+        return (
           <List
             className={genClassName(style.drop_down_list, className)}
             dataArr={dataLI}
             LI={(data) => <Li data={data} className={style.sec_li}></Li>}
           />
-        ) : messageNotFound ? (
+        );
+      else if (messageNotFound)
+        return (
           <ul
             className={genClassName(
               style.drop_down_list,
@@ -75,9 +78,19 @@ function DropDown<T extends object>({
           >
             <p> {messageNotFound}</p>
           </ul>
-        ) : (
-          <></>
-        ))}
+        );
+    return <></>;
+  };
+
+  return (
+    <li
+      {...liProps}
+      className={style.main_li}
+      ref={dropDownRef}
+      onClick={handleClickEvent}
+    >
+      {children}
+      <DropDownList />
     </li>
   );
 }

@@ -19,25 +19,16 @@ import AlertsNotification from "./AlertNotification/AlertsNotification";
 import { authApi } from "../../../../redux/api/authAPI";
 
 import { relativePath } from "../../../../utilities/helpersFun";
-import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 
-interface NavBarNavLinkLIs<T> {
+import Welcome from "../Welcome/Welcome";
+
+interface NavBarNavLinkLI<T> {
   id?: string;
   element: ReactNode;
   dataLinks: T[];
 }
 
-function Welcome() {
-  return (
-    <>
-      <span style={{ fontWeight: "400" }}> Welcome, </span>
-      <span style={{ fontSize: "1.2rem", fontWeight: "600" }}>
-        {`${useGetUserLoginData().authState.user?.username}!`}
-      </span>
-    </>
-  );
-}
-const navBarLink: NavBarNavLinkLIs<LinkData>[] = [
+const navBarLink: NavBarNavLinkLI<LinkData>[] = [
   {
     id: "addIconButton",
     element: <RiAddCircleFill className={style.add_icon} />,
@@ -94,7 +85,7 @@ function DropDownNavLinkLI({
   );
 }
 
-function NavBarLi(props: NavBarNavLinkLIs<LinkData>) {
+function NavBarLi(props: NavBarNavLinkLI<LinkData>) {
   const className =
     props?.id === "profileButton" ? style.profile_drop_down : "";
 
@@ -112,11 +103,11 @@ function NavBarLi(props: NavBarNavLinkLIs<LinkData>) {
   );
 }
 
-function NavBar() {
+function NavBar({ navBarLinks }: { navBarLinks: NavBarNavLinkLI<LinkData>[] }) {
   return (
     <List
       className={style.navBar}
-      dataArr={navBarLink}
+      dataArr={navBarLinks}
       LI={NavBarLi}
       insertChildLast={false}
     >
