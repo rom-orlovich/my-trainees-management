@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import { TrainingProgramsListAddForm } from "../../components/Forms/TrainingProgramListForms/TrainingProgramsListAddForm";
 import { traineesApi, trainingProgramsListApi } from "../../redux/api/hooksAPI";
 import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 import TableTrainingProgramList from "./TableTrainingProgramList";
-// import style from "./TrainingPrograms.module.scss";
-import page_style from "../Page.module.scss";
-import { Link, useNavigate } from "react-router-dom";
+
+import style from "../Page.module.scss";
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
@@ -25,8 +24,8 @@ function TrainingProgramsPage() {
   const { data, isError, isFetching, isLoading } = result;
 
   return (
-    <section className={page_style.page_container}>
-      <div className={page_style.page_header}>
+    <section className={style.page_container}>
+      <div className={style.page_header}>
         <AutocompleteInput<TraineesTableExtendsAPI>
           keys={["first_name", "last_name"]}
           id={"profile_id"}
@@ -51,19 +50,17 @@ function TrainingProgramsPage() {
           )}
         </span>
       </div>
-      <div className={page_style.page_main_content}>
+      <div className={style.page_main_content}>
         <LoadingSpinner
           stateData={{ data, isError, isFetching, isLoading }}
           message="Please Choose Trainee..."
         >
-          {(data) => {
-            return (
-              <TableTrainingProgramList
-                traineeID={Number(trainee[0])}
-                queriesOptions={queriesOptions}
-              />
-            );
-          }}
+          {() => (
+            <TableTrainingProgramList
+              traineeID={Number(trainee[0])}
+              queriesOptions={queriesOptions}
+            />
+          )}
         </LoadingSpinner>
       </div>
     </section>

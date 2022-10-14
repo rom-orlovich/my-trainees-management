@@ -1,9 +1,11 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
 
 import { authApi } from "../api/authAPI";
 import { User } from "../api/interfaceAPI";
 
 import { RootState } from "../store";
+
 const initialState: {
   user: User | null;
   accessToken: string | null;
@@ -22,7 +24,7 @@ const setLoginUserDataReducer = (
     type: string;
   }
 ) => {
-  const payload = action.payload;
+  const { payload } = action;
   state.user = payload.user;
   state.accessToken = payload.accessToken;
 };

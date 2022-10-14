@@ -11,6 +11,7 @@ import { InputLabel } from "../../components/baseComponents/RHF-Components/Input
 import { authApi } from "../../redux/api/authAPI";
 import { LoginForm } from "../../redux/api/interfaceAPI";
 import { disableGoPrevPage } from "../../redux/slices/apiSideEffectSlice";
+
 import { APP_ROUTE } from "../../routes/routesConstants";
 import { relativePath } from "../../utilities/helpersFun";
 import style from "../HomeCardForm.module.scss";
@@ -18,10 +19,10 @@ import style from "../HomeCardForm.module.scss";
 function LoginPage() {
   const [login] = authApi.useLoginMutation();
   const dispatch = useDispatch();
-  // const nav = useNavigate();
 
   const onSubmit = async (body: LoginForm) => {
     dispatch(disableGoPrevPage());
+
     await login(body).unwrap();
   };
 
@@ -36,7 +37,7 @@ function LoginPage() {
         pathMove={relativePath(APP_ROUTE.HOME_PAGE)}
         formOptions={{
           resolver: yupResolver(loginSchema),
-          // mode: "all",
+
           defaultValues: { username: "trainer123", password: "trainer123" },
         }}
       >
