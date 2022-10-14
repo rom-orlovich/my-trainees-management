@@ -9,7 +9,7 @@ import {
 } from "../../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../../redux/hooks";
 import { getAuthState } from "../../../redux/slices/authSlice";
-import { APP_ROUTE } from "../../../routes/routesConstants";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import Form from "../../baseComponents/RHF-Components/Form/Form";

@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../../redux/hooks";
 import { disableGoPrevPage } from "../../../redux/slices/apiSideEffectSlice";
 
 import {} from "../../../redux/slices/formValuesStateSlice";
-import { APP_ROUTE } from "../../../routes/routesConstants";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { TrainingProgramListForms } from "./TrainingProgramListForm";
 

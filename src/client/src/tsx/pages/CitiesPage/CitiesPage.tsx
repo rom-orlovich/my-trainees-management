@@ -9,7 +9,7 @@ import { getAuthState } from "../../redux/slices/authSlice";
 
 import MainRoute from "../../routes/MainRoute";
 
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page_style from "../Page.module.scss";
 import CitiesTable from "./CitiesTable";
 

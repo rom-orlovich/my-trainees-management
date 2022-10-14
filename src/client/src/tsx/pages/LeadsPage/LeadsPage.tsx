@@ -6,7 +6,7 @@ import { LeadsTableAPI } from "../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page_style from "../Page.module.scss";
 import LeadsTable from "./LeadsTable";
 

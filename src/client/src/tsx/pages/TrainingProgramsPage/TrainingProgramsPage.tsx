@@ -7,7 +7,7 @@ import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 import TableTrainingProgramList from "./TableTrainingProgramList";
 
 import style from "../Page.module.scss";
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 

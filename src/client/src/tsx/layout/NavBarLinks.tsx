@@ -1,7 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { RiAddCircleFill } from "react-icons/ri";
 import { ReactNode } from "react";
-import { APP_ROUTE } from "../routes/routesConstants";
+import { APP_ROUTE } from "../routes/appRoutesConstants";
 import { relativePath } from "../utilities/helpersFun";
 
 import style from "../components/layoutComponents/Header/NavBar/NavBar.module.scss";
@@ -77,11 +77,11 @@ export const TRAINER_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
         text: "Add Lead",
       },
       {
-        to: `/`,
+        to: APP_ROUTE.COMING_SOON,
         text: "Add Income",
       },
       {
-        to: `/`,
+        to: APP_ROUTE.COMING_SOON,
         text: "Add Expense",
       },
     ],
@@ -101,7 +101,7 @@ export const TRAINEE_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
         text: "Update Exercise",
       },
       {
-        to: `/`,
+        to: APP_ROUTE.COMING_SOON,
         text: "Add Weighing",
       },
     ],

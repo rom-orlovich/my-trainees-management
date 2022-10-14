@@ -4,7 +4,7 @@ import {
   ExercisesTableAPI,
   TrainingProgramExerciseOmit,
 } from "../../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../../routes/routesConstants";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";

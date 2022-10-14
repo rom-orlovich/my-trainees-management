@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, NavLink, Outlet, useLocation } from "react-router-dom";
 import MainRoute from "../../routes/MainRoute";
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "./HomePage.module.scss";
 function HomePage() {
   const { pathname } = useLocation();

@@ -7,7 +7,7 @@ import { TraineesTableExtendsAPI, UserAPI } from "../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 import MainRoute from "../../routes/MainRoute";
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 export const transformDataUser = (arg: UserAPI) => {

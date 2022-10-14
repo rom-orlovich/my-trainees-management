@@ -6,7 +6,7 @@ import { MusclesGroupTableAPI } from "../../redux/api/interfaceAPI";
 
 import MainRoute from "../../routes/MainRoute";
 
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page_style from "../Page.module.scss";
 import MusclesGroupTable from "./MusclesGroupTable";
 

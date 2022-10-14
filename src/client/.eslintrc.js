@@ -10,7 +10,7 @@ module.exports = {
   settings: {
     "import/resolver": {
       node: {
-        paths: ["./server/**", "./client/**"],
+        paths: ["./server", "./client"],
         extensions: [".js", ".ts", ".d.ts", ".tsx"],
       },
     },
@@ -23,23 +23,23 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "prettier"],
   rules: {
-    "prettier/prettier": ["error"],
+    "prettier/prettier": ["warn"],
     "lines-between-class-members": [
-      "error",
+      "warn",
       "always",
       { exceptAfterSingleLine: true },
     ],
     "no-plusplus": ["off"],
-    "no-unused-expressions": ["error", { allowShortCircuit: true }],
+    "no-unused-expressions": ["warn", { allowShortCircuit: true }],
 
     "import/prefer-default-export": ["off"],
-    "import/extensions": ["error", "never"],
+    "import/extensions": ["warn", "never"],
     "import/no-unresolved": [2],
-    "spaced-comment": ["error", "always"],
-    quotes: ["error", "double", { allowTemplateLiterals: true }],
+    "spaced-comment": ["warn", "always"],
+    quotes: ["warn", "double", { allowTemplateLiterals: true }],
     "no-unused-vars": "warn",
     "import/no-extraneous-dependencies": [
-      "error",
+      "warn",
       {
         devDependencies: true,
         optionalDependencies: true,
@@ -47,7 +47,7 @@ module.exports = {
       },
     ],
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/no-shadow": ["warn"],
     " no-console": "off",
 
     "no-restricted-syntax": [

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UsersTable from "./UsersTable";
 import { Link } from "react-router-dom";
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { TraineesTableExtendsAPI, UserAPI } from "../../redux/api/interfaceAPI";
 import { traineesApi, usersApi } from "../../redux/api/hooksAPI";

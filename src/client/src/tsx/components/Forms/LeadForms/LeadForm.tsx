@@ -13,7 +13,7 @@ import { LeadsTableAPI } from "../../../redux/api/interfaceAPI";
 
 import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
-import { APP_ROUTE } from "../../../routes/routesConstants";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 

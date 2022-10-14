@@ -4,7 +4,7 @@ import { FaUserShield } from "react-icons/fa";
 import { IoNutritionSharp } from "react-icons/io5";
 import { SiGoogleads } from "react-icons/si";
 import { LinkData } from "../components/baseComponents/baseComponentsTypes";
-import { APP_ROUTE } from "../routes/routesConstants";
+import { APP_ROUTE } from "../routes/appRoutesConstants";
 import style from "../components/layoutComponents/SideBar/SideBar.module.scss";
 
 export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
@@ -15,9 +15,9 @@ export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
   },
 
   {
-    to: "/",
+    to: APP_ROUTE.COMING_SOON,
     text: "My Nutrition",
-    icon: <AiFillSchedule className={style.icon} />,
+    icon: <IoNutritionSharp className={style.icon} />,
   },
 ];
 
@@ -38,7 +38,7 @@ export const TRAINER_SIDE_BAR_LINKS: LinkData[] = [
     icon: <AiFillSchedule className={style.icon} />,
   },
   {
-    to: "/",
+    to: APP_ROUTE.COMING_SOON,
     text: "Nutrition",
     icon: <IoNutritionSharp className={style.icon} />,
   },

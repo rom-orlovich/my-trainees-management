@@ -2,17 +2,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 
 import { NavLink } from "react-router-dom";
-import Card from "../../components/baseComponents/Card/Card";
-import Form from "../../components/baseComponents/RHF-Components/Form/Form";
-import { emailVerifySchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
-import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
-import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
-import { authApi } from "../../redux/api/authAPI";
-import { EmailVerifyForm } from "../../redux/api/interfaceAPI";
+import Card from "../../../components/baseComponents/Card/Card";
+import Form from "../../../components/baseComponents/RHF-Components/Form/Form";
+import { emailVerifySchema } from "../../../components/baseComponents/RHF-Components/formsSchemas";
+import InputErrorMessage from "../../../components/baseComponents/RHF-Components/InputErrorMessage";
+import { InputLabel } from "../../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
+import { authApi } from "../../../redux/api/authAPI";
+import { EmailVerifyForm } from "../../../redux/api/interfaceAPI";
 
-import { APP_ROUTE } from "../../routes/routesConstants";
-import { relativePath } from "../../utilities/helpersFun";
-import style from "../HomeCardForm.module.scss";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { relativePath } from "../../../utilities/helpersFun";
+import style from "../../HomeCardForm.module.scss";
 
 function ForgetPasswordPage() {
   const [emailVerify] = authApi.useEmailVerifyMutation();

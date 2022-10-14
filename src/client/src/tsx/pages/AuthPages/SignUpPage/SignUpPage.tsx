@@ -2,17 +2,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 
 import { NavLink } from "react-router-dom";
-import Card from "../../components/baseComponents/Card/Card";
-import Form from "../../components/baseComponents/RHF-Components/Form/Form";
-import { signUpSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
-import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
-import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
-import { authApi } from "../../redux/api/authAPI";
-import { SignUpForm } from "../../redux/api/interfaceAPI";
+import Card from "../../../components/baseComponents/Card/Card";
+import Form from "../../../components/baseComponents/RHF-Components/Form/Form";
+import { signUpSchema } from "../../../components/baseComponents/RHF-Components/formsSchemas";
+import InputErrorMessage from "../../../components/baseComponents/RHF-Components/InputErrorMessage";
+import { InputLabel } from "../../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
+import { authApi } from "../../../redux/api/authAPI";
+import { SignUpForm } from "../../../redux/api/interfaceAPI";
 
-import { APP_ROUTE } from "../../routes/routesConstants";
-import { relativePath } from "../../utilities/helpersFun";
-import style from "../HomeCardForm.module.scss";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { relativePath } from "../../../utilities/helpersFun";
+import style from "../../HomeCardForm.module.scss";
 
 function SignUpPage({
   defaultValues,
@@ -91,10 +91,9 @@ function SignUpPage({
       </Form>
       <div className={style.card_form_footer}>
         <NavLink to={relativePath(APP_ROUTE.LOGIN_ROUTE)}>
-          <p> Do you have an account?</p> 
+          <p> Do you have an account?</p>
           <p>It's time to login! </p>
         </NavLink>
-      
       </div>
     </Card>
   );

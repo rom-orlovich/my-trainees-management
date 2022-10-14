@@ -4,17 +4,17 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useParams, useSearchParams } from "react-router-dom";
 
-import Card from "../../components/baseComponents/Card/Card";
-import Form from "../../components/baseComponents/RHF-Components/Form/Form";
-import { resetPasswordSchema } from "../../components/baseComponents/RHF-Components/formsSchemas";
-import InputErrorMessage from "../../components/baseComponents/RHF-Components/InputErrorMessage";
-import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
-import { authApi } from "../../redux/api/authAPI";
-import { ChangePasswordForm } from "../../redux/api/interfaceAPI";
-import { disableGoPrevPage } from "../../redux/slices/apiSideEffectSlice";
-import { APP_ROUTE } from "../../routes/routesConstants";
-import { relativePath } from "../../utilities/helpersFun";
-import style from "../HomeCardForm.module.scss";
+import Card from "../../../components/baseComponents/Card/Card";
+import Form from "../../../components/baseComponents/RHF-Components/Form/Form";
+import { resetPasswordSchema } from "../../../components/baseComponents/RHF-Components/formsSchemas";
+import InputErrorMessage from "../../../components/baseComponents/RHF-Components/InputErrorMessage";
+import { InputLabel } from "../../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
+import { authApi } from "../../../redux/api/authAPI";
+import { ChangePasswordForm } from "../../../redux/api/interfaceAPI";
+import { disableGoPrevPage } from "../../../redux/slices/apiSideEffectSlice";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { relativePath } from "../../../utilities/helpersFun";
+import style from "../../HomeCardForm.module.scss";
 
 function ChangePasswordPage() {
   const { id } = useParams();
@@ -38,8 +38,6 @@ function ChangePasswordPage() {
         onSubmit={onSubmit}
         heading={"Reset Password"}
         formProps={{ className: style.login_form }}
-    
-       
         formWithOneButton={true}
         pathMove={relativePath(APP_ROUTE.HOME_PAGE)}
         formOptions={{
@@ -81,9 +79,7 @@ function ChangePasswordPage() {
           );
         }}
       </Form>
-      <NavLink to={relativePath(APP_ROUTE.LOGIN_ROUTE)}>
-          Back to login
-        </NavLink>
+      <NavLink to={relativePath(APP_ROUTE.LOGIN_ROUTE)}>Back to login</NavLink>
     </Card>
   );
 }

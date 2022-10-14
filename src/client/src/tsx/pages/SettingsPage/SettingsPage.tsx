@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import MainRoute from "../../routes/MainRoute";
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { genClassName } from "../../utilities/helpersFun";
 import style from "./SettingsPage.module.scss";
 function SettingsPage() {

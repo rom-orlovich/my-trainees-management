@@ -22,14 +22,7 @@ function App() {
   return (
     <>
       <Layout />
-      {/* <ModelAlerts /> */}
-      {/* <Header className={style.header} />
-      <main className={style.main_layout}>
-        <SideBar className={style.side_bar} />
-        <section className={style.main_content}>
-          <Outlet />
-        </section>
-      </main> */}
+
     </>
   );
 }

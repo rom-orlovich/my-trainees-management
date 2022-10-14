@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
-import { traineesApi } from "../../redux/api/hooksAPI";
+import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner";
+import { traineesApi } from "../../../redux/api/hooksAPI";
 import SignUpPage from "./SignUpPage";
 
 function SignUpPageNewTrainee() {

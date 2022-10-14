@@ -24,10 +24,10 @@ import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
 import HomePage from "../pages/HomePage/HomePage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
-import LoginPage from "../pages/LoginPage/LoginPage";
+import LoginPage from "../pages/AuthPages/LoginPage/LoginPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
 import Settings from "../pages/SettingsPage/SettingsPage";
-import SignUpPage from "../pages/SignUpPage/SignUpPage";
+import SignUpPage from "../pages/AuthPages/SignUpPage/SignUpPage";
 import TraineeProfile from "../pages/TraineeProfile/TraineeProfile";
 import Trainees from "../pages/TraineesPage/TraineesPage";
 import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
@@ -37,12 +37,13 @@ import PersistedLogin from "./PersistedLogin";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 
-import { APP_ROUTE } from "./routesConstants";
+import { APP_ROUTE } from "./appRoutesConstants";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import UsersPage from "../pages/UsersPage/UsersPage";
-import SignUpPageNewTrainee from "../pages/SignUpPage/SignUpPageNewTrainee";
-import EmailVerifyPage from "../pages/EmailVerifyPage/EmailVerifyPage";
-import ChangePasswordPage from "../pages/ChangePasswordPage/ChangePasswordPage";
+import SignUpPageNewTrainee from "../pages/AuthPages/SignUpPage/SignUpPageNewTrainee";
+import EmailVerifyPage from "../pages/AuthPages/EmailVerifyPage/EmailVerifyPage";
+import ChangePasswordPage from "../pages/AuthPages/ChangePasswordPage/ChangePasswordPage";
+import ComingSoonPage from "../pages/ComingSoonPage/ComingSoonPage";
 
 function AppRoutes() {
   return (
@@ -180,9 +181,14 @@ function AppRoutes() {
                   <Route path=":id" element={<CityEditForm />} />
                 </Route>
               </Route>
+              <Route
+                path={APP_ROUTE.COMING_SOON}
+                element={<ComingSoonPage />}
+              ></Route>
             </Route>
           </Route>
         </Route>
+
         <Route path="*" element={<h1> not found</h1>} />
       </Route>
     </Routes>

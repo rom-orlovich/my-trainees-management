@@ -7,7 +7,7 @@ import { citiesApi } from "../../redux/api/hooksAPI";
 import { CitiesTableAPI } from "../../redux/api/interfaceAPI";
 
 import MainRoute from "../../routes/MainRoute";
-import { APP_ROUTE } from "../../routes/routesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 export const transformDataCity = (arg: CitiesTableAPI) => {
