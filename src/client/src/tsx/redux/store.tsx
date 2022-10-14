@@ -9,7 +9,7 @@ import { apiSideEffectSlice } from "./slices/apiSideEffectSlice";
 import { authSlice } from "./slices/authSlice";
 import { authApi } from "./api/authAPI";
 
-//Configure the reducers and the middlewares of redux.
+// Configure the reducers and the middleware of redux.
 export const store = configureStore({
   reducer: {
     tablesPaginationState: tablesPaginationState.reducer,

@@ -13,14 +13,12 @@ import { LocationAddForm } from "../components/Forms/LocationForms/LocationAddFo
 import { LocationEditForm } from "../components/Forms/LocationForms/LocationEditForm";
 import { MusclesGroupAddForm } from "../components/Forms/MusclesGroupForms/MusclesGroupAddForm";
 import { MusclesGroupEditForm } from "../components/Forms/MusclesGroupForms/MusclesGroupEditForm";
-
 import TraineeAddForm from "../components/Forms/TraineeForms/TraineeAddForm";
 import { TrainingProgramAddExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramAddForm";
 import { TrainingProgramEditExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramEditForm";
 import { TrainingProgramsListAddForm } from "../components/Forms/TrainingProgramListForms/TrainingProgramsListAddForm";
 import { TrainingProgramsListEditForm } from "../components/Forms/TrainingProgramListForms/TrainingProgramsListEditForm";
 import CitiesPage from "../pages/CitiesPage/CitiesPage";
-
 import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
 import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
 import HomePage from "../pages/HomePage/HomePage";
@@ -28,10 +26,8 @@ import LeadsPage from "../pages/LeadsPage/LeadsPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
-
 import Settings from "../pages/SettingsPage/SettingsPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
-
 import TraineeProfile from "../pages/TraineeProfile/TraineeProfile";
 import Trainees from "../pages/TraineesPage/TraineesPage";
 import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";

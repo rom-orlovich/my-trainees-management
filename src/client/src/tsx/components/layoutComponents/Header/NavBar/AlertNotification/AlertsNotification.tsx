@@ -3,20 +3,21 @@ import React, { useEffect, useRef, useState } from "react";
 import { VscClearAll } from "react-icons/vsc";
 
 import { IoMdNotifications, IoMdRemoveCircle } from "react-icons/io";
-import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
+import { PropsBasic } from "../../../../baseComponents/baseComponentsTypes";
 
-import { alertsApi } from "../../../../redux/api/hooksAPI";
-import { AlertsAPI } from "../../../../redux/api/interfaceAPI";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { alertsApi } from "../../../../../redux/api/hooksAPI";
+import { AlertsAPI } from "../../../../../redux/api/interfaceAPI";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import {
   disableFetchAlerts,
   getApiSideEffect,
-} from "../../../../redux/slices/apiSideEffectSlice";
-import { getAuthState } from "../../../../redux/slices/authSlice";
-import { delayFun, genClassName } from "../../../../utilities/helpersFun";
+} from "../../../../../redux/slices/apiSideEffectSlice";
+import { getAuthState } from "../../../../../redux/slices/authSlice";
+import { delayFun, genClassName } from "../../../../../utilities/helpersFun";
 import DropDown from "../DropDown/DropDown";
 import style from "./AlertsNotification.module.scss";
-import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
+import useGetUserLoginData from "../../../../../hooks/useGetUserLoginData";
+
 interface AlertsNotificationProps extends PropsBasic {}
 
 function DropDownLiAlert(

@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  
+
   root: true,
 
   settings: {
@@ -49,5 +49,12 @@ module.exports = {
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
     " no-console": "off",
+
+    "no-restricted-syntax": [
+      "off",
+      "FunctionExpression",
+      "WithStatement",
+      "BinaryExpression[operator='in']",
+    ],
   },
 };

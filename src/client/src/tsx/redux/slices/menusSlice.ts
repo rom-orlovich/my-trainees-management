@@ -1,4 +1,7 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
+
 const initialState: Record<string, boolean> = {};
 export const menusSlice = createSlice({
   name: "menusSlice",
@@ -13,5 +16,5 @@ export const menusSlice = createSlice({
     },
   },
 });
-
+export const getMenuSliceState = (state: RootState) => state.menusSlice;
 export const { setOneDropDownOn } = menusSlice.actions;

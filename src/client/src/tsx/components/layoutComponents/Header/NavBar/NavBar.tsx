@@ -3,23 +3,23 @@ import React, { ReactNode } from "react";
 import { RiAddCircleFill } from "react-icons/ri";
 
 import { FaUserCircle } from "react-icons/fa";
-import { APP_ROUTE } from "../../../routes/routesConstants";
+import { APP_ROUTE } from "../../../../routes/routesConstants";
 import {
   LinkData,
   PropsBasic,
-} from "../../../components/baseComponents/baseComponentsTypes";
-import List from "../../../components/baseComponents/List/List";
+} from "../../../baseComponents/baseComponentsTypes";
+import List from "../../../baseComponents/List/List";
 import style from "./NavBar.module.scss";
 import DropDown from "./DropDown/DropDown";
 
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
-import NavLinkLI from "../../../components/baseComponents/NavLinkLI";
+import NavLinkLI from "../../../baseComponents/NavLinkLI";
 import AlertsNotification from "./AlertNotification/AlertsNotification";
 
-import { authApi } from "../../../redux/api/authAPI";
+import { authApi } from "../../../../redux/api/authAPI";
 
-import { relativePath } from "../../../utilities/helpersFun";
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import { relativePath } from "../../../../utilities/helpersFun";
+import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 
 interface NavBarNavLinkLIs<T> {
   id?: string;
@@ -58,7 +58,7 @@ const navBarLink: NavBarNavLinkLIs<LinkData>[] = [
     element: <FaUserCircle className={style.profile_icon} />,
     dataLinks: [
       { to: relativePath(APP_ROUTE.PROFILE_ROUTE), icon: <Welcome /> },
-      // { to: relativePath(APP_ROUTE.PROFILE_ROUTE), text: "Profile" },
+
       {
         to: relativePath(APP_ROUTE.SETTINGS_ROUTE),
         text: "Setting",

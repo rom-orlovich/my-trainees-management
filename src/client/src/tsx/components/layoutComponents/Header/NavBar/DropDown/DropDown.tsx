@@ -3,17 +3,17 @@ import {
   ComponentProps,
   LiProps,
   PropsBasic,
-} from "../../../../components/baseComponents/baseComponentsTypes";
+} from "../../../../baseComponents/baseComponentsTypes";
 
-import List from "../../../../components/baseComponents/List/List";
-import useHideUnFocusElement from "../../../../hooks/useHideUnFocusElement";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import List from "../../../../baseComponents/List/List";
+import useHideUnFocusElement from "../../../../../hooks/useHideUnFocusElement";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 
 import {
   // setOneDropDownOff,
   setOneDropDownOn,
-} from "../../../../redux/slices/menusSlice";
-import { genClassName } from "../../../../utilities/helpersFun";
+} from "../../../../../redux/slices/menusSlice";
+import { genClassName } from "../../../../../utilities/helpersFun";
 import style from "./DropDown.module.scss";
 
 export type DropDownProps<T extends object> = {
@@ -63,9 +63,7 @@ function DropDown<T extends object>({
           <List
             className={genClassName(style.drop_down_list, className)}
             dataArr={dataLI}
-            LI={(data) => {
-              return <Li data={data} className={style.sec_li}></Li>;
-            }}
+            LI={(data) => <Li data={data} className={style.sec_li}></Li>}
           />
         ) : messageNotFound ? (
           <ul

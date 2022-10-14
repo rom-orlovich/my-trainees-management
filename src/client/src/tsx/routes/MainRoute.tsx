@@ -5,6 +5,7 @@ import {
   checkSecValueIncludeOrEqualFirstValue,
   getEndPoint,
 } from "../utilities/helpersFun";
+
 export type MainRouteProps<CTX> = PropsBasic & {
   mainRoutes: string | string[];
   context?: CTX;

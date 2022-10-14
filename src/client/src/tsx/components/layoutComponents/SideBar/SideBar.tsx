@@ -1,23 +1,19 @@
-import React, { ReactNode } from "react";
-import { APP_ROUTE } from "../../routes/routesConstants";
-
-import {
-  LinkData,
-  PropsBasic,
-} from "../../components/baseComponents/baseComponentsTypes";
-import List from "../../components/baseComponents/List/List";
-
-import { useAppSelector } from "../../redux/hooks";
-import NavLinkLI from "../../components/baseComponents/NavLinkLI";
 import { SiGoogleads } from "react-icons/si";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { AiFillSchedule } from "react-icons/ai";
-import style from "./SideBar.module.scss";
 import { useDispatch } from "react-redux";
-import { setOneDropDownOn } from "../../redux/slices/menusSlice";
-import useGetUserLoginData from "../../hooks/useGetUserLoginData";
-import useCheckRole from "../../hooks/useCheckRole";
-import { FaUsers, FaUserShield } from "react-icons/fa";
+import { FaUserShield } from "react-icons/fa";
+import { LinkData, PropsBasic } from "../../baseComponents/baseComponentsTypes";
+import { APP_ROUTE } from "../../../routes/routesConstants";
+import style from "./SideBar.module.scss";
+import NavLinkLI from "../../baseComponents/NavLinkLI";
+import {
+  getMenuSliceState,
+  setOneDropDownOn,
+} from "../../../redux/slices/menusSlice";
+import { useAppSelector } from "../../../redux/hooks";
+import useCheckRole from "../../../hooks/useCheckRole";
+import List from "../../baseComponents/List/List";
 
 const sideBarLinkTrainer: LinkData[] = [
   {
@@ -61,14 +57,15 @@ function Li(link: LinkData) {
   );
 }
 function SideBar({ className }: PropsBasic) {
-  const state = useAppSelector((state) => state.menusSlice);
+  const state = useAppSelector(getMenuSliceState);
   const dataArr = useCheckRole().isAdmin
     ? sideBarLinkAdmin
     : sideBarLinkTrainer;
   return (
     <section
-      className={`${style.sideBar} ${className} ${state["hamburgerMenu"] ? style.display_block : ""
-        }`}
+      className={`${style.sideBar} ${className} ${
+        state.hamburgerMenu ? style.display_block : ""
+      }`}
     >
       <List dataArr={dataArr} LI={Li}></List>
     </section>
