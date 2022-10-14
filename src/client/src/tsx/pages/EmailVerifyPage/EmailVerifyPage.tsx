@@ -23,9 +23,9 @@ function ForgetPasswordPage() {
     <Card className={style.card_form}>
       <Form<EmailVerifyForm>
         onSubmit={onSubmit}
-        heading={"Enter Email"}
-        authButtonsContainer={true}
-        isLoginMode={false}
+        heading={"Verify Email"}
+        customButtonText={"submit"}
+        formWithOneButton={true}
         pathMove={relativePath(APP_ROUTE.LOGIN_ROUTE)}
         formOptions={{
           resolver: yupResolver(emailVerifySchema),

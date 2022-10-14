@@ -27,18 +27,18 @@ export function TraineeForm({
   defaultValues,
   editMode,
   heading,
-  changeButtonContainer,
+  formWithOneButton,
 }: GeneralFormProps<
   OmitKey<TraineesBaseTableAPI,"profile_id">
 > & {
   heading?: string;
-  changeButtonContainer?: boolean;
+  formWithOneButton?: boolean;
 }) {
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
     <Form<TraineesBaseTableAPI>
-      changeButtonContainer={changeButtonContainer}
+      formWithOneButton={formWithOneButton}
       nameForm="Trainee"
       pathMove={`/${APP_ROUTE.TRAINEES_ROUTE}`}
       heading={heading}

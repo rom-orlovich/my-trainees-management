@@ -31,7 +31,7 @@ function LoginPage() {
         onSubmit={onSubmit}
         heading={"Login"}
         formProps={{ className: style.login_form }}
-        authButtonsContainer={true}
+        formWithOneButton={true}
         isLoginMode={true}
         pathMove={relativePath(APP_ROUTE.HOME_PAGE)}
         formOptions={{

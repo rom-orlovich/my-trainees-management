@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
+import { NavLink, useParams, useSearchParams } from "react-router-dom";
 
 import Card from "../../components/baseComponents/Card/Card";
 import Form from "../../components/baseComponents/RHF-Components/Form/Form";
@@ -38,8 +38,9 @@ function ChangePasswordPage() {
         onSubmit={onSubmit}
         heading={"Reset Password"}
         formProps={{ className: style.login_form }}
-        authButtonsContainer={true}
-        isLoginMode={true}
+    
+       
+        formWithOneButton={true}
         pathMove={relativePath(APP_ROUTE.HOME_PAGE)}
         formOptions={{
           resolver: yupResolver(resetPasswordSchema),
@@ -80,6 +81,9 @@ function ChangePasswordPage() {
           );
         }}
       </Form>
+      <NavLink to={relativePath(APP_ROUTE.LOGIN_ROUTE)}>
+          Back to login
+        </NavLink>
     </Card>
   );
 }

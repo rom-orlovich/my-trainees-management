@@ -32,7 +32,7 @@ export function TraineeEditForm({
 
   return (
     <TraineeForm
-      // changeButtonContainer={true}
+      // formWithOneButton={true}
       editMode={true}
       heading={heading}
       onSubmit={handleSubmit}

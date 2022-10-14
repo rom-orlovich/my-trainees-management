@@ -33,9 +33,10 @@ export type FormRHFProps<TFormValues extends FieldValues> = {
   nameForm?: string;
   buttonNext?: boolean;
   pathMove?: string;
-  changeButtonContainer?: boolean;
-  authButtonsContainer?: boolean;
+  formWithOneButton?: boolean;
+
   isLoginMode?: boolean;
+  customButtonText?:string
 };
 
 export default function Form<TFormValues extends Record<string, any>>({
@@ -48,8 +49,8 @@ export default function Form<TFormValues extends Record<string, any>>({
   nameForm,
   buttonNext,
   pathMove,
-  changeButtonContainer,
-  authButtonsContainer,
+  formWithOneButton,
+  customButtonText,
   isLoginMode,
 }: FormRHFProps<TFormValues>) {
   // const [disabled, setDisabled] = useState(true);
@@ -120,20 +121,15 @@ export default function Form<TFormValues extends Record<string, any>>({
   const editModeText = editMode ? "Edit" : "Add";
   const authModeText = isLoginMode ? "Login" : "Sign Up";
 
-  const buttonContainer = changeButtonContainer ? (
-    <div className={style.buttons_container_save_button}>
+  
+  const buttonContainer = formWithOneButton ? (
+    <div className={style.buttons_container_one_button}>
       <button type="submit" disabled={!methods.formState.isValid}>
-        Save Changes
-      </button>
-    </div>
-  ) : authButtonsContainer ? (
-    <div className={style.buttons_container_save_button}>
-      <button type="submit" disabled={!methods.formState.isValid}>
-        {authModeText}
+      {customButtonText ? customButtonText : authModeText}
       </button>
     </div>
   ) : (
-    <div className={style.buttons_container_edit_back}>
+    <div className={style.buttons_container_two_buttons}>
       <Link to={-1 as any}>Back</Link>
       <button type="submit" disabled={!methods.formState.isValid}>
         {buttonNext ? "Next" : editModeText}

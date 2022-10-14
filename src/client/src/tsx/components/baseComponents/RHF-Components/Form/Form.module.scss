@@ -108,7 +108,7 @@ span[class*="checkbox_label"] {
       }
     }
 
-    .buttons_container_edit_back {
+    .buttons_container_two_buttons {
       @include flex-dir(space-between, null);
       max-width: 100%;
       margin-top: 0.5rem;
@@ -123,7 +123,7 @@ span[class*="checkbox_label"] {
       }
     }
 
-    .buttons_container_save_button {
+    .buttons_container_one_button {
       width: 100%;
       @include flex-dir(center, null);
       button {
@@ -164,7 +164,7 @@ span[class*="checkbox_label"] {
       gap: 1rem;
     }
 
-    .buttons_container_edit_back {
+    .buttons_container_two_buttons {
       a {
         padding: 0.3rem 1.7rem !important;
       }

@@ -31,7 +31,7 @@ function SignUpPage({
       <Form<SignUpForm>
         onSubmit={onSubmit}
         heading={"Sign Up"}
-        authButtonsContainer={true}
+        formWithOneButton={true}
         isLoginMode={false}
         pathMove={relativePath(APP_ROUTE.LOGIN_ROUTE)}
         formOptions={{
@@ -94,9 +94,7 @@ function SignUpPage({
           <p> Do you have an account?</p> 
           <p>It's time to login! </p>
         </NavLink>
-        {/* <NavLink to={relativePath(APP_ROUTE.LOGIN_ROUTE)}>
-          Do you have an account? It's time to login!
-        </NavLink> */}
+      
       </div>
     </Card>
   );
