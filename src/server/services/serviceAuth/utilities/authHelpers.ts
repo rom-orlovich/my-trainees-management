@@ -81,6 +81,7 @@ export async function createUser(
     await client.query("BEGIN");
     const hashPassword = await hash(password, 10);
     let profile;
+    
     if (updateID) {
       profile = await updateQuerySingleItem(
         TABLES_DATA.PROFILES_TABLE_NAME,

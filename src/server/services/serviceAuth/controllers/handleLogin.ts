@@ -13,16 +13,25 @@ import {
   User,
 } from "../utilities/authHelpers";
 
+export const SELECT_USER_QUERY = `LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON 
+tr.${TABLES_DATA.USERS_TABLE_ID}= us.${TABLES_DATA.USERS_TABLE_ID}`;
+export const USER_TABLE_ALIAS_US = `${TABLES_DATA.USERS_TABLE_NAME} as us`;
+export const USER_TABLE_RETURN_FIELDS = `us.*,tr.${TABLES_DATA.TRAINEE_ID}`;
+
 export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.logAlertInfo?.error) return next();
-
   const preRefreshToken = req.cookies.refresh_token;
   res.clearCookie("refresh_token", COOKIES_OPTIONS);
   const { password, username } = req.body;
   const queryLogic = `WHERE username=$1`;
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
-    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", queryLogic, [username])
+    selectQuery(
+      USER_TABLE_ALIAS_US,
+      USER_TABLE_RETURN_FIELDS,
+      `${SELECT_USER_QUERY} ${queryLogic}`,
+      [username]
+    )
   );
 
   // Check if the user exist

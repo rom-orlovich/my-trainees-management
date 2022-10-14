@@ -15,6 +15,11 @@ import {
   User,
   verifyAsync,
 } from "../utilities/authHelpers";
+import {
+  SELECT_USER_QUERY,
+  USER_TABLE_ALIAS_US,
+  USER_TABLE_RETURN_FIELDS,
+} from "./handleLogin";
 
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   console.log("handle refresh");
@@ -24,9 +29,12 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   const queryLogic = "where $1=some(refresh_tokens)";
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
-    selectQuery(TABLES_DATA.USERS_TABLE_NAME, "*", queryLogic, [
-      preRefreshToken,
-    ])
+    selectQuery(
+      USER_TABLE_ALIAS_US,
+      USER_TABLE_RETURN_FIELDS,
+      `${SELECT_USER_QUERY} ${queryLogic}`,
+      [preRefreshToken]
+    )
   );
 
   // Check if the user exist
