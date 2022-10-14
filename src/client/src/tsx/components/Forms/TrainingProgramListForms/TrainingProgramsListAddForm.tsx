@@ -17,7 +17,7 @@ export function TrainingProgramsListAddForm({
 }: {
   className?: string;
 }) {
-  const trainee_id = Number(useParams().id);
+  const traineeID = Number(useParams().id);
 
   const navigate = useNavigate();
   const [addItem] = trainingProgramsListApi.useCreateOneItemMutation();
@@ -29,7 +29,7 @@ export function TrainingProgramsListAddForm({
 
     addFunction({
       addItem,
-    })({ ...body, trainee_id }).then((response) => {
+    })({ ...body, trainee_id: traineeID }).then((response) => {
       const Response = response as unknown as { data: ResponseMutationAPI };
 
       navigate(
@@ -40,5 +40,5 @@ export function TrainingProgramsListAddForm({
     });
   };
 
-  return <TrainingProgramListForms  onSubmit={handleSubmit} />;
+  return <TrainingProgramListForms onSubmit={handleSubmit} />;
 }

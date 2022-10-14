@@ -4,7 +4,7 @@ import { RequestHandler } from "webpack-dev-server";
 import { selectQuery, updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
-import { Permissions } from "../../usersPermission";
+import { Permissions, PermissionsRolesType } from "../../usersPermission";
 
 import { UserRoles, verifyAsync } from "../utilities/authHelpers";
 
@@ -99,20 +99,45 @@ export const validateRolePermission: (
   // eslint-disable-next-line no-unused-vars
   permissionsArr: Permissions
 ) => RequestHandler = (permissions) => (req, res, next) => {
-  const checkRoleCallBack = (el: string) => el === req?.auth_data?.role;
+  // eslint-disable-next-line eqeqeq
+  const permissionsUserID = req?.auth_data?.user_id == req.query?.userID;
 
-  if (
-    permissions.type.some(
-      (el) => el === req?.auth_data?.role || req?.signUp_data?.role === el
-    )
-  ) {
+  // Check if the client can get the data by permission type or
+  // or by signUp role with a corresponded role (for sign up a new trainee's user ).
+  const checkPermissionByRoleType = (el: string) =>
+    el === req?.auth_data?.role ||
+    el === "userID" ||
+    req?.signUp_data?.role === el;
+
+  const checkRoleCallBack = (el: string) =>
+    el === req?.auth_data?.role || el === "userID";
+  const checkUserIDRoleCallBack = (el: string) => el === "userID";
+  const checkPermissionByRoleUserID = permissions.type.some(
+    checkUserIDRoleCallBack
+  );
+
+  // The results (true or false) of the some callback on the permissions operations array of roles.
+  const checkPermissionByRolesType = permissions.type.some(
+    checkPermissionByRoleType
+  );
+  const checkPermissionByRolesCreateOperation =
+    permissions.operations?.create.some(checkRoleCallBack);
+  const checkPermissionByRolesUpdateOperation =
+    permissions.operations?.update.some(checkRoleCallBack);
+  const checkPermissionByRolesDeleteOperation =
+    permissions.operations?.delete.some(checkRoleCallBack);
+
+  // Check if the request should pass to the next middleware.
+  if (checkPermissionByRolesType) {
+    if (checkPermissionByRoleUserID && !permissionsUserID)
+      return res.sendStatus(401);
     if (req.method === "GET") return next();
     if (req.method === "POST") {
-      if (permissions.operations?.create.some(checkRoleCallBack)) return next();
+      if (checkPermissionByRolesCreateOperation) return next();
     } else if (req.method === "PUT") {
-      if (permissions.operations?.update.some(checkRoleCallBack)) return next();
+      if (checkPermissionByRolesUpdateOperation) return next();
     } else if (req.method === "DELETE") {
-      if (permissions.operations?.delete.some(checkRoleCallBack)) return next();
+      if (checkPermissionByRolesDeleteOperation) return next();
     } else return res.sendStatus(401);
   } else return res.sendStatus(401);
 

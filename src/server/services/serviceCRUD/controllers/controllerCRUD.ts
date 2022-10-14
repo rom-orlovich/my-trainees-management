@@ -47,7 +47,6 @@ export function createRoutesControllers({
   const prepareLogAlert = createLogAlertInfo(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
-    console.log("enter getValuesFromDB");
     const { page, asc, numResults, ...rest } = req.query;
 
     const ascDefault = (asc === undefined ? true : asc === "true") as boolean;

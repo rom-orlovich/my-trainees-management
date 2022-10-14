@@ -348,7 +348,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     tr.trainee_id,tr.user_id,
     pr.*, 
     lo.street ,
-     c.city_name `,
+     c.city_name`,
     querySelectLogic: `
     LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr ON 
     tr.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}
@@ -363,6 +363,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
 
     queryParams: {
       trainerUserId: "trainer_user_id",
+      userID: "tr.user_id",
     },
 
     modifiedOtherTable: {

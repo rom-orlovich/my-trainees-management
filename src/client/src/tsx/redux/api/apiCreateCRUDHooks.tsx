@@ -51,25 +51,19 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
           params,
         }),
 
-        transformResponse: (response: ResponseQueryAPI<T>) => {
-          return transformDataArr ? transformDataArr(response) : response;
-        },
-        providesTags: (result) => {
-          return providerTags(result?.data, singleEntityName, listId);
-        },
+        transformResponse: (response: ResponseQueryAPI<T>) =>
+          transformDataArr ? transformDataArr(response) : response,
+        providesTags: (result) =>
+          providerTags(result?.data, singleEntityName, listId),
 
         keepUnusedDataFor: keepUnusedDataFor ?? 180,
       }),
       getItemByID: builder.query<T, number>({
         query: (id: number) => `/${singleEntityName}/${id}`,
-        transformResponse: (response: T) => {
-          return transformData ? transformData(response) : response;
-        },
-        providesTags: (value) => {
-          return value
-            ? [providerTag(value, singleEntityName)]
-            : [singleEntityName];
-        },
+        transformResponse: (response: T) =>
+          transformData ? transformData(response) : response,
+        providesTags: (value) =>
+          value ? [providerTag(value, singleEntityName)] : [singleEntityName],
       }),
 
       updateItem: builder.mutation<ResponseMutationAPI, PayloadAPI<T>>({
@@ -79,9 +73,9 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
           body: payload.payload,
         }),
 
-        invalidatesTags: (value, err, arg) => {
-          return [{ type: singleEntityName, id: arg.id }];
-        },
+        invalidatesTags: (value, err, arg) => [
+          { type: singleEntityName, id: arg.id },
+        ],
       }),
 
       deleteItem: builder.mutation<ResponseMutationAPI, string>({
