@@ -91,8 +91,12 @@ function SignUpPage({
       </Form>
       <div className={style.card_form_footer}>
         <NavLink to={relativePath(APP_ROUTE.LOGIN_ROUTE)}>
-          Do Have an account? It's time to login!
+          <p> Do you have an account?</p> 
+          <p>It's time to login! </p>
         </NavLink>
+        {/* <NavLink to={relativePath(APP_ROUTE.LOGIN_ROUTE)}>
+          Do you have an account? It's time to login!
+        </NavLink> */}
       </div>
     </Card>
   );
