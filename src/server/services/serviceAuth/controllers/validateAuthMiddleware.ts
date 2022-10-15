@@ -107,8 +107,10 @@ export const validateRolePermission: (
   permissionsArr: Permissions
 ) => RequestHandler = (permissions) => (req, res, next) => {
   // auth_data is the access token's decoded information which check in the validateTokenMiddleware.
+  // *Trainer provide trainerUserID in order to access the data of his trainees.
   const checkPermissionsUserID =
-    Number(req?.auth_data?.user_id) === Number(req.query?.userID);
+    Number(req?.auth_data?.user_id) === Number(req.query?.userID) ||
+    Number(req?.auth_data?.user_id) === Number(req.query?.trainerUserId);
 
   // Check if there is a permission base on userID and if it does so check if the userID from the access token
   // is match to the query's userID.

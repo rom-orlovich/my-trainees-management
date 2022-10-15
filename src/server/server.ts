@@ -33,8 +33,7 @@ import {
   validateRolePermission,
   validateTokenMiddleware,
 } from "./services/serviceAuth/controllers/validateAuthMiddleware";
-
-import { PERMISSION_ALL_WITHOUT_UPDATE } from "./services/usersPermission";
+import { PERMISSION_TRAINEE_WITHOUT_UPDATE } from "./services/usersPermission";
 
 const PORT = process.env.PORT || 5000;
 
@@ -68,7 +67,7 @@ routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
 app.delete(
   API_ROUTES.ALERT_ROUTE,
   validateTokenMiddleware,
-  validateRolePermission(PERMISSION_ALL_WITHOUT_UPDATE),
+  validateRolePermission(PERMISSION_TRAINEE_WITHOUT_UPDATE),
   handleDeleteAllUserAlerts
 );
 
