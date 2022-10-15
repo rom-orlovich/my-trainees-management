@@ -25,7 +25,7 @@ function ChangePasswordPage() {
 
   const onSubmit = async ({ password }: ChangePasswordForm) => {
     dispatch(disableGoPrevPage());
-    await changeCredentials({
+  return  await changeCredentials({
       password,
       userID: id || "",
       verifyToken: searchParams.get("verify") || "",
@@ -39,10 +39,10 @@ function ChangePasswordPage() {
         heading={"Reset Password"}
         formProps={{ className: style.login_form }}
         formWithOneButton={true}
-        pathMove={relativePath(APP_ROUTE.HOME_PAGE)}
+        customButtonText={"Save Changes"}
+        pathMove={relativePath(APP_ROUTE.LOGIN_ROUTE)}
         formOptions={{
           resolver: yupResolver(resetPasswordSchema),
-
           defaultValues: {
             password: "",
             confirmPassword: "",
