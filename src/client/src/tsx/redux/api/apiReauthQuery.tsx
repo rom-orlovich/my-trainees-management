@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
@@ -11,18 +12,18 @@ import { RootState } from "../store";
 import { apiAuthBaseQuery, authApi } from "./authAPI";
 import { API_ROUTES, ResponseMutationAuthAPI } from "./interfaceAPI";
 
+// Append userID or trainerUserID to the params of the query
 function appendQueryStringParam(
   args: string | FetchArgs,
-  key: string,
   value: string
 ): string | FetchArgs {
-  let urlEnd = typeof args === "string" ? args : args.url;
+  if (typeof args !== "string") {
+    if (args.params && "trainerUserID" in args.params) {
+      args = { params: { trainerUserID: value, ...args?.params }, ...args };
+    } else args.params = { userID: value, ...args?.params };
+  }
 
-  if (urlEnd.indexOf("?") < 0) urlEnd += "?";
-  else urlEnd += "&";
-  if (urlEnd.indexOf("userID") < 0) urlEnd += `${key}=${value}`;
-
-  return typeof args === "string" ? urlEnd : { ...args, url: urlEnd.slice(1) };
+  return args;
 }
 
 export const baseQueryWithReauth =
@@ -43,11 +44,13 @@ export const baseQueryWithReauth =
         return headers;
       },
     });
+
     const state = api.getState() as RootState;
     const value = state.authSlice.user?.user_id;
-    console.log(appendQueryStringParam(args, "userID", String(value || 0)));
-    // eslint-disable-next-line no-param-reassign
-    args = appendQueryStringParam(args, "userID", String(value || 0));
+    console.log("preargs", args);
+    console.log("curargs", appendQueryStringParam(args, String(value || 0)));
+
+    args = appendQueryStringParam(args, String(value || 0));
 
     let result = await baseQuery(args, api, extraOptions);
 

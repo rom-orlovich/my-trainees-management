@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
@@ -24,7 +25,7 @@ export function ExerciseForm({
   fromProps,
 }: GeneralFormProps<ExercisesTableAPI>) {
   const authState = useGetUserLoginData();
-  // const queriesOptions = { userID: authState.user_id };
+
   const queriesOptions = { userID: authState.user_id };
   return (
     <>

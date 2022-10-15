@@ -12,7 +12,7 @@ import { getAuthState } from "../../redux/slices/authSlice";
 function TraineesPage() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);
   const authSliceState = useAppSelector(getAuthState);
-  const queriesOptions = { trainerUserId: authSliceState.user?.user_id };
+  const queriesOptions = { trainerUserID: authSliceState.user?.user_id };
   return (
     <section className={style.page_container}>
       <div className={style.page_header}>

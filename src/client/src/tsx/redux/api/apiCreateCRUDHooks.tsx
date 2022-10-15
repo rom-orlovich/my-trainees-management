@@ -60,7 +60,7 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
         keepUnusedDataFor: keepUnusedDataFor ?? 180,
       }),
       getItemByID: builder.query<T, number>({
-        query: (id: number) => `/${singleEntityName}/${id}`,
+        query: (id: number) => ({ url: `/${singleEntityName}/${id}` }),
         transformResponse: (response: T) =>
           transformData ? transformData(response) : response,
         providesTags: (value) =>

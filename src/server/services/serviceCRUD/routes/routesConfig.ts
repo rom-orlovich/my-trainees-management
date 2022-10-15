@@ -362,7 +362,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     },
 
     queryParams: {
-      trainerUserId: "tr.trainer_user_id",
+      trainerUserID: "tr.trainer_user_id",
     },
 
     modifiedOtherTable: {

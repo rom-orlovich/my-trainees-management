@@ -36,7 +36,7 @@ function MyTrainingPage() {
             id={"training_programs_list_id"}
             loadingSpinnerResult={{ nameData: "Training Program" }}
             setSelectOptionValue={setProgram}
-            queriesOptions={{ trainerUserId: queriesOptions.userID }}
+            queriesOptions={{ trainerUserID: queriesOptions.userID }}
             useGetData={trainingProgramsListApi.useGetItemsQuery}
             InputLabelProps={{
               InputProps: { placeholder: "Training Program Name" },

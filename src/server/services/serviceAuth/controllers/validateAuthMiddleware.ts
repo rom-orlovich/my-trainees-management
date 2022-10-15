@@ -111,7 +111,7 @@ export const validateRolePermission: (
   // *Trainer provide trainerUserID in order to access the data of his trainees.
   const checkPermissionsUserID =
     Number(req?.auth_data?.user_id) === Number(req.query?.userID) ||
-    Number(req?.auth_data?.user_id) === Number(req.query?.trainerUserId);
+    Number(req?.auth_data?.user_id) === Number(req.query?.trainerUserID);
 
   // Check if there is a permission base on userID and if it does so check if the userID from the access token
   // is match to the query's userID.
