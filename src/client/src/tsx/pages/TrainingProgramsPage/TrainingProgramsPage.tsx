@@ -14,11 +14,14 @@ import { getAuthState } from "../../redux/slices/authSlice";
 function TrainingProgramsPage() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);
   const authState = useAppSelector(getAuthState);
-  const queriesOptions = { userID: authState.user?.user_id };
+  const queriesOptions = {
+    trainerUserID: authState.user?.user_id,
+  };
   const [trigger, result] = trainingProgramsListApi.useLazyGetItemsQuery();
 
   useEffect(() => {
-    if (trainee[0]) trigger({ traineeID: Number(trainee[0]) });
+    if (trainee[0])
+      trigger({ traineeID: Number(trainee[0]), ...queriesOptions });
   }, [trainee, trigger]);
 
   const { data, isError, isFetching, isLoading } = result;
@@ -28,10 +31,10 @@ function TrainingProgramsPage() {
       <div className={style.page_header}>
         <AutocompleteInput<TraineesTableExtendsAPI>
           keys={["first_name", "last_name"]}
-          id={"profile_id"}
+          id={"trainee_id"}
           loadingSpinnerResult={{ nameData: "Trainees" }}
           setSelectOptionValue={setTrainee}
-          queriesOptions={{ trainerUserID: queriesOptions.userID }}
+          queriesOptions={queriesOptions}
           useGetData={traineesApi.useGetItemsQuery}
           InputLabelProps={{
             InputProps: { placeholder: "Trainee Name" },

@@ -1,4 +1,6 @@
+/* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { exercisesApi } from "../../../redux/api/hooksAPI";
 import {
   ExercisesTableAPI,
@@ -26,18 +28,20 @@ export default function TrainingProgramForms({
         editMode={editMode}
         nameForm={"Training Exercise"}
         formProps={{
-          className: " " + fromProps?.className,
+          className: ` ${fromProps?.className}`,
           ...fromProps,
         }}
         formOptions={{
-          defaultValues: defaultValues,
+          defaultValues,
           resolver: yupResolver(trainingProgramSchema),
         }}
       >
         {({ register, formState, control }) => {
           const { sets, rpe, reps, rest, intensity, note_topic, note_text } =
             formState.errors;
+          const authState = useGetUserLoginData();
 
+          const queriesOptions = { userID: authState.user_id };
           return (
             <>
               <AutocompleteInputRHF<
@@ -47,6 +51,7 @@ export default function TrainingProgramForms({
                 name="exercise_id"
                 control={control}
                 AutocompleteInputProps={{
+                  queriesOptions,
                   defaultValueID: defaultValues?.exercise_id,
                   InputLabelProps: {
                     LabelProps: { labelText: "Exercise" },

@@ -9,7 +9,7 @@ export function MusclesGroupEditForm() {
   const id = Number(useParams().id);
   const [updateItem] = musclesGroupApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
-    musclesGroupApi.useGetItemByIDQuery(id);
+    musclesGroupApi.useGetItemByIDQuery({ id });
 
   const handleSubmit = (body: MusclesGroupTableAPI) =>
     updateFunction({

@@ -10,7 +10,7 @@ export function ExerciseEditForm() {
   const id = Number(useParams().id);
   const [updateItem, state] = exercisesApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
-    exercisesApi.useGetItemByIDQuery(id);
+    exercisesApi.useGetItemByIDQuery({ id });
 
   const handleSubmit = (body: ExercisesTableAPI) =>
     updateFunction({

@@ -18,9 +18,10 @@ function appendQueryStringParam(
   value: string
 ): string | FetchArgs {
   if (typeof args !== "string") {
-    if (args.params && "trainerUserID" in args.params) {
-      args = { params: { trainerUserID: value, ...args?.params }, ...args };
-    } else args.params = { userID: value, ...args?.params };
+    if (args.method)
+      if (args.params && "trainerUserID" in args.params) {
+        args = { params: { trainerUserID: value, ...args?.params }, ...args };
+      } else args.params = { userID: value, ...args?.params };
   }
 
   return args;

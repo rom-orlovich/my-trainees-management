@@ -9,7 +9,7 @@ import MembersPlansForm from "./SubscriptionPlansForm";
 
 function MembersPlansEditForm({ id }: { id: number }) {
   const { data, isError, isFetching, isLoading } =
-    subscriptionPlansApi.useGetItemByIDQuery(id);
+    subscriptionPlansApi.useGetItemByIDQuery({ id });
   const [updateItem] = subscriptionPlansApi.useUpdateItemMutation();
 
   const handleSubmit = (body: SubscriptionPlansAPI) =>

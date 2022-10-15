@@ -49,6 +49,7 @@ module.exports = {
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["warn"],
     " no-console": "off",
+    camelcase: ["warn"],
 
     "no-restricted-syntax": [
       "off",

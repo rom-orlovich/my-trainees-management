@@ -10,7 +10,7 @@ export function LocationEditForm() {
   const id = Number(useParams().id);
   const [updateItem, state] = locationsApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
-    locationsApi.useGetItemByIDQuery(id);
+    locationsApi.useGetItemByIDQuery({ id });
 
   const handleSubmit = (body: LocationsTableAPI) =>
     updateFunction({

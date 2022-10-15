@@ -10,7 +10,7 @@ export function EquipmentEditForm() {
   const id = Number(useParams().id);
   const [updateItem, state] = equipmentsApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
-    equipmentsApi.useGetItemByIDQuery(id);
+    equipmentsApi.useGetItemByIDQuery({ id });
 
   const handleSubmit = (body: EquipmentsTableAPI) =>
     updateFunction({

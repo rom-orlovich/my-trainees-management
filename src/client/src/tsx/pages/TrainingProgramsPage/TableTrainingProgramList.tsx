@@ -30,7 +30,10 @@ const transformTrainingProgramList = ({
 function TableTrainingProgramList({
   traineeID,
   queriesOptions,
-}: { traineeID: number } & { queriesOptions?: Record<string, any> }) {
+}: { traineeID: number } & {
+  queriesOptions?: Record<string, any>;
+}) {
+  console.log(queriesOptions);
   const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
   return (
     <TablePagination

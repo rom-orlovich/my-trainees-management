@@ -13,8 +13,9 @@ function LeadEditForm() {
   const id = Number(useParams().id);
 
   const [updateItem] = leadsApi.useUpdateItemMutation();
-  const { data, isFetching, isError, isLoading } =
-    leadsApi.useGetItemByIDQuery(id);
+  const { data, isFetching, isError, isLoading } = leadsApi.useGetItemByIDQuery(
+    { id }
+  );
 
   const handleSubmit = (body: LeadsTableAPI) =>
     updateFunction({

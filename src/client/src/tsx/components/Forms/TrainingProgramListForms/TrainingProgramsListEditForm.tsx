@@ -11,7 +11,7 @@ export function TrainingProgramsListEditForm() {
   const [updateItem] = trainingProgramsListApi.useUpdateItemMutation();
 
   const { data, isLoading, isFetching, isError } =
-    trainingProgramsListApi.useGetItemByIDQuery(id);
+    trainingProgramsListApi.useGetItemByIDQuery({ id });
 
   const handleSubmit = (body: TrainingProgramsListTableAPI) => {
     updateFunction({

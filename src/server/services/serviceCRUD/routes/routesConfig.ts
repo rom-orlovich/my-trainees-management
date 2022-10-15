@@ -25,11 +25,12 @@ import {
   PERMISSION_ADMIN,
   Permissions,
   PERMISSION_TRAINEE_WITHOUT_UPDATE,
-  PERMISSION_TRAINER,
+  PERMISSION_TRAINER_BY_USER_ID,
   PERMISSION_TRAINEE,
-  PERMISSION_TRAINEE_WITHOUT_DELETE,
   PERMISSION_TRAINEE_READONLY,
   PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
+  PERMISSION_TRAINER_ADMIN_ALL,
+  PERMISSION_TRAINER_BY_USER_ID_READ_ALL,
 } from "../../usersPermission";
 
 export interface SelectTableQueryParam {
@@ -103,7 +104,7 @@ export const leadsOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINER_BY_USER_ID,
 
   validateSchema: leadsSchema,
 };
@@ -122,7 +123,7 @@ export const musclesGroupOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINER_BY_USER_ID_READ_ALL,
   validateSchema: musclesGroupSchema,
 };
 
@@ -140,7 +141,7 @@ export const citiesOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINER_BY_USER_ID_READ_ALL,
   validateSchema: citiesSchema,
 };
 
@@ -160,7 +161,7 @@ export const locationsOptionsCRUD: OptionsCRUD = {
       userID: "lo.user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINER_BY_USER_ID,
   validateSchema: locationsSchema,
 };
 export const providersOptionsCRUD: OptionsCRUD = {
@@ -179,7 +180,7 @@ export const providersOptionsCRUD: OptionsCRUD = {
       userID: "pro.user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINER_BY_USER_ID,
   validateSchema: providersSchema,
 };
 
@@ -208,7 +209,7 @@ export const expensesOptionsCRUD: OptionsCRUD = {
       userID: "ex.user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINER_BY_USER_ID,
   validateSchema: expensesSchema,
 };
 
@@ -226,7 +227,7 @@ export const equipmentsOptionsCRUD: OptionsCRUD = {
       userID: "eq.user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINER_BY_USER_ID,
   validateSchema: equipmentSchema,
 };
 
@@ -246,7 +247,7 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
       userID: "exer.user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINER_ADMIN_ALL,
   validateSchema: exercisesListSchema,
 };
 
@@ -404,7 +405,7 @@ export const incomesOptionsCRUD: OptionsCRUD = {
       userID: "in.user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINER_BY_USER_ID,
   validateSchema: incomesSchema,
 };
 

@@ -19,7 +19,7 @@ export function CityEditForm() {
   const id = Number(useParams().id);
   const [updateItem, state] = citiesApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
-    citiesApi.useGetItemByIDQuery(id);
+    citiesApi.useGetItemByIDQuery({ id });
 
   const handleSubmit = (body: CitiesTableAPI) =>
     updateFunction({

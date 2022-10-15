@@ -3,22 +3,36 @@ export interface Permission {
   role: "admin" | "trainer" | "trainee";
 }
 
-export const ROLE_ADMIN: Permission[] = [{ by: "userID", role: "admin" }];
+export const ROLE_ADMIN_BY_USER_ID: Permission[] = [
+  { by: "userID", role: "admin" },
+];
+export const ROLE_ADMIN_ALL: Permission[] = [{ by: "ALL", role: "admin" }];
 
-export const ROLE_TRAINER: Permission[] = [
+export const ROLE_TRAINER_BY_USER_ID: Permission[] = [
   { by: "userID", role: "admin" },
   { by: "userID", role: "trainer" },
 ];
-export const ROLE_TRAINEE: Permission[] = [
+export const ROLE_TRAINER_ALL: Permission[] = [
+  { by: "ALL", role: "admin" },
+  { by: "ALL", role: "trainer" },
+];
+export const ROLE_TRAINER_ADMIN_ALL: Permission[] = [
+  { by: "ALL", role: "admin" },
+  { by: "userID", role: "trainer" },
+];
+export const ROLE_TRAINEE_BY_USER_ID: Permission[] = [
   { by: "ALL", role: "admin" },
   { by: "userID", role: "trainer" },
   { by: "userID", role: "trainee" },
 ];
 
 export type PermissionsRolesType =
-  | typeof ROLE_ADMIN
-  | typeof ROLE_TRAINER
-  | typeof ROLE_TRAINEE;
+  | typeof ROLE_ADMIN_ALL
+  | typeof ROLE_ADMIN_BY_USER_ID
+  | typeof ROLE_TRAINER_ALL
+  | typeof ROLE_TRAINER_ADMIN_ALL
+  | typeof ROLE_TRAINER_BY_USER_ID
+  | typeof ROLE_TRAINEE_BY_USER_ID;
 
 export interface Permissions {
   read: PermissionsRolesType;
@@ -28,54 +42,67 @@ export interface Permissions {
 }
 
 export const PERMISSION_ADMIN: Permissions = {
-  read: ROLE_ADMIN,
-  delete: ROLE_ADMIN,
-  update: ROLE_ADMIN,
-  create: ROLE_ADMIN,
+  read: ROLE_ADMIN_ALL,
+  delete: ROLE_ADMIN_ALL,
+  update: ROLE_ADMIN_ALL,
+  create: ROLE_ADMIN_ALL,
 };
 
-export const PERMISSION_TRAINER: Permissions = {
-  read: ROLE_TRAINER,
-  delete: ROLE_TRAINER,
-  update: ROLE_TRAINER,
-  create: ROLE_TRAINER,
+export const PERMISSION_TRAINER_BY_USER_ID: Permissions = {
+  read: ROLE_TRAINER_ALL,
+  delete: ROLE_TRAINER_BY_USER_ID,
+  update: ROLE_TRAINER_BY_USER_ID,
+  create: ROLE_TRAINER_BY_USER_ID,
+};
+
+export const PERMISSION_TRAINER_BY_USER_ID_READ_ALL: Permissions = {
+  read: ROLE_TRAINER_ALL,
+  delete: ROLE_TRAINER_ADMIN_ALL,
+  update: ROLE_TRAINER_ADMIN_ALL,
+  create: ROLE_TRAINER_ADMIN_ALL,
+};
+export const PERMISSION_TRAINER_ADMIN_ALL: Permissions = {
+  read: ROLE_TRAINER_ADMIN_ALL,
+  delete: ROLE_TRAINER_ADMIN_ALL,
+  update: ROLE_TRAINER_ADMIN_ALL,
+  create: ROLE_TRAINER_ADMIN_ALL,
 };
 export const PERMISSION_TRAINEE: Permissions = {
-  read: ROLE_TRAINEE,
-  delete: ROLE_TRAINEE,
-  update: ROLE_TRAINEE,
-  create: ROLE_TRAINEE,
+  read: ROLE_TRAINEE_BY_USER_ID,
+  delete: ROLE_TRAINEE_BY_USER_ID,
+  update: ROLE_TRAINEE_BY_USER_ID,
+  create: ROLE_TRAINEE_BY_USER_ID,
 };
 export const PERMISSION_TRAINEE_READONLY: Permissions = {
-  read: ROLE_TRAINEE,
-  delete: ROLE_TRAINER,
-  update: ROLE_TRAINER,
-  create: ROLE_TRAINER,
+  read: ROLE_TRAINEE_BY_USER_ID,
+  delete: ROLE_TRAINER_BY_USER_ID,
+  update: ROLE_TRAINER_BY_USER_ID,
+  create: ROLE_TRAINER_BY_USER_ID,
 };
 
 export const PERMISSION_TRAINEE_WITHOUT_DELETE: Permissions = {
-  read: ROLE_TRAINEE,
-  delete: ROLE_TRAINER,
-  update: ROLE_TRAINEE,
-  create: ROLE_TRAINEE,
+  read: ROLE_TRAINEE_BY_USER_ID,
+  delete: ROLE_TRAINER_BY_USER_ID,
+  update: ROLE_TRAINEE_BY_USER_ID,
+  create: ROLE_TRAINEE_BY_USER_ID,
 };
 
 export const PERMISSION_TRAINEE_WITHOUT_UPDATE: Permissions = {
-  read: ROLE_TRAINEE,
-  delete: ROLE_TRAINEE,
-  update: ROLE_ADMIN,
-  create: ROLE_TRAINEE,
+  read: ROLE_TRAINEE_BY_USER_ID,
+  delete: ROLE_TRAINEE_BY_USER_ID,
+  update: ROLE_ADMIN_BY_USER_ID,
+  create: ROLE_TRAINEE_BY_USER_ID,
 };
 
 export const PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE: Permissions = {
-  read: ROLE_TRAINEE,
-  delete: ROLE_TRAINER,
-  update: ROLE_TRAINEE,
-  create: ROLE_TRAINER,
+  read: ROLE_TRAINEE_BY_USER_ID,
+  delete: ROLE_TRAINER_BY_USER_ID,
+  update: ROLE_TRAINEE_BY_USER_ID,
+  create: ROLE_TRAINER_BY_USER_ID,
 };
 
 // export const ROLE_USER_ID = ["userID"] as const;
-// export const ROLE_ADMIN = ["admin"] as const;
+// export const ROLE_ADMIN_BY_USER_ID = ["admin"] as const;
 // export const ROLE_TRAINER = ["admin", "trainer"] as const;
 // export const ROLE_ALL = ["admin", "trainer", "trainee"] as const;
 // export const ROLE_ADMIN_OR_USER_ID = ["userID", "admin"] as const;

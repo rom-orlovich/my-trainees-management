@@ -106,7 +106,6 @@ export const validateRolePermission: (
   // eslint-disable-next-line no-unused-vars
   permissionsArr: Permissions
 ) => RequestHandler = (permissions) => (req, res, next) => {
-  console.log("req.query?.userID", req.query?.userID);
   // auth_data is the access token's decoded information which check in the validateTokenMiddleware.
   // *Trainer provide trainerUserID in order to access the data of his trainees.
   const checkPermissionsUserID =

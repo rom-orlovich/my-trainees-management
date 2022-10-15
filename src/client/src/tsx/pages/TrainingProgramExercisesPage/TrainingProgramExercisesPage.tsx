@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
@@ -12,6 +13,8 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 import page_style from "../Page.module.scss";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
+
 const trainingProgramExercisesTransform = ({
   training_programs_list_id,
   exercise_id,
@@ -46,7 +49,10 @@ function TrainingProgramExercises() {
   const [exercise, setExercise] = useState<string[]>(["", ""]);
   const [deleteItem] = trainingProgramsApi.useDeleteItemMutation();
   const pathName = useLocation().pathname;
-
+  const authState = useGetUserLoginData();
+  const queriesOptions = {
+    userID: authState.user_id,
+  };
   return (
     <MainRoute mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}>
       <section className={page_style.page_container}>
@@ -54,6 +60,7 @@ function TrainingProgramExercises() {
           <AutocompleteInput<ExercisesTableAPI>
             keys={["exercise_name"]}
             id={"exercise_id"}
+            queriesOptions={queriesOptions}
             loadingSpinnerResult={{ nameData: "Exercises" }}
             setSelectOptionValue={setExercise}
             useGetData={exercisesApi.useGetItemsQuery}
@@ -74,7 +81,11 @@ function TrainingProgramExercises() {
           <MainRoute mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}>
             <TablePagination
               transformFun={trainingProgramExercisesTransform}
-              queriesOptions={{ trainingProgramListID, name: exercise[1] }}
+              queriesOptions={{
+                trainingProgramListID,
+                name: exercise[1],
+                ...queriesOptions,
+              }}
               mainRoute={pathName.slice(1)}
               nameData="Training Program Exercises"
               deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
