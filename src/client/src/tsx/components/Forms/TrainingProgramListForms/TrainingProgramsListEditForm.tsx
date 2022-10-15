@@ -24,7 +24,7 @@ export function TrainingProgramsListEditForm() {
     <LoadingSpinner
       nameData="Training Programs List"
       stateData={{
-        data: data,
+        data,
         isLoading,
         isFetching,
         isError,

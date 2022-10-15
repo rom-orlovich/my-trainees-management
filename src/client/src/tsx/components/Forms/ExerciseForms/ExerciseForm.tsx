@@ -24,12 +24,13 @@ export function ExerciseForm({
   fromProps,
 }: GeneralFormProps<ExercisesTableAPI>) {
   const authState = useGetUserLoginData();
+  // const queriesOptions = { userID: authState.user_id };
   const queriesOptions = { userID: authState.user_id };
   return (
     <>
       <Form<ExercisesTableAPI>
         formProps={{
-          className: " " + fromProps?.className,
+          className: ` ${fromProps?.className}`,
           ...fromProps,
         }}
         editMode={editMode}

@@ -46,6 +46,7 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
     baseQuery: baseQueryWithReauth(baseUrl),
     endpoints: (builder) => ({
       getItems: builder.query<ResponseQueryAPI<T>, Record<string, any>>({
+        extraOptions: {},
         query: (params: Record<string, any>) => ({
           url: "/",
           params,
@@ -79,7 +80,7 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
       }),
 
       deleteItem: builder.mutation<ResponseMutationAPI, string>({
-        query: (id: string) => ({
+        query: (id) => ({
           url: `/${singleEntityName}/${id}`,
           method: "delete",
         }),

@@ -11,6 +11,20 @@ import { RootState } from "../store";
 import { apiAuthBaseQuery, authApi } from "./authAPI";
 import { API_ROUTES, ResponseMutationAuthAPI } from "./interfaceAPI";
 
+function appendQueryStringParam(
+  args: string | FetchArgs,
+  key: string,
+  value: string
+): string | FetchArgs {
+  let urlEnd = typeof args === "string" ? args : args.url;
+
+  if (urlEnd.indexOf("?") < 0) urlEnd += "?";
+  else urlEnd += "&";
+  if (urlEnd.indexOf("userID") < 0) urlEnd += `${key}=${value}`;
+
+  return typeof args === "string" ? urlEnd : { ...args, url: urlEnd.slice(1) };
+}
+
 export const baseQueryWithReauth =
   (
     baseUrl: string
@@ -18,6 +32,7 @@ export const baseQueryWithReauth =
   async (args, api, extraOptions) => {
     const baseQuery = fetchBaseQuery({
       baseUrl,
+
       prepareHeaders: (headers, api) => {
         const state = api.getState() as RootState;
         const token = state.authSlice.accessToken;
@@ -28,6 +43,11 @@ export const baseQueryWithReauth =
         return headers;
       },
     });
+    const state = api.getState() as RootState;
+    const value = state.authSlice.user?.user_id;
+    console.log(appendQueryStringParam(args, "userID", String(value || 0)));
+    // eslint-disable-next-line no-param-reassign
+    args = appendQueryStringParam(args, "userID", String(value || 0));
 
     let result = await baseQuery(args, api, extraOptions);
 
