@@ -42,7 +42,7 @@ export const PERMISSION_TRAINER_ONLY_CREATE: Permissions = {
   create: ROLE_TRAINER,
 };
 export const PERMISSION_TRAINER: Permissions = {
-  read: ROLE_TRAINER,
+  read: ROLE_TRAINER_OR_USER_ID,
   delete: ROLE_TRAINER,
   update: ROLE_TRAINER_OR_USER_ID,
   create: ROLE_TRAINER_OR_USER_ID,

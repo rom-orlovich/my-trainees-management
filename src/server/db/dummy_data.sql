@@ -42,17 +42,13 @@ INSERT INTO exercises_list as exer (equipment_id,muscles_group_id,exercise_name,
        (1,2,'Dips', 2) ;
 
 
-INSERT INTO profiles
- (email,status,date_join,
- location_id,phone_number,birthday,
- identify_num,gender,last_name,first_name)
-VALUES 
-( 'madman280797@gmail.com',true, '2022-10-15T21:00:00.000Z',
- 1,'0543552144','2022-10-16T21:00:00.000Z',
- '222222','male','orlovich','rom') 
- RETURNING *;
+update profiles set 
+ email='rom-orlovich@cyber4s.dev',status=true, date_join='2022-10-15T21:00:00.000Z',
+ location_id=1,phone_number='0543552144',birthday='2022-10-16T21:00:00.000Z',
+ identify_num='222222',gender='male',last_name='orlovich',first_name='rom'
+WHERE profile_id=3;
 
  INSERT INTO trainees
  (user_id,profile_id,trainer_user_id,sign_up_token)
-   VALUES (3,4, 2,'') RETURNING *;
+   VALUES (3,3, 2,'');
 

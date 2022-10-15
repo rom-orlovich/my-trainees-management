@@ -56,6 +56,10 @@ export const validateTokenMiddleware: RequestHandler = async (
   );
   const Decode = decode as Record<string, any>;
 
+  // Check if the request purpose is for signUp new trainee user,
+  // grant him a 'trainer' privilege to get his data in signUp process,
+  // and check if the user have the corresponded verify signUp token.
+  // The next middleware is validateRolePermission.
   if (Decode?.profile_id && Decode.tokenType === TokenType.VERIFY_SIGN_UP) {
     if (await checkTraineeHaveToken(accessToken, Decode?.profile_id)) {
       req.signUp_data = {
@@ -65,11 +69,11 @@ export const validateTokenMiddleware: RequestHandler = async (
     }
     return res.sendStatus(401);
   }
-
+  // Check if the request purpose is for change user's credentials
+  // and check if the user have the corresponded verify email token.
+  // The next middleware is validateMiddlewareHandlerChangeUserCredSchema
   if (Decode?.user_id && Decode.tokenType === TokenType.VERIFY_CHANGE_CRED) {
-    if (await checkUsersHaveToken(accessToken, Decode?.user_id)) {
-      return next();
-    }
+    if (await checkUsersHaveToken(accessToken, Decode?.user_id)) return next();
     return res.sendStatus(401);
   }
 
@@ -90,7 +94,7 @@ export const validateTokenMiddleware: RequestHandler = async (
     user_id: userData?.user_id,
     role: userData.role,
   };
-
+  // For CRUD resources request the next middleware is validateRolePermission
   return next();
 };
 
@@ -99,17 +103,17 @@ export const validateRolePermission: (
   permissionsArr: Permissions
 ) => RequestHandler = (permissions) => (req, res, next) => {
   // eslint-disable-next-line eqeqeq
-  const permissionsUserID = req?.auth_data?.user_id == req.query?.userID;
+  const checkPermissionsUserID = req?.auth_data?.user_id == req.query?.userID;
 
   // Check if the client can get the data by permission type or
   // or by signUp role with a corresponded role (for sign up a new trainee's user ).
   const checkPermissionByRoleWithSignUp = (el: string) =>
     el === req?.auth_data?.role ||
     req?.signUp_data?.role === el ||
-    (el === "userID" && permissionsUserID);
+    (el === "userID" && checkPermissionsUserID);
 
   const checkRoleCallBack = (el: string) =>
-    el === req?.auth_data?.role || el === "userID";
+    el === req?.auth_data?.role || (el === "userID" && checkPermissionsUserID);
 
   // The results (true or false) of the some callback on the permissions operations array of roles.
   const checkPermissionByRolesReadOperation = permissions?.read.some(
@@ -122,7 +126,7 @@ export const validateRolePermission: (
   const checkPermissionByRolesDeleteOperation =
     permissions?.delete.some(checkRoleCallBack);
 
-  // Check if the request should pass to the next middleware.
+  // Check if the request should pass to the createCRUDroutes middleware.
   if (req.method === "GET") {
     if (checkPermissionByRolesReadOperation) return next();
   } else if (req.method === "POST") {
