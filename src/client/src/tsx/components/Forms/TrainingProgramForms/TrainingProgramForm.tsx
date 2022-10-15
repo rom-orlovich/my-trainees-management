@@ -21,6 +21,7 @@ export default function TrainingProgramForms({
   editMode,
   fromProps,
 }: GeneralFormProps<TrainingProgramExerciseOmit>) {
+  const authState = useGetUserLoginData();
   return (
     <>
       <Form<TrainingProgramExerciseOmit>
@@ -39,7 +40,7 @@ export default function TrainingProgramForms({
         {({ register, formState, control }) => {
           const { sets, rpe, reps, rest, intensity, note_topic, note_text } =
             formState.errors;
-          const authState = useGetUserLoginData();
+    
 
           const queriesOptions = { userID: authState.user_id };
           return (
