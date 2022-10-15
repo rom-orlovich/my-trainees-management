@@ -21,15 +21,15 @@ import {
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
-
 import {
-  Permissions,
   PERMISSION_ADMIN,
-  PERMISSION_ALL_WITHOUT_UPDATE,
-  PERMISSION_TRAINEE_ONLY_READ,
-  PERMISSION_TRAINEE_ONLY_UPDATE,
+  Permissions,
+  PERMISSION_TRAINEE_WITHOUT_UPDATE,
   PERMISSION_TRAINER,
-  PERMISSION_TRAINER_WITHOUT_DELETE,
+  PERMISSION_TRAINEE,
+  PERMISSION_TRAINEE_WITHOUT_DELETE,
+  PERMISSION_TRAINEE_READONLY,
+  PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
 } from "../../usersPermission";
 
 export interface SelectTableQueryParam {
@@ -84,7 +84,7 @@ export const alertsOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
-  permissions: PERMISSION_ALL_WITHOUT_UPDATE,
+  permissions: PERMISSION_TRAINEE_WITHOUT_UPDATE,
   logAlert: false,
 };
 
@@ -122,7 +122,7 @@ export const musclesGroupOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
-  permissions: PERMISSION_TRAINER_WITHOUT_DELETE,
+  permissions: PERMISSION_TRAINER,
   validateSchema: musclesGroupSchema,
 };
 
@@ -140,7 +140,7 @@ export const citiesOptionsCRUD: OptionsCRUD = {
       userID: "user_id",
     },
   },
-  permissions: PERMISSION_TRAINER_WITHOUT_DELETE,
+  permissions: PERMISSION_TRAINER,
   validateSchema: citiesSchema,
 };
 
@@ -191,7 +191,7 @@ export const weeksOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: "*",
     querySelectLogic: ``,
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINEE,
   validateSchema: weeksSchema,
 };
 
@@ -264,7 +264,7 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
       traineeID: TABLES_DATA.TRAINEE_ID,
     },
   },
-  permissions: PERMISSION_TRAINEE_ONLY_READ,
+  permissions: PERMISSION_TRAINEE_READONLY,
   validateSchema: trainingProgramsListSchema,
 };
 
@@ -287,7 +287,7 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
       trainingProgramListID: TABLES_DATA.TRAINING_PROGRAMS_LIST_ID,
     },
   },
-  permissions: PERMISSION_TRAINEE_ONLY_UPDATE,
+  permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   validateSchema: trainingProgramSchema,
 };
 
@@ -299,7 +299,7 @@ export const nutritionProgramOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `*`,
     querySelectLogic: ``,
   },
-  permissions: PERMISSION_TRAINEE_ONLY_READ,
+  permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   validateSchema: nutritionProgramSchema,
 };
 
@@ -320,7 +320,7 @@ export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
     LEFT JOIN ${TABLES_DATA.WEEKLY_TABLE_NAME} as we ON 
     we.${TABLES_DATA.WEEKLY_ID}=np.${TABLES_DATA.WEEKLY_ID} `,
   },
-  permissions: PERMISSION_TRAINEE_ONLY_UPDATE,
+  permissions: PERMISSION_TRAINEE_READONLY,
   validateSchema: nutritionProgramsListSchema,
 };
 
@@ -335,7 +335,7 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
       userID: "subp.user_id",
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINEE_READONLY,
   validateSchema: subscriptionPlansSchema,
 };
 
@@ -388,7 +388,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
       },
     },
   },
-  permissions: PERMISSION_TRAINER,
+  permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   validateSchema: traineesSchema,
 };
 

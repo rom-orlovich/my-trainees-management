@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import React, { useEffect, useRef, useState } from "react";
 // import { MdDeleteSweep } from "react-icons/md";
 import { VscClearAll } from "react-icons/vsc";
@@ -105,7 +106,6 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
       }, 1000).then(() => {
         dispatch(disableFetchAlerts());
       });
-      // setAlertNotificationState(false);
     }
   }, [apiSideEffect.fetchAlerts, dispatch, refetch]);
 
@@ -128,6 +128,7 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
         <span
           className={genClassName(
             style.alerts_number,
+            // eslint-disable-next-line no-nested-ternary
             data
               ? data.countRows
                 ? style.alerts_number_active

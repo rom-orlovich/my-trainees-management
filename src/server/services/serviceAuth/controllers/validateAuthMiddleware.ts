@@ -4,7 +4,11 @@ import { RequestHandler } from "webpack-dev-server";
 import { selectQuery, updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
-import { Permissions, PermissionsRolesType } from "../../usersPermission";
+import {
+  Permission,
+  Permissions,
+  PermissionsRolesType,
+} from "../../usersPermission";
 
 import { UserRoles, verifyAsync } from "../utilities/authHelpers";
 
@@ -102,18 +106,25 @@ export const validateRolePermission: (
   // eslint-disable-next-line no-unused-vars
   permissionsArr: Permissions
 ) => RequestHandler = (permissions) => (req, res, next) => {
-  // eslint-disable-next-line eqeqeq
-  const checkPermissionsUserID = req?.auth_data?.user_id == req.query?.userID;
+  // auth_data is the access token's decoded information which check in the validateTokenMiddleware.
+  const checkPermissionsUserID =
+    Number(req?.auth_data?.user_id) === Number(req.query?.userID);
 
-  // Check if the client can get the data by permission type or
-  // or by signUp role with a corresponded role (for sign up a new trainee's user ).
-  const checkPermissionByRoleWithSignUp = (el: string) =>
-    el === req?.auth_data?.role ||
-    req?.signUp_data?.role === el ||
-    (el === "userID" && checkPermissionsUserID);
+  // Check if there is a permission base on userID and if it does so check if the userID from the access token
+  // is match to the query's userID.
+  // If there isn't a permission base on userID check only if the roles are match.
+  const checkRoleCallBack = (el: Permission) => {
+    if (el.by === "userID") {
+      return checkPermissionsUserID && el.role === req?.auth_data?.role;
+    }
+    if (el.role === req?.auth_data?.role) return true;
+    return false;
+  };
 
-  const checkRoleCallBack = (el: string) =>
-    el === req?.auth_data?.role || (el === "userID" && checkPermissionsUserID);
+  // Check if the client can get the data by permission
+  // or by signUp role with a corresponded role (for sign up a new trainee's user).
+  const checkPermissionByRoleWithSignUp = (el: Permission) =>
+    checkRoleCallBack(el) || req?.signUp_data?.role === el.role;
 
   // The results (true or false) of the some callback on the permissions operations array of roles.
   const checkPermissionByRolesReadOperation = permissions?.read.some(

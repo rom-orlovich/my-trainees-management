@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import TraineesTable from "./TraineesTable";
 import { Link } from "react-router-dom";
+import TraineesTable from "./TraineesTable";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 import { traineesApi } from "../../redux/api/hooksAPI";
-import page_style from "../Page.module.scss";
+import style from "../Page.module.scss";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 
@@ -14,8 +14,8 @@ function TraineesPage() {
   const authSliceState = useAppSelector(getAuthState);
   const queriesOptions = { trainerUserId: authSliceState.user?.user_id };
   return (
-    <section className={page_style.page_container}>
-      <div className={page_style.page_header}>
+    <section className={style.page_container}>
+      <div className={style.page_header}>
         <AutocompleteInput<TraineesTableExtendsAPI>
           keys={["first_name", "last_name"]}
           id={"trainee_id"}
@@ -39,7 +39,7 @@ function TraineesPage() {
           </Link>
         </span>
       </div>
-      <div className={page_style.page_main_content}>
+      <div className={style.page_main_content}>
         <TraineesTable mainName={trainee[1]} queriesOptions={queriesOptions} />
       </div>
     </section>
