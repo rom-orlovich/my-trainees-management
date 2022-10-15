@@ -345,7 +345,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     tableName: `${TABLES_DATA.TRAINEES_TABLE_NAME} as tr`,
     tableID: `tr.${TABLES_DATA.TRAINEE_ID}`,
     fieldNamesQuery: `
-    tr.trainee_id,tr.user_id,
+    tr.trainee_id,tr.user_id,tr.trainer_user_id,
     pr.*, 
     lo.street ,
      c.city_name`,
@@ -362,8 +362,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     },
 
     queryParams: {
-      trainerUserId: "trainer_user_id",
-      userID: "tr.user_id",
+      trainerUserId: "tr.trainer_user_id",
     },
 
     modifiedOtherTable: {

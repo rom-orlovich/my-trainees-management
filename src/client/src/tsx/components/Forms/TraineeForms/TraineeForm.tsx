@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -28,9 +29,7 @@ export function TraineeForm({
   editMode,
   heading,
   formWithOneButton,
-}: GeneralFormProps<
-  OmitKey<TraineesBaseTableAPI,"profile_id">
-> & {
+}: GeneralFormProps<OmitKey<TraineesBaseTableAPI, "profile_id">> & {
   heading?: string;
   formWithOneButton?: boolean;
 }) {
@@ -44,7 +43,7 @@ export function TraineeForm({
       heading={heading}
       editMode={editMode}
       formProps={{
-        className: " " + fromProps?.className,
+        className: ` ${fromProps?.className}`,
         ...fromProps,
       }}
       onSubmit={onSubmit}

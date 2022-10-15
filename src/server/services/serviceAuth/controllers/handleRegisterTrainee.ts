@@ -45,8 +45,8 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
       true
     );
 
-    await client.query("COMMIT");
-
+    const res = await client.query("COMMIT");
+    console.log(res);
     const link = `${URL_CUR_CLIENT}${API_ROUTES.SIGN_UP_ROUTE}/${API_ROUTES.TRAINEES_ENTITY}/${trainee.trainee_id}?verify=${signUpGmailToken}`;
     const message = {
       subject: "Welcome to My-Trainees-Management-app",

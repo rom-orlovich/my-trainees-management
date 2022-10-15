@@ -25,7 +25,7 @@ export const logoutHandler: RequestHandler = async (req, res, next) => {
     updateQuerySingleItem(
       TABLES_DATA.USERS_TABLE_NAME,
       {
-        refresh_tokens: user[0].refresh_tokens.filter(
+        refresh_tokens: user[0]?.refresh_tokens?.filter(
           (token) => token !== refreshToken
         ),
       },

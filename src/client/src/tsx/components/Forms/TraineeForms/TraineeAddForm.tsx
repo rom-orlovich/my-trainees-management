@@ -7,12 +7,10 @@ import TraineeForm from "./TraineeForm";
 
 export function TraineeAddForm() {
   const [addTrainee] = traineesApi.useRegisterTraineeMutation();
-  const handleSubmit = (body: TraineesBaseTableAPI) => {
- 
+  const handleSubmit = (body: TraineesBaseTableAPI) =>
     addFunction({
       addItem: addTrainee,
     })(body);
-  };
 
   return <TraineeForm onSubmit={handleSubmit}></TraineeForm>;
 }

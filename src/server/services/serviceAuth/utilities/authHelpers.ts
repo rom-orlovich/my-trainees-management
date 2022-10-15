@@ -81,7 +81,7 @@ export async function createUser(
     await client.query("BEGIN");
     const hashPassword = await hash(password, 10);
     let profile;
-    
+
     if (updateID) {
       profile = await updateQuerySingleItem(
         TABLES_DATA.PROFILES_TABLE_NAME,
@@ -119,7 +119,7 @@ export const sendEmail = async (
   let result1;
   try {
     const { token } = await clientMailOAuth.getAccessToken();
-    console.log("token", token);
+
     const mailOptions: Mail.Options = {
       ...MAIL_OPTIONS,
       to,

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { useLocation } from "react-router-dom";
 
@@ -31,7 +32,7 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
 
   return {
     id: arg.trainee_id,
-    full_name: arg.first_name + " " + arg.last_name,
+    full_name: `${arg.first_name} ${arg.last_name}`,
     ...rest,
   };
 };

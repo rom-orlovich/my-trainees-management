@@ -78,7 +78,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
     timeRemain
   );
 
-  const nonPreRefreshTokens = user[0].refresh_tokens.filter(
+  const nonPreRefreshTokens = user[0]?.refresh_tokens?.filter(
     (token) => token !== preRefreshToken
   );
   // console.info("username", user[0].username);
@@ -118,7 +118,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   const { password: pwd, refresh_tokens: refreshToken1, ...restUser } = user[0];
 
-  console.log(user[0]);
+  console.log("user[0]", user[0]);
   req.logAlertInfo = prepareLogAlert(
     {
       message: "Access token has create successfully!",

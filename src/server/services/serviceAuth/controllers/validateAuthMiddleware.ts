@@ -47,7 +47,6 @@ export const validateTokenMiddleware: RequestHandler = async (
   next
 ) => {
   const accessToken = req.headers.authorization?.split("Bearer ")[1];
-  console.log(accessToken);
 
   if (!accessToken) {
     return res.sendStatus(401);
@@ -104,41 +103,34 @@ export const validateRolePermission: (
 
   // Check if the client can get the data by permission type or
   // or by signUp role with a corresponded role (for sign up a new trainee's user ).
-  const checkPermissionByRoleType = (el: string) =>
+  const checkPermissionByRoleWithSignUp = (el: string) =>
     el === req?.auth_data?.role ||
-    el === "userID" ||
-    req?.signUp_data?.role === el;
+    req?.signUp_data?.role === el ||
+    (el === "userID" && permissionsUserID);
 
   const checkRoleCallBack = (el: string) =>
     el === req?.auth_data?.role || el === "userID";
-  const checkUserIDRoleCallBack = (el: string) => el === "userID";
-  const checkPermissionByRoleUserID = permissions.type.some(
-    checkUserIDRoleCallBack
-  );
 
   // The results (true or false) of the some callback on the permissions operations array of roles.
-  const checkPermissionByRolesType = permissions.type.some(
-    checkPermissionByRoleType
+  const checkPermissionByRolesReadOperation = permissions?.read.some(
+    checkPermissionByRoleWithSignUp
   );
   const checkPermissionByRolesCreateOperation =
-    permissions.operations?.create.some(checkRoleCallBack);
+    permissions?.create.some(checkRoleCallBack);
   const checkPermissionByRolesUpdateOperation =
-    permissions.operations?.update.some(checkRoleCallBack);
+    permissions?.update.some(checkRoleCallBack);
   const checkPermissionByRolesDeleteOperation =
-    permissions.operations?.delete.some(checkRoleCallBack);
+    permissions?.delete.some(checkRoleCallBack);
 
   // Check if the request should pass to the next middleware.
-  if (checkPermissionByRolesType) {
-    if (checkPermissionByRoleUserID && !permissionsUserID)
-      return res.sendStatus(401);
-    if (req.method === "GET") return next();
-    if (req.method === "POST") {
-      if (checkPermissionByRolesCreateOperation) return next();
-    } else if (req.method === "PUT") {
-      if (checkPermissionByRolesUpdateOperation) return next();
-    } else if (req.method === "DELETE") {
-      if (checkPermissionByRolesDeleteOperation) return next();
-    } else return res.sendStatus(401);
+  if (req.method === "GET") {
+    if (checkPermissionByRolesReadOperation) return next();
+  } else if (req.method === "POST") {
+    if (checkPermissionByRolesCreateOperation) return next();
+  } else if (req.method === "PUT") {
+    if (checkPermissionByRolesUpdateOperation) return next();
+  } else if (req.method === "DELETE") {
+    if (checkPermissionByRolesDeleteOperation) return next();
   } else return res.sendStatus(401);
 
   return res.sendStatus(401);

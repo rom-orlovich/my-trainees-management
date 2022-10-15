@@ -27,8 +27,6 @@ INSERT INTO equipments as eq
 (2020,'none', 'Pull ups bar',2);
 
 
-
-
 INSERT INTO locations as lo (street,city_id,user_id)
    VALUES 
    ('Moshe Hass',1,2),
@@ -43,4 +41,18 @@ INSERT INTO exercises_list as exer (equipment_id,muscles_group_id,exercise_name,
        (3,1,'Lunge', 2) ,
        (1,2,'Dips', 2) ;
 
+
+INSERT INTO profiles
+ (email,status,date_join,
+ location_id,phone_number,birthday,
+ identify_num,gender,last_name,first_name)
+VALUES 
+( 'madman280797@gmail.com',true, '2022-10-15T21:00:00.000Z',
+ 1,'0543552144','2022-10-16T21:00:00.000Z',
+ '222222','male','orlovich','rom') 
+ RETURNING *;
+
+ INSERT INTO trainees
+ (user_id,profile_id,trainer_user_id,sign_up_token)
+   VALUES (3,4, 2,'') RETURNING *;
 

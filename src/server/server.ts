@@ -107,6 +107,7 @@ async function connectDB() {
 }
 
 connectDB();
+
 if (process.env.NODE_ENV === "production") {
   const root = path.join(__dirname, "client");
   app.use(express.static(root));
