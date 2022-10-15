@@ -63,6 +63,13 @@ CONSTRAINT fk_profile_id
       ON UPDATE CASCADE
 ) ;
 
+ALTER TABLE "cities" add 
+CONSTRAINT fk_user_id FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE;
+
+
 CREATE TABLE IF NOT EXISTS "locations" (
   "location_id" serial PRIMARY KEY,
   "city_id" INTEGER NOT NULL,
