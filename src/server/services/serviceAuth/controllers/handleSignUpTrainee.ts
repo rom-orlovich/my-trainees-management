@@ -31,7 +31,7 @@ export const signUpHandlerTrainee: RequestHandler = async (req, res, next) => {
       TABLES_DATA.TRAINEES_TABLE_NAME,
       { user_id: user?.user_id, sign_up_token: "" },
       profileID,
-      `where ${TABLES_DATA.TRAINEE_ID}=$1`
+      `where ${TABLES_DATA.PROFILE_ID}=$1`
     );
 
     await client.query("COMMIT");

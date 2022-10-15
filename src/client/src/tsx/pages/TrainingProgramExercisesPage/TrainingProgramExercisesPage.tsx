@@ -33,9 +33,9 @@ const trainingProgramExercisesTransform = ({
   } = data;
   return {
     training_program_row_id,
-    exercise_name,
+    exercise: exercise_name,
     muscles_group: muscles_group_name,
-    equipment_name,
+    equipment: equipment_name,
     reps,
     sets,
     intensity,
@@ -52,18 +52,19 @@ function TrainingProgramExercises() {
   const authState = useGetUserLoginData();
   const queriesOptions = {
     userID: authState.user_id,
+    trainingProgramsListID: exercise[0],
   };
   return (
     <MainRoute mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}>
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
-          <AutocompleteInput<ExercisesTableAPI>
+          <AutocompleteInput<TrainingProgramExerciseTableAPI>
             keys={["exercise_name"]}
             id={"exercise_id"}
             queriesOptions={queriesOptions}
             loadingSpinnerResult={{ nameData: "Exercises" }}
             setSelectOptionValue={setExercise}
-            useGetData={exercisesApi.useGetItemsQuery}
+            useGetData={trainingProgramsApi.useGetItemsQuery}
             InputLabelProps={{
               InputProps: { placeholder: "Exercise Name" },
               LabelProps: {

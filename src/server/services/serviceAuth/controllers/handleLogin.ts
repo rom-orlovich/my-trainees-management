@@ -16,7 +16,7 @@ import {
 export const SELECT_USER_QUERY = `LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON 
 tr.${TABLES_DATA.USERS_TABLE_ID}= us.${TABLES_DATA.USERS_TABLE_ID}`;
 export const USER_TABLE_ALIAS_US = `${TABLES_DATA.USERS_TABLE_NAME} as us`;
-export const USER_TABLE_RETURN_FIELDS = `us.*,tr.${TABLES_DATA.TRAINEE_ID}`;
+export const USER_TABLE_RETURN_FIELDS = `us.*,tr.${TABLES_DATA.TRAINEE_ID} ,tr.trainer_user_id`;
 
 export const loginHandler: RequestHandler = async (req, res, next) => {
   if (req.logAlertInfo?.error) return next();

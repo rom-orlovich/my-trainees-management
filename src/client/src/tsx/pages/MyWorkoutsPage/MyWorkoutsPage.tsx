@@ -18,6 +18,7 @@ function MyWorkoutsPage() {
   const queriesOptions = {
     programType: trainingProgram[1],
     trainerUserID: authState.user?.user_id,
+    traineeID: authState.user?.trainee_id,
   };
 
   return (

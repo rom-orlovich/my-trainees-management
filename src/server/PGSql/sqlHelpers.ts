@@ -4,7 +4,7 @@
 
 import e from "express";
 import { writeFile } from "fs/promises";
-import { DB_FOLDER_PATH } from "../utilities/constants";
+import { DB_FOLDER_PATH, TABLES_DATA } from "../utilities/constants";
 import {
   createObjKeysArr,
   createObjValuesArr,
@@ -154,10 +154,12 @@ export async function selectQuery(
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
   // console.log(tableName);
-  // if (tableName === "trainees as tr") {
-  //   console.log("statement", statement);
-  //   console.log("queryParams", queryParams);
-  // }
+  if (
+    tableName === `${TABLES_DATA.TRAINING_PROGRAMS_LIST_TABLE_NAME} as trpl`
+  ) {
+    console.log("statement", statement);
+    console.log("queryParams", queryParams);
+  }
 
   const rows = await client.query(statement, queryParams);
 
@@ -193,10 +195,10 @@ const updateQuery = async (
   const statement = `UPDATE ${tableName} SET ${keyValuesStr}
   ${queryLogic} RETURNING *`;
   // console.log(statement, [paramId, ...paramsArr]);
-  if (tableName === "users") {
-    console.log("statement", statement);
-    console.log("queryParams", [paramId, ...paramsArr]);
-  }
+  // if (tableName === "users") {
+  //   console.log("statement", statement);
+  //   console.log("queryParams", [paramId, ...paramsArr]);
+  // }
   const rows = await client.query(statement, [paramId, ...paramsArr]);
   return rows;
 };

@@ -262,7 +262,8 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
     trpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}=
     tp.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     queryParams: {
-      traineeID: TABLES_DATA.TRAINEE_ID,
+      traineeID: `${TABLES_DATA.TRAINEE_ID}`,
+      // trainingProgramsListID: `${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     },
     queryNameParam: {
       programType: "type_program",
