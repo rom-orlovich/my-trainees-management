@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 export enum APP_ROUTE {
   HOME_PAGE = "",
+
   SIGN_UP = "signUp",
   EMAIL_VERIFY_ROUTE = "email/verify",
   SIGN_UP_TRAINEE = "signUp/trainee/:id",
@@ -8,9 +9,10 @@ export enum APP_ROUTE {
   LOGIN_ROUTE = "login",
   LOGOUT_ROUTE = "logout",
   USERS_ROUTE = "users",
-  COMING_SOON = "comingSoon",
-  TRAINEES_ROUTE = "trainees",
 
+  COMING_SOON = "comingSoon",
+
+  TRAINEES_ROUTE = "trainees",
   TRAINEES_ROUTE_ADD = "addNewTrainee",
 
   TRAINING_PROGRAMS_LIST_ROUTE = "trainingProgramsList",
@@ -48,4 +50,7 @@ export enum APP_ROUTE {
 
   SETTINGS_ROUTE = "settings",
   PROFILE_ROUTE = "profile",
+
+  MY_WORKOUTS = "myWorkouts",
+  MY_WORKOUTS_EXERCISES = "myWorkoutsExercises",
 }

@@ -8,7 +8,7 @@ import { getAuthState } from "../../redux/slices/authSlice";
 import MainRoute from "../../routes/MainRoute";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import page_style from "../Page.module.scss";
+import style from "../Page.module.scss";
 import LeadsTable from "./LocationsTable";
 
 function LocationsListPage() {
@@ -17,8 +17,8 @@ function LocationsListPage() {
   const queriesOptions = { userID: authState.user?.user_id };
   return (
     <MainRoute mainRoutes={APP_ROUTE.LOCATION_ROUTE}>
-      <section className={page_style.page_container}>
-        <div className={page_style.page_header}>
+      <section className={style.page_container}>
+        <div className={style.page_header}>
           <AutocompleteInput<LocationsGetRes>
             keys={["street", "city_name"]}
             id={"location_id"}
@@ -39,7 +39,7 @@ function LocationsListPage() {
             <Link to={`${APP_ROUTE.LOCATION_ROUTE_ADD}`}>Add Location</Link>
           </span>
         </div>
-        <div className={page_style.page_main_content}>
+        <div className={style.page_main_content}>
           <LeadsTable mainName={location[1]} queriesOptions={queriesOptions} />
         </div>
       </section>

@@ -244,10 +244,10 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
       mainName: "exercise_name",
     },
     queryParams: {
-      userID: "exer.user_id",
+      // userID: "exer.user_id",
     },
   },
-  permissions: PERMISSION_TRAINER_ADMIN_ALL,
+  permissions: PERMISSION_TRAINEE_READONLY,
   validateSchema: exercisesListSchema,
 };
 
@@ -263,6 +263,9 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
     tp.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     queryParams: {
       traineeID: TABLES_DATA.TRAINEE_ID,
+    },
+    queryNameParam: {
+      programType: "type_program",
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY,

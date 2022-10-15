@@ -44,6 +44,7 @@ import SignUpPageNewTrainee from "../pages/AuthPages/SignUpPage/SignUpPageNewTra
 import EmailVerifyPage from "../pages/AuthPages/EmailVerifyPage/EmailVerifyPage";
 import ChangePasswordPage from "../pages/AuthPages/ChangePasswordPage/ChangePasswordPage";
 import ComingSoonPage from "../pages/ComingSoonPage/ComingSoonPage";
+import MyTrainingPage from "../pages/MyWorkoutsPage/MyWorkoutsPage";
 
 function AppRoutes() {
   return (
@@ -184,6 +185,10 @@ function AppRoutes() {
               <Route
                 path={APP_ROUTE.COMING_SOON}
                 element={<ComingSoonPage />}
+              ></Route>
+              <Route
+                path={APP_ROUTE.MY_WORKOUTS}
+                element={<MyTrainingPage />}
               ></Route>
             </Route>
           </Route>

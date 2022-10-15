@@ -9,8 +9,8 @@ import style from "../components/layoutComponents/SideBar/SideBar.module.scss";
 
 export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
   {
-    to: APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE,
-    text: "My Trainings",
+    to: APP_ROUTE.MY_WORKOUTS,
+    text: "My Workouts",
     icon: <AiFillSchedule className={style.icon} />,
   },
 
@@ -34,7 +34,7 @@ export const TRAINER_SIDE_BAR_LINKS: LinkData[] = [
   },
   {
     to: APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE,
-    text: "Trainings",
+    text: "Training",
     icon: <AiFillSchedule className={style.icon} />,
   },
   {

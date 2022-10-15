@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { trainingProgramsListApi } from "../../redux/api/hooksAPI";
@@ -19,21 +19,19 @@ const transformTrainingProgramList = ({
   training_programs_list_id,
   type_program: (
     <Link
-      to={`${training_programs_list_id}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
+      to={`/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${training_programs_list_id}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
     >
       {type_program}
     </Link>
   ),
   ...rest,
 });
-
 function TableTrainingProgramList({
   traineeID,
   queriesOptions,
 }: { traineeID: number } & {
   queriesOptions?: Record<string, any>;
 }) {
-  console.log(queriesOptions);
   const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
   return (
     <TablePagination

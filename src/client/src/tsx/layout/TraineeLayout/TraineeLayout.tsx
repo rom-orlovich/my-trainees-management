@@ -9,10 +9,15 @@ import { TRAINEE_NAV_BAR_LINKS } from "../NavBarLinks";
 import { TRAINEE_SIDE_BAR_LINKS } from "../SideBarLinks";
 
 function TraineeLayout() {
-  const { data, isError, isFetching, isLoading } = traineesApi.useGetItemsQuery(
-    { userID: useGetUserLoginData().user_id }
-  );
-  console.log(data);
+  const userData = useGetUserLoginData();
+  const traineeID = userData.authState.user?.trainee_id;
+  // const { data, isError, isFetching, isLoading } =
+  //   traineesApi.useGetItemByIDQuery({
+  //     id: Number(traineeID || 0),
+  //     userID: userData.user_id,
+  //   });
+  // console.log(data);
+
   return (
     <>
       <Header navBarLinks={TRAINEE_NAV_BAR_LINKS} className={style.header} />

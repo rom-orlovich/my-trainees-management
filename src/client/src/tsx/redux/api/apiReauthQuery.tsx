@@ -12,7 +12,7 @@ import { RootState } from "../store";
 import { apiAuthBaseQuery, authApi } from "./authAPI";
 import { API_ROUTES, ResponseMutationAuthAPI } from "./interfaceAPI";
 
-// Append userID or trainerUserID to the params of the query
+// Append userID or trainerUserID to the params of the query if they contains "put" or "delete" or "post" method.
 function appendQueryStringParam(
   args: string | FetchArgs,
   value: string
@@ -48,8 +48,8 @@ export const baseQueryWithReauth =
 
     const state = api.getState() as RootState;
     const value = state.authSlice.user?.user_id;
-    console.log("preargs", args);
-    console.log("curargs", appendQueryStringParam(args, String(value || 0)));
+    // console.log("preargs", args);
+    // console.log("curargs", appendQueryStringParam(args, String(value || 0)));
 
     args = appendQueryStringParam(args, String(value || 0));
 

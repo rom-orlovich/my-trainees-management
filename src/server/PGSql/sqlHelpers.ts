@@ -93,7 +93,10 @@ const concatQueryWithName = (
   )}) ILIKE $${startIndex} `; // EXAM: concat(first_name ,' ', last_name) ILIKE $1;
 
   // keysValuesEntries[0][1] is the value of the concatenation from the client
-  return { columnsNameStr, valueNameParam: [`%${keysValuesEntries[0][1]}%`] };
+  return {
+    columnsNameStr,
+    valueNameParam: [`%${keysValuesEntries[0][1] || ""}%`],
+  };
 };
 
 // Makes string from the key-value names of object.
@@ -155,6 +158,7 @@ export async function selectQuery(
   //   console.log("statement", statement);
   //   console.log("queryParams", queryParams);
   // }
+
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;

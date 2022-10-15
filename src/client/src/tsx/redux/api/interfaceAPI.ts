@@ -53,6 +53,7 @@ export enum API_ROUTES {
 export interface User {
   user_id: number;
   username: string;
+  trainee_id?: string;
   role: "admin" | "trainer" | "trainee";
 }
 export interface PayloadAPI<T> {
