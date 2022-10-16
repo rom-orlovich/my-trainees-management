@@ -29,7 +29,8 @@ const transformTrainingProgramList = ({
 function TableTrainingProgramList({
   traineeID,
   queriesOptions,
-}: { traineeID: number } & {
+  nameData,
+}: { traineeID: number; nameData?: string } & {
   queriesOptions?: Record<string, any>;
 }) {
   const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
@@ -39,7 +40,7 @@ function TableTrainingProgramList({
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       queriesOptions={{ traineeID, ...queriesOptions }}
       mainRoute={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}`}
-      nameData="Training Program List"
+      nameData={nameData || "Training Program List"}
       getAllQuery={trainingProgramsListApi.useGetItemsQuery}
     />
   );

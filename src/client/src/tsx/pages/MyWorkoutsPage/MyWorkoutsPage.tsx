@@ -44,6 +44,7 @@ function MyWorkoutsPage() {
         <TableTrainingProgramList
           traineeID={Number(userData.authState.user?.trainee_id || 0)}
           queriesOptions={queriesOptions}
+          nameData={"Workout"}
         />
       </div>
     </section>

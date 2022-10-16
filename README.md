@@ -1,6 +1,6 @@
 # My Trainees Management App:
 
-Link to the app: [My Trainees Management App](https://my-trainees-managment.herokuapp.com):point_left:
+Link to the app: [My Trainees Management App](https://my-trainee-management-new.herokuapp.com/login):point_left:
 
 ## About my project:
 
@@ -71,13 +71,13 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 3. **Filter Table's Rows By Name** - Filters the table items by name.
 4. **Autocomplete Search Input** - Suggests a list of results from the server. \
    Infinite scroll: When there are more than 10 possible suggestions, the users can scroll and fetch more suggestions from the server.
-
+5. **Notifications System** -Notifications display for various user activities.
+6. **Users System** - Trainees will be able to log in to their profiles and track their progress.\
+     Multiple personal trainers will be able to log in and manage their business.
 ## Coming soon:
 
-1.  **Notifications System** -Notifications Will display for various user activities.
 2.  **Sort Table's Items By Name** -Table will Sort items by name.
 3.  **Trainee Profile Page** - The page will display all his personal data, programs and his subscription status.
 4.  **Additional System Data** - Nutrition program's progress, financial system and suppliers.
-5.  **Users System** - Trainees will be able to log in to their profiles and track their progress.\
-    Multiple personal trainers will be able to log in and manage their business.
+
 6.  **Statistics Page** - Personal trainers will have a graphical overview of their business.

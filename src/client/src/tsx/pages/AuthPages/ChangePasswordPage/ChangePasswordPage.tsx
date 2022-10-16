@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import React from "react";
@@ -25,7 +26,7 @@ function ChangePasswordPage() {
 
   const onSubmit = async ({ password }: ChangePasswordForm) => {
     dispatch(disableGoPrevPage());
-  return  await changeCredentials({
+    return await changeCredentials({
       password,
       userID: id || "",
       verifyToken: searchParams.get("verify") || "",

@@ -36,7 +36,7 @@ export type FormRHFProps<TFormValues extends FieldValues> = {
   formWithOneButton?: boolean;
 
   isLoginMode?: boolean;
-  customButtonText?:string
+  customButtonText?: string;
 };
 
 export default function Form<TFormValues extends Record<string, any>>({
@@ -121,11 +121,10 @@ export default function Form<TFormValues extends Record<string, any>>({
   const editModeText = editMode ? "Edit" : "Add";
   const authModeText = isLoginMode ? "Login" : "Sign Up";
 
-  
   const buttonContainer = formWithOneButton ? (
     <div className={style.buttons_container_one_button}>
       <button type="submit" disabled={!methods.formState.isValid}>
-      {customButtonText ? customButtonText : authModeText}
+        {customButtonText || authModeText}
       </button>
     </div>
   ) : (
