@@ -1,6 +1,6 @@
-# My Trainees Management App:
+# My Trainees Management App v2:
 
-Link to the app: [My Trainees Management App](https://my-trainee-management-new.herokuapp.com/login):point_left:
+Link to the app: [My Trainees Management App-v2](https://my-trainee-management-new.herokuapp.com/login):point_left:
 
 ## About my project:
 
@@ -80,8 +80,8 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 5. **Notifications System** - Notifications display for various user activities.
 6. **Users System** -
    - Multiple personal trainers able to log in and manage their business. 
-   - Personal trainers can register new trainees to thier system and send them a email to sign up and create thier personal users to track their progress. 
-   - Each user type has his role and different permission to access app rescources. 
+   - Personal trainers can register new trainees to thier system and send them an email to sign up and create thier personal users to track their progress. 
+   - Each user role has different permission to access app rescources. 
    - Persistent login system based on rotate refresh token mechanism.
 
 ## Coming soon:
