@@ -35,12 +35,18 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
   - [React Hook Form](https://www.npmjs.com/package/react-hook-form) - For forms management.
   - [Yup](https://www.npmjs.com/package/yup) - For validation.
   - [React Icons](https://www.npmjs.com/package/react-icons) - For icons
+  
 
 - **Back-end**:
-  - [node-postgres](https://www.npmjs.com/package/pg) - For DB management
-  - [Yup](https://www.npmjs.com/package/yup) - For validation
+  - [node-postgres](https://www.npmjs.com/package/pg) - For DB management.
+  - [Yup](https://www.npmjs.com/package/yup) - For validation.
   - [webpack](https://www.npmjs.com/package/webpack) - For modules bundling and build the server side.
-  - [dotenv](https://www.npmjs.com/package/dotenv) - For environment variables
+  - [dotenv](https://www.npmjs.com/package/dotenv) - For environment variables.
+  - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - For generating tokens.
+  - [bycrpt](https://www.npmjs.com/package/bcryptjs) - For password hashing.
+  - [Google API](https://www.npmjs.com/package/googleapis) - For gmail service.
+  - [nodemailer](https://www.npmjs.com/package/nodemailer) - For sending emails.
+  
 
 ## Installation
 
@@ -71,13 +77,14 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 3. **Filter Table's Rows By Name** - Filters the table items by name.
 4. **Autocomplete Search Input** - Suggests a list of results from the server. \
    Infinite scroll: When there are more than 10 possible suggestions, the users can scroll and fetch more suggestions from the server.
-5. **Notifications System** -Notifications display for various user activities.
-6. **Users System** - Trainees will be able to log in to their profiles and track their progress.\
-     Multiple personal trainers will be able to log in and manage their business.
+5. **Notifications System** - Notifications display for various user activities.
+6. **Users System** -
+   - Multiple personal trainers able to log in and manage their business. 
+   - Personal trainers can register new trainees to thier system and send them a email to sign up and create thier personal users to track their progress. 
+   - Each user type has his role and different permission to access app rescources. 
+   - Persistent login system based on rotate refresh token mechanism.
+
 ## Coming soon:
-
-2.  **Sort Table's Items By Name** -Table will Sort items by name.
-3.  **Trainee Profile Page** - The page will display all his personal data, programs and his subscription status.
-4.  **Additional System Data** - Nutrition program's progress, financial system and suppliers.
-
-6.  **Statistics Page** - Personal trainers will have a graphical overview of their business.
+1.  **Trainee Profile Page** - The page will display all his personal data, programs and his subscription status.
+2.  **Additional System Data** - Nutrition program's progress, financial system and suppliers.
+3.  **Statistics Page** - Personal trainers will have a graphical overview of their business.
