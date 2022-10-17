@@ -6,7 +6,7 @@ import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import { musclesGroupApi } from "../../redux/api/hooksAPI";
 import { MusclesGroupTableAPI } from "../../redux/api/interfaceAPI";
 
-import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";

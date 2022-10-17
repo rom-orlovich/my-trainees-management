@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { genClassName } from "../../utilities/helpersFun";
 import style from "./SettingsPage.module.scss";
 
-function BushinessDataPage() {
+function BusinessDataPage() {
   return (
     <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.SETTINGS_ROUTE}>
       <section className={genClassName(style.settings_page)}>
@@ -24,4 +24,4 @@ function BushinessDataPage() {
   );
 }
 
-export default BushinessDataPage;
+export default BusinessDataPage;

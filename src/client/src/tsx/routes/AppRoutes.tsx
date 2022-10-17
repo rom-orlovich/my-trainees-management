@@ -33,9 +33,9 @@ import Trainees from "../pages/TraineesPage/TraineesPage";
 import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
 import TrainingProgramsPage from "../pages/TrainingProgramsPage/TrainingProgramsPage";
 
-import PersistedLogin from "./PersistedLogin";
-import ProtectedRoute from "./ProtectedRoute";
-import PublicRoute from "./PublicRoute";
+import PersistedLogin from "./utilities/PersistedLogin";
+import ProtectedRoute from "./utilities/ProtectedRoute";
+import PublicRoute from "./utilities/PublicRoute";
 
 import { APP_ROUTE } from "./appRoutesConstants";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
@@ -46,8 +46,10 @@ import ChangePasswordPage from "../pages/AuthPages/ChangePasswordPage/ChangePass
 import ComingSoonPage from "../pages/ComingSoonPage/ComingSoonPage";
 import MyTrainingPage from "../pages/MyWorkoutsPage/MyWorkoutsPage";
 import useCheckRole from "../hooks/useCheckRole";
-import InsteadOutletRoutes from "./InsteadOutletRoutes";
-import MainRouteByRole from "./MainRouteByRole";
+import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
+import MainRouteByRole from "./utilities/MainRouteByRole";
+import BusinessDataRoutes from "./BussinessDataRoutes";
+import AuthRoutes from "./AuthRoutes";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -55,7 +57,8 @@ function AppRoutes() {
     <Routes>
       <Route element={<PublicRoute />}>
         <Route path={APP_ROUTE.HOME_PAGE} element={<HomePage />}>
-          <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
+          <Route path={"*"} element={<AuthRoutes />}></Route>
+          {/* <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
           <Route path={APP_ROUTE.SIGN_UP} element={<SignUpPage />}></Route>
           <Route
             path={APP_ROUTE.CHANGE_USER_CRED_ROUTE}
@@ -68,7 +71,7 @@ function AppRoutes() {
           <Route
             path={APP_ROUTE.SIGN_UP_TRAINEE}
             element={<SignUpPageNewTrainee />}
-          ></Route>
+          ></Route> */}
         </Route>
         <Route element={<PersistedLogin />}>
           <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
@@ -76,9 +79,7 @@ function AppRoutes() {
               path={APP_ROUTE.PROFILE_ROUTE}
               element={<ProfilePage />}
             ></Route>
-
             <Route path={APP_ROUTE.USERS_ROUTE}></Route>
-
             <Route index element={<MainRouteByRole />} />
             <Route element={<ProtectedRoute allowedRole={isTrainer} />}>
               <Route path={APP_ROUTE.TRAINEES_ROUTE}>
@@ -90,7 +91,6 @@ function AppRoutes() {
                 />
               </Route>
             </Route>
-
             <Route path={APP_ROUTE.LEADS_ROUTE}>
               <Route index element={<LeadsPage />} />
               <Route
@@ -99,7 +99,6 @@ function AppRoutes() {
               />
               <Route path=":id" element={<LeadEditForm />}></Route>
             </Route>
-
             <Route path={APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}>
               <Route index element={<TrainingProgramsPage />}></Route>
               <Route
@@ -140,7 +139,7 @@ function AppRoutes() {
             </Route>
 
             <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />}>
-              <Route
+              {/* <Route
                 element={<ProtectedRoute allowedRole={isTrainer || isAdmin} />}
               >
                 <Route
@@ -190,7 +189,10 @@ function AppRoutes() {
                   />
                   <Route path=":id" element={<CityEditForm />} />
                 </Route>
-              </Route>
+              </Route> */}
+              {/* {BusinessDataRoutes()} */}
+
+              <Route path="*" element={<BusinessDataRoutes />} />
             </Route>
             <Route
               path={APP_ROUTE.COMING_SOON}

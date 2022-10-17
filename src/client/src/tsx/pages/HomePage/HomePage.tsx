@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, NavLink, Outlet, useLocation } from "react-router-dom";
-import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "./HomePage.module.scss";
 

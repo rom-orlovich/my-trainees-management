@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
 import { Outlet, useNavigate } from "react-router-dom";
-import LoadingSpinner from "../components/baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
 
-import { authApi } from "../redux/api/authAPI";
-import { useAppSelector } from "../redux/hooks";
-import { getAuthState } from "../redux/slices/authSlice";
-import { APP_ROUTE } from "./appRoutesConstants";
+import { authApi } from "../../redux/api/authAPI";
+import { useAppSelector } from "../../redux/hooks";
+import { getAuthState } from "../../redux/slices/authSlice";
+import { APP_ROUTE } from "../appRoutesConstants";
 
 export const SUBTRACT_EXPIRE_TIME = 1000 * 60 * 10;
 

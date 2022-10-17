@@ -6,7 +6,7 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 import { traineesApi } from "../../redux/api/hooksAPI";
 import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 
-import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 

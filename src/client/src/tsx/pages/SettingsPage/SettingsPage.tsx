@@ -1,18 +1,18 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
 
-import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { genClassName } from "../../utilities/helpersFun";
 import style from "./SettingsPage.module.scss";
 import useCheckRole from "../../hooks/useCheckRole";
-import BushinessDataPage from "./BushinessDataPage";
+import BusinessDataPage from "./BusinessDataPage";
 
 function SettingsPage() {
   const { isTrainee } = useCheckRole();
 
   if (!isTrainee) {
-    return <BushinessDataPage />;
+    return <BusinessDataPage />;
   }
   return <>Coming soon</>;
 }

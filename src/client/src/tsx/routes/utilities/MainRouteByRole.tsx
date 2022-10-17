@@ -1,8 +1,8 @@
 import React from "react";
-import useCheckRole from "../hooks/useCheckRole";
-import MyWorkoutsPage from "../pages/MyWorkoutsPage/MyWorkoutsPage";
-import TraineesPage from "../pages/TraineesPage/TraineesPage";
-import UsersPage from "../pages/UsersPage/UsersPage";
+import useCheckRole from "../../hooks/useCheckRole";
+import MyWorkoutsPage from "../../pages/MyWorkoutsPage/MyWorkoutsPage";
+import TraineesPage from "../../pages/TraineesPage/TraineesPage";
+import UsersPage from "../../pages/UsersPage/UsersPage";
 
 function MainRouteByRole() {
   const { isAdmin, isTrainer } = useCheckRole();
