@@ -13,7 +13,6 @@ import TrainerLayout from "./layout/TrainerLayout/TrainerLayout";
 function App() {
   // Basic layout of the app.
   const Layout = () => {
-    console.log(useCheckRole());
     const { isAdmin, isTrainer } = useCheckRole();
     if (isAdmin) return <AdminLayout />;
     if (isTrainer) return <TrainerLayout />;
@@ -22,7 +21,6 @@ function App() {
   return (
     <>
       <Layout />
-
     </>
   );
 }

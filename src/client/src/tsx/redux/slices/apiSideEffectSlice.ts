@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { FetchBaseQueryMeta } from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
-import { Action } from "history";
 
 import { RootState } from "../store";
 
@@ -56,29 +55,22 @@ export const apiSideEffectSlice = createSlice({
 
     builder
       .addMatcher(
-        (action: PayloadAction<PayloadSideEffect>) => {
-          return (
-            action.payload?.statusCode === 201 &&
-            !action.payload?.message?.includes("Login")
-          );
-        },
+        (action: PayloadAction<PayloadSideEffect>) =>
+          action.payload?.statusCode === 201 &&
+          !action.payload?.message?.includes("Login"),
 
         (state, action) => {
           // If there is success response from the server after submit form,
           // set goPrevPage to true , in order to go back the previous page.
-          if (action?.payload?.status !== undefined)
-           {
-       
-            state.goPrePageBehaviorState.goPrevPage = false};
+          if (action?.payload?.status !== undefined) {
+            state.goPrePageBehaviorState.goPrevPage = false;
+          }
         }
       )
       .addMatcher(
-        (action: PayloadAction<Record<string, any> | undefined>) => {
-          return (
-            action.payload?.statusCode === 201 &&
-            !action.payload?.message?.includes("token")
-          );
-        },
+        (action: PayloadAction<Record<string, any> | undefined>) =>
+          action.payload?.statusCode === 201 &&
+          !action.payload?.message?.includes("token"),
         (state) => {
           // // Enable fetch alerts.
           state.fetchAlerts = true;

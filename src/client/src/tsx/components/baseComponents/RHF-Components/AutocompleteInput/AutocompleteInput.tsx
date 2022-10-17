@@ -72,40 +72,40 @@ function AutocompleteInput<T extends Record<string, any>>({
   const [lastDataState, setLastData] = useState<any[]>([]);
 
   const { data, isError, isFetching, isLoading } = useGetData({
-    page: page,
+    page,
     mainName: debounce[1],
     ...queriesOptions,
   });
   const Data = data as ResponseQueryAPI<T> | undefined;
-const firstRender=useRef(true)
+  const firstRender = useRef(true);
 
-useEffect(()=>{
- // Set default value by given id, when the data is defined and the id
-  // is exist in the data array, update the input value.
-  if (Data)
-  //To prevent infinite loop.
-  if(firstRender.current)
-   {
-    firstRender.current=false
-     if (defaultValueID) {
-      const objData = Data.data.find((el) => el[id] === defaultValueID);
-      if (objData) {
-        // Create string of values from chosen keys.
-        const strValues = createStrFromValuesOfChosenKeys(objData, keys || []);
-        setInputValue(["", strValues]);
-      }
-    }}
-
-},[Data, defaultValueID, id, keys])
-
- 
   useEffect(() => {
-    //The parent element's access to the value of the Autocomplete component.
+    // Set default value by given id, when the data is defined and the id
+    // is exist in the data array, update the input value.
+    if (Data)
+      if (firstRender.current) {
+        // To prevent infinite loop.
+        firstRender.current = false;
+        if (defaultValueID) {
+          const objData = Data.data.find((el) => el[id] === defaultValueID);
+          if (objData) {
+            // Create string of values from chosen keys.
+            const strValues = createStrFromValuesOfChosenKeys(
+              objData,
+              keys || []
+            );
+            setInputValue(["", strValues]);
+          }
+        }
+      }
+  }, [Data, defaultValueID, id, keys]);
+
+  useEffect(() => {
+    // The parent element's access to the value of the Autocomplete component.
     setSelectOptionValue && setSelectOptionValue(debounce);
     // React hook form Autocomplete component need only the id of the option.
     debounce[0] && RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
   }, [debounce, RHFProps, setSelectOptionValue]);
-
 
   // Handle the input change value ,open the option,
   // set page to first page and reset the data array.
@@ -156,35 +156,31 @@ useEffect(()=>{
           {...loadingSpinnerResult}
           stateData={{ data: Data, isError, isFetching, isLoading }}
         >
-          {(data) => {
-            return (
-              isLoading ||
-              (isVisible && (
-                <ListObserver<T>
-                  fn={() => listObserverFun(data)}
-                  listProps={{
-                    className: style.list_res,
-                    LI: (props) => {
-                      return (
-                        <AutocompleteLi<T>
-                          {...props.liProps}
-                          {...liProps}
-                          handleOnClick={handleClickLi}
-                          keys={keys || []}
-                          props={props}
-                          id={id}
-                        />
-                      );
-                    },
-                    dataArr:
-                      lastDataState.length === 0 //If the user haven't typed yet.
-                        ? data.data
-                        : [...lastDataState, ...data.data],
-                  }}
-                />
-              ))
-            );
-          }}
+          {(data) =>
+            isLoading ||
+            (isVisible && (
+              <ListObserver<T>
+                fn={() => listObserverFun(data)}
+                listProps={{
+                  className: style.list_res,
+                  LI: (props) => (
+                    <AutocompleteLi<T>
+                      {...props.liProps}
+                      {...liProps}
+                      handleOnClick={handleClickLi}
+                      keys={keys || []}
+                      props={props}
+                      id={id}
+                    />
+                  ),
+                  dataArr:
+                    lastDataState.length === 0 // If the user haven't typed yet.
+                      ? data.data
+                      : [...lastDataState, ...data.data],
+                }}
+              />
+            ))
+          }
         </LoadingSpinner>
       }
       <span className={style.select_plus_button}>

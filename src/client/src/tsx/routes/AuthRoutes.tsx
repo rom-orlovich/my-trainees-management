@@ -9,20 +9,17 @@ import { APP_ROUTE } from "./appRoutesConstants";
 
 const AuthRoutes = () => (
   <Routes>
-    <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
-    <Route path={APP_ROUTE.SIGN_UP} element={<SignUpPage />}></Route>
+    <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />} />
+    <Route path={APP_ROUTE.SIGN_UP} element={<SignUpPage />} />
     <Route
       path={APP_ROUTE.CHANGE_USER_CRED_ROUTE}
       element={<ChangePasswordPage />}
-    ></Route>
-    <Route
-      path={APP_ROUTE.EMAIL_VERIFY_ROUTE}
-      element={<EmailVerifyPage />}
-    ></Route>
+    />
+    <Route path={APP_ROUTE.EMAIL_VERIFY_ROUTE} element={<EmailVerifyPage />} />
     <Route
       path={APP_ROUTE.SIGN_UP_TRAINEE}
       element={<SignUpPageNewTrainee />}
-    ></Route>
+    />
   </Routes>
 );
 

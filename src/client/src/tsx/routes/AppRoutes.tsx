@@ -1,55 +1,35 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import App from "../App";
-import { CityAddForm } from "../components/Forms/CityForms/CityAddForm";
-import { CityEditForm } from "../components/Forms/CityForms/CityEditForm";
-import { EquipmentAddForm } from "../components/Forms/EquipmentForms/EquipmentAddForm";
-import { EquipmentEditForm } from "../components/Forms/EquipmentForms/EquipmentEditForm";
-import { ExerciseAddForm } from "../components/Forms/ExerciseForms/ExerciseAddForm";
-import { ExerciseEditForm } from "../components/Forms/ExerciseForms/ExerciseEditForm";
+
 import { LeadAddForm } from "../components/Forms/LeadForms/LeadAddForm";
 import LeadEditForm from "../components/Forms/LeadForms/LeadEditForm";
-import { LocationAddForm } from "../components/Forms/LocationForms/LocationAddForm";
-import { LocationEditForm } from "../components/Forms/LocationForms/LocationEditForm";
-import { MusclesGroupAddForm } from "../components/Forms/MusclesGroupForms/MusclesGroupAddForm";
-import { MusclesGroupEditForm } from "../components/Forms/MusclesGroupForms/MusclesGroupEditForm";
+
 import TraineeAddForm from "../components/Forms/TraineeForms/TraineeAddForm";
-import { TrainingProgramAddExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramAddForm";
-import { TrainingProgramEditExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramEditForm";
-import { TrainingProgramsListAddForm } from "../components/Forms/TrainingProgramListForms/TrainingProgramsListAddForm";
-import { TrainingProgramsListEditForm } from "../components/Forms/TrainingProgramListForms/TrainingProgramsListEditForm";
-import CitiesPage from "../pages/CitiesPage/CitiesPage";
-import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
-import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
+
 import HomePage from "../pages/HomePage/HomePage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
-import LocationsListPage from "../pages/LocationsPage/LocationsPage";
-import LoginPage from "../pages/AuthPages/LoginPage/LoginPage";
-import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
+
 import Settings from "../pages/SettingsPage/SettingsPage";
-import SignUpPage from "../pages/AuthPages/SignUpPage/SignUpPage";
+
 import TraineeProfile from "../pages/TraineeProfile/TraineeProfile";
 import Trainees from "../pages/TraineesPage/TraineesPage";
-import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
-import TrainingProgramsPage from "../pages/TrainingProgramsPage/TrainingProgramsPage";
-
-import PersistedLogin from "./utilities/PersistedLogin";
-import ProtectedRoute from "./utilities/ProtectedRoute";
-import PublicRoute from "./utilities/PublicRoute";
 
 import { APP_ROUTE } from "./appRoutesConstants";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import UsersPage from "../pages/UsersPage/UsersPage";
-import SignUpPageNewTrainee from "../pages/AuthPages/SignUpPage/SignUpPageNewTrainee";
-import EmailVerifyPage from "../pages/AuthPages/EmailVerifyPage/EmailVerifyPage";
-import ChangePasswordPage from "../pages/AuthPages/ChangePasswordPage/ChangePasswordPage";
+
 import ComingSoonPage from "../pages/ComingSoonPage/ComingSoonPage";
-import MyTrainingPage from "../pages/MyWorkoutsPage/MyWorkoutsPage";
-import useCheckRole from "../hooks/useCheckRole";
-import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
-import MainRouteByRole from "./utilities/MainRouteByRole";
-import BusinessDataRoutes from "./BussinessDataRoutes";
+import MyWorkoutsPage from "../pages/MyWorkoutsPage/MyWorkoutsPage";
 import AuthRoutes from "./AuthRoutes";
+import PublicRoute from "./utilities/PublicRoute";
+import PersistedLogin from "./utilities/PersistedLogin";
+import ProtectedRoute from "./utilities/ProtectedRoute";
+
+import useCheckRole from "../hooks/useCheckRole";
+import BusinessDataRoutes from "./BusinessDataRoutes";
+import TrainingProgramListRoutes from "./TrainingProgramListRoutes";
+import MainRouteByRole from "./utilities/MainRouteByRole";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -57,159 +37,60 @@ function AppRoutes() {
     <Routes>
       <Route element={<PublicRoute />}>
         <Route path={APP_ROUTE.HOME_PAGE} element={<HomePage />}>
-          <Route path={"*"} element={<AuthRoutes />}></Route>
-          {/* <Route path={APP_ROUTE.LOGIN_ROUTE} element={<LoginPage />}></Route>
-          <Route path={APP_ROUTE.SIGN_UP} element={<SignUpPage />}></Route>
-          <Route
-            path={APP_ROUTE.CHANGE_USER_CRED_ROUTE}
-            element={<ChangePasswordPage />}
-          ></Route>
-          <Route
-            path={APP_ROUTE.EMAIL_VERIFY_ROUTE}
-            element={<EmailVerifyPage />}
-          ></Route>
-          <Route
-            path={APP_ROUTE.SIGN_UP_TRAINEE}
-            element={<SignUpPageNewTrainee />}
-          ></Route> */}
+          <Route path={"*"} element={<AuthRoutes />} />
         </Route>
+
+        {/* The App data when the user is login */}
         <Route element={<PersistedLogin />}>
           <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
-            <Route
-              path={APP_ROUTE.PROFILE_ROUTE}
-              element={<ProfilePage />}
-            ></Route>
-            <Route path={APP_ROUTE.USERS_ROUTE}></Route>
             <Route index element={<MainRouteByRole />} />
-            <Route element={<ProtectedRoute allowedRole={isTrainer} />}>
-              <Route path={APP_ROUTE.TRAINEES_ROUTE}>
-                <Route index element={<Trainees />} />
+
+            <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />} />
+            <Route path={APP_ROUTE.COMING_SOON} element={<ComingSoonPage />} />
+            <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />} />
+            <Route
+              path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/*`}
+              element={<TrainingProgramListRoutes />}
+            />
+            <Route element={<ProtectedRoute allowedRole={isAdmin} />}>
+              <Route path={APP_ROUTE.USERS_ROUTE} element={<UsersPage />} />
+            </Route>
+            <Route
+              element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
+            >
+              <Route
+                path={`${APP_ROUTE.SETTINGS_ROUTE}/*`}
+                element={<BusinessDataRoutes />}
+              />
+
+              <Route path={APP_ROUTE.TRAINEES_ROUTE} element={<Trainees />}>
                 <Route path=":id" element={<TraineeProfile />} />
                 <Route
                   path={APP_ROUTE.TRAINEES_ROUTE_ADD}
                   element={<TraineeAddForm />}
                 />
               </Route>
-            </Route>
-            <Route path={APP_ROUTE.LEADS_ROUTE}>
-              <Route index element={<LeadsPage />} />
-              <Route
-                path={APP_ROUTE.LEADS_ROUTE_ADD}
-                element={<LeadAddForm />}
-              />
-              <Route path=":id" element={<LeadEditForm />}></Route>
-            </Route>
-            <Route path={APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}>
-              <Route index element={<TrainingProgramsPage />}></Route>
-              <Route
-                path={`:id`}
-                element={<TrainingProgramsListEditForm />}
-              ></Route>
-              <Route
-                path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
-                element={<TrainingProgramsListAddForm />}
-              ></Route>
-              <Route
-                path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
-                element={
-                  <InsteadOutletRoutes
-                    InsteadOutletRoutesPaths={
-                      APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE
-                    }
-                  >
-                    <TrainingProgramExercises />
-                  </InsteadOutletRoutes>
-                }
-              >
+              <Route path={APP_ROUTE.LEADS_ROUTE}>
+                <Route index element={<LeadsPage />} />
                 <Route
-                  element={
-                    <ProtectedRoute allowedRole={isTrainer || isAdmin} />
-                  }
-                >
-                  <Route
-                    path={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}
-                    element={<TrainingProgramAddExerciseForm />}
-                  ></Route>
-                </Route>
-                <Route
-                  path={`:id`}
-                  element={<TrainingProgramEditExerciseForm />}
-                ></Route>
+                  path={APP_ROUTE.LEADS_ROUTE_ADD}
+                  element={<LeadAddForm />}
+                />
+                <Route path=":id" element={<LeadEditForm />}></Route>
               </Route>
             </Route>
 
-            <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />}>
-              {/* <Route
-                element={<ProtectedRoute allowedRole={isTrainer || isAdmin} />}
-              >
-                <Route
-                  path={APP_ROUTE.EXERCISES_LIST_ROUTE}
-                  element={<ExercisesPage />}
-                >
-                  <Route
-                    path={APP_ROUTE.EXERCISE_ADD}
-                    element={<ExerciseAddForm />}
-                  ></Route>
-                  <Route path=":id" element={<ExerciseEditForm />}></Route>
-                </Route>
-                <Route
-                  path={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}
-                  element={<EquipmentsListPage />}
-                >
-                  <Route
-                    path={APP_ROUTE.EQUIPMENT_ADD}
-                    element={<EquipmentAddForm />}
-                  ></Route>
-                  <Route path=":id" element={<EquipmentEditForm />}></Route>
-                </Route>
-                <Route
-                  path={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}
-                  element={<MusclesGroupPage />}
-                >
-                  <Route
-                    path={APP_ROUTE.MUSCLES_GROUP_ADD}
-                    element={<MusclesGroupAddForm />}
-                  />
-                  <Route path=":id" element={<MusclesGroupEditForm />}></Route>
-                </Route>
-                <Route
-                  path={APP_ROUTE.LOCATION_ROUTE}
-                  element={<LocationsListPage />}
-                >
-                  <Route
-                    path={APP_ROUTE.LOCATION_ROUTE_ADD}
-                    element={<LocationAddForm />}
-                  />
-                  <Route path=":id" element={<LocationEditForm />} />
-                </Route>
-                <Route path={APP_ROUTE.CITY_ROUTE} element={<CitiesPage />}>
-                  <Route
-                    path={APP_ROUTE.CITY_ROUTE_ADD}
-                    element={<CityAddForm />}
-                  />
-                  <Route path=":id" element={<CityEditForm />} />
-                </Route>
-              </Route> */}
-              {/* {BusinessDataRoutes()} */}
-
-              <Route path="*" element={<BusinessDataRoutes />} />
-            </Route>
-            <Route
-              path={APP_ROUTE.COMING_SOON}
-              element={<ComingSoonPage />}
-            ></Route>
             <Route element={<ProtectedRoute allowedRole={isTrainee} />}>
               <Route
                 path={APP_ROUTE.MY_WORKOUTS}
-                element={<MyTrainingPage />}
-              ></Route>
+                element={<MyWorkoutsPage />}
+              />
             </Route>
           </Route>
         </Route>
       </Route>
 
       <Route path="*" element={<h1> not found</h1>} />
-      {/* </Route> */}
     </Routes>
   );
 }

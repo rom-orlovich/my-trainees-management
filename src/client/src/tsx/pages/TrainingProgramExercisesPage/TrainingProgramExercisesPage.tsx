@@ -46,14 +46,17 @@ const trainingProgramExercisesTransform = ({
 
 function TrainingProgramExercises() {
   const trainingProgramListID = Number(useParams().id);
+
   const [exercise, setExercise] = useState<string[]>(["", ""]);
   const [deleteItem] = trainingProgramsApi.useDeleteItemMutation();
   const pathName = useLocation().pathname;
   const authState = useGetUserLoginData();
+
   const queriesOptions = {
     userID: authState.user_id,
     trainingProgramsListID: exercise[0],
   };
+
   return (
     <InsteadOutletRoutes
       InsteadOutletRoutesPaths={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
