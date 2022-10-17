@@ -5,7 +5,7 @@ import { locationsApi } from "../../redux/api/hooksAPI";
 import { LocationsGetRes } from "../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "../Page.module.scss";
@@ -16,7 +16,7 @@ function LocationsListPage() {
   const authState = useAppSelector(getAuthState);
   const queriesOptions = { userID: authState.user?.user_id };
   return (
-    <MainRoute mainRoutes={APP_ROUTE.LOCATION_ROUTE}>
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.LOCATION_ROUTE}>
       <section className={style.page_container}>
         <div className={style.page_header}>
           <AutocompleteInput<LocationsGetRes>
@@ -43,7 +43,7 @@ function LocationsListPage() {
           <LeadsTable mainName={location[1]} queriesOptions={queriesOptions} />
         </div>
       </section>
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

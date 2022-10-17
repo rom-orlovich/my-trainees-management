@@ -4,7 +4,7 @@ import AutocompleteInput from "../../components/baseComponents/RHF-Components/Au
 import { musclesGroupApi } from "../../redux/api/hooksAPI";
 import { MusclesGroupTableAPI } from "../../redux/api/interfaceAPI";
 
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page_style from "../Page.module.scss";
@@ -13,7 +13,9 @@ import MusclesGroupTable from "./MusclesGroupTable";
 function MusclesGroupPage() {
   const [musclesGroup, setMusclesGroup] = useState<string[]>(["", ""]);
   return (
-    <MainRoute mainRoutes={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}>
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}
+    >
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
           <AutocompleteInput<MusclesGroupTableAPI>
@@ -39,7 +41,7 @@ function MusclesGroupPage() {
           <MusclesGroupTable mainName={musclesGroup[1]} />
         </div>
       </section>
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

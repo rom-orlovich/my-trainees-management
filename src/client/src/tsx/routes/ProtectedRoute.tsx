@@ -4,14 +4,14 @@ import { useAppSelector } from "../redux/hooks";
 import { getAuthState } from "../redux/slices/authSlice";
 import { APP_ROUTE } from "./appRoutesConstants";
 
-function ProtectedRoute() {
+function ProtectedRoute({ allowedRole }: { allowedRole: boolean }) {
   const authState = useAppSelector(getAuthState);
   const location = useLocation();
 
-  return authState.user ? (
+  return allowedRole ? (
     <Outlet />
   ) : (
-    <Navigate to={APP_ROUTE.LOGIN_ROUTE} state={{ from: location }} replace />
+    <Navigate to={""} state={{ from: location }} replace />
   );
 }
 

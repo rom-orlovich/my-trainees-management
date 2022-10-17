@@ -5,7 +5,7 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 import { leadsApi } from "../../redux/api/hooksAPI";
 import { LeadsTableAPI } from "../../redux/api/interfaceAPI";
 
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
@@ -24,7 +24,7 @@ export const transformDataLead = (arg: LeadsTableAPI) => {
   return {
     id: lead_id,
     date: date_lead,
-    full_name: first_name + " " + last_name,
+    full_name: `${first_name} ${last_name}`,
     ...rest,
   };
 };
@@ -36,7 +36,7 @@ function LeadsTable({
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <MainRoute mainRoutes={APP_ROUTE.LEADS_ROUTE}>
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.LEADS_ROUTE}>
       <TablePagination<LeadsTableAPI>
         mainRoute={APP_ROUTE.LEADS_ROUTE}
         queriesOptions={{ mainName, ...queriesOptions }}
@@ -45,7 +45,7 @@ function LeadsTable({
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

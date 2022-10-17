@@ -6,7 +6,7 @@ import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import { musclesGroupApi } from "../../redux/api/hooksAPI";
 import { MusclesGroupTableAPI } from "../../redux/api/interfaceAPI";
 
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
@@ -14,9 +14,10 @@ import { PageTableProps } from "../TraineesPage/TraineesTable";
 const transformMuscleGroup = ({
   muscles_group_name,
   muscles_group_id,
-}: MusclesGroupTableAPI) => {
-  return { muscles_group_id, muscles_group: muscles_group_name };
-};
+}: MusclesGroupTableAPI) => ({
+  muscles_group_id,
+  muscles_group: muscles_group_name,
+});
 
 function MusclesGroupTable({
   mainName,
@@ -26,7 +27,9 @@ function MusclesGroupTable({
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <MainRoute mainRoutes={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}>
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}
+    >
       <TablePagination<MusclesGroupTableAPI>
         queriesOptions={{ mainName, ...queriesOptions }}
         transformFun={transformMuscleGroup}
@@ -38,7 +41,7 @@ function MusclesGroupTable({
             : undefined
         }
       />
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

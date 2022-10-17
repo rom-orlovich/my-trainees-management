@@ -5,7 +5,7 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 import { locationsApi } from "../../redux/api/hooksAPI";
 import { LocationsGetRes } from "../../redux/api/interfaceAPI";
 
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
@@ -23,7 +23,7 @@ function LocationsTable({
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <MainRoute mainRoutes={APP_ROUTE.LOCATION_ROUTE}>
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.LOCATION_ROUTE}>
       <TablePagination<LocationsGetRes>
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Locations List"}
@@ -31,7 +31,7 @@ function LocationsTable({
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

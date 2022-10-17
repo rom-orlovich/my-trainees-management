@@ -5,7 +5,7 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 import { equipmentsApi } from "../../redux/api/hooksAPI";
 import { EquipmentsTableAPI } from "../../redux/api/interfaceAPI";
 
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
@@ -23,7 +23,9 @@ function EquipmentsListTable({
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <MainRoute mainRoutes={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}>
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}
+    >
       <TablePagination<EquipmentsTableAPI>
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Equipments List"}
@@ -31,7 +33,7 @@ function EquipmentsListTable({
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

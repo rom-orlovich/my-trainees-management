@@ -8,7 +8,7 @@ import {
   ExercisesTableAPI,
   TrainingProgramExerciseTableAPI,
 } from "../../redux/api/interfaceAPI";
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
@@ -55,7 +55,9 @@ function TrainingProgramExercises() {
     trainingProgramsListID: exercise[0],
   };
   return (
-    <MainRoute mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}>
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
+    >
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
           <AutocompleteInput<TrainingProgramExerciseTableAPI>
@@ -79,7 +81,11 @@ function TrainingProgramExercises() {
         </div>
 
         <div className={page_style.page_main_content}>
-          <MainRoute mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}>
+          <InsteadOutletRoutes
+            InsteadOutletRoutesPaths={
+              APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE
+            }
+          >
             <TablePagination
               transformFun={trainingProgramExercisesTransform}
               queriesOptions={{
@@ -92,10 +98,10 @@ function TrainingProgramExercises() {
               deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
               getAllQuery={trainingProgramsApi.useGetItemsQuery}
             />
-          </MainRoute>
+          </InsteadOutletRoutes>
         </div>
       </section>
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

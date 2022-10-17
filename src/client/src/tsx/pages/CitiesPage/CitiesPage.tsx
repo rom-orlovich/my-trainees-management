@@ -7,7 +7,7 @@ import { CitiesTableAPI } from "../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page_style from "../Page.module.scss";
@@ -17,7 +17,7 @@ function CitiesPage() {
   const [city, setCity] = useState<string[]>(["", ""]);
 
   return (
-    <MainRoute mainRoutes={APP_ROUTE.CITY_ROUTE}>
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.CITY_ROUTE}>
       <section className={page_style.page_container}>
         <div className={page_style.page_header}>
           <AutocompleteInput<CitiesTableAPI>
@@ -43,7 +43,7 @@ function CitiesPage() {
           <CitiesTable mainName={city[1]} />
         </div>
       </section>
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

@@ -5,7 +5,7 @@ import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import { equipmentsApi } from "../../redux/api/hooksAPI";
 import { EquipmentsTableAPI } from "../../redux/api/interfaceAPI";
 
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "../Page.module.scss";
@@ -19,7 +19,9 @@ function EquipmentsListPage() {
     userID: authState.user_id,
   };
   return (
-    <MainRoute mainRoutes={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}>
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}
+    >
       <section className={style.page_container}>
         <div className={style.page_header}>
           <AutocompleteInput<EquipmentsTableAPI>
@@ -46,7 +48,7 @@ function EquipmentsListPage() {
           <LeadsTable mainName={equipment[1]} queriesOptions={queriesOptions} />
         </div>
       </section>
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

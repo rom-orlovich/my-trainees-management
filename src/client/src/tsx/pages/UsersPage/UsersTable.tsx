@@ -6,19 +6,18 @@ import { traineesApi, usersApi } from "../../redux/api/hooksAPI";
 import { TraineesTableExtendsAPI, UserAPI } from "../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
-export const transformDataUser = (arg: UserAPI) => {
+export const transformDataUser = (arg: UserAPI) =>
   // const {
   //   profile_id,
 
   //   ...rest
   // } = arg;
 
-  return arg;
-};
+  arg;
 
 export interface PageTableProps {
   mainName?: string;
@@ -31,7 +30,7 @@ function UsersTable({
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <MainRoute mainRoutes={[APP_ROUTE.USERS_ROUTE, ""]}>
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={[APP_ROUTE.USERS_ROUTE, ""]}>
       <TablePagination<UserAPI>
         mainRoute={APP_ROUTE.USERS_ROUTE}
         queriesOptions={{ mainName, ...queriesOptions }}
@@ -40,7 +39,7 @@ function UsersTable({
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

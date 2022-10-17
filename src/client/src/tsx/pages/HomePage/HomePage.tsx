@@ -1,15 +1,16 @@
 import React from "react";
 import { Navigate, NavLink, Outlet, useLocation } from "react-router-dom";
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "./HomePage.module.scss";
+
 function HomePage() {
   const { pathname } = useLocation();
   return (
     <section className={style.homePage_container}>
-      <MainRoute mainRoutes={""}>
+      <InsteadOutletRoutes InsteadOutletRoutesPaths={""}>
         <NavLink to={APP_ROUTE.LOGIN_ROUTE}> Get Start</NavLink>
-      </MainRoute>
+      </InsteadOutletRoutes>
     </section>
   );
 }

@@ -6,10 +6,11 @@ import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import { citiesApi } from "../../redux/api/hooksAPI";
 import { CitiesTableAPI } from "../../redux/api/interfaceAPI";
 
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
+
 export const transformDataCity = (arg: CitiesTableAPI) => {
   const { city_name, city_id, ...rest } = arg;
 
@@ -24,7 +25,7 @@ function CitiesTable({
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <MainRoute mainRoutes={APP_ROUTE.CITY_ROUTE}>
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.CITY_ROUTE}>
       <TablePagination<CitiesTableAPI>
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Cities List"}
@@ -36,7 +37,7 @@ function CitiesTable({
             : undefined
         }
       />
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

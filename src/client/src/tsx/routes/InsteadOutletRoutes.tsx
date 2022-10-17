@@ -6,24 +6,24 @@ import {
   getEndPoint,
 } from "../utilities/helpersFun";
 
-export type MainRouteProps<CTX> = PropsBasic & {
-  mainRoutes: string | string[];
+export type InsteadOutletRoutesProps<CTX> = PropsBasic & {
+  InsteadOutletRoutesPaths: string | string[];
   context?: CTX;
 };
 
-// Display the main route when the URL is match the main route url.
-// Otherwise display the outlet.
-function MainRoute<CTX>({
+// When the url endpoint matches the InsteadOutletRoutesPaths, the component will display the children
+// instead the Outlet component.
+function InsteadOutletRoutes<CTX>({
   children,
   context,
-  mainRoutes,
-}: MainRouteProps<CTX>) {
+  InsteadOutletRoutesPaths,
+}: InsteadOutletRoutesProps<CTX>) {
   const checkResult = checkSecValueIncludeOrEqualFirstValue(
-    mainRoutes,
+    InsteadOutletRoutesPaths,
     getEndPoint(useLocation().pathname)
   );
 
   return checkResult ? <>{children}</> : <Outlet context={context} />;
 }
 
-export default MainRoute;
+export default InsteadOutletRoutes;

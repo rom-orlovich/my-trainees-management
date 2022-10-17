@@ -6,7 +6,7 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 import { traineesApi } from "../../redux/api/hooksAPI";
 import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 
-import MainRoute from "../../routes/MainRoute";
+import InsteadOutletRoutes from "../../routes/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
@@ -47,7 +47,9 @@ function TraineesTable({
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <MainRoute mainRoutes={[APP_ROUTE.TRAINEES_ROUTE, ""]}>
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={[APP_ROUTE.TRAINEES_ROUTE, ""]}
+    >
       <TablePagination<TraineesTableExtendsAPI>
         mainRoute={APP_ROUTE.TRAINEES_ROUTE}
         queriesOptions={{ mainName, ...queriesOptions }}
@@ -56,7 +58,7 @@ function TraineesTable({
         getAllQuery={useGetItemsQuery}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       />
-    </MainRoute>
+    </InsteadOutletRoutes>
   );
 }
 

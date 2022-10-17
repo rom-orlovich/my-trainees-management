@@ -32,7 +32,7 @@ import TraineeProfile from "../pages/TraineeProfile/TraineeProfile";
 import Trainees from "../pages/TraineesPage/TraineesPage";
 import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
 import TrainingProgramsPage from "../pages/TrainingProgramsPage/TrainingProgramsPage";
-import MainRoute from "./MainRoute";
+
 import PersistedLogin from "./PersistedLogin";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -45,8 +45,12 @@ import EmailVerifyPage from "../pages/AuthPages/EmailVerifyPage/EmailVerifyPage"
 import ChangePasswordPage from "../pages/AuthPages/ChangePasswordPage/ChangePasswordPage";
 import ComingSoonPage from "../pages/ComingSoonPage/ComingSoonPage";
 import MyTrainingPage from "../pages/MyWorkoutsPage/MyWorkoutsPage";
+import useCheckRole from "../hooks/useCheckRole";
+import InsteadOutletRoutes from "./InsteadOutletRoutes";
+import MainRouteByRole from "./MainRouteByRole";
 
 function AppRoutes() {
+  const { isAdmin, isTrainee, isTrainer } = useCheckRole();
   return (
     <Routes>
       <Route element={<PublicRoute />}>
@@ -67,13 +71,16 @@ function AppRoutes() {
           ></Route>
         </Route>
         <Route element={<PersistedLogin />}>
-          <Route element={<ProtectedRoute />}>
-            <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
-              <Route
-                path={APP_ROUTE.PROFILE_ROUTE}
-                element={<ProfilePage />}
-              ></Route>
-              <Route index element={<Trainees />} />
+          <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
+            <Route
+              path={APP_ROUTE.PROFILE_ROUTE}
+              element={<ProfilePage />}
+            ></Route>
+
+            <Route path={APP_ROUTE.USERS_ROUTE}></Route>
+
+            <Route index element={<MainRouteByRole />} />
+            <Route element={<ProtectedRoute allowedRole={isTrainer} />}>
               <Route path={APP_ROUTE.TRAINEES_ROUTE}>
                 <Route index element={<Trainees />} />
                 <Route path=":id" element={<TraineeProfile />} />
@@ -82,57 +89,60 @@ function AppRoutes() {
                   element={<TraineeAddForm />}
                 />
               </Route>
-              <Route index element={<UsersPage />} />
-              <Route path={APP_ROUTE.USERS_ROUTE}>
-                <Route index element={<UsersPage />} />
-                {/* <Route path=":id" element={<TraineeProfile />} />
-                <Route
-                  path={APP_ROUTE.TRAINEES_ROUTE_ADD}
-                  element={<TraineeAddForm />}
-                /> */}
-              </Route>
+            </Route>
 
-              <Route path={APP_ROUTE.LEADS_ROUTE}>
-                <Route index element={<LeadsPage />} />
-                <Route
-                  path={APP_ROUTE.LEADS_ROUTE_ADD}
-                  element={<LeadAddForm />}
-                />
-                <Route path=":id" element={<LeadEditForm />}></Route>
-              </Route>
+            <Route path={APP_ROUTE.LEADS_ROUTE}>
+              <Route index element={<LeadsPage />} />
+              <Route
+                path={APP_ROUTE.LEADS_ROUTE_ADD}
+                element={<LeadAddForm />}
+              />
+              <Route path=":id" element={<LeadEditForm />}></Route>
+            </Route>
 
-              <Route path={APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}>
-                <Route index element={<TrainingProgramsPage />}></Route>
+            <Route path={APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}>
+              <Route index element={<TrainingProgramsPage />}></Route>
+              <Route
+                path={`:id`}
+                element={<TrainingProgramsListEditForm />}
+              ></Route>
+              <Route
+                path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
+                element={<TrainingProgramsListAddForm />}
+              ></Route>
+              <Route
+                path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
+                element={
+                  <InsteadOutletRoutes
+                    InsteadOutletRoutesPaths={
+                      APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE
+                    }
+                  >
+                    <TrainingProgramExercises />
+                  </InsteadOutletRoutes>
+                }
+              >
                 <Route
-                  path={`:id`}
-                  element={<TrainingProgramsListEditForm />}
-                ></Route>
-                <Route
-                  path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
-                  element={<TrainingProgramsListAddForm />}
-                ></Route>
-                <Route
-                  path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
                   element={
-                    <MainRoute
-                      mainRoutes={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
-                    >
-                      <TrainingProgramExercises />
-                    </MainRoute>
+                    <ProtectedRoute allowedRole={isTrainer || isAdmin} />
                   }
                 >
                   <Route
                     path={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}
                     element={<TrainingProgramAddExerciseForm />}
                   ></Route>
-                  <Route
-                    path={`:id`}
-                    element={<TrainingProgramEditExerciseForm />}
-                  ></Route>
                 </Route>
+                <Route
+                  path={`:id`}
+                  element={<TrainingProgramEditExerciseForm />}
+                ></Route>
               </Route>
+            </Route>
 
-              <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />}>
+            <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />}>
+              <Route
+                element={<ProtectedRoute allowedRole={isTrainer || isAdmin} />}
+              >
                 <Route
                   path={APP_ROUTE.EXERCISES_LIST_ROUTE}
                   element={<ExercisesPage />}
@@ -173,7 +183,6 @@ function AppRoutes() {
                   />
                   <Route path=":id" element={<LocationEditForm />} />
                 </Route>
-
                 <Route path={APP_ROUTE.CITY_ROUTE} element={<CitiesPage />}>
                   <Route
                     path={APP_ROUTE.CITY_ROUTE_ADD}
@@ -182,10 +191,12 @@ function AppRoutes() {
                   <Route path=":id" element={<CityEditForm />} />
                 </Route>
               </Route>
-              <Route
-                path={APP_ROUTE.COMING_SOON}
-                element={<ComingSoonPage />}
-              ></Route>
+            </Route>
+            <Route
+              path={APP_ROUTE.COMING_SOON}
+              element={<ComingSoonPage />}
+            ></Route>
+            <Route element={<ProtectedRoute allowedRole={isTrainee} />}>
               <Route
                 path={APP_ROUTE.MY_WORKOUTS}
                 element={<MyTrainingPage />}
@@ -193,9 +204,10 @@ function AppRoutes() {
             </Route>
           </Route>
         </Route>
-
-        <Route path="*" element={<h1> not found</h1>} />
       </Route>
+
+      <Route path="*" element={<h1> not found</h1>} />
+      {/* </Route> */}
     </Routes>
   );
 }
