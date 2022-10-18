@@ -78,7 +78,7 @@ export default function Form<TFormValues extends Record<string, any>>({
 
   // Side effect if the form is not in edit mode.
   // saves the form state values after the user exit from the form component
-  // and the component wll unmount.
+  // and the component will unmount.
   useEffect(
     () => () => {
       if (!editMode) {
@@ -97,6 +97,7 @@ export default function Form<TFormValues extends Record<string, any>>({
     try {
       await onSubmit(data);
       methods.reset();
+      console.log(methods.getValues());
       if (!editMode)
         dispatch(
           saveFormState({

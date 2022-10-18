@@ -2,6 +2,7 @@ import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import React, {
   ChangeEvent,
   ReactNode,
+  Suspense,
   useEffect,
   useRef,
   useState,
@@ -85,27 +86,31 @@ function AutocompleteInput<T extends Record<string, any>>({
   if (Data)
     if (firstRender.current) {
       // To prevent infinite loop.
+
       firstRender.current = false;
       if (defaultValueID) {
         const objData = Data.data.find((el) => el[id] === defaultValueID);
+
         if (objData) {
           // Create string of values from chosen keys.
           const strValues = createStrFromValuesOfChosenKeys(
             objData,
             keys || []
           );
-          setInputValue(["", strValues]);
+
+          setInputValue([`${defaultValueID}`, strValues]);
         }
       }
     }
   // }, [Data, defaultValueID, id, keys]);
 
-  useEffect(() => {
-    // The parent element's access to the value of the Autocomplete component.
-    setSelectOptionValue && setSelectOptionValue(debounce);
-    // React hook form Autocomplete component need only the id of the option.
-    debounce[0] && RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
-  }, [debounce, RHFProps, setSelectOptionValue]);
+  // useEffect(() => {
+  //   console.log();
+  //   // The parent element's access to the value of the Autocomplete component.
+  //   setSelectOptionValue && setSelectOptionValue(debounce);
+  //   // React hook form Autocomplete component need only the id of the option.
+  //   debounce[0] && RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
+  // }, [debounce, RHFProps, setSelectOptionValue]);
 
   // Handle the input change value ,open the option,
   // set page to first page and reset the data array.
@@ -115,14 +120,18 @@ function AutocompleteInput<T extends Record<string, any>>({
     // setLastData([]);
   };
   // Opens the autocomplete input's options.
-  const handleClickInput = () => {
-    setPage(1);
-  };
+  // const handleClickInput = () => {
+  //   setPage(1);
+  // };
   // Handle click on option and set the value of that option in the input.
   const handleClickLi = (obj: Record<string, any>) => {
     const keyValue = getEntriesArrObj(obj)[0];
     setPage(1);
     setInputValue(keyValue);
+    console.log(keyValue);
+    setSelectOptionValue && setSelectOptionValue(keyValue);
+    console.log(RHFProps?.onChange);
+    RHFProps?.onChange && RHFProps?.onChange(keyValue[0]);
   };
 
   // Handles the scrolling event of the autocomplete input's options.
@@ -147,7 +156,7 @@ function AutocompleteInput<T extends Record<string, any>>({
           autoComplete: "off",
           value: inputValueName[1].slice(0, 25),
           onChange: handleInputChange,
-          onClick: handleClickInput,
+          // onClick: handleClickInput,
         }}
       ></InputLabel>
 

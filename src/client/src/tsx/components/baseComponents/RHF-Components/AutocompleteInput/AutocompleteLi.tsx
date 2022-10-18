@@ -12,9 +12,7 @@ export const createStrFromValuesOfChosenKeys = <T extends Record<string, any>>(
 ) => {
   if (keys.length === 0) return getValuesArrObj(obj)[0];
   const keyValue = getEntriesArrObj(obj);
-  const keysFilter = keyValue.filter(([key, value]) => {
-    return keys.includes(key);
-  });
+  const keysFilter = keyValue.filter(([key, value]) => keys.includes(key));
   const valueFilter = keysFilter.map(([key, value]) => value);
   return valueFilter.join(" ");
 };
@@ -32,7 +30,7 @@ function AutocompleteLi<T extends Record<string, any>>({
   const obj = props as T;
   const liID = obj[id];
 
-  let labelText = createStrFromValuesOfChosenKeys(obj, keys);
+  const labelText = createStrFromValuesOfChosenKeys(obj, keys);
   const handleLiClick = () => {
     handleOnClick({ [obj[id]]: labelText });
   };

@@ -88,7 +88,7 @@ export function ExerciseForm({
                 name="muscles_group_id"
                 control={control}
                 AutocompleteInputProps={{
-                  defaultValueID: defaultValues?.exercise_id,
+                  defaultValueID: defaultValues?.muscles_group_id,
 
                   InputLabelProps: {
                     LabelProps: { labelText: "Muscles Group" },

@@ -40,7 +40,6 @@ export default function TrainingProgramForms({
         {({ register, formState, control }) => {
           const { sets, rpe, reps, rest, intensity, note_topic, note_text } =
             formState.errors;
-    
 
           const queriesOptions = { userID: authState.user_id };
           return (
@@ -56,7 +55,6 @@ export default function TrainingProgramForms({
                   defaultValueID: defaultValues?.exercise_id,
                   InputLabelProps: {
                     LabelProps: { labelText: "Exercise" },
-
                     InputProps: { placeholder: "Search Exercise" },
                   },
                   addOption: {

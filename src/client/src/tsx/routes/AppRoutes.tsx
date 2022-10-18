@@ -63,7 +63,16 @@ function AppRoutes() {
                 path={`${APP_ROUTE.SETTINGS_ROUTE}/*`}
                 element={<BusinessDataRoutes />}
               />
-              <Route path={APP_ROUTE.TRAINEES_ROUTE} element={<Trainees />}>
+              <Route
+                path={APP_ROUTE.TRAINEES_ROUTE}
+                element={
+                  <InsteadOutletRoutes
+                    InsteadOutletRoutesPaths={APP_ROUTE.TRAINEES_ROUTE}
+                  >
+                    <Trainees />
+                  </InsteadOutletRoutes>
+                }
+              >
                 <Route path=":id" element={<TraineeProfile />} />
                 <Route
                   path={APP_ROUTE.TRAINEES_ROUTE_ADD}
