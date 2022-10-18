@@ -8,19 +8,20 @@ import { getAuthState } from "../../redux/slices/authSlice";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import page_style from "../Page.module.scss";
+import style from "../Page.module.scss";
 import ExercisesTable from "./ExercisesTable";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 
 function ExercisesPage() {
   const [exercise, setExercise] = useState<string[]>(["", ""]);
-  const authState = useAppSelector(getAuthState);
-  const queriesOptions = { userID: authState.user?.user_id };
+  const authState = useGetUserLoginData();
+  const queriesOptions = { userID: authState.user_id };
   return (
     <InsteadOutletRoutes
       InsteadOutletRoutesPaths={APP_ROUTE.EXERCISES_LIST_ROUTE}
     >
-      <section className={page_style.page_container}>
-        <div className={page_style.page_header}>
+      <section className={style.page_container}>
+        <div className={style.page_header}>
           <AutocompleteInput<ExercisesTableAPI>
             keys={["exercise_name"]}
             id={"exercise_id"}
@@ -41,8 +42,11 @@ function ExercisesPage() {
             <Link to={`${APP_ROUTE.EXERCISE_ADD}`}>Add Exercise</Link>
           </span>
         </div>
-        <div className={page_style.page_main_content}>
-          <ExercisesTable mainName={exercise[1]} />
+        <div className={style.page_main_content}>
+          <ExercisesTable
+            mainName={exercise[1]}
+            queriesOptions={queriesOptions}
+          />
         </div>
       </section>
     </InsteadOutletRoutes>

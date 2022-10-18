@@ -33,7 +33,7 @@ function ExercisesTable({
 }: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = exercisesApi;
   const [deleteItem] = useDeleteItemMutation();
-
+  console.log(queriesOptions);
   return (
     <InsteadOutletRoutes
       InsteadOutletRoutesPaths={APP_ROUTE.EXERCISES_LIST_ROUTE}

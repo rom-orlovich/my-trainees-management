@@ -257,10 +257,11 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
     tableName: `${TABLES_DATA.TRAINING_PROGRAMS_LIST_TABLE_NAME} as trpl`,
     tableID: `trpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     fieldNamesQuery: `trpl.*`,
-    querySelectLogic: `
-    LEFT JOIN ${TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME} as tp ON
-    trpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}=
-    tp.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
+    querySelectLogic: "",
+    // `
+    // LEFT JOIN ${TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME} as tp ON
+    // trpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}=
+    // tp.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     queryParams: {
       traineeID: `${TABLES_DATA.TRAINEE_ID}`,
       // trainingProgramsListID: `${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,

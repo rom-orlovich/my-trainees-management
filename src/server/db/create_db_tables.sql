@@ -444,3 +444,6 @@ CREATE TABLE IF NOT EXISTS "participants_group" (
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );
+
+
+-- pg_dump --column-inserts --data-only my_trainees_management -T 'users' -T 'profiles' > dummy_data.sql

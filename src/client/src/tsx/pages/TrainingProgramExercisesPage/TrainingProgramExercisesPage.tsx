@@ -14,6 +14,7 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 
 import page_style from "../Page.module.scss";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
+import useCheckRole from "../../hooks/useCheckRole";
 
 const trainingProgramExercisesTransform = ({
   training_programs_list_id,
@@ -50,7 +51,7 @@ function TrainingProgramExercises() {
   const [deleteItem] = trainingProgramsApi.useDeleteItemMutation();
   const pathName = useLocation().pathname;
   const authState = useGetUserLoginData();
-
+  const { isTrainee } = useCheckRole();
   const queriesOptions = {
     userID: authState.user_id,
     trainingProgramsListID: exercise[0],
@@ -77,9 +78,11 @@ function TrainingProgramExercises() {
               },
             }}
           />
-          <Link to={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}>
-            Add Exercise
-          </Link>
+          {!isTrainee && (
+            <Link to={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}>
+              Add Exercise
+            </Link>
+          )}
         </div>
 
         <div className={page_style.page_main_content}>
@@ -97,7 +100,11 @@ function TrainingProgramExercises() {
               }}
               mainRoute={pathName.slice(1)}
               nameData="Program's Exercises"
-              deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
+              deleteItemFun={
+                !isTrainee
+                  ? (id) => deleteFunMutation(id, deleteItem)
+                  : undefined
+              }
               getAllQuery={trainingProgramsApi.useGetItemsQuery}
             />
           </InsteadOutletRoutes>

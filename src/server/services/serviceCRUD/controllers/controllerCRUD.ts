@@ -92,10 +92,6 @@ export function createRoutesControllers({
     const [data, err] = await promiseHandler(
       await insertQueryOneItem(tableName, req.body)
     );
-    // Rollback the query if there is error.
-    if (err) {
-      await client.query("ROLLBACK");
-    }
 
     req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },

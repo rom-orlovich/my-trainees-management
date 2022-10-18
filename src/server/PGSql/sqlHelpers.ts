@@ -176,8 +176,8 @@ const insertQuery = async (
   const statement = `INSERT INTO ${tableName} (${fieldName})
    VALUES ${fieldParams} RETURNING *`;
 
-  // console.log("statement", statement);
-  // console.log("paramArr", paramArr);
+  console.log("statement", statement);
+  console.log("paramArr", paramArr);
 
   const res = await client.query(statement, paramArr);
 
