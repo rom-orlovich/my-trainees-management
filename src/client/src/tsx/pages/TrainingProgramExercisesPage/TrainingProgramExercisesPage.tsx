@@ -34,13 +34,12 @@ const trainingProgramExercisesTransform = ({
   return {
     training_program_row_id,
     exercise: exercise_name,
-    muscles_group: muscles_group_name,
+    muscle: muscles_group_name,
     equipment: equipment_name,
     reps,
     sets,
     intensity,
     rest,
-    rpe,
   };
 };
 
@@ -56,7 +55,6 @@ function TrainingProgramExercises() {
     userID: authState.user_id,
     trainingProgramsListID: exercise[0],
   };
-  console.log(queriesOptions);
 
   return (
     <InsteadOutletRoutes
