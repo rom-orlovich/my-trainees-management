@@ -56,6 +56,7 @@ function TrainingProgramExercises() {
     userID: authState.user_id,
     trainingProgramsListID: exercise[0],
   };
+  console.log(queriesOptions);
 
   return (
     <InsteadOutletRoutes
@@ -97,7 +98,7 @@ function TrainingProgramExercises() {
                 ...queriesOptions,
               }}
               mainRoute={pathName.slice(1)}
-              nameData="Training Program Exercises"
+              nameData="Program's Exercises"
               deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
               getAllQuery={trainingProgramsApi.useGetItemsQuery}
             />

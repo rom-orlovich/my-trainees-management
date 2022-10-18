@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { trainingProgramsListApi } from "../../../redux/api/hooksAPI";
 import { TrainingProgramsListTableAPI } from "../../../redux/api/interfaceAPI";
 import { formatDate } from "../../../utilities/helpersFun";
@@ -9,9 +10,11 @@ import { TrainingProgramListForms } from "./TrainingProgramListForm";
 export function TrainingProgramsListEditForm() {
   const id = Number(useParams().id);
   const [updateItem] = trainingProgramsListApi.useUpdateItemMutation();
+  const authState = useGetUserLoginData();
 
+  const queriesOptions = { userID: authState.user_id };
   const { data, isLoading, isFetching, isError } =
-    trainingProgramsListApi.useGetItemByIDQuery({ id });
+    trainingProgramsListApi.useGetItemByIDQuery({ id, ...queriesOptions });
 
   const handleSubmit = (body: TrainingProgramsListTableAPI) => {
     updateFunction({

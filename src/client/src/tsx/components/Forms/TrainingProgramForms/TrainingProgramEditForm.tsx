@@ -16,6 +16,7 @@ export function TrainingProgramEditExerciseForm() {
   const authState = useGetUserLoginData();
 
   const queriesOptions = { userID: authState.user_id };
+
   const { data, isLoading, isFetching, isError } =
     trainingProgramsApi.useGetItemByIDQuery({ id, ...queriesOptions });
 
@@ -40,7 +41,7 @@ export function TrainingProgramEditExerciseForm() {
           editMode={true}
           onSubmit={handleSubmit}
           defaultValues={rest}
-        ></TrainingProgramForms>
+        />
       )}
     </LoadingSpinner>
   );

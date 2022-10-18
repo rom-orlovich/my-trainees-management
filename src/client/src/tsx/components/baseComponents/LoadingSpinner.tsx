@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect } from "react";
 import { AnyFun } from "../../types";
 import { getValuesArrObj } from "../../utilities/helpersFun";
 import style from "./LoadingSpinner.module.scss";
+
 export interface LoadingSpinnerProps<T> {
   stateData: {
     isLoading?: boolean;
@@ -33,7 +34,7 @@ function LoadingSpinner<T extends object>({
 
   const spinner_message = (
     <p className={`message_spinner`}>
-      {message ? message : `${nameData} is not found`}
+      {message || `${nameData} are not found`}
     </p>
   );
 
