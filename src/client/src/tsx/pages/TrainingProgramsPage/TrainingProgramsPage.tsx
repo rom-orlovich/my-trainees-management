@@ -55,6 +55,7 @@ function TrainingProgramsPage() {
       </div>
       <div className={style.page_main_content}>
         <LoadingSpinner
+          showNoDataMessage={true}
           stateData={{ data, isError, isFetching, isLoading }}
           message="Please Choose Trainee..."
         >

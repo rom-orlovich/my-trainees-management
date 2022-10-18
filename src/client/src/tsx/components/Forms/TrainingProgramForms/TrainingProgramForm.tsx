@@ -6,6 +6,7 @@ import {
   ExercisesTableAPI,
   TrainingProgramExerciseOmit,
 } from "../../../redux/api/interfaceAPI";
+import { RootState } from "../../../redux/store";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
@@ -53,6 +54,7 @@ export default function TrainingProgramForms({
                 AutocompleteInputProps={{
                   queriesOptions,
                   defaultValueID: defaultValues?.exercise_id,
+
                   InputLabelProps: {
                     LabelProps: { labelText: "Exercise" },
                     InputProps: { placeholder: "Search Exercise" },

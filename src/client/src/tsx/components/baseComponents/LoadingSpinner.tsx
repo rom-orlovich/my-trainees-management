@@ -12,6 +12,7 @@ export interface LoadingSpinnerProps<T> {
   };
   isErrorFun?: AnyFun;
   message?: string;
+  showNoDataMessage?: boolean;
   nameData?: string;
   children?: ReactNode | ((data: T) => ReactNode);
 }
@@ -23,6 +24,7 @@ function LoadingSpinner<T extends object>({
   isErrorFun,
   message,
   nameData = "The Data",
+  showNoDataMessage,
   children,
 }: LoadingSpinnerProps<T>) {
   useEffect(() => {
@@ -38,7 +40,7 @@ function LoadingSpinner<T extends object>({
     </p>
   );
 
-  if (!data) return <></>;
+  if (!data) return showNoDataMessage ? SpinnerMessage : <></>;
 
   if (data) {
     const values = getValuesArrObj(data);

@@ -1,4 +1,7 @@
-import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
+import {
+  UseLazyQuery,
+  UseQuery,
+} from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import React, {
   ChangeEvent,
   ReactNode,
@@ -42,6 +45,7 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   };
   externalInputValueOnChange?: React.Dispatch<React.SetStateAction<string>>;
   useGetData: UseQuery<any>;
+
   setSelectOptionValue?: React.Dispatch<React.SetStateAction<string[]>>;
   children?: ReactNode;
   defaultValueID?: number;
@@ -57,6 +61,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   useGetData,
   keys,
   id,
+
   setSelectOptionValue,
   children,
   addOption,
@@ -77,6 +82,7 @@ function AutocompleteInput<T extends Record<string, any>>({
     mainName: debounce[1],
     ...queriesOptions,
   });
+
   const Data = data as ResponseQueryAPI<T> | undefined;
   const firstRender = useRef(true);
 
@@ -128,9 +134,7 @@ function AutocompleteInput<T extends Record<string, any>>({
     const keyValue = getEntriesArrObj(obj)[0];
     setPage(1);
     setInputValue(keyValue);
-    console.log(keyValue);
     setSelectOptionValue && setSelectOptionValue(keyValue);
-    console.log(RHFProps?.onChange);
     RHFProps?.onChange && RHFProps?.onChange(keyValue[0]);
   };
 
@@ -162,11 +166,13 @@ function AutocompleteInput<T extends Record<string, any>>({
 
       {
         <LoadingSpinner
+          showNoDataMessage={false}
           {...loadingSpinnerResult}
           stateData={{ data: Data, isError, isFetching, isLoading }}
         >
           {(data) =>
             isLoading ||
+            // isFetching ||
             (isVisible && (
               <ListObserver<T>
                 fn={() => listObserverFun(data)}
@@ -185,7 +191,7 @@ function AutocompleteInput<T extends Record<string, any>>({
                   dataArr:
                     lastDataState.length === 0 // If the user haven't typed yet.
                       ? data.data
-                      : [...lastDataState, ...data.data],
+                      : [...data.data, ...lastDataState],
                 }}
               />
             ))

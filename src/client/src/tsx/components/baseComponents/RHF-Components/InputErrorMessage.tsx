@@ -7,12 +7,13 @@ import {
   Merge,
   RegisterOptions,
 } from "react-hook-form";
+
 interface InputErrorMessageProps {
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<DeepRequired<Date>>>;
   nameInput?: string;
 }
 function InputErrorMessage({ error, nameInput }: InputErrorMessageProps) {
-  let messages: Partial<
+  const messages: Partial<
     Record<LiteralUnion<keyof RegisterOptions, string>, string>
   > = {
     required: "Require Field",
