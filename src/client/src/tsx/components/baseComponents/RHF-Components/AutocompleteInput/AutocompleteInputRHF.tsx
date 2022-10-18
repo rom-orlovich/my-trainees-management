@@ -19,6 +19,7 @@ function AutocompleteInputRHF<
   control,
   AutocompleteInputProps: {
     InputLabelProps: { LabelProps, InputProps, ...InputLabelProps },
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     ...AutocompleteInputProps
   },
 }: AutocompleteInputRHFprops<F, ObjType>) {
@@ -29,22 +30,19 @@ function AutocompleteInputRHF<
       render={({
         field: { ref, onBlur, name, ...field },
         fieldState: { error },
-      }) => {
-        return (
-          <AutocompleteInput
-            {...AutocompleteInputProps}
-            InputLabelProps={{
-              ...InputLabelProps,
-
-              LabelProps: { ...LabelProps, htmlFor: name },
-              InputProps: { ...InputProps, ref, onBlur },
-            }}
-            RHFProps={{ ...field }}
-          >
-            <InputErrorMessage nameInput={name} error={error} />
-          </AutocompleteInput>
-        );
-      }}
+      }) => (
+        <AutocompleteInput
+          {...AutocompleteInputProps}
+          InputLabelProps={{
+            ...InputLabelProps,
+            LabelProps: { ...LabelProps, htmlFor: name },
+            InputProps: { ...InputProps, ref, onBlur },
+          }}
+          RHFProps={{ ...field }}
+        >
+          <InputErrorMessage nameInput={name} error={error} />
+        </AutocompleteInput>
+      )}
     />
   );
 }

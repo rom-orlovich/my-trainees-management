@@ -79,26 +79,26 @@ function AutocompleteInput<T extends Record<string, any>>({
   const Data = data as ResponseQueryAPI<T> | undefined;
   const firstRender = useRef(true);
 
-  useEffect(() => {
-    // Set default value by given id, when the data is defined and the id
-    // is exist in the data array, update the input value.
-    if (Data)
-      if (firstRender.current) {
-        // To prevent infinite loop.
-        firstRender.current = false;
-        if (defaultValueID) {
-          const objData = Data.data.find((el) => el[id] === defaultValueID);
-          if (objData) {
-            // Create string of values from chosen keys.
-            const strValues = createStrFromValuesOfChosenKeys(
-              objData,
-              keys || []
-            );
-            setInputValue(["", strValues]);
-          }
+  // useEffect(() => {
+  // Set default value by given id, when the data is defined and the id
+  // is exist in the data array, update the input value.
+  if (Data)
+    if (firstRender.current) {
+      // To prevent infinite loop.
+      firstRender.current = false;
+      if (defaultValueID) {
+        const objData = Data.data.find((el) => el[id] === defaultValueID);
+        if (objData) {
+          // Create string of values from chosen keys.
+          const strValues = createStrFromValuesOfChosenKeys(
+            objData,
+            keys || []
+          );
+          setInputValue(["", strValues]);
         }
       }
-  }, [Data, defaultValueID, id, keys]);
+    }
+  // }, [Data, defaultValueID, id, keys]);
 
   useEffect(() => {
     // The parent element's access to the value of the Autocomplete component.
@@ -112,16 +112,16 @@ function AutocompleteInput<T extends Record<string, any>>({
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPage(1);
     setInputValue(["", e.target.value]);
-    setLastData([]);
+    // setLastData([]);
   };
   // Opens the autocomplete input's options.
   const handleClickInput = () => {
     setPage(1);
-    setLastData([]);
   };
   // Handle click on option and set the value of that option in the input.
   const handleClickLi = (obj: Record<string, any>) => {
     const keyValue = getEntriesArrObj(obj)[0];
+    setPage(1);
     setInputValue(keyValue);
   };
 

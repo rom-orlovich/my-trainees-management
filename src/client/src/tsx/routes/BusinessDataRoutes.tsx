@@ -20,9 +20,7 @@ import { APP_ROUTE } from "./appRoutesConstants";
 import ProtectedRoute from "./utilities/ProtectedRoute";
 
 const BusinessDataRoutes = () => (
-  // const { isAdmin, isTrainee, isTrainer } = useCheckRole();
   <Routes>
-    {/* <Route element={<ProtectedRoute allowedRole={isTrainer || isAdmin} />}> */}
     <Route path={APP_ROUTE.EXERCISES_LIST_ROUTE} element={<ExercisesPage />}>
       <Route
         path={APP_ROUTE.EXERCISE_ADD}
@@ -61,7 +59,6 @@ const BusinessDataRoutes = () => (
       <Route path={APP_ROUTE.CITY_ROUTE_ADD} element={<CityAddForm />} />
       <Route path=":id" element={<CityEditForm />} />
     </Route>
-    {/* </Route> */}
   </Routes>
 );
 export default BusinessDataRoutes;

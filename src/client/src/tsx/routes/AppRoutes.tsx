@@ -25,7 +25,7 @@ import AuthRoutes from "./AuthRoutes";
 import PublicRoute from "./utilities/PublicRoute";
 import PersistedLogin from "./utilities/PersistedLogin";
 import ProtectedRoute from "./utilities/ProtectedRoute";
-
+import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 import useCheckRole from "../hooks/useCheckRole";
 import BusinessDataRoutes from "./BusinessDataRoutes";
 import TrainingProgramListRoutes from "./TrainingProgramListRoutes";

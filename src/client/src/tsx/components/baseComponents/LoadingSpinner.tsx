@@ -32,19 +32,19 @@ function LoadingSpinner<T extends object>({
   if (isLoading || isFetching)
     return <p className="loading_spinner"> Loading...</p>;
 
-  const spinner_message = (
+  const SpinnerMessage = (
     <p className={`message_spinner`}>
       {message || `${nameData} are not found`}
     </p>
   );
 
-  if (!data) return spinner_message;
+  if (!data) return <></>;
 
   if (data) {
     const values = getValuesArrObj(data);
 
     if (Array.isArray(values[0]) && values[0].length === 0)
-      return spinner_message;
+      return SpinnerMessage;
   }
 
   return <> {typeof children === "function" ? children(data) : children}</>;

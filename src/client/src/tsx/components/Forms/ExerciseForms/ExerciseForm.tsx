@@ -39,7 +39,7 @@ export function ExerciseForm({
         nameForm={"Exercise"}
         formOptions={{
           defaultValues: {
-            user_id: useGetUserLoginData().user_id,
+            user_id: authState.user_id,
             exercise_id: defaultValues?.exercise_id,
             exercise_name: defaultValues?.exercise_name,
             equipment_id: defaultValues?.equipment_id,
