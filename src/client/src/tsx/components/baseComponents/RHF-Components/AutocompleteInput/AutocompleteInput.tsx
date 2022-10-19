@@ -56,7 +56,6 @@ function AutocompleteInput<T extends Record<string, any>>({
   className,
   InputLabelProps,
   liProps,
-  loadingSpinnerResult,
   defaultValueID,
   useGetData,
   keys,
@@ -86,12 +85,10 @@ function AutocompleteInput<T extends Record<string, any>>({
 
   const Data = data as ResponseQueryAPI<T> | undefined;
   const firstRender = useRef(true);
-  // console.log("defaultIDQuery", defaultIDQuery);
-  // console.log("data", Data);
+
   useEffect(() => {
     // Set default value by given id, when the data is defined and the id
     // is exist in the data array, update the input value.
-
     if (Data && defaultValueID) {
       // In order prevent infinite loop.
       if (firstRender.current) {
@@ -109,13 +106,12 @@ function AutocompleteInput<T extends Record<string, any>>({
     }
   }, [Data, defaultValueID, id, keys]);
 
-  // useEffect(() => {
-  //   console.log();
-  //   // The parent element's access to the value of the Autocomplete component.
-  //   setSelectOptionValue && setSelectOptionValue(debounce);
-  //   // React hook form Autocomplete component need only the id of the option.
-  //   debounce[0] && RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
-  // }, [debounce, RHFProps, setSelectOptionValue]);
+  useEffect(() => {
+    // The parent element's access to the value of the Autocomplete component.
+    setSelectOptionValue && setSelectOptionValue(debounce);
+    // React hook form Autocomplete component need only the id of the option.
+    debounce[0] && RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
+  }, [debounce, RHFProps, setSelectOptionValue]);
 
   // Handle the input change value ,open the option,
   // set page to first page and reset the data array.
@@ -124,17 +120,12 @@ function AutocompleteInput<T extends Record<string, any>>({
     setPage(1);
     setInputValue(["", e.target.value]);
   };
-  // Opens the autocomplete input's options.
-  // const handleClickInput = () => {
-  //   setPage(1);
-  // };
+
   // Handle click on option and set the value of that option in the input.
   const handleClickLi = (obj: Record<string, any>) => {
     const keyValue = getEntriesArrObj(obj)[0];
     setPage(1);
     setInputValue(keyValue);
-    setSelectOptionValue && setSelectOptionValue(keyValue);
-    RHFProps?.onChange && RHFProps?.onChange(keyValue[0]);
   };
 
   // Handles the scrolling event of the autocomplete input's options.
@@ -159,44 +150,28 @@ function AutocompleteInput<T extends Record<string, any>>({
           autoComplete: "off",
           value: inputValueName[1].slice(0, 25),
           onChange: handleInputChange,
-          // onClick: handleClickInput,
         }}
       />
 
-      {
-        // <LoadingSpinner
-        //   showNoDataMessage={false}
-        //   {...loadingSpinnerResult}
-        //   stateData={{ data: Data, isError, isFetching, isLoading }}
-        // >
-        //   {(data) =>
-        // isLoading ||
-        // isFetching ||
-        isVisible && (
-          <ListObserver<T>
-            fn={() => listObserverFun()}
-            listProps={{
-              className: style.list_res,
-              LI: (props) => (
-                <AutocompleteLi<T>
-                  {...props.liProps}
-                  {...liProps}
-                  handleOnClick={handleClickLi}
-                  keys={keys || []}
-                  props={props}
-                  id={id}
-                />
-              ),
-              dataArr: Data ? [...lastDataState, ...Data.data] : lastDataState,
-              // lastDataState.length === 0 // If the user haven't typed yet.
-              //   ? data.data
-              //   : [...data.data, ...lastDataState],
-            }}
-          />
-        )
-        //   }
-        // </LoadingSpinner>
-      }
+      {isVisible && (
+        <ListObserver<T>
+          fn={() => listObserverFun()}
+          listProps={{
+            className: style.list_res,
+            LI: (props) => (
+              <AutocompleteLi<T>
+                {...props.liProps}
+                {...liProps}
+                handleOnClick={handleClickLi}
+                keys={keys || []}
+                props={props}
+                id={id}
+              />
+            ),
+            dataArr: Data ? [...lastDataState, ...Data.data] : lastDataState,
+          }}
+        />
+      )}
       <span className={style.select_plus_button}>
         {addOption ? (
           <Link to={addOption.link}>{<AiOutlinePlusCircle />} </Link>
