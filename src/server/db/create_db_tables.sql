@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS  "leads" CASCADE;
 DROP TABLE IF EXISTS  "muscles_group" CASCADE;
 DROP TABLE IF EXISTS  "profiles" CASCADE;
 DROP TABLE IF EXISTS  "alerts" CASCADE;
+DROP TABLE IF EXISTS  "training_program_exercises_stats" CASCADE;
 
 
 
@@ -347,13 +348,13 @@ CREATE TABLE IF NOT EXISTS "training_program"(
 
 CREATE TABLE  IF NOT EXISTS "training_program_exercises_stats" (
 "training_program_exercises_stats_id" serial PRIMARY KEY,
-"change_date" DATE NOT NULL, 
+"change_date" DATE , 
 "training_program_row_id" INTEGER,
   "exercise_id" INTEGER,
   "reps" VARCHAR(55) NOT NULL,
   "sets" INTEGER NOT NULL,
-  "rest" INTEGER NOT NULL,
-  "intensity" INTEGER NOT NULL,
+  "rest" FLOAT NOT NULL,
+  "intensity" FLOAT NOT NULL,
   "rpe" INTEGER NOT NULL,
  
   CONSTRAINT "reps" CHECK ("reps" IN ('1','3-5','6-8','8-10','10-12','12-15')),
@@ -361,6 +362,12 @@ CREATE TABLE  IF NOT EXISTS "training_program_exercises_stats" (
           CONSTRAINT fk_exercise_id
       FOREIGN KEY(exercise_id) 
       REFERENCES exercises_list(exercise_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
+
+              CONSTRAINT fk_training_program_row_id
+      FOREIGN KEY(training_program_row_id) 
+      REFERENCES training_program(training_program_row_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 

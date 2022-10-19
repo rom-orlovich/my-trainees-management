@@ -14,10 +14,7 @@ export const handleInsertStatistics: RequestHandler = async (
   if (!req.data_for_stats) return next();
   const { trainingProgramExerciseData } = req.data_for_stats;
   const [data, error] = await promiseHandler(
-    insertIntoTrainingProgramExerciseData(
-      TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME,
-      trainingProgramExerciseData
-    )
+    insertIntoTrainingProgramExerciseData(trainingProgramExerciseData)
   );
   console.log("data", data);
   console.log("error", error);

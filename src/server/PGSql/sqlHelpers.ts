@@ -2,14 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 
-import e from "express";
-import { writeFile } from "fs/promises";
-import { DB_FOLDER_PATH, TABLES_DATA } from "../utilities/constants";
-import {
-  createObjKeysArr,
-  createObjValuesArr,
-  promiseHandler,
-} from "../utilities/helpers";
+import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
 
@@ -42,7 +35,10 @@ const prepareValues = (obj: Record<string, any>, startParma = 1) => {
 
 // Makes string from the key-value  of object.
 // This string is used as the  key-values in update functions.
-const prepareKeyValuesToUpdate = (obj: Record<string, any>, startIndex = 0) => {
+export const prepareKeyValuesToUpdate = (
+  obj: Record<string, any>,
+  startIndex = 0
+) => {
   let keyValuesStr = "";
   const paramsArr = [] as any;
   const keysValuesEntries = Object.entries(obj);
@@ -172,10 +168,11 @@ const insertQuery = async (
   tableName: string,
   fieldName: string,
   fieldParams: string,
-  paramArr = [] as any
+  paramArr: any[],
+  onConflict?: string
 ) => {
   const statement = `INSERT INTO ${tableName} (${fieldName})
-   VALUES ${fieldParams} RETURNING *`;
+   VALUES ${fieldParams} ${onConflict ? `${onConflict}` : ""} RETURNING * `;
 
   // console.log("statement", statement);
   // console.log("paramArr", paramArr);
@@ -208,12 +205,19 @@ const updateQuery = async (
 // And insert him in the db.
 export async function insertQueryOneItem(
   tableName: string,
-  obj: Record<string, any>
+  obj: Record<string, any>,
+  onConflict?: string
 ) {
   const fieldName = prepareFieldsName(obj);
   const { fieldParams, paramsArr } = prepareValues(obj);
 
-  const res = await insertQuery(tableName, fieldName, fieldParams, paramsArr);
+  const res = await insertQuery(
+    tableName,
+    fieldName,
+    fieldParams,
+    paramsArr,
+    onConflict
+  );
 
   return res.rows[0];
 }

@@ -1,6 +1,12 @@
 /* eslint-disable camelcase */
-import { insertQueryOneItem } from "../../../PGSql/sqlHelpers";
-import { promiseHandler } from "../../../utilities/helpers";
+import { client } from "../../../PGSql/DBConnectConfig";
+import {
+  insertQueryOneItem,
+  prepareKeyValuesToUpdate,
+  updateQuerySingleItem,
+} from "../../../PGSql/sqlHelpers";
+import { TABLES_DATA } from "../../../utilities/constants";
+import { createObjKeysArr, promiseHandler } from "../../../utilities/helpers";
 
 export interface TrainingProgramExercise {
   training_program_row_id: number;
@@ -40,14 +46,27 @@ export const transformTrainingProgramExerciseData = ({
 };
 
 export const insertIntoTrainingProgramExerciseData = async (
-  tableName: string,
   trainingProgramExerciseData?: TrainingProgramExercise
 ) => {
   if (!trainingProgramExerciseData) return { data: [], error: undefined };
+  const trainingProgramExerciseDataToInsert =
+    transformTrainingProgramExerciseData(trainingProgramExerciseData);
 
   const data = await insertQueryOneItem(
-    tableName,
-    transformTrainingProgramExerciseData(trainingProgramExerciseData)
+    TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME,
+    trainingProgramExerciseDataToInsert,
+    `ON CONFLICT (change_date)
+    DO UPDATE SET
+  training_program_row_id=EXCLUDED.training_program_row_id,
+  exercise_id=EXCLUDED.exercise_id,
+  intensity=EXCLUDED.intensity,
+  sets=EXCLUDED.sets,
+  reps=EXCLUDED.reps,
+  rest=EXCLUDED.rest,
+  rpe=EXCLUDED.rpe
+   WHERE ${TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME}.training_program_row_id=
+   EXCLUDED.training_program_row_id
+    `
   );
 
   return data;
