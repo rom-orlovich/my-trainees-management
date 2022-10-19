@@ -36,6 +36,8 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
       [preRefreshToken]
     )
   );
+  // console.log("user", user);
+  // console.log("error", error);
 
   // Check if the user exist
   if (!(user && user[0]) || error) {
@@ -49,8 +51,8 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
         queryLogic
       )
     );
-    console.log("userUpdate", userUpdate);
-    console.log("errorUpdate", errorUpdate);
+    // console.log("userUpdate", userUpdate);
+    // console.log("errorUpdate", errorUpdate);
 
     return res.sendStatus(403);
   }
@@ -98,8 +100,8 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   );
   if (!userUpdate || errorUpdate) {
     req.logAlertInfo = prepareLogAlert(undefined, errorUpdate, "update", false);
-    console.log("userUpdate", userUpdate);
-    console.log("errorUpdate", errorUpdate);
+    // console.log("userUpdate", userUpdate);
+    // console.log("errorUpdate", errorUpdate);
     return next();
   }
 
@@ -118,7 +120,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   const { password: pwd, refresh_tokens: refreshToken1, ...restUser } = user[0];
 
-  console.log("user[0]", user[0]);
+  // console.log("user[0]", user[0]);
   req.logAlertInfo = prepareLogAlert(
     {
       message: "Access token has create successfully!",

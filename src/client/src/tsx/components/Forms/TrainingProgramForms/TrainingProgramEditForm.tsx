@@ -2,10 +2,7 @@
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { trainingProgramsApi } from "../../../redux/api/hooksAPI";
-import {
-  TrainingProgramExerciseOmit,
-  TrainingProgramExerciseTableAPI,
-} from "../../../redux/api/interfaceAPI";
+import { TrainingProgramExerciseOmit } from "../../../redux/api/interfaceAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TrainingProgramForms from "./TrainingProgramForm";

@@ -54,7 +54,7 @@ function TrainingProgramExercises() {
     trainingProgramListID,
     exerciseID: exercise[0],
   };
-  // console.log(queriesOptions);
+
   return (
     <InsteadOutletRoutes
       InsteadOutletRoutesPaths={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
