@@ -54,19 +54,7 @@ export const insertIntoTrainingProgramExerciseData = async (
 
   const data = await insertQueryOneItem(
     TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME,
-    trainingProgramExerciseDataToInsert,
-    `ON CONFLICT (change_date)
-    DO UPDATE SET
-  training_program_row_id=EXCLUDED.training_program_row_id,
-  exercise_id=EXCLUDED.exercise_id,
-  intensity=EXCLUDED.intensity,
-  sets=EXCLUDED.sets,
-  reps=EXCLUDED.reps,
-  rest=EXCLUDED.rest,
-  rpe=EXCLUDED.rpe
-   WHERE ${TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME}.training_program_row_id=
-   EXCLUDED.training_program_row_id
-    `
+    trainingProgramExerciseDataToInsert
   );
 
   return data;
