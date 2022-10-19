@@ -245,7 +245,7 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
       mainName: "exercise_name",
     },
     queryParams: {
-      // userID: "exer.user_id",
+      userID: "exer.user_id",
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY,
@@ -259,13 +259,9 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
     tableID: `trpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     fieldNamesQuery: `trpl.*`,
     querySelectLogic: "",
-    // `
-    // LEFT JOIN ${TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME} as tp ON
-    // trpl.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}=
-    // tp.${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
+
     queryParams: {
       traineeID: `${TABLES_DATA.TRAINEE_ID}`,
-      // trainingProgramsListID: `${TABLES_DATA.TRAINING_PROGRAMS_LIST_ID}`,
     },
     queryNameParam: {
       programType: "type_program",

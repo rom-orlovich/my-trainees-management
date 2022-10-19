@@ -20,6 +20,7 @@ function TrainingProgramsPage() {
   const [trigger, result] = trainingProgramsListApi.useLazyGetItemsQuery();
 
   useEffect(() => {
+    console.log(trainee[1]);
     if (trainee[0])
       trigger({ traineeID: Number(trainee[0]), ...queriesOptions });
   }, [trainee, trigger]);
