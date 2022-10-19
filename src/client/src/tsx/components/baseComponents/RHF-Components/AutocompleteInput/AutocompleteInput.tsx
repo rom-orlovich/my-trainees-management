@@ -75,6 +75,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   const autoCompleteContainerRef = useRef<HTMLDivElement | null>(null);
   const isVisible = useHideUnFocusElement(autoCompleteContainerRef);
   const [lastDataState, setLastData] = useState<any[]>([]);
+  console.log(queriesOptions);
   const defaultIDQuery = defaultValueID ? { [id]: defaultValueID } : {};
   const { data } = useGetData({
     page,

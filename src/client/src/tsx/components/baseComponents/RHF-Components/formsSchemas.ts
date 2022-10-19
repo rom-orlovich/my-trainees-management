@@ -130,7 +130,7 @@ export const traineesSchema = yup.object().shape({
   first_name: yup.string().required(),
   last_name: yup.string().required(),
   gender: yup.string().required(),
-  identify_num: yup.string().required(),
+  identify_num: yup.number().required(),
   birthday: yup.date().required(),
   email: yup.string().email().notRequired().nullable(),
   phone_number: yup.string().max(12).required(),

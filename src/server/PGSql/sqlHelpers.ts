@@ -136,7 +136,10 @@ const prepareKeyValuesOtherColumnToSelect = (
     keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
     if (index !== keysValuesEntries.length - 1)
       keyValuesStr += value ? `${keyValuesStr} and` : "";
-    value && paramsArr.push(value);
+    if (value) {
+      if (isNaN(value) || key === "phone_number") paramsArr.push(value);
+      else paramsArr.push(Number(value));
+    }
   });
   // EXAM: keyValuesStrArr : profile_id=$1,
   return {
@@ -154,10 +157,10 @@ export async function selectQuery(
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
   // console.log(tableName);
-  // if (tableName.includes(TABLES_DATA.MUSCLES_GROUP_TABLE_NAME)) {
-  //   console.log("statement", statement);
-  //   console.log("queryParams", queryParams);
-  // }
+  if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
+    console.log("statement", statement);
+    console.log("queryParams", queryParams);
+  }
 
   const rows = await client.query(statement, queryParams);
 

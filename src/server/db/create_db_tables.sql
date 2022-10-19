@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "profiles" (
   "first_name" VARCHAR(255),
   "last_name" VARCHAR(255),
   "gender" VARCHAR (20),
-  "identify_num" VARCHAR(15),
+  "identify_num" INTEGER,
   "birthday" DATE,
   "email" VARCHAR(255) UNIQUE,
   "phone_number" VARCHAR(12),

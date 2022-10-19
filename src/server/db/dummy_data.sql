@@ -43,8 +43,8 @@ INSERT INTO locations as lo (street,city_id,user_id)
 
 update profiles set 
  email='rom-orlovich@cyber4s.dev',status=true, date_join='2022-10-15T21:00:00.000Z',
- location_id=1,phone_number='0543552144',birthday='2022-10-16T21:00:00.000Z',
- identify_num='222222',gender='male',last_name='orlovich',first_name='rom'
+ location_id=1,phone_number='054-3552144',birthday='2022-10-16T21:00:00.000Z',
+ identify_num=222222,gender='male',last_name='orlovich',first_name='rom'
 WHERE profile_id=3;
 
  INSERT INTO trainees

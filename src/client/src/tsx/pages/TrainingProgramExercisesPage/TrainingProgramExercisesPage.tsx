@@ -51,10 +51,10 @@ function TrainingProgramExercises() {
   const { isTrainee } = useCheckRole();
   const queriesOptions = {
     userID: authState.user_id,
-    trainingProgramsListID: trainingProgramListID,
+    trainingProgramListID,
     exerciseID: exercise[0],
   };
-  console.log(queriesOptions);
+  // console.log(queriesOptions);
   return (
     <InsteadOutletRoutes
       InsteadOutletRoutesPaths={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
@@ -92,8 +92,7 @@ function TrainingProgramExercises() {
             <TablePagination
               transformFun={trainingProgramExercisesTransform}
               queriesOptions={{
-                trainingProgramListID,
-                name: exercise[1],
+                mainName: exercise[1],
                 ...queriesOptions,
               }}
               mainRoute={pathName.slice(1)}

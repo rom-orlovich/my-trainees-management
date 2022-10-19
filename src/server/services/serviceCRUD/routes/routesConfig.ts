@@ -293,6 +293,9 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
     queryParams: {
       trainingProgramListID: TABLES_DATA.TRAINING_PROGRAMS_LIST_ID,
     },
+    queryNameParam: {
+      mainName: "exercise_name",
+    },
   },
   permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   validateSchema: trainingProgramSchema,
