@@ -1,6 +1,6 @@
 import { UserRoles } from "./services/serviceAuth/utilities/authHelpers";
 import { ErrorCustomizes } from "./services/serviceErrors/handleErrors";
-import { TrainingProgramExercise } from "./services/serviceStatistics/controllers/handleInsertStatistics";
+import { TrainingProgramExercise } from "./services/serviceStatistics/utilities/helpersStatisticsService";
 
 export interface ModifiedActionResult {
   successRes?: {
@@ -19,6 +19,11 @@ export interface ModifiedActionResult {
   >;
 
   logAlert?: boolean;
+}
+
+export interface StatsData {
+  tableName: string;
+  trainingProgramExerciseData?: TrainingProgramExercise;
 }
 /* eslint-disable no-unused-vars */
 export {};
@@ -43,12 +48,7 @@ declare global {
         role: UserRoles;
       };
 
-      data_for_stats?: {
-        tableName: string;
-        trainingProgramExerciseData?: {
-          trainingProgramExercise: TrainingProgramExercise;
-        };
-      };
+      data_for_stats?: StatsData;
     }
   }
 }

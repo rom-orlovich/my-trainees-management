@@ -85,7 +85,7 @@ export const trainingProgramsListSchema = yup.object().shape({
     .date()
     .notRequired()
     .nullable()
-    .min(yup.ref("date_start"), "End date can't be before start date"),
+    .min(yup.ref("date_start"), "End date can't be before start date."),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
@@ -94,11 +94,28 @@ export const trainingProgramSchema = yup.object().shape({
   training_program_row_id: yup.number().notRequired().nullable(),
   training_programs_list_id: yup.number().required(),
   exercise_id: yup.number().required(),
-  rest: yup.string().required(),
+  rest: yup
+    .string()
+    .required()
+    .matches(/min/g, { message: "Please include 'min' unites." }),
   sets: yup.number().required(),
-  reps: yup.string().required(),
-  intensity: yup.string().required(),
-  rpe: yup.number().required().max(10).min(1),
+  reps: yup
+    .string()
+    .required()
+    .oneOf(
+      ["1", "3-5", "6-8", "8-10", "10-12", "12-15"],
+      "Please enter valid range of reps: 1, 3-5, 6-8, 8-10, 10-12, 12-15."
+    ),
+  intensity: yup
+    .string()
+    .required()
+    .matches(/Kg/g, { message: "Please include Kg unites." }),
+  rpe: yup
+    .number()
+    .required()
+    .min(1)
+    .max(10)
+    .typeError({ message: "RPE is number between 1 and 10." }),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
@@ -112,7 +129,7 @@ export const nutritionProgramsListSchema = yup.object().shape({
     .date()
     .notRequired()
     .nullable()
-    .min(yup.ref("date_start"), "End date can't be before start date"),
+    .min(yup.ref("date_start"), "End date can't be before start date."),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
@@ -146,13 +163,13 @@ export const subscriptionPlansSchema = yup.object().shape({
   current_num_trainings: yup
     .number()
     .required()
-    .min(0, "Current Number Training must be positive"),
+    .min(0, "Current Number Training must be positive."),
   total_trainings: yup
     .number()
     .required()
     .min(
       yup.ref("current_num_trainings"),
-      "Training total must be bigger than training remain"
+      "Training total must be bigger than training remain."
     ),
   last_training: yup.date().required(),
 });
@@ -172,24 +189,24 @@ export const loginSchema = yup.object().shape({
   password: yup.string().required(),
 });
 export const signUpSchema = yup.object().shape({
-  email: yup.string().email().required("Must be valid email"),
+  email: yup.string().email().required("Must be valid email."),
   username: yup
     .string()
     .required()
-    .matches(/^(?=.{8,20}$)/, "Must be 8 -20 characters")
-    .matches(/(?![_.])/, "No _ or . at the beginning ")
-    .matches(/[a-zA-Z0-9._]/, "Characters are required"),
+    .matches(/^(?=.{8,20}$)/, "Must be 8 -20 characters.")
+    .matches(/(?![_.])/, "No _ or . at the beginning.")
+    .matches(/[a-zA-Z0-9._]/, "Characters are required."),
   password: yup
     .string()
     .required("Required")
-    .min(8, "Must be 8 characters or more")
-    .matches(/[a-z]+/, "One lowercase character")
-    .matches(/[A-Z]+/, "One uppercase character")
-    .matches(/[@$!%*#?&]+/, "One special character")
-    .matches(/\d+/, "One number"),
+    .min(8, "Must be 8 characters or more.")
+    .matches(/[a-z]+/, "One lowercase character.")
+    .matches(/[A-Z]+/, "One uppercase character.")
+    .matches(/[@$!%*#?&]+/, "One special character.")
+    .matches(/\d+/, "One number."),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .oneOf([yup.ref("password"), null], "Passwords must match.")
     .required(),
 });
 

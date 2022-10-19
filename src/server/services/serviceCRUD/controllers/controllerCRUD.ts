@@ -119,7 +119,10 @@ export function createRoutesControllers({
     }
 
     if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
-      req.auth_data;
+      req.data_for_stats = {
+        tableName,
+        trainingProgramExerciseData: data,
+      };
     }
 
     req.logAlertInfo = prepareLogAlert(
