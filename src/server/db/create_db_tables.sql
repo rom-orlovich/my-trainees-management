@@ -318,7 +318,7 @@ CONSTRAINT "date_end" CHECK ("date_end">"date_start")
 CREATE TABLE IF NOT EXISTS "training_program"(
   "training_program_row_id" serial PRIMARY KEY,
   "training_programs_list_id" INTEGER,
-  "exercise_id" INTEGER NOT NULL,
+  "exercise_id" INTEGER,
   "reps" VARCHAR(55) NOT NULL,
   "sets" INTEGER NOT NULL,
   "rest" VARCHAR NOT NULL,

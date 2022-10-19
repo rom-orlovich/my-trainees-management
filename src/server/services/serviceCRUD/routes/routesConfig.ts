@@ -121,6 +121,7 @@ export const musclesGroupOptionsCRUD: OptionsCRUD = {
     },
     queryParams: {
       userID: "user_id",
+      muscles_group_id: "muscles_group_id",
     },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID_READ_ALL,

@@ -76,39 +76,38 @@ function AutocompleteInput<T extends Record<string, any>>({
   const autoCompleteContainerRef = useRef<HTMLDivElement | null>(null);
   const isVisible = useHideUnFocusElement(autoCompleteContainerRef);
   const [lastDataState, setLastData] = useState<any[]>([]);
-
-  const { data, isError, isFetching, isLoading } = useGetData({
+  const defaultIDQuery = defaultValueID ? { [id]: defaultValueID } : {};
+  const { data } = useGetData({
     page,
     mainName: debounce[1],
+    ...defaultIDQuery,
     ...queriesOptions,
   });
 
   const Data = data as ResponseQueryAPI<T> | undefined;
   const firstRender = useRef(true);
+  // console.log("defaultIDQuery", defaultIDQuery);
+  // console.log("data", Data);
+  useEffect(() => {
+    // Set default value by given id, when the data is defined and the id
+    // is exist in the data array, update the input value.
 
-  // useEffect(() => {
-  // Set default value by given id, when the data is defined and the id
-  // is exist in the data array, update the input value.
-  if (Data)
-    if (firstRender.current) {
-      // To prevent infinite loop.
-
-      firstRender.current = false;
-      if (defaultValueID) {
-        const objData = Data.data.find((el) => el[id] === defaultValueID);
-
+    if (Data && defaultValueID) {
+      // In order prevent infinite loop.
+      if (firstRender.current) {
+        firstRender.current = false;
+        const objData = Data.data[0];
         if (objData) {
           // Create string of values from chosen keys.
           const strValues = createStrFromValuesOfChosenKeys(
             objData,
             keys || []
           );
-
           setInputValue([`${defaultValueID}`, strValues]);
         }
       }
     }
-  // }, [Data, defaultValueID, id, keys]);
+  }, [Data, defaultValueID, id, keys]);
 
   // useEffect(() => {
   //   console.log();
@@ -121,9 +120,9 @@ function AutocompleteInput<T extends Record<string, any>>({
   // Handle the input change value ,open the option,
   // set page to first page and reset the data array.
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setLastData([]);
     setPage(1);
     setInputValue(["", e.target.value]);
-    // setLastData([]);
   };
   // Opens the autocomplete input's options.
   // const handleClickInput = () => {
@@ -141,9 +140,9 @@ function AutocompleteInput<T extends Record<string, any>>({
   // Handles the scrolling event of the autocomplete input's options.
   // If there is next page, add the new result to the data array,
   // and update the page number to the next page.
-  const listObserverFun = <T,>(data: ResponseQueryAPI<T>) => {
-    if (data.next) {
-      setLastData((pre) => [...pre, ...data.data]);
+  const listObserverFun = () => {
+    if (Data?.next) {
+      setLastData((pre) => [...pre, ...Data.data]);
       setPage((pre) => pre + 1);
     }
   };
@@ -162,41 +161,41 @@ function AutocompleteInput<T extends Record<string, any>>({
           onChange: handleInputChange,
           // onClick: handleClickInput,
         }}
-      ></InputLabel>
+      />
 
       {
-        <LoadingSpinner
-          showNoDataMessage={false}
-          {...loadingSpinnerResult}
-          stateData={{ data: Data, isError, isFetching, isLoading }}
-        >
-          {(data) =>
-            isLoading ||
-            // isFetching ||
-            (isVisible && (
-              <ListObserver<T>
-                fn={() => listObserverFun(data)}
-                listProps={{
-                  className: style.list_res,
-                  LI: (props) => (
-                    <AutocompleteLi<T>
-                      {...props.liProps}
-                      {...liProps}
-                      handleOnClick={handleClickLi}
-                      keys={keys || []}
-                      props={props}
-                      id={id}
-                    />
-                  ),
-                  dataArr:
-                    lastDataState.length === 0 // If the user haven't typed yet.
-                      ? data.data
-                      : [...data.data, ...lastDataState],
-                }}
-              />
-            ))
-          }
-        </LoadingSpinner>
+        // <LoadingSpinner
+        //   showNoDataMessage={false}
+        //   {...loadingSpinnerResult}
+        //   stateData={{ data: Data, isError, isFetching, isLoading }}
+        // >
+        //   {(data) =>
+        // isLoading ||
+        // isFetching ||
+        isVisible && (
+          <ListObserver<T>
+            fn={() => listObserverFun()}
+            listProps={{
+              className: style.list_res,
+              LI: (props) => (
+                <AutocompleteLi<T>
+                  {...props.liProps}
+                  {...liProps}
+                  handleOnClick={handleClickLi}
+                  keys={keys || []}
+                  props={props}
+                  id={id}
+                />
+              ),
+              dataArr: Data ? [...lastDataState, ...Data.data] : lastDataState,
+              // lastDataState.length === 0 // If the user haven't typed yet.
+              //   ? data.data
+              //   : [...data.data, ...lastDataState],
+            }}
+          />
+        )
+        //   }
+        // </LoadingSpinner>
       }
       <span className={style.select_plus_button}>
         {addOption ? (

@@ -154,9 +154,7 @@ export async function selectQuery(
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
   // console.log(tableName);
-  if (
-    tableName === `${TABLES_DATA.TRAINING_PROGRAMS_LIST_TABLE_NAME} as trpl`
-  ) {
+  if (tableName.includes(TABLES_DATA.MUSCLES_GROUP_TABLE_NAME)) {
     console.log("statement", statement);
     console.log("queryParams", queryParams);
   }

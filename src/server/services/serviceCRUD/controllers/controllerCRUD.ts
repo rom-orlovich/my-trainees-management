@@ -17,11 +17,7 @@ import { OptionsCRUD } from "../routes/routesConfig";
 import { promiseHandler } from "../../../utilities/helpers";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 
-import {
-  ActionType,
-  ErrorCodes,
-  ErrorCustomizes,
-} from "../../serviceErrors/handleErrors";
+import { ErrorCodes, ErrorCustomizes } from "../../serviceErrors/handleErrors";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
 
