@@ -1,8 +1,10 @@
 import express from "express";
+import { TABLES_DATA } from "../../../utilities/constants";
 
 import { API_ROUTES } from "../../apiRoutesConstants";
 import { traineesSchema } from "../../schemas/DBSchemas";
 import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
+import { handleInsertStatistics } from "../../serviceStatistics/controllers/handleInsertStatistics";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 
 import { createRoutesControllers } from "../controllers/controllerCRUD";
@@ -29,7 +31,7 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const singleEntityNameEndPoint = `/${optionsCRUD.singleEntityName}`;
   const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
 
-  if (optionsCRUD.singleEntityName === API_ROUTES.TRAINEES_ENTITY) {
+  if (optionsCRUD.singleEntityName.includes(API_ROUTES.TRAINEES_ENTITY)) {
     const validateMiddlewareRegisterTrainee =
       validateMiddleware(traineesSchema);
     newRoute.post(
@@ -46,8 +48,20 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   newRoute
     .route(singleEntityNameEndPointID)
     .get(getValueFromDBbyID)
-    .put(validateMiddlewareHandler, updateValueByID)
     .delete(deleteValueByID);
 
+  if (
+    optionsCRUD.selectQuery.tableName.includes(
+      TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME
+    )
+  ) {
+    newRoute
+      .route(singleEntityNameEndPointID)
+      .put(validateMiddlewareHandler, updateValueByID, handleInsertStatistics);
+  } else {
+    newRoute
+      .route(singleEntityNameEndPointID)
+      .put(validateMiddlewareHandler, updateValueByID);
+  }
   return newRoute;
 }

@@ -50,6 +50,9 @@ export enum TABLES_DATA {
   NUTRITION_PROGRAM_ID = "nutrition_program_id",
   TRAINING_PROGRAM_TABLE_NAME = "training_program",
   TRAINING_PROGRAM_ID = "training_program_row_id",
+  TRAINING_PROGRAM_TABLE_STATS_NAME = "training_program_stats",
+  TRAINING_PROGRAM_STATS_ID = "training_program_stats_id",
+
   WEEKLY_TABLE_NAME = "weeks",
   WEEKLY_ID = "week_id",
   INCOMES_TABLE_NAME = "incomes",

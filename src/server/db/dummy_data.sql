@@ -91,18 +91,18 @@ INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id
 
 
 --
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (1, 1, 1, '6-8', 3, '12', '100kg', 3, '', '');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (3, 1, 6, '10-12', 3, '1.5min', '75kg', 6, '', '');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (4, 1, 8, '10-12', 3, '1.5min', '50kg', 7, '', '');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (6, 2, 10, '10-12', 3, '1.5min', '60kg', 7, '', '');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (5, 2, 13, '6-8', 3, '1.5min', '25kg', 7, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (1, 1, 1, '6-8', 3, '12min', '100Kg', 3, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (3, 1, 6, '10-12', 3, '1.5min', '75Kg', 6, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (4, 1, 8, '10-12', 3, '1.5min', '50Kg', 7, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (6, 2, 10, '10-12', 3, '1.5min', '60Kg', 7, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (5, 2, 13, '6-8', 3, '1.5min', '25Kg', 7, '', '');
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (8, 2, 12, '10-12', 3, '1.5min', '75', 7, '', 'Super-set with lunge');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (9, 3, 13, '6-8', 3, '1.5min', '30kg', 7, '', '');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (10, 3, 1, '6-8', 3, '1.5min', '100kg', 8, '', '');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (11, 3, 11, '10-12', 3, '1.5min', '15kg', 5, 'Super-set', 'Super set with bent over row');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (12, 3, 10, '10-12', 3, '1.5min', '60kg', 3, 'Super-set', 'Super set with lunge');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (13, 3, 12, '10-12', 3, '1.5min', '60kg', 6, '', '');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (14, 3, 7, '10-12', 3, '1.5min', '50kg', 7, '', '');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (7, 2, 11, '10-12', 3, '1.5min', '15kg', 7, 'Super-set', 'Super-set with Stiff-Legs Death-lift');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (9, 3, 13, '6-8', 3, '1.5min', '30Kg', 7, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (10, 3, 1, '6-8', 3, '1.5min', '100Kg', 8, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (11, 3, 11, '10-12', 3, '1.5min', '15Kg', 5, 'Super-set', 'Super set with bent over row');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (12, 3, 10, '10-12', 3, '1.5min', '60Kg', 3, 'Super-set', 'Super set with lunge');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (13, 3, 12, '10-12', 3, '1.5min', '60Kg', 6, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (14, 3, 7, '10-12', 3, '1.5min', '50Kg', 7, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (7, 2, 11, '10-12', 3, '1.5min', '15Kg', 7, 'Super-set', 'Super-set with Stiff-Legs Death-lift');
 
 

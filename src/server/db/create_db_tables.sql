@@ -347,6 +347,7 @@ CREATE TABLE IF NOT EXISTS "training_program"(
 
 CREATE TABLE  IF NOT EXISTS "training_program_stats" (
 "training_program_stats_id" serial PRIMARY KEY,
+"change_date" DATE NOT NULL, 
 "training_program_row_id" INTEGER,
   "exercise_id" INTEGER,
   "reps" VARCHAR(55) NOT NULL,
@@ -363,7 +364,7 @@ CREATE TABLE  IF NOT EXISTS "training_program_stats" (
       ON DELETE SET NULL
       ON UPDATE CASCADE
 
-)
+);
 
 
 CREATE TABLE IF NOT EXISTS "nutrition_program" (

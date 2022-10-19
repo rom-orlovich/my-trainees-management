@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { insertQueryOneItem } from "../../../PGSql/sqlHelpers";
 import { promiseHandler } from "../../../utilities/helpers";
 
@@ -28,6 +29,7 @@ export const transformTrainingProgramExerciseData = ({
 
   return {
     training_program_row_id,
+    change_date: new Date(),
     exercise_id,
     intensity: intensityAsNumber,
     sets,

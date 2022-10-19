@@ -22,7 +22,6 @@ export interface ModifiedActionResult {
 }
 
 export interface StatsData {
-  tableName: string;
   trainingProgramExerciseData?: TrainingProgramExercise;
 }
 /* eslint-disable no-unused-vars */
