@@ -20,6 +20,7 @@ import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 import { ErrorCodes, ErrorCustomizes } from "../../serviceErrors/handleErrors";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
+import { TABLES_DATA } from "../../../utilities/constants";
 
 /**
  *
@@ -115,6 +116,10 @@ export function createRoutesControllers({
     // Rollback the query if there is error.
     if (err) {
       await client.query("ROLLBACK");
+    }
+
+    if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
+      req.auth_data;
     }
 
     req.logAlertInfo = prepareLogAlert(

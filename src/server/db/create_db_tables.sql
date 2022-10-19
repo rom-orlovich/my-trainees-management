@@ -299,7 +299,7 @@ CONSTRAINT "date_end" CHECK ("date_end">"date_start"),
 CREATE TABLE IF NOT EXISTS "nutrition_programs_list"(
   "nutrition_programs_list_id"  serial PRIMARY KEY,
    "trainee_id" INTEGER ,
-    "type_program" VARCHAR(20) , 
+    "type_program" VARCHAR(20), 
      "date_start" DATE NOT NULL,
      "date_end" DATE  ,
     "note_topic" TEXT ,
@@ -326,6 +326,11 @@ CREATE TABLE IF NOT EXISTS "training_program"(
   "rpe" INTEGER NOT NULL,
   "note_topic" TEXT ,
   "note_text" TEXT ,
+
+  CONSTRAINT "reps" CHECK ("reps" IN ('1','3-5','6-8','8-10','10-12','12-15')),
+  CONSTRAINT "rpe" CHECK (0 < "rpe" AND "rpe" <= 10 ),
+ 
+
       CONSTRAINT fk_training_programs_list_id
       FOREIGN KEY(training_programs_list_id) 
       REFERENCES training_programs_list(training_programs_list_id)
@@ -339,6 +344,26 @@ CREATE TABLE IF NOT EXISTS "training_program"(
       ON UPDATE CASCADE
       
 );
+
+CREATE TABLE  IF NOT EXISTS "training_program_stats" (
+"training_program_stats_id" serial PRIMARY KEY,
+"training_program_row_id" INTEGER,
+  "exercise_id" INTEGER,
+  "reps" VARCHAR(55) NOT NULL,
+  "sets" INTEGER NOT NULL,
+  "rest" INTEGER NOT NULL,
+  "intensity" INTEGER NOT NULL,
+  "rpe" INTEGER NOT NULL,
+ 
+  CONSTRAINT "reps" CHECK ("reps" IN ('1','3-5','6-8','8-10','10-12','12-15')),
+  CONSTRAINT "rpe" CHECK (0 < "rpe" AND "rpe" <= 10 ),
+          CONSTRAINT fk_exercise_id
+      FOREIGN KEY(exercise_id) 
+      REFERENCES exercises_list(exercise_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+
+)
 
 
 CREATE TABLE IF NOT EXISTS "nutrition_program" (

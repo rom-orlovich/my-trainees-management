@@ -1,5 +1,6 @@
 import { UserRoles } from "./services/serviceAuth/utilities/authHelpers";
 import { ErrorCustomizes } from "./services/serviceErrors/handleErrors";
+import { TrainingProgramExercise } from "./services/serviceStatistics/controllers/handleInsertStatistics";
 
 export interface ModifiedActionResult {
   successRes?: {
@@ -40,6 +41,13 @@ declare global {
 
       signUp_data?: {
         role: UserRoles;
+      };
+
+      data_for_stats?: {
+        tableName: string;
+        trainingProgramExerciseData?: {
+          trainingProgramExercise: TrainingProgramExercise;
+        };
       };
     }
   }
