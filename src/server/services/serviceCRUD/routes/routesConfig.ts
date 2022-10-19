@@ -244,9 +244,6 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
     queryNameParam: {
       mainName: "exercise_name",
     },
-    queryParams: {
-      userID: "exer.user_id",
-    },
   },
   permissions: PERMISSION_TRAINEE_READONLY,
   validateSchema: exercisesListSchema,
