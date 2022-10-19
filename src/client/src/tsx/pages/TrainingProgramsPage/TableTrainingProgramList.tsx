@@ -34,7 +34,7 @@ function TableTrainingProgramList({
   queriesOptions?: Record<string, any>;
 }) {
   const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
-  console.log(nameData);
+
   return (
     <TablePagination
       transformFun={transformTrainingProgramList}

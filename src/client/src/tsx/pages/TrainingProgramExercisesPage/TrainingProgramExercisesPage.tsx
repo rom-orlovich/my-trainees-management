@@ -1,13 +1,10 @@
 /* eslint-disable camelcase */
 import React, { useState } from "react";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
-import { exercisesApi, trainingProgramsApi } from "../../redux/api/hooksAPI";
-import {
-  ExercisesTableAPI,
-  TrainingProgramExerciseTableAPI,
-} from "../../redux/api/interfaceAPI";
+import { trainingProgramsApi } from "../../redux/api/hooksAPI";
+import { TrainingProgramExerciseTableAPI } from "../../redux/api/interfaceAPI";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
@@ -54,9 +51,10 @@ function TrainingProgramExercises() {
   const { isTrainee } = useCheckRole();
   const queriesOptions = {
     userID: authState.user_id,
-    trainingProgramsListID: exercise[0],
+    trainingProgramsListID: trainingProgramListID,
+    exerciseID: exercise[0],
   };
-
+  console.log(queriesOptions);
   return (
     <InsteadOutletRoutes
       InsteadOutletRoutesPaths={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}

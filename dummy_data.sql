@@ -17,24 +17,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Data for Name: profiles; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.profiles (profile_id, first_name, last_name, gender, identify_num, birthday, email, phone_number, location_id, date_join, status) VALUES (1, NULL, NULL, NULL, NULL, NULL, 'mytraineesmanagement@gmail.com', NULL, NULL, NULL, false);
-INSERT INTO public.profiles (profile_id, first_name, last_name, gender, identify_num, birthday, email, phone_number, location_id, date_join, status) VALUES (2, NULL, NULL, NULL, NULL, NULL, 'romorlovich@gmail.com', NULL, NULL, NULL, false);
-INSERT INTO public.profiles (profile_id, first_name, last_name, gender, identify_num, birthday, email, phone_number, location_id, date_join, status) VALUES (3, 'rom', 'orlovich', 'male', '222222', '2022-10-16', 'rom-orlovich@cyber4s.dev', '0543552144', 1, '2022-10-15', true);
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.users (user_id, role, username, password, refresh_tokens, verify_token, profile_id) VALUES (1, 'admin', 'admin123', '$2a$10$8A/LXHx.jlPafHpBVNVE/u8F1ql6JCZ2r7Rrdt1pxuKqRc/9IroUS', '{}', NULL, 1);
-INSERT INTO public.users (user_id, role, username, password, refresh_tokens, verify_token, profile_id) VALUES (3, 'trainee', 'trainee123', '$2a$10$CTyyTPHIAL.2tUXxQnWA0uAIVGz/c.Cc26WPDYCe0/i6u5Pe7nwMS', '{}', NULL, 3);
-INSERT INTO public.users (user_id, role, username, password, refresh_tokens, verify_token, profile_id) VALUES (2, 'trainer', 'trainer123', '$2a$10$Hgfj2kwK0WDc23ilreOkM.oorSaMn9aKNLdLO1LuqhKy7b0ZqNepC', '{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NjExNzcyOCwiZXhwIjoxNjY2Mjc3MDE2fQ.ld9-Wf20EA5CsFzlnZuwHsQzlygJeO-e3VrM7JEvasM,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NjEyMTc3NywiZXhwIjoxNjY2MjkwOTA4fQ.2CfxagxlLRT_W8bbO9h6QoJYqE3sxxr88O5CqMiavLs,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NjEyMTc3OSwiZXhwIjoxNjY2Mjk0NTc5fQ.QNIpG_WXmNu_4qH41rn9h3G0Q4csBAfNUjpkN10uW8w}', NULL, 2);
-
-
---
 -- Data for Name: activities; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -44,6 +26,7 @@ INSERT INTO public.users (user_id, role, username, password, refresh_tokens, ver
 -- Data for Name: alerts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.alerts (alert_id, alert_date, alert_message, user_id) VALUES (4, '2022-10-19 14:20:42.803649+03', 'The city  was created successfully!', 2);
 
 
 --
@@ -53,6 +36,7 @@ INSERT INTO public.users (user_id, role, username, password, refresh_tokens, ver
 INSERT INTO public.cities (city_id, city_name, district, population, user_id) VALUES (1, 'Kiryat Ono', 'center', 200000, 2);
 INSERT INTO public.cities (city_id, city_name, district, population, user_id) VALUES (2, 'Tel Aviv', 'center', 300000, 2);
 INSERT INTO public.cities (city_id, city_name, district, population, user_id) VALUES (3, 'Ramat Gan', 'center', 300000, 2);
+INSERT INTO public.cities (city_id, city_name, district, population, user_id) VALUES (4, 'Petah Tikva', 'center', 300000, 2);
 
 
 --
@@ -106,7 +90,6 @@ INSERT INTO public.muscles_group (muscles_group_id, muscles_group_name, user_id)
 --
 
 INSERT INTO public.exercises_list (exercise_id, exercise_name, muscles_group_id, equipment_id, user_id) VALUES (1, 'Chest Press', 2, 2, 2);
-INSERT INTO public.exercises_list (exercise_id, exercise_name, muscles_group_id, equipment_id, user_id) VALUES (3, 'Lunge', 1, 3, 2);
 INSERT INTO public.exercises_list (exercise_id, exercise_name, muscles_group_id, equipment_id, user_id) VALUES (4, 'Dips', 2, 1, 2);
 INSERT INTO public.exercises_list (exercise_id, exercise_name, muscles_group_id, equipment_id, user_id) VALUES (2, 'Squat', 1, 2, 2);
 INSERT INTO public.exercises_list (exercise_id, exercise_name, muscles_group_id, equipment_id, user_id) VALUES (6, 'Upper Chest Press', 2, 2, 2);
@@ -186,7 +169,6 @@ INSERT INTO public.training_program (training_program_row_id, training_programs_
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (4, 1, 8, '10-12', 3, '1.5min', '50kg', 7, '', '');
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (6, 2, 10, '10-12', 3, '1.5min', '60kg', 7, '', '');
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (5, 2, 13, '6-8', 3, '1.5min', '25kg', 7, '', '');
-INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (7, 2, 3, '10-12', 3, '1.5min', '15kg', 7, 'Super-set', 'Super-set with Stiff-Legs Death-lift');
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (8, 2, 12, '10-12', 3, '1.5min', '75', 7, '', 'Super-set with lunge');
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (9, 3, 13, '6-8', 3, '1.5min', '30kg', 7, '', '');
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (10, 3, 1, '6-8', 3, '1.5min', '100kg', 8, '', '');
@@ -194,6 +176,7 @@ INSERT INTO public.training_program (training_program_row_id, training_programs_
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (12, 3, 10, '10-12', 3, '1.5min', '60kg', 3, 'Super-set', 'Super set with lunge');
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (13, 3, 12, '10-12', 3, '1.5min', '60kg', 6, '', '');
 INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (14, 3, 7, '10-12', 3, '1.5min', '50kg', 7, '', '');
+INSERT INTO public.training_program (training_program_row_id, training_programs_list_id, exercise_id, reps, sets, rest, intensity, rpe, note_topic, note_text) VALUES (7, 2, 11, '10-12', 3, '1.5min', '15kg', 7, 'Super-set', 'Super-set with Stiff-Legs Death-lift');
 
 
 --
@@ -213,28 +196,28 @@ SELECT pg_catalog.setval('public.activities_activity_id_seq', 1, false);
 -- Name: alerts_alert_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.alerts_alert_id_seq', 37, true);
+SELECT pg_catalog.setval('public.alerts_alert_id_seq', 4, true);
 
 
 --
 -- Name: cities_city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cities_city_id_seq', 3, true);
+SELECT pg_catalog.setval('public.cities_city_id_seq', 4, true);
 
 
 --
 -- Name: equipments_equipment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.equipments_equipment_id_seq', 6, true);
+SELECT pg_catalog.setval('public.equipments_equipment_id_seq', 1, false);
 
 
 --
 -- Name: exercises_list_exercise_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.exercises_list_exercise_id_seq', 13, true);
+SELECT pg_catalog.setval('public.exercises_list_exercise_id_seq', 1, false);
 
 
 --
@@ -269,7 +252,7 @@ SELECT pg_catalog.setval('public.locations_location_id_seq', 3, true);
 -- Name: muscles_group_muscles_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.muscles_group_muscles_group_id_seq', 7, true);
+SELECT pg_catalog.setval('public.muscles_group_muscles_group_id_seq', 1, false);
 
 
 --
@@ -332,14 +315,14 @@ SELECT pg_catalog.setval('public.trainees_trainee_id_seq', 1, true);
 -- Name: training_program_training_program_row_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.training_program_training_program_row_id_seq', 14, true);
+SELECT pg_catalog.setval('public.training_program_training_program_row_id_seq', 1, false);
 
 
 --
 -- Name: training_programs_list_training_programs_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.training_programs_list_training_programs_list_id_seq', 3, true);
+SELECT pg_catalog.setval('public.training_programs_list_training_programs_list_id_seq', 1, false);
 
 
 --

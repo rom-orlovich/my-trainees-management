@@ -154,10 +154,10 @@ export async function selectQuery(
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
   // console.log(tableName);
-  if (tableName.includes(TABLES_DATA.MUSCLES_GROUP_TABLE_NAME)) {
-    console.log("statement", statement);
-    console.log("queryParams", queryParams);
-  }
+  // if (tableName.includes(TABLES_DATA.MUSCLES_GROUP_TABLE_NAME)) {
+  //   console.log("statement", statement);
+  //   console.log("queryParams", queryParams);
+  // }
 
   const rows = await client.query(statement, queryParams);
 
