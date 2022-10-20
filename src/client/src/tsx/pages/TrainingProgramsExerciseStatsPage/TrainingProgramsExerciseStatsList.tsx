@@ -34,6 +34,7 @@ function TrainingProgramsExerciseStatsList({
 }) {
   const params = useParams();
   const { exerciseID } = params;
+
   // const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
 
   return (

@@ -304,7 +304,7 @@ export const trainingProgramsExerciseStatsOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `tpes.*`,
     querySelectLogic: ``,
     queryParams: {
-      // exerciseID: TABLES_DATA.EXERCISES_ID,
+      exerciseID: TABLES_DATA.EXERCISES_ID,
       gt: "gt",
       lt: "lt",
     },

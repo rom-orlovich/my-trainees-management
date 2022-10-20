@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 
 import { TABLES_DATA } from "../utilities/constants";
-import { cl, createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
+import { pt, createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
 
@@ -64,10 +64,11 @@ export const createRealQueryKeyValuesObj = (
   for (const key in realQueryName) {
     // Created  key value obj which the first key is the key with the concat value of the query
     // and the other keys will concat to his key to create the concat name string for the query.
-    newRealQueryKeyValueObj = {
-      ...newRealQueryKeyValueObj,
-      [realQueryName[key]]: queryFromReq[key],
-    };
+    if (queryFromReq[key])
+      newRealQueryKeyValueObj = {
+        ...newRealQueryKeyValueObj,
+        [realQueryName[key]]: queryFromReq[key],
+      };
   }
 
   return newRealQueryKeyValueObj;
@@ -164,14 +165,9 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-
-  if (
-    tableName.includes(TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME)
-  ) {
-    console.log("statement", statement);
-    console.log("queryParams", queryParams);
-  }
-
+  pt(tableName, TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME, {
+    statement,
+  });
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;
@@ -304,10 +300,6 @@ export async function selectPagination(
 
   const { keyValuesOfNameStrArr, paramsNamesArr } =
     prepareKeyValuesOfNameToSelect(queryNameParams, paramsArr.length + 1);
-
-  cl(tableName, TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME, {
-    keyValuesStrArr,
-  });
 
   const queryParamsRes = [...paramsArr, ...paramsNamesArr];
 
