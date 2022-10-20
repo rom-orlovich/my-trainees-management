@@ -2,6 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 
+import { TABLES_DATA } from "../utilities/constants";
 import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
@@ -174,8 +175,13 @@ const insertQuery = async (
   const statement = `INSERT INTO ${tableName} (${fieldName})
    VALUES ${fieldParams} ${onConflict ? `${onConflict}` : ""} RETURNING * `;
 
-  // console.log("statement", statement);
-  // console.log("paramArr", paramArr);
+  // console.log(statement, [paramId, ...paramsArr]);
+  if (
+    tableName.includes(TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME)
+  ) {
+    console.log("statement", statement);
+    console.log("queryParams", paramArr);
+  }
 
   const res = await client.query(statement, paramArr);
 
