@@ -10,27 +10,38 @@ import { getAuthState } from "../../redux/slices/authSlice";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 
+const displayOptions = [
+  { label: "Table", value: "table" },
+  { label: "Graph", value: "graph" },
+];
+
 function TrainingProgramsExerciseStatsPage() {
   const authState = useAppSelector(getAuthState);
 
-  const [state, setState] = useState({} as { gt: string; lt: string });
+  const [{ gt, lt, display }, setQueryState] = useState({
+    gt: "",
+    lt: "",
+    display: "table",
+  });
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target);
-    setState({ [e.target.name]: e.target.value } as { gt: string; lt: string });
+  const onChange = <T extends { id: any; value: any }>(e: ChangeEvent<T>) => {
+    setQueryState((pre) => ({ ...pre, [e.target.id]: e.target.value }));
   };
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
+
   const queriesOptions = {
     trainerUserID: authState.user?.user_id,
-    gt: state?.gt || "",
-    lt: state?.lt || "",
+    gt,
+    lt,
   };
+  const content =
+    display === "table" ? (
+      <TrainingProgramsExerciseStatsList queriesOptions={queriesOptions} />
+    ) : (
+      <>Comeing Soon</>
+    );
   return (
     <section className={style.page_container}>
       <div className={style.page_header}>
-        {/* <span>{<Link to={``}>Add Program</Link>}</span> */}
         <span className={style.dates_container}>
           <InputLabel
             LabelProps={{ labelText: "Date Start", htmlFor: "gt" }}
@@ -44,15 +55,13 @@ function TrainingProgramsExerciseStatsPage() {
 
         <span>
           <SelectInput
-            LabelProps={{ labelText: "Display" }}
-            selectProps={{}}
-            options={[{ label: "Table", value: "table" }]}
-          ></SelectInput>
+            LabelProps={{ labelText: "Display", htmlFor: "display" }}
+            selectProps={{ onChange }}
+            options={displayOptions}
+          />
         </span>
       </div>
-      <div className={style.page_main_content}>
-        <TrainingProgramsExerciseStatsList queriesOptions={queriesOptions} />
-      </div>
+      <div className={style.page_main_content}>{content}</div>
     </section>
   );
 }

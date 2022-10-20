@@ -10,20 +10,19 @@ import { formatDate } from "../../utilities/helpersFun";
 
 const transformTrainingProgramList = ({
   exercise_id,
-  change_date,
+  update_date,
   intensity,
   reps,
   rpe,
   sets,
 
-  training_program_row_id,
   rest,
 }: TrainingProgramExerciseStatsAPI) => ({
   exercise_id,
-  update: formatDate(change_date),
+  update: formatDate(update_date),
   reps,
   sets,
-  intensity: `${intensity} Kg`,
+  intensity: `${intensity}Kg`,
   rest: `${rest}min`,
   rpe,
 });
@@ -36,7 +35,7 @@ function TrainingProgramsExerciseStatsList({
   const params = useParams();
   const { exerciseID } = params;
   // const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
-  console.log(`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${params["*"]}`);
+
   return (
     <TablePagination
       transformFun={transformTrainingProgramList}

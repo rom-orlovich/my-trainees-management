@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 
 import { TABLES_DATA } from "../utilities/constants";
-import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
+import { cl, createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
 
@@ -132,17 +132,18 @@ const prepareKeyValuesOtherColumnToSelect = (
   keysValuesEntries.forEach(([key, value], index) => {
     if (key === "gt")
       keyValuesStr += value
-        ? ` change_date<$${paramsArr.length + startIndex} `
+        ? ` update_date>=$${paramsArr.length + startIndex} `
         : "";
-    if (key === "lt")
+    else if (key === "lt")
       keyValuesStr += value
-        ? ` change_date>$${paramsArr.length + startIndex} `
+        ? ` update_date<=$${paramsArr.length + startIndex} `
         : "";
     else
       keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
 
     if (index !== keysValuesEntries.length - 1)
-      keyValuesStr += value ? `${keyValuesStr} and` : "";
+      keyValuesStr += value ? ` and` : "";
+
     if (value) {
       if (isNaN(value) || key === "phone_number") paramsArr.push(value);
       else paramsArr.push(Number(value));
@@ -300,8 +301,13 @@ export async function selectPagination(
     queryParams,
     1
   );
+
   const { keyValuesOfNameStrArr, paramsNamesArr } =
     prepareKeyValuesOfNameToSelect(queryNameParams, paramsArr.length + 1);
+
+  cl(tableName, TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME, {
+    keyValuesStrArr,
+  });
 
   const queryParamsRes = [...paramsArr, ...paramsNamesArr];
 

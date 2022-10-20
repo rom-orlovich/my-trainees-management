@@ -37,3 +37,9 @@ export function createObjValuesArr(obj: object) {
 export function createObjKeysArr(obj: object) {
   return Object.keys(obj);
 }
+
+export const cl = (tn: string, tn2: string, obj: Record<string, any>) => {
+  if (tn.includes(tn2)) {
+    console.log("log", obj);
+  }
+};

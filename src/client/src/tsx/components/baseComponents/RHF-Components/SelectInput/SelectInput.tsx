@@ -38,7 +38,7 @@ export function SelectInput({
         {labelText}
       </label>
       <span className={style.select_plus_button}>
-        <select ref={ref} id={htmlFor} {...selectProps}>
+        <select ref={ref} id={htmlFor} name={htmlFor} {...selectProps}>
           {options.map(({ label, value }, i) => (
             <option key={`${label}+${value}${i}`} value={value}>
               {label}
