@@ -75,5 +75,17 @@
         @include posAbs(30% !important);
       }
     }
+    .dates_container {
+      @include classMatcher("input_label") {
+        max-width: 40%;
+      }
+    }
+    @include classMatcher("selectInput") {
+      flex: 40%;
+      max-width: 40%;
+      select {
+        min-width: 6rem;
+      }
+    }
   }
 }
