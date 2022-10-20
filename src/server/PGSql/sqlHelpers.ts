@@ -130,7 +130,17 @@ const prepareKeyValuesOtherColumnToSelect = (
   const keysValuesEntries = Object.entries(queryParams);
 
   keysValuesEntries.forEach(([key, value], index) => {
-    keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
+    if (key === "gt")
+      keyValuesStr += value
+        ? ` change_date<$${paramsArr.length + startIndex} `
+        : "";
+    if (key === "lt")
+      keyValuesStr += value
+        ? ` change_date>$${paramsArr.length + startIndex} `
+        : "";
+    else
+      keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
+
     if (index !== keysValuesEntries.length - 1)
       keyValuesStr += value ? `${keyValuesStr} and` : "";
     if (value) {
@@ -154,10 +164,12 @@ export async function selectQuery(
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
 
-  // if (tableName.includes(TABLES_DATA.USERS_TABLE_NAME)) {
-  //   console.log("statement", statement);
-  //   console.log("queryParams", queryParams);
-  // }
+  if (
+    tableName.includes(TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME)
+  ) {
+    console.log("statement", statement);
+    console.log("queryParams", queryParams);
+  }
 
   const rows = await client.query(statement, queryParams);
 

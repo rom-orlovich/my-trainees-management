@@ -7,7 +7,10 @@ import { trainingProgramsApi } from "../../redux/api/hooksAPI";
 import { TrainingProgramExerciseTableAPI } from "../../redux/api/interfaceAPI";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import { deleteFunMutation } from "../../utilities/helpersFun";
+import {
+  capitalFirstLetter,
+  deleteFunMutation,
+} from "../../utilities/helpersFun";
 
 import page_style from "../Page.module.scss";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
@@ -31,7 +34,7 @@ const trainingProgramExercisesTransform = ({
   } = data;
   return {
     training_program_row_id,
-    exercise: exercise_name,
+    exercise: <Link to={`${exercise_id}/stats`}>{exercise_name}</Link>,
     muscle: muscles_group_name,
     equipment: equipment_name,
     reps,

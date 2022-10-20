@@ -248,6 +248,7 @@ export type TrainingProgramExerciseOmit = OmitKey<
 
 export interface TrainingProgramExerciseStatsAPI {
   training_program_row_id: number;
+  change_date: Date;
   exercise_id: number;
   reps: string;
   sets: number;

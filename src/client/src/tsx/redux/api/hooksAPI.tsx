@@ -18,6 +18,7 @@ import {
   AlertsAPI,
   UserAPI,
   TrainingProgramExerciseStatsAPI,
+  ResponseQueryAPI,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -103,10 +104,13 @@ export const trainingProgramsApi =
     listId: "training_programs_exercises_list",
   }).injectEndpoints({
     endpoints: (builder) => ({
-      getExerciseStats: builder.query({
-        query: ({ id }) => ({ url: `/exercise/${id}/stats` }),
-        providesTags: (value) =>
-          providerTags(value, "exerciseStats", "exerciseStatsList"),
+      getExerciseStats: builder.query<
+        ResponseQueryAPI<TrainingProgramExerciseStatsAPI>,
+        Record<string, any>
+      >({
+        query: (params) => ({ url: `/stats`, params }),
+        providesTags: (result) =>
+          providerTags(result?.data, "exerciseStats", "exerciseStatsList"),
       }),
     }),
   });

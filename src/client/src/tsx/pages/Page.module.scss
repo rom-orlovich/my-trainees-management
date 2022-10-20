@@ -34,6 +34,14 @@
       @include posAbs(20% !important);
     }
   }
+
+  .dates_container {
+    @include flex-dir(null, null);
+    gap: 0.5rem;
+    @include classMatcher("input_label") {
+      max-width: 50%;
+    }
+  }
 }
 
 @include smartphone() {

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { PropsBasic } from "../../baseComponentsTypes";
 
 import style from "./SelectInput.module.scss";
+
 export interface Option {
   label: React.ReactNode;
   value: string | number | string[];
@@ -38,13 +39,11 @@ export function SelectInput({
       </label>
       <span className={style.select_plus_button}>
         <select ref={ref} id={htmlFor} {...selectProps}>
-          {options.map(({ label, value }, i) => {
-            return (
-              <option key={`${label}+${value}${i}`} value={value}>
-                {label}
-              </option>
-            );
-          })}
+          {options.map(({ label, value }, i) => (
+            <option key={`${label}+${value}${i}`} value={value}>
+              {label}
+            </option>
+          ))}
         </select>
         {addOption ? (
           <Link to={addOption.link}>{<AiOutlinePlusCircle />} </Link>

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from "react";
 import style from "./InputLabel.module.scss";
 
@@ -38,7 +39,12 @@ export function InputLabel({
       {TextAreaProps ? (
         <textarea ref={TextAreaProps.ref} {...TextAreaProps} id={htmlFor} />
       ) : InputProps ? (
-        <input ref={InputProps?.ref} {...InputProps} id={htmlFor} />
+        <input
+          ref={InputProps?.ref}
+          {...InputProps}
+          id={htmlFor}
+          name={htmlFor}
+        />
       ) : (
         <></>
       )}

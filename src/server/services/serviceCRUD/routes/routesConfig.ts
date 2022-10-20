@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import * as yup from "yup";
 
+import { table } from "console";
 import {
   citiesSchema,
   equipmentSchema,
@@ -296,15 +297,19 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
 };
 
 export const trainingProgramsExerciseStatsOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.TRAINING_PROGRAMS_ENTITY,
+  singleEntityName: "",
   selectQuery: {
     tableName: `${TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME} as tpes`,
     tableID: `tpes.${TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_ID}`,
     fieldNamesQuery: `tpes.*`,
     querySelectLogic: ``,
-    // queryParams: {},
-    // queryNameParam: {},
+    queryParams: {
+      // exerciseID: TABLES_DATA.EXERCISES_ID,
+      gt: "gt",
+      lt: "lt",
+    },
   },
+
   permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   validateSchema: trainingProgramExerciseStatsSchema,
 };
@@ -473,6 +478,10 @@ export const routesCRUDArr: {
   {
     baseRoute: API_ROUTES.TRAINING_PROGRAMS_LIST_ROUTE,
     optionsCRUD: trainingProgramsListOptionsCRUD,
+  },
+  {
+    baseRoute: API_ROUTES.TRAINING_PROGRAMS_STATS_ROUTE,
+    optionsCRUD: trainingProgramsExerciseStatsOptionsCRUD,
   },
   {
     baseRoute: API_ROUTES.TRAINING_PROGRAMS_ROUTE,
