@@ -32,7 +32,7 @@ function UsersTable({
   return (
     <InsteadOutletRoutes InsteadOutletRoutesPaths={[APP_ROUTE.USERS_ROUTE, ""]}>
       <TablePagination<UserAPI>
-        mainRoute={APP_ROUTE.USERS_ROUTE}
+        editPagePath={APP_ROUTE.USERS_ROUTE}
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Users"}
         transformFun={transformDataUser}

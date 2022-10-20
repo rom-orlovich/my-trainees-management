@@ -97,7 +97,7 @@ export default function Form<TFormValues extends Record<string, any>>({
     try {
       await onSubmit(data);
       methods.reset();
-      console.log(methods.getValues());
+
       if (!editMode)
         dispatch(
           saveFormState({

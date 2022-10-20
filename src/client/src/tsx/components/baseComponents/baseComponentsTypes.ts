@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { ReactNode, ThHTMLAttributes } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { AnyFun } from "../../types";
 
 import { TdProps, ThProps } from "./Tables/TableCells";
 
@@ -66,11 +67,15 @@ export interface ListProps<T extends Record<string, any>>
   UlProps?: UlProps;
   LI: LiComponentProps<T>;
 }
-
+export interface TableAction {
+  element: ReactNode;
+  fun: AnyFun;
+}
 export interface TableProps<T> extends ComponentWithArray<T> {
   Th?: (props: ThProps) => JSX.Element;
   Td?: (props: TdProps) => JSX.Element;
   deleteItemFun?: (id: string) => void;
+  actions?: TableAction[] | boolean;
 }
 export type FormProps = Partial<
   React.DetailedHTMLProps<

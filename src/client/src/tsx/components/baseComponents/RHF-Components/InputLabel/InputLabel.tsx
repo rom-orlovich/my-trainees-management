@@ -37,13 +37,18 @@ export function InputLabel({
         {labelText}
       </label>
       {TextAreaProps ? (
-        <textarea ref={TextAreaProps.ref} {...TextAreaProps} id={htmlFor} />
+        <textarea
+          ref={TextAreaProps.ref}
+          id={htmlFor}
+          name={htmlFor}
+          {...TextAreaProps}
+        />
       ) : InputProps ? (
         <input
           ref={InputProps?.ref}
-          {...InputProps}
           id={htmlFor}
           name={htmlFor}
+          {...InputProps}
         />
       ) : (
         <></>

@@ -20,14 +20,15 @@ export function TablePagination<T extends Record<string, any>>({
   getAllQuery,
   transformFun,
   nameData,
-  mainRoute,
+  editPagePath,
   queriesOptions,
+  actions,
 }: {
   nameData: string;
   getAllQuery: UseQuery<any>;
   queriesOptions?: Record<string, any>;
   transformFun?: (arg: T) => any;
-  mainRoute?: string;
+  editPagePath?: string;
 } & OmitKey<TableProps<T>, "dataArr">) {
   const { ButtonLeft, ButtonRight, numPage, setNumPage } =
     usePaginationButtons();
@@ -66,12 +67,13 @@ export function TablePagination<T extends Record<string, any>>({
           <>
             <div className={style.tablePagination_container}>
               <Table
-                mainRoute={mainRoute || pathName.slice(1)}
+                editPagePath={editPagePath || pathName.slice(1)}
                 Th={Th}
                 Td={Td}
                 dataArr={transformData.data}
                 deleteItemFun={deleteItemFun}
-              ></Table>
+                actions={actions}
+              />
             </div>
             <div className={style.buttons_container}>
               <ButtonLeft className={style.left_button} />

@@ -20,7 +20,7 @@ function LoginPage() {
 
   const onSubmit = async (body: LoginForm) => {
     dispatch(disableGoPrevPage());
-
+    console.log(body);
     await login(body).unwrap();
   };
 
@@ -35,7 +35,6 @@ function LoginPage() {
         pathMove={relativePath(APP_ROUTE.HOME_PAGE)}
         formOptions={{
           resolver: yupResolver(loginSchema),
-
           defaultValues: { username: "trainer123", password: "trainer123" },
         }}
       >

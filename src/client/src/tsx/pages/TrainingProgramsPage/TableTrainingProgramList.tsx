@@ -40,7 +40,7 @@ function TableTrainingProgramList({
       transformFun={transformTrainingProgramList}
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       queriesOptions={{ traineeID, ...queriesOptions }}
-      mainRoute={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}`}
+      editPagePath={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}`}
       nameData={nameData || "Training Program List"}
       getAllQuery={trainingProgramsListApi.useGetItemsQuery}
     />

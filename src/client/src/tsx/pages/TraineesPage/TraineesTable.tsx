@@ -51,7 +51,7 @@ function TraineesTable({
       InsteadOutletRoutesPaths={[APP_ROUTE.TRAINEES_ROUTE, ""]}
     >
       <TablePagination<TraineesTableExtendsAPI>
-        mainRoute={APP_ROUTE.TRAINEES_ROUTE}
+        editPagePath={APP_ROUTE.TRAINEES_ROUTE}
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Trainees"}
         transformFun={transformDataTrainee}

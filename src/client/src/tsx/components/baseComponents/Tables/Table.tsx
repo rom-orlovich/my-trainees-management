@@ -16,9 +16,11 @@ function Table<T extends Record<string, any>>({
   className,
   Td,
   Th,
-  mainRoute,
+
+  editPagePath,
   deleteItemFun,
-}: TableProps<T> & { mainRoute: string }) {
+  actions = true,
+}: TableProps<T> & { editPagePath: string }) {
   const TH = Th || ThCell;
   const TD = Td || TdCell;
   const newDataArr = dataArr.map((obj: T) => {
@@ -32,18 +34,16 @@ function Table<T extends Record<string, any>>({
     return newObj;
   });
 
-  const keys = getKeysArrObj(newDataArr[0])
-    .slice(1)
-    .map(formatThValue)
-    .concat("Actions");
+  const keys = getKeysArrObj(newDataArr[0]).slice(1).map(formatThValue);
 
   return (
     <table className={`${className || ""} `}>
       <thead>
         <tr>
           {keys.map((el, i) => (
-            <TH key={i} value={el}></TH>
+            <TH key={i} value={el} />
           ))}
+          {actions ? <TH key={keys.length + 1} value={"action"} /> : <></>}
         </tr>
       </thead>
       <tbody>
@@ -56,21 +56,26 @@ function Table<T extends Record<string, any>>({
               {valuesWithOutID.map((value, col) => (
                 <TD fitTh={keys[col]} key={`${value}${col}`} value={value} />
               ))}
-              <td data-label="Actions">
-                <span className={`${style.actions}`}>
-                  {
-                    <Link to={`/${mainRoute}/${values[0]}`}>
-                      <FaEdit className={style.iconEdit} />
-                    </Link>
-                  }
-                  {deleteItemFun && (
-                    <AiFillDelete
-                      onClick={() => deleteItemFun && deleteItemFun(values[0])}
-                      className={style.deleteIcon}
-                    ></AiFillDelete>
-                  )}
-                </span>
-              </td>
+
+              {actions && (
+                <td data-label="Actions">
+                  <span className={`${style.actions}`}>
+                    {
+                      <Link to={`/${editPagePath}/${values[0]}`}>
+                        <FaEdit className={style.iconEdit} />
+                      </Link>
+                    }
+                    {deleteItemFun && (
+                      <AiFillDelete
+                        onClick={() =>
+                          deleteItemFun && deleteItemFun(values[0])
+                        }
+                        className={style.deleteIcon}
+                      ></AiFillDelete>
+                    )}
+                  </span>
+                </td>
+              )}
             </tr>
           );
         })}

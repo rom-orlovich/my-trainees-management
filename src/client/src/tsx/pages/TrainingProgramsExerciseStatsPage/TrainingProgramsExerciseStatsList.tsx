@@ -41,8 +41,9 @@ function TrainingProgramsExerciseStatsList({
     <TablePagination
       transformFun={transformTrainingProgramList}
       // deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
+      actions={false}
       queriesOptions={{ exerciseID, ...queriesOptions }}
-      mainRoute={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${params["*"]}`}
+      editPagePath={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${params["*"]}`}
       nameData={nameData || "Exercise Stats"}
       getAllQuery={trainingProgramsApi.useGetExerciseStatsQuery}
     />

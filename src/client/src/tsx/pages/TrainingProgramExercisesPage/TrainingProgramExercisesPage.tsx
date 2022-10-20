@@ -98,7 +98,7 @@ function TrainingProgramExercises() {
                 mainName: exercise[1],
                 ...queriesOptions,
               }}
-              mainRoute={pathName.slice(1)}
+              editPagePath={pathName.slice(1)}
               nameData="Program's Exercises"
               deleteItemFun={
                 !isTrainee

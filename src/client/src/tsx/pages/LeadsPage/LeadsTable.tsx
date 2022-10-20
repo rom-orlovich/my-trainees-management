@@ -38,7 +38,7 @@ function LeadsTable({
   return (
     <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.LEADS_ROUTE}>
       <TablePagination<LeadsTableAPI>
-        mainRoute={APP_ROUTE.LEADS_ROUTE}
+        editPagePath={APP_ROUTE.LEADS_ROUTE}
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Leads"}
         transformFun={transformDataLead}
