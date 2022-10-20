@@ -43,7 +43,7 @@ function Table<T extends Record<string, any>>({
           {keys.map((el, i) => (
             <TH key={i} value={el} />
           ))}
-          {actions ? <TH key={keys.length + 1} value={"action"} /> : <></>}
+          {actions ? <TH key={keys.length + 1} value={"Action"} /> : <></>}
         </tr>
       </thead>
       <tbody>
