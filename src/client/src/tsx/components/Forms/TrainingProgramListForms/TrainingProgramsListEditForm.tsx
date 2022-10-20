@@ -16,12 +16,11 @@ export function TrainingProgramsListEditForm() {
   const { data, isLoading, isFetching, isError } =
     trainingProgramsListApi.useGetItemByIDQuery({ id, ...queriesOptions });
 
-  const handleSubmit = (body: TrainingProgramsListTableAPI) => {
+  const handleSubmit = (body: TrainingProgramsListTableAPI) =>
     updateFunction({
       id,
       updateItem,
     })(body);
-  };
 
   return (
     <LoadingSpinner

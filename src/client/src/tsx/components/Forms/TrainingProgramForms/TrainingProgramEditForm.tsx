@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { trainingProgramsApi } from "../../../redux/api/hooksAPI";
 import { TrainingProgramExerciseOmit } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TrainingProgramForms from "./TrainingProgramForm";
@@ -11,7 +12,7 @@ export function TrainingProgramEditExerciseForm() {
   const id = Number(useParams().id);
   const [updateItem] = trainingProgramsApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();
-
+  const dispatch = useAppDispatch();
   const queriesOptions = { userID: authState.user_id };
 
   const { data, isLoading, isFetching, isError } =
@@ -21,7 +22,13 @@ export function TrainingProgramEditExerciseForm() {
     updateFunction({
       updateItem,
       id,
-    })(body);
+    })(body).then(() =>
+      dispatch(
+        trainingProgramsApi.util.invalidateTags([
+          { type: "exerciseStats", id: "exerciseStatsList" },
+        ])
+      )
+    );
 
   return (
     <LoadingSpinner

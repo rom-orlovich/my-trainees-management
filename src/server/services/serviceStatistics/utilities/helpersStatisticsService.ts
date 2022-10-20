@@ -1,12 +1,7 @@
 /* eslint-disable camelcase */
 import { client } from "../../../PGSql/DBConnectConfig";
-import {
-  insertQueryOneItem,
-  prepareKeyValuesToUpdate,
-  updateQuerySingleItem,
-} from "../../../PGSql/sqlHelpers";
+import { insertQueryOneItem } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
-import { createObjKeysArr, promiseHandler } from "../../../utilities/helpers";
 
 export interface TrainingProgramExercise {
   training_program_row_id: number;

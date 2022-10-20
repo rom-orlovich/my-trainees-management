@@ -1,3 +1,4 @@
+import { min } from "lodash";
 import * as yup from "yup";
 
 export const musclesGroupSchema = yup.object().shape({
@@ -117,6 +118,27 @@ export const trainingProgramSchema = yup.object().shape({
     .typeError({ message: "RPE is number between 1 and 10." }),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
+});
+
+export const trainingProgramExerciseStatsSchema = yup.object().shape({
+  training_program_row_id: yup.number().notRequired().nullable(),
+  exercise_id: yup.number().required(),
+  rest: yup.number().required(),
+  sets: yup.number().required().min(1, "Min number of sets is 1"),
+  reps: yup
+    .string()
+    .required()
+    .oneOf(
+      ["1", "3-5", "6-8", "8-10", "10-12", "12-15"],
+      "Please enter valid range of reps: 1, 3-5, 6-8, 8-10, 10-12, 12-15."
+    ),
+  intensity: yup.number().required().min(1, "Min number of intensity is 1"),
+  rpe: yup
+    .number()
+    .required()
+    .min(1)
+    .max(10)
+    .typeError({ message: "RPE is number between 1 and 10." }),
 });
 
 export const nutritionProgramsListSchema = yup.object().shape({

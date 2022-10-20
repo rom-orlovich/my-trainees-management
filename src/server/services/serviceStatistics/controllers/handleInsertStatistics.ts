@@ -1,5 +1,4 @@
 import { RequestHandler } from "express";
-import { TABLES_DATA } from "../../../utilities/constants";
 
 import { promiseHandler } from "../../../utilities/helpers";
 import { insertIntoTrainingProgramExerciseData } from "../utilities/helpersStatisticsService";

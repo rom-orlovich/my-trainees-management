@@ -137,8 +137,8 @@ export function createRoutesControllers({
   // Controller of the delete method.
   // delete one item by his ID in db.
   const deleteValueByID: RequestHandler = async (req, res, next) => {
-    const { id } = req.params;
-    const queryLogic = `WHERE ${tableID}=$1`;
+    // const { id } = req.params;
+    // const queryLogic = `WHERE ${tableID}=$1`;
 
     // const [data, err] = await promiseHandler(
     //   deleteQuery(tableName, queryLogic, [id], true)

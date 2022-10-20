@@ -17,9 +17,11 @@ import {
   TrainingProgramsListTableAPI,
   AlertsAPI,
   UserAPI,
+  TrainingProgramExerciseStatsAPI,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
+import { providerTag, providerTags } from "../reduxHelpers";
 
 export const usersApi = apiCreateCRUDHooks<UserAPI>({
   reducerPath: "usersApi",
@@ -99,6 +101,14 @@ export const trainingProgramsApi =
     baseUrl: API_ROUTES.TRAINING_PROGRAMS_ROUTE,
     singleEntityName: API_ROUTES.TRAINING_PROGRAMS_ENTITY,
     listId: "training_programs_exercises_list",
+  }).injectEndpoints({
+    endpoints: (builder) => ({
+      getExerciseStats: builder.query({
+        query: ({ id }) => ({ url: `/exercise/${id}/stats` }),
+        providesTags: (value) =>
+          providerTags(value, "exerciseStats", "exerciseStatsList"),
+      }),
+    }),
   });
 export const nutritionProgramsListApi =
   apiCreateCRUDHooks<NutritionProgramsListTable>({

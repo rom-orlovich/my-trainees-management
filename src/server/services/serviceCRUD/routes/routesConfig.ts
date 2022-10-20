@@ -18,6 +18,7 @@ import {
   trainingProgramSchema,
   trainingProgramsListSchema,
   weeksSchema,
+  trainingProgramExerciseStatsSchema,
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
@@ -292,6 +293,20 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
   },
   permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   validateSchema: trainingProgramSchema,
+};
+
+export const trainingProgramsExerciseStatsOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.TRAINING_PROGRAMS_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME} as tpes`,
+    tableID: `tpes.${TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_ID}`,
+    fieldNamesQuery: `tpes.*`,
+    querySelectLogic: ``,
+    // queryParams: {},
+    // queryNameParam: {},
+  },
+  permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
+  validateSchema: trainingProgramExerciseStatsSchema,
 };
 
 export const nutritionProgramOptionsCRUD: OptionsCRUD = {

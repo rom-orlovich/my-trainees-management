@@ -38,6 +38,7 @@ export enum API_ROUTES {
   TRAINING_PROGRAMS_LIST_ROUTE = "/api/trainingProgramsList",
   TRAINING_PROGRAMS_LIST_ENTITY = "trainingProgramList",
   TRAINING_PROGRAMS_ROUTE = "/api/trainingPrograms",
+  TRAINING_PROGRAMS_STATS_ROUTE = "/api/trainingPrograms",
   TRAINING_PROGRAMS_ENTITY = "exercise",
   NUTRITION_PROGRAMS_LIST_ROUTE = "/api/nutritionProgramsList",
   NUTRITION_PROGRAMS_LIST_ENTITY = "nutritionProgramList",
@@ -245,6 +246,15 @@ export type TrainingProgramExerciseOmit = OmitKey<
   "equipment_name" | "muscles_group_name" | "exercise_name"
 >;
 
+export interface TrainingProgramExerciseStatsAPI {
+  training_program_row_id: number;
+  exercise_id: number;
+  reps: string;
+  sets: number;
+  rest: number;
+  intensity: number;
+  rpe: number;
+}
 export interface LoginForm {
   username: string;
   password: string;
