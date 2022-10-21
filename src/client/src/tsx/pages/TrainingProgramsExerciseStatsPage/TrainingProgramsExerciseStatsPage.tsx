@@ -1,14 +1,15 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
+import { useSearchParams } from "react-router-dom";
 import TrainingProgramsExerciseStatsList from "./TrainingProgramsExerciseStatsList";
-
-import style from "../Page.module.scss";
 
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import { genClassName } from "../../utilities/helpersFun";
+import page from "../Page.module.scss";
+import style from "./TrainingProgramsExerciseStatsPage.module.scss";
 
 const displayOptions = [
   { label: "Table", value: "table" },
@@ -17,7 +18,7 @@ const displayOptions = [
 
 function TrainingProgramsExerciseStatsPage() {
   const authState = useAppSelector(getAuthState);
-
+  const [queryParams] = useSearchParams();
   const [{ gt, lt, display }, setQueryState] = useState({
     gt: "",
     lt: "",
@@ -39,9 +40,11 @@ function TrainingProgramsExerciseStatsPage() {
     ) : (
       <>Comeing Soon</>
     );
+
   return (
-    <section className={style.page_container}>
-      <div className={genClassName(style.page_header, style.stats_header)}>
+    <section className={page.page_container}>
+      <h1 className={style.exercise_name}>{queryParams.get("exercise")} </h1>
+      <div className={genClassName(page.page_header, style.stats_header)}>
         <span className={style.dates_container}>
           <InputLabel
             LabelProps={{ labelText: "Date Start", htmlFor: "gt" }}
@@ -53,15 +56,13 @@ function TrainingProgramsExerciseStatsPage() {
           />
         </span>
 
-        {/* <span> */}
         <SelectInput
           LabelProps={{ labelText: "Display", htmlFor: "display" }}
           selectProps={{ onChange }}
           options={displayOptions}
         />
-        {/* </span> */}
       </div>
-      <div className={style.page_main_content}>{content}</div>
+      <div className={page.page_main_content}>{content}</div>
     </section>
   );
 }

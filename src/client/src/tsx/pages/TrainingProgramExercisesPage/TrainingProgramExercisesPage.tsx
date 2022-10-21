@@ -34,7 +34,11 @@ const trainingProgramExercisesTransform = ({
   } = data;
   return {
     training_program_row_id,
-    exercise: <Link to={`${exercise_id}/stats`}>{exercise_name}</Link>,
+    exercise: (
+      <Link to={`${exercise_id}/stats?exercise=${exercise_name}`}>
+        {exercise_name}
+      </Link>
+    ),
     muscle: muscles_group_name,
     equipment: equipment_name,
     reps,

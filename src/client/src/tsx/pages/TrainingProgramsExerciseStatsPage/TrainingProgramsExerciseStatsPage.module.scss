@@ -1,0 +1,60 @@
+@use "../../../style/utilities/utilities.scss" as *;
+.exercise_name {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+@include classMatcher("page_header") {
+  padding: 0rem 1rem 0rem 0rem !important;
+  &.stats_header {
+    @include flex-dir(null, null, row);
+
+    .dates_container {
+      @include flex-dir(null, null);
+      gap: 0.5rem;
+
+      @include classMatcher("input_label") {
+        max-width: 50%;
+      }
+    }
+    @include classMatcher("selectInput_label") {
+      flex: initial;
+    }
+  }
+}
+
+@include smartphone() {
+  @include classMatcher("page_container") {
+    position: relative;
+    .exercise_name {
+      margin-bottom: 1rem;
+    }
+
+    @include classMatcher("page_header") {
+      &.stats_header {
+        @include flex-dir(null, initial, column);
+
+        .dates_container {
+          max-width: 100%;
+          @include flex-dir(null, null, row);
+          gap: 0.3rem;
+
+          @include classMatcher("input_label") {
+            max-width: initial;
+          }
+        }
+        @include classMatcher("selectInput_label") {
+          @include posAbs(0.5%, null, 2%, null);
+          width: initial;
+          max-width: initial;
+          label {
+            display: none;
+          }
+          select {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
