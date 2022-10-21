@@ -69,23 +69,18 @@
         .dates_container {
           max-width: 100%;
           @include flex-dir(null, null, column);
-          gap: 0.5rem;
+          gap: 0.3rem;
 
           @include classMatcher("input_label") {
-            width: 100%;
-            max-width: 100%;
+            -webkit-appearance: none;
+            max-width: initial;
           }
         }
         @include classMatcher("selectInput_label") {
-          width: 100%;
-          max-width: 100%;
+          width: initial;
+          max-width: initial;
           select {
-            min-width: 6rem;
             width: 100%;
-
-            &:focus {
-              width: 70%;
-            }
           }
         }
       }
