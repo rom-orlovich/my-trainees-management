@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
 
 import TrainingProgramsExerciseStatsList from "./TrainingProgramsExerciseStatsList";
 
@@ -9,6 +8,7 @@ import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
+import { genClassName } from "../../utilities/helpersFun";
 
 const displayOptions = [
   { label: "Table", value: "table" },
@@ -41,7 +41,7 @@ function TrainingProgramsExerciseStatsPage() {
     );
   return (
     <section className={style.page_container}>
-      <div className={style.page_header}>
+      <div className={genClassName(style.page_header, style.stats_header)}>
         <span className={style.dates_container}>
           <InputLabel
             LabelProps={{ labelText: "Date Start", htmlFor: "gt" }}
@@ -53,13 +53,13 @@ function TrainingProgramsExerciseStatsPage() {
           />
         </span>
 
-        <span>
-          <SelectInput
-            LabelProps={{ labelText: "Display", htmlFor: "display" }}
-            selectProps={{ onChange }}
-            options={displayOptions}
-          />
-        </span>
+        {/* <span> */}
+        <SelectInput
+          LabelProps={{ labelText: "Display", htmlFor: "display" }}
+          selectProps={{ onChange }}
+          options={displayOptions}
+        />
+        {/* </span> */}
       </div>
       <div className={style.page_main_content}>{content}</div>
     </section>

@@ -19,6 +19,18 @@
         background-color: #75b1dd;
       }
     }
+
+    .dates_container {
+      @include flex-dir(null, null);
+      gap: 0.5rem;
+
+      @include classMatcher("input_label") {
+        max-width: 50%;
+      }
+    }
+    @include classMatcher("selectInput_label") {
+      flex: initial;
+    }
   }
   .page_main_content {
     background-color: initial;
@@ -32,14 +44,6 @@
       display: inline;
       @include centerAbs();
       @include posAbs(20% !important);
-    }
-  }
-
-  .dates_container {
-    @include flex-dir(null, null);
-    gap: 0.5rem;
-    @include classMatcher("input_label") {
-      max-width: 50%;
     }
   }
 }
@@ -59,6 +63,32 @@
       a {
         font-size: 0.7rem;
       }
+      &.stats_header {
+        @include flex-dir(null, initial, column);
+
+        .dates_container {
+          max-width: 100%;
+          @include flex-dir(null, null, column);
+          gap: 0.5rem;
+
+          @include classMatcher("input_label") {
+            width: 100%;
+            max-width: 100%;
+          }
+        }
+        @include classMatcher("selectInput_label") {
+          width: 100%;
+          max-width: 100%;
+          select {
+            min-width: 6rem;
+            width: 100%;
+
+            &:focus {
+              width: 70%;
+            }
+          }
+        }
+      }
     }
     .page_main_content {
       background-color: initial;
@@ -73,18 +103,6 @@
         display: inline;
         @include centerAbs();
         @include posAbs(30% !important);
-      }
-    }
-    .dates_container {
-      @include classMatcher("input_label") {
-        max-width: 40%;
-      }
-    }
-    @include classMatcher("selectInput") {
-      flex: 40%;
-      max-width: 40%;
-      select {
-        min-width: 6rem;
       }
     }
   }

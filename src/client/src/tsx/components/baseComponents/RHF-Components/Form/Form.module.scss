@@ -154,6 +154,7 @@ span[class*="checkbox_label"] {
       span[class*="textarea_label"],
       span[class*="selectInput_label"],
       span[class*="autocomplete"] {
+        flex: 30%;
         max-width: 100%;
         label {
           font-size: 1rem;
