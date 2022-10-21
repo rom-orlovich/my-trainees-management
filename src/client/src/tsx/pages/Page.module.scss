@@ -68,11 +68,10 @@
 
         .dates_container {
           max-width: 100%;
-          @include flex-dir(null, null, column);
+          @include flex-dir(null, null, row);
           gap: 0.3rem;
 
           @include classMatcher("input_label") {
-            -webkit-appearance: none;
             max-width: initial;
           }
         }
