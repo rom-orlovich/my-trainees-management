@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
 import { useSearchParams } from "react-router-dom";
-import TrainingProgramsExerciseStatsList from "./TrainingProgramsExerciseStatsList";
+import ExerciseStatsTable from "./ExerciseStatsTable";
 
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
@@ -9,7 +9,8 @@ import { InputLabel } from "../../components/baseComponents/RHF-Components/Input
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import { genClassName } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
-import style from "./TrainingProgramsExerciseStatsPage.module.scss";
+import style from "./ExerciseStatsPage.module.scss";
+import ExerciseStatsChart from "./ExerciseStatsChart";
 
 const displayOptions = [
   { label: "Table", value: "table" },
@@ -22,7 +23,7 @@ function TrainingProgramsExerciseStatsPage() {
   const [{ gt, lt, display }, setQueryState] = useState({
     gt: "",
     lt: "",
-    display: "table",
+    display: "graph",
   });
 
   const onChange = <T extends { id: any; value: any }>(e: ChangeEvent<T>) => {
@@ -36,9 +37,9 @@ function TrainingProgramsExerciseStatsPage() {
   };
   const content =
     display === "table" ? (
-      <TrainingProgramsExerciseStatsList queriesOptions={queriesOptions} />
+      <ExerciseStatsTable queriesOptions={queriesOptions} />
     ) : (
-      <>Comeing Soon</>
+      <ExerciseStatsChart queriesOptions={queriesOptions} />
     );
 
   return (

@@ -26,6 +26,7 @@ const transformTrainingProgramList = ({
   rest: `${rest}min`,
   rpe,
 });
+
 function TrainingProgramsExerciseStatsList({
   queriesOptions,
   nameData,

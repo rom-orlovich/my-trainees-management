@@ -1,30 +1,35 @@
 @use "../../../style/utilities/utilities.scss" as *;
-.exercise_name {
-  font-size: 1.8rem;
-  font-weight: 600;
-}
 
-@include classMatcher("page_header") {
-  padding: 0rem 1rem 0rem 0rem !important;
-  &.stats_header {
-    @include flex-dir(null, null, row);
+@include classMatcher("page_container") {
+  overflow-y: scroll;
+  .exercise_name {
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
 
-    .dates_container {
-      @include flex-dir(null, null);
-      gap: 0.5rem;
+  @include classMatcher("page_header") {
+    padding: 0rem 1rem 0rem 0rem !important;
+    &.stats_header {
+      @include flex-dir(null, null, row);
 
-      @include classMatcher("input_label") {
-        max-width: 50%;
+      .dates_container {
+        @include flex-dir(null, null);
+        gap: 0.5rem;
+
+        @include classMatcher("input_label") {
+          max-width: 50%;
+        }
       }
-    }
-    @include classMatcher("selectInput_label") {
-      flex: initial;
+      @include classMatcher("selectInput_label") {
+        flex: initial;
+      }
     }
   }
 }
 
 @include smartphone() {
   @include classMatcher("page_container") {
+    overflow-y: visible;
     position: relative;
     .exercise_name {
       margin-bottom: 1rem;
