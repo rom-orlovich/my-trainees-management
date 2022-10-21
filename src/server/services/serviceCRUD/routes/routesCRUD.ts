@@ -4,6 +4,7 @@ import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import { traineesSchema } from "../../schemas/DBSchemas";
 import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
+import { handleGetStatistic } from "../../serviceStatistics/controllers/handleGetStatistic";
 import { handleInsertStatistics } from "../../serviceStatistics/controllers/handleInsertStatistics";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 
@@ -31,16 +32,6 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const singleEntityNameEndPoint = `/${optionsCRUD.singleEntityName}`;
   const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
 
-  if (optionsCRUD.singleEntityName.includes(API_ROUTES.TRAINEES_ENTITY)) {
-    const validateMiddlewareRegisterTrainee =
-      validateMiddleware(traineesSchema);
-    newRoute.post(
-      API_ROUTES.REGISTER_TRAINEE_ROUTE,
-      validateMiddlewareRegisterTrainee,
-      handleRegisterTrainee
-    );
-  }
-
   newRoute.route("/").get(getValuesFromDB);
   newRoute
     .route(singleEntityNameEndPoint)
@@ -50,18 +41,22 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
     .get(getValueFromDBbyID)
     .delete(deleteValueByID);
 
+  newRoute.route("/").get(getValuesFromDB, handleGetStatistic);
+
+  newRoute
+    .route(singleEntityNameEndPointID)
+    .put(validateMiddlewareHandler, updateValueByID, handleInsertStatistics);
+
   if (
-    optionsCRUD.selectQuery.tableName.includes(
-      TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME
-    )
+    optionsCRUD.selectQuery.tableName.includes(TABLES_DATA.TRAINEES_TABLE_NAME)
   ) {
-    newRoute
-      .route(singleEntityNameEndPointID)
-      .put(validateMiddlewareHandler, updateValueByID, handleInsertStatistics);
-  } else {
-    newRoute
-      .route(singleEntityNameEndPointID)
-      .put(validateMiddlewareHandler, updateValueByID);
+    const validateMiddlewareRegisterTrainee =
+      validateMiddleware(traineesSchema);
+    newRoute.post(
+      API_ROUTES.REGISTER_TRAINEE_ROUTE,
+      validateMiddlewareRegisterTrainee,
+      handleRegisterTrainee
+    );
   }
   return newRoute;
 }

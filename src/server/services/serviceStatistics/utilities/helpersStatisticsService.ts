@@ -41,15 +41,15 @@ export const transformTrainingProgramExerciseData = ({
 };
 
 export const insertIntoTrainingProgramExerciseData = async (
-  trainingProgramExerciseData?: TrainingProgramExercise
+  updateExerciseData?: TrainingProgramExercise
 ) => {
-  if (!trainingProgramExerciseData) return { data: [], error: undefined };
-  const trainingProgramExerciseDataToInsert =
-    transformTrainingProgramExerciseData(trainingProgramExerciseData);
+  if (!updateExerciseData) return { data: [], error: undefined };
+  const updateExerciseDataToInsert =
+    transformTrainingProgramExerciseData(updateExerciseData);
 
   const data = await insertQueryOneItem(
     TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME,
-    trainingProgramExerciseDataToInsert
+    updateExerciseDataToInsert
   );
 
   return data;

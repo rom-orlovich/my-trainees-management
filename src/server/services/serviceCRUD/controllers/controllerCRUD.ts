@@ -64,9 +64,20 @@ export function createRoutesControllers({
 
     if (err) return next(new ErrorCustomizes(err));
 
-    return res
-      .status(200)
-      .json({ data: data.rows, next: data.next, countRows: data.countRows });
+    const responseData = {
+      data: data.rows,
+      next: data.next,
+      countRows: data.countRows,
+    };
+    if (
+      tableName.includes(
+        TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME
+      )
+    ) {
+      req.data_for_stats = { statsResult: responseData };
+      return next();
+    }
+    return res.status(200).json(responseData);
   };
 
   // Controller of the get method. Gets one item by ID from the db.
@@ -120,7 +131,7 @@ export function createRoutesControllers({
 
     if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
       req.data_for_stats = {
-        trainingProgramExerciseData: data,
+        updateExerciseData: data,
       };
     }
 
@@ -137,12 +148,6 @@ export function createRoutesControllers({
   // Controller of the delete method.
   // delete one item by his ID in db.
   const deleteValueByID: RequestHandler = async (req, res, next) => {
-    // const { id } = req.params;
-    // const queryLogic = `WHERE ${tableID}=$1`;
-
-    // const [data, err] = await promiseHandler(
-    //   deleteQuery(tableName, queryLogic, [id], true)
-    // );
     const [data, err] = await deleteTableWithOtherTableData(
       tableName,
       tableID,

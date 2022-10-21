@@ -21,8 +21,24 @@ export interface ModifiedActionResult {
   logAlert?: boolean;
 }
 
+export interface TrainingProgramExerciseStatsAPI {
+  training_program_row_id: number;
+  update_date: Date;
+  exercise_id: number;
+  reps: string;
+  sets: number;
+  rest: number;
+  intensity: number;
+  rpe: number;
+}
+
 export interface StatsData {
-  trainingProgramExerciseData?: TrainingProgramExercise;
+  updateExerciseData?: TrainingProgramExercise;
+  statsResult?: {
+    data: TrainingProgramExerciseStatsAPI[];
+    next: boolean;
+    countRows: number;
+  };
 }
 /* eslint-disable no-unused-vars */
 export {};

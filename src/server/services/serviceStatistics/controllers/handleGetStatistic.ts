@@ -1,6 +1,7 @@
 import { RequestHandler } from "webpack-dev-server";
-import { promiseHandler } from "../../../utilities/helpers";
 
 export const handleGetStatistic: RequestHandler = async (req, res, next) => {
-  const exerciseID = req.params.exercise_id;
+  if (!req.data_for_stats) return next();
+  const { statsResult } = req.data_for_stats;
+  return res.status(200).json(statsResult);
 };

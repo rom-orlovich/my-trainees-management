@@ -9,11 +9,10 @@ export const handleInsertStatistics: RequestHandler = async (
   res,
   next
 ) => {
-  console.log(req.data_for_stats);
   if (!req.data_for_stats) return next();
-  const { trainingProgramExerciseData } = req.data_for_stats;
+  const { updateExerciseData } = req.data_for_stats;
   const [data, error] = await promiseHandler(
-    insertIntoTrainingProgramExerciseData(trainingProgramExerciseData)
+    insertIntoTrainingProgramExerciseData(updateExerciseData)
   );
   console.log("data", data);
   console.log("error", error);
