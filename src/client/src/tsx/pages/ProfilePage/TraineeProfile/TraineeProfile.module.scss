@@ -37,6 +37,7 @@
   %focus {
     height: 2rem;
     // width: 20rem;
+    cursor: pointer;
     &:focus {
       height: 10rem;
     }

@@ -15,7 +15,6 @@ import Settings from "../pages/SettingsPage/SettingsPage";
 import Trainees from "../pages/TraineesPage/TraineesPage";
 
 import { APP_ROUTE } from "./appRoutesConstants";
-import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import UsersPage from "../pages/UsersPage/UsersPage";
 
 import ComingSoonPage from "../pages/ComingSoonPage/ComingSoonPage";
@@ -30,8 +29,9 @@ import BusinessDataRoutes from "./BusinessDataRoutes";
 import TrainingProgramListRoutes from "./TrainingProgramListRoutes";
 import MainRouteByRole from "./utilities/MainRouteByRole";
 import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
-import Profile from "../pages/Profile/Profile";
-import TraineeProfile from "../pages/Profile/TraineeProfile/TraineeProfile";
+import Profile from "../pages/ProfilePage/Profile";
+import TraineeProfile from "../pages/ProfilePage/TraineeProfile/TraineeProfile";
+import ProfilePage from "../pages/ProfilePage/Profile";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
