@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import ExerciseStatsTable from "./ExerciseStatsTable";
 
 import { useAppSelector } from "../../redux/hooks";
@@ -29,11 +29,13 @@ function TrainingProgramsExerciseStatsPage() {
   const onChange = <T extends { id: any; value: any }>(e: ChangeEvent<T>) => {
     setQueryState((pre) => ({ ...pre, [e.target.id]: e.target.value }));
   };
-
+  const params = useParams();
+  const { exerciseID } = params;
   const queriesOptions = {
     trainerUserID: authState.user?.user_id,
     gt,
     lt,
+    exerciseID,
   };
   const content =
     display === "table" ? (

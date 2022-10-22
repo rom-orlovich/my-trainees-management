@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { traineesApi, trainingProgramsListApi } from "../../redux/api/hooksAPI";
@@ -17,6 +17,7 @@ function TrainingProgramsPage() {
   const queriesOptions = {
     trainerUserID: authState.user?.user_id,
   };
+
   const [trigger, result] = trainingProgramsListApi.useLazyGetItemsQuery();
 
   useEffect(() => {

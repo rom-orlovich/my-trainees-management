@@ -105,7 +105,10 @@ export const trainingProgramsApi =
   }).injectEndpoints({
     endpoints: (builder) => ({
       getExerciseStats: builder.query<
-        ResponseQueryAPI<TrainingProgramExerciseStatsAPI>,
+        ResponseQueryAPI<TrainingProgramExerciseStatsAPI> & {
+          labels: string[];
+          datasetsValues: number[];
+        },
         Record<string, any>
       >({
         query: (params) => ({ url: `/stats`, params }),

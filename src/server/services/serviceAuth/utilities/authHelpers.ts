@@ -81,18 +81,19 @@ export async function createUser(
     await client.query("BEGIN");
     const hashPassword = await hash(password, 10);
     let profile;
-
+    const profileData = { email, status: true };
     if (updateID) {
       profile = await updateQuerySingleItem(
         TABLES_DATA.PROFILES_TABLE_NAME,
-        { email },
+        profileData,
         updateID,
         `where ${TABLES_DATA.PROFILE_ID}=$1`
       );
     } else
-      profile = await insertQueryOneItem(TABLES_DATA.PROFILES_TABLE_NAME, {
-        email,
-      });
+      profile = await insertQueryOneItem(
+        TABLES_DATA.PROFILES_TABLE_NAME,
+        profileData
+      );
 
     console.log("profile", profile);
     const user = await insertQueryOneItem(TABLES_DATA.USERS_TABLE_NAME, {
@@ -123,7 +124,6 @@ export const sendEmail = async (
     const mailOptions: Mail.Options = {
       ...MAIL_OPTIONS,
       to,
-
       ...message,
     };
 

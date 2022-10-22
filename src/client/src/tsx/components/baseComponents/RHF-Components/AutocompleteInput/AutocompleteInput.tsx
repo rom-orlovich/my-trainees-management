@@ -23,7 +23,7 @@ import { getEntriesArrObj } from "../../../../utilities/helpersFun";
 import { LiProps } from "../../baseComponentsTypes";
 
 import ListObserver from "../../List/ListObserver";
-import LoadingSpinner, { LoadingSpinnerProps } from "../../LoadingSpinner";
+import { LoadingSpinnerProps } from "../../LoadingSpinner";
 import { InputLabel, InputLabelProps } from "../InputLabel/InputLabel";
 import style from "./AutocompleteInput.module.scss";
 import AutocompleteLi, {
@@ -76,7 +76,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   const isVisible = useHideUnFocusElement(autoCompleteContainerRef);
   const [lastDataState, setLastData] = useState<any[]>([]);
 
-  const defaultIDQuery = defaultValueID ? { [id]: defaultValueID } : {};
+  const defaultIDQuery = defaultValueID ? { id: defaultValueID } : {};
   const { data } = useGetData({
     page,
     mainName: debounce[1],

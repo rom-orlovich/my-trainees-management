@@ -228,6 +228,7 @@ export const equipmentsOptionsCRUD: OptionsCRUD = {
     },
     queryParams: {
       userID: "eq.user_id",
+      id: "equipment_id",
     },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,
@@ -245,6 +246,10 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
    eq.${TABLES_DATA.EQUIPMENTS_ID}=exer.${TABLES_DATA.EQUIPMENTS_ID} `,
     queryNameParam: {
       mainName: "exercise_name",
+    },
+    queryParams: {
+      id: "exercise_id",
+      userID: "exer.user_id",
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY,

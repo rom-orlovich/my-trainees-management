@@ -1,6 +1,11 @@
 /* eslint-disable camelcase */
 import React, { useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { trainingProgramsApi } from "../../redux/api/hooksAPI";
@@ -53,7 +58,7 @@ function TrainingProgramExercises() {
 
   const [exercise, setExercise] = useState<string[]>(["", ""]);
   const [deleteItem] = trainingProgramsApi.useDeleteItemMutation();
-  const pathName = useLocation().pathname;
+
   const authState = useGetUserLoginData();
   const { isTrainee } = useCheckRole();
   const queriesOptions = {
@@ -102,7 +107,7 @@ function TrainingProgramExercises() {
                 mainName: exercise[1],
                 ...queriesOptions,
               }}
-              editPagePath={pathName.slice(1)}
+              // editPagePath={pathName.slice(1)}
               nameData="Program's Exercises"
               deleteItemFun={
                 !isTrainee

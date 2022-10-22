@@ -34,7 +34,6 @@ function TrainingProgramsExerciseStatsList({
   queriesOptions?: Record<string, any>;
 }) {
   const params = useParams();
-  const { exerciseID } = params;
 
   // const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
 
@@ -43,7 +42,7 @@ function TrainingProgramsExerciseStatsList({
       transformFun={transformTrainingProgramList}
       // deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       actions={false}
-      queriesOptions={{ exerciseID, ...queriesOptions }}
+      queriesOptions={queriesOptions}
       editPagePath={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${params["*"]}`}
       nameData={nameData || "Exercise Stats"}
       getAllQuery={trainingProgramsApi.useGetExerciseStatsQuery}

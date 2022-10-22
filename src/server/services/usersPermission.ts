@@ -25,6 +25,11 @@ export const ROLE_TRAINEE_BY_USER_ID: Permission[] = [
   { by: "userID", role: "trainer" },
   { by: "userID", role: "trainee" },
 ];
+export const ROLE_TRAINEE_BY_USER_ID_ADMIN_USER_ID: Permission[] = [
+  { by: "userID", role: "admin" },
+  { by: "userID", role: "trainer" },
+  { by: "userID", role: "trainee" },
+];
 
 export type PermissionsRolesType =
   | typeof ROLE_ADMIN_ALL
@@ -49,7 +54,7 @@ export const PERMISSION_ADMIN: Permissions = {
 };
 
 export const PERMISSION_TRAINER_BY_USER_ID: Permissions = {
-  read: ROLE_TRAINER_ALL,
+  read: ROLE_TRAINER_BY_USER_ID,
   delete: ROLE_TRAINER_BY_USER_ID,
   update: ROLE_TRAINER_BY_USER_ID,
   create: ROLE_TRAINER_BY_USER_ID,
@@ -95,7 +100,7 @@ export const PERMISSION_TRAINEE_WITHOUT_UPDATE: Permissions = {
 };
 
 export const PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE: Permissions = {
-  read: ROLE_TRAINEE_BY_USER_ID,
+  read: ROLE_TRAINEE_BY_USER_ID_ADMIN_USER_ID,
   delete: ROLE_TRAINER_BY_USER_ID,
   update: ROLE_TRAINEE_BY_USER_ID,
   create: ROLE_TRAINER_BY_USER_ID,

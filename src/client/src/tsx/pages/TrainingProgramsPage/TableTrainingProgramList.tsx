@@ -19,7 +19,7 @@ const transformTrainingProgramList = ({
   training_programs_list_id,
   type_program: (
     <Link
-      to={`/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${training_programs_list_id}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
+      to={`/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${training_programs_list_id}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}?program=${type_program}`}
     >
       {type_program}
     </Link>

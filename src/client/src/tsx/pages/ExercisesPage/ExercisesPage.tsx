@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { exercisesApi } from "../../redux/api/hooksAPI";
 import { ExercisesTableAPI } from "../../redux/api/interfaceAPI";
-import { useAppSelector } from "../../redux/hooks";
-import { getAuthState } from "../../redux/slices/authSlice";
+
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";

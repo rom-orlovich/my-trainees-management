@@ -13,11 +13,12 @@ export function TrainingProgramEditExerciseForm() {
   const [updateItem] = trainingProgramsApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();
   const dispatch = useAppDispatch();
+  // const queriesOptions = { userID: authState.user_id };
   const queriesOptions = { userID: authState.user_id };
-
+  console.log(id);
   const { data, isLoading, isFetching, isError } =
     trainingProgramsApi.useGetItemByIDQuery({ id, ...queriesOptions });
-
+  // console.log(data);
   const handleSubmit = (body: TrainingProgramExerciseOmit) =>
     updateFunction({
       updateItem,
