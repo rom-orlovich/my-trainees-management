@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { traineesApi } from "../../redux/api/hooksAPI";
@@ -26,13 +26,18 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
     first_name,
     trainee_id,
     trainer_user_id,
-
     ...rest
   } = arg;
 
   return {
     id: arg.trainee_id,
-    full_name: `${arg.first_name} ${arg.last_name}`,
+    full_name: (
+      <Link
+        to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${APP_ROUTE.PROFILE_ROUTE}`}
+      >
+        {`${arg.first_name} ${arg.last_name}`}
+      </Link>
+    ),
     ...rest,
   };
 };

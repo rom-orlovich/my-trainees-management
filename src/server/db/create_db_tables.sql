@@ -99,7 +99,6 @@ ALTER TABLE "profiles" add
 CREATE TABLE IF NOT EXISTS "alerts"(
   "alert_id" serial PRIMARY KEY,
   "alert_date" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-
   "alert_message" VARCHAR(255),
   "user_id" INTEGER DEFAULT 1,
   CONSTRAINT fk_user_id 
@@ -299,19 +298,18 @@ CONSTRAINT "date_end" CHECK ("date_end">"date_start"),
 
 CREATE TABLE IF NOT EXISTS "nutrition_programs_list"(
   "nutrition_programs_list_id"  serial PRIMARY KEY,
-   "trainee_id" INTEGER ,
-    "type_program" VARCHAR(20), 
-     "date_start" DATE NOT NULL,
-     "date_end" DATE  ,
-    "note_topic" TEXT ,
+  "trainee_id" INTEGER ,
+  "type_program" VARCHAR(20), 
+  "date_start" DATE NOT NULL,
+  "date_end" DATE  ,
+  "note_topic" TEXT ,
   "note_text" TEXT ,
       CONSTRAINT fk_trainee_id
       FOREIGN KEY(trainee_id) 
       REFERENCES trainees(trainee_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE,
-
-CONSTRAINT "date_end" CHECK ("date_end">"date_start")
+      CONSTRAINT "date_end" CHECK ("date_end">"date_start")
 );
 
 

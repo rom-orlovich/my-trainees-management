@@ -12,7 +12,6 @@ import LeadsPage from "../pages/LeadsPage/LeadsPage";
 
 import Settings from "../pages/SettingsPage/SettingsPage";
 
-import TraineeProfile from "../pages/TraineeProfile/TraineeProfile";
 import Trainees from "../pages/TraineesPage/TraineesPage";
 
 import { APP_ROUTE } from "./appRoutesConstants";
@@ -30,6 +29,9 @@ import useCheckRole from "../hooks/useCheckRole";
 import BusinessDataRoutes from "./BusinessDataRoutes";
 import TrainingProgramListRoutes from "./TrainingProgramListRoutes";
 import MainRouteByRole from "./utilities/MainRouteByRole";
+import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
+import Profile from "../pages/Profile/Profile";
+import TraineeProfile from "../pages/Profile/TraineeProfile/TraineeProfile";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -73,7 +75,11 @@ function AppRoutes() {
                   </InsteadOutletRoutes>
                 }
               >
-                <Route path=":id" element={<TraineeProfile />} />
+                <Route
+                  path={`:id/${APP_ROUTE.PROFILE_ROUTE}`}
+                  element={<TraineeProfile />}
+                />
+                <Route path=":id" element={<TraineeEditForm />} />
                 <Route
                   path={APP_ROUTE.TRAINEES_ROUTE_ADD}
                   element={<TraineeAddForm />}

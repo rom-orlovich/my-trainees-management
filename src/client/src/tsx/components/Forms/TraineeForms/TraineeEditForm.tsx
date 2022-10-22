@@ -1,4 +1,6 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 
 import {
@@ -8,16 +10,24 @@ import {
 import { getAuthState } from "../../../redux/slices/authSlice";
 
 import { formatDate } from "../../../utilities/helpersFun";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
+
 export function TraineeEditForm({
-  traineeData: { street, city_name, ...traineeData },
+  // traineeData: { street, city_name, ...traineeData },
   heading,
 }: {
   heading?: string;
-  traineeData: TraineesTableExtendsAPI;
+  // traineeData: TraineesTableExtendsAPI;
 }) {
+  const id = Number(useParams().id);
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
+  const { data, isError, isFetching, isLoading } =
+    traineesApi.useGetItemByIDQuery({
+      id,
+      trainerUserID: useGetUserLoginData().user_id,
+    });
 
   const handleSubmit = ({
     profile_id,
@@ -25,23 +35,26 @@ export function TraineeEditForm({
     ...rest
   }: TraineesBaseTableAPI) => {
     updateFunction({
-      id: traineeData?.trainee_id || 0,
+      id: data?.trainee_id || 0,
       updateItem: updateTrainee,
     })(rest);
   };
 
   return (
-    <TraineeForm
-      // formWithOneButton={true}
-      editMode={true}
-      heading={heading}
-      onSubmit={handleSubmit}
-      defaultValues={{
-        ...traineeData,
-        date_join: formatDate(traineeData.date_join) as any,
-        birthday: formatDate(traineeData.birthday) as any,
-      }}
-    ></TraineeForm>
+    <LoadingSpinner stateData={{ data, isError, isFetching, isLoading }}>
+      {({ street, city_name, ...traineeData }) => (
+        <TraineeForm
+          editMode={true}
+          heading={heading}
+          onSubmit={handleSubmit}
+          defaultValues={{
+            ...traineeData,
+            date_join: formatDate(traineeData.date_join) as any,
+            birthday: formatDate(traineeData.birthday) as any,
+          }}
+        />
+      )}
+    </LoadingSpinner>
   );
 }
 
