@@ -1,7 +1,8 @@
 @use "../../../style/utilities/utilities.scss" as *;
 
-@include classMatcher("page_container") {
+.exercise_stats_page_container {
   overflow-y: scroll;
+
   .exercise_name {
     font-size: 1.8rem;
     font-weight: 600;
@@ -28,8 +29,7 @@
 }
 
 @include smartphone() {
-  @include classMatcher("page_container") {
-    overflow-y: visible;
+  .exercise_stats_page_container {
     position: relative;
     .exercise_name {
       margin-bottom: 1rem;

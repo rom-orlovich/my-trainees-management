@@ -45,7 +45,12 @@ function TrainingProgramsExerciseStatsPage() {
     );
 
   return (
-    <section className={page.page_container}>
+    <section
+      className={genClassName(
+        page.page_container,
+        style.exercise_stats_page_container
+      )}
+    >
       <h1 className={style.exercise_name}>{queryParams.get("exercise")} </h1>
       <div className={genClassName(page.page_header, style.stats_header)}>
         <span className={style.dates_container}>
