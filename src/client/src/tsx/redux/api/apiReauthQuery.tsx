@@ -18,6 +18,7 @@ function appendQueryStringParam(
   value: string
 ): string | FetchArgs {
   if (typeof args !== "string") {
+    // Only for DELETE/POST/PUT methods
     if (args.method)
       if (args.params && "trainerUserID" in args.params) {
         args = { params: { trainerUserID: value, ...args?.params }, ...args };

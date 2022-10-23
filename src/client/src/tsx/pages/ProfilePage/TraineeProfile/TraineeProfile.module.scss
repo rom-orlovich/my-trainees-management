@@ -3,7 +3,7 @@
 .trainee_profile_page_container {
   display: grid;
   gap: 0.8rem;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   padding: 0.5rem;
   width: 100%;
@@ -35,16 +35,22 @@
   }
 
   %focus {
-    height: 2rem;
+    height: 4rem;
+    :nth-child(n):not(h2) {
+      display: none;
+    }
     // width: 20rem;
     cursor: pointer;
     &:focus {
-      height: 10rem;
+      :nth-child(n) {
+        display: block;
+      }
+      height: fit-content;
     }
   }
   .user_details_grid_item {
     order: 1;
-    height: 10rem;
+    height: fit-content;
     // width: 20rem;
   }
   .subscription_plans_grid_item {
