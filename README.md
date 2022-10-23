@@ -1,5 +1,4 @@
 # My Trainees Management App v2:
-
 Link to the app: [My Trainees Management App-v2](https://my-trainee-management-v2.herokuapp.com/login):point_left:
 
 **Demo accounts:** \
@@ -11,10 +10,10 @@ username & password: trainee123
 
 ## About my project:
 
-My Trainees app management is a web app application that assists
-personal trainers in managing their business’s system.
+My Trainees Management is a web application that assists
+personal trainers in managing their business.
 \
-The app helps the trainer manage his trainee's training and nutrition programs, his leads and the business’s finances.
+The app helps the trainer manage his trainee's training and nutrition programs, his leads and the business's finances.
 
 ## Why I chose this project:
 
