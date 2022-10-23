@@ -30,10 +30,10 @@
     li {
       @include flex-dir(space-around, null);
       //   gap: 0.3rem 2.5rem;
-      padding: 0.5rem;
+      padding: 0.2rem 0.5rem;
       .program_detail {
         @include flex-dir(null, center, column);
-        gap: 0.2rem;
+        gap: 0.1rem;
         :first-child {
           font-weight: 500;
         }
