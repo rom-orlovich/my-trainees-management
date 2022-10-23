@@ -376,14 +376,18 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     tr.trainee_id,tr.user_id,tr.trainer_user_id,
     pr.*, 
     lo.street ,
-     c.city_name`,
+     c.city_name,
+     us.username`,
     querySelectLogic: `
     LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr ON 
     tr.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}
     LEFT JOIN ${TABLES_DATA.LOCATION_TABLE_NAME} as lo ON 
     pr.${TABLES_DATA.LOCATION_ID}=lo.${TABLES_DATA.LOCATION_ID}
      LEFT JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c on 
-   c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} `,
+   c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} 
+   LEFT JOIN ${TABLES_DATA.USERS_TABLE_NAME} as us on 
+   tr.${TABLES_DATA.USERS_TABLE_ID}=us.${TABLES_DATA.USERS_TABLE_ID} 
+   `,
     queryNameParam: {
       mainName: "first_name",
       lastName: "last_name",

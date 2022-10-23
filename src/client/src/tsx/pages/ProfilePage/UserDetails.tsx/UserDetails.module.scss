@@ -1,0 +1,16 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+.user_details_container {
+  @include flex-dir(center, center, column);
+  gap: 0.5rem;
+  .profile_icon {
+    @include heightWidth(7rem, 7rem);
+    color: rgb(210, 216, 219);
+  }
+  h2 {
+    font-weight: 500;
+  }
+  a {
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+}

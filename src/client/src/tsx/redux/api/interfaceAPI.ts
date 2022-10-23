@@ -196,7 +196,9 @@ export interface NutritionProgramsTable {
 }
 export interface TraineesBaseTableAPI {
   trainer_user_id?: number;
+
   trainee_id: number;
+  username: string;
   user_id?: number;
   profile_id?: number;
   first_name: string;

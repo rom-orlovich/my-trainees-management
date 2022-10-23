@@ -12,6 +12,7 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 
 export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
   const {
+    username,
     location_id,
     user_id,
     profile_id,
@@ -33,7 +34,7 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
     id: arg.trainee_id,
     full_name: (
       <Link
-        to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${APP_ROUTE.PROFILE_ROUTE}`}
+        to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${APP_ROUTE.PROFILE_ROUTE}?username=${username}`}
       >
         {`${arg.first_name} ${arg.last_name}`}
       </Link>

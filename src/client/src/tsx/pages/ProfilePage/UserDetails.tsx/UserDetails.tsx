@@ -1,10 +1,32 @@
 import React from "react";
+import { FaUserCircle } from "react-icons/fa";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { PropsBasic } from "../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../components/baseComponents/Card/Card";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+
 import { genClassName } from "../../../utilities/helpersFun";
+import style from "./UserDetails.module.scss";
 
 function UserDetails({ className }: PropsBasic) {
-  return <Card className={genClassName(className)}>user</Card>;
+  const [queryParams] = useSearchParams();
+
+  const username = queryParams.get("username");
+  const traineeID = Number(useParams().id);
+  return (
+    <Card className={genClassName(className, style.user_details_container)}>
+      <div>
+        <FaUserCircle className={style.profile_icon} />
+      </div>
+
+      <h2>{username}</h2>
+      <div>
+        <Link to={`/${APP_ROUTE.TRAINEES_ROUTE}/${traineeID}`}>
+          Edit Details
+        </Link>
+      </div>
+    </Card>
+  );
 }
 
 export default UserDetails;

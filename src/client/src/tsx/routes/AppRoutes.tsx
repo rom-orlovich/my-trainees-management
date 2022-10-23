@@ -29,7 +29,7 @@ import BusinessDataRoutes from "./BusinessDataRoutes";
 import TrainingProgramListRoutes from "./TrainingProgramListRoutes";
 import MainRouteByRole from "./utilities/MainRouteByRole";
 import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
-import Profile from "../pages/ProfilePage/Profile";
+
 import TraineeProfile from "../pages/ProfilePage/TraineeProfile/TraineeProfile";
 import ProfilePage from "../pages/ProfilePage/Profile";
 

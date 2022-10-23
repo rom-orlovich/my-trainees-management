@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import UserDetails from "../UserDetails.tsx/UserDetails";
 import CaloriesChart from "./CaloriesChart/CaloriesChart";
 import Programs from "./Programs/Programs";
@@ -8,6 +9,8 @@ import SubscriptionPlan from "./SubscriptionPlans/SubscriptionPlan";
 import style from "./TraineeProfile.module.scss";
 
 function TraineeProfile() {
+  const traineeID = Number(useParams().id);
+
   return (
     <section className={style.trainee_profile_page_container}>
       <CaloriesChart className={style.calories_chart_grid_item} />
