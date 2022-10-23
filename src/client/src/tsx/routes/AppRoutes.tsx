@@ -32,6 +32,8 @@ import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
 
 import TraineeProfile from "../pages/ProfilePage/TraineeProfile/TraineeProfile";
 import ProfilePage from "../pages/ProfilePage/Profile";
+import SubscriptionPlansForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansForm";
+import SubscriptionPlansAddForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansAddForm";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -75,16 +77,27 @@ function AppRoutes() {
                   </InsteadOutletRoutes>
                 }
               >
-                <Route
-                  path={`:id/${APP_ROUTE.PROFILE_ROUTE}`}
-                  element={<TraineeProfile />}
-                />
-                <Route path=":id" element={<TraineeEditForm />} />
+                <Route path=":id">
+                  <Route index element={<TraineeEditForm />} />
+
+                  <Route
+                    path={APP_ROUTE.PROFILE_ROUTE}
+                    element={<TraineeProfile />}
+                  />
+                  <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}>
+                    <Route
+                      path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_ADD}
+                      element={<SubscriptionPlansAddForm />}
+                    />
+                  </Route>
+                </Route>
+
                 <Route
                   path={APP_ROUTE.TRAINEES_ROUTE_ADD}
                   element={<TraineeAddForm />}
                 />
               </Route>
+
               <Route path={APP_ROUTE.LEADS_ROUTE}>
                 <Route index element={<LeadsPage />} />
                 <Route

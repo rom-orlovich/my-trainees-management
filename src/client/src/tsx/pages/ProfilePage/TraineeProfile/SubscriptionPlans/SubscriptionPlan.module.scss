@@ -1,0 +1,14 @@
+@use "../../../../../style/utilities/utilities.scss" as *;
+.subscription_plans_container {
+  position: relative;
+  .plus_button_icon {
+    @include posAbs(4%, null, 5%, null);
+    @include heightWidth(1.2rem, 1.2rem);
+    color: rgb(75, 75, 237);
+  }
+  @include classMatcher("message_spinner") {
+    @include centerAbs();
+    text-align: center;
+    width: 100%;
+  }
+}

@@ -7,7 +7,7 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import MembersPlansForm from "./SubscriptionPlansForm";
 
-function MembersPlansEditForm({ id }: { id: number }) {
+function SubscriptionPlansEditForm({ id }: { id: number }) {
   const { data, isError, isFetching, isLoading } =
     subscriptionPlansApi.useGetItemByIDQuery({ id });
   const [updateItem] = subscriptionPlansApi.useUpdateItemMutation();
@@ -37,4 +37,4 @@ function MembersPlansEditForm({ id }: { id: number }) {
   );
 }
 
-export default MembersPlansEditForm;
+export default SubscriptionPlansEditForm;

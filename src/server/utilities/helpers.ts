@@ -40,6 +40,7 @@ export function createObjKeysArr(obj: object) {
 
 export const pt = (tn: string, tn2: string, obj: Record<string, any>) => {
   if (tn.includes(tn2)) {
-    console.log("log", obj);
+    console.log("log");
+    console.dir(obj, { depth: null });
   }
 };

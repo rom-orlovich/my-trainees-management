@@ -363,7 +363,7 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
       userID: "subp.user_id",
     },
   },
-  permissions: PERMISSION_TRAINEE_READONLY,
+  permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   validateSchema: subscriptionPlansSchema,
 };
 

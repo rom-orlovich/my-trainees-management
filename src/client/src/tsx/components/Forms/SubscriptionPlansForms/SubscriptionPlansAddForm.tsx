@@ -1,20 +1,18 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { subscriptionPlansApi } from "../../../redux/api/hooksAPI";
 import { SubscriptionPlansAPI } from "../../../redux/api/interfaceAPI";
 
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import MembersPlansForm from "./SubscriptionPlansForm";
 
-function MembersPlansAddForm({
-  subscriptionPlansID,
-}: {
-  subscriptionPlansID: number;
-}) {
+function SubscriptionPlansAddForm() {
   const [addItem] = subscriptionPlansApi.useCreateOneItemMutation();
+  const traineeID = Number(useParams().id);
   const handleSubmit = ({ ...rest }: SubscriptionPlansAPI) => {
     addFunction<SubscriptionPlansAPI>({ addItem })({
       ...rest,
-      subscription_plan_id: subscriptionPlansID,
+      trainee_id: traineeID,
     });
   };
 
@@ -32,4 +30,4 @@ function MembersPlansAddForm({
   );
 }
 
-export default MembersPlansAddForm;
+export default SubscriptionPlansAddForm;

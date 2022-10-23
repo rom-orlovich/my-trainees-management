@@ -10,19 +10,13 @@ import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 import { trainingProgramsListApi } from "../../../../redux/api/hooksAPI";
 
 import { genClassName } from "../../../../utilities/helpersFun";
+import { TraineeProfileProps } from "../TraineeProfile";
 import ProgramsProfileContent from "./ProgramContent";
 
 import style from "./Programs.module.scss";
 import TrainingProgramsLi from "./TrainingProgramsLi";
 
-function Programs({ className }: PropsBasic) {
-  const traineeID = Number(useParams().id);
-  const userID = useGetUserLoginData().user_id;
-  const queryOptions = {
-    traineeID,
-    trainerUserID: userID,
-  };
-
+function Programs({ className, queryOptions }: TraineeProfileProps) {
   return (
     <Card className={genClassName(className, style.programs_container)}>
       <SelectInput
