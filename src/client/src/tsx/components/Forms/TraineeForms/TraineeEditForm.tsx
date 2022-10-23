@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
@@ -30,6 +31,7 @@ export function TraineeEditForm({
     });
 
   const handleSubmit = ({
+    username,
     profile_id,
     trainee_id,
     ...rest
