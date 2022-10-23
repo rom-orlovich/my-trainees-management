@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TrainingProgramsListTableAPI } from "../../../redux/api/interfaceAPI";
 
@@ -23,7 +24,7 @@ export function TrainingProgramListForms({
         onSubmit={onSubmit}
         editMode={editMode}
         formOptions={{
-          defaultValues: defaultValues,
+          defaultValues,
           resolver: yupResolver(trainingProgramsListSchema),
         }}
       >

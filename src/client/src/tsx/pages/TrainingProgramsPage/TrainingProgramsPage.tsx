@@ -21,8 +21,8 @@ function TrainingProgramsPage() {
   const queriesOptions = {
     trainerUserID: authState.user?.user_id,
   };
-  const [queryParmas] = useSearchParams();
-  const traineeID = queryParmas.get("traineeID");
+  const [queryParams] = useSearchParams();
+  const traineeID = queryParams.get("traineeID");
   // const [trigger, result] = trainingProgramsListApi.useLazyGetItemsQuery();
 
   // useEffect(() => {
