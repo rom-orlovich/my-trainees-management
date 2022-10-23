@@ -2,6 +2,13 @@
 
 Link to the app: [My Trainees Management App-v2](https://my-trainee-management-new.herokuapp.com/login):point_left:
 
+**Demo accounts:** \
+**Trainer:** \
+username & password: trainer123 
+\
+**Trainee:**   \
+username & password: trainee123 
+
 ## About my project:
 
 My Trainees app management is a web app application that assists
@@ -11,8 +18,8 @@ The app helps the trainer manage his trainee's training and nutrition programs, 
 
 ## Why I chose this project:
 
-As a self-employed personal trainer, I wanted to combine my passion for programming with the world of personal training.
-\During my work, I have experienced difficulties with managing my business due to not having a single app that comprises all of the tools I needed.
+As a self-employed personal trainer, I wanted to combine my passion for programming with the world of personal training. \
+During my work, I have experienced difficulties with managing my business due to not having a single app that comprises all of the tools I needed.
 \
 Therefore, I've decided to create one myself - An app that creates an overview of my trainees and their progress.
 
@@ -30,7 +37,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 
 - **Front-end** :
 
-  - [Redux RTK](https://www.npmjs.com/package/@reduxjs/toolkit) - For state management.
+  - [Redux RTK & Query](https://www.npmjs.com/package/@reduxjs/toolkit) - For state and data-fetching management.
   - [React Router](https://www.npmjs.com/package/react-router-dom) - For routes management.
   - [React Hook Form](https://www.npmjs.com/package/react-hook-form) - For forms management.
   - [Yup](https://www.npmjs.com/package/yup) - For validation.
@@ -72,19 +79,26 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 
 ## Main Features:
 
-1. **Modify App's Data** - Create/Read/Update/Delete the following data: Trainees, training programs, training programs' exercises, muscles group, equipment, leads, cities and locations.
-2. **Table Pagination** - Shows when there are more than 10 items.
+1. **Modify App's Data** - Create/Read/Update/Delete the following data: Trainees, training programs, training programs's exercises, muscles group, equipment, leads, cities and locations.
+2. **Table Pagination** - Shows when there are more than 5 items.
 3. **Filter Table's Rows By Name** - Filters the table items by name.
 4. **Autocomplete Search Input** - Suggests a list of results from the server. \
-   Infinite scroll: When there are more than 10 possible suggestions, the users can scroll and fetch more suggestions from the server.
+   Infinite scroll: When there are more than 5 possible suggestions, the users can scroll and fetch more suggestions from the server.
 5. **Notifications System** - Notifications display for various user activities.
 6. **Users System** -
    - Multiple personal trainers able to log in and manage their business. 
-   - Personal trainers can register new trainees to thier system and send them an email to sign up and create thier personal users to track their progress. 
+   - Personal trainers can register new trainees to their system and send them an email to sign up and create their personal users to track their progress. 
    - Each user role has different permission to access app rescources. 
    - Persistent login system based on rotate refresh token mechanism.
 
 ## Coming soon:
-1.  **Trainee Profile Page** - The page will display all his personal data, programs and his subscription status.
+1.  **Trainee & Trainer Profile Page** - The page will display their personal account data.
 2.  **Additional System Data** - Nutrition program's progress, financial system and suppliers.
-3.  **Statistics Page** - Personal trainers will have a graphical overview of their business.
+3.  **Food Nutrition Api** - The app will interface with food api in order to build nutrtion menus.
+4.  **Statistics Page** - Personal trainers will have a graphical overview of their business. \
+Trainees will have a graphical overview about their progress.
+6. **Trainer & Trainee Schedule** - Personal Trainers will able to schedule new trainings and meetings sessions. \
+Trainees will able to watch thier next sessions.
+   
+
+
