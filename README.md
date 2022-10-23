@@ -1,5 +1,6 @@
 # My Trainees Management App v2:
-Link to the app: [My Trainees Management App-v2](https://my-trainee-management-v2.herokuapp.com/login):point_left:
+
+Link to the app: <a href="https://my-trainee-management-v2.herokuapp.com/login" target="_blank">My Trainees Management App-v2</a>:point_left:
 
 **Demo accounts:** \
 **Trainer:** \
