@@ -1,0 +1,33 @@
+@use "../../../style/utilities/utilities.scss" as *;
+.list_container {
+  padding: 0.5rem;
+  position: relative;
+
+  h2 {
+    margin-bottom: 0.5rem;
+    padding-left: 0.8rem;
+    font-weight: 500;
+  }
+  .list {
+    // padding: 0.5rem;
+    @include flex-dir(null, null, column);
+
+    gap: 0.3rem;
+
+    & li:nth-child(2n) {
+      background-color: rgb(220, 227, 252);
+    }
+    li {
+      @include flex-dir(space-around, null);
+      //   gap: 0.3rem 2.5rem;
+      padding: 0.2rem 0.5rem;
+      .list_detail {
+        @include flex-dir(null, center, column);
+        gap: 0.1rem;
+        :first-child {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

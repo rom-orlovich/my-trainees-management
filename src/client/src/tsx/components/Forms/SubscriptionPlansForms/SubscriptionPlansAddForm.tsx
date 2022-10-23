@@ -4,7 +4,7 @@ import { subscriptionPlansApi } from "../../../redux/api/hooksAPI";
 import { SubscriptionPlansAPI } from "../../../redux/api/interfaceAPI";
 
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
-import MembersPlansForm from "./SubscriptionPlansForm";
+import SubscriptionPlansForm from "./SubscriptionPlansForm";
 
 function SubscriptionPlansAddForm() {
   const [addItem] = subscriptionPlansApi.useCreateOneItemMutation();
@@ -16,18 +16,7 @@ function SubscriptionPlansAddForm() {
     });
   };
 
-  return (
-    <MembersPlansForm
-      onSubmit={handleSubmit}
-      // defaultValues={{
-      //   // member_id: memberID,
-      //   // current_num_trainings: 0,
-      //   // total_trainings: 1,
-      //   // last_training: formatDate(new Date()) as any,
-      // }}
-      editMode={false}
-    />
-  );
+  return <SubscriptionPlansForm onSubmit={handleSubmit} editMode={false} />;
 }
 
 export default SubscriptionPlansAddForm;

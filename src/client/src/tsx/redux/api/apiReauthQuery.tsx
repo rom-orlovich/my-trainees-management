@@ -49,8 +49,6 @@ export const baseQueryWithReauth =
 
     const state = api.getState() as RootState;
     const value = state.authSlice.user?.user_id;
-    // console.log("preargs", args);
-    // console.log("curargs", appendQueryStringParam(args, String(value || 0)));
 
     args = appendQueryStringParam(args, String(value || 0));
 

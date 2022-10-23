@@ -13,12 +13,15 @@ function SubscriptionPlansForm({
   onSubmit,
   defaultValues,
   editMode,
+  fromProps,
 }: GeneralFormProps<SubscriptionPlansAPI>) {
   return (
     <>
-      <h2> {editMode ? "Edit" : "Add"} Member Plan </h2>
       <Form
         onSubmit={onSubmit}
+        nameForm="Subscription Plans"
+        editMode={editMode}
+        formProps={{ className: ` ${fromProps?.className}` }}
         formOptions={{
           resolver: yupResolver(subscriptionPlansSchema.omit(["trainee_id"])),
           defaultValues: { ...defaultValues },
@@ -95,7 +98,6 @@ function SubscriptionPlansForm({
                   error={last_training}
                 />
               </InputLabel>
-              <button type="submit"> {editMode ? "Edit" : "Add"} </button>
             </>
           );
         }}

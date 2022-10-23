@@ -29,7 +29,6 @@ export function LocationForm({
       formProps={{ className: style.form_locations }}
       editMode={editMode}
       formOptions={{
-        mode: "onChange",
         defaultValues: {
           user_id: useGetUserLoginData().user_id,
           ...defaultValues,

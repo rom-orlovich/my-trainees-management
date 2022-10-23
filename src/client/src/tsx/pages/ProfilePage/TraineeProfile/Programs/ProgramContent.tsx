@@ -3,7 +3,8 @@ import { LiComponentProps } from "../../../../components/baseComponents/baseComp
 import List from "../../../../components/baseComponents/List/List";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner";
 import { ResponseQueryAPI } from "../../../../redux/api/interfaceAPI";
-import style from "./Programs.module.scss";
+// import style from "./Programs.module.scss";
+import listProfileStyle from "../../ListProfile.module.scss";
 
 function ProgramsProfileContent<T extends Record<string, any>>({
   useQuery,
@@ -33,7 +34,7 @@ function ProgramsProfileContent<T extends Record<string, any>>({
       >
         {(data) => (
           <List
-            className={style.programs_list}
+            className={listProfileStyle.list}
             dataArr={data.data.slice(0, 5)}
             LI={LI}
           />

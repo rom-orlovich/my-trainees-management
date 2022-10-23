@@ -56,4 +56,5 @@ export enum APP_ROUTE {
   MY_WORKOUTS_EXERCISES = "myWorkoutsExercises",
   SUBSCRIPTION_PLANS_ROUTE = "subscriptionPlans",
   SUBSCRIPTION_PLANS_ROUTE_ADD = "subscriptionPlansAdd",
+  SUBSCRIPTION_PLANS_ROUTE_EDIT = "subscriptionPlansEdit",
 }

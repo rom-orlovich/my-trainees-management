@@ -34,6 +34,7 @@ import TraineeProfile from "../pages/ProfilePage/TraineeProfile/TraineeProfile";
 import ProfilePage from "../pages/ProfilePage/Profile";
 import SubscriptionPlansForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansForm";
 import SubscriptionPlansAddForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansAddForm";
+import SubscriptionPlansEditForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansEditForm";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -89,6 +90,12 @@ function AppRoutes() {
                       path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_ADD}
                       element={<SubscriptionPlansAddForm />}
                     />
+                    <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_EDIT}>
+                      <Route
+                        path=":id"
+                        element={<SubscriptionPlansEditForm />}
+                      />
+                    </Route>
                   </Route>
                 </Route>
 

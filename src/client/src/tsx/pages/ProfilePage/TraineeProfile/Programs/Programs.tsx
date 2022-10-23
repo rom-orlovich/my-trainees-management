@@ -13,12 +13,19 @@ import { genClassName } from "../../../../utilities/helpersFun";
 import { TraineeProfileProps } from "../TraineeProfile";
 import ProgramsProfileContent from "./ProgramContent";
 
-import style from "./Programs.module.scss";
 import TrainingProgramsLi from "./TrainingProgramsLi";
+import listProfileStyle from "../../ListProfile.module.scss";
+import style from "./Programs.module.scss";
 
 function Programs({ className, queryOptions }: TraineeProfileProps) {
   return (
-    <Card className={genClassName(className, style.programs_container)}>
+    <Card
+      className={genClassName(
+        className,
+        listProfileStyle.list_container,
+        style.programs_container
+      )}
+    >
       <SelectInput
         selectProps={{}}
         LabelProps={{ labelText: "" }}

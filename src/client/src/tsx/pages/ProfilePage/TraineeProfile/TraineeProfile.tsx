@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { PropsBasic } from "../../../components/baseComponents/baseComponentsTypes";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import UserDetails from "../UserDetails.tsx/UserDetails";
+import UserDetails from "../UserDetails/UserDetails";
 import CaloriesChart from "./CaloriesChart/CaloriesChart";
 import Programs from "./Programs/Programs";
 import ProgressChart from "./ProgressChart/ProgressChart";

@@ -1,15 +1,21 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { subscriptionPlansApi } from "../../../redux/api/hooksAPI";
 import { SubscriptionPlansAPI } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
-import MembersPlansForm from "./SubscriptionPlansForm";
+import SubscriptionPlansForm from "./SubscriptionPlansForm";
 
-function SubscriptionPlansEditForm({ id }: { id: number }) {
+function SubscriptionPlansEditForm() {
+  const id = Number(useParams().id);
   const { data, isError, isFetching, isLoading } =
-    subscriptionPlansApi.useGetItemByIDQuery({ id });
+    subscriptionPlansApi.useGetItemByIDQuery({
+      id,
+      trainerUserID: useGetUserLoginData().user_id,
+    });
   const [updateItem] = subscriptionPlansApi.useUpdateItemMutation();
 
   const handleSubmit = (body: SubscriptionPlansAPI) =>
@@ -20,11 +26,11 @@ function SubscriptionPlansEditForm({ id }: { id: number }) {
 
   return (
     <LoadingSpinner
-      nameData="Member Plan"
+      nameData="Subscription Plans"
       stateData={{ data, isError, isFetching, isLoading }}
     >
-      {data && (
-        <MembersPlansForm
+      {(data) => (
+        <SubscriptionPlansForm
           onSubmit={handleSubmit}
           defaultValues={{
             ...data,
