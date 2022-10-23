@@ -52,9 +52,12 @@ export enum APP_ROUTE {
   SETTINGS_ROUTE = "settings",
   PROFILE_ROUTE = "profile",
 
-  MY_WORKOUTS = "myWorkouts",
-  MY_WORKOUTS_EXERCISES = "myWorkoutsExercises",
+  MY_WORKOUTS_ROUTE = "myWorkouts",
+  MY_WORKOUTS_ROUTE_EXERCISES = "myWorkoutsExercises",
+
   SUBSCRIPTION_PLANS_ROUTE = "subscriptionPlans",
   SUBSCRIPTION_PLANS_ROUTE_ADD = "subscriptionPlansAdd",
   SUBSCRIPTION_PLANS_ROUTE_EDIT = "subscriptionPlansEdit",
+  FINANCES_ROUTE = "finances",
+  SCHEDULE_ROUTE = "schedule",
 }

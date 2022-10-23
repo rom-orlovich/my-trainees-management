@@ -12,8 +12,8 @@ import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 
 const TrainingProgramListRoutes = () => (
   <Routes>
-    <Route index element={<TrainingProgramsPage />} />
-    <Route path={`:id`} element={<TrainingProgramsListEditForm />}></Route>
+    <Route path="" element={<TrainingProgramsPage />} />
+    <Route path=":id" element={<TrainingProgramsListEditForm />}></Route>
     <Route
       path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
       element={<TrainingProgramsListAddForm />}

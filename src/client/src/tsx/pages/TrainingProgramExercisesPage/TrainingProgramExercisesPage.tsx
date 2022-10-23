@@ -1,21 +1,13 @@
 /* eslint-disable camelcase */
 import React, { useState } from "react";
-import {
-  Link,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { trainingProgramsApi } from "../../redux/api/hooksAPI";
 import { TrainingProgramExerciseTableAPI } from "../../redux/api/interfaceAPI";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import {
-  capitalFirstLetter,
-  deleteFunMutation,
-} from "../../utilities/helpersFun";
+import { deleteFunMutation } from "../../utilities/helpersFun";
 
 import page_style from "../Page.module.scss";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";

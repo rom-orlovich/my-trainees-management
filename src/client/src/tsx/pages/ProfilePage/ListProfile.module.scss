@@ -2,14 +2,21 @@
 .list_container {
   padding: 0.5rem;
   position: relative;
-
+  @include classMatcher("message_spinner") {
+    @include centerAbs();
+    text-align: center;
+    width: 100%;
+  }
   h2 {
     margin-bottom: 0.5rem;
     padding-left: 0.8rem;
     font-weight: 500;
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
   .list {
-    // padding: 0.5rem;
     @include flex-dir(null, null, column);
 
     gap: 0.3rem;

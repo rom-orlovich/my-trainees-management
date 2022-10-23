@@ -5,14 +5,10 @@ import App from "../App";
 import { LeadAddForm } from "../components/Forms/LeadForms/LeadAddForm";
 import LeadEditForm from "../components/Forms/LeadForms/LeadEditForm";
 
-import TraineeAddForm from "../components/Forms/TraineeForms/TraineeAddForm";
-
 import HomePage from "../pages/HomePage/HomePage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 
 import Settings from "../pages/SettingsPage/SettingsPage";
-
-import Trainees from "../pages/TraineesPage/TraineesPage";
 
 import { APP_ROUTE } from "./appRoutesConstants";
 import UsersPage from "../pages/UsersPage/UsersPage";
@@ -23,18 +19,14 @@ import AuthRoutes from "./AuthRoutes";
 import PublicRoute from "./utilities/PublicRoute";
 import PersistedLogin from "./utilities/PersistedLogin";
 import ProtectedRoute from "./utilities/ProtectedRoute";
-import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
+
 import useCheckRole from "../hooks/useCheckRole";
 import BusinessDataRoutes from "./BusinessDataRoutes";
 import TrainingProgramListRoutes from "./TrainingProgramListRoutes";
 import MainRouteByRole from "./utilities/MainRouteByRole";
-import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
 
-import TraineeProfile from "../pages/ProfilePage/TraineeProfile/TraineeProfile";
 import ProfilePage from "../pages/ProfilePage/Profile";
-import SubscriptionPlansForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansForm";
-import SubscriptionPlansAddForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansAddForm";
-import SubscriptionPlansEditForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansEditForm";
+import TraineesRoutes from "./TraineesRoutes";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -53,7 +45,10 @@ function AppRoutes() {
             {/* The Shared routes between all users roles. */}
             <Route index element={<MainRouteByRole />} />
             <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />} />
-            <Route path={APP_ROUTE.COMING_SOON} element={<ComingSoonPage />} />
+            <Route
+              path={`${APP_ROUTE.COMING_SOON}/*`}
+              element={<ComingSoonPage />}
+            ></Route>
             <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />} />
             <Route
               path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/*`}
@@ -68,7 +63,7 @@ function AppRoutes() {
                 path={`${APP_ROUTE.SETTINGS_ROUTE}/*`}
                 element={<BusinessDataRoutes />}
               />
-              <Route
+              {/* <Route
                 path={APP_ROUTE.TRAINEES_ROUTE}
                 element={
                   <InsteadOutletRoutes
@@ -103,7 +98,12 @@ function AppRoutes() {
                   path={APP_ROUTE.TRAINEES_ROUTE_ADD}
                   element={<TraineeAddForm />}
                 />
-              </Route>
+              </Route> */}
+
+              <Route
+                path={`${APP_ROUTE.TRAINEES_ROUTE}/*`}
+                element={<TraineesRoutes />}
+              />
 
               <Route path={APP_ROUTE.LEADS_ROUTE}>
                 <Route index element={<LeadsPage />} />
@@ -123,7 +123,7 @@ function AppRoutes() {
             {/* The trainee role routes. */}
             <Route element={<ProtectedRoute allowedRole={isTrainee} />}>
               <Route
-                path={APP_ROUTE.MY_WORKOUTS}
+                path={APP_ROUTE.MY_WORKOUTS_ROUTE}
                 element={<MyWorkoutsPage />}
               />
             </Route>
