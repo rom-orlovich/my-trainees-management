@@ -4,9 +4,9 @@ import { PropsBasic } from "../../../components/baseComponents/baseComponentsTyp
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import UserDetails from "../UserDetails/UserDetails";
 import CaloriesChart from "./CaloriesChart/CaloriesChart";
-import Programs from "./Programs/Programs";
+import ProgramsList from "./ProgramsList/ProgramsList";
 import ProgressChart from "./ProgressChart/ProgressChart";
-import SubscriptionPlan from "./SubscriptionPlans/SubscriptionPlan";
+import SubscriptionPlans from "./SubscriptionPlans/SubscriptionPlans";
 
 import style from "./TraineeProfile.module.scss";
 
@@ -28,13 +28,13 @@ function TraineeProfile() {
   return (
     <section className={style.trainee_profile_page_container}>
       <CaloriesChart className={style.calories_chart_grid_item} />
-      <Programs
+      <ProgramsList
         className={style.programs_grid_item}
         queryOptions={queryOptions}
       />
       <UserDetails className={style.user_details_grid_item} />
       <ProgressChart className={style.progress_chart_grid_item} />
-      <SubscriptionPlan
+      <SubscriptionPlans
         className={style.subscription_plans_grid_item}
         queryOptions={queryOptions}
       />

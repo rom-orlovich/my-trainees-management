@@ -1,23 +1,20 @@
 /* eslint-disable camelcase */
 import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 
-import { useParams } from "react-router-dom";
-import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { SelectInput } from "../../../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 
-import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 import { trainingProgramsListApi } from "../../../../redux/api/hooksAPI";
 
 import { genClassName } from "../../../../utilities/helpersFun";
 import { TraineeProfileProps } from "../TraineeProfile";
-import ProgramsProfileContent from "./ProgramContent";
+import ProgramsListContent from "./ProgramsListContent";
 
 import TrainingProgramsLi from "./TrainingProgramsLi";
 import listProfileStyle from "../../ListProfile.module.scss";
-import style from "./Programs.module.scss";
+import style from "./ProgramsList.module.scss";
 
-function Programs({ className, queryOptions }: TraineeProfileProps) {
+function ProgramsList({ className, queryOptions }: TraineeProfileProps) {
   return (
     <Card
       className={genClassName(
@@ -34,7 +31,7 @@ function Programs({ className, queryOptions }: TraineeProfileProps) {
           { label: "Nutrition Programs", value: "Nutrition Programs" },
         ]}
       ></SelectInput>
-      <ProgramsProfileContent
+      <ProgramsListContent
         LI={TrainingProgramsLi}
         useQuery={trainingProgramsListApi.useGetItemsQuery}
         heading={"Training Programs"}
@@ -44,4 +41,4 @@ function Programs({ className, queryOptions }: TraineeProfileProps) {
   );
 }
 
-export default Programs;
+export default ProgramsList;

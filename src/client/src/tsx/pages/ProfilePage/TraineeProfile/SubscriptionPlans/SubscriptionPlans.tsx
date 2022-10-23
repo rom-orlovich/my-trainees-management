@@ -7,47 +7,18 @@ import Card from "../../../../components/baseComponents/Card/Card";
 import List from "../../../../components/baseComponents/List/List";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner";
 import { subscriptionPlansApi } from "../../../../redux/api/hooksAPI";
-import { SubscriptionPlansAPI } from "../../../../redux/api/interfaceAPI";
+
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
-import { formatDate, genClassName } from "../../../../utilities/helpersFun";
+import { genClassName } from "../../../../utilities/helpersFun";
 import { TraineeProfileProps } from "../TraineeProfile";
 import listProfileStyle from "../../ListProfile.module.scss";
 import style from "./SubscriptionPlan.module.scss";
+import SubscriptionPlanLi from "./SubscriptionPlanLi";
 
-function SubscriptionPlan({ className, queryOptions }: TraineeProfileProps) {
+function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
   const { data, isError, isLoading, isFetching } =
     subscriptionPlansApi.useGetItemsQuery({ ...queryOptions });
 
-  const SubscriptionPlanLi = ({
-    plan_name,
-    current_num_trainings,
-    total_trainings,
-    last_training,
-    subscription_plan_id,
-  }: SubscriptionPlansAPI) => (
-    <li>
-      <span className={listProfileStyle.list_detail}>
-        <span>Plan</span>
-        <Link
-          to={`/${APP_ROUTE.TRAINEES_ROUTE}/${queryOptions?.traineeID}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_EDIT}/${subscription_plan_id}`}
-        >
-          {plan_name}
-        </Link>
-      </span>
-      <span className={listProfileStyle.list_detail}>
-        <span>Current</span>
-        <span>{current_num_trainings}</span>
-      </span>
-      <span className={listProfileStyle.list_detail}>
-        <span>Total</span>
-        <span>{total_trainings}</span>
-      </span>
-      <span className={listProfileStyle.list_detail}>
-        <span>Last</span>
-        <span>{formatDate(last_training, 0)}</span>
-      </span>
-    </li>
-  );
   return (
     <Card
       className={genClassName(
@@ -79,4 +50,4 @@ function SubscriptionPlan({ className, queryOptions }: TraineeProfileProps) {
   );
 }
 
-export default SubscriptionPlan;
+export default SubscriptionPlans;
