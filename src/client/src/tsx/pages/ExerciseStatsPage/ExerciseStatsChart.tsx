@@ -22,23 +22,20 @@ function TrainingProgramsExerciseStatsChart({
       nameData="Data"
       stateData={{ data, isError, isFetching, isLoading }}
     >
-      {(data) => {
-        console.log(data);
-        return (
-          <LineChart
-            className={genClassName(style.chart_exercise)}
-            datasets={[
-              {
-                label: "Weight Progress",
-                data: data.datasetsValues,
-                backgroundColor: "red",
-                borderColor: "red",
-              },
-            ]}
-            labels={data.labels}
-          />
-        );
-      }}
+      {(data) => (
+        <LineChart
+          className={genClassName(style.chart_exercise)}
+          datasets={[
+            {
+              label: "Weight Progress",
+              data: data.datasetsValues,
+              backgroundColor: "red",
+              borderColor: "red",
+            },
+          ]}
+          labels={data.labels}
+        />
+      )}
     </LoadingSpinner>
   );
 }

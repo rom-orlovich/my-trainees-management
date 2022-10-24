@@ -26,12 +26,18 @@
     li {
       @include flex-dir(space-around, null);
       //   gap: 0.3rem 2.5rem;
-      padding: 0.2rem 0.5rem;
+      padding: 0.1rem 0.5rem;
       .list_detail {
         @include flex-dir(null, center, column);
         gap: 0.1rem;
         :first-child {
           font-weight: 500;
+          font-size: 1rem;
+        }
+        :nth-child(2) {
+          font-size: 0.9rem;
+
+          text-decoration: none;
         }
       }
     }

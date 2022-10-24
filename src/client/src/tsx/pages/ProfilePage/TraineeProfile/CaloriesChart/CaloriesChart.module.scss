@@ -1,0 +1,11 @@
+@use "../../../../../style/utilities/utilities.scss" as *;
+.calories_chart_container {
+  position: relative;
+
+  .pie_chart {
+    width: 85% !important;
+    height: 85% !important;
+    @include centerAbs();
+    @include posAbs(54% !important, null, null, null);
+  }
+}

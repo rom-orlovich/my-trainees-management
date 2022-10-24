@@ -11,8 +11,10 @@ import {
   ChartData,
   ChartOptions,
   ChartDataset,
+  ChartType,
+  ChartTypeRegistry,
 } from "chart.js";
-import { _DeepPartialObject } from "chart.js/types/utils";
+import { DistributiveArray } from "chart.js/types/utils";
 
 ChartJS.register(
   CategoryScale,
@@ -23,16 +25,29 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-export const options: ChartOptions = {
+export interface ChartsProps<
+  T extends ChartType = ChartType,
+  D = DistributiveArray<ChartTypeRegistry[T]>,
+  L = string[]
+> {
+  datasets: ChartDataset<T, D[]>[];
+  labels: L[];
+  options?: ChartOptions<T>;
+}
+
+export const CHART_BASE_OPTIONS = {
   responsive: true,
+  maintainAspectRatio: false,
+};
+
+export const LINE_CHART_OPTIONS: ChartOptions<"line"> = {
+  ...CHART_BASE_OPTIONS,
   plugins: {
     legend: {
       position: "top" as const,
       maxHeight: 100,
     },
   },
-
-  maintainAspectRatio: false,
 };
 
 function LineCharts<D, L>({
@@ -40,12 +55,10 @@ function LineCharts<D, L>({
   labels,
   className,
 }: {
-  datasets: ChartDataset<"line", D[]>[];
-  labels: L[];
   className?: string;
-}) {
+} & ChartsProps<"line", D, L>) {
   const data: ChartData<"line", D[], L> = {
-    datasets: [...datasets],
+    datasets,
     labels,
   };
 
@@ -53,7 +66,7 @@ function LineCharts<D, L>({
     <Line
       className={className}
       data={data}
-      options={options}
+      options={LINE_CHART_OPTIONS}
       updateMode="resize"
     />
   );
