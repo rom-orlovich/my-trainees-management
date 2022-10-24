@@ -66,7 +66,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   // The next middleware is validateRolePermission.
   if (Decode?.profile_id && Decode.tokenType === TokenType.VERIFY_SIGN_UP) {
     if (await checkTraineeHaveToken(accessToken, Decode?.profile_id)) {
-      req.signUp_data = {
+      req.signUpData = {
         role: "trainer",
       };
       return next();
@@ -126,7 +126,7 @@ export const validateRolePermission: (
   // Check if the client can get the data by permission
   // or by signUp role with a corresponded role (for sign up a new trainee's user).
   const checkPermissionByRoleWithSignUp = (el: Permission) =>
-    checkRoleCallBack(el) || req?.signUp_data?.role === el.role;
+    checkRoleCallBack(el) || req?.signUpData?.role === el.role;
 
   // The results (true or false) of the some callback on the permissions operations array of roles.
   const checkPermissionByRolesReadOperation = permissions?.read.some(

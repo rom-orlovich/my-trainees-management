@@ -108,7 +108,7 @@ export const trainingProgramSchema = yup.object().shape({
   intensity: yup
     .string()
     .required()
-    .matches(/Kg/g, { message: "Please include Kg unites." }),
+    .matches(/kg/g, { message: "Please include kg unites." }),
   rpe: yup
     .number()
     .required()
@@ -164,6 +164,7 @@ export const nutritionProgramSchema = yup.object().shape({
 export const measuresSchema = yup.object().shape({
   measure_id: yup.number().notRequired().nullable(),
   date: yup.date().required(),
+  profile_id: yup.number().notRequired().nullable(),
   weight: yup.number().required().min(1, "Must be positive"),
   height: yup.number().required().min(1, "Must be positive"),
   activity_factor: yup
@@ -173,7 +174,9 @@ export const measuresSchema = yup.object().shape({
     .max(32)
     .typeError({ message: "Activity Factor is number between 28 and 32." }),
   fat_percents: yup.number().required().min(1, "Must be positive"),
-  bmi: yup.number().required().min(0, "Must be positive"),
+  protein_per_kg: yup.number().required().min(0, "Must be positive"),
+  fat_per_kg: yup.number().required().min(0, "Must be positive"),
+  fixed_cals: yup.number().notRequired().default(0),
 });
 
 export const traineesSchema = yup.object().shape({

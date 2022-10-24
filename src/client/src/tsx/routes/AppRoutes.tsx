@@ -27,6 +27,8 @@ import MainRouteByRole from "./utilities/MainRouteByRole";
 
 import ProfilePage from "../pages/ProfilePage/Profile";
 import TraineesRoutes from "./TraineesRoutes";
+import { MeasureAddForm } from "../components/Forms/MeasuresForms/MeasureAddForm";
+import MeasureEditForm from "../components/Forms/MeasuresForms/MeasureEditForm";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -50,10 +52,22 @@ function AppRoutes() {
               element={<ComingSoonPage />}
             ></Route>
             <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />} />
+
             <Route
               path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/*`}
               element={<TrainingProgramListRoutes />}
             />
+
+            <Route path={APP_ROUTE.MEASURES_ROUTE}>
+              <Route
+                path={APP_ROUTE.MEASURE_ADD}
+                element={<MeasureAddForm />}
+              />
+              <Route
+                path={APP_ROUTE.MEASURE_EDIT}
+                element={<MeasureEditForm />}
+              />
+            </Route>
 
             {/* The admin and trainer shared role routes. */}
             <Route
@@ -63,42 +77,6 @@ function AppRoutes() {
                 path={`${APP_ROUTE.SETTINGS_ROUTE}/*`}
                 element={<BusinessDataRoutes />}
               />
-              {/* <Route
-                path={APP_ROUTE.TRAINEES_ROUTE}
-                element={
-                  <InsteadOutletRoutes
-                    InsteadOutletRoutesPaths={APP_ROUTE.TRAINEES_ROUTE}
-                  >
-                    <Trainees />
-                  </InsteadOutletRoutes>
-                }
-              >
-                <Route path=":id">
-                  <Route index element={<TraineeEditForm />} />
-
-                  <Route
-                    path={APP_ROUTE.PROFILE_ROUTE}
-                    element={<TraineeProfile />}
-                  />
-                  <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}>
-                    <Route
-                      path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_ADD}
-                      element={<SubscriptionPlansAddForm />}
-                    />
-                    <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_EDIT}>
-                      <Route
-                        path=":id"
-                        element={<SubscriptionPlansEditForm />}
-                      />
-                    </Route>
-                  </Route>
-                </Route>
-
-                <Route
-                  path={APP_ROUTE.TRAINEES_ROUTE_ADD}
-                  element={<TraineeAddForm />}
-                />
-              </Route> */}
 
               <Route
                 path={`${APP_ROUTE.TRAINEES_ROUTE}/*`}

@@ -5,6 +5,7 @@ import { API_ROUTES } from "../../apiRoutesConstants";
 import { traineesSchema } from "../../schemas/DBSchemas";
 import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
 import { handleGetStatistic } from "../../serviceStatistics/controllers/handleGetStatistic";
+import { handleInsertNewMeasure } from "../../serviceStatistics/controllers/handleInsertNewMeasure";
 import { handleInsertStatistics } from "../../serviceStatistics/controllers/handleInsertStatistics";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 
@@ -32,10 +33,29 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const singleEntityNameEndPoint = `/${optionsCRUD.singleEntityName}`;
   const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
 
+  if (
+    optionsCRUD.selectQuery.tableName.includes(TABLES_DATA.MEASURES_TABLE_NAME)
+  ) {
+    newRoute
+      .route(singleEntityNameEndPoint)
+      .post(
+        validateMiddlewareHandler,
+        handleInsertNewMeasure,
+        createNewValueInDB
+      );
+    newRoute
+      .route(singleEntityNameEndPointID)
+      .put(validateMiddlewareHandler, handleInsertNewMeasure, updateValueByID);
+  }
+
   newRoute.route("/").get(getValuesFromDB);
   newRoute
     .route(singleEntityNameEndPoint)
-    .post(validateMiddlewareHandler, createNewValueInDB);
+    .post(
+      validateMiddlewareHandler,
+      createNewValueInDB,
+      handleInsertStatistics
+    );
   newRoute
     .route(singleEntityNameEndPointID)
     .get(getValueFromDBbyID)

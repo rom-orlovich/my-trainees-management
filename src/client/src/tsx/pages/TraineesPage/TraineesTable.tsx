@@ -27,6 +27,7 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
     first_name,
     trainee_id,
     trainer_user_id,
+    measure_id,
     ...rest
   } = arg;
 

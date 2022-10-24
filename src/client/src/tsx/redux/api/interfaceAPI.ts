@@ -44,6 +44,8 @@ export enum API_ROUTES {
   NUTRITION_PROGRAMS_LIST_ENTITY = "nutritionProgramList",
   NUTRITION_PROGRAMS_ROUTE = "/api/nutritionPrograms",
   NUTRITION_PROGRAMS_ENTITY = "week",
+  MEASURES_ROUTE = "/api/measures",
+  MEASURE_ENTITY = "measure",
   TRAINEES_ROUTE = "/api/trainees",
   TRAINEES_ENTITY = "trainee",
   SUBSCRIPTION_PLANS_ROUTE = "/api/subscriptionPlans",
@@ -177,6 +179,36 @@ export interface TrainingProgramsListTableAPI {
   note_text: string | null;
 }
 
+export interface MeasuresAPI {
+  measure_id?: number;
+  date: Date;
+  weight: number;
+  height: number;
+  activity_factor: number;
+  fat_percents?: number;
+  protein_per_kg: number;
+  fat_per_kg: number;
+  fixed_cals?: number;
+}
+export interface MeasuresCalResAPI {
+  measure_id?: number;
+  date: Date;
+  weight: number;
+  height: number;
+  activity_factor: number;
+  fat_percents?: number;
+  protein_per_kg: number;
+  fat_per_kg: number;
+  fixed_cals?: number;
+  protein_g: number;
+  fat_g: number;
+  crabs_g: number;
+  protein_cals: number;
+  fat_cals: number;
+  crabs_cals: number;
+  calories_total: number;
+}
+
 export interface NutritionProgramsListTable {
   user_id?: number;
   nutrition_programs_list_id?: number;
@@ -197,7 +229,7 @@ export interface NutritionProgramsTable {
 }
 export interface TraineesBaseTableAPI {
   trainer_user_id?: number;
-
+  measure_id?: number;
   trainee_id: number;
   username: string;
   user_id?: number;

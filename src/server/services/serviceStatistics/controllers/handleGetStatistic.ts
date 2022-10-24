@@ -12,8 +12,8 @@ export const calIntensity = (
 ) => exerciseDataArr.map((el) => el.intensity);
 
 export const handleGetStatistic: RequestHandler = async (req, res, next) => {
-  if (!req.data_for_stats?.statsResult) return next();
-  const { statsResult } = req.data_for_stats;
+  if (!req.statsData?.statsResult) return next();
+  const { statsResult } = req.statsData;
   if (statsResult.data.length > 0) {
     const statsArr = statsResult.data;
     const startDate = statsArr[0].update_date;

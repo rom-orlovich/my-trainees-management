@@ -32,15 +32,7 @@ CREATE TABLE IF NOT EXISTS "cities" (
   "user_id" integer DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS "measures"(
-"measure_id" serial PRIMARY KEY,
-"date" DATE,
-"weight" FLOAT ,
-"height" FLOAT ,
-"activity_factor" INTEGER,
-"fat_percents" FLOAT,
-"bmi" FLOAT
-);
+
 
 
 
@@ -57,11 +49,35 @@ CREATE TABLE IF NOT EXISTS "profiles" (
   "location_id" INTEGER,
   "date_join" DATE,
   "status" BOOLEAN DEFAULT FALSE,
-  "measure_id" INTEGER,
+  "measure_id" INTEGER
 
-  CONSTRAINT fk_measure_id 
-    FOREIGN KEY(measure_id)
-    REFERENCES measure_id(measure_id)
+
+);
+
+
+CREATE TABLE IF NOT EXISTS "measures"(
+"measure_id" serial PRIMARY KEY,
+"profile_id" INTEGER ,
+"date" DATE,
+"weight" FLOAT ,
+"height" FLOAT ,
+"fat_percents" FLOAT,
+"activity_factor" INTEGER,
+"protein_per_kg" FLOAT,
+"fat_per_kg" FLOAT,
+"protein_g" FLOAT ,
+"fat_g" FLOAT ,
+"crabs_g" FLOAT ,
+"protein_cals" FLOAT ,
+"fat_cals" FLOAT ,
+"crabs_cals" FLOAT,
+"fixed_cals" FLOAT,
+"calories_total" FLOAT ,
+
+
+CONSTRAINT fk_profile_id 
+    FOREIGN KEY(profile_id)
+    REFERENCES profiles(profile_id)
       ON DELETE SET NULL
       ON UPDATE CASCADE
 );

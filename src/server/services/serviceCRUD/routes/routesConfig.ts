@@ -326,8 +326,9 @@ export const measuresOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.MEASURES_TABLE_NAME} as mes`,
     tableID: `mes.${TABLES_DATA.MEASURE_ID}`,
-    fieldNamesQuery: `*`,
-    querySelectLogic: ``,
+    fieldNamesQuery: `mes.*`,
+    querySelectLogic: `LEFT JOIN ${TABLES_DATA.USERS_TABLE_NAME} as us on 
+ mes.${TABLES_DATA.PROFILE_ID}=us.${TABLES_DATA.PROFILE_ID}`,
     queryParams: {
       userID: "user_id",
     },

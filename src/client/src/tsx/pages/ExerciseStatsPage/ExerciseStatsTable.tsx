@@ -22,7 +22,7 @@ const transformTrainingProgramList = ({
   update: formatDate(update_date),
   reps,
   sets,
-  intensity: `${intensity}Kg`,
+  intensity: `${intensity}kg`,
   rest: `${rest}min`,
   rpe,
 });

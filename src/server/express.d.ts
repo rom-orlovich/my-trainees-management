@@ -32,6 +32,20 @@ export interface TrainingProgramExerciseStatsAPI {
   rpe: number;
 }
 
+export interface newMeasureRes {
+  protein_g: number;
+  fat_g: number;
+  crabs_g: number;
+  protein_cals: number;
+  fat_cals: number;
+  crabs_cals: number;
+  calories_total: number;
+  measure_id?: number;
+  date: Date;
+  height: number;
+  fat_percents?: number;
+}
+
 export interface StatsData {
   updateExerciseData?: TrainingProgramExercise;
   statsResult?: {
@@ -39,6 +53,7 @@ export interface StatsData {
     next: boolean;
     countRows: number;
   };
+  newMeasureRes?: newMeasureRes;
 }
 /* eslint-disable no-unused-vars */
 export {};
@@ -53,17 +68,11 @@ declare global {
         role: UserRoles;
       };
 
-      signUp_verify_trainee?: {
-        profile_id: string;
-        email: number;
-        jwt: string;
-      };
-
-      signUp_data?: {
+      signUpData?: {
         role: UserRoles;
       };
 
-      data_for_stats?: StatsData;
+      statsData?: StatsData;
     }
   }
 }

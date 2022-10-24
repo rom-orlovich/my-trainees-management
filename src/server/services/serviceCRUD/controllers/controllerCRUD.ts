@@ -74,7 +74,7 @@ export function createRoutesControllers({
         TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME
       )
     ) {
-      req.data_for_stats = { statsResult: responseData };
+      req.statsData = { statsResult: responseData };
       return next();
     }
     return res.status(200).json(responseData);
@@ -101,6 +101,12 @@ export function createRoutesControllers({
     const [data, err] = await promiseHandler(
       await insertQueryOneItem(tableName, req.body)
     );
+
+    if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
+      req.statsData = {
+        updateExerciseData: data as any,
+      };
+    }
 
     req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },
@@ -131,7 +137,7 @@ export function createRoutesControllers({
     }
 
     if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
-      req.data_for_stats = {
+      req.statsData = {
         updateExerciseData: data,
       };
     }

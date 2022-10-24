@@ -26,6 +26,9 @@ export enum APP_ROUTE {
   EXERCISES_LIST_ROUTE = "exercisesList",
   EXERCISE_ADD = "addNewExercise",
   EXERCISE_EDIT = "editExercise",
+  MEASURES_ROUTE = "measuresList",
+  MEASURE_ADD = "addNewMeasures",
+  MEASURE_EDIT = "editMeasures",
 
   EQUIPMENTS_LIST_ROUTE = "equipmentsList",
   EQUIPMENT_ADD = "addNewEquipmentList",
