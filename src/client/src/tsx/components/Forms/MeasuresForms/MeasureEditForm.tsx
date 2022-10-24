@@ -25,24 +25,11 @@ import { MeasureAddForm } from "./MeasureAddForm";
 import MeasureForm from "./MeasureForms";
 
 function MeasureEditForm() {
-  Navigate;
   const [updateItem] = measuresApi.useUpdateItemMutation();
   const [queryParams] = useSearchParams();
   const username = queryParams.get("username");
   const { data, isFetching, isError, isLoading } = measuresApi.useGetItemsQuery(
     { username, trainerUserID: useGetUserLoginData().user_id }
-    // {
-    //   selectFromResult: ({ data, ...state }) => {
-    //     const results = data?.data;
-
-    //     return {
-    //       data: results
-    //         ? data?.data[results.length - 1]
-    //         : ({} as MeasuresCalResAPI),
-    //       ...state,
-    //     };
-    //   },
-    // }
   );
 
   return (
@@ -63,7 +50,6 @@ function MeasureEditForm() {
           crabs_g,
           protein_cals,
           fat_cals,
-          fixed_cals,
           ...rest
         } = data.data[results.length - 1];
         const handleSubmit = ({ ...body }: MeasuresAPI) =>
@@ -71,7 +57,7 @@ function MeasureEditForm() {
             updateItem,
             id: rest.measure_id,
           })(body);
-        // console.log(rest.weight);
+
         return (
           <MeasureForm
             editMode={true}

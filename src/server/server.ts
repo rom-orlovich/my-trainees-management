@@ -57,8 +57,8 @@ app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);
 routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
   app.use(
     baseRoute,
-    // validateTokenMiddleware,
-    // validateRolePermission(optionsCRUD.permissions),
+    validateTokenMiddleware,
+    validateRolePermission(optionsCRUD.permissions),
     createCRUDroutes(optionsCRUD)
   );
 });

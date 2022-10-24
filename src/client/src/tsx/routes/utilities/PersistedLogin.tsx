@@ -22,7 +22,7 @@ function PersistedLogin() {
     if (!authState.accessToken) trigger({});
   }, [authState.accessToken, trigger]);
   // authState.accessToken
-  return true ? (
+  return authState.accessToken ? (
     <Outlet />
   ) : (
     <LoadingSpinner
