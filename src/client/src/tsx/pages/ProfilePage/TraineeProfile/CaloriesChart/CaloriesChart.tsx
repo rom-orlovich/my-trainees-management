@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import {
@@ -13,6 +14,7 @@ import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner
 import useGetQueryParams from "../../../../hooks/useGetQueryParams";
 import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 import { measuresApi } from "../../../../redux/api/hooksAPI";
+import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 import { genClassName } from "../../../../utilities/helpersFun";
 import style from "./CaloriesChart.module.scss";
 
@@ -28,10 +30,11 @@ interface CaloriesChartRes {
   calories_total: number;
 }
 function CaloriesChart({ className }: PropsBasic) {
+  const username = useGetQueryParams("username");
   const { data, isError, isFetching, isLoading } = measuresApi.useGetItemsQuery(
     {
       trainerUserID: useGetUserLoginData().user_id,
-      username: useGetQueryParams("username"),
+      username,
       caloriesPie: "true",
     }
   );
@@ -40,9 +43,17 @@ function CaloriesChart({ className }: PropsBasic) {
   const FATS_COLOR = " rgb(250 ,209 ,55)";
   return (
     <Card className={genClassName(className, style.calories_chart_container)}>
-      <LoadingSpinner stateData={{ data, isError, isFetching, isLoading }}>
+      <LoadingSpinner
+        message={
+          <Link
+            to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}`}
+          >
+            Add Your First Measure
+          </Link>
+        }
+        stateData={{ data, isError, isFetching, isLoading }}
+      >
         {(data) => {
-          console.log(data);
           const { caloriesDisplay, weightsDisplay, calories_total } =
             data as unknown as CaloriesChartRes;
 

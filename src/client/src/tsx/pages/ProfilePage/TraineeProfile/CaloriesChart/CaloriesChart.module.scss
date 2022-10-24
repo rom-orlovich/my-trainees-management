@@ -16,4 +16,15 @@
     @include centerAbs();
     @include posAbs(55% !important, null, null, null);
   }
+
+  @include classMatcher("message_spinner") {
+    @include centerAbs();
+    text-align: center;
+    width: 100%;
+    a {
+      @include button(rgb(127 165 241), 0.5rem, 0.8rem);
+      text-decoration: none;
+      color: white;
+    }
+  }
 }

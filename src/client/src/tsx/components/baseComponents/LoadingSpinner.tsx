@@ -1,7 +1,12 @@
 import React, { ReactNode, useEffect } from "react";
+import {
+  Navigate,
+  NavigateProps,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { AnyFun } from "../../types";
 import { getValuesArrObj } from "../../utilities/helpersFun";
-import style from "./LoadingSpinner.module.scss";
 
 export interface LoadingSpinnerProps<T> {
   stateData: {
@@ -11,7 +16,8 @@ export interface LoadingSpinnerProps<T> {
     data: T | undefined;
   };
   isErrorFun?: AnyFun;
-  message?: string;
+  path?: string;
+  message?: ReactNode;
   showNoDataMessage?: boolean;
   nameData?: string;
   children?: ReactNode | ((data: T) => ReactNode);
@@ -23,13 +29,30 @@ function LoadingSpinner<T extends object>({
   stateData: { isLoading, isFetching, data, isError },
   isErrorFun,
   message,
+  path,
   nameData = "The Data",
   showNoDataMessage,
   children,
 }: LoadingSpinnerProps<T>) {
+  const nav = useNavigate();
+  const location = useLocation();
+  const isExistDataEmpty = () => {
+    if (data) {
+      const values = getValuesArrObj(data);
+      return Array.isArray(values[0]) && values[0].length === 0;
+    }
+    return false;
+  };
+
   useEffect(() => {
     isErrorFun && isError && isErrorFun();
   }, [isError, isErrorFun]);
+
+  useEffect(() => {
+    isExistDataEmpty() &&
+      path &&
+      nav(path as any, { replace: true, state: { from: location } });
+  }, [data]);
 
   if (isLoading || isFetching)
     return <p className="loading_spinner"> Loading...</p>;
@@ -40,13 +63,12 @@ function LoadingSpinner<T extends object>({
     </p>
   );
 
-  if (!data) return showNoDataMessage ? SpinnerMessage : <></>;
+  if (!data) {
+    return showNoDataMessage ? SpinnerMessage : <></>;
+  }
 
-  if (data) {
-    const values = getValuesArrObj(data);
-
-    if (Array.isArray(values[0]) && values[0].length === 0)
-      return SpinnerMessage;
+  if (isExistDataEmpty()) {
+    return SpinnerMessage;
   }
 
   return <> {typeof children === "function" ? children(data) : children}</>;

@@ -28,7 +28,7 @@ export function MeasureForm({
           height: 160,
           weight: 60,
           fixed_cals: 0,
-          // fat_percents: 0,
+          date: formatDate(new Date(), 0) as any,
           ...defaultValues,
         },
         resolver: yupResolver(measuresSchema),
@@ -74,7 +74,7 @@ export function MeasureForm({
               InputProps={{ ...register("fat_percents"), type: "number" }}
               LabelProps={{
                 htmlFor: "fat_percents",
-                labelText: "Fat Percents",
+                labelText: "Fat %",
               }}
             >
               <InputErrorMessage

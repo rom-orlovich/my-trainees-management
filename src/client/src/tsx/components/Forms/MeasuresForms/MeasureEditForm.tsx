@@ -1,7 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import React from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 import { leadsApi, measuresApi } from "../../../redux/api/hooksAPI";
@@ -10,6 +16,7 @@ import {
   MeasuresAPI,
   MeasuresCalResAPI,
 } from "../../../redux/api/interfaceAPI";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
@@ -18,6 +25,7 @@ import { MeasureAddForm } from "./MeasureAddForm";
 import MeasureForm from "./MeasureForms";
 
 function MeasureEditForm() {
+  Navigate;
   const [updateItem] = measuresApi.useUpdateItemMutation();
   const [queryParams] = useSearchParams();
   const username = queryParams.get("username");
@@ -36,15 +44,17 @@ function MeasureEditForm() {
     //   },
     // }
   );
-  console.log(data);
-  return data?.data.length ? (
+
+  return (
     <LoadingSpinner
+      path={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_ADD}`}
       nameData="Measures"
       stateData={{ data, isFetching, isError, isLoading }}
     >
       {(data) => {
+        console.log(data);
         const results = data.data;
-        console.log(data.data);
+
         const {
           protein_g,
           calories_total,
@@ -56,13 +66,12 @@ function MeasureEditForm() {
           fixed_cals,
           ...rest
         } = data.data[results.length - 1];
-        const handleSubmit = ({ ...body }: MeasuresAPI) => {
-          console.log(body);
-          return updateFunction({
+        const handleSubmit = ({ ...body }: MeasuresAPI) =>
+          updateFunction({
             updateItem,
             id: rest.measure_id,
           })(body);
-        };
+        // console.log(rest.weight);
         return (
           <MeasureForm
             editMode={true}
@@ -75,9 +84,10 @@ function MeasureEditForm() {
         );
       }}
     </LoadingSpinner>
-  ) : (
-    <MeasureAddForm />
   );
+  // : (
+  //   <MeasureAddForm />
+  // );
 }
 
 export default MeasureEditForm;
