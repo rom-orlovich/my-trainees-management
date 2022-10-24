@@ -19,18 +19,6 @@
         background-color: #75b1dd;
       }
     }
-
-    // .dates_container {
-    //   @include flex-dir(null, null);
-    //   gap: 0.5rem;
-
-    //   @include classMatcher("input_label") {
-    //     max-width: 50%;
-    //   }
-    // }
-    // @include classMatcher("selectInput_label") {
-    //   flex: initial;
-    // }
   }
   .page_main_content {
     background-color: initial;
@@ -55,7 +43,7 @@
     .page_header {
       padding: 0 0rem;
       span[class*="auto"] {
-        max-width: 60%;
+        max-width: 58%;
         label {
           font-size: 1.15rem;
         }
@@ -63,26 +51,6 @@
       a {
         font-size: 0.7rem;
       }
-      // &.stats_header {
-      //   @include flex-dir(null, initial, column);
-
-      //   .dates_container {
-      //     max-width: 100%;
-      //     @include flex-dir(null, null, row);
-      //     gap: 0.3rem;
-
-      //     @include classMatcher("input_label") {
-      //       max-width: initial;
-      //     }
-      //   }
-      //   @include classMatcher("selectInput_label") {
-      //     width: initial;
-      //     max-width: initial;
-      //     select {
-      //       width: 100%;
-      //     }
-      //   }
-      // }
     }
     .page_main_content {
       background-color: initial;

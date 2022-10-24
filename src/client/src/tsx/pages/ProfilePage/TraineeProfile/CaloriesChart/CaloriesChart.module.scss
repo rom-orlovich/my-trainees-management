@@ -33,9 +33,6 @@
 
 @include smartphone() {
   .calories_chart_container {
-    &:focus {
-      height: 40rem !important;
-    }
     h2 {
       font-size: 1.8rem;
       font-weight: 400;
@@ -47,12 +44,11 @@
 
       h3 {
         text-align: center;
-        font-weight: 500;
       }
     }
     .pie_chart {
-      width: 65% !important;
-      height: 65% !important;
+      width: 70% !important;
+      height: 70% !important;
 
       @include posAbs(60% !important, null, null, null);
     }

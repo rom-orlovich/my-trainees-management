@@ -11,3 +11,11 @@
     text-align: center;
   }
 }
+
+@include smartphone() {
+  .subscription_plans_container {
+    li {
+      gap: 0rem 0.8rem;
+    }
+  }
+}

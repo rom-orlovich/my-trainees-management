@@ -27,48 +27,40 @@
 
 @include smartphone() {
   .trainee_profile_page_container {
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1rem;
     width: 100%;
-    @include flex-dir(null, null, column); // gap: 0.8rem;
-    // grid-template-columns: 1fr;
-    // grid-template-rows: repeat(5, 1fr);
+    @include flex-dir(null, null, column);
+
+    height: auto;
+
+    h2 {
+      font-weight: 500;
+    }
   }
 
-  %focus {
-    height: 4rem;
-    :nth-child(n):not(h2) {
-      display: none !important;
-    }
-    // width: 20rem;
-    cursor: pointer;
-    &:focus {
-      :nth-child(n) {
-        display: block !important;
-      }
-      height: fit-content;
-    }
-  }
   .user_details_grid_item {
     order: 1;
     height: fit-content;
     // width: 20rem;
   }
   .subscription_plans_grid_item {
-    order: 2;
-    @extend %focus;
+    order: 4;
+    min-height: 10rem;
   }
   .programs_grid_item {
-    order: 3;
-    @extend %focus;
+    order: 2;
+
+    min-height: 25rem;
   }
 
   .calories_chart_grid_item {
-    order: 4;
-    @extend %focus;
+    order: 3;
+
+    min-height: 20rem;
   }
 
   .progress_chart_grid_item {
+    display: none;
     order: 5;
-    @extend %focus;
   }
 }

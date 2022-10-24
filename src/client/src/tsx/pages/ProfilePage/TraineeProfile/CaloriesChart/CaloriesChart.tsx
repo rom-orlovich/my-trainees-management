@@ -79,6 +79,12 @@ function CaloriesChart({ className }: PropsBasic) {
                   plugins: {
                     tooltip: {
                       callbacks: { label: labelFormatterByUnit("cal") },
+                      position: "average",
+
+                      padding: 10,
+                      bodyFont: {
+                        size: 20,
+                      },
                     },
                     datalabels: {
                       formatter: dataLabelFormatterByUnit("cal"),

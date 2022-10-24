@@ -15,7 +15,7 @@ function SubscriptionPlanLi({
   trainee_id,
 }: SubscriptionPlansAPI) {
   return (
-    <li>
+    <li className={listProfileStyle.list_li}>
       <span className={listProfileStyle.list_detail}>
         <span>Plan</span>
         <Link

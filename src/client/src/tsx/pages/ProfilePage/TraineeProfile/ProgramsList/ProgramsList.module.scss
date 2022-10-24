@@ -13,3 +13,20 @@
     }
   }
 }
+
+@include smartphone() {
+  .programs_container {
+    @include classMatcher("selectInput_label") {
+      z-index: 50;
+      @include posAbs(3%, null, 3%, null);
+      width: initial;
+      max-width: initial;
+      label {
+        display: none;
+      }
+      select {
+        width: 100%;
+      }
+    }
+  }
+}

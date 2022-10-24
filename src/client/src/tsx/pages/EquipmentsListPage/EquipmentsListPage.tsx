@@ -32,7 +32,7 @@ function EquipmentsListPage() {
             setSelectOptionValue={setEquipment}
             useGetData={equipmentsApi.useGetItemsQuery}
             InputLabelProps={{
-              InputProps: { placeholder: "Equipment Name" },
+              InputProps: { placeholder: "Equipment" },
               LabelProps: {
                 labelText: "Search Equipment",
                 htmlFor: "equipmentSearch",

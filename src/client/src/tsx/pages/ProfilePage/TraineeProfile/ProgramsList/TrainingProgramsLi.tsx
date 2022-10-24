@@ -14,7 +14,7 @@ function TrainingProgramsLi({
   date_end,
 }: TrainingProgramsListTableAPI) {
   return (
-    <li>
+    <li className={listProfileStyle.list_li}>
       <span className={listProfileStyle.list_detail}>
         <span>Program</span>
         <Link

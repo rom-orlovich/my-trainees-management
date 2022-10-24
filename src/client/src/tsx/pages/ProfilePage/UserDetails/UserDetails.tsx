@@ -28,7 +28,7 @@ function UserDetails({ className }: PropsBasic) {
         <Link
           to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}`}
         >
-          Measures
+          Edit Measures
         </Link>
       </div>
     </Card>
