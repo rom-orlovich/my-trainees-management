@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { SubscriptionPlansAPI } from "../../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 import { formatDate } from "../../../../utilities/helpersFun";
-import listProfileStyle from "../../ListProfile.module.scss";
+import listProfileStyle from "../../ListProfile/ListProfile.module.scss";
 
 function SubscriptionPlanLi({
   plan_name,

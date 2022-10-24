@@ -5,7 +5,7 @@ import { TrainingProgramsListTableAPI } from "../../../../redux/api/interfaceAPI
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 import { formatDate } from "../../../../utilities/helpersFun";
 // import style from "./Programs.module.scss";
-import listProfileStyle from "../../ListProfile.module.scss";
+import listProfileStyle from "../../ListProfile/ListProfile.module.scss";
 
 function TrainingProgramsLi({
   type_program,

@@ -1,9 +1,9 @@
 import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { Link } from "react-router-dom";
-import { LiComponentProps } from "../../components/baseComponents/baseComponentsTypes";
-import List from "../../components/baseComponents/List/List";
-import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
-import { ResponseQueryAPI } from "../../redux/api/interfaceAPI";
+import { LiComponentProps } from "../../../components/baseComponents/baseComponentsTypes";
+import List from "../../../components/baseComponents/List/List";
+import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner";
+import { ResponseQueryAPI } from "../../../redux/api/interfaceAPI";
 
 // import programsListStyle from "./ProgramsList.module.scss";
 import style from "./ListProfile.module.scss";

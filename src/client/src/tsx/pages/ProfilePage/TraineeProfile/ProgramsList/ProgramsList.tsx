@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 
 import Card from "../../../../components/baseComponents/Card/Card";
 import { SelectInput } from "../../../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
@@ -8,10 +7,10 @@ import { trainingProgramsListApi } from "../../../../redux/api/hooksAPI";
 
 import { genClassName } from "../../../../utilities/helpersFun";
 import { TraineeProfileProps } from "../TraineeProfile";
-import ListProfile from "../../ListProfile";
+import ListProfile from "../../ListProfile/ListProfile";
 
 import TrainingProgramsLi from "./TrainingProgramsLi";
-import listProfileStyle from "../../ListProfile.module.scss";
+import listProfileStyle from "../../ListProfile/ListProfile.module.scss";
 import style from "./ProgramsList.module.scss";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 

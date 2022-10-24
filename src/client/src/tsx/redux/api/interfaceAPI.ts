@@ -54,6 +54,7 @@ export enum API_ROUTES {
 export interface User {
   user_id: number;
   username: string;
+  email: string;
   trainee_id?: number;
   trainer_user_id: number;
   role: "admin" | "trainer" | "trainee";
