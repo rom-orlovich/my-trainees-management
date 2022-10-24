@@ -89,7 +89,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
    - Multiple personal trainers able to log in and manage their business. 
    - Personal trainers can register new trainees to their system and send them an email to sign up and create their personal users to track their progress. 
    - Each user role has different permission to access app rescources. 
-   - Persistent login system based on rotate refresh token mechanism.
+   - Persistent login system based on Refresh Token Rotation mechanism.
 
 ## Coming soon:
 1.  **Trainee & Trainer Profile Page** - The page will display their personal account data.
@@ -98,7 +98,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 4.  **Statistics Page** - Personal trainers will have a graphical overview of their business. \
 Trainees will have a graphical overview about their progress.
 6. **Trainer & Trainee Schedule** - Personal Trainers will able to schedule new trainings and meetings sessions. \
-Trainees will able to watch thier next sessions.
+Trainees will able to watch their next sessions.
    
 
 
