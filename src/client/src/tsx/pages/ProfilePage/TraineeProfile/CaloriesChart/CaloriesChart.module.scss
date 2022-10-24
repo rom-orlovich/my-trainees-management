@@ -1,12 +1,17 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 .calories_chart_container {
   position: relative;
+  h2 {
+    display: none;
+  }
   .calories_heading {
     // position: absolute;
     @include flex-dir(center, null); // @include posAbs(0%, null, null, null);
     // font-size: 1.2rem;
     // font-weight: 500;
-    h2 {
+
+    h3 {
+      font-size: 1.5rem;
       font-weight: 500;
     }
   }
@@ -25,6 +30,45 @@
       @include button(rgb(127 165 241), 0.5rem, 0.8rem);
       text-decoration: none;
       color: white;
+    }
+  }
+}
+
+@include smartphone() {
+  .calories_chart_container {
+    position: relative;
+    &:focus {
+      height: 40rem !important;
+    }
+    h2 {
+      font-size: 1.8rem;
+      display: block;
+      text-align: center;
+    }
+    .calories_heading {
+      @include flex-dir(center, null);
+
+      h3 {
+        text-align: center;
+        font-weight: 500;
+      }
+    }
+    .pie_chart {
+      width: 65% !important;
+      height: 65% !important;
+      @include centerAbs();
+      @include posAbs(60% !important, null, null, null);
+    }
+
+    @include classMatcher("message_spinner") {
+      @include centerAbs();
+      text-align: center;
+      width: 100%;
+      a {
+        @include button(rgb(127 165 241), 0.5rem, 0.8rem);
+        text-decoration: none;
+        color: white;
+      }
     }
   }
 }

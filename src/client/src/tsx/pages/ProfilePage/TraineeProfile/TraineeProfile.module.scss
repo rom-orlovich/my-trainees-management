@@ -37,13 +37,13 @@
   %focus {
     height: 4rem;
     :nth-child(n):not(h2) {
-      display: none;
+      display: none !important;
     }
     // width: 20rem;
     cursor: pointer;
     &:focus {
       :nth-child(n) {
-        display: block;
+        display: block !important;
       }
       height: fit-content;
     }

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
@@ -59,8 +60,9 @@ function CaloriesChart({ className }: PropsBasic) {
 
           return (
             <>
+              <h2> Calories Chart</h2>
               <div className={style.calories_heading}>
-                <h2>{calories_total} cal</h2>
+                <h3>{calories_total} cal</h3>
               </div>
               <PieChart
                 className={style.pie_chart}
