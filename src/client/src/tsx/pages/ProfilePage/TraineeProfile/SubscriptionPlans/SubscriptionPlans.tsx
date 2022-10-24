@@ -14,6 +14,7 @@ import { TraineeProfileProps } from "../TraineeProfile";
 import listProfileStyle from "../../ListProfile.module.scss";
 import style from "./SubscriptionPlan.module.scss";
 import SubscriptionPlanLi from "./SubscriptionPlanLi";
+import ListProfile from "../../ListProfile";
 
 function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
   const { data, isError, isLoading, isFetching } =
@@ -33,7 +34,7 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
         <BsFillPlusSquareFill className={style.plus_button_icon} />
       </Link>
 
-      <h2>Subscription Plans </h2>
+      {/* <h2>Subscription Plans </h2>
       <LoadingSpinner
         nameData="Subscription Plans"
         stateData={{ data, isError, isLoading, isFetching }}
@@ -45,7 +46,15 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
             LI={SubscriptionPlanLi}
           />
         )}
-      </LoadingSpinner>
+      </LoadingSpinner> */}
+
+      <ListProfile
+        heading="Subscription Plans"
+        useQuery={subscriptionPlansApi.useGetItemsQuery}
+        queryOptions={queryOptions}
+        pagePath={""}
+        LI={SubscriptionPlanLi}
+      />
     </Card>
   );
 }

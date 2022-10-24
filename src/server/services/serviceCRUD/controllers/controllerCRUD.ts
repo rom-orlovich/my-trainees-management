@@ -97,6 +97,7 @@ export function createRoutesControllers({
   const createNewValueInDB: RequestHandler = async (req, res, next) => {
     if (req.logAlertInfo?.error) return next();
 
+    console.log(req.logAlertInfo?.error);
     const [data, err] = await promiseHandler(
       await insertQueryOneItem(tableName, req.body)
     );

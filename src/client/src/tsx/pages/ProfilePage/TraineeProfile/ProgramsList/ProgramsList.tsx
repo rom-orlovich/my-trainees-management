@@ -8,11 +8,12 @@ import { trainingProgramsListApi } from "../../../../redux/api/hooksAPI";
 
 import { genClassName } from "../../../../utilities/helpersFun";
 import { TraineeProfileProps } from "../TraineeProfile";
-import ProgramsListContent from "./ProgramsListContent";
+import ListProfile from "../../ListProfile";
 
 import TrainingProgramsLi from "./TrainingProgramsLi";
 import listProfileStyle from "../../ListProfile.module.scss";
 import style from "./ProgramsList.module.scss";
+import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 
 function ProgramsList({ className, queryOptions }: TraineeProfileProps) {
   return (
@@ -30,12 +31,13 @@ function ProgramsList({ className, queryOptions }: TraineeProfileProps) {
           { label: "Training Programs", value: "Training Programs" },
           { label: "Nutrition Programs", value: "Nutrition Programs" },
         ]}
-      ></SelectInput>
-      <ProgramsListContent
+      />
+      <ListProfile
         LI={TrainingProgramsLi}
         useQuery={trainingProgramsListApi.useGetItemsQuery}
         heading={"Training Programs"}
         queryOptions={queryOptions}
+        pagePath={`/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}?traineeID=${queryOptions?.traineeID}`}
       />
     </Card>
   );

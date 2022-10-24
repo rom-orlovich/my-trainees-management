@@ -477,4 +477,4 @@ CREATE TABLE IF NOT EXISTS "participants_group" (
 );
 
 
--- pg_dump --column-inserts --data-only my_trainees_management -T 'users' -T 'profiles' > dummy_data.sql
+-- pg_dump --column-inserts --data-only my_trainees_management  > dummy_data.sql
