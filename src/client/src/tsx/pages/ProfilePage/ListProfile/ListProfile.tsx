@@ -1,4 +1,5 @@
 import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { LiComponentProps } from "../../../components/baseComponents/baseComponentsTypes";
 import List from "../../../components/baseComponents/List/List";
@@ -13,12 +14,14 @@ function ListProfile<T extends Record<string, any>>({
   queryOptions,
   heading,
   pagePath,
+  dataNotFoundEl,
 }: {
   pagePath?: string;
   heading: string;
   LI: LiComponentProps<T>;
   useQuery: UseQuery<any>;
   queryOptions?: Record<string, any>;
+  dataNotFoundEl?: ReactNode;
 }) {
   const { data, isError, isFetching, isLoading } = useQuery({
     ...queryOptions,
@@ -26,9 +29,8 @@ function ListProfile<T extends Record<string, any>>({
 
   return (
     <>
-      <h2>{heading}</h2>
-
       <LoadingSpinner
+        message={dataNotFoundEl || <></>}
         stateData={{
           data: data as ResponseQueryAPI<T> | undefined,
           isError,
@@ -37,13 +39,17 @@ function ListProfile<T extends Record<string, any>>({
         }}
       >
         {(data) => (
-          <List
-            className={style.list}
-            dataArr={data.data.slice(0, 5)}
-            LI={LI}
-          />
+          <>
+            <h2>{heading}</h2>
+            <List
+              className={style.list}
+              dataArr={data.data.slice(0, 5)}
+              LI={LI}
+            />
+          </>
         )}
       </LoadingSpinner>
+
       {pagePath && (
         <div className={style.list_page_link}>
           <Link to={pagePath}>{heading} Page</Link>

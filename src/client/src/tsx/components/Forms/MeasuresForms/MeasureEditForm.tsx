@@ -8,6 +8,7 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
+import useGetQueryParams from "../../../hooks/useGetQueryParams";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 import { leadsApi, measuresApi } from "../../../redux/api/hooksAPI";
@@ -26,20 +27,22 @@ import MeasureForm from "./MeasureForms";
 
 function MeasureEditForm() {
   const [updateItem] = measuresApi.useUpdateItemMutation();
-  const [queryParams] = useSearchParams();
-  const username = queryParams.get("username");
+
+  const username = useGetQueryParams("username");
+  const profileID = useGetQueryParams("profileID");
+  console.log(profileID);
+
   const { data, isFetching, isError, isLoading } = measuresApi.useGetItemsQuery(
     { username, trainerUserID: useGetUserLoginData().user_id }
   );
 
   return (
     <LoadingSpinner
-      path={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_ADD}`}
+      path={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_ADD}?profileID=${profileID}`}
       nameData="Measures"
       stateData={{ data, isFetching, isError, isLoading }}
     >
       {(data) => {
-        console.log(data);
         const results = data.data;
 
         const {
@@ -71,9 +74,6 @@ function MeasureEditForm() {
       }}
     </LoadingSpinner>
   );
-  // : (
-  //   <MeasureAddForm />
-  // );
 }
 
 export default MeasureEditForm;

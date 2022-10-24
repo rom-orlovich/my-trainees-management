@@ -332,6 +332,7 @@ export const measuresOptionsCRUD: OptionsCRUD = {
     queryParams: {
       userID: "user_id",
       caloriesPie: "caloriesPie",
+      username: "username",
     },
   },
   permissions: PERMISSION_TRAINEE_BY_USER_ID,
@@ -380,6 +381,7 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
     querySelectLogic: ``,
     queryParams: {
       userID: "subp.user_id",
+      traineeID: "trainee_id",
     },
   },
   permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,

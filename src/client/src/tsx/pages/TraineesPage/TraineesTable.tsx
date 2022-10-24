@@ -35,7 +35,7 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
     id: arg.trainee_id,
     full_name: (
       <Link
-        to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${APP_ROUTE.PROFILE_ROUTE}?username=${username}`}
+        to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${APP_ROUTE.PROFILE_ROUTE}?username=${username}&profileID=${profile_id}`}
       >
         {`${arg.first_name} ${arg.last_name}`}
       </Link>

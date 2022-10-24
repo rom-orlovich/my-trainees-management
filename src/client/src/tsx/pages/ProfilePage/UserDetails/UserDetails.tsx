@@ -12,6 +12,7 @@ function UserDetails({ className }: PropsBasic) {
   const [queryParams] = useSearchParams();
 
   const username = queryParams.get("username");
+  const profileID = queryParams.get("profileID");
   const traineeID = Number(useParams().id);
   return (
     <Card className={genClassName(className, style.user_details_container)}>
@@ -26,7 +27,7 @@ function UserDetails({ className }: PropsBasic) {
         </Link>
 
         <Link
-          to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}`}
+          to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}
         >
           Edit Measures
         </Link>

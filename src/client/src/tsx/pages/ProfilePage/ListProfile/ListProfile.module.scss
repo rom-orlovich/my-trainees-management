@@ -2,6 +2,7 @@
 .list_container {
   padding: 0.5rem;
   position: relative;
+  @include flex-dir(center, null, column);
   @include classMatcher("message_spinner") {
     @include centerAbs();
     text-align: center;

@@ -49,7 +49,7 @@ function CaloriesChart({ className }: PropsBasic) {
           <Link
             to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}`}
           >
-            Add Your First Measure
+            Add Measure
           </Link>
         }
         stateData={{ data, isError, isFetching, isLoading }}
@@ -83,7 +83,7 @@ function CaloriesChart({ className }: PropsBasic) {
 
                       padding: 10,
                       bodyFont: {
-                        size: 20,
+                        size: 18,
                       },
                     },
                     datalabels: {
