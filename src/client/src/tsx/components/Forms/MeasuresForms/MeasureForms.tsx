@@ -26,6 +26,9 @@ export function MeasureForm({
           fat_per_kg: 0.5,
           protein_per_kg: 1.6,
           activity_factor: 28,
+          height: 160,
+          weight: 60,
+
           ...defaultValues,
         },
         resolver: yupResolver(measuresSchema),

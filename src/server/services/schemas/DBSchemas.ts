@@ -164,18 +164,29 @@ export const nutritionProgramSchema = yup.object().shape({
 export const measuresSchema = yup.object().shape({
   measure_id: yup.number().notRequired().nullable(),
   date: yup.date().required(),
-  profile_id: yup.number().notRequired().nullable(),
   weight: yup.number().required().min(1, "Must be positive"),
   height: yup.number().required().min(1, "Must be positive"),
   activity_factor: yup
     .number()
-    .required()
+    .notRequired()
     .min(28)
     .max(32)
     .typeError({ message: "Activity Factor is number between 28 and 32." }),
-  fat_percents: yup.number().required().min(1, "Must be positive"),
-  protein_per_kg: yup.number().required().min(0, "Must be positive"),
-  fat_per_kg: yup.number().required().min(0, "Must be positive"),
+  fat_percents: yup
+    .number()
+    .notRequired()
+    .nullable()
+    .min(1, "Must be positive"),
+  protein_per_kg: yup
+    .number()
+    .notRequired()
+    .min(0, "Must be positive")
+    .default(1.8),
+  fat_per_kg: yup
+    .number()
+    .notRequired()
+    .min(0, "Must be positive")
+    .default(0.5),
   fixed_cals: yup.number().notRequired().default(0),
 });
 

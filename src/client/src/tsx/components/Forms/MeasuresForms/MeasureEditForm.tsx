@@ -14,6 +14,7 @@ import {
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import { MeasureAddForm } from "./MeasureAddForm";
 import MeasureForm from "./MeasureForms";
 
 function MeasureEditForm() {
@@ -52,7 +53,7 @@ function MeasureEditForm() {
       id: measure_id || 0,
     })(body);
 
-  return (
+  return data ? (
     <LoadingSpinner
       nameData="Lead"
       stateData={{ data, isFetching, isError, isLoading }}
@@ -80,6 +81,8 @@ function MeasureEditForm() {
         />
       )}
     </LoadingSpinner>
+  ) : (
+    <MeasureAddForm />
   );
 }
 
