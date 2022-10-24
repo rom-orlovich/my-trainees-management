@@ -22,64 +22,58 @@ function MeasureEditForm() {
   const [queryParams] = useSearchParams();
   const username = queryParams.get("username");
   const { data, isFetching, isError, isLoading } = measuresApi.useGetItemsQuery(
-    { username, trainerUserID: useGetUserLoginData().user_id },
-    {
-      selectFromResult: ({ data, ...state }) => {
-        const results = data?.data;
+    { username, trainerUserID: useGetUserLoginData().user_id }
+    // {
+    //   selectFromResult: ({ data, ...state }) => {
+    //     const results = data?.data;
 
-        return {
-          data: results
-            ? data?.data[results.length - 1]
-            : ({} as MeasuresCalResAPI),
-          ...state,
-        };
-      },
-    }
+    //     return {
+    //       data: results
+    //         ? data?.data[results.length - 1]
+    //         : ({} as MeasuresCalResAPI),
+    //       ...state,
+    //     };
+    //   },
+    // }
   );
-
-  const handleSubmit = ({
-    // calories_total,
-    // crabs_cals,
-    // crabs_g,
-    // fat_cals,
-    // fat_g,
-    // protein_cals,
-    // protein_g,
-    measure_id,
-    ...body
-  }: MeasuresAPI) =>
-    updateFunction({
-      updateItem,
-      id: measure_id || 0,
-    })(body);
-
-  return data ? (
+  console.log(data);
+  return data?.data.length ? (
     <LoadingSpinner
-      nameData="Lead"
+      nameData="Measures"
       stateData={{ data, isFetching, isError, isLoading }}
     >
-      {({
-        calories_total,
-        crabs_cals,
-        crabs_g,
-        fat_cals,
-        fat_g,
-        protein_cals,
-        protein_g,
-        measure_id,
-
-        date,
-        ...data
-      }) => (
-        <MeasureForm
-          editMode={true}
-          onSubmit={handleSubmit}
-          defaultValues={{
-            ...data,
-            date: formatDate(date) as any,
-          }}
-        />
-      )}
+      {(data) => {
+        const results = data.data;
+        console.log(data.data);
+        const {
+          protein_g,
+          calories_total,
+          crabs_cals,
+          fat_g,
+          crabs_g,
+          protein_cals,
+          fat_cals,
+          fixed_cals,
+          ...rest
+        } = data.data[results.length - 1];
+        const handleSubmit = ({ ...body }: MeasuresAPI) => {
+          console.log(body);
+          return updateFunction({
+            updateItem,
+            id: rest.measure_id,
+          })(body);
+        };
+        return (
+          <MeasureForm
+            editMode={true}
+            onSubmit={handleSubmit}
+            defaultValues={{
+              ...rest,
+              date: formatDate(rest.date) as any,
+            }}
+          />
+        );
+      }}
     </LoadingSpinner>
   ) : (
     <MeasureAddForm />

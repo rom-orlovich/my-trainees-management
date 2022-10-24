@@ -176,6 +176,7 @@ export const measuresSchema = yup.object().shape({
     .number()
     .notRequired()
     .nullable()
+    .transform((value) => (Number.isNaN(value) ? undefined : value))
     .min(1, "Must be positive"),
   protein_per_kg: yup
     .number()

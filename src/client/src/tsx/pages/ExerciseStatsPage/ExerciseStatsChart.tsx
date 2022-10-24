@@ -15,6 +15,7 @@ function TrainingProgramsExerciseStatsChart({
   const { data, isError, isFetching, isLoading } =
     trainingProgramsApi.useGetExerciseStatsQuery({
       ...queriesOptions,
+      // lineChart: "true",
     });
 
   return (

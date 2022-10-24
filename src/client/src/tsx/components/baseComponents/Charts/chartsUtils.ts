@@ -4,7 +4,7 @@ import { Context } from "vm";
 export const labelFormatterByUnit =
   <T extends keyof ChartTypeRegistry>(unit?: string) =>
   (value: TooltipItem<T>) =>
-    `${value.label}${value.parsed}${unit || ""}`;
+    `${value.label} ${value.parsed} ${unit || ""}`;
 
 export const labelFormatterByPercents = <T extends keyof ChartTypeRegistry>(
   ctx: TooltipItem<T>
@@ -23,7 +23,7 @@ export const dataLabelFormatterByPercents = (value: any, ctx: Context) => {
 };
 export const dataLabelFormatterByUnit =
   (unit?: string) => (value: any, ctx: Context) =>
-    `${value}${unit || ""}`;
+    `${value} ${unit || ""}`;
 
 export const PIE_CHART_FONTS = {
   color: "white",

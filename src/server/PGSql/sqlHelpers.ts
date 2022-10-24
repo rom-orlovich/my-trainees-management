@@ -165,10 +165,10 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
-    statement,
-    queryParams,
-  });
+  // pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
+  //   statement,
+  //   queryParams,
+  // });
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;
@@ -208,11 +208,10 @@ const updateQuery = async (
 ) => {
   const statement = `UPDATE ${tableName} SET ${keyValuesStr}
   ${queryLogic} RETURNING *`;
-  // console.log(statement, [paramId, ...paramsArr]);
-  // if (tableName === "users") {
-  //   console.log("statement", statement);
-  //   console.log("queryParams", [paramId, ...paramsArr]);
-  // }
+  pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
+    statement,
+    queryParams: [paramId, ...paramsArr],
+  });
   const rows = await client.query(statement, [paramId, ...paramsArr]);
   return rows;
 };

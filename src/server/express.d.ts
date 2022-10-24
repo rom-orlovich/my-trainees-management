@@ -46,14 +46,39 @@ export interface newMeasureRes {
   fat_percents?: number;
 }
 
+export interface MeasuresCalResAPI {
+  measure_id: number;
+  date: Date;
+  weight: number;
+  height: number;
+  activity_factor: number;
+  fat_percents?: number;
+  protein_per_kg: number;
+  fat_per_kg: number;
+  fixed_cals?: number;
+  protein_g: number;
+  fat_g: number;
+  crabs_g: number;
+  protein_cals: number;
+  fat_cals: number;
+  crabs_cals: number;
+  calories_total: number;
+}
+
+export interface getRes<T extends Record<string, any>> {
+  data: T[];
+  next: boolean;
+  countRows: number;
+}
+
 export interface StatsData {
   updateExerciseData?: TrainingProgramExercise;
   statsResult?: {
-    data: TrainingProgramExerciseStatsAPI[];
-    next: boolean;
-    countRows: number;
+    exerciseStats?: getRes<TrainingProgramExerciseStatsAPI>;
+    measures?: getRes<MeasuresCalResAPI>;
   };
-  newMeasureRes?: newMeasureRes;
+
+  // newMeasureRes?: newMeasureRes;
 }
 /* eslint-disable no-unused-vars */
 export {};

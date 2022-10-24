@@ -44,7 +44,7 @@ export function createRoutesControllers({
   const prepareLogAlert = createLogAlertInfo(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
-    const { page, asc, numResults, ...rest } = req.query;
+    const { page, asc, numResults, caloriesPie, ...rest } = req.query;
 
     const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
     const numResultDefault = Number(numResults || 5);
@@ -74,7 +74,11 @@ export function createRoutesControllers({
         TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME
       )
     ) {
-      req.statsData = { statsResult: responseData };
+      req.statsData = { statsResult: { exerciseStats: responseData } };
+      return next();
+    }
+    if (tableName.includes(TABLES_DATA.MEASURES_TABLE_NAME)) {
+      req.statsData = { statsResult: { measures: responseData } };
       return next();
     }
     return res.status(200).json(responseData);
@@ -131,6 +135,7 @@ export function createRoutesControllers({
         modifiedOtherTable?.update
       )
     );
+
     // Rollback the query if there is error.
     if (err) {
       await client.query("ROLLBACK");

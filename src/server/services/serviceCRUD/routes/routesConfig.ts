@@ -331,6 +331,7 @@ export const measuresOptionsCRUD: OptionsCRUD = {
  mes.${TABLES_DATA.PROFILE_ID}=us.${TABLES_DATA.PROFILE_ID}`,
     queryParams: {
       userID: "user_id",
+      caloriesPie: "caloriesPie",
     },
   },
   permissions: PERMISSION_TRAINEE_BY_USER_ID,

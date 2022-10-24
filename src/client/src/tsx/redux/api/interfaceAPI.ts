@@ -191,7 +191,7 @@ export interface MeasuresAPI {
   fixed_cals?: number;
 }
 export interface MeasuresCalResAPI {
-  measure_id?: number;
+  measure_id: number;
   date: Date;
   weight: number;
   height: number;

@@ -22,13 +22,13 @@ export function MeasureForm({
       pathMove={``}
       formOptions={{
         defaultValues: {
-          date: new Date(),
           fat_per_kg: 0.5,
           protein_per_kg: 1.6,
           activity_factor: 28,
           height: 160,
           weight: 60,
-
+          fixed_cals: 0,
+          // fat_percents: 0,
           ...defaultValues,
         },
         resolver: yupResolver(measuresSchema),
@@ -53,7 +53,7 @@ export function MeasureForm({
             </InputLabel>
 
             <InputLabel
-              InputProps={{ ...register("weight"), type: "number" }}
+              InputProps={{ ...register("weight"), type: "number", step: 0.1 }}
               LabelProps={{
                 htmlFor: "weight",
                 labelText: "Weight(kg)",
@@ -62,7 +62,7 @@ export function MeasureForm({
               <InputErrorMessage nameInput="Weight" error={errors.weight} />
             </InputLabel>
             <InputLabel
-              InputProps={{ ...register("height"), type: "number" }}
+              InputProps={{ ...register("height"), type: "number", step: 0.1 }}
               LabelProps={{
                 htmlFor: "height",
                 labelText: "Height(cm)",
@@ -101,7 +101,11 @@ export function MeasureForm({
             </InputLabel>
 
             <InputLabel
-              InputProps={{ ...register("protein_per_kg"), type: "number" }}
+              InputProps={{
+                ...register("protein_per_kg"),
+                type: "number",
+                step: 0.1,
+              }}
               LabelProps={{
                 htmlFor: "protein_per_kg",
                 labelText: "Protein/kg",
@@ -113,7 +117,11 @@ export function MeasureForm({
               />
             </InputLabel>
             <InputLabel
-              InputProps={{ ...register("fat_per_kg"), type: "number" }}
+              InputProps={{
+                ...register("fat_per_kg"),
+                type: "number",
+                step: 0.1,
+              }}
               LabelProps={{
                 htmlFor: "fat_per_kg",
                 labelText: "Fat/kg",
@@ -125,11 +133,11 @@ export function MeasureForm({
               InputProps={{ ...register("fixed_cals"), type: "number" }}
               LabelProps={{
                 htmlFor: "fixed_cals",
-                labelText: "Fixed Cals",
+                labelText: "Add/Subtract",
               }}
             >
               <InputErrorMessage
-                nameInput="Fixed Cals"
+                nameInput="add/subtract"
                 error={errors.fixed_cals}
               />
             </InputLabel>

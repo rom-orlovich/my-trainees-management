@@ -1,11 +1,19 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 .calories_chart_container {
   position: relative;
-
+  .calories_heading {
+    // position: absolute;
+    @include flex-dir(center, null); // @include posAbs(0%, null, null, null);
+    // font-size: 1.2rem;
+    // font-weight: 500;
+    h2 {
+      font-weight: 500;
+    }
+  }
   .pie_chart {
     width: 85% !important;
     height: 85% !important;
     @include centerAbs();
-    @include posAbs(54% !important, null, null, null);
+    @include posAbs(55% !important, null, null, null);
   }
 }

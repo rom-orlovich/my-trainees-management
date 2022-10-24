@@ -6,12 +6,10 @@ import {
   Legend,
   ChartData,
   ChartOptions,
-  TooltipItem,
-  ChartTypeRegistry,
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import { Context } from "vm";
+
 import { ChartsProps, CHART_BASE_OPTIONS } from "./LineChart";
 import {
   dataLabelFormatterByPercents,
