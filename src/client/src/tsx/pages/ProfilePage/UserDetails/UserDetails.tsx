@@ -20,10 +20,12 @@ function UserDetails({ className }: PropsBasic) {
       </div>
 
       <h2>{username}</h2>
-      <div>
+      <div className={style.user_details_links}>
         <Link to={`/${APP_ROUTE.TRAINEES_ROUTE}/${traineeID}`}>
           Edit Details
         </Link>
+
+        <Link to={``}>Measures</Link>
       </div>
     </Card>
   );

@@ -20,6 +20,7 @@ import {
   trainingProgramsListSchema,
   weeksSchema,
   trainingProgramExerciseStatsSchema,
+  measuresSchema,
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
@@ -33,6 +34,7 @@ import {
   PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   PERMISSION_TRAINER_ADMIN_ALL,
   PERMISSION_TRAINER_BY_USER_ID_READ_ALL,
+  PERMISSION_TRAINEE_BY_USER_ID,
 } from "../../usersPermission";
 
 export interface SelectTableQueryParam {
@@ -319,6 +321,21 @@ export const trainingProgramsExerciseStatsOptionsCRUD: OptionsCRUD = {
   validateSchema: trainingProgramExerciseStatsSchema,
 };
 
+export const measuresOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.MEASURES_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.MEASURES_TABLE_NAME} as mes`,
+    tableID: `mes.${TABLES_DATA.MEASURE_ID}`,
+    fieldNamesQuery: `*`,
+    querySelectLogic: ``,
+    queryParams: {
+      userID: "user_id",
+    },
+  },
+  permissions: PERMISSION_TRAINEE_BY_USER_ID,
+  validateSchema: measuresSchema,
+};
+
 export const nutritionProgramOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_ENTITY,
   selectQuery: {
@@ -503,6 +520,11 @@ export const routesCRUDArr: {
   {
     baseRoute: API_ROUTES.NUTRITION_PROGRAMS_ROUTE,
     optionsCRUD: nutritionProgramOptionsCRUD,
+  },
+
+  {
+    baseRoute: API_ROUTES.MEASURES_ROUTE,
+    optionsCRUD: measuresOptionsCRUD,
   },
 
   {

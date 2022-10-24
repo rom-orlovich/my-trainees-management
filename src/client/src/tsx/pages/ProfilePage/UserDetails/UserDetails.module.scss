@@ -1,7 +1,7 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 .user_details_container {
   @include flex-dir(center, center, column);
-  gap: 0.5rem;
+  gap: 0.3rem;
   .profile_icon {
     @include heightWidth(7rem, 7rem);
     color: rgb(210, 216, 219);
@@ -9,8 +9,12 @@
   h2 {
     font-weight: 500;
   }
-  a {
-    font-size: 1.2rem;
-    text-decoration: none;
+  .user_details_links {
+    width: 100%;
+    @include flex-dir(null, center, column);
+    a {
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
   }
 }

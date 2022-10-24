@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS  "profiles" CASCADE;
 DROP TABLE IF EXISTS  "alerts" CASCADE;
 DROP TABLE IF EXISTS  "training_program_exercises_stats" CASCADE;
 
-
+DROP TABLE IF EXISTS  "measures" CASCADE;
 
 CREATE TABLE IF NOT EXISTS "cities" (
   "city_id" serial PRIMARY KEY,
@@ -31,6 +31,17 @@ CREATE TABLE IF NOT EXISTS "cities" (
   "population" INTEGER ,
   "user_id" integer DEFAULT 1
 );
+
+CREATE TABLE IF NOT EXISTS "measures"(
+"measure_id" serial PRIMARY KEY,
+"date" DATE,
+"weight" FLOAT ,
+"height" FLOAT ,
+"activity_factor" INTEGER,
+"fat_percents" FLOAT,
+"bmi" FLOAT
+);
+
 
 
 
@@ -45,8 +56,16 @@ CREATE TABLE IF NOT EXISTS "profiles" (
   "phone_number" VARCHAR(12),
   "location_id" INTEGER,
   "date_join" DATE,
-  "status" BOOLEAN DEFAULT FALSE
+  "status" BOOLEAN DEFAULT FALSE,
+  "measure_id" INTEGER,
+
+  CONSTRAINT fk_measure_id 
+    FOREIGN KEY(measure_id)
+    REFERENCES measure_id(measure_id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
 );
+
 
 CREATE TABLE IF NOT EXISTS "users"(
     "user_id" serial PRIMARY KEY,

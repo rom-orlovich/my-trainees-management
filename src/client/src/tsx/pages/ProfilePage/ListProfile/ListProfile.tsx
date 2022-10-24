@@ -5,7 +5,6 @@ import List from "../../../components/baseComponents/List/List";
 import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner";
 import { ResponseQueryAPI } from "../../../redux/api/interfaceAPI";
 
-// import programsListStyle from "./ProgramsList.module.scss";
 import style from "./ListProfile.module.scss";
 
 function ListProfile<T extends Record<string, any>>({

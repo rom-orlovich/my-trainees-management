@@ -1,4 +1,3 @@
-import { min } from "lodash";
 import * as yup from "yup";
 
 export const musclesGroupSchema = yup.object().shape({
@@ -160,6 +159,21 @@ export const nutritionProgramSchema = yup.object().shape({
   week_id: yup.number().required(),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
+});
+
+export const measuresSchema = yup.object().shape({
+  measure_id: yup.number().notRequired().nullable(),
+  date: yup.date().required(),
+  weight: yup.number().required().min(1, "Must be positive"),
+  height: yup.number().required().min(1, "Must be positive"),
+  activity_factor: yup
+    .number()
+    .required()
+    .min(28)
+    .max(32)
+    .typeError({ message: "Activity Factor is number between 28 and 32." }),
+  fat_percents: yup.number().required().min(1, "Must be positive"),
+  bmi: yup.number().required().min(0, "Must be positive"),
 });
 
 export const traineesSchema = yup.object().shape({
