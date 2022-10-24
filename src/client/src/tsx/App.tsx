@@ -12,17 +12,20 @@ import TrainerLayout from "./layout/TrainerLayout/TrainerLayout";
 
 function App() {
   // Basic layout of the app.
-  const Layout = () => {
-    const { isAdmin, isTrainer } = useCheckRole();
-    if (isAdmin) return <AdminLayout />;
-    if (isTrainer) return <TrainerLayout />;
-    return <TraineeLayout />;
-  };
-  return (
-    <>
-      <Layout />
-    </>
-  );
+  // const Layout = () => {
+  //   const { isAdmin, isTrainer } = useCheckRole();
+  //   if (isAdmin) return <AdminLayout />;
+  //   if (isTrainer) return <TrainerLayout />;
+  //   return <TraineeLayout />;
+  // };
+
+  // return (
+  //   <>
+  //     <Layout />
+  //   </>
+  // );
+
+  return <TrainerLayout />;
 }
 
 export default App;

@@ -19,11 +19,10 @@ function PersistedLogin() {
   const nav = useNavigate();
 
   useEffect(() => {
-    console.log(authState);
     if (!authState.accessToken) trigger({});
   }, [authState.accessToken, trigger]);
   // authState.accessToken
-  return authState.accessToken ? (
+  return true ? (
     <Outlet />
   ) : (
     <LoadingSpinner

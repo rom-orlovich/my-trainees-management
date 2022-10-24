@@ -71,7 +71,8 @@ function AppRoutes() {
 
             {/* The admin and trainer shared role routes. */}
             <Route
-              element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
+              element={<ProtectedRoute allowedRole={true} />}
+              // element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
             >
               <Route
                 path={`${APP_ROUTE.SETTINGS_ROUTE}/*`}
