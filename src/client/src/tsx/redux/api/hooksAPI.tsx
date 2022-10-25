@@ -16,16 +16,16 @@ import {
   LeadsTableAPI,
   TrainingProgramsListTableAPI,
   AlertsAPI,
-  UserAPI,
   TrainingProgramExerciseStatsAPI,
   ResponseQueryAPI,
   MeasuresCalResAPI,
+  User,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
 import { providerTag, providerTags } from "../reduxHelpers";
 
-export const usersApi = apiCreateCRUDHooks<UserAPI>({
+export const usersApi = apiCreateCRUDHooks<User>({
   reducerPath: "usersApi",
   baseUrl: API_ROUTES.USERS_ROUTE,
   singleEntityName: API_ROUTES.USER_ENTITY,

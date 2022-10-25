@@ -41,6 +41,8 @@ export function createObjKeysArr(obj: object) {
 export const pt = (tn: string, tn2: string, obj: Record<string, any>) => {
   if (tn.includes(tn2)) {
     console.log("log");
-    console.dir(obj, { depth: null });
+    Object.entries(obj).forEach(([key, value]) => {
+      console.log(key, value);
+    });
   }
 };

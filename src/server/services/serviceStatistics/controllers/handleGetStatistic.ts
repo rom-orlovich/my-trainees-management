@@ -51,11 +51,6 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
   const { statsResult } = req.statsData;
   let result;
   if (statsResult.exerciseStats?.data.length) {
-    // const statsArr = statsResult.exerciseStats.data;
-    // const startDate = statsArr[0].update_date;
-    // const endDate = statsArr[statsArr.length - 1].update_date;
-    // const labelFormatted = calLabelDates(startDate, endDate);
-    // const datasetsValues = calIntensity(statsArr);
     result = exerciseStatsCreateLabelAndDatasets(
       statsResult.exerciseStats?.data
     );
@@ -71,5 +66,4 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
   return res
     .status(200)
     .json({ ...statsResult.measures, ...statsResult.exerciseStats, ...result });
-  // res.status(200).json(statsResult);
 };

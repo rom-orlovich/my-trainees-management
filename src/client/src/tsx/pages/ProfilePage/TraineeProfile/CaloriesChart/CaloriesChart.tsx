@@ -1,18 +1,16 @@
 /* eslint-disable camelcase */
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import {
-  dataLabelFormatterByPercents,
   dataLabelFormatterByUnit,
-  labelFormatterByPercents,
   labelFormatterByUnit,
   PIE_CHART_FONTS,
 } from "../../../../components/baseComponents/Charts/chartsUtils";
 import PieChart from "../../../../components/baseComponents/Charts/PieChart";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner";
-import useGetQueryParams from "../../../../hooks/useGetQueryParams";
+
 import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 import { measuresApi } from "../../../../redux/api/hooksAPI";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
@@ -31,7 +29,9 @@ interface CaloriesChartRes {
   calories_total: number;
 }
 function CaloriesChart({ className }: PropsBasic) {
-  const username = useGetQueryParams("username");
+  const [queryParams] = useSearchParams();
+
+  const username = queryParams.get("username");
   const { data, isError, isFetching, isLoading } = measuresApi.useGetItemsQuery(
     {
       trainerUserID: useGetUserLoginData().user_id,

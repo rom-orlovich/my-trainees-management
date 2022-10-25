@@ -1,40 +1,35 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import React from "react";
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
-import useGetQueryParams from "../../../hooks/useGetQueryParams";
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import { useSearchParams } from "react-router-dom";
 
-import { leadsApi, measuresApi } from "../../../redux/api/hooksAPI";
-import {
-  LeadsTableAPI,
-  MeasuresAPI,
-  MeasuresCalResAPI,
-} from "../../../redux/api/interfaceAPI";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
+
+import { measuresApi } from "../../../redux/api/hooksAPI";
+import { MeasuresAPI } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
-import { MeasureAddForm } from "./MeasureAddForm";
+
 import MeasureForm from "./MeasureForms";
 
 function MeasureEditForm() {
   const [updateItem] = measuresApi.useUpdateItemMutation();
+  // const [queryParams] = useSearchParams();
+  // const profileID = queryParams.get("profileID");
+  // const username = queryParams.get("username");
+  // If the user is trainee, the query is executed by his userID instead his trainerUserID.
+  const { profileID, traineeID, username, userData, userID } =
+    useGetUserTraineeData();
+  const queryOptions = traineeID
+    ? { username, userID }
+    : { username, trainerUserID: userID };
 
-  const username = useGetQueryParams("username");
-  const profileID = useGetQueryParams("profileID");
-  console.log(profileID);
-
-  const { data, isFetching, isError, isLoading } = measuresApi.useGetItemsQuery(
-    { username, trainerUserID: useGetUserLoginData().user_id }
-  );
+  const { data, isFetching, isError, isLoading } =
+    measuresApi.useGetItemsQuery(queryOptions);
 
   return (
     <LoadingSpinner
@@ -44,7 +39,6 @@ function MeasureEditForm() {
     >
       {(data) => {
         const results = data.data;
-
         const {
           protein_g,
           calories_total,

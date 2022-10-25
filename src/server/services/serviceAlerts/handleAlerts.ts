@@ -120,8 +120,8 @@ export const handleDeleteOldAlerts: RequestHandler = async (req, res, next) => {
       true
     )
   );
-  if (err) next(new ErrorCustomizes(err));
-  res.status(200).json("Old alerts are deleted successfully");
+  if (err) return next(new ErrorCustomizes(err));
+  return res.status(200).json("Old alerts are deleted successfully");
 };
 
 export const handleDeleteAllUserAlerts: RequestHandler = async (
@@ -137,6 +137,6 @@ export const handleDeleteAllUserAlerts: RequestHandler = async (
       true
     )
   );
-  if (err) next(new ErrorCustomizes(err));
-  res.status(200).json("Old alerts are deleted successfully");
+  if (err) return next(new ErrorCustomizes(err));
+  return res.status(200).json("Old alerts are deleted successfully");
 };

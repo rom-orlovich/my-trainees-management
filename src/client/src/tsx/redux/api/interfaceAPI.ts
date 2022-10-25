@@ -59,6 +59,7 @@ export interface User {
   email: string;
   trainee_id?: number;
   trainer_user_id: number;
+  profile_id: number;
   role: "admin" | "trainer" | "trainee";
 }
 export interface PayloadAPI<T> {
@@ -310,7 +311,4 @@ export interface EmailVerifyForm {
   confirmEmail: string;
 }
 
-export interface UserAPI extends User {
-  email: string;
-  profile_id: number | null;
-}
+export interface UserAPI extends User {}

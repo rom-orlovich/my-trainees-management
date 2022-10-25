@@ -165,10 +165,10 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  // pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
-  //   statement,
-  //   queryParams,
-  // });
+  pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
+    statement,
+    queryParams,
+  });
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;

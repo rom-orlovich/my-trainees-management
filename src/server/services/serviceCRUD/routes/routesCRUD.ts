@@ -33,6 +33,10 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
   const singleEntityNameEndPoint = `/${optionsCRUD.singleEntityName}`;
   const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
 
+  newRoute.route("/").get(getValuesFromDB, handleGetStatistic);
+
+  // TODO: try to refactor this if-check.
+  // If the table is measures, the post and the put CRUD function will be executed after handleInsertNewMeasure.
   if (
     optionsCRUD.selectQuery.tableName.includes(TABLES_DATA.MEASURES_TABLE_NAME)
   ) {
@@ -46,26 +50,24 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
     newRoute
       .route(singleEntityNameEndPointID)
       .put(validateMiddlewareHandler, handleInsertNewMeasure, updateValueByID);
+  } else {
+    newRoute
+      .route(singleEntityNameEndPoint)
+      .post(
+        validateMiddlewareHandler,
+        createNewValueInDB,
+        handleInsertStatistics
+      );
+
+    newRoute
+      .route(singleEntityNameEndPointID)
+      .put(validateMiddlewareHandler, updateValueByID, handleInsertStatistics);
   }
 
-  newRoute.route("/").get(getValuesFromDB);
-  newRoute
-    .route(singleEntityNameEndPoint)
-    .post(
-      validateMiddlewareHandler,
-      createNewValueInDB,
-      handleInsertStatistics
-    );
   newRoute
     .route(singleEntityNameEndPointID)
     .get(getValueFromDBbyID)
     .delete(deleteValueByID);
-
-  newRoute.route("/").get(getValuesFromDB, handleGetStatistic);
-
-  newRoute
-    .route(singleEntityNameEndPointID)
-    .put(validateMiddlewareHandler, updateValueByID, handleInsertStatistics);
 
   if (
     optionsCRUD.selectQuery.tableName.includes(TABLES_DATA.TRAINEES_TABLE_NAME)

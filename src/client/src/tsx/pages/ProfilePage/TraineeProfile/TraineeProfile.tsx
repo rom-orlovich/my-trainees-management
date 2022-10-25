@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { PropsBasic } from "../../../components/baseComponents/baseComponentsTypes";
+import useCheckRole from "../../../hooks/useCheckRole";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import UserDetails from "../UserDetails/UserDetails";
 import CaloriesChart from "./CaloriesChart/CaloriesChart";
@@ -19,11 +20,19 @@ export type TraineeProfileProps = PropsBasic & {
 
 function TraineeProfile() {
   const traineeID = Number(useParams().id);
-  const userID = useGetUserLoginData().user_id;
-  const queryOptions = {
-    traineeID,
-    trainerUserID: userID,
-  };
+  const userData = useGetUserLoginData();
+  const userID = userData.user_id;
+  const queryOptions = useCheckRole().isTrainee
+    ? {
+        traineeID: userID!,
+        trainerUserID: userData.authState.user!.trainer_user_id,
+      }
+    : {
+        traineeID,
+        trainerUserID: userID,
+      };
+
+  console.log(queryOptions);
 
   return (
     <section className={style.trainee_profile_page_container}>

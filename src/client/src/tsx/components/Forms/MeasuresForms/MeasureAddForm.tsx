@@ -1,14 +1,15 @@
-import useGetQueryParams from "../../../hooks/useGetQueryParams";
+import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
+
 import { measuresApi } from "../../../redux/api/hooksAPI";
 import { MeasuresAPI } from "../../../redux/api/interfaceAPI";
-import { formatDate } from "../../../utilities/helpersFun";
+
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { MeasureForm } from "./MeasureForms";
 
 export function MeasureAddForm() {
   const [addItem] = measuresApi.useCreateOneItemMutation();
-  const profileID = useGetQueryParams("profileID");
-  console.log(profileID);
+  const { profileID } = useGetUserTraineeData();
+
   const handleSubmit = (body: MeasuresAPI) => {
     addFunction({
       addItem,

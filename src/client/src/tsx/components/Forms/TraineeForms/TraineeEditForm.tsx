@@ -34,6 +34,7 @@ export function TraineeEditForm({
     username,
     profile_id,
     trainee_id,
+    measure_id,
     ...rest
   }: TraineesBaseTableAPI) => {
     updateFunction({
