@@ -7,6 +7,7 @@ import {
   TrainingProgramExerciseOmit,
 } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { formatDate } from "../../../utilities/helpersFun";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
@@ -32,17 +33,46 @@ export default function TrainingProgramForms({
           ...fromProps,
         }}
         formOptions={{
-          defaultValues,
+          defaultValues: {
+            ...defaultValues,
+            update_date: formatDate(
+              defaultValues?.update_date || new Date()
+            ) as any,
+          },
           resolver: yupResolver(trainingProgramSchema),
         }}
       >
         {({ register, formState, control }) => {
-          const { sets, rpe, reps, rest, intensity, note_topic, note_text } =
-            formState.errors;
+          const {
+            update_date,
+            sets,
+            rpe,
+            reps,
+            rest,
+            intensity,
+            note_topic,
+            note_text,
+          } = formState.errors;
 
           const queriesOptions = { userID: authState.user_id };
           return (
             <>
+              <InputLabel
+                InputProps={{
+                  ...register("update_date"),
+                  type: "date",
+                }}
+                LabelProps={{
+                  htmlFor: "update_date",
+                  labelText: "Update Date",
+                }}
+              >
+                <InputErrorMessage
+                  nameInput="update_date"
+                  error={update_date}
+                />
+              </InputLabel>
+
               <AutocompleteInputRHF<
                 TrainingProgramExerciseOmit,
                 ExercisesTableAPI

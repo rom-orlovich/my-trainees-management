@@ -63,7 +63,7 @@ export const baseQueryWithReauth =
           api,
           extraOptions
         );
-        // console.log("refreshResult.data", refreshResult.data);
+
         if (refreshResult.data) {
           const Res = refreshResult.data as ResponseMutationAuthAPI;
           api.dispatch(setLoginUserData(Res));

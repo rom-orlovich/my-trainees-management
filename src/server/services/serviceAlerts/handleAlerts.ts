@@ -103,7 +103,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
   if (!successRes) {
     return next(new Error("Something went wrong"));
   }
-  // console.log({ statusCode: successRes?.statusCode, ...successRes.response });
+
   return res
     .status(successRes?.statusCode || 200)
     .json({ statusCode: successRes?.statusCode, ...successRes.response });

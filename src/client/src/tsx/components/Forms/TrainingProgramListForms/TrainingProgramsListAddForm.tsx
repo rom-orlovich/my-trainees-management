@@ -26,7 +26,6 @@ export function TrainingProgramsListAddForm({
     training_programs_list_id,
     ...body
   }: TrainingProgramsListTableAPI) => {
-    console.log(body);
     // resetGoPrevPagesState disable the behavior of returning to pre page , after submit form.
     // Instead after submit this form the function will move the user to his training program's exercises list.
     dispatch(disableGoPrevPage());

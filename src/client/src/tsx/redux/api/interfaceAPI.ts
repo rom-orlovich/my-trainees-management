@@ -265,6 +265,7 @@ export type TraineesTableExtendsAPI = TraineesBaseTableAPI &
 export interface TrainingProgramExerciseTableAPI {
   training_program_row_id: number;
   training_programs_list_id: number;
+  update_date: Date;
   exercise_id: number;
   reps: string;
   sets: number;

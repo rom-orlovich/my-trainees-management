@@ -351,12 +351,13 @@ CREATE TABLE IF NOT EXISTS "nutrition_programs_list"(
 
 CREATE TABLE IF NOT EXISTS "training_program"(
   "training_program_row_id" serial PRIMARY KEY,
+  "update_date" DATE , 
   "training_programs_list_id" INTEGER,
   "exercise_id" INTEGER,
   "reps" VARCHAR(55) NOT NULL,
   "sets" INTEGER NOT NULL,
   "rest" VARCHAR NOT NULL,
-  "intensity" VARCHAR (50) NOT NULL ,
+  "intensity" VARCHAR (50) NOT NULL,
   "rpe" INTEGER NOT NULL,
   "note_topic" TEXT ,
   "note_text" TEXT ,

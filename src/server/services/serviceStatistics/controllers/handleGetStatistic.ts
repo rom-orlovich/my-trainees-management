@@ -21,7 +21,9 @@ export const calIntensity = (
 const exerciseStatsCreateLabelAndDatasets = (
   data: TrainingProgramExerciseStatsAPI[]
 ): ChartDataResult => {
-  const statsArr = data;
+  const statsArr = data.sort(
+    (a, b) => a.update_date.getTime() - b.update_date.getTime()
+  );
   const startDate = statsArr[0].update_date;
   const endDate = statsArr[statsArr.length - 1].update_date;
   const labelFormatted = calLabelDates(startDate, endDate);

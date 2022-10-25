@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AnyFun } from "../../../types";
-import { getValuesArrObj } from "../../../utilities/helpersFun";
+import { genClassName, getValuesArrObj } from "../../../utilities/helpersFun";
 import style from "./LoadingSpinner.module.scss";
 
 export interface LoadingSpinnerProps<T> {
@@ -54,7 +54,7 @@ function LoadingSpinner<T extends object>({
     return <p className={style.loading_spinner}> Loading...</p>;
 
   const SpinnerMessage = (
-    <p className={`message_spinner`}>
+    <p className={genClassName(`message_spinner`, style.loading_spinner)}>
       {message || `${nameData} are not found`}
     </p>
   );

@@ -25,7 +25,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   console.log("handle refresh");
   const preRefreshToken = req.cookies.refresh_token;
   res.clearCookie("refresh_token", COOKIES_OPTIONS);
-  // console.log("preRefreshToken", preRefreshToken);
+
   const queryLogic = "where $1=some(refresh_tokens)";
   // Get the user details from the db by his username
   const [user, error] = await promiseHandler<User[]>(
@@ -36,8 +36,6 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
       [preRefreshToken]
     )
   );
-  // console.log("user", user);
-  // console.log("error", error);
 
   // Check if the user exist
   if (!(user && user[0]) || error) {
@@ -51,8 +49,6 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
         queryLogic
       )
     );
-    // console.log("userUpdate", userUpdate);
-    // console.log("errorUpdate", errorUpdate);
 
     return res.sendStatus(403);
   }
@@ -83,9 +79,6 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   const nonPreRefreshTokens = user[0]?.refresh_tokens?.filter(
     (token) => token !== preRefreshToken
   );
-  // console.info("username", user[0].username);
-  // console.log("preRefreshToken", preRefreshToken);
-  // console.log("newRefreshToken", newRefreshToken);
 
   // eslint-disable-next-line no-unused-vars
   const [userUpdate, errorUpdate] = await promiseHandler<User[]>(
@@ -100,8 +93,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   );
   if (!userUpdate || errorUpdate) {
     req.logAlertInfo = prepareLogAlert(undefined, errorUpdate, "update", false);
-    // console.log("userUpdate", userUpdate);
-    // console.log("errorUpdate", errorUpdate);
+
     return next();
   }
 
@@ -120,7 +112,6 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   const { password: pwd, refresh_tokens: refreshToken1, ...restUser } = user[0];
 
-  // console.log("user[0]", user[0]);
   req.logAlertInfo = prepareLogAlert(
     {
       message: "Access token has create successfully!",

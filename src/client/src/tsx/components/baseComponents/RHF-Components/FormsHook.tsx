@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 
 import { AnyFun } from "../../../types";

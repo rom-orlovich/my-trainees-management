@@ -11,12 +11,6 @@ import { TRAINEE_SIDE_BAR_LINKS } from "../SideBarLinks";
 function TraineeLayout() {
   const userData = useGetUserLoginData();
   const traineeID = userData.authState.user?.trainee_id;
-  // const { data, isError, isFetching, isLoading } =
-  //   traineesApi.useGetItemByIDQuery({
-  //     id: Number(traineeID || 0),
-  //     userID: userData.user_id,
-  //   });
-  // console.log(data);
 
   return (
     <>

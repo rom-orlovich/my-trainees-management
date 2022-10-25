@@ -20,7 +20,7 @@ function LoginPage() {
 
   const onSubmit = async (body: LoginForm) => {
     dispatch(disableGoPrevPage());
-    console.log(body);
+
     await login(body).unwrap();
   };
 

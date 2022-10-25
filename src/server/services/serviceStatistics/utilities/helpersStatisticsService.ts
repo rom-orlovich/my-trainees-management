@@ -5,6 +5,7 @@ import { TABLES_DATA } from "../../../utilities/constants";
 
 export interface TrainingProgramExercise {
   training_program_row_id: number;
+  update_date: Date;
   training_programs_list_id: number;
   exercise_id: number;
   reps: string;
@@ -24,13 +25,14 @@ export const transformTrainingProgramExerciseData = ({
   rpe,
   sets,
   training_program_row_id,
+  update_date,
 }: TrainingProgramExercise) => {
   const intensityAsNumber = Number(intensity.replace(/kg/g, " ").split(" ")[0]);
   const restAsNumber = Number(rest.replace(/min/g, " ").split(" ")[0]);
 
   return {
     training_program_row_id,
-    update_date: new Date(),
+    update_date,
     exercise_id,
     intensity: intensityAsNumber,
     sets,

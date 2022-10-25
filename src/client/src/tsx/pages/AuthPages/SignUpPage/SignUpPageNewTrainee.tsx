@@ -15,7 +15,7 @@ function SignUpPageNewTrainee() {
       id: id || "",
       verifyToken: searchParams.get("verify") || "",
     });
-  // console.log(data);
+
   return (
     <LoadingSpinner
       nameData="Trainee"

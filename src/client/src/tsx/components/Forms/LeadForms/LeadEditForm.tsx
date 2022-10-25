@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 import { leadsApi } from "../../../redux/api/hooksAPI";
 import { LeadsTableAPI } from "../../../redux/api/interfaceAPI";
@@ -14,7 +15,7 @@ function LeadEditForm() {
 
   const [updateItem] = leadsApi.useUpdateItemMutation();
   const { data, isFetching, isError, isLoading } = leadsApi.useGetItemByIDQuery(
-    { id }
+    { id, userID: useGetUserLoginData().user_id }
   );
 
   const handleSubmit = (body: LeadsTableAPI) =>
@@ -32,10 +33,7 @@ function LeadEditForm() {
         <LeadsForm
           editMode={true}
           onSubmit={handleSubmit}
-          defaultValues={{
-            ...data,
-            date_lead: formatDate(data.date_lead) as any,
-          }}
+          defaultValues={data}
         />
       )}
     </LoadingSpinner>

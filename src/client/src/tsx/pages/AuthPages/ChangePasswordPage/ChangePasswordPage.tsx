@@ -52,7 +52,7 @@ function ChangePasswordPage() {
       >
         {({ register, formState }) => {
           const { errors } = formState;
-          console.log(errors);
+
           return (
             <>
               <InputLabel

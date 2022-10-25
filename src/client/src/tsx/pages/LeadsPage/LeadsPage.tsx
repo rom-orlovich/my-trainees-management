@@ -7,7 +7,7 @@ import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import page_style from "../Page.module.scss";
+import style from "../Page.module.scss";
 import LeadsTable from "./LeadsTable";
 
 function LeadsPage() {
@@ -15,8 +15,8 @@ function LeadsPage() {
   const authState = useAppSelector(getAuthState);
   const queriesOptions = { userID: authState.user?.user_id };
   return (
-    <section className={page_style.page_container}>
-      <div className={page_style.page_header}>
+    <section className={style.page_container}>
+      <div className={style.page_header}>
         <AutocompleteInput<LeadsTableAPI>
           keys={["first_name", "last_name"]}
           id={"lead_id"}
@@ -39,7 +39,7 @@ function LeadsPage() {
           </Link>
         </span>
       </div>
-      <div className={page_style.page_main_content}>
+      <div className={style.page_main_content}>
         <LeadsTable mainName={lead[1]} queriesOptions={queriesOptions} />
       </div>
     </section>

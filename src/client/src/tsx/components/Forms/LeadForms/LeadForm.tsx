@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -30,8 +31,9 @@ export function LeadForm({
       pathMove={`/${APP_ROUTE.LEADS_ROUTE}`}
       formOptions={{
         defaultValues: {
-          user_id: useGetUserLoginData().user_id,
           ...defaultValues,
+          user_id: useGetUserLoginData().user_id,
+          date_lead: formatDate(defaultValues?.date_lead || new Date()) as any,
         },
         resolver: yupResolver(leadsSchema),
       }}
@@ -53,7 +55,6 @@ export function LeadForm({
               InputProps={{
                 ...register("date_lead"),
                 type: "date",
-                defaultValue: formatDate(new Date()) as any,
               }}
               LabelProps={{
                 htmlFor: "date_lead",

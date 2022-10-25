@@ -93,6 +93,7 @@ export const trainingProgramsListSchema = yup.object().shape({
 export const trainingProgramSchema = yup.object().shape({
   training_program_row_id: yup.number().notRequired().nullable(),
   training_programs_list_id: yup.number().required(),
+  update_date: yup.date().required(),
   exercise_id: yup.number().required(),
   rest: yup
     .string()

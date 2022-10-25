@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import * as yup from "yup";
 
-import { table } from "console";
 import {
   citiesSchema,
   equipmentSchema,
