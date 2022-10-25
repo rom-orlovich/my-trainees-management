@@ -18,7 +18,7 @@ function useGetUserTraineeData() {
     profileID = Number(queryParams.get("profileID"));
     traineeID = Number(useParams().id);
   }
-  console.log(traineeID, username, profileID);
+
   return {
     userData,
     username,

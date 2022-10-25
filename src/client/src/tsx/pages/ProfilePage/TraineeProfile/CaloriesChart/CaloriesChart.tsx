@@ -12,6 +12,7 @@ import PieChart from "../../../../components/baseComponents/Charts/PieChart";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner";
 
 import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
+import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 import { measuresApi } from "../../../../redux/api/hooksAPI";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 import { genClassName } from "../../../../utilities/helpersFun";
@@ -29,13 +30,13 @@ interface CaloriesChartRes {
   calories_total: number;
 }
 function CaloriesChart({ className }: PropsBasic) {
-  const [queryParams] = useSearchParams();
+  const { isTrainee, username, userID } = useGetUserTraineeData();
+  const queryOptions = isTrainee ? { userID } : { trainerUserID: userID };
 
-  const username = queryParams.get("username");
   const { data, isError, isFetching, isLoading } = measuresApi.useGetItemsQuery(
     {
-      trainerUserID: useGetUserLoginData().user_id,
       username,
+      ...queryOptions,
       caloriesPie: "true",
     }
   );
@@ -88,7 +89,11 @@ function CaloriesChart({ className }: PropsBasic) {
                     },
                     datalabels: {
                       formatter: dataLabelFormatterByUnit("cal"),
+
                       ...PIE_CHART_FONTS,
+                      anchor: "start",
+                      offset: [15, 10, 3],
+                      align: "end",
                     },
                   },
                 }}

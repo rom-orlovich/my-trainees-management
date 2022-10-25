@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { PropsBasic } from "../../../components/baseComponents/baseComponentsTypes";
 import useCheckRole from "../../../hooks/useCheckRole";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 import UserDetails from "../UserDetails/UserDetails";
 import CaloriesChart from "./CaloriesChart/CaloriesChart";
 import ProgramsList from "./ProgramsList/ProgramsList";
@@ -19,19 +20,23 @@ export type TraineeProfileProps = PropsBasic & {
 };
 
 function TraineeProfile() {
-  const traineeID = Number(useParams().id);
-  const userData = useGetUserLoginData();
-  const userID = userData.user_id;
-  const queryOptions = useCheckRole().isTrainee
-    ? {
-        traineeID: userID!,
-        trainerUserID: userData.authState.user!.trainer_user_id,
-      }
-    : {
-        traineeID,
-        trainerUserID: userID,
-      };
+  // const traineeID = Number(useParams().id);
 
+  const { isTrainee, traineeID, userData, userID } = useGetUserTraineeData();
+  // const userData = useGetUserLoginData();
+  // const userID = userData.user_id;
+  // const queryOptions = useCheckRole().isTrainee
+  //   ? {
+  //       traineeID: userID!,
+  //       trainerUserID: userData.authState.user!.trainer_user_id,
+  //     }
+  //   : {
+  //       traineeID,
+  //       trainerUserID: userID,
+  //     };
+  const queryOptions = isTrainee
+    ? { traineeID, trainerUserID: userData?.trainer_user_id }
+    : { traineeID, trainerUserID: userID };
   console.log(queryOptions);
 
   return (

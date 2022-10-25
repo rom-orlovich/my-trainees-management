@@ -94,7 +94,7 @@ INSERT INTO training_program_exercises_stats (training_program_exercises_stats_i
 
 
 
-SELECT pg_catalog.setval('public.activities_activity_id_seq', 1, false);
+SELECT pg_catalog.setval('public.activities_activity_id_seq', 1, true);
 
 
 --
@@ -115,35 +115,35 @@ SELECT pg_catalog.setval('public.cities_city_id_seq', 5, true);
 -- Name: equipments_equipment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.equipments_equipment_id_seq', 1, false);
+SELECT pg_catalog.setval('public.equipments_equipment_id_seq', 1, true);
 
 
 --
 -- Name: exercises_list_exercise_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.exercises_list_exercise_id_seq', 1, false);
+SELECT pg_catalog.setval('public.exercises_list_exercise_id_seq', 1, true);
 
 
 --
 -- Name: expenses_expense_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.expenses_expense_id_seq', 1, false);
+SELECT pg_catalog.setval('public.expenses_expense_id_seq', 1, true);
 
 
 --
 -- Name: incomes_income_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.incomes_income_id_seq', 1, false);
+SELECT pg_catalog.setval('public.incomes_income_id_seq', 1, true);
 
 
 --
 -- Name: leads_lead_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.leads_lead_id_seq', 1, false);
+SELECT pg_catalog.setval('public.leads_lead_id_seq', 1, true);
 
 
 --
@@ -157,28 +157,28 @@ SELECT pg_catalog.setval('public.locations_location_id_seq', 3, true);
 -- Name: muscles_group_muscles_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.muscles_group_muscles_group_id_seq', 1, false);
+SELECT pg_catalog.setval('public.muscles_group_muscles_group_id_seq', 1, true);
 
 
 --
 -- Name: nutrition_program_nutrition_program_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.nutrition_program_nutrition_program_id_seq', 1, false);
+SELECT pg_catalog.setval('public.nutrition_program_nutrition_program_id_seq', 1, true);
 
 
 --
 -- Name: nutrition_programs_list_nutrition_programs_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.nutrition_programs_list_nutrition_programs_list_id_seq', 1, false);
+SELECT pg_catalog.setval('public.nutrition_programs_list_nutrition_programs_list_id_seq', 1, true);
 
 
 --
 -- Name: participants_group_participant_groupe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.participants_group_participant_groupe_id_seq', 1, false);
+SELECT pg_catalog.setval('public.participants_group_participant_groupe_id_seq', 1, true);
 
 
 --
@@ -192,21 +192,21 @@ SELECT pg_catalog.setval('public.profiles_profile_id_seq', 3, true);
 -- Name: providers_provider_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.providers_provider_id_seq', 1, false);
+SELECT pg_catalog.setval('public.providers_provider_id_seq', 1, true);
 
 
 --
 -- Name: schedule_schedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.schedule_schedule_id_seq', 1, false);
+SELECT pg_catalog.setval('public.schedule_schedule_id_seq', 1, true);
 
 
 --
 -- Name: subscription_plans_subscription_plan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.subscription_plans_subscription_plan_id_seq', 1, false);
+SELECT pg_catalog.setval('public.subscription_plans_subscription_plan_id_seq', 1, true);
 
 
 --
@@ -220,21 +220,21 @@ SELECT pg_catalog.setval('public.trainees_trainee_id_seq', 1, true);
 -- Name: training_program_exercises_st_training_program_exercises_st_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.training_program_exercises_st_training_program_exercises_st_seq', 1, false);
+SELECT pg_catalog.setval('public.training_program_exercises_st_training_program_exercises_st_seq', 1, true);
 
 
 --
 -- Name: training_program_training_program_row_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.training_program_training_program_row_id_seq', 1, false);
+SELECT pg_catalog.setval('public.training_program_training_program_row_id_seq', 1, true);
 
 
 --
 -- Name: training_programs_list_training_programs_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.training_programs_list_training_programs_list_id_seq', 1, false);
+SELECT pg_catalog.setval('public.training_programs_list_training_programs_list_id_seq', 1, true);
 
 
 --
@@ -248,4 +248,4 @@ SELECT pg_catalog.setval('public.users_user_id_seq', 3, true);
 -- Name: weeks_week_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.weeks_week_id_seq', 1, false);
+SELECT pg_catalog.setval('public.weeks_week_id_seq', 1, true);
