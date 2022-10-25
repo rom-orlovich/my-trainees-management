@@ -30,33 +30,40 @@
 
 @include smartphone() {
   .exercise_stats_page_container {
+    overflow: hidden;
     position: relative;
     .exercise_name {
-      margin-bottom: 1rem;
+      margin-bottom: 0rem;
+      padding-left: 0.2rem;
+      display: inline-block;
+      width: 100%;
+      font-weight: 400;
+      font-size: 1.5rem;
     }
 
     @include classMatcher("page_header") {
+      margin-top: 1.5rem;
+      padding: 0rem 0rem 0rem 0rem !important;
       &.stats_header {
-        @include flex-dir(null, initial, column);
-
         .dates_container {
+          padding: 0rem 0.5rem;
           max-width: 100%;
-          @include flex-dir(null, null, row);
-          gap: 0.3rem;
+          @include flex-dir(null, null, column);
 
+          width: 100%;
           @include classMatcher("input_label") {
             max-width: initial;
+
+            input {
+              width: 100%;
+            }
           }
         }
         @include classMatcher("selectInput_label") {
           @include posAbs(0.5%, null, 2%, null);
-          width: initial;
           max-width: initial;
           label {
             display: none;
-          }
-          select {
-            width: 100%;
           }
         }
       }

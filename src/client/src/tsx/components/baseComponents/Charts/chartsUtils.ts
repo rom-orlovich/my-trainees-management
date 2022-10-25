@@ -4,7 +4,7 @@ import { Context } from "vm";
 export const labelFormatterByUnit =
   <T extends keyof ChartTypeRegistry>(unit?: string) =>
   (value: TooltipItem<T>) =>
-    `${value.label} ${value.parsed} ${unit || ""}`;
+    `${value.label} ${value.raw} ${unit || ""}`;
 
 export const labelFormatterByPercents = <T extends keyof ChartTypeRegistry>(
   ctx: TooltipItem<T>

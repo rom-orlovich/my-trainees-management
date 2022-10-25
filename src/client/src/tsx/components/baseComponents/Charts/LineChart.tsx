@@ -15,6 +15,7 @@ import {
   ChartTypeRegistry,
 } from "chart.js";
 import { DistributiveArray } from "chart.js/types/utils";
+import { labelFormatterByUnit } from "./chartsUtils";
 
 ChartJS.register(
   CategoryScale,
@@ -45,7 +46,15 @@ export const LINE_CHART_OPTIONS: ChartOptions<"line"> = {
   plugins: {
     legend: {
       position: "top" as const,
+      labels: { font: { size: 25 }, boxHeight: 10, boxWidth: 10 },
+
       maxHeight: 100,
+    },
+    tooltip: {
+      callbacks: {
+        // label: (ctx) => `${ctx.raw}kg`,
+        label: labelFormatterByUnit("kg"),
+      },
     },
   },
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 
 import LineChart from "../../components/baseComponents/Charts/LineChart";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner/LoadingSpinner";
@@ -12,6 +13,7 @@ function TrainingProgramsExerciseStatsChart({
 }: {
   queriesOptions?: Record<string, any>;
 }) {
+  const [queryParams] = useSearchParams();
   const { data, isError, isFetching, isLoading } =
     trainingProgramsApi.useGetExerciseStatsQuery({
       ...queriesOptions,
@@ -28,7 +30,7 @@ function TrainingProgramsExerciseStatsChart({
           className={genClassName(style.chart_exercise)}
           datasets={[
             {
-              label: "Weight Progress",
+              label: `${queryParams.get("exercise")}`,
               data: data.datasetsValues,
               backgroundColor: "red",
               borderColor: "red",
