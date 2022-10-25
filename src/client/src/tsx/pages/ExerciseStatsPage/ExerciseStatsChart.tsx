@@ -1,7 +1,7 @@
 import React from "react";
 
 import LineChart from "../../components/baseComponents/Charts/LineChart";
-import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import { trainingProgramsApi } from "../../redux/api/hooksAPI";
 
 import { genClassName } from "../../utilities/helpersFun";

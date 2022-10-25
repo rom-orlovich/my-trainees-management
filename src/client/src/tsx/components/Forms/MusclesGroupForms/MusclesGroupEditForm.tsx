@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { musclesGroupApi } from "../../../redux/api/hooksAPI";
 import { MusclesGroupTableAPI } from "../../../redux/api/interfaceAPI";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { MusclesGroupForm } from "./MusclesGroupForm";
 

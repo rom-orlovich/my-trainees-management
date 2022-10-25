@@ -1,12 +1,8 @@
 import React, { ReactNode, useEffect } from "react";
-import {
-  Navigate,
-  NavigateProps,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { AnyFun } from "../../types";
-import { getValuesArrObj } from "../../utilities/helpersFun";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AnyFun } from "../../../types";
+import { getValuesArrObj } from "../../../utilities/helpersFun";
+import style from "./LoadingSpinner.module.scss";
 
 export interface LoadingSpinnerProps<T> {
   stateData: {
@@ -55,7 +51,7 @@ function LoadingSpinner<T extends object>({
   }, [data]);
 
   if (isLoading || isFetching)
-    return <p className="loading_spinner"> Loading...</p>;
+    return <p className={style.loading_spinner}> Loading...</p>;
 
   const SpinnerMessage = (
     <p className={`message_spinner`}>

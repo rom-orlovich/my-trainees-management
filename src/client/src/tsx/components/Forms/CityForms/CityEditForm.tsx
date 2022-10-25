@@ -3,7 +3,7 @@ import { FieldValues } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { citiesApi } from "../../../redux/api/hooksAPI";
 import { CitiesTableAPI } from "../../../redux/api/interfaceAPI";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { CityForm } from "./CityForm";
 

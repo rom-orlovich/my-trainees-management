@@ -1,0 +1,28 @@
+@use "../../../style/utilities/utilities.scss" as *;
+.coming_soon_page {
+  width: 100%;
+  @include center();
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  h1 {
+    font-size: 3rem;
+    font-weight: 500;
+  }
+  h3 {
+    font-size: 2rem;
+    font-weight: 400;
+  }
+}
+
+@include smartphone() {
+  .coming_soon_page {
+    h1 {
+      font-size: 2.5rem;
+    }
+    h3 {
+      font-size: 2rem;
+    }
+    margin-bottom: 15rem;
+  }
+}

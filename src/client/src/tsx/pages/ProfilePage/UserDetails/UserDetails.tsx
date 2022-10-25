@@ -27,14 +27,16 @@ function UserDetails({ className }: PropsBasic) {
   // }
 
   // const traineeID = Number(useParams().id);
-  const { profileID, traineeID, username } = useGetUserTraineeData();
+
+  const { profileID, traineeID, username, userData } = useGetUserTraineeData();
+  console.log(username, userData);
   return (
     <Card className={genClassName(className, style.user_details_container)}>
       <div>
         <FaUserCircle className={style.profile_icon} />
       </div>
 
-      <h2>{username}</h2>
+      <h2>{username || "Not Active yet"}</h2>
       <div className={style.user_details_links}>
         <Link to={`/${APP_ROUTE.TRAINEES_ROUTE}/${traineeID}`}>
           Edit Details

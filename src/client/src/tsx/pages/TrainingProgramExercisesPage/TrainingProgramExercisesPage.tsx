@@ -32,7 +32,7 @@ const trainingProgramExercisesTransform = ({
   return {
     training_program_row_id,
     exercise: (
-      <Link to={`${exercise_id}/stats?exercise=${exercise_name}`}>
+      <Link to={`${training_program_row_id}/stats?exercise=${exercise_name}`}>
         {exercise_name}
       </Link>
     ),

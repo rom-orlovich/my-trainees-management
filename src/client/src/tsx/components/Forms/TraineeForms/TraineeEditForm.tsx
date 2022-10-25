@@ -11,7 +11,7 @@ import {
 import { getAuthState } from "../../../redux/slices/authSlice";
 
 import { formatDate } from "../../../utilities/helpersFun";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
 

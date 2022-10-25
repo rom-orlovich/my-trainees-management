@@ -311,7 +311,7 @@ export const trainingProgramsExerciseStatsOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `tpes.*`,
     querySelectLogic: ``,
     queryParams: {
-      exerciseID: TABLES_DATA.EXERCISES_ID,
+      exerciseID: TABLES_DATA.TRAINING_PROGRAM_ID,
       gt: "gt",
       lt: "lt",
     },
@@ -327,12 +327,11 @@ export const measuresOptionsCRUD: OptionsCRUD = {
     tableName: `${TABLES_DATA.MEASURES_TABLE_NAME} as mes`,
     tableID: `mes.${TABLES_DATA.MEASURE_ID}`,
     fieldNamesQuery: `mes.*`,
-    querySelectLogic: `LEFT JOIN ${TABLES_DATA.USERS_TABLE_NAME} as us on 
- mes.${TABLES_DATA.PROFILE_ID}=us.${TABLES_DATA.PROFILE_ID}`,
+    querySelectLogic: `LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr on 
+ mes.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}`,
     queryParams: {
-      userID: "user_id",
       caloriesPie: "caloriesPie",
-      username: "username",
+      profileID: "pr.profile_id",
     },
   },
   permissions: PERMISSION_TRAINEE_BY_USER_ID,

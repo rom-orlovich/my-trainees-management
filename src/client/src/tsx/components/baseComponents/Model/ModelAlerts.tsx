@@ -8,9 +8,10 @@ import {
 } from "../../../redux/slices/apiSideEffectSlice";
 import { genClassName } from "../../../utilities/helpersFun";
 import Card from "../Card/Card";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import Model from "./Model";
 import style from "./ModelAlerts.module.scss";
+
 function ModelAlerts() {
   const fetchAlerts = useAppSelector((state) => state.apiSideEffect);
 

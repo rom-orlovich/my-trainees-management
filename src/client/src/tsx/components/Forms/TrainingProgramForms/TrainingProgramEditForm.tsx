@@ -4,7 +4,7 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { trainingProgramsApi } from "../../../redux/api/hooksAPI";
 import { TrainingProgramExerciseOmit } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TrainingProgramForms from "./TrainingProgramForm";
 

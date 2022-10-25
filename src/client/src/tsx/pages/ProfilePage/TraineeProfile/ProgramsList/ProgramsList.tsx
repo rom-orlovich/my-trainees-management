@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 
+import { Link } from "react-router-dom";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { SelectInput } from "../../../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 
@@ -15,6 +16,8 @@ import style from "./ProgramsList.module.scss";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 
 function ProgramsList({ className, queryOptions }: TraineeProfileProps) {
+  const trainingProgramsName = "Training Programs";
+  const trainingProgramLink = `/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}?traineeID=${queryOptions?.traineeID}`;
   return (
     <Card
       className={genClassName(
@@ -27,16 +30,19 @@ function ProgramsList({ className, queryOptions }: TraineeProfileProps) {
         selectProps={{}}
         LabelProps={{ labelText: "" }}
         options={[
-          { label: "Training Programs", value: "Training Programs" },
+          { label: trainingProgramsName, value: trainingProgramsName },
           { label: "Nutrition Programs", value: "Nutrition Programs" },
         ]}
       />
       <ListProfile
+        dataNotFoundEl={
+          <Link to={trainingProgramLink}>{trainingProgramsName} Page</Link>
+        }
         LI={TrainingProgramsLi}
         useQuery={trainingProgramsListApi.useGetItemsQuery}
-        heading={"Training Programs"}
+        heading={trainingProgramsName}
         queryOptions={queryOptions}
-        pagePath={`/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}?traineeID=${queryOptions?.traineeID}`}
+        pagePath={trainingProgramLink}
       />
     </Card>
   );

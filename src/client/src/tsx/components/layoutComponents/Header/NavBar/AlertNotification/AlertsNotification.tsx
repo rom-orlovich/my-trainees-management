@@ -79,20 +79,10 @@ function AlertsNotification({ className }: AlertsNotificationProps) {
 
   const { data, refetch } = alertsApi.useGetItemsQuery({
     page: 1,
-    numResults: 5,
+    numResults: 3,
     asc: false,
     ...queriesOptions,
   });
-
-  // If there is new alert
-  // useEffect(() => {
-  //   if (apiSideEffect.isAlertsOpen) {
-  //     setAlertNotificationState(apiSideEffect.isAlertsOpen);
-  //     delayFun(() => {
-  //       dispatch(changeAlertsState());
-  //     }, 1000);
-  //   }
-  // }, [apiSideEffect.isAlertsOpen, dispatch]);
 
   // If there is new response from the server, the fetch alert will be true,
   // in order to refetch new alerts and activate the alert icons effect.

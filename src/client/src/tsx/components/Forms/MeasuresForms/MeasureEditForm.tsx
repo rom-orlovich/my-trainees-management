@@ -11,22 +11,19 @@ import { MeasuresAPI } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 
 import MeasureForm from "./MeasureForms";
 
 function MeasureEditForm() {
   const [updateItem] = measuresApi.useUpdateItemMutation();
-  // const [queryParams] = useSearchParams();
-  // const profileID = queryParams.get("profileID");
-  // const username = queryParams.get("username");
+
   // If the user is trainee, the query is executed by his userID instead his trainerUserID.
-  const { profileID, traineeID, username, userData, userID } =
-    useGetUserTraineeData();
+  const { profileID, traineeID, userID } = useGetUserTraineeData();
   const queryOptions = traineeID
-    ? { username, userID }
-    : { username, trainerUserID: userID };
+    ? { profileID, userID }
+    : { profileID, trainerUserID: userID };
 
   const { data, isFetching, isError, isLoading } =
     measuresApi.useGetItemsQuery(queryOptions);

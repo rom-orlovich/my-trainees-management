@@ -57,7 +57,7 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
         providesTags: (result) =>
           providerTags(result?.data, singleEntityName, listId),
 
-        keepUnusedDataFor: keepUnusedDataFor ?? 180,
+        keepUnusedDataFor: keepUnusedDataFor ?? 60,
       }),
       getItemByID: builder.query<T, Record<string, any> & { id: number }>({
         query: ({ id, ...params }) => ({

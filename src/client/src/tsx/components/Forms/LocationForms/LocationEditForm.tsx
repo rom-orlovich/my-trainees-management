@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { locationsApi } from "../../../redux/api/hooksAPI";
 import { LocationsTableAPI } from "../../../redux/api/interfaceAPI";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { LocationForm } from "./LocationForms";
 
@@ -10,7 +11,10 @@ export function LocationEditForm() {
   const id = Number(useParams().id);
   const [updateItem, state] = locationsApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
-    locationsApi.useGetItemByIDQuery({ id });
+    locationsApi.useGetItemByIDQuery({
+      id,
+      userID: useGetUserLoginData().user_id,
+    });
 
   const handleSubmit = (body: LocationsTableAPI) =>
     updateFunction({

@@ -55,19 +55,19 @@ export const prepareKeyValuesToUpdate = (
 // and his value for the select query.
 export const createRealQueryKeyValuesObj = (
   queryFromReq: Record<string, any> | undefined,
-  realQueryName: Record<string, string> | undefined
+  fakeQueryName: Record<string, string> | undefined
 ) => {
-  if (!queryFromReq || !realQueryName) return {};
+  if (!queryFromReq || !fakeQueryName) return {};
   if (!createObjKeysArr(queryFromReq)[0]) return {};
 
   let newRealQueryKeyValueObj = {} as Record<string, any>;
-  for (const key in realQueryName) {
+  for (const key in fakeQueryName) {
     // Created  key value obj which the first key is the key with the concat value of the query
     // and the other keys will concat to his key to create the concat name string for the query.
     if (queryFromReq[key])
       newRealQueryKeyValueObj = {
         ...newRealQueryKeyValueObj,
-        [realQueryName[key]]: queryFromReq[key],
+        [fakeQueryName[key]]: queryFromReq[key],
       };
   }
 
@@ -165,7 +165,7 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
+  pt(tableName, TABLES_DATA.LOCATION_TABLE_NAME, {
     statement,
     queryParams,
   });

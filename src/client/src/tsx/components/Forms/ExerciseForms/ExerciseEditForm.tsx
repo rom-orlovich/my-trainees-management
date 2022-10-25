@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { exercisesApi } from "../../../redux/api/hooksAPI";
 import { ExercisesTableAPI } from "../../../redux/api/interfaceAPI";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ExerciseForm } from "./ExerciseForm";
 

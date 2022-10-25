@@ -23,7 +23,7 @@ import { getEntriesArrObj } from "../../../../utilities/helpersFun";
 import { LiProps } from "../../baseComponentsTypes";
 
 import ListObserver from "../../List/ListObserver";
-import { LoadingSpinnerProps } from "../../LoadingSpinner";
+import { LoadingSpinnerProps } from "../../LoadingSpinner/LoadingSpinner";
 import { InputLabel, InputLabelProps } from "../InputLabel/InputLabel";
 import style from "./AutocompleteInput.module.scss";
 import AutocompleteLi, {

@@ -5,7 +5,7 @@ import { subscriptionPlansApi } from "../../../redux/api/hooksAPI";
 import { SubscriptionPlansAPI } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import SubscriptionPlansForm from "./SubscriptionPlansForm";
 

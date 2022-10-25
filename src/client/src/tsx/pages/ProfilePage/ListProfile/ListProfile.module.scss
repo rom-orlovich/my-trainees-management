@@ -2,7 +2,7 @@
 .list_container {
   padding: 0.5rem;
   position: relative;
-  @include flex-dir(center, null, column);
+  @include flex-dir(null, null, column);
   @include classMatcher("message_spinner") {
     @include centerAbs();
     text-align: center;
@@ -25,7 +25,7 @@
       //   gap: 0.3rem 2.5rem;
       padding: 0.1rem 0.5rem;
       .list_detail {
-        @include flex-dir(null, center, column);
+        @include flex-dir(null, null, column);
         gap: 0.1rem;
         :first-child {
           font-weight: 500;
@@ -33,19 +33,18 @@
         }
         :nth-child(2) {
           font-size: 0.9rem;
-
-          text-decoration: none;
         }
       }
     }
   }
+  a {
+    text-decoration: none;
+  }
   .list_page_link {
+    justify-self: end;
     margin-top: 0.1rem;
     text-align: center;
     font-size: 0.8rem;
-    a {
-      text-decoration: none;
-    }
   }
 }
 
@@ -78,27 +77,21 @@
         padding: 0.1rem 0.2rem;
         .list_detail {
           @include flex-dir(null, center, column);
-          font-size: 2;
+
           gap: 0.2rem;
           :first-child {
-            font-weight: 500;
             font-size: 1.1rem;
           }
           :nth-child(2) {
             font-size: 1rem;
-
-            text-decoration: none;
           }
         }
       }
     }
     .list_page_link {
       margin-top: 0.8rem;
-      text-align: center;
+
       font-size: 1.1rem;
-      a {
-        text-decoration: none;
-      }
     }
   }
 }

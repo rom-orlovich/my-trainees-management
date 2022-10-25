@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { traineesApi, trainingProgramsListApi } from "../../redux/api/hooksAPI";
 import {
@@ -23,33 +23,10 @@ function TrainingProgramsPage() {
   };
   const [queryParams] = useSearchParams();
   const traineeID = queryParams.get("traineeID");
-  // const [trigger, result] = trainingProgramsListApi.useLazyGetItemsQuery();
-
-  // useEffect(() => {
-  //   if (trainee[0])
-  //     trigger({ traineeID: Number(trainee[0]), ...queriesOptions });
-  // }, [trainee, trigger]);
-
-  // const { data, isError, isFetching, isLoading } = result;
 
   return (
     <section className={style.page_container}>
       <div className={style.page_header}>
-        {/* <AutocompleteInput<TraineesTableExtendsAPI>
-          keys={["first_name", "last_name"]}
-          id={"trainee_id"}
-          loadingSpinnerResult={{ nameData: "Trainees" }}
-          setSelectOptionValue={setTrainee}
-          queriesOptions={queriesOptions}
-          useGetData={traineesApi.useGetItemsQuery}
-          InputLabelProps={{
-            InputProps: { placeholder: "Trainee Name" },
-            LabelProps: {
-              labelText: "Search Trainee",
-              htmlFor: "traineeSearch",
-            },
-          }}
-        /> */}
         <AutocompleteInput<TrainingProgramsListTableAPI>
           keys={["type_program"]}
           id={"training_programs_list_id"}
@@ -75,18 +52,10 @@ function TrainingProgramsPage() {
         </span>
       </div>
       <div className={style.page_main_content}>
-        {/* <LoadingSpinner
-          showNoDataMessage={true}
-          stateData={{ data, isError, isFetching, isLoading }}
-          message="Please Choose Trainee..."
-        >
-          {() => ( */}
         <TableTrainingProgramList
           traineeID={Number(traineeID)}
           queriesOptions={queriesOptions}
         />
-        {/* )}
-        </LoadingSpinner> */}
       </div>
     </section>
   );

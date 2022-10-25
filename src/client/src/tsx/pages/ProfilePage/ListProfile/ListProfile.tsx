@@ -3,8 +3,9 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { LiComponentProps } from "../../../components/baseComponents/baseComponentsTypes";
 import List from "../../../components/baseComponents/List/List";
-import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import { ResponseQueryAPI } from "../../../redux/api/interfaceAPI";
+import { genClassName } from "../../../utilities/helpersFun";
 
 import style from "./ListProfile.module.scss";
 
@@ -43,18 +44,17 @@ function ListProfile<T extends Record<string, any>>({
             <h2>{heading}</h2>
             <List
               className={style.list}
-              dataArr={data.data.slice(0, 5)}
+              dataArr={data.data.slice(0, 3)}
               LI={LI}
             />
+            {pagePath && (
+              <div className={genClassName(style.list_page_link)}>
+                <Link to={pagePath}>{heading} Page</Link>
+              </div>
+            )}
           </>
         )}
       </LoadingSpinner>
-
-      {pagePath && (
-        <div className={style.list_page_link}>
-          <Link to={pagePath}>{heading} Page</Link>
-        </div>
-      )}
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { Outlet, useNavigate } from "react-router-dom";
-import LoadingSpinner from "../../components/baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 
 import { authApi } from "../../redux/api/authAPI";
 import { useAppSelector } from "../../redux/hooks";

@@ -9,7 +9,7 @@ import { useAppDispatch } from "../../../redux/hooks";
 import { setPageState } from "../../../redux/slices/trackTablePagesSlice";
 import { OmitKey } from "../../../types";
 import { TableProps } from "../baseComponentsTypes";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import Table from "./Table";
 import style from "./TablePagination.module.scss";
 

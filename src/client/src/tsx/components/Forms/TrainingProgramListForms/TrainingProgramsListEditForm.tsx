@@ -3,7 +3,7 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { trainingProgramsListApi } from "../../../redux/api/hooksAPI";
 import { TrainingProgramsListTableAPI } from "../../../redux/api/interfaceAPI";
 import { formatDate } from "../../../utilities/helpersFun";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { TrainingProgramListForms } from "./TrainingProgramListForm";
 

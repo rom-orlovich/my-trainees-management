@@ -21,28 +21,18 @@ export type TraineeProfileProps = PropsBasic & {
 };
 
 function TraineeProfile() {
-  // const traineeID = Number(useParams().id);
-
   const { isTrainee, traineeID, userData, userID } = useGetUserTraineeData();
-  // const userData = useGetUserLoginData();
-  // const userID = userData.user_id;
-  // const queryOptions = useCheckRole().isTrainee
-  //   ? {
-  //       traineeID: userID!,
-  //       trainerUserID: userData.authState.user!.trainer_user_id,
-  //     }
-  //   : {
-  //       traineeID,
-  //       trainerUserID: userID,
-  //     };
+
   const queryOptions = isTrainee
     ? { traineeID, userID }
     : { traineeID, trainerUserID: userID };
-  // console.log(queryOptions);
 
   return (
     <section className={style.trainee_profile_page_container}>
-      <CaloriesChart className={style.calories_chart_grid_item} />
+      <CaloriesChart
+        className={style.calories_chart_grid_item}
+        queryOptions={queryOptions}
+      />
       <ProgramsList
         className={style.programs_grid_item}
         queryOptions={queryOptions}

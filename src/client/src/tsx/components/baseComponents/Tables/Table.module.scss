@@ -19,6 +19,12 @@ th {
 td {
   height: 3.4rem;
   padding: 0.5rem;
+  a {
+    text-decoration: none;
+    :active {
+      color: initial;
+    }
+  }
 }
 
 td,

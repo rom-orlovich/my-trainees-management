@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { equipmentsApi } from "../../../redux/api/hooksAPI";
 import { EquipmentsTableAPI } from "../../../redux/api/interfaceAPI";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { EquipmentForm } from "./EquipmentForm";
 

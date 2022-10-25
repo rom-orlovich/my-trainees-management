@@ -28,7 +28,7 @@ export const dataLabelFormatterByUnit =
 export const PIE_CHART_FONTS = {
   color: "rgb(59, 71, 66)",
   font: {
-    size: 16,
+    size: window.innerWidth < 500 ? 22 : 16,
     weight: 400,
   },
 };

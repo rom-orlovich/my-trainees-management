@@ -9,13 +9,14 @@ import {
   PIE_CHART_FONTS,
 } from "../../../../components/baseComponents/Charts/chartsUtils";
 import PieChart from "../../../../components/baseComponents/Charts/PieChart";
-import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner";
+import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 
 import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 import { measuresApi } from "../../../../redux/api/hooksAPI";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 import { genClassName } from "../../../../utilities/helpersFun";
+import { TraineeProfileProps } from "../TraineeProfile";
 import style from "./CaloriesChart.module.scss";
 
 interface CaloriesChartRes {
@@ -29,14 +30,17 @@ interface CaloriesChartRes {
   };
   calories_total: number;
 }
-function CaloriesChart({ className }: PropsBasic) {
-  const { isTrainee, username, userID } = useGetUserTraineeData();
-  const queryOptions = isTrainee ? { userID } : { trainerUserID: userID };
+function CaloriesChart({
+  className,
+  queryOptions,
+}: PropsBasic & TraineeProfileProps) {
+  const { profileID, username } = useGetUserTraineeData();
+  // const queryOptions = isTrainee ? { userID } : { trainerUserID: userID };
 
   const { data, isError, isFetching, isLoading } = measuresApi.useGetItemsQuery(
     {
-      username,
       ...queryOptions,
+      profileID,
       caloriesPie: "true",
     }
   );
@@ -91,9 +95,9 @@ function CaloriesChart({ className }: PropsBasic) {
                       formatter: dataLabelFormatterByUnit("cal"),
 
                       ...PIE_CHART_FONTS,
-                      anchor: "start",
-                      offset: [15, 10, 3],
-                      align: "end",
+                      anchor: "end",
+                      offset: [0, 2, 5],
+                      align: "start",
                     },
                   },
                 }}

@@ -14,7 +14,7 @@ function useGetUserTraineeData() {
     username = userData.username;
     profileID = userData.profile_id;
   } else {
-    username = String(queryParams.get("username"));
+    username = String(queryParams.get("username") || "_");
     profileID = Number(queryParams.get("profileID"));
     traineeID = Number(useParams().id);
   }
