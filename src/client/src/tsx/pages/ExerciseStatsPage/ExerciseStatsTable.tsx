@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { trainingProgramsApi } from "../../redux/api/hooksAPI";
-import { TrainingProgramExerciseStatsAPI } from "../../redux/api/interfaceAPI";
+import { ExerciseStatsAPI } from "../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { formatDate } from "../../utilities/helpersFun";
 
@@ -17,7 +17,7 @@ const transformTrainingProgramList = ({
   sets,
 
   rest,
-}: TrainingProgramExerciseStatsAPI) => ({
+}: ExerciseStatsAPI) => ({
   exercise_id,
   update: formatDate(update_date),
   reps,
@@ -35,12 +35,9 @@ function TrainingProgramsExerciseStatsList({
 }) {
   const params = useParams();
 
-  // const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
-
   return (
     <TablePagination
       transformFun={transformTrainingProgramList}
-      // deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       actions={false}
       queriesOptions={queriesOptions}
       editPagePath={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${params["*"]}`}

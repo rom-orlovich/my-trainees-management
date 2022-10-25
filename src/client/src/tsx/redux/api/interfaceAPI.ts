@@ -282,7 +282,7 @@ export type TrainingProgramExerciseOmit = OmitKey<
   "equipment_name" | "muscles_group_name" | "exercise_name"
 >;
 
-export interface TrainingProgramExerciseStatsAPI {
+export interface ExerciseStatsAPI {
   training_program_row_id: number;
   update_date: Date;
   exercise_id: number;
@@ -291,6 +291,10 @@ export interface TrainingProgramExerciseStatsAPI {
   rest: number;
   intensity: number;
   rpe: number;
+}
+export interface ExerciseStatsGraphAPI {
+  labelFormatted: string[];
+  datasetsValues: number[];
 }
 export interface LoginForm {
   username: string;

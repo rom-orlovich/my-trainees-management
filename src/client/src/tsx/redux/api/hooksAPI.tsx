@@ -16,10 +16,11 @@ import {
   LeadsTableAPI,
   TrainingProgramsListTableAPI,
   AlertsAPI,
-  TrainingProgramExerciseStatsAPI,
+  ExerciseStatsAPI,
   ResponseQueryAPI,
   MeasuresCalResAPI,
   User,
+  ExerciseStatsGraphAPI,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -106,10 +107,7 @@ export const trainingProgramsApi =
   }).injectEndpoints({
     endpoints: (builder) => ({
       getExerciseStats: builder.query<
-        ResponseQueryAPI<TrainingProgramExerciseStatsAPI> & {
-          labels: string[];
-          datasetsValues: number[];
-        },
+        ResponseQueryAPI<ExerciseStatsAPI> & ExerciseStatsGraphAPI,
         Record<string, any>
       >({
         query: (params) => ({ url: `/stats`, params }),

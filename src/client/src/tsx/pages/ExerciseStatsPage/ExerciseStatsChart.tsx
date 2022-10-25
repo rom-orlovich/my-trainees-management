@@ -34,7 +34,7 @@ function TrainingProgramsExerciseStatsChart({
               borderColor: "red",
             },
           ]}
-          labels={data.labels}
+          labels={data.labelFormatted}
         />
       )}
     </LoadingSpinner>

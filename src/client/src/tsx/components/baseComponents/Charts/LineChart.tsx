@@ -61,7 +61,7 @@ function LineCharts<D, L>({
     datasets,
     labels,
   };
-
+  console.log(data);
   return (
     <Line
       className={className}

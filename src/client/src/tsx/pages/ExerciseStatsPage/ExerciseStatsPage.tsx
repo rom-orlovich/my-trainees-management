@@ -38,10 +38,10 @@ function TrainingProgramsExerciseStatsPage() {
     exerciseID,
   };
   const content =
-    display === "table" ? (
-      <ExerciseStatsTable queriesOptions={queriesOptions} />
-    ) : (
+    display === "graph" ? (
       <ExerciseStatsChart queriesOptions={queriesOptions} />
+    ) : (
+      <ExerciseStatsTable queriesOptions={queriesOptions} />
     );
 
   return (
@@ -66,7 +66,7 @@ function TrainingProgramsExerciseStatsPage() {
 
         <SelectInput
           LabelProps={{ labelText: "Display", htmlFor: "display" }}
-          selectProps={{ onChange }}
+          selectProps={{ onChange, defaultValue: display }}
           options={displayOptions}
         />
       </div>

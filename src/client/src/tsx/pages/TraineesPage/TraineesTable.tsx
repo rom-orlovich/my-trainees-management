@@ -31,6 +31,8 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
     ...rest
   } = arg;
 
+  // TODO: try to remove the username from the url.
+  // The username query param is used in userDetails in trainee's profile.
   return {
     id: arg.trainee_id,
     full_name: (
