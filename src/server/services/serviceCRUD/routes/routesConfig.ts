@@ -101,7 +101,7 @@ export const leadsOptionsCRUD: OptionsCRUD = {
     querySelectLogic: ``,
     queryNameParam: {
       mainName: "first_name",
-      lastName: "last_name",
+      secName: "last_name",
     },
     queryParams: {
       userID: "user_id",
@@ -159,7 +159,7 @@ export const locationsOptionsCRUD: OptionsCRUD = {
     c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} `,
     queryNameParam: {
       mainName: "street",
-      cityName: "city_name",
+      secName: "city_name",
     },
     queryParams: {
       userID: "lo.user_id",
@@ -409,7 +409,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
    `,
     queryNameParam: {
       mainName: "first_name",
-      lastName: "last_name",
+      secName: "last_name",
     },
 
     queryParams: {

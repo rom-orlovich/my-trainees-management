@@ -64,7 +64,8 @@ export const createRealQueryKeyValuesObj = (
   for (const key in fakeQueryName) {
     // Created  key value obj which the first key is the key with the concat value of the query
     // and the other keys will concat to his key to create the concat name string for the query.
-    if (queryFromReq[key])
+
+    if (queryFromReq[key] || (!queryFromReq[key] && key === "secName"))
       newRealQueryKeyValueObj = {
         ...newRealQueryKeyValueObj,
         [fakeQueryName[key]]: queryFromReq[key],

@@ -26,36 +26,30 @@
 }
 
 @include smartphone() {
+  %shared {
+    height: fit-content;
+    min-height: fit-content;
+  }
   .trainee_profile_page_container {
     padding: 0.5rem 1rem;
     width: 100%;
     @include flex-dir(null, null, column);
-
-    height: auto;
-
-    h2 {
-      font-weight: 500;
-    }
   }
 
   .user_details_grid_item {
     order: 1;
-    height: fit-content;
-    // width: 20rem;
   }
   .subscription_plans_grid_item {
     order: 4;
-    min-height: 10rem;
+    // @extend %shared;
   }
   .programs_grid_item {
     order: 2;
-
-    min-height: 25rem;
+    min-height: fit-content;
   }
 
   .calories_chart_grid_item {
     order: 3;
-
     min-height: 20rem;
   }
 

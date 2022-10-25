@@ -2,7 +2,7 @@
 .subscription_plans_container {
   position: relative;
   .plus_button_icon {
-    @include posAbs(4%, null, 5%, null);
+    @include posAbs(3%, null, 4%, null);
     @include heightWidth(1.5rem, 1.5rem);
     color: rgb(127 165 241);
   }

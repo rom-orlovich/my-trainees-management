@@ -50,16 +50,15 @@
 
 @include smartphone() {
   .list_container {
-    @include flex-dir(center, null, column);
-
+    @include flex-dir(null, null, column);
     @include classMatcher("message_spinner") {
       @include centerAbs();
       text-align: center;
       width: 100%;
     }
     h2 {
-      margin-top: 0.5rem;
-      margin-bottom: 0.2rem;
+      font-weight: 500;
+      margin-top: 2.2rem;
       font-size: 1.4rem;
       text-align: center;
     }
@@ -90,7 +89,6 @@
     }
     .list_page_link {
       margin-top: 0.8rem;
-
       font-size: 1.1rem;
     }
   }
