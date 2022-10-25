@@ -15,7 +15,8 @@ import style from "./TraineeProfile.module.scss";
 export type TraineeProfileProps = PropsBasic & {
   queryOptions?: {
     traineeID: number;
-    trainerUserID: number | undefined;
+    trainerUserID?: number;
+    userID?: number;
   };
 };
 
@@ -35,9 +36,9 @@ function TraineeProfile() {
   //       trainerUserID: userID,
   //     };
   const queryOptions = isTrainee
-    ? { traineeID, trainerUserID: userData?.trainer_user_id }
+    ? { traineeID, userID }
     : { traineeID, trainerUserID: userID };
-  console.log(queryOptions);
+  // console.log(queryOptions);
 
   return (
     <section className={style.trainee_profile_page_container}>

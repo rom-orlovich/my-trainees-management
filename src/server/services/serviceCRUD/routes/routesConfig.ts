@@ -380,7 +380,7 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `subp.*`,
     querySelectLogic: ``,
     queryParams: {
-      userID: "subp.user_id",
+      // userID: "subp.user_id",
       traineeID: "trainee_id",
     },
   },
