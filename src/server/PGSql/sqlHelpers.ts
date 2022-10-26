@@ -2,6 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 
+import { orderBy } from "lodash";
 import { TABLES_DATA } from "../utilities/constants";
 import { pt, createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
@@ -279,7 +280,6 @@ export async function deleteQuery(
 // Return the items array and boolean value if there is next
 // page.
 export async function selectPagination(
-  idField: string,
   tableName: string,
   page = "1",
   fields = "*",
@@ -287,7 +287,8 @@ export async function selectPagination(
   queryParams: Record<string, any> = {},
   queryNameParams: Record<string, any> = {},
   ascending = true,
-  numResult = 10
+  numResult = 10,
+  orderBy = ""
 ) {
   const numPage = Number(page) - 1;
   const offset = numPage * numResult;
@@ -325,7 +326,7 @@ export async function selectPagination(
   // Return if the table is empty.
   if (!numTotalRows) return { rows: [], next: false, countRows: 0 };
 
-  const limitOffsetQuery = `order by ${idField} ${
+  const limitOffsetQuery = `order by ${orderBy} ${
     ascending ? "ASC" : "DESC"
   } LIMIT $${queryParamsRes.length + 1} OFFSET $${queryParamsRes.length + 2}`;
 

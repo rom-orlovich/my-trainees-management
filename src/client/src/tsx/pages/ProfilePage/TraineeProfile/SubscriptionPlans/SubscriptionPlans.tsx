@@ -34,7 +34,11 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
         dataNotFoundEl={<> No data is found</>}
         heading="Subscription Plans"
         useQuery={subscriptionPlansApi.useGetItemsQuery}
-        queryOptions={{ ...queryOptions, asc: "false" }}
+        queryOptions={{
+          ...queryOptions,
+          asc: "true",
+          orderBy: "lastTraining",
+        }}
         pagePath={""}
         LI={SubscriptionPlanLi}
       />

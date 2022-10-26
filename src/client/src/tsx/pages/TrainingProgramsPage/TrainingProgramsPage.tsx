@@ -21,8 +21,9 @@ function TrainingProgramsPage() {
     traineeID,
     programType: trainingProgram[1],
     trainerUserID: authState.user?.user_id,
+    orderBy: "updateDate",
   };
-  console.log(queriesOptions);
+
   return (
     <section className={style.page_container}>
       <div className={style.page_header}>

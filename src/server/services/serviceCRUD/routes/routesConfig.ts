@@ -41,6 +41,7 @@ export interface SelectTableQueryParam {
   tableID: string;
   fieldNamesQuery: string; // The field names that we want to return from the query
   querySelectLogic: string; // The query logic
+  orderByParam?: Record<string, string>;
 
   // The purpose of below params is to encapsulate the real table's fields from the client,
   // so the client won't able to know what are the real fields name of the table.
@@ -48,7 +49,7 @@ export interface SelectTableQueryParam {
   queryNameParam?: Record<string, string>;
   modifiedOtherTable?: {
     update: { otherTableName: string; values: string[]; otherTableID: string };
-    delete: { otherTableName: string; otherTableID: string };
+    delete?: { otherTableName: string; otherTableID: string };
   };
 }
 
@@ -272,6 +273,7 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
     queryNameParam: {
       programType: "type_program",
     },
+    orderByParam: { updateDate: "update_date" },
   },
   permissions: PERMISSION_TRAINEE_READONLY,
   validateSchema: trainingProgramsListSchema,
@@ -297,6 +299,13 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
     },
     queryNameParam: {
       mainName: "exercise_name",
+    },
+    modifiedOtherTable: {
+      update: {
+        otherTableName: TABLES_DATA.TRAINING_PROGRAMS_LIST_TABLE_NAME,
+        otherTableID: TABLES_DATA.TRAINING_PROGRAMS_LIST_ID,
+        values: ["update_date"],
+      },
     },
   },
   permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
@@ -379,8 +388,10 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `subp.*`,
     querySelectLogic: ``,
     queryParams: {
-      // userID: "subp.user_id",
       traineeID: "trainee_id",
+    },
+    orderByParam: {
+      lastTraining: "last_training",
     },
   },
   permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
@@ -406,8 +417,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
      LEFT JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c on 
    c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID} 
    LEFT JOIN ${TABLES_DATA.USERS_TABLE_NAME} as us on 
-   tr.${TABLES_DATA.USERS_TABLE_ID}=us.${TABLES_DATA.USERS_TABLE_ID} 
-   `,
+   tr.${TABLES_DATA.USERS_TABLE_ID}=us.${TABLES_DATA.USERS_TABLE_ID}`,
     queryNameParam: {
       mainName: "first_name",
       secName: "last_name",

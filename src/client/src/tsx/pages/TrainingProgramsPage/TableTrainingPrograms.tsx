@@ -14,6 +14,7 @@ const transformTrainingProgramList = ({
   note_topic,
   training_programs_list_id,
   type_program,
+  update_date,
   ...rest
 }: TrainingProgramsListTableAPI) => ({
   training_programs_list_id,

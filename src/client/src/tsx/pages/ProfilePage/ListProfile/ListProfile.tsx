@@ -44,7 +44,7 @@ function ListProfile<T extends Record<string, any>>({
             <h2>{heading}</h2>
             <List
               className={style.list}
-              dataArr={data.data.slice(0, 5)}
+              dataArr={data.data.slice(0, 3)}
               LI={LI}
             />
             {pagePath && (

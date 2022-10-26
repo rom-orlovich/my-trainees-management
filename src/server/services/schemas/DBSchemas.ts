@@ -79,6 +79,7 @@ export const trainingProgramsListSchema = yup.object().shape({
   training_programs_list_id: yup.number().notRequired().nullable(),
   trainee_id: yup.number().required(),
   type_program: yup.string().required(),
+
   date_start: yup.date().required(),
   date_end: yup
     .date()

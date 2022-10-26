@@ -15,6 +15,7 @@
   }
   .list {
     @include flex-dir(null, null, column);
+    overflow-y: auto;
     gap: 0.3rem;
 
     & li:nth-child(2n) {
@@ -63,6 +64,7 @@
       text-align: center;
     }
     ul.list {
+      overflow-y: hidden;
       @include flex-dir(null, null, column);
 
       gap: 0.8rem;

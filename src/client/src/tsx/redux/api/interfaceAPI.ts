@@ -171,13 +171,14 @@ export interface ExercisesTableAPI {
 }
 
 export interface TrainingProgramsListTableAPI {
-  training_programs_list_id: number | null;
+  training_programs_list_id?: number;
   trainee_id: number;
-  type_program?: string | null;
+  type_program?: string;
+  update_date?: Date;
   date_start: Date;
-  date_end?: Date | null;
-  note_topic: string | null;
-  note_text: string | null;
+  date_end?: Date;
+  note_topic?: string;
+  note_text?: string;
 }
 
 export interface MeasuresAPI {

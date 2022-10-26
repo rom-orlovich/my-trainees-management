@@ -317,6 +317,7 @@ CREATE TABLE IF NOT EXISTS "training_programs_list"(
   "training_programs_list_id" serial PRIMARY KEY,
   "trainee_id" INTEGER ,
     "type_program" VARCHAR(20) , 
+    "update_date" DATE,
      "date_start" DATE NOT NULL,
      "date_end" DATE ,
      "note_topic" TEXT ,

@@ -37,6 +37,7 @@ export function createRoutesControllers({
     queryParams,
     queryNameParam,
     modifiedOtherTable,
+    orderByParam,
   },
   logAlert = true,
   validateSchema,
@@ -44,14 +45,14 @@ export function createRoutesControllers({
   const prepareLogAlert = createLogAlertInfo(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
-    const { page, asc, numResults, caloriesPie, ...rest } = req.query;
+    const { page, asc, numResults, caloriesPie, orderBy, ...rest } = req.query;
 
     const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
     const numResultDefault = Number(numResults || 5);
-
+    const orderByParamRes =
+      orderByParam && orderBy ? orderByParam[orderBy as string] : tableID;
     const [data, err] = await promiseHandler(
       selectPagination(
-        tableID,
         tableName,
         page as string,
         fieldNamesQuery,
@@ -59,7 +60,8 @@ export function createRoutesControllers({
         createRealQueryKeyValuesObj(rest, queryParams),
         createRealQueryKeyValuesObj(rest, queryNameParam),
         ascDefault,
-        numResultDefault
+        numResultDefault,
+        orderByParamRes
       )
     );
 
