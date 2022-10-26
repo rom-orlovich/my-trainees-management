@@ -1,61 +1,67 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 
-.trainee_profile_page_container {
-  display: grid;
-  gap: 0.8rem;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  padding: 0.5rem;
+.trainee_profile_page {
+  overflow-y: scroll;
   width: 100%;
-}
+  .trainee_profile_page_container {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding: 0.5rem;
+    width: 100%;
+    height: 100%;
 
-.calories_chart_grid_item {
-  grid-area: 1 / 1 / 2 / 3;
-}
-.programs_grid_item {
-  grid-area: 1 / 3 / 2 / 7;
-}
-.user_details_grid_item {
-  grid-area: 1 /7/ 2 /9;
-}
-.progress_chart_grid_item {
-  grid-area: 2 / 1/ 7 / 6;
-}
-.subscription_plans_grid_item {
-  grid-area: 2/ 6/ 7 / 9;
+    .calories_chart_grid_item {
+      grid-area: 1 / 1 / 2 / 3;
+    }
+    .programs_grid_item {
+      grid-area: 1 / 3 / 2 / 7;
+    }
+    .user_details_grid_item {
+      grid-area: 1 /7/ 2 /9;
+    }
+    .progress_chart_grid_item {
+      grid-area: 2 / 1/ 4 / 6;
+      height: 50vh;
+    }
+    .subscription_plans_grid_item {
+      grid-area: 2/ 6/ 4 / 9;
+    }
+  }
 }
 
 @include smartphone() {
   %shared {
-    // height: fit-content;
-    // min-height: fit-content;
-    flex: 1 1 15rem;
-  }
-  .trainee_profile_page_container {
-    padding: 0.5rem 1rem;
-    width: 100%;
-    @include flex-dir(null, null, column);
-  }
-
-  .user_details_grid_item {
-    order: 1;
-  }
-  .subscription_plans_grid_item {
-    order: 4;
-    @extend %shared;
-  }
-  .programs_grid_item {
-    order: 2;
-    @extend %shared;
-  }
-
-  .calories_chart_grid_item {
-    order: 3;
     min-height: 20rem;
   }
+  .trainee_profile_page {
+    width: 100%;
 
-  .progress_chart_grid_item {
-    display: none;
-    order: 5;
+    .trainee_profile_page_container {
+      @include flex-dir(null, null, column);
+    }
+
+    .user_details_grid_item {
+      order: 1;
+    }
+    .subscription_plans_grid_item {
+      order: 4;
+      @extend %shared;
+    }
+    .programs_grid_item {
+      order: 2;
+      @extend %shared;
+    }
+
+    .calories_chart_grid_item {
+      order: 3;
+      @extend %shared;
+    }
+
+    .progress_chart_grid_item {
+      order: 5;
+      @extend %shared;
+    }
   }
 }

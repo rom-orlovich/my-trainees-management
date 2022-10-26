@@ -47,7 +47,6 @@ export const LINE_CHART_OPTIONS: ChartOptions<"line"> = {
     legend: {
       position: "top" as const,
       labels: { font: { size: 25 }, boxHeight: 10, boxWidth: 10 },
-
       maxHeight: 100,
     },
     tooltip: {

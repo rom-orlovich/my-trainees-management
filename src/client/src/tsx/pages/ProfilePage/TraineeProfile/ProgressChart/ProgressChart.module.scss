@@ -2,3 +2,12 @@
 .progress_chart_container {
   position: relative;
 }
+
+@include smartphone() {
+  .progress_chart_container {
+    .progress_chart {
+      height: 80%;
+      width: 100%;
+    }
+  }
+}

@@ -1,8 +1,9 @@
 @use "../../../style/utilities/utilities.scss" as *;
 
 .chart_exercise {
-  padding: 1rem;
-  margin-top: 1rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  height: 100%;
 }
 
 @include smartphone() {

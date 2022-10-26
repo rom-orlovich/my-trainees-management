@@ -14,8 +14,10 @@ import listProfileStyle from "../../ListProfile/ListProfile.module.scss";
 import style from "./SubscriptionPlan.module.scss";
 import SubscriptionPlanLi from "./SubscriptionPlanLi";
 import ListProfile from "../../ListProfile/ListProfile";
+import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 
 function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
+  const { isTrainee } = useGetUserTraineeData();
   return (
     <Card
       className={genClassName(
@@ -24,14 +26,16 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
         style.subscription_plans_container
       )}
     >
-      <Link
-        to={`/${APP_ROUTE.TRAINEES_ROUTE}/${queryOptions?.traineeID}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_ADD}`}
-      >
-        <BsFillPlusSquareFill className={style.plus_button_icon} />
-      </Link>
+      {!isTrainee && (
+        <Link
+          to={`/${APP_ROUTE.TRAINEES_ROUTE}/${queryOptions?.traineeID}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_ADD}`}
+        >
+          <BsFillPlusSquareFill className={style.plus_button_icon} />
+        </Link>
+      )}
 
       <ListProfile
-        dataNotFoundEl={<> No data is found</>}
+        dataNotFoundEl={<> No subscription plans are found</>}
         heading="Subscription Plans"
         useQuery={subscriptionPlansApi.useGetItemsQuery}
         queryOptions={{

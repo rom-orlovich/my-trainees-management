@@ -28,21 +28,23 @@ function TraineeProfile() {
     : { traineeID, trainerUserID: userID };
 
   return (
-    <section className={style.trainee_profile_page_container}>
-      <CaloriesChart
-        className={style.calories_chart_grid_item}
-        queryOptions={queryOptions}
-      />
-      <ProgramsList
-        className={style.programs_grid_item}
-        queryOptions={queryOptions}
-      />
-      <UserDetails className={style.user_details_grid_item} />
-      <ProgressChart className={style.progress_chart_grid_item} />
-      <SubscriptionPlans
-        className={style.subscription_plans_grid_item}
-        queryOptions={queryOptions}
-      />
+    <section className={style.trainee_profile_page}>
+      <div className={style.trainee_profile_page_container}>
+        <CaloriesChart
+          className={style.calories_chart_grid_item}
+          queryOptions={queryOptions}
+        />
+        <ProgramsList
+          className={style.programs_grid_item}
+          queryOptions={queryOptions}
+        />
+        <UserDetails className={style.user_details_grid_item} />
+        <ProgressChart className={style.progress_chart_grid_item} />
+        <SubscriptionPlans
+          className={style.subscription_plans_grid_item}
+          queryOptions={queryOptions}
+        />
+      </div>
     </section>
   );
 }

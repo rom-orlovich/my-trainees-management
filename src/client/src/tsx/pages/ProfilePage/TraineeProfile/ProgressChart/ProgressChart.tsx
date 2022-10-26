@@ -25,11 +25,6 @@ function ProgressChart({ className }: PropsBasic) {
   const Data = data as ResponseQueryAPI<MeasuresCalResAPI> & ChartsDataAPI;
   return (
     <Card className={genClassName(className, style.progress_chart_container)}>
-      <Link
-        to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_ADD}?profileID=${profileID}`}
-      >
-        <BsFillPlusSquareFill className={style.plus_button_icon} />
-      </Link>
       <LoadingSpinner
         stateData={{ data: Data, isError, isFetching, isLoading }}
         showNoDataMessage={true}
@@ -39,6 +34,7 @@ function ProgressChart({ className }: PropsBasic) {
           console.log(data);
           return (
             <LineCharts
+              className={style.progress_chart}
               datasets={[
                 {
                   label: `Measures Weights Progress`,
@@ -50,7 +46,6 @@ function ProgressChart({ className }: PropsBasic) {
               labels={data.labelFormatted}
               options={{
                 plugins: {
-                  tooltip: {},
                   datalabels: {
                     formatter: dataLabelFormatterByUnit("kg"),
                   },

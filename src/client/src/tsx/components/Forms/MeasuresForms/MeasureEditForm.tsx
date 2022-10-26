@@ -12,12 +12,16 @@ import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
-import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
+import {
+  addFunction,
+  updateFunction,
+} from "../../baseComponents/RHF-Components/FormsHook";
 
 import MeasureForm from "./MeasureForms";
 
 function MeasureEditForm() {
   const [updateItem] = measuresApi.useUpdateItemMutation();
+  const [addItem] = measuresApi.useCreateOneItemMutation();
 
   // If the user is trainee, the query is executed by his userID instead his trainerUserID.
   const { profileID, traineeID, userID } = useGetUserTraineeData();
@@ -46,11 +50,14 @@ function MeasureEditForm() {
           fat_cals,
           ...rest
         } = data.data[results.length - 1];
-        const handleSubmit = ({ ...body }: MeasuresAPI) =>
-          updateFunction({
-            updateItem,
-            id: rest.measure_id,
-          })(body);
+        const handleSubmit = ({ measure_id, ...body }: MeasuresAPI) =>
+          addFunction({
+            addItem,
+          })({ ...body });
+        // updateFunction({
+        //   updateItem,
+        //   id: rest.measure_id,
+        // })(body);
 
         return (
           <MeasureForm
