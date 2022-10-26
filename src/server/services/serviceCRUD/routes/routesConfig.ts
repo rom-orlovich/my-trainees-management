@@ -48,7 +48,12 @@ export interface SelectTableQueryParam {
   queryParams?: Record<string, string>;
   queryNameParam?: Record<string, string>;
   modifiedOtherTable?: {
-    update: { otherTableName: string; values: string[]; otherTableID: string };
+    update: {
+      otherTableName: string;
+      values: string[];
+      otherTableID: string;
+      include?: string[];
+    };
     delete?: { otherTableName: string; otherTableID: string };
   };
 }
@@ -306,6 +311,7 @@ export const trainingProgramsOptionsCRUD: OptionsCRUD = {
         otherTableName: TABLES_DATA.TRAINING_PROGRAMS_LIST_TABLE_NAME,
         otherTableID: TABLES_DATA.TRAINING_PROGRAMS_LIST_ID,
         values: ["update_date"],
+        include: ["update_date"],
       },
     },
   },

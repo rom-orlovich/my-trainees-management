@@ -5,6 +5,7 @@ import {
   MeasuresCalResAPI,
   TrainingProgramExerciseStatsAPI,
 } from "../../../express";
+import { formatDate } from "../../../utilities/helpers";
 
 export interface ChartDataResult {
   labelFormatted: string[];
@@ -22,16 +23,15 @@ export const normalizeDatesValues = <
   arr: T
 ) => {
   const map = new Map();
-  console.log(arr);
+
   arr
     .sort((a, b) => a.id - b.id)
     .sort((a, b) => a.date.getTime() - b.date.getTime())
     .forEach((el) => {
       map.set(el.date.getTime(), el.value);
     });
-  console.log(map.entries());
 
-  const dates = [...map.keys()].map((el) => new Date(el).toLocaleDateString());
+  const dates = [...map.keys()].map((el) => formatDate(el, 1));
 
   const values = [...map.values()];
   return {
@@ -47,14 +47,20 @@ export const calIntensity = (
 const exerciseStatsCreateLabelAndDatasets = (
   data: TrainingProgramExerciseStatsAPI[]
 ): ChartDataResult => {
-  const statsArr = data.sort(
-    (a, b) => a.update_date.getTime() - b.update_date.getTime()
-  );
-  const startDate = statsArr[0].update_date;
-  const endDate = statsArr[statsArr.length - 1].update_date;
-  const labelFormatted = calLabelDates(startDate, endDate);
-  const datasetsValues = calIntensity(statsArr);
-  return { labelFormatted, datasetsValues };
+  // const statsArr = data.sort(
+  //   (a, b) => a.update_date.getTime() - b.update_date.getTime()
+  // );
+  // const startDate = statsArr[0].update_date;
+  // const endDate = statsArr[statsArr.length - 1].update_date;
+  // const labelFormatted = calLabelDates(startDate, endDate);
+  // const datasetsValues = calIntensity(statsArr);
+  const statsArr = data.map((el) => ({
+    id: el.training_program_row_id,
+    date: el.update_date,
+    value: el.intensity,
+  }));
+
+  return normalizeDatesValues(statsArr);
 };
 
 const caloriesChartCreateLabelAndDatasets = (data: MeasuresCalResAPI) => {
@@ -79,10 +85,7 @@ const measuresChartLineCreateLabelAndDatasets = (data: MeasuresCalResAPI[]) => {
     date: el.date,
     value: el.weight,
   }));
-  // const startDate = statsArr[0].date;
-  // const endDate = statsArr[statsArr.length - 1].date;
-  // const labelFormatted = calLabelDates(startDate, endDate);
-  // const datasetsValues = statsArr.map((el) => el.weight);
+
   return normalizeDatesValues(statsArr);
 };
 

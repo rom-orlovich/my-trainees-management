@@ -167,10 +167,10 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
-    statement,
-    queryParams,
-  });
+  // pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
+  //   statement,
+  //   queryParams,
+  // });
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;
@@ -188,9 +188,7 @@ const insertQuery = async (
    VALUES ${fieldParams} ${onConflict ? `${onConflict}` : ""} RETURNING * `;
 
   // console.log(statement, [paramId, ...paramsArr]);
-  // if (
-  //   tableName.includes(TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME)
-  // ) {
+  // if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
   //   console.log("statement", statement);
   //   console.log("queryParams", paramArr);
   // }
@@ -210,7 +208,7 @@ const updateQuery = async (
 ) => {
   const statement = `UPDATE ${tableName} SET ${keyValuesStr}
   ${queryLogic} RETURNING *`;
-  pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
+  pt(tableName, TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME, {
     statement,
     queryParams: [paramId, ...paramsArr],
   });
@@ -344,12 +342,21 @@ export async function selectPagination(
   };
 }
 
-export const spreadObj = (obj: Record<string, any>, values: string[]) => {
+export const spreadObj = (
+  obj: Record<string, any>,
+  values: string[],
+  include?: string[]
+) => {
   let includeKeyValueObj = {};
   let excludedKeyValueObj = {};
   for (const key in obj) {
+    const valueToExclude = values?.includes(key);
+    const valueToInclude = include?.includes(key);
     const keyValue = { [key]: obj[key] };
-    if (values.includes(key))
+    if (valueToInclude && valueToExclude) {
+      includeKeyValueObj = { ...includeKeyValueObj, ...keyValue };
+      excludedKeyValueObj = { ...excludedKeyValueObj, ...keyValue };
+    } else if (valueToExclude)
       includeKeyValueObj = { ...includeKeyValueObj, ...keyValue };
     else excludedKeyValueObj = { ...excludedKeyValueObj, ...keyValue };
   }
@@ -407,6 +414,7 @@ export const updateExistTableData = async (
     otherTableName: string;
     values: string[];
     otherTableID: string;
+    include?: string[];
   }
 ) => {
   let data;
@@ -415,12 +423,14 @@ export const updateExistTableData = async (
     // Begin transaction
     await client.query("BEGIN");
 
-    const { otherTableName, values, otherTableID } = modifiedOtherTable;
+    const { otherTableName, values, otherTableID, include } =
+      modifiedOtherTable;
 
     // Spread the data that relate to the main table and the data that relate to the sec table.
     const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
       reqBody,
-      values
+      values,
+      include
     );
     // Update the main table and get the id of the other table.
     const mainTableData = await updateQuerySingleItem(

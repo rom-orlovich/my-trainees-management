@@ -37,30 +37,27 @@ function ProgressChart({ className }: PropsBasic) {
         showNoDataMessage={true}
         message={<>Data Not Found</>}
       >
-        {(data) => {
-          console.log(data);
-          return (
-            <LineCharts
-              className={style.progress_chart}
-              datasets={[
-                {
-                  label: `Measures Weights Progress`,
-                  data: data.datasetsValues,
-                  backgroundColor: "red",
-                  borderColor: "red",
+        {(data) => (
+          <LineCharts
+            className={style.progress_chart}
+            datasets={[
+              {
+                label: `Measures Weights Progress`,
+                data: data.datasetsValues,
+                backgroundColor: "red",
+                borderColor: "red",
+              },
+            ]}
+            labels={data.labelFormatted}
+            options={{
+              plugins: {
+                datalabels: {
+                  formatter: dataLabelFormatterByUnit("kg"),
                 },
-              ]}
-              labels={data.labelFormatted}
-              options={{
-                plugins: {
-                  datalabels: {
-                    formatter: dataLabelFormatterByUnit("kg"),
-                  },
-                },
-              }}
-            />
-          );
-        }}
+              },
+            }}
+          />
+        )}
       </LoadingSpinner>
     </Card>
   );
