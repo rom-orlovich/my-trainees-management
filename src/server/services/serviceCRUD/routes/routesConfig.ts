@@ -164,6 +164,7 @@ export const locationsOptionsCRUD: OptionsCRUD = {
     },
     queryParams: {
       userID: "lo.user_id",
+      id: "location_id",
     },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,

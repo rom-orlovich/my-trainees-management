@@ -48,7 +48,6 @@ export function TraineeForm({
       }}
       onSubmit={onSubmit}
       formOptions={{
-        mode: "onChange",
         defaultValues: {
           ...defaultValues,
           trainer_user_id: useGetUserLoginData().user_id,

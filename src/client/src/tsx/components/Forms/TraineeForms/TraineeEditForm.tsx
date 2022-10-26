@@ -4,24 +4,14 @@ import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 
-import {
-  TraineesTableExtendsAPI,
-  TraineesBaseTableAPI,
-} from "../../../redux/api/interfaceAPI";
-import { getAuthState } from "../../../redux/slices/authSlice";
+import { TraineesBaseTableAPI } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
 
-export function TraineeEditForm({
-  // traineeData: { street, city_name, ...traineeData },
-  heading,
-}: {
-  heading?: string;
-  // traineeData: TraineesTableExtendsAPI;
-}) {
+export function TraineeEditForm({ heading }: { heading?: string }) {
   const id = Number(useParams().id);
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
   const { data, isError, isFetching, isLoading } =
