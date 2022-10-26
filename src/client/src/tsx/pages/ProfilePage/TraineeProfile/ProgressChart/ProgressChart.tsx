@@ -13,14 +13,21 @@ import {
   MeasuresCalResAPI,
   ResponseQueryAPI,
 } from "../../../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+
 import { genClassName } from "../../../../utilities/helpersFun";
 import style from "./ProgressChart.module.scss";
 
 function ProgressChart({ className }: PropsBasic) {
   const { profileID, userID } = useGetUserTraineeData();
   const { data, isError, isFetching, isLoading } = measuresApi.useGetItemsQuery(
-    { profileID, userID, measuresChartLine: "true" }
+    {
+      profileID,
+      userID,
+      measuresChartLine: "true",
+      orderBy: "measureID",
+      asc: "false",
+      numResults: 100,
+    }
   );
   const Data = data as ResponseQueryAPI<MeasuresCalResAPI> & ChartsDataAPI;
   return (

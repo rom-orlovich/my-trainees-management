@@ -343,6 +343,9 @@ export const measuresOptionsCRUD: OptionsCRUD = {
       caloriesPie: "caloriesPie",
       profileID: "pr.profile_id",
     },
+    orderByParam: {
+      measureID: `mes.${TABLES_DATA.MEASURE_ID}`,
+    },
   },
   permissions: PERMISSION_TRAINEE_BY_USER_ID,
   validateSchema: measuresSchema,

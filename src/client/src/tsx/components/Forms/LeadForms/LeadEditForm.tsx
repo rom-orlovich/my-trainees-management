@@ -5,7 +5,6 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { leadsApi } from "../../../redux/api/hooksAPI";
 import { LeadsTableAPI } from "../../../redux/api/interfaceAPI";
 
-import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import LeadsForm from "./LeadForm";

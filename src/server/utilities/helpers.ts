@@ -46,3 +46,12 @@ export const pt = (tn: string, tn2: string, obj: Record<string, any>) => {
     });
   }
 };
+export const formatDate = (date: Date, plusDay = 1) => {
+  const newDate = new Date(date);
+
+  const formatted = new Date(
+    newDate.getTime() + Math.abs(newDate.getTimezoneOffset() * 60000)
+  );
+  formatted.setDate(newDate.getDate() + plusDay);
+  return formatted.toLocaleDateString("en-CA");
+};

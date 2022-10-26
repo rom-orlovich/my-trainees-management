@@ -1,4 +1,5 @@
 import eachDayOfInterval from "date-fns/eachDayOfInterval";
+
 import { RequestHandler } from "webpack-dev-server";
 import {
   MeasuresCalResAPI,
@@ -9,11 +10,36 @@ export interface ChartDataResult {
   labelFormatted: string[];
   datasetsValues: number[];
 }
+
 export const calLabelDates = (startDate: Date, endDate: Date) => {
   const labels = eachDayOfInterval({ start: startDate, end: endDate });
   const labelFormatted = labels.map((el) => el.toLocaleDateString());
   return labelFormatted;
 };
+export const normalizeDatesValues = <
+  T extends { id: number; date: Date; value: number }[]
+>(
+  arr: T
+) => {
+  const map = new Map();
+  console.log(arr);
+  arr
+    .sort((a, b) => a.id - b.id)
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
+    .forEach((el) => {
+      map.set(el.date.getTime(), el.value);
+    });
+  console.log(map.entries());
+
+  const dates = [...map.keys()].map((el) => new Date(el).toLocaleDateString());
+
+  const values = [...map.values()];
+  return {
+    labelFormatted: dates,
+    datasetsValues: values,
+  };
+};
+
 export const calIntensity = (
   exerciseDataArr: TrainingProgramExerciseStatsAPI[]
 ) => exerciseDataArr.map((el) => el.intensity);
@@ -48,12 +74,16 @@ const caloriesChartCreateLabelAndDatasets = (data: MeasuresCalResAPI) => {
 };
 
 const measuresChartLineCreateLabelAndDatasets = (data: MeasuresCalResAPI[]) => {
-  const statsArr = data.sort((a, b) => a.date.getTime() - b.date.getTime());
-  const startDate = statsArr[0].date;
-  const endDate = statsArr[statsArr.length - 1].date;
-  const labelFormatted = calLabelDates(startDate, endDate);
-  const datasetsValues = statsArr.map((el) => el.weight);
-  return { labelFormatted, datasetsValues };
+  const statsArr = data.map((el) => ({
+    id: el.measure_id,
+    date: el.date,
+    value: el.weight,
+  }));
+  // const startDate = statsArr[0].date;
+  // const endDate = statsArr[statsArr.length - 1].date;
+  // const labelFormatted = calLabelDates(startDate, endDate);
+  // const datasetsValues = statsArr.map((el) => el.weight);
+  return normalizeDatesValues(statsArr);
 };
 
 export const handleGetStatistic: RequestHandler = async (req, res, next) => {

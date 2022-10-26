@@ -167,7 +167,7 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  pt(tableName, TABLES_DATA.LOCATION_TABLE_NAME, {
+  pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
     statement,
     queryParams,
   });

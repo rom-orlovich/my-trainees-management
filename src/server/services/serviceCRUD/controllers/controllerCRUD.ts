@@ -56,7 +56,9 @@ export function createRoutesControllers({
     } = req.query;
 
     const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
+
     const numResultDefault = Number(numResults || 5);
+
     const orderByParamRes =
       orderByParam && orderBy ? orderByParam[orderBy as string] : tableID;
     const [data, err] = await promiseHandler(
@@ -68,7 +70,7 @@ export function createRoutesControllers({
         createRealQueryKeyValuesObj(rest, queryParams),
         createRealQueryKeyValuesObj(rest, queryNameParam),
         ascDefault,
-        numResultDefault,
+        numResultDefault > 100 ? 100 : numResultDefault,
         orderByParamRes
       )
     );
