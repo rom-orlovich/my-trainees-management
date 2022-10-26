@@ -35,7 +35,6 @@ function CaloriesChart({
   queryOptions,
 }: PropsBasic & TraineeProfileProps) {
   const { profileID, username } = useGetUserTraineeData();
-  // const queryOptions = isTrainee ? { userID } : { trainerUserID: userID };
 
   const { data, isError, isFetching, isLoading } = measuresApi.useGetItemsQuery(
     {
@@ -52,7 +51,7 @@ function CaloriesChart({
       <LoadingSpinner
         message={
           <Link
-            to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}`}
+            to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?profileID=${profileID}`}
           >
             Add Measure
           </Link>

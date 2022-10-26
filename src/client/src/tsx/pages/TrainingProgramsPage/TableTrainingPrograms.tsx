@@ -26,7 +26,7 @@ const transformTrainingProgramList = ({
   ),
   ...rest,
 });
-function TableTrainingProgramList({
+function TableTrainingPrograms({
   traineeID,
   queriesOptions,
   nameData,
@@ -41,10 +41,10 @@ function TableTrainingProgramList({
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       queriesOptions={{ traineeID, ...queriesOptions }}
       editPagePath={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}`}
-      nameData={nameData || "Training Program List"}
+      nameData={nameData || "Training Program"}
       getAllQuery={trainingProgramsListApi.useGetItemsQuery}
     />
   );
 }
 
-export default TableTrainingProgramList;
+export default TableTrainingPrograms;

@@ -4,23 +4,25 @@ import { Link, useSearchParams } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { trainingProgramsListApi } from "../../redux/api/hooksAPI";
 import { TrainingProgramsListTableAPI } from "../../redux/api/interfaceAPI";
-import TableTrainingProgramList from "./TableTrainingProgramList";
+import TableTrainingPrograms from "./TableTrainingPrograms";
 
 import style from "../Page.module.scss";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
+import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 function TrainingProgramsPage() {
-  // const [trainee, setTrainee] = useState<string[]>(["", ""]);
+  const { isTrainee, traineeID } = useGetUserTraineeData();
   const [trainingProgram, setTrainingProgram] = useState<string[]>(["", ""]);
   const authState = useAppSelector(getAuthState);
+
   const queriesOptions = {
+    traineeID,
+    programType: trainingProgram[1],
     trainerUserID: authState.user?.user_id,
   };
-  const [queryParams] = useSearchParams();
-  const traineeID = queryParams.get("traineeID");
-
+  console.log(queriesOptions);
   return (
     <section className={style.page_container}>
       <div className={style.page_header}>
@@ -49,8 +51,8 @@ function TrainingProgramsPage() {
         </span>
       </div>
       <div className={style.page_main_content}>
-        <TableTrainingProgramList
-          traineeID={Number(traineeID)}
+        <TableTrainingPrograms
+          traineeID={traineeID}
           queriesOptions={queriesOptions}
         />
       </div>

@@ -55,7 +55,7 @@ function LoadingSpinner<T extends object>({
 
   const SpinnerMessage = (
     <p className={genClassName(`message_spinner`, style.loading_spinner)}>
-      {message || `${nameData} are not found`}
+      {message || `${nameData} is not found`}
     </p>
   );
 

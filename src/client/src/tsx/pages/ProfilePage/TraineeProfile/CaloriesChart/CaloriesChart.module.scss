@@ -25,6 +25,7 @@
     width: 100%;
     a {
       @include button(rgb(127 165 241), 0.5rem, 0.8rem);
+      font-size: 1.2rem;
       text-decoration: none;
       color: white;
     }
