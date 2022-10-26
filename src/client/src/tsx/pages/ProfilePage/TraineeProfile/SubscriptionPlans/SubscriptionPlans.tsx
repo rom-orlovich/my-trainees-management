@@ -36,7 +36,7 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
         useQuery={subscriptionPlansApi.useGetItemsQuery}
         queryOptions={{
           ...queryOptions,
-          asc: "true",
+          asc: "false",
           orderBy: "lastTraining",
         }}
         pagePath={""}

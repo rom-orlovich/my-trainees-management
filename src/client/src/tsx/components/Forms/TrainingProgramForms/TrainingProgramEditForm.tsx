@@ -1,8 +1,14 @@
 /* eslint-disable camelcase */
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import { trainingProgramsApi } from "../../../redux/api/hooksAPI";
-import { TrainingProgramExerciseOmit } from "../../../redux/api/interfaceAPI";
+import {
+  trainingProgramsApi,
+  trainingProgramsListApi,
+} from "../../../redux/api/hooksAPI";
+import {
+  API_ROUTES,
+  TrainingProgramExerciseOmit,
+} from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
@@ -23,13 +29,21 @@ export function TrainingProgramEditExerciseForm() {
     updateFunction({
       updateItem,
       id,
-    })(body).then(() =>
+    })(body).then(() => {
       dispatch(
         trainingProgramsApi.util.invalidateTags([
           { type: "exerciseStats", id: "exerciseStatsList" },
         ])
-      )
-    );
+      );
+      dispatch(
+        trainingProgramsListApi.util.invalidateTags([
+          {
+            type: API_ROUTES.TRAINING_PROGRAMS_LIST_ENTITY,
+            id: "training_programs_list",
+          },
+        ])
+      );
+    });
 
   return (
     <LoadingSpinner

@@ -22,6 +22,7 @@ function TrainingProgramsPage() {
     programType: trainingProgram[1],
     trainerUserID: authState.user?.user_id,
     orderBy: "updateDate",
+    asc: "false",
   };
 
   return (
