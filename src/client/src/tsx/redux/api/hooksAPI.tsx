@@ -20,7 +20,7 @@ import {
   ResponseQueryAPI,
   MeasuresCalResAPI,
   User,
-  ExerciseStatsGraphAPI,
+  ChartsDataAPI,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -107,7 +107,7 @@ export const trainingProgramsApi =
   }).injectEndpoints({
     endpoints: (builder) => ({
       getExerciseStats: builder.query<
-        ResponseQueryAPI<ExerciseStatsAPI> & ExerciseStatsGraphAPI,
+        ResponseQueryAPI<ExerciseStatsAPI> & ChartsDataAPI,
         Record<string, any>
       >({
         query: (params) => ({ url: `/stats`, params }),

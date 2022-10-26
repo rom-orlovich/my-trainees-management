@@ -47,6 +47,15 @@ const caloriesChartCreateLabelAndDatasets = (data: MeasuresCalResAPI) => {
   };
 };
 
+const measuresChartLineCreateLabelAndDatasets = (data: MeasuresCalResAPI[]) => {
+  const statsArr = data.sort((a, b) => a.date.getTime() - b.date.getTime());
+  const startDate = statsArr[0].date;
+  const endDate = statsArr[statsArr.length - 1].date;
+  const labelFormatted = calLabelDates(startDate, endDate);
+  const datasetsValues = statsArr.map((el) => el.weight);
+  return { labelFormatted, datasetsValues };
+};
+
 export const handleGetStatistic: RequestHandler = async (req, res, next) => {
   if (!req.statsData?.statsResult) return next();
 
@@ -58,10 +67,14 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
     );
   }
   if (statsResult.measures?.data.length) {
+    const results = statsResult.measures?.data;
     if (req.query.caloriesPie === "true") {
-      const results = statsResult.measures?.data;
       const lastResult = results[results.length - 1];
       result = caloriesChartCreateLabelAndDatasets(lastResult);
+    }
+
+    if (req.query.measuresChartLine === "true") {
+      result = measuresChartLineCreateLabelAndDatasets(results);
     }
   }
 

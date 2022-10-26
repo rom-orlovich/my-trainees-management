@@ -294,7 +294,7 @@ export interface ExerciseStatsAPI {
   intensity: number;
   rpe: number;
 }
-export interface ExerciseStatsGraphAPI {
+export interface ChartsDataAPI {
   labelFormatted: string[];
   datasetsValues: number[];
 }

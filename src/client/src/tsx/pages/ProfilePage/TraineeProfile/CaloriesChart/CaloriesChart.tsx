@@ -92,7 +92,6 @@ function CaloriesChart({
                     },
                     datalabels: {
                       formatter: dataLabelFormatterByUnit("cal"),
-
                       ...PIE_CHART_FONTS,
                       anchor: "end",
                       offset: [0, 2, 5],
