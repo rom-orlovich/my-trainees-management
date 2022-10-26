@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 import { exercisesApi } from "../../../redux/api/hooksAPI";
 import {
   ExercisesTableAPI,
@@ -21,7 +22,8 @@ export default function TrainingProgramForms({
   editMode,
   fromProps,
 }: GeneralFormProps<TrainingProgramExerciseOmit>) {
-  const authState = useGetUserLoginData();
+  const { trainerUserID, userID, isTrainee } = useGetUserTraineeData();
+  const queriesOptions = isTrainee ? { trainerUserID, userID } : { userID };
   return (
     <>
       <Form<TrainingProgramExerciseOmit>
@@ -54,7 +56,6 @@ export default function TrainingProgramForms({
             note_text,
           } = formState.errors;
 
-          const queriesOptions = { userID: authState.user_id };
           return (
             <>
               <InputLabel

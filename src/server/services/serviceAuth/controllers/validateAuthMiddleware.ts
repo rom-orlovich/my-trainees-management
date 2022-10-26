@@ -90,10 +90,12 @@ export const validateTokenMiddleware: RequestHandler = async (
     username: string;
     user_id: number;
     role: UserRoles;
+    trainer_user_id?: number;
   };
 
   req.auth_data = {
     jwt: accessToken,
+    trainer_user_id: userData.trainer_user_id,
     username: userData?.username,
     user_id: userData?.user_id,
     role: userData.role,

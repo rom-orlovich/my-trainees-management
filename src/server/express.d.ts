@@ -89,6 +89,7 @@ declare global {
       auth_data?: {
         username: string;
         user_id: number;
+        trainer_user_id?: number;
         jwt: string;
         role: UserRoles;
       };

@@ -24,6 +24,7 @@ function useGetUserTraineeData() {
     username,
     traineeID,
     profileID,
+    trainerUserID: userData?.trainer_user_id,
     userID: userData?.user_id,
     isTrainee,
   };

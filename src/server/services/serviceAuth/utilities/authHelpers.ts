@@ -34,6 +34,7 @@ export interface User {
   username: string;
   password: string;
   refresh_tokens: string[];
+  trainer_user_id?: number;
   role: UserRoles;
 }
 

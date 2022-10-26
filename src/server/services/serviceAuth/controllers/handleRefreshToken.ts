@@ -65,6 +65,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   const userSignature = {
     role: user[0].role,
+
     user_id: user[0].user_id,
     username: user[0].username,
   };

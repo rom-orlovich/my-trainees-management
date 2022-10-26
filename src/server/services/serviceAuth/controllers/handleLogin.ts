@@ -70,6 +70,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
   const userSignature = {
     role: user[0].role,
     user_id: user[0].user_id,
+
     username: user[0].username,
   };
 
@@ -128,6 +129,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     refresh_tokens: refreshTokenArr,
     ...restUser
   } = user[0];
+
   req.logAlertInfo = prepareLogAlert(
     {
       message,

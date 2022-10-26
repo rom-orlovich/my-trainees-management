@@ -251,6 +251,7 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
     queryParams: {
       id: "exercise_id",
       userID: "exer.user_id",
+      trainerUserID: "exer.user_id",
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY,

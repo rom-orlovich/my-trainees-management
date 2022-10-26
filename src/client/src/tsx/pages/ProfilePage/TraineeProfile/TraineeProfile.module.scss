@@ -27,8 +27,9 @@
 
 @include smartphone() {
   %shared {
-    height: fit-content;
-    min-height: fit-content;
+    // height: fit-content;
+    // min-height: fit-content;
+    flex: 1 1 15rem;
   }
   .trainee_profile_page_container {
     padding: 0.5rem 1rem;
@@ -41,11 +42,11 @@
   }
   .subscription_plans_grid_item {
     order: 4;
-    // @extend %shared;
+    @extend %shared;
   }
   .programs_grid_item {
     order: 2;
-    min-height: fit-content;
+    @extend %shared;
   }
 
   .calories_chart_grid_item {

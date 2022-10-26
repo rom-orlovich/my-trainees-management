@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import LoadingSpinner from "../../components/baseComponents/LoadingSpinner/LoadingSpinner";
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import { traineesApi, trainingProgramsListApi } from "../../redux/api/hooksAPI";
-import {
-  TraineesTableExtendsAPI,
-  TrainingProgramsListTableAPI,
-} from "../../redux/api/interfaceAPI";
+import { trainingProgramsListApi } from "../../redux/api/hooksAPI";
+import { TrainingProgramsListTableAPI } from "../../redux/api/interfaceAPI";
 import TableTrainingProgramList from "./TableTrainingProgramList";
 
 import style from "../Page.module.scss";
