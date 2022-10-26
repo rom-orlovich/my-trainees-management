@@ -20,7 +20,6 @@ import {
 import MeasureForm from "./MeasureForms";
 
 function MeasureEditForm() {
-  const [updateItem] = measuresApi.useUpdateItemMutation();
   const [addItem] = measuresApi.useCreateOneItemMutation();
 
   // If the user is trainee, the query is executed by his userID instead his trainerUserID.
@@ -29,8 +28,9 @@ function MeasureEditForm() {
     ? { profileID, userID }
     : { profileID, trainerUserID: userID };
 
-  const { data, isFetching, isError, isLoading } =
-    measuresApi.useGetItemsQuery(queryOptions);
+  const { data, isFetching, isError, isLoading } = measuresApi.useGetItemsQuery(
+    { ...queryOptions, asc: "false" }
+  );
 
   return (
     <LoadingSpinner
@@ -49,7 +49,7 @@ function MeasureEditForm() {
           protein_cals,
           fat_cals,
           ...rest
-        } = data.data[results.length - 1];
+        } = data.data[0];
         const handleSubmit = ({ measure_id, ...body }: MeasuresAPI) =>
           addFunction({
             addItem,

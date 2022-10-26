@@ -34,9 +34,11 @@ export function SelectInput({
 }: SelectInputProps & PropsBasic) {
   return (
     <span className={"selectInput_label"}>
-      <label htmlFor={htmlFor} {...LabelProps}>
-        {labelText}
-      </label>
+      {labelText && (
+        <label htmlFor={htmlFor} {...LabelProps}>
+          {labelText}
+        </label>
+      )}
       <span className={style.select_plus_button}>
         <select ref={ref} id={htmlFor} name={htmlFor} {...selectProps}>
           {options.map(({ label, value }, i) => (

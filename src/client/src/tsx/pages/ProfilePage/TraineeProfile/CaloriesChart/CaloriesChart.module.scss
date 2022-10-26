@@ -1,6 +1,12 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 .calories_chart_container {
   position: relative;
+  @include classMatcher("selectInput_label") {
+    @include posAbs(0%, null, 0%, null);
+    select {
+      min-width: 4rem;
+    }
+  }
   h2 {
     display: none;
   }
@@ -48,8 +54,8 @@
       }
     }
     .pie_chart {
-      width: 70% !important;
-      height: 70% !important;
+      width: 78% !important;
+      height: 78% !important;
 
       @include posAbs(60% !important, null, null, null);
     }
