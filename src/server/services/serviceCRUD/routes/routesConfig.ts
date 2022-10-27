@@ -451,10 +451,6 @@ export const traineesOptionsCRUD: OptionsCRUD = {
           "status",
         ],
       },
-      delete: {
-        otherTableName: TABLES_DATA.PROFILES_TABLE_NAME,
-        otherTableID: "profile_id",
-      },
     },
   },
   permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,

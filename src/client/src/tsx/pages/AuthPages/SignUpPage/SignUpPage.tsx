@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Card from "../../../components/baseComponents/Card/Card";
 import Form from "../../../components/baseComponents/RHF-Components/Form/Form";
 import { signUpSchema } from "../../../components/baseComponents/RHF-Components/formsSchemas";

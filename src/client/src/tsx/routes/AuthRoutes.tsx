@@ -20,6 +20,7 @@ const AuthRoutes = () => (
       path={APP_ROUTE.SIGN_UP_TRAINEE}
       element={<SignUpPageNewTrainee />}
     />
+    <Route path="*" element={<h1> not found</h1>} />
   </Routes>
 );
 

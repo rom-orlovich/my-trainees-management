@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import { traineesApi } from "../../../redux/api/hooksAPI";
+
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import SignUpPage from "./SignUpPage";
 
 function SignUpPageNewTrainee() {
   const { id } = useParams();
-
-  const [searchParams, setSearchParams] = useSearchParams();
+  const nav = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const { isError, isFetching, isLoading, data } =
     traineesApi.useGetRegisterTraineeQuery({
@@ -18,6 +20,7 @@ function SignUpPageNewTrainee() {
 
   return (
     <LoadingSpinner
+      isErrorFun={() => nav(`/${APP_ROUTE.LOGIN_ROUTE}`)}
       nameData="Trainee"
       stateData={{ isError, isFetching, isLoading, data }}
     >

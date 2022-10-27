@@ -288,13 +288,13 @@ CONSTRAINT fk_trainer_user_id
 CONSTRAINT fk_user_id 
     FOREIGN KEY(user_id)
     REFERENCES users(user_id)
-      ON DELETE SET NULL
+      ON DELETE CASCADE
       ON UPDATE CASCADE,
       
       CONSTRAINT fk_profile_id 
     FOREIGN KEY(profile_id)
     REFERENCES profiles(profile_id)
-      ON DELETE SET NULL
+      ON DELETE CASCADE
       ON UPDATE CASCADE
 );
 

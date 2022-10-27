@@ -4,8 +4,6 @@ import { authApi } from "../../redux/api/authAPI";
 import { useAppSelector } from "../../redux/hooks";
 
 function PublicRoute() {
-  const nav = useNavigate();
-
   return <Outlet />;
 }
 
