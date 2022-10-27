@@ -13,7 +13,7 @@ export const apiAuthBaseQuery = fetchBaseQuery({
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: apiAuthBaseQuery,
-
+  tagTypes: [API_ROUTES.TRAINEES_ENTITY],
   endpoints: (builder) => ({
     signUp: builder.mutation<
       any,

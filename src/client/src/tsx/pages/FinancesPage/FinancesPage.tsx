@@ -8,30 +8,28 @@ import { InputLabel } from "../../components/baseComponents/RHF-Components/Input
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import { genClassName } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
-// import style from "./ExerciseStatsPage.module.scss";
+import style from "./FinancesPage.module.scss";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
-import ExpensesTable from "./ExpensesTable/ExpensesTable";
-import IncomesTable from "./IncomesTable/IncomesTable";
+import ExpensesTable from "./ExpensesTable";
+import IncomesTable from "./IncomesTable";
 
 const displayOptions = [
-  { label: "Table", value: "table" },
-  { label: "Graph", value: "graph" },
+  { label: "Incomes", value: "incomes" },
+  { label: "Expenses", value: "expenses" },
 ];
 
 function FinancesPage() {
   const authState = useAppSelector(getAuthState);
 
-  const [{ gt, lt, display }, setQueryState] = useState({
+  const [{ gt, lt, display }, onChange] = useOnChangeInput({
     gt: "",
     lt: "",
-    display: "graph",
+    display: "incomes",
   });
-
-  const [state, onChange] = useOnChangeInput({});
 
   const queriesOptions = {};
   const content =
-    display === "graph" ? (
+    display === "incomes" ? (
       // <ExerciseStatsChart queriesOptions={queriesOptions} />
       <IncomesTable />
     ) : (
@@ -41,8 +39,8 @@ function FinancesPage() {
   return (
     <section
       className={genClassName(
-        page.page_container
-        // page.exercise_stats_page_container
+        page.page_container,
+        style.finances_page_container
       )}
     >
       <div className={genClassName(page.page_header)}>

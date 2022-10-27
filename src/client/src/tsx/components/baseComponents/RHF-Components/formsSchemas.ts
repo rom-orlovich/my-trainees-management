@@ -79,7 +79,7 @@ export const exercisesListSchema = yup.object().shape({
 export const trainingProgramsListSchema = yup.object().shape({
   training_programs_list_id: yup.number().notRequired().nullable(),
   trainee_id: yup.number().notRequired(),
-  type_program: yup.string().required(),
+  program_type: yup.string().required(),
   date_start: yup.date().required(),
   date_end: yup
     .date()
@@ -124,7 +124,7 @@ export const trainingProgramSchema = yup.object().shape({
 export const nutritionProgramsListSchema = yup.object().shape({
   nutrition_programs_list_id: yup.number().notRequired().nullable(),
   trainee_id: yup.number().required(),
-  type_program: yup.string().required(),
+  program_type: yup.string().required(),
   date_start: yup.date().required(),
   date_end: yup
     .date()
@@ -191,7 +191,7 @@ export const traineesSchema = yup.object().shape({
 export const subscriptionPlansSchema = yup.object().shape({
   subscription_plan_id: yup.number().notRequired().nullable(),
   trainee_id: yup.number().required(),
-  plan_name: yup.string().required(),
+  product_id: yup.number().required(),
   current_num_trainings: yup
     .number()
     .required()
@@ -208,12 +208,27 @@ export const subscriptionPlansSchema = yup.object().shape({
 
 export const incomesSchema = yup.object().shape({
   income_id: yup.number().notRequired().nullable(),
-  income_name: yup.string().required(),
+  product_id: yup.number().required(),
   date: yup.date().required(),
   buyer_id: yup.number().required(),
-  incomes_amount: yup.number().required(),
+  amount: yup.number().default(1),
+  total_price: yup
+    .number()
+    .required()
+    .min(1, "Total price must be a positive value"),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
+  user_id: yup.number().notRequired().nullable().default(1),
+});
+export const productSchema = yup.object().shape({
+  product_id: yup.number().notRequired(),
+  product_name: yup.date().required(),
+  product_type: yup.string().required(),
+  max_training: yup
+    .number()
+    .notRequired()
+    .transform((value) => (Number.isNaN(value) ? undefined : value)),
+  price: yup.number().required().min(1, "Total price must be a positive value"),
   user_id: yup.number().notRequired().nullable().default(1),
 });
 export const loginSchema = yup.object().shape({

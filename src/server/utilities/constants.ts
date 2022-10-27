@@ -30,8 +30,7 @@ export enum TABLES_DATA {
   LOCATION_ID = "location_id",
   PROVIDERS_TABLE_NAME = "providers",
   PROVIDERS_ID = "provider_id",
-  EXPENSES_TABLE_NAME = "expenses",
-  EXPENSES_ID = "expense_id",
+
   EQUIPMENTS_TABLE_NAME = "equipments",
   EQUIPMENTS_ID = "equipment_id",
   EXERCISES_LIST_TABLE_NAME = "exercises_list",
@@ -50,7 +49,6 @@ export enum TABLES_DATA {
   NUTRITION_PROGRAM_ID = "nutrition_program_id",
   MEASURES_TABLE_NAME = "measures",
   MEASURE_ID = "measure_id",
-
   TRAINING_PROGRAM_TABLE_NAME = "training_program",
   TRAINING_PROGRAM_ID = "training_program_row_id",
   TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME = "training_program_exercises_stats",
@@ -59,4 +57,8 @@ export enum TABLES_DATA {
   WEEKLY_ID = "week_id",
   INCOMES_TABLE_NAME = "incomes",
   INCOME_ID = "income_id",
+  EXPENSES_TABLE_NAME = "expenses",
+  EXPENSES_ID = "expense_id",
+  PRODUCTS_TABLE_NAME = "products",
+  PRODUCT_ID = "product_id",
 }

@@ -39,7 +39,7 @@ export const TRAINER_SIDE_BAR_LINKS: LinkData[] = [
   },
 
   {
-    to: `${APP_ROUTE.COMING_SOON}/${APP_ROUTE.FINANCES_ROUTE}`,
+    to: `/${APP_ROUTE.FINANCES_ROUTE}`,
     text: "Finances",
     icon: <FaMoneyBillAlt className={style.icon} />,
   },

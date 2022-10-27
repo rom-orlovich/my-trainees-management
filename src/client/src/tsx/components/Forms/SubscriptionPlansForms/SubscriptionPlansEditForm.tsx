@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
@@ -18,11 +19,11 @@ function SubscriptionPlansEditForm() {
     });
   const [updateItem] = subscriptionPlansApi.useUpdateItemMutation();
 
-  const handleSubmit = (body: SubscriptionPlansAPI) =>
+  const handleSubmit = ({ product_name, ...rest }: SubscriptionPlansAPI) =>
     updateFunction({
       updateItem,
       id,
-    })(body);
+    })(rest);
 
   return (
     <LoadingSpinner

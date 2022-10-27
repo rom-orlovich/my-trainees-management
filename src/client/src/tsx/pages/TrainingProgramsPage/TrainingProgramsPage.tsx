@@ -29,7 +29,7 @@ function TrainingProgramsPage() {
     <section className={style.page_container}>
       <div className={style.page_header}>
         <AutocompleteInput<TrainingProgramsListTableAPI>
-          keys={["type_program"]}
+          keys={["program_type"]}
           id={"training_programs_list_id"}
           loadingSpinnerResult={{ nameData: "Workout" }}
           setSelectOptionValue={setTrainingProgram}

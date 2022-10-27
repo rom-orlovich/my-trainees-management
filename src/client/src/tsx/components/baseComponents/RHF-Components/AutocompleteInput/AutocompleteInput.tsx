@@ -6,6 +6,7 @@ import React, {
   ChangeEvent,
   ReactNode,
   Suspense,
+  useDeferredValue,
   useEffect,
   useRef,
   useState,
@@ -71,6 +72,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   // The first element in array is the id of the option. The sec element is the input value.
   const [inputValueName, setInputValue] = useState(["", ""]);
   // Debounce the input value change.
+
   const debounce = useDebounceHook(inputValueName, 500);
   const autoCompleteContainerRef = useRef<HTMLDivElement | null>(null);
   const isVisible = useHideUnFocusElement(autoCompleteContainerRef);

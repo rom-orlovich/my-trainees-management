@@ -173,7 +173,7 @@ export interface ExercisesTableAPI {
 export interface TrainingProgramsListTableAPI {
   training_programs_list_id?: number;
   trainee_id: number;
-  type_program?: string;
+  program_type?: string;
   update_date?: Date;
   date_start: Date;
   date_end?: Date;
@@ -215,7 +215,7 @@ export interface NutritionProgramsListTable {
   user_id?: number;
   nutrition_programs_list_id?: number;
   trainee_id: number;
-  type_program?: string | null;
+  program_type?: string | null;
   date_start: Date;
   date_end?: Date | null;
   note_topic: string | null;
@@ -251,7 +251,8 @@ export interface TraineesBaseTableAPI {
 export interface SubscriptionPlansAPI {
   subscription_plan_id?: number;
   trainee_id: number;
-  plan_name: string;
+  product_id: number;
+  product_name?: string;
   current_num_trainings: number;
   total_trainings: number;
   last_training: Date;

@@ -112,19 +112,19 @@ SELECT pg_catalog.setval('public.measures_measure_id_seq', 5, false);
 --
 
 
-INSERT INTO public.subscription_plans (subscription_plan_id, trainee_id, plan_name, current_num_trainings, total_trainings, last_training) VALUES (1, 1, '2 trainings', 2, 2, '2022-10-23');
-INSERT INTO public.subscription_plans (subscription_plan_id, trainee_id, plan_name, current_num_trainings, total_trainings, last_training) VALUES (2, 1, '2 training', 0, 2, '2022-10-27');
+-- INSERT INTO public.subscription_plans (subscription_plan_id, trainee_id, plan_name, current_num_trainings, total_trainings, last_training) VALUES (1, 1, '2 trainings', 2, 2, '2022-10-23');
+-- INSERT INTO public.subscription_plans (subscription_plan_id, trainee_id, plan_name, current_num_trainings, total_trainings, last_training) VALUES (2, 1, '2 training', 0, 2, '2022-10-27');
 
 
-SELECT pg_catalog.setval('public.subscription_plans_subscription_plan_id_seq', 3, false);
+-- SELECT pg_catalog.setval('public.subscription_plans_subscription_plan_id_seq', 3, false);
 --
 -- Data for Name: training_programs_list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
-INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, type_program, date_start, date_end, note_topic, note_text) VALUES (1, 1, 'a', '2022-10-19', '2022-10-27', '', '');
-INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, type_program, date_start, date_end, note_topic, note_text) VALUES (2, 1, 'b', '2022-10-19', '2022-10-25', '', '');
-INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, type_program, date_start, date_end, note_topic, note_text) VALUES (3, 1, 'fbw', '2022-10-19', '2022-10-27', '', '');
-INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, type_program, date_start, date_end, note_topic, note_text) VALUES (4, 4, 'fbw', '2022-10-26', '2022-10-27', '', '');
-INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, type_program, date_start, date_end, note_topic, note_text) VALUES (5, 2, 'fbw', '2022-10-26', '2022-10-27', '', '');
+INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, program_type, date_start, date_end, note_topic, note_text) VALUES (1, 1, 'a', '2022-10-19', '2022-10-27', '', '');
+INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, program_type, date_start, date_end, note_topic, note_text) VALUES (2, 1, 'b', '2022-10-19', '2022-10-25', '', '');
+INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, program_type, date_start, date_end, note_topic, note_text) VALUES (3, 1, 'fbw', '2022-10-19', '2022-10-27', '', '');
+INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, program_type, date_start, date_end, note_topic, note_text) VALUES (4, 4, 'fbw', '2022-10-26', '2022-10-27', '', '');
+INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, program_type, date_start, date_end, note_topic, note_text) VALUES (5, 2, 'fbw', '2022-10-26', '2022-10-27', '', '');
 
 SELECT pg_catalog.setval('public.training_programs_list_training_programs_list_id_seq', 6, false);
 

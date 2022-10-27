@@ -277,7 +277,7 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
       traineeID: `${TABLES_DATA.TRAINEE_ID}`,
     },
     queryNameParam: {
-      programType: "type_program",
+      programType: "program_type",
     },
     orderByParam: { updateDate: "update_date" },
   },
@@ -462,11 +462,31 @@ export const incomesOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.INCOMES_TABLE_NAME} as in`,
     tableID: `in.${TABLES_DATA.INCOME_ID}`,
-    fieldNamesQuery: ` in.*, pr.first_name,pr.last_name,`,
-    querySelectLogic: `JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as pr ON 
-    pr.${TABLES_DATA.TRAINEE_ID}=in.buyer_id `,
+    fieldNamesQuery: ` in.*,profile.first_name,profile.last_name,pr.price,pr.product_name`,
+    querySelectLogic: `JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON 
+    tr.${TABLES_DATA.TRAINEE_ID}=in.buyer_id
+    JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as profile ON 
+    profile.${TABLES_DATA.PROFILE_ID}= tr.${TABLES_DATA.PROFILE_ID} 
+    JOIN ${TABLES_DATA.PRODUCTS_TABLE_NAME} as pr ON 
+    pr.${TABLES_DATA.PRODUCT_ID}= in.${TABLES_DATA.PRODUCT_ID}
+    `,
     queryParams: {
       userID: "in.user_id",
+    },
+  },
+  permissions: PERMISSION_TRAINER_BY_USER_ID,
+  validateSchema: incomesSchema,
+};
+
+export const productsOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.PRODUCT_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.PRODUCTS_TABLE_NAME} as pro`,
+    tableID: `pro.${TABLES_DATA.PRODUCT_ID}`,
+    fieldNamesQuery: ` pro.*`,
+    querySelectLogic: ``,
+    queryParams: {
+      userID: "pro.user_id",
     },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,
@@ -556,4 +576,5 @@ export const routesCRUDArr: {
     baseRoute: API_ROUTES.INCOMES_ROUTE,
     optionsCRUD: incomesOptionsCRUD,
   },
+  { optionsCRUD: productsOptionsCRUD, baseRoute: API_ROUTES.PRODUCTS_ROUTE },
 ];

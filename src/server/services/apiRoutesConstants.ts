@@ -26,8 +26,7 @@ export enum API_ROUTES {
   PROVIDERS_ENTITY = "provider",
   WEEKS_ROUTE = "/api/weeks",
   WEEKS_ENTITY = "week",
-  EXPENSES_ROUTE = "/api/expenses",
-  EXPENSES_ENTITY = "expense",
+
   EQUIPMENTS_ROUTE = "/api/equipments",
   EQUIPMENTS_ENTITY = "equipment",
   EXERCISES_ROUTE = "/api/exercises",
@@ -50,6 +49,10 @@ export enum API_ROUTES {
   SUBSCRIPTION_PLANS_ENTITY = "subscription",
   INCOMES_ROUTE = "/api/incomes",
   INCOMES_ENTITY = "income",
+  EXPENSES_ROUTE = "/api/expenses",
+  EXPENSES_ENTITY = "expense",
+  PRODUCTS_ROUTE = "/api/products",
+  PRODUCT_ENTITY = "product",
   MAIL_ROUTE = "/api/mail",
 }
 

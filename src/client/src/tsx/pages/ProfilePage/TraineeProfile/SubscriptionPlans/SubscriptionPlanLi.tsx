@@ -7,7 +7,7 @@ import { formatDate } from "../../../../utilities/helpersFun";
 import listProfileStyle from "../../ListProfile/ListProfile.module.scss";
 
 function SubscriptionPlanLi({
-  plan_name,
+  product_name,
   current_num_trainings,
   total_trainings,
   last_training,
@@ -21,7 +21,7 @@ function SubscriptionPlanLi({
         <Link
           to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_EDIT}/${subscription_plan_id}`}
         >
-          {plan_name}
+          {product_name || ""}
         </Link>
       </span>
       <span className={listProfileStyle.list_detail}>

@@ -30,7 +30,7 @@ function SubscriptionPlansForm({
       >
         {({ register, formState }) => {
           const {
-            plan_name,
+            product_id,
             current_num_trainings,
             total_trainings,
             last_training,
@@ -38,17 +38,17 @@ function SubscriptionPlansForm({
 
           return (
             <>
-              <InputLabel
+              {/* <InputLabel
                 InputProps={{
-                  ...register("plan_name"),
+                  ...register("product_id"),
                 }}
                 LabelProps={{
                   htmlFor: "plan_name",
                   labelText: "Plan Name",
                 }}
               >
-                <InputErrorMessage nameInput="Plan Name" error={plan_name} />
-              </InputLabel>
+                <InputErrorMessage nameInput="Plan Name" error={product_id} />
+              </InputLabel> */}
               <InputLabel
                 InputProps={{
                   ...register("current_num_trainings"),

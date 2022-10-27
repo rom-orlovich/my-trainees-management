@@ -29,21 +29,21 @@ export function TrainingProgramListForms({
         }}
       >
         {({ register, formState }) => {
-          const { date_start, date_end, type_program, note_topic, note_text } =
+          const { date_start, date_end, program_type, note_topic, note_text } =
             formState.errors;
 
           return (
             <>
               <InputLabel
-                InputProps={{ ...register("type_program") }}
+                InputProps={{ ...register("program_type") }}
                 LabelProps={{
-                  htmlFor: "type_program",
+                  htmlFor: "program_type",
                   labelText: "Program's type",
                 }}
               >
                 <InputErrorMessage
                   nameInput="Start Program"
-                  error={type_program}
+                  error={program_type}
                 />
               </InputLabel>
               <InputLabel

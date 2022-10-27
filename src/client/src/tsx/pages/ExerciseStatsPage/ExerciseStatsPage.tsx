@@ -11,6 +11,7 @@ import { genClassName } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
 import style from "./ExerciseStatsPage.module.scss";
 import ExerciseStatsChart from "./ExerciseStatsChart";
+import useOnChangeInput from "../../hooks/useOnChangeInput";
 
 const displayOptions = [
   { label: "Table", value: "table" },
@@ -21,15 +22,22 @@ function ExerciseStatsPage() {
   const [queryParams] = useSearchParams();
   const authState = useAppSelector(getAuthState);
 
-  const [{ gt, lt, display }, setQueryState] = useState({
+  // const [{ gt, lt, display }, setQueryState] = useState({
+  //   gt: "",
+  //   lt: "",
+  //   display: "graph",
+  // });
+
+  // const onChange = <T extends { id: any; value: any }>(e: ChangeEvent<T>) => {
+  //   setQueryState((pre) => ({ ...pre, [e.target.id]: e.target.value }));
+  // };
+
+  const [{ gt, lt, display }, onChange] = useOnChangeInput({
     gt: "",
     lt: "",
     display: "graph",
   });
 
-  const onChange = <T extends { id: any; value: any }>(e: ChangeEvent<T>) => {
-    setQueryState((pre) => ({ ...pre, [e.target.id]: e.target.value }));
-  };
   const params = useParams();
   const { exerciseID } = params;
   const queriesOptions = {
@@ -55,12 +63,7 @@ function ExerciseStatsPage() {
         style.exercise_stats_page_container
       )}
     >
-      <div
-        className={genClassName(
-          page.page_header
-          //  style.filters_container
-        )}
-      >
+      <div className={genClassName(page.page_header)}>
         <span className={page.dates_container}>
           <InputLabel
             LabelProps={{ labelText: "Date Start", htmlFor: "gt" }}
