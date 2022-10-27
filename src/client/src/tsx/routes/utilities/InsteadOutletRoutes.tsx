@@ -11,8 +11,12 @@ export type InsteadOutletRoutesProps<CTX> = PropsBasic & {
   context?: CTX;
 };
 
-// When the url endpoint matches the InsteadOutletRoutesPaths, the component will display the children
-// instead the Outlet component.
+/**
+ * 
+ When the url endpoint matches the InsteadOutletRoutesPaths, the component will display the children
+ instead  and not the Outlet component.
+ */
+
 function InsteadOutletRoutes<CTX>({
   children,
   context,

@@ -26,16 +26,14 @@ function UsersTable({
   const [deleteItem] = useDeleteItemMutation();
 
   return (
-    <InsteadOutletRoutes InsteadOutletRoutesPaths={[APP_ROUTE.USERS_ROUTE, ""]}>
-      <TablePagination<User>
-        editPagePath={APP_ROUTE.USERS_ROUTE}
-        queriesOptions={{ mainName, ...queriesOptions }}
-        nameData={"Users"}
-        transformFun={transformDataUser}
-        getAllQuery={useGetItemsQuery}
-        deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
-      />
-    </InsteadOutletRoutes>
+    <TablePagination<User>
+      editPagePath={APP_ROUTE.USERS_ROUTE}
+      queriesOptions={{ mainName, ...queriesOptions }}
+      nameData={"Users"}
+      transformFun={transformDataUser}
+      getAllQuery={useGetItemsQuery}
+      deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
+    />
   );
 }
 

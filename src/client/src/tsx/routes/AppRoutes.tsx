@@ -50,7 +50,7 @@ function AppRoutes() {
             <Route
               path={`${APP_ROUTE.COMING_SOON}/*`}
               element={<ComingSoonPage />}
-            ></Route>
+            />
             <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />} />
 
             <Route
@@ -71,8 +71,7 @@ function AppRoutes() {
 
             {/* The admin and trainer shared role routes. */}
             <Route
-              element={<ProtectedRoute allowedRole={true} />}
-              // element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
+              element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
             >
               <Route
                 path={`${APP_ROUTE.SETTINGS_ROUTE}/*`}
@@ -96,7 +95,10 @@ function AppRoutes() {
 
             {/* The admin role routes. */}
             <Route element={<ProtectedRoute allowedRole={isAdmin} />}>
-              <Route path={APP_ROUTE.USERS_ROUTE} element={<UsersPage />} />
+              <Route path={APP_ROUTE.USERS_ROUTE}>
+                <Route path="" element={<UsersPage />} />
+                <Route path=":id" element={<ComingSoonPage />} />
+              </Route>
             </Route>
 
             {/* The trainee role routes. */}

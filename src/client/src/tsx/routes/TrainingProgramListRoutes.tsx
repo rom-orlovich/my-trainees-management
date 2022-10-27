@@ -8,7 +8,6 @@ import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/Trai
 import ExerciseStatsPage from "../pages/ExerciseStatsPage/ExerciseStatsPage";
 import TrainingProgramsPage from "../pages/TrainingProgramsPage/TrainingProgramsPage";
 import { APP_ROUTE } from "./appRoutesConstants";
-import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 
 const TrainingProgramListRoutes = () => (
   <Routes>
@@ -17,16 +16,10 @@ const TrainingProgramListRoutes = () => (
     <Route
       path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
       element={<TrainingProgramsListAddForm />}
-    ></Route>
+    />
     <Route
       path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
-      element={
-        <InsteadOutletRoutes
-          InsteadOutletRoutesPaths={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
-        >
-          <TrainingProgramExercises />
-        </InsteadOutletRoutes>
-      }
+      element={<TrainingProgramExercises />}
     >
       <Route path={`:exerciseID/stats`} element={<ExerciseStatsPage />} />
       <Route

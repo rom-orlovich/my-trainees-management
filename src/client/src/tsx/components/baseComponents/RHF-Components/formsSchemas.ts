@@ -234,7 +234,7 @@ export const signUpSchema = yup.object().shape({
     .min(8, "Must be 8 characters or more.")
     .matches(/[a-z]+/, "One lowercase character.")
     .matches(/[A-Z]+/, "One uppercase character.")
-    .matches(/[@$!%*#?&]+/, "One special character.")
+    // .matches(/[@$!%*#?&]+/, "One special character.")
     .matches(/\d+/, "One number."),
   confirmPassword: yup
     .string()

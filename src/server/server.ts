@@ -5,16 +5,12 @@ import { config } from "dotenv";
 
 config();
 import cookiesParser from "cookie-parser";
-
 import express from "express";
 import cors from "cors";
 import path from "path";
-
 import { Server } from "http";
-
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
-
 import { routesCRUDArr } from "./services/serviceCRUD/routes/routesConfig";
 import { createCRUDroutes } from "./services/serviceCRUD/routes/routesCRUD";
 import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
