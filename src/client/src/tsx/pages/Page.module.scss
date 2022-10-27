@@ -19,6 +19,20 @@
         background-color: #75b1dd;
       }
     }
+
+    @include flex-dir(null, null, row);
+
+    .dates_container {
+      @include flex-dir(null, null);
+      gap: 0.5rem;
+
+      @include classMatcher("input_label") {
+        max-width: 50%;
+      }
+    }
+    @include classMatcher("selectInput_label") {
+      flex: initial;
+    }
   }
   .page_main_content {
     background-color: initial;
@@ -50,6 +64,28 @@
       }
       a {
         font-size: 0.7rem;
+      }
+
+      .dates_container {
+        padding: 0rem 0.5rem;
+        max-width: 100%;
+        @include flex-dir(null, null, column);
+
+        width: 100%;
+        @include classMatcher("input_label") {
+          max-width: initial;
+
+          input {
+            width: 100%;
+          }
+        }
+      }
+      @include classMatcher("selectInput_label") {
+        @include posAbs(0.5%, null, 2%, null);
+        max-width: initial;
+        label {
+          display: none;
+        }
       }
     }
     .page_main_content {

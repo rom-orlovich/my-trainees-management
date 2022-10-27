@@ -29,6 +29,7 @@ import ProfilePage from "../pages/ProfilePage/Profile";
 import TraineesRoutes from "./TraineesRoutes";
 import { MeasureAddForm } from "../components/Forms/MeasuresForms/MeasureAddForm";
 import MeasureEditForm from "../components/Forms/MeasuresForms/MeasureEditForm";
+import FinancesPage from "../pages/FinancesPage/FinancesPage";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -86,6 +87,11 @@ function AppRoutes() {
               />
               <Route path=":id" element={<LeadEditForm />} />
             </Route>
+
+            <Route
+              path={APP_ROUTE.FINANCES_ROUTE}
+              element={<FinancesPage />}
+            ></Route>
           </Route>
 
           {/* The admin role routes. */}

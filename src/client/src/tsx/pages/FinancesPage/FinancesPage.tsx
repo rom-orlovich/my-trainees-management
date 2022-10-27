@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
 import { useParams, useSearchParams } from "react-router-dom";
-import ExerciseStatsTable from "./ExerciseStatsTable";
 
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
@@ -9,16 +8,17 @@ import { InputLabel } from "../../components/baseComponents/RHF-Components/Input
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import { genClassName } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
-import style from "./ExerciseStatsPage.module.scss";
-import ExerciseStatsChart from "./ExerciseStatsChart";
+// import style from "./ExerciseStatsPage.module.scss";
+import useOnChangeInput from "../../hooks/useOnChangeInput";
+import ExpensesTable from "./ExpensesTable/ExpensesTable";
+import IncomesTable from "./IncomesTable/IncomesTable";
 
 const displayOptions = [
   { label: "Table", value: "table" },
   { label: "Graph", value: "graph" },
 ];
 
-function ExerciseStatsPage() {
-  const [queryParams] = useSearchParams();
+function FinancesPage() {
   const authState = useAppSelector(getAuthState);
 
   const [{ gt, lt, display }, setQueryState] = useState({
@@ -27,40 +27,25 @@ function ExerciseStatsPage() {
     display: "graph",
   });
 
-  const onChange = <T extends { id: any; value: any }>(e: ChangeEvent<T>) => {
-    setQueryState((pre) => ({ ...pre, [e.target.id]: e.target.value }));
-  };
-  const params = useParams();
-  const { exerciseID } = params;
-  const queriesOptions = {
-    trainerUserID: authState.user?.user_id,
-    gt,
-    lt,
-    exerciseID,
-  };
+  const [state, onChange] = useOnChangeInput({});
+
+  const queriesOptions = {};
   const content =
     display === "graph" ? (
-      <ExerciseStatsChart queriesOptions={queriesOptions} />
+      // <ExerciseStatsChart queriesOptions={queriesOptions} />
+      <IncomesTable />
     ) : (
-      <>
-        <h1 className={style.exercise_name}>{queryParams.get("exercise")} </h1>
-        <ExerciseStatsTable queriesOptions={queriesOptions} />
-      </>
+      <ExpensesTable />
     );
 
   return (
     <section
       className={genClassName(
-        page.page_container,
-        style.exercise_stats_page_container
+        page.page_container
+        // page.exercise_stats_page_container
       )}
     >
-      <div
-        className={genClassName(
-          page.page_header
-          //  style.filters_container
-        )}
-      >
+      <div className={genClassName(page.page_header)}>
         <span className={page.dates_container}>
           <InputLabel
             LabelProps={{ labelText: "Date Start", htmlFor: "gt" }}
@@ -83,4 +68,4 @@ function ExerciseStatsPage() {
   );
 }
 
-export default ExerciseStatsPage;
+export default FinancesPage;

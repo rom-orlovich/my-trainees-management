@@ -13,7 +13,6 @@ export enum APP_ROUTE {
   COMING_SOON = "comingSoon",
 
   TRAINEES_ROUTE = "trainees",
-
   TRAINEES_ROUTE_ADD = "addNewTrainee",
 
   TRAINING_PROGRAMS_LIST_ROUTE = "trainingProgramsList",
@@ -63,4 +62,7 @@ export enum APP_ROUTE {
   SUBSCRIPTION_PLANS_ROUTE_EDIT = "subscriptionPlansEdit",
   FINANCES_ROUTE = "finances",
   SCHEDULE_ROUTE = "schedule",
+
+  EXPENSES_ROUTE = "expenses",
+  INCOMES_ROUTE = "incomes",
 }
