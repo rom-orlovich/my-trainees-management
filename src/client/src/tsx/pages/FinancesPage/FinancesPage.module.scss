@@ -1,3 +1,42 @@
 @use "../../../style/utilities/utilities.scss" as *;
 .finances_page_container {
+  @include classMatcher("page_header") {
+    .add_change_display_container {
+      width: 35%;
+      @include flex-dir(space-between, center);
+      gap: 0.5rem;
+      @include classMatcher("selectInput") {
+        position: initial !important;
+        min-width: 50%;
+        select {
+          min-width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@include smartphone() {
+  .finances_page_container {
+    @include classMatcher("page_header") {
+      display: flex;
+      flex-direction: column;
+
+      @include classMatcher("dates_container") {
+        order: 2;
+      }
+
+      .add_change_display_container {
+        order: 1;
+        margin-top: 1rem;
+        width: 100%;
+        @include flex-dir(space-between, null, row);
+        @include classMatcher("selectInput") {
+          select {
+            min-width: 100%;
+          }
+        }
+      }
+    }
+  }
 }

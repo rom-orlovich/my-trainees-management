@@ -39,6 +39,7 @@ import {
 import { createControllersHandlerAndRouterWithAppMiddleware } from "../utilities/helperServiceCRUD";
 import {
   createAlertsRouter,
+  createIncomesRouter,
   createMeasuresRouter,
   createTraineesRouter,
 } from "./otherRouters";
@@ -573,15 +574,16 @@ export const routesConfigArr: {
     baseRoute: API_ROUTES.SUBSCRIPTION_PLANS_ROUTE,
     router: createCRUDroutes(subscriptionPlansOptionsCRUD),
   },
-  {
-    baseRoute: API_ROUTES.INCOMES_ROUTE,
-    router: createCRUDroutes(incomesOptionsCRUD),
-  },
 
   {
     baseRoute: API_ROUTES.PRODUCTS_ROUTE,
     router: createCRUDroutes(productsOptionsCRUD),
   },
+  {
+    baseRoute: API_ROUTES.INCOMES_ROUTE,
+    router: createIncomesRouter(),
+  },
+
   { baseRoute: API_ROUTES.MEASURES_ROUTE, router: createMeasuresRouter() },
   {
     baseRoute: API_ROUTES.TRAINEES_ROUTE,

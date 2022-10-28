@@ -47,13 +47,14 @@ export enum API_ROUTES {
   TRAINEES_ENTITY = "trainee",
   SUBSCRIPTION_PLANS_ROUTE = "/api/subscriptionPlans",
   SUBSCRIPTION_PLANS_ENTITY = "subscription",
+
+  MAIL_ROUTE = "/api/mail",
   INCOMES_ROUTE = "/api/incomes",
   INCOMES_ENTITY = "income",
   EXPENSES_ROUTE = "/api/expenses",
   EXPENSES_ENTITY = "expense",
   PRODUCTS_ROUTE = "/api/products",
   PRODUCT_ENTITY = "product",
-  MAIL_ROUTE = "/api/mail",
 }
 
 export const URL_REACT_CLIENT = "http://localhost:3000";

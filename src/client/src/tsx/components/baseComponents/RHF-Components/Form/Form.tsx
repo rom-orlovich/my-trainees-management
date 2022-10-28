@@ -18,7 +18,6 @@ import {
   getFormsState,
   saveFormState,
 } from "../../../../redux/slices/formValuesStateSlice";
-import { genClassName } from "../../../../utilities/helpersFun";
 
 import { FormProps } from "../../baseComponentsTypes";
 import style from "./Form.module.scss";

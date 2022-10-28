@@ -88,10 +88,12 @@ function AppRoutes() {
               <Route path=":id" element={<LeadEditForm />} />
             </Route>
 
-            <Route
-              path={APP_ROUTE.FINANCES_ROUTE}
-              element={<FinancesPage />}
-            ></Route>
+            <Route path={APP_ROUTE.FINANCES_ROUTE} element={<FinancesPage />}>
+              <Route path={APP_ROUTE.INCOMES_ROUTE}>
+                <Route path={APP_ROUTE.INCOMES_ADD} element={<></>} />
+              </Route>
+              <Route path={APP_ROUTE.EXPENSES_ROUTE}> </Route>
+            </Route>
           </Route>
 
           {/* The admin role routes. */}

@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
-import { useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
@@ -12,6 +12,7 @@ import style from "./FinancesPage.module.scss";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
 import ExpensesTable from "./ExpensesTable";
 import IncomesTable from "./IncomesTable";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 
 const displayOptions = [
   { label: "Incomes", value: "incomes" },
@@ -25,7 +26,7 @@ function FinancesPage() {
     gt: "",
     lt: "",
     display: "incomes",
-  });
+  } as { gt: string; lt: string; display: "incomes" | "expenses" });
 
   const queriesOptions = {};
   const content =
@@ -35,6 +36,11 @@ function FinancesPage() {
     ) : (
       <ExpensesTable />
     );
+
+  const linkAddProps = {
+    incomes: { text: "Income", link: APP_ROUTE.INCOMES_ADD },
+    expenses: { text: "Expense", link: APP_ROUTE.EXPENSES_ADD },
+  };
 
   return (
     <section
@@ -55,11 +61,19 @@ function FinancesPage() {
           />
         </span>
 
-        <SelectInput
-          LabelProps={{ labelText: "Display", htmlFor: "display" }}
-          selectProps={{ onChange, defaultValue: display }}
-          options={displayOptions}
-        />
+        <span className={style.add_change_display_container}>
+          <SelectInput
+            LabelProps={{ labelText: "Display", htmlFor: "display" }}
+            selectProps={{ onChange, defaultValue: display }}
+            options={displayOptions}
+          />
+
+          <span>
+            <Link
+              to={`${linkAddProps[display].link}`}
+            >{`Add ${linkAddProps[display].text}`}</Link>
+          </span>
+        </span>
       </div>
       <div className={page.page_main_content}>{content}</div>
     </section>

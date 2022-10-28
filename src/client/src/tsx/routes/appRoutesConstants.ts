@@ -58,11 +58,15 @@ export enum APP_ROUTE {
   MY_WORKOUTS_ROUTE_EXERCISES = "myWorkoutsExercises",
 
   SUBSCRIPTION_PLANS_ROUTE = "subscriptionPlans",
-  SUBSCRIPTION_PLANS_ROUTE_ADD = "subscriptionPlansAdd",
-  SUBSCRIPTION_PLANS_ROUTE_EDIT = "subscriptionPlansEdit",
+  SUBSCRIPTION_PLANS_ROUTE_ADD = "addSubscriptionPlans",
+  SUBSCRIPTION_PLANS_ROUTE_EDIT = "editSubscriptionPlans",
   FINANCES_ROUTE = "finances",
   SCHEDULE_ROUTE = "schedule",
 
   EXPENSES_ROUTE = "expenses",
+  EXPENSES_ADD = "addExpenses",
   INCOMES_ROUTE = "incomes",
+  INCOMES_ADD = "addIncome",
+  PRODUCTS_ROUTE = "products",
+  PRODUCTS_ADD = "addProduct",
 }

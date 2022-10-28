@@ -21,6 +21,8 @@ import {
   MeasuresCalResAPI,
   User,
   ChartsDataAPI,
+  IncomeAPI,
+  ProductAPI,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -189,12 +191,18 @@ export const alertsApi = apiCreateCRUDHooks<AlertsAPI>({
   }),
 });
 
-// export const incomesApi = apiCreateCRUDHooks<Income>({
-//   reducerPath: "incomesApi",
-//   baseUrl: API_ROUTES.INCOMES_ROUTE,
-//   singleEntityName: API_ROUTES.INCOMES_ENTITY,
-//   listId: "incomes_list",
-// });
+export const incomesApi = apiCreateCRUDHooks<IncomeAPI>({
+  reducerPath: "incomesApi",
+  baseUrl: API_ROUTES.INCOMES_ROUTE,
+  singleEntityName: API_ROUTES.INCOMES_ENTITY,
+  listId: "incomes_list",
+});
+export const productsApi = apiCreateCRUDHooks<ProductAPI>({
+  reducerPath: "productsApi",
+  baseUrl: API_ROUTES.PRODUCTS_ROUTE,
+  singleEntityName: API_ROUTES.PRODUCT_ENTITY,
+  listId: "products_list",
+});
 
 export const apiCreateCrudArr = [
   leadsApi,
@@ -216,7 +224,8 @@ export const apiCreateCrudArr = [
   usersApi,
   subscriptionPlansApi,
   alertsApi,
-  // incomesApi,
+  incomesApi,
+  productsApi,
 ];
 
 // Create Reducer arr that contains  object with key of the reducer name and value the reducer function.

@@ -59,6 +59,10 @@ const BusinessDataRoutes = () => (
       <Route path={APP_ROUTE.CITY_ROUTE_ADD} element={<CityAddForm />} />
       <Route path=":id" element={<CityEditForm />} />
     </Route>
+    <Route path={APP_ROUTE.PRODUCTS_ROUTE} element={<CitiesPage />}>
+      <Route path={APP_ROUTE.PRODUCTS_ADD} element={<CityAddForm />} />
+      <Route path=":id" element={<CityEditForm />} />
+    </Route>
   </Routes>
 );
 export default BusinessDataRoutes;

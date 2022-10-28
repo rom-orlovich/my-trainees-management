@@ -29,8 +29,7 @@ export enum API_ROUTES {
   PROVIDERS_ENTITY = "provider",
   WEEKS_ROUTE = "/api/weeks",
   WEEKS_ENTITY = "week",
-  EXPENSES_ROUTE = "/api/expenses",
-  EXPENSES_ENTITY = "expense",
+
   EQUIPMENTS_ROUTE = "/api/equipments",
   EQUIPMENTS_ENTITY = "equipment",
   EXERCISES_ROUTE = "/api/exercises",
@@ -52,15 +51,10 @@ export enum API_ROUTES {
   SUBSCRIPTION_PLANS_ENTITY = "subscription",
   INCOMES_ROUTE = "/api/incomes",
   INCOMES_ENTITY = "income",
-}
-export interface User {
-  user_id: number;
-  username: string;
-  email: string;
-  trainee_id?: number;
-  trainer_user_id: number;
-  profile_id: number;
-  role: "admin" | "trainer" | "trainee";
+  EXPENSES_ROUTE = "/api/expenses",
+  EXPENSES_ENTITY = "expense",
+  PRODUCTS_ROUTE = "/api/products",
+  PRODUCT_ENTITY = "product",
 }
 export interface PayloadAPI<T> {
   id: number;
@@ -74,6 +68,16 @@ export interface ErrorResponseMutationAPI {
   data: { message: string };
   status: number;
 }
+export interface User {
+  user_id: number;
+  username: string;
+  email: string;
+  trainee_id?: number;
+  trainer_user_id: number;
+  profile_id: number;
+  role: "admin" | "trainer" | "trainee";
+}
+
 export interface ResponseMutationAuthAPI {
   accessToken: string;
   message: string;
@@ -84,6 +88,25 @@ export interface ResponseQueryAPI<T> {
   next: boolean;
   data: T[];
   countRows: number;
+}
+
+export interface LoginForm {
+  username: string;
+  password: string;
+}
+export interface SignUpForm {
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
+}
+export interface ChangePasswordForm {
+  password: string;
+  confirmPassword: string;
+}
+export interface EmailVerifyForm {
+  email: string;
+  confirmEmail: string;
 }
 
 export interface AlertsAPI {
@@ -138,17 +161,6 @@ export interface WeeksTableAPI {
   day: number;
   week_id?: number;
   weight?: number | null;
-}
-
-export interface ExpensesTableAPI {
-  user_id?: number;
-  date: Date;
-  expense_id?: number;
-  expenses_amount: number;
-  note_topic: string | null;
-  note_text: string | null;
-  product_id: number;
-  seller_id: number;
 }
 
 export interface EquipmentsTableAPI {
@@ -299,23 +311,33 @@ export interface ChartsDataAPI {
   labelFormatted: string[];
   datasetsValues: number[];
 }
-export interface LoginForm {
-  username: string;
-  password: string;
+export interface ExpensesTableAPI {
+  user_id?: number;
+  date: Date;
+  expense_id?: number;
+  expenses_amount: number;
+  note_topic: string | null;
+  note_text: string | null;
+  product_id: number;
+  seller_id: number;
 }
-export interface SignUpForm {
-  email: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
-}
-export interface ChangePasswordForm {
-  password: string;
-  confirmPassword: string;
-}
-export interface EmailVerifyForm {
-  email: string;
-  confirmEmail: string;
+export interface IncomeAPI {
+  income_id?: number;
+  product_id: number;
+  date: Date;
+  buyer_id: number;
+  amount: number;
+  total_price: number;
+  note_topic?: string;
+  note_text?: string;
+  user_id?: number;
 }
 
-export interface UserAPI extends User {}
+export interface ProductAPI {
+  product_id?: number;
+  product_name: string;
+  product_type: string;
+  max_training?: number;
+  price: number;
+  user_id?: number;
+}

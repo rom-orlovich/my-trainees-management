@@ -1,9 +1,11 @@
 import { handleDeleteAllUserAlerts } from "../../serviceAlerts/handleAlerts";
 import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
 import { handleInsertNewMeasure } from "../../serviceStatistics/controllers/handleInsertNewMeasure";
+import { handleInsertNewSubscription } from "../controllers/handleInsertNewSubscription";
 import { createControllersHandlerAndRouterWithAppMiddleware } from "../utilities/helperServiceCRUD";
 import {
   alertsOptionsCRUD,
+  incomesOptionsCRUD,
   measuresOptionsCRUD,
   traineesOptionsCRUD,
 } from "./configRoutes";
@@ -37,4 +39,13 @@ export const createAlertsRouter = () => {
   const alertRoute = createCRUDroutes(alertsOptionsCRUD);
   alertRoute.delete("", handleDeleteAllUserAlerts);
   return alertRoute;
+};
+
+export const createIncomesRouter = () => {
+  const { routeByEntity, controllerHandlersObj, expressRouterObj } =
+    createControllersHandlerAndRouterWithAppMiddleware(incomesOptionsCRUD);
+  routeByEntity.post(handleInsertNewSubscription);
+  routeByEntity.put(controllerHandlersObj.updateValueByID);
+
+  return expressRouterObj;
 };
