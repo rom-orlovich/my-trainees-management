@@ -326,6 +326,11 @@ export interface IncomeAPI {
   product_id: number;
   date: Date;
   buyer_id: number;
+
+  first_name: string;
+  last_name: string;
+  price: number;
+  product_name: string;
   amount: number;
   total_price: number;
   note_topic?: string;

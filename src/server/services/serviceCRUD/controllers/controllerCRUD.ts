@@ -38,6 +38,7 @@ export function createRoutesControllers({
     queryNameParam,
     modifiedOtherTable,
     orderByParam,
+    comparisonQuery,
   },
   logAlert = true,
   validateSchema,
@@ -52,6 +53,8 @@ export function createRoutesControllers({
       caloriesPie,
       measuresChartLine,
       orderBy,
+      gt,
+      lt,
       ...rest
     } = req.query;
 
@@ -59,6 +62,12 @@ export function createRoutesControllers({
 
     const numResultDefault = Number(numResults || 5);
 
+    const comparisonQueryKeyValue = comparisonQuery
+      ? {
+          gt: [comparisonQuery.gt, gt as string],
+          lt: [comparisonQuery.lt, lt as string],
+        }
+      : { gt: [], lt: [] };
     const orderByParamRes =
       orderByParam && orderBy ? orderByParam[orderBy as string] : tableID;
     const [data, err] = await promiseHandler(
@@ -71,7 +80,8 @@ export function createRoutesControllers({
         createRealQueryKeyValuesObj(rest, queryNameParam),
         ascDefault,
         numResultDefault > 100 ? 100 : numResultDefault,
-        orderByParamRes
+        orderByParamRes,
+        comparisonQueryKeyValue
       )
     );
 

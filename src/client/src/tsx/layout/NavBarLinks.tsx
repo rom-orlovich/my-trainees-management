@@ -35,28 +35,30 @@ const hamburgerMenuButton = {
   dataLinks: [],
 };
 
+const addButtonLinks = [
+  {
+    to: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
+    text: "Add Trainee",
+  },
+  {
+    to: `/${APP_ROUTE.LEADS_ROUTE}/${APP_ROUTE.LEADS_ROUTE_ADD}`,
+    text: "Add Lead",
+  },
+  {
+    to: `/${APP_ROUTE.FINANCES_ROUTE}/${APP_ROUTE.INCOMES_ROUTE}/${APP_ROUTE.INCOMES_ADD}`,
+    text: "Add Income",
+  },
+  {
+    to: APP_ROUTE.COMING_SOON,
+    text: "Add Expense",
+  },
+];
+
 export const ADMIN_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
   {
     id: "addIconButton",
     element: <RiAddCircleFill className={style.add_icon} />,
-    dataLinks: [
-      {
-        to: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
-        text: "Add Trainee",
-      },
-      {
-        to: `/${APP_ROUTE.LEADS_ROUTE}/${APP_ROUTE.LEADS_ROUTE_ADD}`,
-        text: "Add Lead",
-      },
-      {
-        to: `/`,
-        text: "Add Income",
-      },
-      {
-        to: `/`,
-        text: "Add Expense",
-      },
-    ],
+    dataLinks: addButtonLinks,
   },
 
   profileButton,
@@ -67,24 +69,7 @@ export const TRAINER_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
   {
     id: "addIconButton",
     element: <RiAddCircleFill className={style.add_icon} />,
-    dataLinks: [
-      {
-        to: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
-        text: "Add Trainee",
-      },
-      {
-        to: `/${APP_ROUTE.LEADS_ROUTE}/${APP_ROUTE.LEADS_ROUTE_ADD}`,
-        text: "Add Lead",
-      },
-      {
-        to: APP_ROUTE.COMING_SOON,
-        text: "Add Income",
-      },
-      {
-        to: APP_ROUTE.COMING_SOON,
-        text: "Add Expense",
-      },
-    ],
+    dataLinks: addButtonLinks,
   },
 
   profileButton,

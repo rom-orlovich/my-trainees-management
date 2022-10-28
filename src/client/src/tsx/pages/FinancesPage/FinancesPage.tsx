@@ -13,14 +13,18 @@ import useOnChangeInput from "../../hooks/useOnChangeInput";
 import ExpensesTable from "./ExpensesTable";
 import IncomesTable from "./IncomesTable";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 
+export type QueriesOptionsPropsWithNameData = { nameData?: string } & {
+  queriesOptions?: Record<string, any>;
+};
 const displayOptions = [
   { label: "Incomes", value: "incomes" },
   { label: "Expenses", value: "expenses" },
 ];
 
 function FinancesPage() {
-  const authState = useAppSelector(getAuthState);
+  const authState = useGetUserLoginData();
 
   const [{ gt, lt, display }, onChange] = useOnChangeInput({
     gt: "",
@@ -28,11 +32,11 @@ function FinancesPage() {
     display: "incomes",
   } as { gt: string; lt: string; display: "incomes" | "expenses" });
 
-  const queriesOptions = {};
+  const queriesOptions = { userID: authState.user_id, gt, lt };
   const content =
     display === "incomes" ? (
       // <ExerciseStatsChart queriesOptions={queriesOptions} />
-      <IncomesTable />
+      <IncomesTable queriesOptions={queriesOptions} />
     ) : (
       <ExpensesTable />
     );

@@ -301,6 +301,7 @@ export const trainingProgramsExerciseStatsOptionsCRUD: OptionsCRUD = {
       gt: "gt",
       lt: "lt",
     },
+    comparisonQuery: { gt: "update_date", lt: "update_date" },
   },
 
   permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
@@ -428,20 +429,26 @@ export const traineesOptionsCRUD: OptionsCRUD = {
 };
 
 export const incomesOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.INCOMES_ROUTE,
+  singleEntityName: API_ROUTES.INCOMES_ENTITY,
   selectQuery: {
-    tableName: `${TABLES_DATA.INCOMES_TABLE_NAME} as in`,
-    tableID: `in.${TABLES_DATA.INCOME_ID}`,
-    fieldNamesQuery: ` in.*,profile.first_name,profile.last_name,pr.price,pr.product_name`,
-    querySelectLogic: `JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON 
-    tr.${TABLES_DATA.TRAINEE_ID}=in.buyer_id
-    JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as profile ON 
+    tableName: `${TABLES_DATA.INCOMES_TABLE_NAME} as inc`,
+    tableID: `inc.${TABLES_DATA.INCOME_ID}`,
+    fieldNamesQuery: ` inc.*,profile.first_name,profile.last_name,pr.product_name`,
+    querySelectLogic: `LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON 
+    tr.${TABLES_DATA.TRAINEE_ID}=inc.buyer_id
+    LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as profile ON 
     profile.${TABLES_DATA.PROFILE_ID}= tr.${TABLES_DATA.PROFILE_ID} 
-    JOIN ${TABLES_DATA.PRODUCTS_TABLE_NAME} as pr ON 
-    pr.${TABLES_DATA.PRODUCT_ID}= in.${TABLES_DATA.PRODUCT_ID}
+    LEFT  JOIN ${TABLES_DATA.PRODUCTS_TABLE_NAME} as pr ON 
+    pr.${TABLES_DATA.PRODUCT_ID}= inc.${TABLES_DATA.PRODUCT_ID}
     `,
     queryParams: {
-      userID: "in.user_id",
+      userID: `inc.${TABLES_DATA.USERS_TABLE_ID}`,
+      gt: "gt",
+      lt: "lt",
+    },
+    comparisonQuery: {
+      gt: "date",
+      lt: "date",
     },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,

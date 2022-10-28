@@ -21,7 +21,7 @@ import {
 } from "./services/apiRoutesConstants";
 
 import authRouter from "./services/serviceAuth/routes/authRouter";
-import { routesConfigArr } from "./services/serviceCRUD/routes/routersCRUDapp";
+import { routesConfigArr } from "./services/serviceCRUD/routes/routersCRUDArr";
 
 const PORT = process.env.PORT || 5000;
 

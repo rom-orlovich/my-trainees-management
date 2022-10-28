@@ -1,3 +1,4 @@
+import { API_ROUTES } from "../../apiRoutesConstants";
 import { handleDeleteAllUserAlerts } from "../../serviceAlerts/handleAlerts";
 import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
 import { handleInsertNewMeasure } from "../../serviceStatistics/controllers/handleInsertNewMeasure";
@@ -27,10 +28,13 @@ export const createTraineesRouter = () => {
   const {
     controllerHandlersObj: { updateValueByID },
     expressRouterObj,
-    routeByEntity,
+
     routeByEntityAndID,
   } = createControllersHandlerAndRouterWithAppMiddleware(traineesOptionsCRUD);
-  routeByEntity.post(handleRegisterTrainee);
+  expressRouterObj.post(
+    API_ROUTES.REGISTER_TRAINEE_ROUTE,
+    handleRegisterTrainee
+  );
   routeByEntityAndID.put(updateValueByID);
   return expressRouterObj;
 };
@@ -42,10 +46,19 @@ export const createAlertsRouter = () => {
 };
 
 export const createIncomesRouter = () => {
-  const { routeByEntity, controllerHandlersObj, expressRouterObj } =
-    createControllersHandlerAndRouterWithAppMiddleware(incomesOptionsCRUD);
-  routeByEntity.post(handleInsertNewSubscription);
-  routeByEntity.put(controllerHandlersObj.updateValueByID);
+  const {
+    routeByEntity,
+    routeByEntityAndID,
+    controllerHandlersObj,
+    expressRouterObj,
+  } = createControllersHandlerAndRouterWithAppMiddleware(incomesOptionsCRUD);
+
+  routeByEntity.post(
+    controllerHandlersObj.createNewValueInDB,
+    handleInsertNewSubscription
+  );
+  // console.log(routeByEntity);
+  routeByEntityAndID.put(controllerHandlersObj.updateValueByID);
 
   return expressRouterObj;
 };

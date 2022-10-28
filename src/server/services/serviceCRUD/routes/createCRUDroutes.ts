@@ -29,14 +29,5 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
     handleInsertStatistics
   );
 
-  // if (
-  //   optionsCRUD.selectQuery.tableName.includes(TABLES_DATA.TRAINEES_TABLE_NAME)
-  // ) {
-  //   expressRouterObj.post(
-  //     API_ROUTES.REGISTER_TRAINEE_ROUTE,
-  //     controllerHandlersObj.validateMiddlewareHandler,
-  //     handleRegisterTrainee
-  //   );
-  // }
   return expressRouterObj;
 }

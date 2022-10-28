@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable default-param-last */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
@@ -120,6 +122,37 @@ const prepareKeyValuesOfNameToSelect = (
     paramsNamesArr: valueNameParam,
   };
 };
+
+const prepareComparisonParamsStatement = (
+  comparisonQuery: {
+    gt: string[];
+    lt: string[];
+  },
+  queryParamsRes: any[]
+) => {
+  const comparisonGreater = comparisonQuery?.gt[1]
+    ? [`${comparisonQuery?.gt[0]} >= $${queryParamsRes.length + 1}`]
+    : [];
+
+  comparisonQuery?.gt[1] && queryParamsRes.push(comparisonQuery?.gt[1]);
+
+  const comparisonLesser = comparisonQuery?.lt[1]
+    ? [`${comparisonQuery?.lt[0]} <= $${queryParamsRes.length + 1}`]
+    : [];
+
+  comparisonQuery?.lt[1] && queryParamsRes.push(comparisonQuery?.lt[1]);
+
+  const comparisonStatementStr = [
+    ...comparisonGreater,
+    ...comparisonLesser,
+  ].join(" and ");
+
+  // console.log("comparisonStatementStr", comparisonStatementStr);
+  // console.log("queryParamsRes", queryParamsRes);
+
+  return comparisonStatementStr;
+};
+
 // Makes string from the key-value of other columns of table.
 // This string is used as the  key-values in 'where query' in select queries statement.
 const prepareKeyValuesOtherColumnToSelect = (
@@ -133,22 +166,22 @@ const prepareKeyValuesOtherColumnToSelect = (
   const keysValuesEntries = Object.entries(queryParams);
 
   keysValuesEntries.forEach(([key, value], index) => {
-    if (key === "gt")
-      keyValuesStr += value
-        ? ` update_date>=$${paramsArr.length + startIndex} `
-        : "";
-    else if (key === "lt")
-      keyValuesStr += value
-        ? ` update_date<=$${paramsArr.length + startIndex} `
-        : "";
-    else
-      keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
+    // if (key === "gt")
+    //   keyValuesStr += value
+    //     ? ` update_date>=$${paramsArr.length + startIndex} `
+    //     : "";
+    // else if (key === "lt")
+    //   keyValuesStr += value
+    //     ? ` update_date<=$${paramsArr.length + startIndex} `
+    //     : "";
+    // else
+    keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
 
     if (index !== keysValuesEntries.length - 1)
       keyValuesStr += value ? ` and` : "";
 
     if (value) {
-      if (isNaN(value) || key === "phone_number") paramsArr.push(value);
+      if (Number.isNaN(value) || key === "phone_number") paramsArr.push(value);
       else paramsArr.push(Number(value));
     }
   });
@@ -188,7 +221,7 @@ const insertQuery = async (
    VALUES ${fieldParams} ${onConflict ? `${onConflict}` : ""} RETURNING * `;
 
   // console.log(statement, [paramId, ...paramsArr]);
-  // if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
+  // if (tableName.includes(TABLES_DATA.INCOMES_TABLE_NAME)) {
   //   console.log("statement", statement);
   //   console.log("queryParams", paramArr);
   // }
@@ -274,25 +307,12 @@ export async function deleteQuery(
   return rows.rows;
 }
 
-// Make pagination by select query.
-// Return the items array and boolean value if there is next
-// page.
-export async function selectPagination(
-  tableName: string,
-  page = "1",
-  fields = "*",
-  querySelectLogic = "",
+const prepareStatementLogic = (
+  querySelectLogic: string,
   queryParams: Record<string, any> = {},
   queryNameParams: Record<string, any> = {},
-  ascending = true,
-  numResult = 10,
-  orderBy = ""
-) {
-  const numPage = Number(page) - 1;
-  const offset = numPage * numResult;
-  const numResultsReach = offset + numResult;
-
-  // Prepares the select query of the pagination and the values of where query.
+  comparisonQuery: { gt: string[]; lt: string[] }
+) => {
   const { keyValuesStrArr, paramsArr } = prepareKeyValuesOtherColumnToSelect(
     queryParams,
     1
@@ -308,15 +328,52 @@ export async function selectPagination(
     keyValuesStrArr.length > 0 ? " and " : ""
   );
 
-  const queryStrResult = `${querySelectLogic} ${
-    queryStrJoin ? `WHERE ${queryStrJoin}` : ""
+  const comparisonStatementStr = prepareComparisonParamsStatement(
+    comparisonQuery,
+    queryParamsRes
+  );
+
+  const queryStrStatement = `${querySelectLogic} ${
+    queryStrJoin
+      ? `WHERE ${queryStrJoin}  ${
+          comparisonStatementStr ? `and ${comparisonStatementStr}` : ""
+        }`
+      : ""
   } `;
+  return { queryStrStatement, queryParamsRes };
+};
+
+// Make pagination by select query.
+// Return the items array and boolean value if there is next
+// page.
+export async function selectPagination(
+  tableName: string,
+  page = "1",
+  fields = "*",
+  querySelectLogic = "",
+  queryParams: Record<string, any> = {},
+  queryNameParams: Record<string, any> = {},
+  ascending = true,
+  numResult = 10,
+  orderBy = "",
+  comparisonQuery: { gt: string[]; lt: string[] }
+) {
+  const numPage = Number(page) - 1;
+  const offset = numPage * numResult;
+  const numResultsReach = offset + numResult;
+
+  const { queryParamsRes, queryStrStatement } = prepareStatementLogic(
+    querySelectLogic,
+    queryParams,
+    queryNameParams,
+    comparisonQuery
+  );
 
   // Check the number of items that are in the table .
   const countRows = await selectQuery(
     tableName,
     "count(*)",
-    queryStrResult,
+    queryStrStatement,
     queryParamsRes
   );
   const numTotalRows = Number(countRows[0].count);
@@ -324,14 +381,14 @@ export async function selectPagination(
   // Return if the table is empty.
   if (!numTotalRows) return { rows: [], next: false, countRows: 0 };
 
-  const limitOffsetQuery = `order by ${orderBy} ${
+  const limitOffsetStatement = `order by ${orderBy} ${
     ascending ? "ASC" : "DESC"
   } LIMIT $${queryParamsRes.length + 1} OFFSET $${queryParamsRes.length + 2}`;
 
   const rows = await selectQuery(
     tableName,
     fields,
-    `${queryStrResult} ${limitOffsetQuery}`,
+    `${queryStrStatement} ${limitOffsetStatement}`,
     [...queryParamsRes, numResult, offset]
   );
 

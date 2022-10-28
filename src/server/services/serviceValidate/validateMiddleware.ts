@@ -15,10 +15,10 @@ export const validateMiddleware: (
     validateSchema.validate(req.body)
   );
 
-  if (errValid && !valid) {
+  if (errValid || !valid) {
     req.logAlertInfo = createLogAlertInfoHandler(undefined, {
       code: ErrorCodes.INVALID,
-      message: errValid.message,
+      message: errValid?.message,
     });
 
     return next();

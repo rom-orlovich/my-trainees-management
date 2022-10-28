@@ -39,12 +39,13 @@ export function IncomeForms({
         defaultValues: {
           user_id: authState.user_id,
           date: formatDate(new Date(), 0) as any,
+          amount: 1,
           ...defaultValues,
         },
         resolver: yupResolver(incomesSchema),
       }}
     >
-      {({ register, formState, control, watch, getValues, setValue }) => {
+      {({ register, formState, control, getValues, setValue }) => {
         const { errors } = formState;
         const productID = Number(getValues("product_id"));
         const amount = Number(getValues("amount"));
