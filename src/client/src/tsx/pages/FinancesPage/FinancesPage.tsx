@@ -38,7 +38,10 @@ function FinancesPage() {
     );
 
   const linkAddProps = {
-    incomes: { text: "Income", link: APP_ROUTE.INCOMES_ADD },
+    incomes: {
+      text: "Income",
+      link: `${APP_ROUTE.INCOMES_ROUTE}/${APP_ROUTE.INCOMES_ADD}`,
+    },
     expenses: { text: "Expense", link: APP_ROUTE.EXPENSES_ADD },
   };
 

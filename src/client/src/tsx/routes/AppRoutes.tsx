@@ -30,6 +30,8 @@ import TraineesRoutes from "./TraineesRoutes";
 import { MeasureAddForm } from "../components/Forms/MeasuresForms/MeasureAddForm";
 import MeasureEditForm from "../components/Forms/MeasuresForms/MeasureEditForm";
 import FinancesPage from "../pages/FinancesPage/FinancesPage";
+import { IncomeAddForm } from "../components/Forms/IncomeForms/IncomeAddForm";
+import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -88,9 +90,13 @@ function AppRoutes() {
               <Route path=":id" element={<LeadEditForm />} />
             </Route>
 
-            <Route path={APP_ROUTE.FINANCES_ROUTE} element={<FinancesPage />}>
+            <Route path={APP_ROUTE.FINANCES_ROUTE}>
+              <Route index element={<FinancesPage />} />
               <Route path={APP_ROUTE.INCOMES_ROUTE}>
-                <Route path={APP_ROUTE.INCOMES_ADD} element={<></>} />
+                <Route
+                  path={APP_ROUTE.INCOMES_ADD}
+                  element={<IncomeAddForm />}
+                />
               </Route>
               <Route path={APP_ROUTE.EXPENSES_ROUTE}> </Route>
             </Route>
