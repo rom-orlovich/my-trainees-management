@@ -17,6 +17,7 @@ import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
 import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
+import ProductsPage from "../pages/ProductsPage/ProductsPage";
 import { APP_ROUTE } from "./appRoutesConstants";
 import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 
@@ -60,17 +61,7 @@ const BusinessDataRoutes = () => (
       <Route path={APP_ROUTE.CITY_ROUTE_ADD} element={<CityAddForm />} />
       <Route path=":id" element={<CityEditForm />} />
     </Route>
-    <Route
-      path={APP_ROUTE.PRODUCTS_ROUTE}
-      element={
-        <InsteadOutletRoutes
-          InsteadOutletRoutesPaths={APP_ROUTE.PRODUCTS_ROUTE}
-        >
-          {" "}
-          <></>{" "}
-        </InsteadOutletRoutes>
-      }
-    >
+    <Route path={APP_ROUTE.PRODUCTS_ROUTE} element={<ProductsPage />}>
       <Route path={APP_ROUTE.PRODUCTS_ADD} element={<ProductAddForm />} />
       {/* <Route path=":id" element={<CityEditForm />} /> */}
     </Route>

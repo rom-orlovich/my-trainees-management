@@ -37,15 +37,21 @@ export function ProductForm({
       formOptions={{
         defaultValues: {
           price: 1,
-
           user_id: useGetUserLoginData().user_id,
           ...defaultValues,
         },
         resolver: yupResolver(productSchema),
       }}
     >
-      {({ register, formState, watch }) => {
+      {({ register, formState, getValues, setValue, watch }) => {
         const product_type = watch("product_type");
+        console.log(product_type);
+        // const product_type = getValues("product_type");
+        // console.log(product_type);
+
+        if (product_type === "Subscription Plans") {
+          setValue("max_training", 1);
+        }
 
         const { errors } = formState;
         return (
@@ -69,8 +75,8 @@ export function ProductForm({
             <SelectInput
               selectProps={{ ...register("product_type") }}
               options={[
-                { value: "subscription_plans", label: "Subscription Plans" },
-                { value: "nutrition_plans", label: "Nutrition Plans" },
+                { value: "Subscription Plans", label: "Subscription Plans" },
+                { value: "Nutrition Plans", label: "Nutrition Plans" },
                 { value: "other", label: "Other" },
               ]}
               LabelProps={{ labelText: "Type" }}
@@ -82,11 +88,14 @@ export function ProductForm({
                 labelText: "Price(NIS)",
               }}
             >
-              <InputErrorMessage nameInput="Last Name" error={errors.price} />
+              <InputErrorMessage nameInput="Price" error={errors.price} />
             </InputLabel>
-            {product_type === "subscription_plans" && (
+            {product_type === "Subscription Plans" && (
               <InputLabel
-                InputProps={{ ...register("max_training") }}
+                InputProps={{
+                  type: "number",
+                  ...register("max_training"),
+                }}
                 LabelProps={{
                   htmlFor: "max_training",
                   labelText: "Max Training",

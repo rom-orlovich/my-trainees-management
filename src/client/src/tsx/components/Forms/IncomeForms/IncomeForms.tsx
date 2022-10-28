@@ -49,10 +49,8 @@ export function IncomeForms({
         const { errors } = formState;
         const productID = Number(getValues("product_id"));
         const amount = Number(getValues("amount"));
-
         const data =
           productsApi.endpoints.getItems.useQuery(queriesOptions).currentData;
-
         const product = data?.data.find((el) => el.product_id === productID);
         const price = Number(product?.price || 1);
         setValue("total_price", price * amount);

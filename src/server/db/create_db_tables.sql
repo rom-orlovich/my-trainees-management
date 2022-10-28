@@ -392,7 +392,7 @@ CREATE TABLE IF NOT EXISTS "products"(
   "price" FLOAT,
   "user_id" INTEGER DEFAULT 1,
   CONSTRAINT "product_type" CHECK (
-    "product_type" IN ('subscription_plans', 'nutrition_plans', 'other')
+    "product_type" IN ('Subscription Plans', 'Nutrition Plans', 'Other')
   ),
   CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
   SET

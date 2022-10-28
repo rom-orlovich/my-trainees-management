@@ -363,8 +363,9 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_NAME} as subp`,
     tableID: `subp.${TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_ID}`,
-    fieldNamesQuery: `subp.*`,
-    querySelectLogic: ``,
+    fieldNamesQuery: `subp.*,pro.product_name`,
+    querySelectLogic: `LEFT JOIN ${TABLES_DATA.PRODUCTS_TABLE_NAME} as pro ON
+    pro.${TABLES_DATA.PRODUCT_ID}= subp.${TABLES_DATA.PRODUCT_ID}`,
     queryParams: {
       traineeID: "trainee_id",
     },

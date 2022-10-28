@@ -168,10 +168,10 @@ export const traineesApi = apiCreateCRUDHooks<TraineesTableExtendsAPI>({
 });
 
 export const subscriptionPlansApi = apiCreateCRUDHooks<SubscriptionPlansAPI>({
-  reducerPath: "membersPlansApi",
+  reducerPath: "subscriptionPlansApi",
   baseUrl: API_ROUTES.SUBSCRIPTION_PLANS_ROUTE,
   singleEntityName: API_ROUTES.SUBSCRIPTION_PLANS_ENTITY,
-  listId: "members_plans_list",
+  listId: "subscription_plans_list",
 });
 
 export const alertsApi = apiCreateCRUDHooks<AlertsAPI>({
