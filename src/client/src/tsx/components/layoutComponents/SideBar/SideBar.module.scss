@@ -38,7 +38,7 @@
     display: none;
     @include posAbs($HEADER_HEIGHT_SMARTPHONE, 0%, null, null);
     position: fixed;
-    @include heightWidth(100vh, 100%);
+    @include heightWidth(100%, 100%);
     z-index: 90;
     ul {
       margin-top: 0.5rem;

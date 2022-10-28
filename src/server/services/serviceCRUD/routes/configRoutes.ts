@@ -501,11 +501,6 @@ export const productsOptionsCRUD: OptionsCRUD = {
   validateSchema: incomesSchema,
 };
 
-export const measuresCRUD = {
-  baseRoute: API_ROUTES.MEASURES_ROUTE,
-  optionsCRUD: measuresOptionsCRUD,
-};
-
 // Array of the baseRoutes and the router params.
 export const routesConfigArr: {
   baseRoute: string;
@@ -515,10 +510,7 @@ export const routesConfigArr: {
     baseRoute: API_ROUTES.USERS_ROUTE,
     router: createCRUDroutes(usersOptionsCRUD),
   },
-  {
-    baseRoute: API_ROUTES.ALERT_ROUTE,
-    router: createAlertsRouter(),
-  },
+
   {
     baseRoute: API_ROUTES.LEADS_ROUTE,
     router: createCRUDroutes(leadsOptionsCRUD),
@@ -577,11 +569,6 @@ export const routesConfigArr: {
     router: createCRUDroutes(nutritionProgramOptionsCRUD),
   },
 
-  // {
-  //   baseRoute: API_ROUTES.TRAINEES_ROUTE,
-  //   optionsCRUD: traineesOptionsCRUD,
-  // },
-
   {
     baseRoute: API_ROUTES.SUBSCRIPTION_PLANS_ROUTE,
     router: createCRUDroutes(subscriptionPlansOptionsCRUD),
@@ -599,5 +586,9 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.TRAINEES_ROUTE,
     router: createTraineesRouter(),
+  },
+  {
+    baseRoute: API_ROUTES.ALERT_ROUTE,
+    router: createAlertsRouter(),
   },
 ];

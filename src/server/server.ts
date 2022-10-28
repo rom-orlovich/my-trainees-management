@@ -11,17 +11,9 @@ import path from "path";
 import { Server } from "http";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
-import {
-  measuresCRUD,
-  routesConfigArr,
-  traineesOptionsCRUD,
-} from "./services/serviceCRUD/routes/configRoutes";
-import { createCRUDroutes } from "./services/serviceCRUD/routes/createCRUDroutes";
+import { routesConfigArr } from "./services/serviceCRUD/routes/configRoutes";
 import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
-import {
-  handleAlertsMiddleware,
-  handleDeleteAllUserAlerts,
-} from "./services/serviceAlerts/handleAlerts";
+import { handleAlertsMiddleware } from "./services/serviceAlerts/handleAlerts";
 import {
   API_ROUTES,
   URL_HEROKU_CLIENT,
