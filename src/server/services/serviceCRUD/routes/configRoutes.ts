@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import * as yup from "yup";
 
+import { Router } from "express";
 import {
   citiesSchema,
   equipmentSchema,
@@ -35,6 +36,13 @@ import {
   PERMISSION_TRAINER_BY_USER_ID_READ_ALL,
   PERMISSION_TRAINEE_BY_USER_ID,
 } from "../../usersPermission";
+import { createControllersHandlerAndRouterWithAppMiddleware } from "../utilities/helperServiceCRUD";
+import {
+  createAlertsRouter,
+  createMeasuresRouter,
+  createTraineesRouter,
+} from "./otherRouters";
+import { createCRUDroutes } from "./createCRUDroutes";
 
 export interface SelectTableQueryParam {
   tableName: string;
@@ -493,88 +501,103 @@ export const productsOptionsCRUD: OptionsCRUD = {
   validateSchema: incomesSchema,
 };
 
+export const measuresCRUD = {
+  baseRoute: API_ROUTES.MEASURES_ROUTE,
+  optionsCRUD: measuresOptionsCRUD,
+};
+
 // Array of the baseRoutes and the router params.
-export const routesCRUDArr: {
+export const routesConfigArr: {
   baseRoute: string;
-  optionsCRUD: OptionsCRUD;
+  router: Router;
 }[] = [
   {
     baseRoute: API_ROUTES.USERS_ROUTE,
-    optionsCRUD: usersOptionsCRUD,
+    router: createCRUDroutes(usersOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.ALERT_ROUTE,
-    optionsCRUD: alertsOptionsCRUD,
+    router: createAlertsRouter(),
   },
   {
     baseRoute: API_ROUTES.LEADS_ROUTE,
-    optionsCRUD: leadsOptionsCRUD,
+    router: createCRUDroutes(leadsOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.MUSCLES_GROUP_ROUTE,
-    optionsCRUD: musclesGroupOptionsCRUD,
+    router: createCRUDroutes(musclesGroupOptionsCRUD),
   },
 
-  { baseRoute: API_ROUTES.CITIES_ROUTE, optionsCRUD: citiesOptionsCRUD },
+  {
+    baseRoute: API_ROUTES.CITIES_ROUTE,
+    router: createCRUDroutes(citiesOptionsCRUD),
+  },
   {
     baseRoute: API_ROUTES.LOCATIONS_ROUTE,
-    optionsCRUD: locationsOptionsCRUD,
+    router: createCRUDroutes(locationsOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.PROVIDERS_ROUTE,
-    optionsCRUD: providersOptionsCRUD,
+    router: createCRUDroutes(providersOptionsCRUD),
   },
-  { baseRoute: API_ROUTES.WEEKS_ROUTE, optionsCRUD: weeksOptionsCRUD },
+  {
+    baseRoute: API_ROUTES.WEEKS_ROUTE,
+    router: createCRUDroutes(weeksOptionsCRUD),
+  },
   {
     baseRoute: API_ROUTES.EXPENSES_ROUTE,
-    optionsCRUD: expensesOptionsCRUD,
+    router: createCRUDroutes(expensesOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.EQUIPMENTS_ROUTE,
-    optionsCRUD: equipmentsOptionsCRUD,
+    router: createCRUDroutes(equipmentsOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.EXERCISES_ROUTE,
-    optionsCRUD: exerciseListOptionsCRUD,
+    router: createCRUDroutes(exerciseListOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.TRAINING_PROGRAMS_LIST_ROUTE,
-    optionsCRUD: trainingProgramsListOptionsCRUD,
+    router: createCRUDroutes(trainingProgramsListOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.TRAINING_PROGRAMS_STATS_ROUTE,
-    optionsCRUD: trainingProgramsExerciseStatsOptionsCRUD,
+    router: createCRUDroutes(trainingProgramsExerciseStatsOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.TRAINING_PROGRAMS_ROUTE,
-    optionsCRUD: trainingProgramsOptionsCRUD,
+    router: createCRUDroutes(trainingProgramsOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.NUTRITION_PROGRAMS_LIST_ROUTE,
-    optionsCRUD: nutritionProgramsListOptionsCRUD,
+    router: createCRUDroutes(nutritionProgramsListOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.NUTRITION_PROGRAMS_ROUTE,
-    optionsCRUD: nutritionProgramOptionsCRUD,
+    router: createCRUDroutes(nutritionProgramOptionsCRUD),
   },
 
-  {
-    baseRoute: API_ROUTES.MEASURES_ROUTE,
-    optionsCRUD: measuresOptionsCRUD,
-  },
-
-  {
-    baseRoute: API_ROUTES.TRAINEES_ROUTE,
-    optionsCRUD: traineesOptionsCRUD,
-  },
+  // {
+  //   baseRoute: API_ROUTES.TRAINEES_ROUTE,
+  //   optionsCRUD: traineesOptionsCRUD,
+  // },
 
   {
     baseRoute: API_ROUTES.SUBSCRIPTION_PLANS_ROUTE,
-    optionsCRUD: subscriptionPlansOptionsCRUD,
+    router: createCRUDroutes(subscriptionPlansOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.INCOMES_ROUTE,
-    optionsCRUD: incomesOptionsCRUD,
+    router: createCRUDroutes(incomesOptionsCRUD),
   },
-  { optionsCRUD: productsOptionsCRUD, baseRoute: API_ROUTES.PRODUCTS_ROUTE },
+
+  {
+    baseRoute: API_ROUTES.PRODUCTS_ROUTE,
+    router: createCRUDroutes(productsOptionsCRUD),
+  },
+  { baseRoute: API_ROUTES.MEASURES_ROUTE, router: createMeasuresRouter() },
+  {
+    baseRoute: API_ROUTES.TRAINEES_ROUTE,
+    router: createTraineesRouter(),
+  },
 ];

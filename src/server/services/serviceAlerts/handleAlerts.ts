@@ -140,3 +140,10 @@ export const handleDeleteAllUserAlerts: RequestHandler = async (
   if (err) return next(new ErrorCustomizes(err));
   return res.status(200).json("Old alerts are deleted successfully");
 };
+// // Delete all user's alerts routes.
+// app.delete(
+//   API_ROUTES.ALERT_ROUTE,
+//   validateTokenMiddleware,
+//   validateRolePermission(PERMISSION_TRAINEE_WITHOUT_UPDATE),
+//   handleDeleteAllUserAlerts
+// );

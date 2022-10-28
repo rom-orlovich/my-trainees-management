@@ -12,7 +12,7 @@ import {
   selectQuery,
   updateExistTableData,
 } from "../../../PGSql/sqlHelpers";
-import { OptionsCRUD } from "../routes/routesConfig";
+import { OptionsCRUD } from "../routes/configRoutes";
 
 import { promiseHandler } from "../../../utilities/helpers";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
@@ -76,7 +76,6 @@ export function createRoutesControllers({
     );
 
     if (err) return next(new ErrorCustomizes(err));
-
     const responseData = {
       data: data.rows,
       next: data.next,

@@ -11,8 +11,12 @@ import path from "path";
 import { Server } from "http";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
-import { routesCRUDArr } from "./services/serviceCRUD/routes/routesConfig";
-import { createCRUDroutes } from "./services/serviceCRUD/routes/routesCRUD";
+import {
+  measuresCRUD,
+  routesConfigArr,
+  traineesOptionsCRUD,
+} from "./services/serviceCRUD/routes/configRoutes";
+import { createCRUDroutes } from "./services/serviceCRUD/routes/createCRUDroutes";
 import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
 import {
   handleAlertsMiddleware,
@@ -25,15 +29,10 @@ import {
 } from "./services/apiRoutesConstants";
 
 import authRouter from "./services/serviceAuth/routes/authRouter";
-import {
-  validateRolePermission,
-  validateTokenMiddleware,
-} from "./services/serviceAuth/controllers/validateAuthMiddleware";
-import { PERMISSION_TRAINEE_WITHOUT_UPDATE } from "./services/usersPermission";
 
 const PORT = process.env.PORT || 5000;
 
-const app = express();
+export const app = express();
 app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -50,22 +49,9 @@ app.use(
 app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);
 
 // Init all CRUD routes of the app.
-routesCRUDArr.forEach(({ baseRoute, optionsCRUD }) => {
-  app.use(
-    baseRoute,
-    validateTokenMiddleware,
-    validateRolePermission(optionsCRUD.permissions),
-    createCRUDroutes(optionsCRUD)
-  );
+routesConfigArr.forEach(({ baseRoute, router }) => {
+  app.use(baseRoute, router);
 });
-
-// Delete all user's alerts routes.
-app.delete(
-  API_ROUTES.ALERT_ROUTE,
-  validateTokenMiddleware,
-  validateRolePermission(PERMISSION_TRAINEE_WITHOUT_UPDATE),
-  handleDeleteAllUserAlerts
-);
 
 // Init alerts middleware.
 app.use(handleAlertsMiddleware);
@@ -97,7 +83,6 @@ async function connectDB() {
       server.close(() => {
         console.log("server is closed");
       });
-    // client.end();
   }
 }
 

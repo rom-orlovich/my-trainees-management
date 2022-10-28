@@ -12,27 +12,30 @@ export interface ChartDataResult {
   datasetsValues: number[];
 }
 
-export const calLabelDates = (startDate: Date, endDate: Date) => {
-  const labels = eachDayOfInterval({ start: startDate, end: endDate });
-  const labelFormatted = labels.map((el) => el.toLocaleDateString());
-  return labelFormatted;
-};
+// export const calLabelDates = (startDate: Date, endDate: Date) => {
+//   const labels = eachDayOfInterval({ start: startDate, end: endDate });
+//   const labelFormatted = labels.map((el) => el.toLocaleDateString());
+//   return labelFormatted;
+// };
 export const normalizeDatesValues = <
   T extends { id: number; date: Date; value: number }[]
 >(
   arr: T
 ) => {
   const map = new Map();
-
+  // To get the most updated result by the number of results the client provides.
   arr
     .sort((a, b) => a.id - b.id)
     .sort((a, b) => a.date.getTime() - b.date.getTime())
+    // To set the most update value to the same date.
     .forEach((el) => {
       map.set(el.date.getTime(), el.value);
     });
 
+  // Make array of the formatted dates.
   const dates = [...map.keys()].map((el) => formatDate(el, 1));
 
+  // Make array of the values.
   const values = [...map.values()];
   return {
     labelFormatted: dates,
@@ -47,17 +50,20 @@ export const calIntensity = (
 const exerciseStatsCreateLabelAndDatasets = (
   data: TrainingProgramExerciseStatsAPI[]
 ): ChartDataResult => {
-  // const statsArr = data.sort(
-  //   (a, b) => a.update_date.getTime() - b.update_date.getTime()
-  // );
-  // const startDate = statsArr[0].update_date;
-  // const endDate = statsArr[statsArr.length - 1].update_date;
-  // const labelFormatted = calLabelDates(startDate, endDate);
-  // const datasetsValues = calIntensity(statsArr);
   const statsArr = data.map((el) => ({
     id: el.training_program_row_id,
     date: el.update_date,
     value: el.intensity,
+  }));
+
+  return normalizeDatesValues(statsArr);
+};
+
+const measuresChartLineCreateLabelAndDatasets = (data: MeasuresCalResAPI[]) => {
+  const statsArr = data.map((el) => ({
+    id: el.measure_id,
+    date: el.date,
+    value: el.weight,
   }));
 
   return normalizeDatesValues(statsArr);
@@ -77,16 +83,6 @@ const caloriesChartCreateLabelAndDatasets = (data: MeasuresCalResAPI) => {
     },
     calories_total: data.calories_total,
   };
-};
-
-const measuresChartLineCreateLabelAndDatasets = (data: MeasuresCalResAPI[]) => {
-  const statsArr = data.map((el) => ({
-    id: el.measure_id,
-    date: el.date,
-    value: el.weight,
-  }));
-
-  return normalizeDatesValues(statsArr);
 };
 
 export const handleGetStatistic: RequestHandler = async (req, res, next) => {
