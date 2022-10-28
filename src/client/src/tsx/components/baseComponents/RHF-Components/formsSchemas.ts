@@ -222,7 +222,7 @@ export const incomesSchema = yup.object().shape({
 });
 export const productSchema = yup.object().shape({
   product_id: yup.number().notRequired(),
-  product_name: yup.date().required(),
+  product_name: yup.string().required(),
   product_type: yup.string().required(),
   max_training: yup
     .number()

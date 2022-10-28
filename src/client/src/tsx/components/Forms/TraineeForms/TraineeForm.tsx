@@ -97,7 +97,7 @@ export function TraineeForm({
                 { value: "female", label: "Female" },
               ]}
               LabelProps={{ labelText: "Gender" }}
-            ></SelectInput>
+            />
 
             <InputLabel
               InputProps={{ ...register("birthday"), type: "date" }}

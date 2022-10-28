@@ -1,8 +1,7 @@
 import { handleInsertStatistics } from "../../serviceStatistics/controllers/handleInsertStatistics";
+import { OptionsCRUD } from "../serviceCRUDTypes";
 
 import { createControllersHandlerAndRouterWithAppMiddleware } from "../utilities/helperServiceCRUD";
-
-import { OptionsCRUD } from "./configRoutes";
 
 /**
  *

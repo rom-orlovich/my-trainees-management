@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import * as yup from "yup";
 
 import { Router } from "express";
 import {
@@ -21,59 +20,21 @@ import {
   weeksSchema,
   trainingProgramExerciseStatsSchema,
   measuresSchema,
+  productSchema,
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import {
   PERMISSION_ADMIN,
-  Permissions,
   PERMISSION_TRAINEE_WITHOUT_UPDATE,
   PERMISSION_TRAINER_BY_USER_ID,
   PERMISSION_TRAINEE,
   PERMISSION_TRAINEE_READONLY,
   PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
-  PERMISSION_TRAINER_ADMIN_ALL,
   PERMISSION_TRAINER_BY_USER_ID_READ_ALL,
   PERMISSION_TRAINEE_BY_USER_ID,
 } from "../../usersPermission";
-import { createControllersHandlerAndRouterWithAppMiddleware } from "../utilities/helperServiceCRUD";
-import {
-  createAlertsRouter,
-  createIncomesRouter,
-  createMeasuresRouter,
-  createTraineesRouter,
-} from "./otherRouters";
-import { createCRUDroutes } from "./createCRUDroutes";
-
-export interface SelectTableQueryParam {
-  tableName: string;
-  tableID: string;
-  fieldNamesQuery: string; // The field names that we want to return from the query
-  querySelectLogic: string; // The query logic
-  orderByParam?: Record<string, string>;
-
-  // The purpose of below params is to encapsulate the real table's fields from the client,
-  // so the client won't able to know what are the real fields name of the table.
-  queryParams?: Record<string, string>;
-  queryNameParam?: Record<string, string>;
-  modifiedOtherTable?: {
-    update: {
-      otherTableName: string;
-      values: string[];
-      otherTableID: string;
-      include?: string[];
-    };
-    delete?: { otherTableName: string; otherTableID: string };
-  };
-}
-
-export interface OptionsCRUD {
-  singleEntityName: string; // name of one item
-  selectQuery: SelectTableQueryParam;
-  validateSchema?: yup.ObjectSchema<any>;
-  permissions: Permissions;
-  logAlert?: boolean;
-}
+import { OptionsCRUD } from "../serviceCRUDTypes";
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
@@ -499,98 +460,5 @@ export const productsOptionsCRUD: OptionsCRUD = {
     },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,
-  validateSchema: incomesSchema,
+  validateSchema: productSchema,
 };
-
-// Array of the baseRoutes and the router params.
-export const routesConfigArr: {
-  baseRoute: string;
-  router: Router;
-}[] = [
-  {
-    baseRoute: API_ROUTES.USERS_ROUTE,
-    router: createCRUDroutes(usersOptionsCRUD),
-  },
-
-  {
-    baseRoute: API_ROUTES.LEADS_ROUTE,
-    router: createCRUDroutes(leadsOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.MUSCLES_GROUP_ROUTE,
-    router: createCRUDroutes(musclesGroupOptionsCRUD),
-  },
-
-  {
-    baseRoute: API_ROUTES.CITIES_ROUTE,
-    router: createCRUDroutes(citiesOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.LOCATIONS_ROUTE,
-    router: createCRUDroutes(locationsOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.PROVIDERS_ROUTE,
-    router: createCRUDroutes(providersOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.WEEKS_ROUTE,
-    router: createCRUDroutes(weeksOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.EXPENSES_ROUTE,
-    router: createCRUDroutes(expensesOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.EQUIPMENTS_ROUTE,
-    router: createCRUDroutes(equipmentsOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.EXERCISES_ROUTE,
-    router: createCRUDroutes(exerciseListOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.TRAINING_PROGRAMS_LIST_ROUTE,
-    router: createCRUDroutes(trainingProgramsListOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.TRAINING_PROGRAMS_STATS_ROUTE,
-    router: createCRUDroutes(trainingProgramsExerciseStatsOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.TRAINING_PROGRAMS_ROUTE,
-    router: createCRUDroutes(trainingProgramsOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.NUTRITION_PROGRAMS_LIST_ROUTE,
-    router: createCRUDroutes(nutritionProgramsListOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.NUTRITION_PROGRAMS_ROUTE,
-    router: createCRUDroutes(nutritionProgramOptionsCRUD),
-  },
-
-  {
-    baseRoute: API_ROUTES.SUBSCRIPTION_PLANS_ROUTE,
-    router: createCRUDroutes(subscriptionPlansOptionsCRUD),
-  },
-
-  {
-    baseRoute: API_ROUTES.PRODUCTS_ROUTE,
-    router: createCRUDroutes(productsOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.INCOMES_ROUTE,
-    router: createIncomesRouter(),
-  },
-
-  { baseRoute: API_ROUTES.MEASURES_ROUTE, router: createMeasuresRouter() },
-  {
-    baseRoute: API_ROUTES.TRAINEES_ROUTE,
-    router: createTraineesRouter(),
-  },
-  {
-    baseRoute: API_ROUTES.ALERT_ROUTE,
-    router: createAlertsRouter(),
-  },
-];

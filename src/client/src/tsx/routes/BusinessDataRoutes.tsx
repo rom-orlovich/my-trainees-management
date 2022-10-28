@@ -10,14 +10,15 @@ import { LocationAddForm } from "../components/Forms/LocationForms/LocationAddFo
 import { LocationEditForm } from "../components/Forms/LocationForms/LocationEditForm";
 import { MusclesGroupAddForm } from "../components/Forms/MusclesGroupForms/MusclesGroupAddForm";
 import { MusclesGroupEditForm } from "../components/Forms/MusclesGroupForms/MusclesGroupEditForm";
-import useCheckRole from "../hooks/useCheckRole";
+import { ProductAddForm } from "../components/Forms/ProductsForms/ProductAddForm";
+
 import CitiesPage from "../pages/CitiesPage/CitiesPage";
 import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
 import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
 import { APP_ROUTE } from "./appRoutesConstants";
-import ProtectedRoute from "./utilities/ProtectedRoute";
+import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 
 const BusinessDataRoutes = () => (
   <Routes>
@@ -59,9 +60,19 @@ const BusinessDataRoutes = () => (
       <Route path={APP_ROUTE.CITY_ROUTE_ADD} element={<CityAddForm />} />
       <Route path=":id" element={<CityEditForm />} />
     </Route>
-    <Route path={APP_ROUTE.PRODUCTS_ROUTE} element={<CitiesPage />}>
-      <Route path={APP_ROUTE.PRODUCTS_ADD} element={<CityAddForm />} />
-      <Route path=":id" element={<CityEditForm />} />
+    <Route
+      path={APP_ROUTE.PRODUCTS_ROUTE}
+      element={
+        <InsteadOutletRoutes
+          InsteadOutletRoutesPaths={APP_ROUTE.PRODUCTS_ROUTE}
+        >
+          {" "}
+          <></>{" "}
+        </InsteadOutletRoutes>
+      }
+    >
+      <Route path={APP_ROUTE.PRODUCTS_ADD} element={<ProductAddForm />} />
+      {/* <Route path=":id" element={<CityEditForm />} /> */}
     </Route>
   </Routes>
 );

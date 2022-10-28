@@ -12,7 +12,6 @@ import {
   selectQuery,
   updateExistTableData,
 } from "../../../PGSql/sqlHelpers";
-import { OptionsCRUD } from "../routes/configRoutes";
 
 import { promiseHandler } from "../../../utilities/helpers";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
@@ -21,6 +20,7 @@ import { ErrorCodes, ErrorCustomizes } from "../../serviceErrors/handleErrors";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
+import { OptionsCRUD } from "../serviceCRUDTypes";
 
 /**
  *

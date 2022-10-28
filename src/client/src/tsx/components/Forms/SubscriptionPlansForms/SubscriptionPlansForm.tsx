@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 

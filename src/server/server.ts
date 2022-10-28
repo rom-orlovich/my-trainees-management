@@ -11,7 +11,7 @@ import path from "path";
 import { Server } from "http";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
-import { routesConfigArr } from "./services/serviceCRUD/routes/configRoutes";
+
 import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
 import { handleAlertsMiddleware } from "./services/serviceAlerts/handleAlerts";
 import {
@@ -21,6 +21,7 @@ import {
 } from "./services/apiRoutesConstants";
 
 import authRouter from "./services/serviceAuth/routes/authRouter";
+import { routesConfigArr } from "./services/serviceCRUD/routes/routersCRUDapp";
 
 const PORT = process.env.PORT || 5000;
 

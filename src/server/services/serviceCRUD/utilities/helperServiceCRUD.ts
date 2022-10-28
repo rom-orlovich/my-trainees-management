@@ -5,7 +5,7 @@ import {
 } from "../../serviceAuth/controllers/validateAuthMiddleware";
 import { handleGetStatistic } from "../../serviceStatistics/controllers/handleGetStatistic";
 import { createRoutesControllers } from "../controllers/controllerCRUD";
-import { OptionsCRUD } from "../routes/configRoutes";
+import { OptionsCRUD } from "../serviceCRUDTypes";
 
 /**
  *
