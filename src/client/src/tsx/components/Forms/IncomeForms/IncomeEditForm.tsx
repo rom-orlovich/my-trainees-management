@@ -19,19 +19,17 @@ import {
 
 import IncomeForms from "./IncomeForms";
 
-function MeasureEditForm() {
+function IncomeEditForm() {
   const [updateItem] = incomesApi.useUpdateItemMutation();
 
-  // If the user is trainee, the query is executed by his userID instead his trainerUserID.
-  // const { profileID, traineeID, userID } = useGetUserTraineeData();
-  // const queryOptions = traineeID
-  //   ? { profileID, userID }
-  //   : { profileID, trainerUserID: userID };
+  const { user_id } = useGetUserLoginData();
+
   const id = Number(useParams().id);
 
   const { data, isFetching, isError, isLoading } =
     incomesApi.useGetItemByIDQuery({
       id,
+      userID: user_id,
     });
 
   return (
@@ -41,8 +39,12 @@ function MeasureEditForm() {
       stateData={{ data, isFetching, isError, isLoading }}
     >
       {(data) => {
-        const handleSubmit = ({ ...body }: IncomeAPI) => {
-          console.log(body);
+        const handleSubmit = ({
+          first_name,
+          last_name,
+          product_name,
+          ...body
+        }: IncomeAPI) => {
           updateFunction({
             updateItem,
             id: Number(data.income_id),
@@ -53,9 +55,7 @@ function MeasureEditForm() {
           <IncomeForms
             editMode={true}
             onSubmit={handleSubmit}
-            defaultValues={{
-              ...data,
-            }}
+            defaultValues={data}
           />
         );
       }}
@@ -63,4 +63,4 @@ function MeasureEditForm() {
   );
 }
 
-export default MeasureEditForm;
+export default IncomeEditForm;

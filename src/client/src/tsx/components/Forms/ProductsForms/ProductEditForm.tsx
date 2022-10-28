@@ -1,23 +1,25 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
-import { leadsApi } from "../../../redux/api/hooksAPI";
-import { LeadsTableAPI } from "../../../redux/api/interfaceAPI";
+import { productsApi } from "../../../redux/api/hooksAPI";
+import { ProductAPI } from "../../../redux/api/interfaceAPI";
 
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
-import LeadsForm from "./ProductForm";
+import { ProductForm } from "./ProductForm";
 
-function LeadEditForm() {
+function ProductEditForm() {
   const id = Number(useParams().id);
 
-  const [updateItem] = leadsApi.useUpdateItemMutation();
-  const { data, isFetching, isError, isLoading } = leadsApi.useGetItemByIDQuery(
-    { id, userID: useGetUserLoginData().user_id }
-  );
+  const [updateItem] = productsApi.useUpdateItemMutation();
+  const { data, isFetching, isError, isLoading } =
+    productsApi.useGetItemByIDQuery({
+      id,
+      userID: useGetUserLoginData().user_id,
+    });
 
-  const handleSubmit = (body: LeadsTableAPI) =>
+  const handleSubmit = (body: ProductAPI) =>
     updateFunction({
       updateItem,
       id,
@@ -25,18 +27,18 @@ function LeadEditForm() {
 
   return (
     <LoadingSpinner
-      nameData="Lead"
+      nameData="Product"
       stateData={{ data, isFetching, isError, isLoading }}
     >
-      {/* {({ lead_id, ...data }) => (
-        <LeadsForm
+      {(data) => (
+        <ProductForm
           editMode={true}
           onSubmit={handleSubmit}
           defaultValues={data}
         />
-      )} */}
+      )}
     </LoadingSpinner>
   );
 }
 
-export default LeadEditForm;
+export default ProductEditForm;

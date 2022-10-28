@@ -11,6 +11,7 @@ import { LocationEditForm } from "../components/Forms/LocationForms/LocationEdit
 import { MusclesGroupAddForm } from "../components/Forms/MusclesGroupForms/MusclesGroupAddForm";
 import { MusclesGroupEditForm } from "../components/Forms/MusclesGroupForms/MusclesGroupEditForm";
 import { ProductAddForm } from "../components/Forms/ProductsForms/ProductAddForm";
+import ProductEditForm from "../components/Forms/ProductsForms/ProductEditForm";
 
 import CitiesPage from "../pages/CitiesPage/CitiesPage";
 import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
@@ -19,7 +20,6 @@ import LocationsListPage from "../pages/LocationsPage/LocationsPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
 import ProductsPage from "../pages/ProductsPage/ProductsPage";
 import { APP_ROUTE } from "./appRoutesConstants";
-import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 
 const BusinessDataRoutes = () => (
   <Routes>
@@ -63,7 +63,7 @@ const BusinessDataRoutes = () => (
     </Route>
     <Route path={APP_ROUTE.PRODUCTS_ROUTE} element={<ProductsPage />}>
       <Route path={APP_ROUTE.PRODUCTS_ADD} element={<ProductAddForm />} />
-      {/* <Route path=":id" element={<CityEditForm />} /> */}
+      <Route path=":id" element={<ProductEditForm />} />
     </Route>
   </Routes>
 );

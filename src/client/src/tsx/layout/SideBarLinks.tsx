@@ -32,16 +32,17 @@ export const TRAINER_SIDE_BAR_LINKS: LinkData[] = [
     text: "Leads",
     icon: <SiGoogleads className={style.icon} />,
   },
-  {
-    to: `${APP_ROUTE.COMING_SOON}/${APP_ROUTE.SCHEDULE_ROUTE}`,
-    text: "Schedule",
-    icon: <AiFillSchedule className={style.icon} />,
-  },
 
   {
     to: `/${APP_ROUTE.FINANCES_ROUTE}`,
     text: "Finances",
     icon: <FaMoneyBillAlt className={style.icon} />,
+  },
+
+  {
+    to: `${APP_ROUTE.COMING_SOON}/${APP_ROUTE.SCHEDULE_ROUTE}`,
+    text: "Schedule",
+    icon: <AiFillSchedule className={style.icon} />,
   },
 ];
 export const ADMIN_SIDE_BAR_LINKS: LinkData[] = [

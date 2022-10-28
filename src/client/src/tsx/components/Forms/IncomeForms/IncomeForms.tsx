@@ -38,9 +38,9 @@ export function IncomeForms({
       formOptions={{
         defaultValues: {
           user_id: authState.user_id,
-          date: formatDate(new Date(), 0) as any,
           amount: 1,
           ...defaultValues,
+          date: formatDate(defaultValues?.date || new Date(), 0) as any,
         },
         resolver: yupResolver(incomesSchema),
       }}

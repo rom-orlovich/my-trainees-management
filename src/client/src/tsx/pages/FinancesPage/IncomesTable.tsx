@@ -39,7 +39,7 @@ function IncomesTable({
   const [deleteItem] = incomesApi.useDeleteItemMutation();
   return (
     <TablePagination<IncomeAPI>
-      editPagePath={APP_ROUTE.INCOMES_ROUTE}
+      editPagePath={`${APP_ROUTE.FINANCES_ROUTE}/${APP_ROUTE.INCOMES_ROUTE}`}
       queriesOptions={queriesOptions}
       nameData="Income"
       transformFun={transformIncomeFunction}

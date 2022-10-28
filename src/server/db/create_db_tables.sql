@@ -396,13 +396,12 @@ CREATE TABLE IF NOT EXISTS "products"(
   ),
   CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
   SET
-    NULL ON
-  UPDATE CASCADE
+    NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "subscription_plans"(
   "subscription_plan_id" serial PRIMARY KEY,
-  "product_id" INTEGER NOT NULL,
+  "product_id" INTEGER,
   "trainee_id" INTEGER NOT NULL,
   "current_num_trainings" INTEGER DEFAULT 0,
   "total_trainings" integer NOT NULL,
@@ -422,7 +421,7 @@ CREATE TABLE IF NOT EXISTS "incomes" (
   "income_id" serial PRIMARY KEY,
   "date" DATE NOT NULL,
   "amount" INTEGER DEFAULT 1,
-  "product_id" INTEGER NOT NULL,
+  "product_id" INTEGER,
   "buyer_id" INTEGER NOT NULL,
   "total_price" FLOAT NOT NULL,
   "note_topic" TEXT,

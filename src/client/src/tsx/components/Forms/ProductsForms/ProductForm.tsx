@@ -2,25 +2,15 @@
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import {
-  // FormWithNotesProps,
-  GeneralFormProps,
-} from "../../baseComponents/baseComponentsTypes";
+import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
-import {
-  leadsSchema,
-  productSchema,
-} from "../../baseComponents/RHF-Components/formsSchemas";
+import { productSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
-import { LeadsTableAPI, ProductAPI } from "../../../redux/api/interfaceAPI";
-
-import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
-import { formatDate } from "../../../utilities/helpersFun";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { ProductAPI } from "../../../redux/api/interfaceAPI";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import { productsApi } from "../../../redux/api/hooksAPI";
+
 import { SelectInput } from "../../baseComponents/RHF-Components/SelectInput/SelectInput";
 
 export function ProductForm({
@@ -33,21 +23,18 @@ export function ProductForm({
       editMode={editMode}
       onSubmit={onSubmit}
       nameForm="Product"
-      // pathMove={`/${APP_ROUTE.LEADS_ROUTE}`}
       formOptions={{
         defaultValues: {
           price: 1,
           user_id: useGetUserLoginData().user_id,
+          product_type: defaultValues?.product_type,
           ...defaultValues,
         },
         resolver: yupResolver(productSchema),
       }}
     >
-      {({ register, formState, getValues, setValue, watch }) => {
+      {({ register, formState, setValue, watch }) => {
         const product_type = watch("product_type");
-        console.log(product_type);
-        // const product_type = getValues("product_type");
-        // console.log(product_type);
 
         if (product_type === "Subscription Plans") {
           setValue("max_training", 1);
@@ -77,7 +64,7 @@ export function ProductForm({
               options={[
                 { value: "Subscription Plans", label: "Subscription Plans" },
                 { value: "Nutrition Plans", label: "Nutrition Plans" },
-                { value: "other", label: "Other" },
+                { value: "Other", label: "Other" },
               ]}
               LabelProps={{ labelText: "Type" }}
             />
