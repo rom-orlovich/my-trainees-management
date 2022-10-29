@@ -24,7 +24,16 @@ export const myFormat = printf(
     const filename = meta?.fileName
       ? path.resolve(meta?.fileName).split("/").slice(-1).join("")
       : "";
-    return `${timestamp} ${level}: ${filename} ${stack || message}`;
+
+    const obj = meta?.objs
+      ? `${+"valuesObj:"} ${meta?.objs.reduce(
+          (pre: string, cur: object) => `${pre} ${JSON.stringify(cur)}`,
+          ""
+        )}`
+      : "";
+    return `${timestamp} ${level}: ${filename} ${stack || message} ${
+      obj || ""
+    }`;
   }
 );
 

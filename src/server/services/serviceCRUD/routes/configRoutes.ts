@@ -27,7 +27,6 @@ import {
   PERMISSION_ADMIN,
   PERMISSION_TRAINEE_WITHOUT_UPDATE,
   PERMISSION_TRAINER_BY_USER_ID,
-  PERMISSION_TRAINEE,
   PERMISSION_TRAINEE_READONLY,
   PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   PERMISSION_TRAINER_BY_USER_ID_READ_ALL,
@@ -456,6 +455,8 @@ export const productsOptionsCRUD: OptionsCRUD = {
     querySelectLogic: ``,
     queryParams: {
       userID: "pro.user_id",
+      diffProductType: "product_type",
+      productType: "product_type",
     },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,

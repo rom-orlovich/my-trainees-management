@@ -70,7 +70,10 @@ export function ExpenseForms({
               name="product_id"
               control={control}
               AutocompleteInputProps={{
-                queriesOptions,
+                queriesOptions: {
+                  ...queriesOptions,
+                  productType: "Expense",
+                },
                 defaultValueID: defaultValues?.product_id,
                 InputLabelProps: {
                   LabelProps: { labelText: "Products" },

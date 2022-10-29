@@ -1,4 +1,5 @@
 import express from "express";
+import { TABLES_DATA } from "../../../utilities/constants";
 import {
   validateRolePermission,
   validateTokenMiddleware,

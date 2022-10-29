@@ -4,12 +4,30 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 
-import { orderBy } from "lodash";
+import { logger } from "../services/loggerService/logger";
 
 import { TABLES_DATA } from "../utilities/constants";
 import { pt, createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
+
+// NOTE: constant for checking the DB queries of table.
+export const SELECT_QUERY_TABLE_CHECK = [
+  true,
+  TABLES_DATA.PRODUCTS_TABLE_NAME,
+] as const;
+export const INSERT_QUERY_TABLE_CHECK = [
+  false,
+  TABLES_DATA.PRODUCTS_TABLE_NAME,
+] as const;
+export const UPDATE_QUERY_TABLE_CHECK = [
+  false,
+  TABLES_DATA.PRODUCTS_TABLE_NAME,
+] as const;
+export const DELETE_QUERY_TABLE_CHECK = [
+  false,
+  TABLES_DATA.PRODUCTS_TABLE_NAME,
+] as const;
 
 // Makes string from the keys of the obj.
 // This string is used as fieldName in update/insert functions.
@@ -19,8 +37,8 @@ const prepareFieldsName = (obj: Record<string, any>) => {
 };
 
 // Makes string from the value of the obj.
-// This string is used as the values  in  insert functions.
-const prepareValues = (obj: Record<string, any>, startParma = 1) => {
+// This string is used as the values in insert functions.
+const prepareValuesToInsert = (obj: Record<string, any>, startParma = 1) => {
   const values = createObjValuesArr(obj);
   let fieldParams = "";
   let lastIndex = 0;
@@ -69,11 +87,26 @@ export const createRealQueryKeyValuesObj = (
     // Created  key value obj which the first key is the key with the concat value of the query
     // and the other keys will concat to his key to create the concat name string for the query.
 
-    if (queryFromReq[key] || (!queryFromReq[key] && key === "secName"))
+    if (queryFromReq[key] || (!queryFromReq[key] && key === "secName")) {
+      const newKeyValue = key.includes("diff")
+        ? {
+            [`${fakeQueryName[key]}-diff`]: queryFromReq[key],
+          }
+        : {
+            [fakeQueryName[key]]: queryFromReq[key],
+          };
+      logger.log(
+        "debug",
+        `value line:81 ${key} ${JSON.stringify(newKeyValue)}`,
+        {
+          fileName: __filename,
+        }
+      );
       newRealQueryKeyValueObj = {
         ...newRealQueryKeyValueObj,
-        [fakeQueryName[key]]: queryFromReq[key],
+        ...newKeyValue,
       };
+    }
   }
 
   return newRealQueryKeyValueObj;
@@ -167,24 +200,33 @@ const prepareKeyValuesOtherColumnToSelect = (
   const keysValuesEntries = Object.entries(queryParams);
 
   keysValuesEntries.forEach(([key, value], index) => {
-    // if (key === "gt")
-    //   keyValuesStr += value
-    //     ? ` update_date>=$${paramsArr.length + startIndex} `
-    //     : "";
-    // else if (key === "lt")
-    //   keyValuesStr += value
-    //     ? ` update_date<=$${paramsArr.length + startIndex} `
-    //     : "";
-    // else
-    keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
+    const diffKey = key.split("-");
 
+    // logger.debug(`line 193 ${value}`, { fileName: __filename });
+    if (diffKey[1] === "diff") {
+      keyValuesStr += value
+        ? ` ${diffKey[0]}!=$${paramsArr.length + startIndex} `
+        : "";
+    } else
+      keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
     if (index !== keysValuesEntries.length - 1)
       keyValuesStr += value ? ` and` : "";
 
     if (value) {
-      if (Number.isNaN(value) || key === "phone_number") paramsArr.push(value);
-      else paramsArr.push(Number(value));
+      if (
+        // Number.isNaN(value) ||
+        key === "phone_number" ||
+        typeof value !== "number"
+      )
+        paramsArr.push(value);
+      else {
+        paramsArr.push(Number(value));
+      }
     }
+
+    // logger.debug(`line 208 ${JSON.stringify(paramsArr)}`, {
+    //   fileName: __filename,
+    // });
   });
   // EXAM: keyValuesStrArr : profile_id=$1,
   return {
@@ -201,10 +243,15 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-  // pt(tableName, TABLES_DATA.MEASURES_TABLE_NAME, {
-  //   statement,
-  //   queryParams,
-  // });
+
+  if (
+    SELECT_QUERY_TABLE_CHECK[0] &&
+    tableName.includes(SELECT_QUERY_TABLE_CHECK[1])
+  )
+    logger.debug(
+      `line 218:${statement} : values:${JSON.stringify(queryParams)}`,
+      { fileName: __filename }
+    );
   const rows = await client.query(statement, queryParams);
 
   return rows.rows;
@@ -221,11 +268,13 @@ const insertQuery = async (
   const statement = `INSERT INTO ${tableName} (${fieldName})
    VALUES ${fieldParams} ${onConflict ? `${onConflict}` : ""} RETURNING * `;
 
-  // console.log(statement, [paramId, ...paramsArr]);
-  // if (tableName.includes(TABLES_DATA.INCOMES_TABLE_NAME)) {
-  //   console.log("statement", statement);
-  //   console.log("queryParams", paramArr);
-  // }
+  if (
+    INSERT_QUERY_TABLE_CHECK[0] &&
+    tableName.includes(INSERT_QUERY_TABLE_CHECK[1])
+  )
+    logger.debug(`line 246:${statement} : values:${JSON.stringify(paramArr)}`, {
+      fileName: __filename,
+    });
 
   const res = await client.query(statement, paramArr);
 
@@ -242,10 +291,16 @@ const updateQuery = async (
 ) => {
   const statement = `UPDATE ${tableName} SET ${keyValuesStr}
   ${queryLogic} RETURNING *`;
-  pt(tableName, TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME, {
-    statement,
-    queryParams: [paramId, ...paramsArr],
-  });
+  if (
+    UPDATE_QUERY_TABLE_CHECK[0] &&
+    tableName.includes(UPDATE_QUERY_TABLE_CHECK[1])
+  )
+    logger.debug(
+      `line 265:${statement} : values:${JSON.stringify(paramsArr)}`,
+      {
+        fileName: __filename,
+      }
+    );
   const rows = await client.query(statement, [paramId, ...paramsArr]);
   return rows;
 };
@@ -258,7 +313,7 @@ export async function insertQueryOneItem(
   onConflict?: string
 ) {
   const fieldName = prepareFieldsName(obj);
-  const { fieldParams, paramsArr } = prepareValues(obj);
+  const { fieldParams, paramsArr } = prepareValuesToInsert(obj);
 
   const res = await insertQuery(
     tableName,
@@ -303,7 +358,16 @@ export async function deleteQuery(
   const statement = `DELETE FROM ${tableName} ${queryLogic} ${
     returnValue ? "RETURNING *" : ""
   } `;
-  // console.log(statement, queryParams);
+  if (
+    DELETE_QUERY_TABLE_CHECK[0] &&
+    tableName.includes(DELETE_QUERY_TABLE_CHECK[1])
+  )
+    logger.debug(
+      `line 328:${statement} : values:${JSON.stringify(queryParams)}`,
+      {
+        fileName: __filename,
+      }
+    );
   const rows = await client.query(statement, queryParams);
   return rows.rows;
 }
@@ -345,8 +409,7 @@ const prepareStatementLogic = (
 };
 
 // Make pagination by select query.
-// Return the items array and boolean value if there is next
-// page.
+// Return the items array and boolean value if there is next page.
 export async function selectPagination(
   tableName: string,
   page = "1",

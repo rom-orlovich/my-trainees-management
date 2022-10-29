@@ -14,7 +14,12 @@ import { PageTableProps } from "../TraineesPage/TraineesTable";
 export const transformDataCity = (arg: ProductAPI) => {
   const { product_name, product_type, price, product_id } = arg;
 
-  return { product_id, product: product_name, type: product_type, price };
+  return {
+    product_id,
+    product: product_name,
+    type: product_type,
+    price: `${price} NIS`,
+  };
 };
 function ProductsTable({
   mainName,

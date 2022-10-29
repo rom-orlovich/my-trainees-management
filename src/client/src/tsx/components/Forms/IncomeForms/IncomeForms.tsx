@@ -93,7 +93,10 @@ export function IncomeForms({
               name="product_id"
               control={control}
               AutocompleteInputProps={{
-                queriesOptions,
+                queriesOptions: {
+                  ...queriesOptions,
+                  diffProductType: "Expense",
+                },
                 defaultValueID: defaultValues?.product_id,
                 InputLabelProps: {
                   LabelProps: { labelText: "Products" },

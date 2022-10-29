@@ -12,7 +12,7 @@ const logAppDir = "./logs/app";
 const logHttpDir = "./logs/http";
 
 export const loggerTransport = new transports.File({
-  level: "info",
+  level: "debug",
   filename: "info.log",
   dirname: logAppDir,
 });
