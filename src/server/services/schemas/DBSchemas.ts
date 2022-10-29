@@ -9,7 +9,7 @@ export const musclesGroupSchema = yup.object().shape({
 export const leadsSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable().default(1),
   lead_id: yup.number().notRequired().nullable(),
-  date_lead: yup.date().required(),
+  lead_date: yup.date().required(),
   first_name: yup.string().required(),
   last_name: yup.string().required(),
   phone_number: yup.string().required(),

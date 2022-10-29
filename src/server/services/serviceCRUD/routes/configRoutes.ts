@@ -82,6 +82,9 @@ export const leadsOptionsCRUD: OptionsCRUD = {
     queryParams: {
       userID: "user_id",
     },
+    orderByParam: {
+      leadDate: "lead_date",
+    },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,
 

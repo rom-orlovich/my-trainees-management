@@ -22,6 +22,7 @@ import {
 
 import authRouter from "./services/serviceAuth/routes/authRouter";
 import { routesConfigArr } from "./services/serviceCRUD/routes/routersCRUDArr";
+import { logger } from "./services/loggerService/logger";
 
 const PORT = process.env.PORT || 5000;
 
@@ -59,16 +60,20 @@ async function connectDB() {
   try {
     await client.connect();
     client.on("error", (err) => {
-      console.error("something bad has happened!", err.stack);
+      logger.error("something bad has happened!", err.stack);
+      // console.error("something bad has happened!", );
     });
-    console.log(`Connected pgSQL server.`);
+
+    logger.log("info", `Connected pgSQL server.`);
+    // console.log(`Connected pgSQL server.`);
 
     // Uncomment this line will init the  db.
     // This line is for development purpose.
     // await initDB();
 
     server = app.listen(PORT, () => {
-      console.log(`listen port ${PORT}`);
+      // console.log(`listen port ${PORT}`);
+      logger.log("info", `listen port ${PORT}`);
     });
   } catch (error) {
     console.log(error);

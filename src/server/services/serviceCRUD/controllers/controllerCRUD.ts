@@ -21,6 +21,7 @@ import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { OptionsCRUD } from "../serviceCRUDTypes";
+import { logger } from "../../loggerService/logger";
 
 /**
  *
@@ -46,6 +47,7 @@ export function createRoutesControllers({
   const prepareLogAlert = createLogAlertInfo(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
+    logger.log("info", `handle ${req.baseUrl} -  getting data from db`);
     const {
       page,
       asc,
@@ -70,6 +72,7 @@ export function createRoutesControllers({
       : { gt: [], lt: [] };
     const orderByParamRes =
       orderByParam && orderBy ? orderByParam[orderBy as string] : tableID;
+
     const [data, err] = await promiseHandler(
       selectPagination(
         tableName,

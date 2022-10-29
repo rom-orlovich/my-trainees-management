@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS "muscles_group" (
 
 CREATE TABLE IF NOT EXISTS "leads"(
   "lead_id" serial PRIMARY KEY,
-  "date_lead" DATE NOT NULL,
+  "lead_date" DATE NOT NULL,
   "first_name" VARCHAR(40) NOT NULL,
   "last_name" VARCHAR(40) NOT NULL,
   "phone_number" VARCHAR(12) NOT NULL,
