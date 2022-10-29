@@ -17,7 +17,6 @@ import {
   traineesSchema,
   trainingProgramSchema,
   trainingProgramsListSchema,
-  weeksSchema,
   trainingProgramExerciseStatsSchema,
   measuresSchema,
   productSchema,
@@ -168,35 +167,6 @@ export const providersOptionsCRUD: OptionsCRUD = {
   validateSchema: providersSchema,
 };
 
-export const weeksOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.WEEKS_ROUTE,
-  selectQuery: {
-    tableName: `${TABLES_DATA.WEEKLY_TABLE_NAME} as we`,
-    tableID: `we.${TABLES_DATA.WEEKLY_ID}`,
-    fieldNamesQuery: "*",
-    querySelectLogic: ``,
-  },
-  permissions: PERMISSION_TRAINEE,
-  validateSchema: weeksSchema,
-};
-
-export const expensesOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.EXPENSES_ENTITY,
-  selectQuery: {
-    tableName: `${TABLES_DATA.EXPENSES_TABLE_NAME} as ex`,
-    tableID: `ex.${TABLES_DATA.EXPENSES_ID}`,
-    fieldNamesQuery: `ex.*, pr.provider_name`,
-    querySelectLogic: `JOIN ${TABLES_DATA.PROVIDERS_TABLE_NAME} as pr on 
-   ex.seller_id=pr.${TABLES_DATA.PROVIDERS_ID}
-   `,
-    queryParams: {
-      userID: "ex.user_id",
-    },
-  },
-  permissions: PERMISSION_TRAINER_BY_USER_ID,
-  validateSchema: expensesSchema,
-};
-
 export const equipmentsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.EQUIPMENTS_ENTITY,
   selectQuery: {
@@ -345,17 +315,12 @@ export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.NUTRITION_PROGRAM_LIST_TABLE_NAME} as npl`,
     tableID: `npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}`,
-    fieldNamesQuery: `npl.*,
-    np.week_id,
-    np.note_id as week_note_id,
-    we.date,we.day,we.weight`,
+    fieldNamesQuery: `npl.*`,
     querySelectLogic: `
     LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON
     npl.${TABLES_DATA.TRAINEE_ID}=tr.${TABLES_DATA.TRAINEE_ID}
     LEFT JOIN  ${TABLES_DATA.NUTRITION_PROGRAM_TABLE_NAME} as np ON
-    npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}=np.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}
-    LEFT JOIN ${TABLES_DATA.WEEKLY_TABLE_NAME} as we ON 
-    we.${TABLES_DATA.WEEKLY_ID}=np.${TABLES_DATA.WEEKLY_ID} `,
+    npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}=np.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}`,
   },
   permissions: PERMISSION_TRAINEE_READONLY,
   validateSchema: nutritionProgramsListSchema,
@@ -457,6 +422,29 @@ export const incomesOptionsCRUD: OptionsCRUD = {
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,
   validateSchema: incomesSchema,
+};
+
+export const expensesOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.EXPENSES_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.EXPENSES_TABLE_NAME} as ex`,
+    tableID: `ex.${TABLES_DATA.EXPENSES_ID}`,
+    fieldNamesQuery: `ex.*, pr.product_name`,
+    querySelectLogic: ` LEFT JOIN ${TABLES_DATA.PRODUCTS_TABLE_NAME} as pr ON 
+    pr.${TABLES_DATA.PRODUCT_ID}= ex.${TABLES_DATA.PRODUCT_ID}`,
+    queryParams: {
+      userID: `ex.${TABLES_DATA.USERS_TABLE_ID}`,
+      gt: "gt",
+      lt: "lt",
+    },
+    comparisonQuery: {
+      gt: "date",
+      lt: "date",
+    },
+  },
+
+  permissions: PERMISSION_TRAINER_BY_USER_ID,
+  validateSchema: expensesSchema,
 };
 
 export const productsOptionsCRUD: OptionsCRUD = {

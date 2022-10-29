@@ -17,7 +17,6 @@ import {
   trainingProgramsListOptionsCRUD,
   trainingProgramsOptionsCRUD,
   usersOptionsCRUD,
-  weeksOptionsCRUD,
 } from "./configRoutes";
 import { createCRUDroutes } from "./createCRUDroutes";
 import {
@@ -58,14 +57,7 @@ export const routesConfigArr: {
     baseRoute: API_ROUTES.PROVIDERS_ROUTE,
     router: createCRUDroutes(providersOptionsCRUD),
   },
-  {
-    baseRoute: API_ROUTES.WEEKS_ROUTE,
-    router: createCRUDroutes(weeksOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.EXPENSES_ROUTE,
-    router: createCRUDroutes(expensesOptionsCRUD),
-  },
+
   {
     baseRoute: API_ROUTES.EQUIPMENTS_ROUTE,
     router: createCRUDroutes(equipmentsOptionsCRUD),
@@ -107,6 +99,10 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.INCOMES_ROUTE,
     router: createIncomesRouter(),
+  },
+  {
+    baseRoute: API_ROUTES.EXPENSES_ROUTE,
+    router: createCRUDroutes(expensesOptionsCRUD),
   },
 
   { baseRoute: API_ROUTES.MEASURES_ROUTE, router: createMeasuresRouter() },

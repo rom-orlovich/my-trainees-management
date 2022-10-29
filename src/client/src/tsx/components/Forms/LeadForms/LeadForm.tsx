@@ -33,14 +33,14 @@ export function LeadForm({
         defaultValues: {
           ...defaultValues,
           user_id: useGetUserLoginData().user_id,
-          date_lead: formatDate(defaultValues?.date_lead || new Date()) as any,
+          lead_date: formatDate(defaultValues?.lead_date || new Date()) as any,
         },
         resolver: yupResolver(leadsSchema),
       }}
     >
       {({ register, formState }) => {
         const {
-          date_lead,
+          lead_date,
           first_name,
           last_name,
           email,
@@ -53,15 +53,15 @@ export function LeadForm({
           <>
             <InputLabel
               InputProps={{
-                ...register("date_lead"),
+                ...register("lead_date"),
                 type: "date",
               }}
               LabelProps={{
-                htmlFor: "date_lead",
+                htmlFor: "lead_date",
                 labelText: "Date",
               }}
             >
-              <InputErrorMessage nameInput="Date" error={date_lead} />
+              <InputErrorMessage nameInput="Date" error={lead_date} />
             </InputLabel>
 
             <InputLabel

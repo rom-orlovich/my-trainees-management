@@ -49,7 +49,7 @@ const addButtonLinks = [
     text: "Add Income",
   },
   {
-    to: APP_ROUTE.COMING_SOON,
+    to: `/${APP_ROUTE.FINANCES_ROUTE}/${APP_ROUTE.EXPENSES_ROUTE}/${APP_ROUTE.EXPENSES_ADD}`,
     text: "Add Expense",
   },
 ];

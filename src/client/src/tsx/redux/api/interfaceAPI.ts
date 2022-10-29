@@ -125,7 +125,7 @@ export interface MusclesGroupTableAPI {
 export interface LeadsTableAPI {
   user_id?: number;
   lead_id?: number;
-  date_lead: Date;
+  lead_date: Date;
   first_name: string;
   last_name: string;
   phone_number: string;
@@ -315,13 +315,15 @@ export interface ExpensesTableAPI {
   user_id?: number;
   date: Date;
   expense_id?: number;
-  expenses_amount: number;
+  product_name: string;
+  amount: number;
+  total_price: number;
   note_topic: string | null;
   note_text: string | null;
   product_id: number;
-  seller_id: number;
+  seller_name: string;
 }
-export interface IncomeAPI {
+export interface IncomesTableAPI {
   income_id?: number;
   product_id: number;
   date: Date;

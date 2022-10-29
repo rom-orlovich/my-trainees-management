@@ -4,8 +4,6 @@ DROP TABLE IF EXISTS "schedule" CASCADE;
 
 DROP TABLE IF EXISTS "incomes" CASCADE;
 
-DROP TABLE IF EXISTS "weeks" CASCADE;
-
 DROP TABLE IF EXISTS "nutrition_program" CASCADE;
 
 DROP TABLE IF EXISTS "nutrition_programs_list" CASCADE;
@@ -203,24 +201,6 @@ CREATE TABLE IF NOT EXISTS "providers" (
   UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS "expenses" (
-  "expense_id" serial PRIMARY KEY,
-  "date" DATE NOT NULL,
-  "seller_id" INTEGER NOT NULL,
-  "expenses_amount" float NOT NULL,
-  "note_topic" TEXT,
-  "note_text" TEXT,
-  "user_id" INTEGER DEFAULT 1,
-  CONSTRAINT fk_seller_id FOREIGN KEY(seller_id) REFERENCES providers(provider_id) ON DELETE
-  SET
-    NULL ON
-  UPDATE CASCADE,
-    CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
-  SET
-    NULL ON
-  UPDATE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS "equipments" (
   "equipment_id" serial PRIMARY KEY,
   "equipment_name" VARCHAR(255) NOT NULL,
@@ -228,11 +208,11 @@ CREATE TABLE IF NOT EXISTS "equipments" (
   "manufacture_year" INTEGER NOT NULL,
   "expense_id" INTEGER,
   "user_id" INTEGER DEFAULT 1,
-  CONSTRAINT fk_expense_id FOREIGN KEY(expense_id) REFERENCES expenses(expense_id) ON DELETE
-  SET
-    NULL ON
-  UPDATE CASCADE,
-    CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
+  -- CONSTRAINT fk_expense_id FOREIGN KEY(expense_id) REFERENCES expenses(expense_id) ON DELETE
+  -- SET
+  --   NULL ON
+  -- UPDATE CASCADE,
+  CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
   SET
     NULL ON
   UPDATE CASCADE
@@ -372,18 +352,6 @@ CREATE TABLE IF NOT EXISTS "nutrition_program" (
   UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS "weeks" (
-  "week_id" serial PRIMARY KEY,
-  "nutrition_program_id" INTEGER NOT NULL,
-  "date" DATE NOT NULL,
-  "day" INTEGER NOT NULL,
-  "weight" float,
-  CONSTRAINT fk_nutrition_program_id FOREIGN KEY(nutrition_program_id) REFERENCES nutrition_program(nutrition_program_id) ON DELETE
-  SET
-    NULL ON
-  UPDATE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS "products"(
   "product_id" SERIAL PRIMARY KEY,
   "product_name" VARCHAR(50),
@@ -392,7 +360,12 @@ CREATE TABLE IF NOT EXISTS "products"(
   "price" FLOAT,
   "user_id" INTEGER DEFAULT 1,
   CONSTRAINT "product_type" CHECK (
-    "product_type" IN ('Subscription Plans', 'Nutrition Plans', 'Other')
+    "product_type" IN (
+      'Subscription Plan',
+      'Nutrition Plan',
+      'Expense',
+      'Other'
+    )
   ),
   CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
   SET
@@ -432,6 +405,30 @@ CREATE TABLE IF NOT EXISTS "incomes" (
     NULL ON
   UPDATE CASCADE,
     CONSTRAINT fk_trainee_id FOREIGN KEY(buyer_id) REFERENCES trainees(trainee_id) ON DELETE
+  SET
+    NULL ON
+  UPDATE CASCADE,
+    CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
+  SET
+    NULL ON
+  UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "expenses" (
+  "expense_id" serial PRIMARY KEY,
+  "date" DATE NOT NULL,
+  "amount" INTEGER DEFAULT 1,
+  "product_id" INTEGER,
+  "seller_name" VARCHAR(50) not null,
+  "total_price" float NOT NULL,
+  "note_topic" TEXT,
+  "note_text" TEXT,
+  "user_id" INTEGER DEFAULT 1,
+  -- CONSTRAINT fk_seller_id FOREIGN KEY(seller_id) REFERENCES providers(provider_id) ON DELETE
+  -- SET
+  --   NULL ON
+  -- UPDATE CASCADE,
+  CONSTRAINT fk_product_id FOREIGN KEY(product_id) REFERENCES products(product_id) ON DELETE
   SET
     NULL ON
   UPDATE CASCADE,

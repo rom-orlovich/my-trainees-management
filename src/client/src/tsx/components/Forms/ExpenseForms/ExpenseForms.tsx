@@ -1,39 +1,33 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { useSelector } from "react-redux";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import {
+  expensesSchema,
   incomesSchema,
-  measuresSchema,
 } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
-import {
-  IncomesTableAPI,
-  ProductAPI,
-  TraineesTableExtendsAPI,
-} from "../../../redux/api/interfaceAPI";
+import { ExpensesTableAPI, ProductAPI } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { productsApi, traineesApi } from "../../../redux/api/hooksAPI";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import { useAppSelector } from "../../../redux/hooks";
 
-export function IncomeForms({
+export function ExpenseForms({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<IncomesTableAPI>) {
+}: GeneralFormProps<ExpensesTableAPI>) {
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
-    <Form<IncomesTableAPI>
+    <Form<ExpensesTableAPI>
       editMode={editMode}
       onSubmit={onSubmit}
-      nameForm="income"
+      nameForm="Expense"
       pathMove={``}
       formOptions={{
         defaultValues: {
@@ -42,11 +36,12 @@ export function IncomeForms({
           ...defaultValues,
           date: formatDate(defaultValues?.date || new Date(), 0) as any,
         },
-        resolver: yupResolver(incomesSchema),
+        resolver: yupResolver(expensesSchema),
       }}
     >
       {({ register, formState, control, getValues, setValue }) => {
         const { errors } = formState;
+
         const productID = Number(getValues("product_id"));
         const amount = Number(getValues("amount"));
         const data =
@@ -70,26 +65,8 @@ export function IncomeForms({
             >
               <InputErrorMessage nameInput="Date" error={errors.date} />
             </InputLabel>
-            <AutocompleteInputRHF<IncomesTableAPI, TraineesTableExtendsAPI>
-              name="buyer_id"
-              control={control}
-              AutocompleteInputProps={{
-                queriesOptions,
-                defaultValueID: defaultValues?.product_id,
-                InputLabelProps: {
-                  LabelProps: { labelText: "Buyer" },
-                  InputProps: { placeholder: "Search Buyer" },
-                },
-                addOption: {
-                  link: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
-                },
-                loadingSpinnerResult: { nameData: "Trainees" },
-                useGetData: traineesApi.useGetItemsQuery,
-                id: "trainee_id",
-                keys: ["first_name", "last_name"],
-              }}
-            />
-            <AutocompleteInputRHF<IncomesTableAPI, ProductAPI>
+
+            <AutocompleteInputRHF<ExpensesTableAPI, ProductAPI>
               name="product_id"
               control={control}
               AutocompleteInputProps={{
@@ -118,6 +95,20 @@ export function IncomeForms({
             >
               <InputErrorMessage nameInput="Amount" error={errors.amount} />
             </InputLabel>
+
+            <InputLabel
+              InputProps={{ ...register("seller_name") }}
+              LabelProps={{
+                htmlFor: "seller_name",
+                labelText: "Seller",
+              }}
+            >
+              <InputErrorMessage
+                nameInput="Seller"
+                error={errors.seller_name}
+              />
+            </InputLabel>
+
             <InputLabel
               InputProps={{ ...register("note_topic") }}
               LabelProps={{
@@ -127,6 +118,7 @@ export function IncomeForms({
             >
               <InputErrorMessage nameInput="Topic" error={errors.note_topic} />
             </InputLabel>
+
             <InputLabel
               TextAreaProps={{ ...register("note_text") }}
               LabelProps={{
@@ -161,4 +153,4 @@ export function IncomeForms({
   );
 }
 
-export default IncomeForms;
+export default ExpenseForms;

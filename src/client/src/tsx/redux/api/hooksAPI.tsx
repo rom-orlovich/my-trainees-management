@@ -21,7 +21,7 @@ import {
   MeasuresCalResAPI,
   User,
   ChartsDataAPI,
-  IncomeAPI,
+  IncomesTableAPI,
   ProductAPI,
 } from "./interfaceAPI";
 
@@ -191,11 +191,17 @@ export const alertsApi = apiCreateCRUDHooks<AlertsAPI>({
   }),
 });
 
-export const incomesApi = apiCreateCRUDHooks<IncomeAPI>({
+export const incomesApi = apiCreateCRUDHooks<IncomesTableAPI>({
   reducerPath: "incomesApi",
   baseUrl: API_ROUTES.INCOMES_ROUTE,
   singleEntityName: API_ROUTES.INCOMES_ENTITY,
   listId: "incomes_list",
+});
+export const expenseApi = apiCreateCRUDHooks<ExpensesTableAPI>({
+  reducerPath: "expenseApi",
+  baseUrl: API_ROUTES.EXPENSES_ROUTE,
+  singleEntityName: API_ROUTES.EXPENSES_ENTITY,
+  listId: "expense_list",
 });
 export const productsApi = apiCreateCRUDHooks<ProductAPI>({
   reducerPath: "productsApi",
@@ -225,6 +231,7 @@ export const apiCreateCrudArr = [
   subscriptionPlansApi,
   alertsApi,
   incomesApi,
+  expenseApi,
   productsApi,
 ];
 

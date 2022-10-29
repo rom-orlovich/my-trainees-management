@@ -17,13 +17,13 @@ export const transformDataLead = (arg: LeadsTableAPI) => {
     lead_id,
     first_name,
     last_name,
-    date_lead,
+    lead_date,
     ...rest
   } = arg;
 
   return {
     id: lead_id,
-    date: date_lead,
+    date: lead_date,
     full_name: `${first_name} ${last_name}`,
     ...rest,
   };

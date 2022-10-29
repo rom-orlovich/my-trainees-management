@@ -33,6 +33,8 @@ import FinancesPage from "../pages/FinancesPage/FinancesPage";
 import { IncomeAddForm } from "../components/Forms/IncomeForms/IncomeAddForm";
 import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 import IncomeEditForm from "../components/Forms/IncomeForms/IncomeEditForm";
+import ExpenseEditForm from "../components/Forms/ExpenseForms/ExpenseEditForm";
+import { ExpenseAddForm } from "../components/Forms/ExpenseForms/ExpenseAddForm";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -100,25 +102,31 @@ function AppRoutes() {
                   element={<IncomeAddForm />}
                 />
               </Route>
-              <Route path={APP_ROUTE.EXPENSES_ROUTE}> </Route>
+              <Route path={APP_ROUTE.EXPENSES_ROUTE}>
+                <Route path=":id" element={<ExpenseEditForm />} />
+                <Route
+                  path={APP_ROUTE.EXPENSES_ADD}
+                  element={<ExpenseAddForm />}
+                />
+              </Route>
             </Route>
           </Route>
+        </Route>
 
-          {/* The admin role routes. */}
-          <Route element={<ProtectedRoute allowedRole={isAdmin} />}>
-            <Route path={APP_ROUTE.USERS_ROUTE}>
-              <Route path="" element={<UsersPage />} />
-              <Route path=":id" element={<ComingSoonPage />} />
-            </Route>
+        {/* The admin role routes. */}
+        <Route element={<ProtectedRoute allowedRole={isAdmin} />}>
+          <Route path={APP_ROUTE.USERS_ROUTE}>
+            <Route path="" element={<UsersPage />} />
+            <Route path=":id" element={<ComingSoonPage />} />
           </Route>
+        </Route>
 
-          {/* The trainee role routes. */}
-          <Route element={<ProtectedRoute allowedRole={isTrainee} />}>
-            <Route
-              path={APP_ROUTE.MY_WORKOUTS_ROUTE}
-              element={<MyWorkoutsPage />}
-            />
-          </Route>
+        {/* The trainee role routes. */}
+        <Route element={<ProtectedRoute allowedRole={isTrainee} />}>
+          <Route
+            path={APP_ROUTE.MY_WORKOUTS_ROUTE}
+            element={<MyWorkoutsPage />}
+          />
         </Route>
       </Route>
     </Routes>

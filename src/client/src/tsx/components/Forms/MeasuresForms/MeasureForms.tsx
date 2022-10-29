@@ -45,7 +45,7 @@ export function MeasureForm({
                 defaultValue: formatDate(new Date()) as any,
               }}
               LabelProps={{
-                htmlFor: "date_lead",
+                htmlFor: "lead_date",
                 labelText: "Date",
               }}
             >

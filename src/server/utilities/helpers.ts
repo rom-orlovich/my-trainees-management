@@ -55,3 +55,6 @@ export const formatDate = (date: Date, plusDay = 1) => {
   formatted.setDate(newDate.getDate() + plusDay);
   return formatted.toLocaleDateString("en-CA");
 };
+
+export const getFilename = (filename: string) =>
+  filename.slice(__dirname.length + 1);

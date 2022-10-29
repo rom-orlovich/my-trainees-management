@@ -1,27 +1,65 @@
 /* eslint-disable @typescript-eslint/no-shadow */
+
+import path from "path";
+
 import { format, createLogger, LoggerOptions, transports } from "winston";
+import winstonExpress from "express-winston";
+import TransportStream from "winston-transport";
+import {
+  loggerRequestErrors,
+  loggerRequestInfo,
+  loggerRequestWarns,
+  loggerTransport,
+  LOG_LEVEL,
+  timezone,
+} from "./helpersLogger";
 
-const timezone = () =>
-  new Date().toLocaleString("en-US", {
-    timeZone: "Asia/Jerusalem",
-    dateStyle: "medium",
-  });
-// const timezone = () =>formatDate(new Date(),"en-US",{"locale":})
+const loggerRequestTransport = [loggerRequestWarns, loggerRequestErrors];
 
-export const LOG_LEVEL: "debug" | "info" | "warn" | "error" = "debug";
-
-const { timestamp, combine, label, printf, prettyPrint } = format;
-const myFormat = printf(
-  ({ level, message, label, timestamp }) => `${timestamp} ${level}: ${message}`
+const { timestamp, combine, printf, colorize, errors, json, prettyPrint } =
+  format;
+// Message Format
+export const myFormat = printf(
+  ({ level, message, timestamp, stack, ...meta }) => {
+    const filename = meta?.fileName
+      ? path.resolve(meta?.fileName).split("/").slice(-1).join("")
+      : "";
+    return `${timestamp} ${level}: ${filename} ${stack || message}`;
+  }
 );
-export const LOGGER_OPTIONS: LoggerOptions = {
+
+// Shared Formats
+const formats = [timestamp({ format: timezone() }), errors({ stack: true })];
+const combineFormatConsole = combine(...formats, colorize(), myFormat);
+const combineLogFile = combine(...formats, myFormat);
+const httpFormat = combine(...formats, json(), prettyPrint());
+
+const mainTransportLogger: TransportStream[] = [loggerTransport];
+if (process.env.NODE_ENV === "development") {
+  mainTransportLogger.push(
+    new transports.Console({ format: combineFormatConsole })
+  );
+  loggerRequestTransport.push(loggerRequestInfo);
+}
+const LOGGER_OPTIONS: LoggerOptions = {
   level: LOG_LEVEL,
-  format: combine(
-    // label({ label: "winston custom format" }),
-    timestamp({ format: timezone() }),
-    myFormat
-    // prettyPrint()
-  ),
-  transports: [new transports.Console()],
+  format: combineLogFile,
+  defaultMeta: { service: "user-service" },
+  transports: mainTransportLogger,
 };
+
+export const requestLogger = createLogger({
+  transports: loggerRequestTransport,
+  format: httpFormat,
+  level: LOG_LEVEL,
+});
 export const logger = createLogger(LOGGER_OPTIONS);
+
+export const winstonExpressOption: winstonExpress.LoggerOptions = {
+  winstonInstance: requestLogger,
+  statusLevels: true,
+  meta: true,
+  headerBlacklist: ["authorization"],
+  requestWhitelist: ["body", "header", "url"],
+  responseWhitelist: ["body", "header", "url"],
+};

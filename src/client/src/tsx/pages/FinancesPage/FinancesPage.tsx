@@ -10,10 +10,11 @@ import { genClassName } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
 import style from "./FinancesPage.module.scss";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
-import ExpensesTable from "./ExpensesTable";
+
 import IncomesTable from "./IncomesTable";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
+import ExpensesTable from "./ExpensesTable";
 
 export type QueriesOptionsPropsWithNameData = { nameData?: string } & {
   queriesOptions?: Record<string, any>;
@@ -35,10 +36,9 @@ function FinancesPage() {
   const queriesOptions = { userID: authState.user_id, gt, lt };
   const content =
     display === "incomes" ? (
-      // <ExerciseStatsChart queriesOptions={queriesOptions} />
       <IncomesTable queriesOptions={queriesOptions} />
     ) : (
-      <ExpensesTable />
+      <ExpensesTable queriesOptions={queriesOptions} />
     );
 
   const linkAddProps = {
@@ -46,7 +46,10 @@ function FinancesPage() {
       text: "Income",
       link: `${APP_ROUTE.INCOMES_ROUTE}/${APP_ROUTE.INCOMES_ADD}`,
     },
-    expenses: { text: "Expense", link: APP_ROUTE.EXPENSES_ADD },
+    expenses: {
+      text: "Expense",
+      link: `${APP_ROUTE.EXPENSES_ROUTE}/${APP_ROUTE.EXPENSES_ADD}`,
+    },
   };
 
   return (

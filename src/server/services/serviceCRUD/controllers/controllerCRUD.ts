@@ -2,6 +2,7 @@
 import { RequestHandler } from "express";
 import { DatabaseError } from "pg";
 import * as yup from "yup";
+import { Module } from "module";
 import {
   createRealQueryKeyValuesObj,
   deleteQuery,
@@ -21,8 +22,8 @@ import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { OptionsCRUD } from "../serviceCRUDTypes";
-import { logger } from "../../loggerService/logger";
 
+// const module = { module: Module };
 /**
  *
  * @param param0 Options of the CRUD controller routes.
@@ -47,7 +48,6 @@ export function createRoutesControllers({
   const prepareLogAlert = createLogAlertInfo(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
-    logger.log("info", `handle ${req.baseUrl} -  getting data from db`);
     const {
       page,
       asc,

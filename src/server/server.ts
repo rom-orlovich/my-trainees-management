@@ -9,6 +9,9 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { Server } from "http";
+import winstonExpress from "express-winston";
+
+import { Module } from "module";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
 
@@ -22,14 +25,25 @@ import {
 
 import authRouter from "./services/serviceAuth/routes/authRouter";
 import { routesConfigArr } from "./services/serviceCRUD/routes/routersCRUDArr";
-import { logger } from "./services/loggerService/logger";
+import {
+  requestLogger,
+  logger,
+  winstonExpressOption,
+} from "./services/loggerService/logger";
 
+const fileName = { fileName: __filename };
 const PORT = process.env.PORT || 5000;
 
 export const app = express();
 app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(winstonExpress.logger(winstonExpressOption));
+
+winstonExpress.requestWhitelist.push("body");
+winstonExpress.responseWhitelist.push("body");
+winstonExpress.bodyBlacklist.push("password", "psw");
 
 // Cors middleware.
 app.use(
@@ -47,6 +61,8 @@ routesConfigArr.forEach(({ baseRoute, router }) => {
   app.use(baseRoute, router);
 });
 
+app.use(winstonExpress.errorLogger({ winstonInstance: logger }));
+
 // Init alerts middleware.
 app.use(handleAlertsMiddleware);
 
@@ -60,26 +76,23 @@ async function connectDB() {
   try {
     await client.connect();
     client.on("error", (err) => {
-      logger.error("something bad has happened!", err.stack);
-      // console.error("something bad has happened!", );
+      logger.error("something bad has happened!", err.stack, fileName);
     });
 
-    logger.log("info", `Connected pgSQL server.`);
-    // console.log(`Connected pgSQL server.`);
+    logger.log("info", `Connected pgSQL server.`, fileName);
 
     // Uncomment this line will init the  db.
     // This line is for development purpose.
     // await initDB();
 
     server = app.listen(PORT, () => {
-      // console.log(`listen port ${PORT}`);
-      logger.log("info", `listen port ${PORT}`);
+      logger.log("info", `listen port ${PORT}`, fileName);
     });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     if (server)
       server.close(() => {
-        console.log("server is closed");
+        logger.log("info", "server is closed");
       });
   }
 }

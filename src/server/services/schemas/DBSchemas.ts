@@ -40,31 +40,13 @@ export const providersSchema = yup.object().shape({
   location_id: yup.number().required(),
 });
 
-export const weeksSchema = yup.object().shape({
-  week_id: yup.number().notRequired().nullable(),
-  day: yup.number().required(),
-  date: yup.date().required(),
-  weight: yup.number().notRequired().nullable(),
-});
-
-export const expensesSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable().default(1),
-  expense_id: yup.number().notRequired().nullable(),
-  product_id: yup.number().required(),
-  date: yup.date().required(),
-  seller_id: yup.number().required(),
-  expenses_amount: yup.number().required(),
-  note_topic: yup.string().notRequired().default(""),
-  note_text: yup.string().notRequired().default(""),
-});
-
 export const equipmentSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable().default(1),
   equipment_id: yup.number().notRequired().nullable(),
   equipment_name: yup.string().required(),
   brand: yup.string().required(),
   manufacture_year: yup.number().required(),
-  expense_id: yup.number().notRequired().nullable(),
+  // expense_id: yup.number().notRequired().nullable(),
 });
 
 export const exercisesListSchema = yup.object().shape({
@@ -240,9 +222,25 @@ export const incomesSchema = yup.object().shape({
   note_text: yup.string().notRequired().default(""),
   user_id: yup.number().notRequired().nullable().default(1),
 });
+
+export const expensesSchema = yup.object().shape({
+  expense_id: yup.number().notRequired().nullable(),
+  product_id: yup.number().required(),
+  date: yup.date().required(),
+  seller_name: yup.string().required(),
+  amount: yup.number().default(1),
+  total_price: yup
+    .number()
+    .required()
+    .min(1, "Total price must be a positive value"),
+  note_topic: yup.string().notRequired().default(""),
+  note_text: yup.string().notRequired().default(""),
+  user_id: yup.number().notRequired().nullable().default(1),
+});
+
 export const productSchema = yup.object().shape({
   product_id: yup.number().notRequired(),
-  product_name: yup.date().required(),
+  product_name: yup.string().required(),
   product_type: yup.string().required(),
   max_training: yup
     .number()

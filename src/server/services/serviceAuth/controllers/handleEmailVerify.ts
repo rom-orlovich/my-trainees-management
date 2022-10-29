@@ -56,8 +56,8 @@ where email=$1
   );
 
   if (updateError || !updateUser) {
-    console.log("updateError", updateError);
-    console.log("updateUser", updateUser);
+    // console.log("updateError", updateError);
+    // console.log("updateUser", updateUser);
     req.logAlertInfo = prepareLogAlert(
       undefined,
       {

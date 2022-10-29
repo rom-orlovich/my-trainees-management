@@ -1,5 +1,5 @@
 import { incomesApi, subscriptionPlansApi } from "../../../redux/api/hooksAPI";
-import { API_ROUTES, IncomeAPI } from "../../../redux/api/interfaceAPI";
+import { API_ROUTES, IncomesTableAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
@@ -9,7 +9,7 @@ export function IncomeAddForm() {
   const [addItem] = incomesApi.useCreateOneItemMutation();
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (body: IncomeAPI) => {
+  const handleSubmit = (body: IncomesTableAPI) => {
     console.log(body);
     return addFunction({
       addItem,

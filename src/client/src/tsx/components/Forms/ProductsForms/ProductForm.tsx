@@ -35,8 +35,8 @@ export function ProductForm({
     >
       {({ register, formState, setValue, watch }) => {
         const product_type = watch("product_type");
-
-        if (product_type === "Subscription Plans") {
+        const checkProductType = product_type === "Subscription Plan";
+        if (checkProductType) {
           setValue("max_training", 1);
         }
 
@@ -62,8 +62,9 @@ export function ProductForm({
             <SelectInput
               selectProps={{ ...register("product_type") }}
               options={[
-                { value: "Subscription Plans", label: "Subscription Plans" },
-                { value: "Nutrition Plans", label: "Nutrition Plans" },
+                { value: "Subscription Plan", label: "Subscription Plan" },
+                { value: "Nutrition Plan", label: "Nutrition Plan" },
+                { value: "Expense", label: "Expense" },
                 { value: "Other", label: "Other" },
               ]}
               LabelProps={{ labelText: "Type" }}
@@ -77,7 +78,7 @@ export function ProductForm({
             >
               <InputErrorMessage nameInput="Price" error={errors.price} />
             </InputLabel>
-            {product_type === "Subscription Plans" && (
+            {checkProductType && (
               <InputLabel
                 InputProps={{
                   type: "number",

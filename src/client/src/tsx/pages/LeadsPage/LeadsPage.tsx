@@ -13,7 +13,11 @@ import LeadsTable from "./LeadsTable";
 function LeadsPage() {
   const [lead, setLead] = useState<string[]>(["", ""]);
   const authState = useAppSelector(getAuthState);
-  const queriesOptions = { userID: authState.user?.user_id };
+  const queriesOptions = {
+    userID: authState.user?.user_id,
+    orderBy: "leadDate",
+    asc: "false",
+  };
   return (
     <section className={style.page_container}>
       <div className={style.page_header}>

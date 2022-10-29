@@ -7,7 +7,7 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
 import { incomesApi, measuresApi } from "../../../redux/api/hooksAPI";
-import { IncomeAPI, MeasuresAPI } from "../../../redux/api/interfaceAPI";
+import { IncomesTableAPI, MeasuresAPI } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
@@ -44,7 +44,7 @@ function IncomeEditForm() {
           last_name,
           product_name,
           ...body
-        }: IncomeAPI) => {
+        }: IncomesTableAPI) => {
           updateFunction({
             updateItem,
             id: Number(data.income_id),

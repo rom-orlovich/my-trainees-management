@@ -5,7 +5,7 @@
 /* eslint-disable no-unused-vars */
 
 import { orderBy } from "lodash";
-import { logger } from "../services/loggerService/logger";
+
 import { TABLES_DATA } from "../utilities/constants";
 import { pt, createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
@@ -386,10 +386,6 @@ export async function selectPagination(
     ascending ? "ASC" : "DESC"
   } LIMIT $${queryParamsRes.length + 1} OFFSET $${queryParamsRes.length + 2}`;
 
-  logger.log({
-    level: "debug",
-    message: `the statement ${limitOffsetStatement}`,
-  });
   const rows = await selectQuery(
     tableName,
     fields,

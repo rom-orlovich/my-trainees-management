@@ -7,7 +7,7 @@ import {
 } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { QueriesOptionsPropsWithNameData } from "./FinancesPage";
-import { IncomeAPI } from "../../redux/api/interfaceAPI";
+import { IncomesTableAPI } from "../../redux/api/interfaceAPI";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 
 import { deleteFunMutation } from "../../utilities/helpersFun";
@@ -21,7 +21,7 @@ function transformIncomeFunction({
   last_name,
   amount,
   total_price,
-}: IncomeAPI) {
+}: IncomesTableAPI) {
   return {
     income_id,
     date,
@@ -38,7 +38,7 @@ function IncomesTable({
 }: QueriesOptionsPropsWithNameData) {
   const [deleteItem] = incomesApi.useDeleteItemMutation();
   return (
-    <TablePagination<IncomeAPI>
+    <TablePagination<IncomesTableAPI>
       editPagePath={`${APP_ROUTE.FINANCES_ROUTE}/${APP_ROUTE.INCOMES_ROUTE}`}
       queriesOptions={queriesOptions}
       nameData="Income"

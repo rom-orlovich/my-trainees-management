@@ -7,15 +7,7 @@ export const signUpHandlerTrainer: RequestHandler = async (req, res, next) => {
   if (req.logAlertInfo?.error) return next();
 
   const { password, username, email } = req.body;
-  // if (!req?.signUpData?.role) {
-  //   req.logAlertInfo = prepareLogAlert(
-  //     undefined,
-  //     { message: "Role is undefined" },
-  //     "create",
-  //     false
-  //   );
-  //   return next();
-  // }
+
   const [user, error] = await createUser(
     email || "",
     username,
