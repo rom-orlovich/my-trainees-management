@@ -41,10 +41,8 @@ export function MeetingForm({
   const dateStart = Number(queryParams.get("dateStart"));
   const dateEnd = Number(queryParams.get("dateEnd"));
 
-  const DateStart = dateStart ? new Date(dateStart) : new Date();
-  const DateEnd = dateEnd
-    ? formatDate(new Date(dateEnd), 0)
-    : formatDate(new Date(), 1);
+  const DateStart = formatDate(new Date(dateStart));
+  const DateEnd = formatDate(new Date(dateEnd));
 
   const [inputValue, setInputValue] = useState("");
 
@@ -73,7 +71,7 @@ export function MeetingForm({
           defaultValues: {
             participants_group: [],
             ...defaultValues,
-            date_start: formatDate(DateStart, 1) as any,
+            date_start: DateStart as any,
             date_end: DateEnd as any,
             user_id: authState.user_id,
           },
