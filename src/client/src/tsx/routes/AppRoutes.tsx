@@ -35,6 +35,7 @@ import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 import IncomeEditForm from "../components/Forms/IncomeForms/IncomeEditForm";
 import ExpenseEditForm from "../components/Forms/ExpenseForms/ExpenseEditForm";
 import { ExpenseAddForm } from "../components/Forms/ExpenseForms/ExpenseAddForm";
+import SchedulePage from "../pages/SchedulePage/SchedulePage";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -68,6 +69,9 @@ function AppRoutes() {
               path={APP_ROUTE.MEASURE_EDIT}
               element={<MeasureEditForm />}
             />
+          </Route>
+          <Route path={APP_ROUTE.SCHEDULE_ROUTE}>
+            <Route index element={<SchedulePage />} />
           </Route>
 
           {/* The admin and trainer shared role routes. */}

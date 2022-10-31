@@ -55,6 +55,13 @@ export enum API_ROUTES {
   EXPENSES_ENTITY = "expense",
   PRODUCTS_ROUTE = "/api/products",
   PRODUCT_ENTITY = "product",
+
+  ACTIVITIES_ROUTE = "/api/activities",
+  ACTIVITIES_ENTITY = "activity",
+  MEETINGS_ROUTE = "/api/meetings",
+  MEETINGS_ENTITY = "meeting",
+  PARTICIPANTS_GROUP_ROUTE = "/api/participants_group",
+  PARTICIPANTS_GROUP_ENTITY = "participant",
 }
 export interface PayloadAPI<T> {
   id: number;
@@ -345,5 +352,31 @@ export interface ProductAPI {
   product_type: string;
   max_training?: number;
   price: number;
+  user_id?: number;
+}
+
+export interface ParticipantsGroupTableAPI {
+  participants_group_id?: number;
+  meeting_id?: number;
+  trainee_id: number;
+  user_id?: number;
+  first_name?: string;
+  last_name?: string;
+}
+export interface ActivitiesTableAPI {
+  activity_id?: number;
+  activity_name?: string;
+  user_id?: number;
+}
+
+export interface MeetingsTableAPI {
+  meeting_id?: number;
+  date_start: Date;
+  date_end: Date;
+  participants_group: ParticipantsGroupTableAPI[];
+  activity_id: number;
+  location_id: number;
+  note_topic: string;
+  note_text: string;
   user_id?: number;
 }

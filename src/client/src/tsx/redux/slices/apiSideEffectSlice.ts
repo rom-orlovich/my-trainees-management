@@ -1,6 +1,5 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-import { FetchBaseQueryMeta } from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
 
 import { RootState } from "../store";
 
@@ -46,7 +45,6 @@ export const apiSideEffectSlice = createSlice({
     disableFetchAlerts: (state) => {
       state.fetchAlerts = false;
     },
-    // Reset the goPrePageState.
   },
 
   extraReducers: (builder) =>

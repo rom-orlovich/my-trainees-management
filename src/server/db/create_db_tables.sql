@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS "participants_group" CASCADE;
 
-DROP TABLE IF EXISTS "schedule" CASCADE;
+DROP TABLE IF EXISTS "meetings" CASCADE;
 
 DROP TABLE IF EXISTS "incomes" CASCADE;
 
@@ -169,16 +169,6 @@ CREATE TABLE IF NOT EXISTS "leads"(
   "status" BOOLEAN DEFAULT FALSE,
   "note_topic" TEXT NOT NULL,
   "note_text" TEXT,
-  "user_id" INTEGER DEFAULT 1,
-  CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
-  SET
-    NULL ON
-  UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS "activities" (
-  "activity_id" serial PRIMARY KEY,
-  "activity_name" VARCHAR(255) NOT NULL,
   "user_id" INTEGER DEFAULT 1,
   CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
   SET
@@ -438,9 +428,19 @@ CREATE TABLE IF NOT EXISTS "expenses" (
   UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS "schedule" (
-  "schedule_id" serial PRIMARY KEY,
-  "activity_id" INTEGER NOT NULL,
+CREATE TABLE IF NOT EXISTS "activities" (
+  "activity_id" serial PRIMARY KEY,
+  "activity_name" VARCHAR(255) NOT NULL,
+  "user_id" INTEGER DEFAULT 1,
+  CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
+  SET
+    NULL ON
+  UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "meetings" (
+  "meeting_id" serial PRIMARY KEY,
+  "activity_id" INTEGER,
   "date_start" DATE NOT NULL,
   "date_end" DATE NOT NULL,
   "location_id" INTEGER,
@@ -463,14 +463,17 @@ CREATE TABLE IF NOT EXISTS "schedule" (
 );
 
 CREATE TABLE IF NOT EXISTS "participants_group" (
-  "participant_groupe_id" serial PRIMARY KEY,
-  "schedule_id" INTEGER NOT NULL,
-  "trainees_id" INTEGER NOT NULL,
-  CONSTRAINT fk_schedule_id FOREIGN KEY(schedule_id) REFERENCES schedule(schedule_id) ON DELETE
+  "participants_group_id" serial PRIMARY KEY,
+  "meeting_id" INTEGER,
+  "trainee_id" INTEGER NOT NULL,
+  "user_id" INTEGER DEFAULT 1,
+  CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE ON
+  UPDATE CASCADE,
+  CONSTRAINT fk_meeting_id FOREIGN KEY(meeting_id) REFERENCES meetings(meeting_id) ON DELETE
   SET
     NULL ON
   UPDATE CASCADE,
-    CONSTRAINT fk_trainee_id FOREIGN KEY(trainees_id) REFERENCES trainees(trainee_id) ON DELETE
+    CONSTRAINT fk_trainee_id FOREIGN KEY(trainee_id) REFERENCES trainees(trainee_id) ON DELETE
   SET
     NULL ON
   UPDATE CASCADE

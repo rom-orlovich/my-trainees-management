@@ -17,7 +17,9 @@ export const store = configureStore({
     formValuesState: formValuesState.reducer,
     apiSideEffect: apiSideEffectSlice.reducer,
     authSlice: authSlice.reducer,
+
     authApi: authApi.reducer,
+
     ...reducersArr,
   },
 

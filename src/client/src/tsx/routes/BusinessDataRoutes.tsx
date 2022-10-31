@@ -1,5 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { ActivityAddForm } from "../components/Forms/ActivityForms/ActivityAddForm";
+import { ActivityEditForm } from "../components/Forms/ActivityForms/ActivityEditForm";
 import { CityAddForm } from "../components/Forms/CityForms/CityAddForm";
 import { CityEditForm } from "../components/Forms/CityForms/CityEditForm";
 import { EquipmentAddForm } from "../components/Forms/EquipmentForms/EquipmentAddForm";
@@ -12,6 +14,7 @@ import { MusclesGroupAddForm } from "../components/Forms/MusclesGroupForms/Muscl
 import { MusclesGroupEditForm } from "../components/Forms/MusclesGroupForms/MusclesGroupEditForm";
 import { ProductAddForm } from "../components/Forms/ProductsForms/ProductAddForm";
 import ProductEditForm from "../components/Forms/ProductsForms/ProductEditForm";
+import ActivitiesPage from "../pages/ActivitiesPage/ActivitiesPage";
 
 import CitiesPage from "../pages/CitiesPage/CitiesPage";
 import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
@@ -64,6 +67,13 @@ const BusinessDataRoutes = () => (
     <Route path={APP_ROUTE.PRODUCTS_ROUTE} element={<ProductsPage />}>
       <Route path={APP_ROUTE.PRODUCTS_ADD} element={<ProductAddForm />} />
       <Route path=":id" element={<ProductEditForm />} />
+    </Route>
+    <Route path={APP_ROUTE.ACTIVITIES_ROUTE} element={<ActivitiesPage />}>
+      <Route
+        path={APP_ROUTE.ACTIVITIES_ROUTE_ADD}
+        element={<ActivityAddForm />}
+      />
+      <Route path=":id" element={<ActivityEditForm />} />
     </Route>
   </Routes>
 );

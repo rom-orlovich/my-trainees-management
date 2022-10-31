@@ -33,7 +33,7 @@ export type FormRHFProps<TFormValues extends FieldValues> = {
   buttonNext?: boolean;
   pathMove?: string;
   formWithOneButton?: boolean;
-
+  saveState?: boolean;
   isLoginMode?: boolean;
   customButtonText?: string;
 };
@@ -51,6 +51,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   formWithOneButton,
   customButtonText,
   isLoginMode,
+  saveState = true,
 }: FormRHFProps<TFormValues>) {
   // const [disabled, setDisabled] = useState(true);
 
@@ -80,14 +81,15 @@ export default function Form<TFormValues extends Record<string, any>>({
   // and the component will unmount.
   useEffect(
     () => () => {
-      if (!editMode) {
-        dispatch(
-          saveFormState({
-            url: location.pathname,
-            values: methods.getValues(),
-          })
-        );
-      }
+      if (saveState)
+        if (!editMode) {
+          dispatch(
+            saveFormState({
+              url: location.pathname,
+              values: methods.getValues(),
+            })
+          );
+        }
     },
     [location.pathname, location, dispatch, methods, editMode]
   );

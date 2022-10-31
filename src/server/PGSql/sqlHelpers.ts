@@ -7,7 +7,7 @@
 import { logger } from "../services/loggerService/logger";
 
 import { TABLES_DATA } from "../utilities/constants";
-import { pt, createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
+import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
 
@@ -95,13 +95,7 @@ export const createRealQueryKeyValuesObj = (
         : {
             [fakeQueryName[key]]: queryFromReq[key],
           };
-      logger.log(
-        "debug",
-        `value line:81 ${key} ${JSON.stringify(newKeyValue)}`,
-        {
-          fileName: __filename,
-        }
-      );
+
       newRealQueryKeyValueObj = {
         ...newRealQueryKeyValueObj,
         ...newKeyValue,
@@ -244,17 +238,28 @@ export async function selectQuery(
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
 
-  if (
-    SELECT_QUERY_TABLE_CHECK[0] &&
-    tableName.includes(SELECT_QUERY_TABLE_CHECK[1])
-  )
-    logger.debug(
-      `line 218:${statement} : values:${JSON.stringify(queryParams)}`,
-      { fileName: __filename }
-    );
-  const rows = await client.query(statement, queryParams);
+  // if (
+  //   SELECT_QUERY_TABLE_CHECK[0] &&
+  //   tableName.includes(SELECT_QUERY_TABLE_CHECK[1])
+  // )
+  //   logger.debug(
+  //     `line 218:${statement} : values:${JSON.stringify(queryParams)}`,
+  //     { fileName: __filename }
+  //   );
 
-  return rows.rows;
+  try {
+    const rows = await client.query(statement, queryParams);
+    return rows.rows;
+  } catch (error) {
+    logger.error(
+      `LINE 261:${statement} : values:${JSON.stringify(queryParams)}`,
+      {
+        objs: [error],
+        fileName: __filename,
+      }
+    );
+    throw error;
+  }
 }
 
 // Insert item to the db.
@@ -262,23 +267,36 @@ const insertQuery = async (
   tableName: string,
   fieldName: string,
   fieldParams: string,
-  paramArr: any[],
+  paramsArr: any[],
   onConflict?: string
 ) => {
   const statement = `INSERT INTO ${tableName} (${fieldName})
    VALUES ${fieldParams} ${onConflict ? `${onConflict}` : ""} RETURNING * `;
 
-  if (
-    INSERT_QUERY_TABLE_CHECK[0] &&
-    tableName.includes(INSERT_QUERY_TABLE_CHECK[1])
-  )
-    logger.debug(`line 246:${statement} : values:${JSON.stringify(paramArr)}`, {
-      fileName: __filename,
-    });
+  // if (
+  //   INSERT_QUERY_TABLE_CHECK[0] &&
+  //   tableName.includes(INSERT_QUERY_TABLE_CHECK[1])
+  // )
+  //   logger.debug(
+  //     `line 246:${statement} : values:${JSON.stringify(paramsArr)}`,
+  //     {
+  //       fileName: __filename,
+  //     }
+  //   );
 
-  const res = await client.query(statement, paramArr);
-
-  return res;
+  try {
+    const res = await client.query(statement, paramsArr);
+    return res;
+  } catch (error) {
+    logger.error(
+      `LINE 287:${statement} : values:${JSON.stringify(paramsArr)}`,
+      {
+        objs: [error],
+        fileName: __filename,
+      }
+    );
+    throw error;
+  }
 };
 
 // Update item in the db.
@@ -301,8 +319,19 @@ const updateQuery = async (
         fileName: __filename,
       }
     );
-  const rows = await client.query(statement, [paramId, ...paramsArr]);
-  return rows;
+  try {
+    const rows = await client.query(statement, [paramId, ...paramsArr]);
+    return rows;
+  } catch (error) {
+    logger.error(
+      `LINE 309:${statement} : values:${JSON.stringify(paramsArr)}`,
+      {
+        objs: [error],
+        fileName: __filename,
+      }
+    );
+    throw error;
+  }
 };
 
 // Prepares the string from the item that should insert to the db.
@@ -358,18 +387,29 @@ export async function deleteQuery(
   const statement = `DELETE FROM ${tableName} ${queryLogic} ${
     returnValue ? "RETURNING *" : ""
   } `;
-  if (
-    DELETE_QUERY_TABLE_CHECK[0] &&
-    tableName.includes(DELETE_QUERY_TABLE_CHECK[1])
-  )
-    logger.debug(
-      `line 328:${statement} : values:${JSON.stringify(queryParams)}`,
+  // if (
+  //   DELETE_QUERY_TABLE_CHECK[0] &&
+  //   tableName.includes(DELETE_QUERY_TABLE_CHECK[1])
+  // )
+  //   logger.debug(
+  //     `line 328:${statement} : values:${JSON.stringify(queryParams)}`,
+  //     {
+  //       fileName: __filename,
+  //     }
+  //   );
+  try {
+    const rows = await client.query(statement, queryParams);
+    return rows.rows;
+  } catch (error) {
+    logger.error(
+      `LINE 375:${statement} : values:${JSON.stringify(queryParams)}`,
       {
+        objs: [error],
         fileName: __filename,
       }
     );
-  const rows = await client.query(statement, queryParams);
-  return rows.rows;
+    throw error;
+  }
 }
 
 const prepareStatementLogic = (

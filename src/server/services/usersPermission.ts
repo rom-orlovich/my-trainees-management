@@ -85,6 +85,12 @@ export const PERMISSION_TRAINEE_READONLY: Permissions = {
   update: ROLE_TRAINER_BY_USER_ID,
   create: ROLE_TRAINER_BY_USER_ID,
 };
+export const PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID: Permissions = {
+  read: ROLE_TRAINEE_BY_USER_ID,
+  delete: ROLE_TRAINER_BY_USER_ID,
+  update: ROLE_TRAINER_BY_USER_ID,
+  create: ROLE_TRAINER_BY_USER_ID,
+};
 
 export const PERMISSION_TRAINEE_WITHOUT_DELETE: Permissions = {
   read: ROLE_TRAINEE_BY_USER_ID,

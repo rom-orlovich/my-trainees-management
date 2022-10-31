@@ -4,7 +4,11 @@ import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
-import { getKeysArrObj, getValuesArrObj } from "../../../utilities/helpersFun";
+import {
+  genClassName,
+  getKeysArrObj,
+  getValuesArrObj,
+} from "../../../utilities/helpersFun";
 import { TableProps } from "../baseComponentsTypes";
 import { formatThValue, TdCell, ThCell } from "./TableCells";
 import style from "./Table.module.scss";
@@ -37,7 +41,7 @@ function Table<T extends Record<string, any>>({
   const keys = getKeysArrObj(newDataArr[0]).slice(1).map(formatThValue);
 
   return (
-    <table className={`${className || ""} `}>
+    <table className={genClassName(style.table_container, className)}>
       <thead>
         <tr>
           {keys.map((el, i) => (
@@ -71,7 +75,7 @@ function Table<T extends Record<string, any>>({
                           deleteItemFun && deleteItemFun(values[0])
                         }
                         className={style.deleteIcon}
-                      ></AiFillDelete>
+                      />
                     )}
                   </span>
                 </td>

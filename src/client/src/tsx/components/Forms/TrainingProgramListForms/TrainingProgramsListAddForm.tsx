@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { useNavigate, useParams } from "react-router-dom";
 import { trainingProgramsListApi } from "../../../redux/api/hooksAPI";
 import {

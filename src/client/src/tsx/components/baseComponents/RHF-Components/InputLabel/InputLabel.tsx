@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React from "react";
+import { genClassName } from "../../../../utilities/helpersFun";
 import style from "./InputLabel.module.scss";
 
 export interface InputLabelProps {
@@ -22,16 +23,18 @@ export interface InputLabelProps {
 }
 
 export function InputLabel({
+  className,
   TextAreaProps,
   LabelProps: { labelText, htmlFor, ...LabelProps },
   InputProps,
   children,
-}: InputLabelProps) {
+}: InputLabelProps & { className?: string }) {
   return (
     <span
-      className={
-        TextAreaProps ? `textarea_label` : `input_label ${style.wrapper}`
-      }
+      className={genClassName(
+        TextAreaProps ? `textarea_label` : `input_label ${style.wrapper}`,
+        className
+      )}
     >
       <label {...LabelProps} htmlFor={htmlFor}>
         {labelText}

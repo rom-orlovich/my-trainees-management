@@ -39,17 +39,6 @@ function SubscriptionPlansForm({
 
           return (
             <>
-              {/* <InputLabel
-                InputProps={{
-                  ...register("product_id"),
-                }}
-                LabelProps={{
-                  htmlFor: "plan_name",
-                  labelText: "Plan Name",
-                }}
-              >
-                <InputErrorMessage nameInput="Plan Name" error={product_id} />
-              </InputLabel> */}
               <InputLabel
                 InputProps={{
                   ...register("current_num_trainings"),

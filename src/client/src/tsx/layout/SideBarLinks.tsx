@@ -40,7 +40,7 @@ export const TRAINER_SIDE_BAR_LINKS: LinkData[] = [
   },
 
   {
-    to: `${APP_ROUTE.COMING_SOON}/${APP_ROUTE.SCHEDULE_ROUTE}`,
+    to: `${APP_ROUTE.SCHEDULE_ROUTE}`,
     text: "Schedule",
     icon: <AiFillSchedule className={style.icon} />,
   },

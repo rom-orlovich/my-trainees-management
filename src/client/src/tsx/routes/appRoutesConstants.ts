@@ -61,7 +61,6 @@ export enum APP_ROUTE {
   SUBSCRIPTION_PLANS_ROUTE_ADD = "addSubscriptionPlans",
   SUBSCRIPTION_PLANS_ROUTE_EDIT = "editSubscriptionPlans",
   FINANCES_ROUTE = "finances",
-  SCHEDULE_ROUTE = "schedule",
 
   EXPENSES_ROUTE = "expenses",
   EXPENSES_ADD = "addExpenses",
@@ -69,4 +68,10 @@ export enum APP_ROUTE {
   INCOMES_ADD = "addIncome",
   PRODUCTS_ROUTE = "products",
   PRODUCTS_ADD = "addProduct",
+
+  SCHEDULE_ROUTE = "schedule",
+  ACTIVITIES_ROUTE = "activities",
+  ACTIVITIES_ROUTE_ADD = "addActivitY",
+  PARTICIPANTS_ROUTE = "participants",
+  PARTICIPANTS_ROUTE_ADD = "addParticipants",
 }

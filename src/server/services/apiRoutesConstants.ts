@@ -14,19 +14,20 @@ export enum API_ROUTES {
   USER_ENTITY = "user",
   ALERT_ROUTE = "/api/alerts",
   ALERT_ENTITY = "alert",
+
   LEADS_ROUTE = "/api/leads",
   LEADS_ENTITY = "lead",
-  MUSCLES_GROUP_ROUTE = "/api/musclesGroups",
-  MUSCLES_GROUP_ENTITY = "musclesGroup",
+
   CITIES_ROUTE = "/api/cities",
   CITIES_ENTITY = "city",
   LOCATIONS_ROUTE = "/api/locations",
   LOCATIONS_ENTITY = "location",
+
   PROVIDERS_ROUTE = "/api/providers",
   PROVIDERS_ENTITY = "provider",
-  WEEKS_ROUTE = "/api/weeks",
-  WEEKS_ENTITY = "week",
 
+  MUSCLES_GROUP_ROUTE = "/api/musclesGroups",
+  MUSCLES_GROUP_ENTITY = "musclesGroup",
   EQUIPMENTS_ROUTE = "/api/equipments",
   EQUIPMENTS_ENTITY = "equipment",
   EXERCISES_ROUTE = "/api/exercises",
@@ -43,18 +44,27 @@ export enum API_ROUTES {
   NUTRITION_PROGRAMS_ENTITY = "week",
   MEASURES_ROUTE = "/api/measures",
   MEASURES_ENTITY = "measure",
+
   TRAINEES_ROUTE = "/api/trainees",
   TRAINEES_ENTITY = "trainee",
   SUBSCRIPTION_PLANS_ROUTE = "/api/subscriptionPlans",
   SUBSCRIPTION_PLANS_ENTITY = "subscription",
 
   MAIL_ROUTE = "/api/mail",
+
   INCOMES_ROUTE = "/api/incomes",
   INCOMES_ENTITY = "income",
   EXPENSES_ROUTE = "/api/expenses",
   EXPENSES_ENTITY = "expense",
   PRODUCTS_ROUTE = "/api/products",
   PRODUCT_ENTITY = "product",
+
+  ACTIVITIES_ROUTE = "/api/activities",
+  ACTIVITIES_ENTITY = "activity",
+  MEETINGS_ROUTE = "/api/meetings",
+  MEETINGS_ENTITY = "meeting",
+  PARTICIPANTS_GROUP_ROUTE = "/api/participants_group",
+  PARTICIPANTS_GROUP_ENTITY = "participant",
 }
 
 export const URL_REACT_CLIENT = "http://localhost:3000";

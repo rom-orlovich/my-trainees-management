@@ -38,14 +38,6 @@ export function createObjKeysArr(obj: object) {
   return Object.keys(obj);
 }
 
-export const pt = (tn: string, tn2: string, obj: Record<string, any>) => {
-  if (tn.includes(tn2)) {
-    console.log("log");
-    Object.entries(obj).forEach(([key, value]) => {
-      console.log(key, value);
-    });
-  }
-};
 export const formatDate = (date: Date, plusDay = 1) => {
   const newDate = new Date(date);
 

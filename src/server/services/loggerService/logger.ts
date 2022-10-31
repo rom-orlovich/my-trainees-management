@@ -6,10 +6,12 @@ import { format, createLogger, LoggerOptions, transports } from "winston";
 import winstonExpress from "express-winston";
 import TransportStream from "winston-transport";
 import {
+  loggerDebugTransport,
+  loggerErrorTransport,
+  loggerInfoTransport,
   loggerRequestErrors,
   loggerRequestInfo,
   loggerRequestWarns,
-  loggerTransport,
   LOG_LEVEL,
   timezone,
 } from "./helpersLogger";
@@ -43,7 +45,11 @@ const combineFormatConsole = combine(...formats, colorize(), myFormat);
 const combineLogFile = combine(...formats, myFormat);
 const httpFormat = combine(...formats, json(), prettyPrint());
 
-const mainTransportLogger: TransportStream[] = [loggerTransport];
+const mainTransportLogger: TransportStream[] = [
+  loggerInfoTransport,
+  loggerDebugTransport,
+  loggerErrorTransport,
+];
 if (process.env.NODE_ENV === "development") {
   mainTransportLogger.push(
     new transports.Console({ format: combineFormatConsole })

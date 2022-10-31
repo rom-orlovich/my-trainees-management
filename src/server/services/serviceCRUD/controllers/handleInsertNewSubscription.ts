@@ -2,6 +2,7 @@ import { RequestHandler } from "webpack-dev-server";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { insertQueryOneItem, selectQuery } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
+import { logger } from "../../loggerService/logger";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 
 export interface IncomeAPI {
@@ -41,15 +42,12 @@ export const handleInsertNewSubscription: RequestHandler = async (
       )
     )[0] as ProductAPI;
 
-    const subscriptionPlan = await insertQueryOneItem(
-      TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_NAME,
-      {
-        trainee_id: bodyObj.buyer_id,
-        product_id: bodyObj.product_id,
-        total_trainings: product.max_training,
-        last_training: new Date(),
-      }
-    );
+    await insertQueryOneItem(TABLES_DATA.SUBSCRIPTION_PLANS_TABLE_NAME, {
+      trainee_id: bodyObj.buyer_id,
+      product_id: bodyObj.product_id,
+      total_trainings: product.max_training,
+      last_training: new Date(),
+    });
 
     return next();
   } catch (error) {

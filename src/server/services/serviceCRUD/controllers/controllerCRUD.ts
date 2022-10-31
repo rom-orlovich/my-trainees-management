@@ -22,6 +22,7 @@ import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { OptionsCRUD } from "../serviceCRUDTypes";
+import { MeetingsTableAPI } from "./handleInsertParticipantsGroup";
 
 // const module = { module: Module };
 /**
@@ -48,6 +49,7 @@ export function createRoutesControllers({
   const prepareLogAlert = createLogAlertInfo(singleEntityName);
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
+    if (req.logAlertInfo?.error) return next();
     const {
       page,
       asc,
@@ -111,6 +113,7 @@ export function createRoutesControllers({
 
   // Controller of the get method. Gets one item by ID from the db.
   const getValueFromDBbyID: RequestHandler = async (req, res, next) => {
+    if (req.logAlertInfo?.error) return next();
     const queryLogic = `${querySelectLogic}  WHERE ${tableID}=$1`;
     const id = Number(req.params.id);
 
@@ -119,6 +122,10 @@ export function createRoutesControllers({
     );
 
     if (err) return next(new ErrorCustomizes(err, "get"));
+    if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
+      req.body = data;
+      return next();
+    }
     return res.status(200).json(data[0]);
   };
 
@@ -134,6 +141,11 @@ export function createRoutesControllers({
       req.statsData = {
         updateExerciseData: data as any,
       };
+    }
+
+    if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
+      const Data = data as MeetingsTableAPI;
+      req.body = { meeting_id: Data.meeting_id };
     }
 
     req.logAlertInfo = prepareLogAlert(
@@ -171,6 +183,11 @@ export function createRoutesControllers({
       };
     }
 
+    if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
+      const Data = data as MeetingsTableAPI;
+      req.body = { meeting_id: Data.meeting_id };
+    }
+
     req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },
       err,
@@ -184,6 +201,7 @@ export function createRoutesControllers({
   // Controller of the delete method.
   // delete one item by his ID in db.
   const deleteValueByID: RequestHandler = async (req, res, next) => {
+    if (req.logAlertInfo?.error) return next();
     const [data, err] = await deleteTableWithOtherTableData(
       tableName,
       tableID,

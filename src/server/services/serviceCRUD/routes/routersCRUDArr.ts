@@ -1,15 +1,19 @@
 import { Router } from "express";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import {
+  activityOptionsCRUD,
+  alertsOptionsCRUD,
   citiesOptionsCRUD,
   equipmentsOptionsCRUD,
   exerciseListOptionsCRUD,
   expensesOptionsCRUD,
   leadsOptionsCRUD,
   locationsOptionsCRUD,
+  meetingOptionsCRUD,
   musclesGroupOptionsCRUD,
   nutritionProgramOptionsCRUD,
   nutritionProgramsListOptionsCRUD,
+  participantsOptionsCRUD,
   productsOptionsCRUD,
   providersOptionsCRUD,
   subscriptionPlansOptionsCRUD,
@@ -23,6 +27,7 @@ import {
   createAlertsRouter,
   createIncomesRouter,
   createMeasuresRouter,
+  createMeetingRouter,
   createTraineesRouter,
 } from "./otherRouters";
 
@@ -34,6 +39,10 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.USERS_ROUTE,
     router: createCRUDroutes(usersOptionsCRUD),
+  },
+  {
+    baseRoute: API_ROUTES.ALERT_ROUTE,
+    router: createAlertsRouter(),
   },
 
   {
@@ -111,7 +120,15 @@ export const routesConfigArr: {
     router: createTraineesRouter(),
   },
   {
-    baseRoute: API_ROUTES.ALERT_ROUTE,
-    router: createAlertsRouter(),
+    baseRoute: API_ROUTES.PARTICIPANTS_GROUP_ROUTE,
+    router: createCRUDroutes(participantsOptionsCRUD),
+  },
+  {
+    baseRoute: API_ROUTES.ACTIVITIES_ROUTE,
+    router: createCRUDroutes(activityOptionsCRUD),
+  },
+  {
+    baseRoute: API_ROUTES.MEETINGS_ROUTE,
+    router: createMeetingRouter(),
   },
 ];

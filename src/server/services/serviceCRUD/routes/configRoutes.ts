@@ -20,6 +20,9 @@ import {
   trainingProgramExerciseStatsSchema,
   measuresSchema,
   productSchema,
+  activitySchema,
+  participantsGroupSchema,
+  meetingsSchema,
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
@@ -31,6 +34,7 @@ import {
   PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   PERMISSION_TRAINER_BY_USER_ID_READ_ALL,
   PERMISSION_TRAINEE_BY_USER_ID,
+  PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
 } from "../../usersPermission";
 import { OptionsCRUD } from "../serviceCRUDTypes";
 
@@ -223,7 +227,7 @@ export const trainingProgramsListOptionsCRUD: OptionsCRUD = {
     },
     orderByParam: { updateDate: "update_date" },
   },
-  permissions: PERMISSION_TRAINEE_READONLY,
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: trainingProgramsListSchema,
 };
 
@@ -321,7 +325,7 @@ export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
     LEFT JOIN  ${TABLES_DATA.NUTRITION_PROGRAM_TABLE_NAME} as np ON
     npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}=np.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}`,
   },
-  permissions: PERMISSION_TRAINEE_READONLY,
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: nutritionProgramsListSchema,
 };
 
@@ -461,4 +465,64 @@ export const productsOptionsCRUD: OptionsCRUD = {
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,
   validateSchema: productSchema,
+};
+
+export const activityOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.ACTIVITIES_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.ACTIVITIES_TABLE_NAME} as act`,
+    tableID: `act.${TABLES_DATA.ACTIVITIES_ID}`,
+    fieldNamesQuery: ` act.*`,
+    querySelectLogic: ``,
+    queryParams: {
+      userID: "act.user_id",
+    },
+  },
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  validateSchema: activitySchema,
+  logAlert: true,
+};
+export const participantsOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.PARTICIPANTS_GROUP_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt`,
+    tableID: `pgt.${TABLES_DATA.ACTIVITIES_ID}`,
+    fieldNamesQuery: ` pgt.*`,
+    querySelectLogic: ``,
+    queryParams: {
+      userID: "pgt.user_id",
+    },
+  },
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  validateSchema: participantsGroupSchema,
+  logAlert: true,
+};
+export const meetingOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.MEETINGS_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.MEETINGS_TABLE_NAME} as mt`,
+    tableID: `mt.${TABLES_DATA.MEETINGS_ID}`,
+    fieldNamesQuery: ` mt.*,pro.first_name,pro.last_name ,pgt.trainee_id,
+    pgt.participants_group_id`,
+    querySelectLogic: `LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt ON
+    mt.${TABLES_DATA.MEETINGS_ID}=pgt.${TABLES_DATA.MEETINGS_ID} 
+    LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON
+    tr.${TABLES_DATA.TRAINEE_ID}= pgt.${TABLES_DATA.TRAINEE_ID}
+    LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pro ON
+    tr.${TABLES_DATA.PROFILE_ID}= pro.${TABLES_DATA.PROFILE_ID}
+    `,
+    queryParams: {
+      userID: "mt.user_id",
+    },
+    //   modifiedOtherTable: {
+    //     delete: {
+    //       otherTableID: TABLES_DATA.MEETINGS_ID,
+    //       otherTableName: TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME,
+    //     },
+    //   },
+    // },
+  },
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  validateSchema: meetingsSchema,
+  logAlert: true,
 };

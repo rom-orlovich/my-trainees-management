@@ -1,0 +1,120 @@
+@use "../../../style/utilities/utilities.scss" as *;
+.schedule_page {
+  overflow-y: scroll;
+  table {
+    th {
+      z-index: 50;
+    }
+  }
+
+  // For displaying events
+  .event_container {
+    position: relative;
+    .deleteIcon {
+      cursor: pointer;
+      display: block;
+      color: rgb(217, 17, 17);
+      @include posAbs(0.5%, null, 1%, null);
+    }
+  }
+
+  // For the container of the header.
+  @include classMatcher("fc-header-toolbar fc-toolbar ") {
+    padding: 0 0.5rem;
+    // For focus on arrow buttons.
+    @include classMatcher("fc-button-primary") {
+      &:focus,
+      &:active {
+        outline: 1px;
+        box-shadow: 0 0 0 0.2rem rgb(44 62 80 / 0%) !important;
+      }
+    }
+  }
+  @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
+    // For selection number of cells
+    @include classMatcher("fc-highlight") {
+      background-color: rgba(12, 131, 155, 0.3);
+    }
+
+    // for timeGridDay-view color td
+    @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
+      @include classMatcher("fc-timegrid-slot fc-timegrid-slot-lane ") {
+        background-color: white;
+      }
+      @include classMatcher(
+        "fc-timegrid-slot fc-timegrid-slot-lane fc-timegrid-slot-minor"
+      ) {
+        background-color: rgb(220, 227, 252);
+      }
+
+      @include classMatcher("fc-daygrid-day-frame fc-scrollgrid-sync-inner") {
+        background-color: rgb(220, 227, 252);
+      }
+    }
+  }
+}
+
+@include smartphone() {
+  .schedule_page {
+    width: 95%;
+    overflow-y: hidden;
+    table {
+      th {
+        height: 0.5rem;
+        font-size: 0.9em;
+      }
+    }
+    ::-webkit-scrollbar {
+      border-radius: 5px;
+      height: 0.5rem;
+      width: 0.8rem !important;
+    }
+    // The whole calender.
+    @include classMatcher(
+      "fc fc-media-screen fc-direction-ltr fc-theme-standard"
+    ) {
+      height: 100%;
+
+      @include classMatcher("fc-daygrid fc-dayGridMonth-view fc-view") {
+        table {
+          th {
+            width: 3rem;
+          }
+          td {
+            height: 0.5rem;
+          }
+        }
+      }
+      // For the container of the header.
+      @include classMatcher("fc-header-toolbar fc-toolbar ") {
+        padding: 0;
+        margin-bottom: 0.5rem;
+        @include flex-dir(null, null, column);
+        // For the container of the header buttons.
+        @include classMatcher("fc-toolbar-chunk") {
+          margin-top: 0.2rem;
+          width: 100%;
+          padding: 0 1rem;
+          @include flex-dir(space-between, null, row);
+        }
+        // For the arrow buttons.
+        @include classMatcher("fc-button-group") {
+          width: 5rem;
+          margin-left: 0rem;
+        }
+      }
+    }
+
+    // for timeGridDay-view color td
+    @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
+      table {
+        th {
+          width: 100%;
+        }
+        td {
+          height: none !important;
+        }
+      }
+    }
+  }
+}

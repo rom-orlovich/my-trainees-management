@@ -8,12 +8,22 @@ export const timezone = () =>
     dateStyle: "long",
   });
 
-const logAppDir = "./logs/app";
+const logAppDir = "./logs/dev";
 const logHttpDir = "./logs/http";
 
-export const loggerTransport = new transports.File({
+export const loggerDebugTransport = new transports.File({
   level: "debug",
+  filename: "debug.log",
+  dirname: logAppDir,
+});
+export const loggerInfoTransport = new transports.File({
+  level: "info",
   filename: "info.log",
+  dirname: logAppDir,
+});
+export const loggerErrorTransport = new transports.File({
+  level: "error",
+  filename: "error.log",
   dirname: logAppDir,
 });
 

@@ -259,7 +259,34 @@ export const signUpSchema = loginSchema.concat(
 );
 
 export const changeUserCredSchema = yup.object().shape({
-  // username: yup.string().notRequired(),
   password: yup.string().notRequired().nullable(),
 });
 export const emailVerifySchema = signUpSchema.omit(["username", "password"]);
+
+export const activitySchema = yup.object().shape({
+  activity_id: yup.number().notRequired().nullable(),
+  activity_name: yup.string().required(),
+  user_id: yup.number().notRequired().nullable().default(1),
+});
+
+export const participantsGroupSchema = yup.object().shape({
+  participants_group_id: yup.number().notRequired().nullable(),
+  meeting_id: yup.number().notRequired().nullable(),
+  trainee_id: yup.number().required(),
+  user_id: yup.number().notRequired().nullable().default(1),
+});
+export const meetingsSchema = yup.object().shape({
+  meeting_id: yup.number().notRequired().nullable(),
+  date_start: yup.date().required(),
+  date_end: yup
+    .date()
+    .notRequired()
+    .nullable()
+    .min(yup.ref("date_start"), "End date can't be before start date."),
+  participants_group: yup.array().of(participantsGroupSchema),
+  activity_id: yup.number().required(),
+  location_id: yup.number().required(),
+  note_topic: yup.string().notRequired().default(""),
+  note_text: yup.string().notRequired().default(""),
+  user_id: yup.number().notRequired().nullable().default(1),
+});

@@ -67,44 +67,46 @@ tr:nth-child(even) {
 }
 
 @include smartphone {
-  thead {
-    display: none;
-  }
-  table,
-  tbody,
-  tr,
-  td {
-    display: block;
-    width: 100%;
-  }
-  tr:nth-child(even) {
-    background-color: rgb(242 245 255);
-  }
-  tr {
-    margin-bottom: 1rem;
-    background-color: none;
-  }
-
-  td {
-    border: 1px solid rgb(158, 180, 201, 0.2);
-    height: 3.4rem;
-    padding: 0.5rem;
-    text-align: right;
-    position: relative;
-    font-size: 1rem;
-
-    &::before {
-      content: attr(data-label);
-      @include posAbs(null, 0%, null, null);
-      width: 50%;
-      padding-left: 1rem;
-      text-align: left;
-      z-index: 10;
-      font-weight: 500;
+  .table_container {
+    thead {
+      display: none;
     }
-  }
-  .actions {
-    justify-content: flex-end;
-    margin-top: 0;
+    table,
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+    tr:nth-child(even) {
+      background-color: rgb(242 245 255);
+    }
+    tr {
+      margin-bottom: 1rem;
+      background-color: none;
+    }
+
+    td {
+      border: 1px solid rgb(158, 180, 201, 0.2);
+      height: 3.4rem;
+      padding: 0.5rem;
+      text-align: right;
+      position: relative;
+      font-size: 1rem;
+
+      &::before {
+        content: attr(data-label);
+        @include posAbs(null, 0%, null, null);
+        width: 50%;
+        padding-left: 1rem;
+        text-align: left;
+        z-index: 10;
+        font-weight: 500;
+      }
+    }
+    .actions {
+      justify-content: flex-end;
+      margin-top: 0;
+    }
   }
 }

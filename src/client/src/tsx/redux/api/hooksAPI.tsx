@@ -23,6 +23,9 @@ import {
   ChartsDataAPI,
   IncomesTableAPI,
   ProductAPI,
+  ActivitiesTableAPI,
+  MeetingsTableAPI,
+  ParticipantsGroupTableAPI,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -209,11 +212,29 @@ export const productsApi = apiCreateCRUDHooks<ProductAPI>({
   singleEntityName: API_ROUTES.PRODUCT_ENTITY,
   listId: "products_list",
 });
+export const activitiesApi = apiCreateCRUDHooks<ActivitiesTableAPI>({
+  reducerPath: "activitiesApi",
+  baseUrl: API_ROUTES.ACTIVITIES_ROUTE,
+  singleEntityName: API_ROUTES.ACTIVITIES_ENTITY,
+  listId: "activities_list",
+});
+export const meetingApi = apiCreateCRUDHooks<MeetingsTableAPI>({
+  reducerPath: "meetingApi",
+  baseUrl: API_ROUTES.MEETINGS_ROUTE,
+  singleEntityName: API_ROUTES.MEETINGS_ENTITY,
+  listId: "meetings_list",
+});
+export const participantsGroupApi =
+  apiCreateCRUDHooks<ParticipantsGroupTableAPI>({
+    reducerPath: "participantsGroupApi",
+    baseUrl: API_ROUTES.PARTICIPANTS_GROUP_ROUTE,
+    singleEntityName: API_ROUTES.PARTICIPANTS_GROUP_ENTITY,
+    listId: "participantsGroupApi_list",
+  });
 
 export const apiCreateCrudArr = [
   leadsApi,
   musclesGroupApi,
-
   citiesApi,
   locationsApi,
   providersApi,
@@ -233,6 +254,9 @@ export const apiCreateCrudArr = [
   incomesApi,
   expenseApi,
   productsApi,
+  activitiesApi,
+  meetingApi,
+  participantsGroupApi,
 ];
 
 // Create Reducer arr that contains  object with key of the reducer name and value the reducer function.

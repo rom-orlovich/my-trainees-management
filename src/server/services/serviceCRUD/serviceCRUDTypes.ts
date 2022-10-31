@@ -17,7 +17,7 @@ export interface SelectTableQueryParam {
   queryParams?: Record<string, string>;
   queryNameParam?: Record<string, string>;
   modifiedOtherTable?: {
-    update: {
+    update?: {
       otherTableName: string;
       values: string[];
       otherTableID: string;

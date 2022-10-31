@@ -3,14 +3,18 @@ import { Control, Controller, FieldPath, FieldValues } from "react-hook-form";
 import InputErrorMessage from "../InputErrorMessage";
 import AutocompleteInput, { AutocompleteInputProps } from "./AutocompleteInput";
 
-interface AutocompleteInputRHFprops<
-  F extends FieldValues,
-  ObjType extends Record<string, any>
-> {
+export interface ControlComponentRHF<F extends FieldValues> {
   name: FieldPath<F>;
   control: Control<F>;
-  AutocompleteInputProps: AutocompleteInputProps<ObjType, F>;
 }
+
+export type AutocompleteInputRHFprops<
+  F extends FieldValues,
+  ObjType extends Record<string, any>
+> = {
+  AutocompleteInputProps: AutocompleteInputProps<ObjType, F>;
+} & ControlComponentRHF<F>;
+
 function AutocompleteInputRHF<
   F extends FieldValues,
   ObjType extends Record<string, any>
@@ -40,7 +44,7 @@ function AutocompleteInputRHF<
           }}
           RHFProps={{ ...field }}
         >
-          <InputErrorMessage nameInput={name} error={error} />
+          {/* <InputErrorMessage nameInput={name} error={error} /> */}
         </AutocompleteInput>
       )}
     />
