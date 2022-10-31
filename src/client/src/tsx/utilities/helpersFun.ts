@@ -7,13 +7,15 @@ export const getEntriesArrObj = <T extends object>(obj: T) =>
 
 export const capitalFirstLetter = (str: string) =>
   str[0].toUpperCase() + str.slice(1).toLowerCase();
-export const formatDate = (date: Date, plusDay = 1) => {
+export const formatDate = (date: Date, plusDay = 1, timeStamp = false) => {
   const newDate = new Date(date);
 
   const formatted = new Date(
     newDate.getTime() + Math.abs(newDate.getTimezoneOffset() * 60000)
   );
   formatted.setDate(newDate.getDate() + plusDay);
+
+  if (timeStamp) return formatted.toISOString().slice(0, -1);
   return formatted.toLocaleDateString("en-CA");
 };
 

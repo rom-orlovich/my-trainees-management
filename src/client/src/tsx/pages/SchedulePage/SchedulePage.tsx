@@ -1,5 +1,12 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import React from "react";
-import FullCalendar, { EventInput } from "@fullcalendar/react"; // must go before plugins
+import FullCalendar, {
+  DateEnv,
+  DateSelectArg,
+  EventClickArg,
+  EventContentArg,
+  EventInput,
+} from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -20,20 +27,63 @@ import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 
 function SchedulePage() {
+  const authState = useGetUserLoginData();
   const dispatch = useAppDispatch();
   const [queryParmas, setQueryParams] = useSearchParams();
-
-  const authState = useGetUserLoginData();
-  const { data, isError, isFetching, isLoading } = meetingApi.useGetItemsQuery({
+  const [deleteEvent] = meetingApi.useDeleteItemMutation();
+  const { data } = meetingApi.useGetItemsQuery({
     user_id: authState,
   });
-  const [deleteEvent] = meetingApi.useDeleteItemMutation();
+
   const events: EventInput[] | undefined = data?.data?.map((el) => ({
     id: String(el.meeting_id),
-    title: el.activity_name,
+    title: el.note_topic,
     start: el.date_start,
     end: el.date_end,
+    // backgroundColor: el.activity_name?.includes("personal") ? "blue" : "red",
   }));
+
+  const handleSelectEvent = (data: DateSelectArg) => {
+    dispatch(changeModelState());
+    setQueryParams({
+      dateStart: String(data.start.getTime()),
+      dateEnd: String(data.end.getTime()),
+      modelFormState: "add",
+    });
+  };
+
+  const handleEventClick = (date: EventClickArg) => {
+    const target = date.jsEvent.target as HTMLElement;
+    console.log(target);
+    const deleteButton = target.closest(`[class*="deleteIcon"]`);
+    if (deleteButton)
+      // const eventB = date.el.closest(`[class*="SchedulePage_deleteIcon"]`);
+      // console.log(date.el.tagName());
+      deleteEvent(String(date.event.id));
+    else {
+      // else {
+      setQueryParams({
+        id: date.event.id,
+        modelFormState: "edit",
+      });
+      dispatch(changeModelState());
+    }
+    // }
+  };
+
+  const handleEventContent = (data: EventContentArg) => (
+    <div className={style.event_container}>
+      <AiFillDelete
+        onClick={() => {
+          console.log("heys");
+          deleteEvent(String(data.event.id));
+        }}
+        className={style.deleteIcon}
+      />
+      <h4>{data.event.title} </h4>
+      {/* <h4>{data.even} </h4> */}
+    </div>
+  );
   return (
     <>
       <ModelNewMeeting />
@@ -49,38 +99,14 @@ function SchedulePage() {
             center: "title",
             right: "dayGridMonth,timeGridWeek,timeGridDay",
           }}
-          eventClick={(date) => {
-            console.log(date);
-            const eventB = date.el.closest('[class*="deleteIcon"]');
-            if (eventB) deleteEvent(String(date.event.id));
-            else {
-              setQueryParams({
-                id: date.event.id,
-                modelFormState: "edit",
-              });
-              dispatch(changeModelState());
-            }
-          }}
+          eventClick={handleEventClick}
+          editable={true}
           selectable={true}
           events={events}
-          eventContent={(data) => (
-            <div className={style.event_container}>
-              <AiFillDelete
-                onClick={() => deleteEvent(String(data.event.id))}
-                className={style.deleteIcon}
-              />
-              <h3>{data.event.title} </h3>
-            </div>
-          )}
+          eventContent={handleEventContent}
           longPressDelay={2} // This is the property you need to change
-          select={(data) => {
-            dispatch(changeModelState());
-            setQueryParams({
-              dateStart: String(data.start.getTime()),
-              dateEnd: String(data.end.getTime()),
-              modelFormState: "add",
-            });
-          }}
+          select={handleSelectEvent}
+          // stickyHeaderDates={true}
         />
       </section>
     </>

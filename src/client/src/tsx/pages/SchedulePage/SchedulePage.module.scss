@@ -1,6 +1,6 @@
 @use "../../../style/utilities/utilities.scss" as *;
 .schedule_page {
-  overflow-y: scroll;
+  // overflow-y: scroll;
   table {
     th {
       z-index: 50;
@@ -9,13 +9,28 @@
 
   // For displaying events
   .event_container {
+    width: 100%;
+    cursor: pointer;
     position: relative;
+    h4 {
+      font-size: 0.8rem;
+      color: rgb(58, 135, 243);
+    }
     .deleteIcon {
       cursor: pointer;
-      display: block;
+
       color: rgb(217, 17, 17);
-      @include posAbs(0.5%, null, 1%, null);
+      @include posAbs(0.5%, null, -1%, null);
+      z-index: 200;
     }
+  }
+  // for dayGridMonth display
+  // @include classMatcher("fc-daygrid fc-dayGridMonth-view fc-view") {
+  // }
+  &:has([class*="fc-daygrid fc-dayGridMonth-view fc-view"]) {
+    overflow-y: scroll;
+    // @include classMatcher("fc-daygrid fc-dayGridMonth-view fc-view") {
+    // }
   }
 
   // For the container of the header.
@@ -75,6 +90,7 @@
     ) {
       height: 100%;
 
+      // for dayGridMonth display
       @include classMatcher("fc-daygrid fc-dayGridMonth-view fc-view") {
         table {
           th {

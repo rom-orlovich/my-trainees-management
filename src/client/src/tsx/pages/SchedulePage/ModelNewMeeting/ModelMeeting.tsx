@@ -4,8 +4,6 @@ import ModelCard from "../../../components/baseComponents/Model/ModelCard";
 import { MeetingAddForm } from "../../../components/Forms/MeetingForms/MeetingAddForm";
 import { MeetingEditForm } from "../../../components/Forms/MeetingForms/MeetingEditForm";
 
-import { useAppSelector } from "../../../redux/hooks";
-
 import { genClassName } from "../../../utilities/helpersFun";
 import style from "./ModelMeeting.module.scss";
 

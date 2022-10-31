@@ -41,8 +41,8 @@ export function MeetingForm({
   const dateStart = Number(queryParams.get("dateStart"));
   const dateEnd = Number(queryParams.get("dateEnd"));
 
-  const DateStart = formatDate(new Date(dateStart));
-  const DateEnd = formatDate(new Date(dateEnd));
+  const DateStart = formatDate(new Date(dateStart), 0, true);
+  const DateEnd = formatDate(new Date(dateEnd), 0, true);
 
   const [inputValue, setInputValue] = useState("");
 
@@ -87,7 +87,7 @@ export function MeetingForm({
                 <InputLabel
                   InputProps={{
                     ...register("date_start"),
-                    type: "date",
+                    type: "datetime-local",
                   }}
                   LabelProps={{
                     htmlFor: "date_start",
@@ -102,7 +102,7 @@ export function MeetingForm({
                 <InputLabel
                   InputProps={{
                     ...register("date_end"),
-                    type: "date",
+                    type: "datetime-local",
                   }}
                   LabelProps={{
                     htmlFor: "date_end",
