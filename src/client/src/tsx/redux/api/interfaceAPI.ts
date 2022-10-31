@@ -375,6 +375,7 @@ export interface MeetingsTableAPI {
   date_end: Date;
   participants_group: ParticipantsGroupTableAPI[];
   activity_id: number;
+  activity_name?: string;
   location_id: number;
   note_topic: string;
   note_text: string;

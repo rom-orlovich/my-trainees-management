@@ -503,13 +503,15 @@ export const meetingOptionsCRUD: OptionsCRUD = {
     tableName: `${TABLES_DATA.MEETINGS_TABLE_NAME} as mt`,
     tableID: `mt.${TABLES_DATA.MEETINGS_ID}`,
     fieldNamesQuery: ` mt.*,pro.first_name,pro.last_name ,pgt.trainee_id,
-    pgt.participants_group_id`,
+    pgt.participants_group_id,act.activity_name`,
     querySelectLogic: `LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt ON
     mt.${TABLES_DATA.MEETINGS_ID}=pgt.${TABLES_DATA.MEETINGS_ID} 
     LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON
     tr.${TABLES_DATA.TRAINEE_ID}= pgt.${TABLES_DATA.TRAINEE_ID}
     LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pro ON
     tr.${TABLES_DATA.PROFILE_ID}= pro.${TABLES_DATA.PROFILE_ID}
+    LEFT JOIN ${TABLES_DATA.ACTIVITIES_TABLE_NAME} as act ON
+    mt.${TABLES_DATA.ACTIVITIES_ID}= act.${TABLES_DATA.ACTIVITIES_ID}
     `,
     queryParams: {
       userID: "mt.user_id",

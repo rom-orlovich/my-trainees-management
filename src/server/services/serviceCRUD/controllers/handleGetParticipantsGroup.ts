@@ -12,8 +12,6 @@ export const handleGetParticipantsGroup: RequestHandler = (req, res, next) => {
     "last_name",
     "trainee_id",
     "participants_group_id",
-    // "meeting_id",
-    // "user_id",
   ];
   const participantArr = body.map(
     (el) => spreadObj(el, keys).includeKeyValueObj

@@ -30,7 +30,7 @@ function SchedulePage() {
   const [deleteEvent] = meetingApi.useDeleteItemMutation();
   const events: EventInput[] | undefined = data?.data?.map((el) => ({
     id: String(el.meeting_id),
-    title: el.note_topic,
+    title: el.activity_name,
     start: el.date_start,
     end: el.date_end,
   }));
@@ -50,14 +50,14 @@ function SchedulePage() {
             right: "dayGridMonth,timeGridWeek,timeGridDay",
           }}
           eventClick={(date) => {
-            const eventB = date.el.querySelector('[class*="deleteIcon"]');
+            console.log(date);
+            const eventB = date.el.closest('[class*="deleteIcon"]');
             if (eventB) deleteEvent(String(date.event.id));
             else {
-              // setQueryParams({
-              //   id: date.event.id,
-
-              //   modelFormState: "edit",
-              // });
+              setQueryParams({
+                id: date.event.id,
+                modelFormState: "edit",
+              });
               dispatch(changeModelState());
             }
           }}
