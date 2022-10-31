@@ -1,13 +1,7 @@
 /* eslint-disable camelcase */
-import { useParams } from "react-router-dom";
-import {
-  meetingApi,
-  trainingProgramsListApi,
-} from "../../../redux/api/hooksAPI";
-import {
-  MeetingsTableAPI,
-  TrainingProgramsListTableAPI,
-} from "../../../redux/api/interfaceAPI";
+
+import { meetingApi } from "../../../redux/api/hooksAPI";
+import { MeetingsTableAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 import {
   changeModelState,

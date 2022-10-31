@@ -29,7 +29,6 @@ export const createDataIDwithMessage = (
 export const createLogAlertInfo =
   (singleEntityName: string) =>
   (
- 
     successRes?: {
       sendDataID?: boolean;
       message?: string;

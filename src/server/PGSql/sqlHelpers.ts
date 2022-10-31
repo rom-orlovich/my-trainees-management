@@ -7,7 +7,11 @@
 import { logger } from "../services/loggerService/logger";
 
 import { TABLES_DATA } from "../utilities/constants";
-import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
+import {
+  createObjKeysArr,
+  createObjValuesArr,
+  promiseHandler,
+} from "../utilities/helpers";
 
 import { client } from "./DBConnectConfig";
 
@@ -175,9 +179,6 @@ const prepareComparisonParamsStatement = (
     ...comparisonLesser,
   ].join(" and ");
 
-  // console.log("comparisonStatementStr", comparisonStatementStr);
-  // console.log("queryParamsRes", queryParamsRes);
-
   return comparisonStatementStr;
 };
 
@@ -196,7 +197,6 @@ const prepareKeyValuesOtherColumnToSelect = (
   keysValuesEntries.forEach(([key, value], index) => {
     const diffKey = key.split("-");
 
-    // logger.debug(`line 193 ${value}`, { fileName: __filename });
     if (diffKey[1] === "diff") {
       keyValuesStr += value
         ? ` ${diffKey[0]}!=$${paramsArr.length + startIndex} `
@@ -207,20 +207,12 @@ const prepareKeyValuesOtherColumnToSelect = (
       keyValuesStr += value ? ` and` : "";
 
     if (value) {
-      if (
-        // Number.isNaN(value) ||
-        key === "phone_number" ||
-        typeof value !== "number"
-      )
+      if (key === "phone_number" || typeof value !== "number")
         paramsArr.push(value);
       else {
         paramsArr.push(Number(value));
       }
     }
-
-    // logger.debug(`line 208 ${JSON.stringify(paramsArr)}`, {
-    //   fileName: __filename,
-    // });
   });
   // EXAM: keyValuesStrArr : profile_id=$1,
   return {
@@ -237,15 +229,6 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-
-  // if (
-  //   SELECT_QUERY_TABLE_CHECK[0] &&
-  //   tableName.includes(SELECT_QUERY_TABLE_CHECK[1])
-  // )
-  //   logger.debug(
-  //     `line 218:${statement} : values:${JSON.stringify(queryParams)}`,
-  //     { fileName: __filename }
-  //   );
 
   try {
     const rows = await client.query(statement, queryParams);
@@ -272,17 +255,6 @@ const insertQuery = async (
 ) => {
   const statement = `INSERT INTO ${tableName} (${fieldName})
    VALUES ${fieldParams} ${onConflict ? `${onConflict}` : ""} RETURNING * `;
-
-  // if (
-  //   INSERT_QUERY_TABLE_CHECK[0] &&
-  //   tableName.includes(INSERT_QUERY_TABLE_CHECK[1])
-  // )
-  //   logger.debug(
-  //     `line 246:${statement} : values:${JSON.stringify(paramsArr)}`,
-  //     {
-  //       fileName: __filename,
-  //     }
-  //   );
 
   try {
     const res = await client.query(statement, paramsArr);
@@ -365,7 +337,7 @@ export async function updateQuerySingleItem(
 ) {
   const { paramsArr, keyValuesStr } = prepareKeyValuesToUpdate(obj, 2);
 
-  const rows = await updateQuery(
+  const res = await updateQuery(
     tableName,
     keyValuesStr,
     queryLogic,
@@ -373,7 +345,7 @@ export async function updateQuerySingleItem(
     paramsArr
   );
 
-  return rows.rows[0];
+  return res.rows[0];
 }
 
 // Deletes one item from the db.
@@ -387,16 +359,7 @@ export async function deleteQuery(
   const statement = `DELETE FROM ${tableName} ${queryLogic} ${
     returnValue ? "RETURNING *" : ""
   } `;
-  // if (
-  //   DELETE_QUERY_TABLE_CHECK[0] &&
-  //   tableName.includes(DELETE_QUERY_TABLE_CHECK[1])
-  // )
-  //   logger.debug(
-  //     `line 328:${statement} : values:${JSON.stringify(queryParams)}`,
-  //     {
-  //       fileName: __filename,
-  //     }
-  //   );
+
   try {
     const rows = await client.query(statement, queryParams);
     return rows.rows;

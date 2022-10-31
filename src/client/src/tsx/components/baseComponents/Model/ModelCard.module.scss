@@ -11,7 +11,7 @@
 .model_card {
   @include centerAbs();
   @include minHeightWidth(45vh, 40vw);
-  z-index: 82;
+  z-index: 100;
 
   background-color: white;
   text-align: center;

@@ -23,6 +23,7 @@ import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { OptionsCRUD } from "../serviceCRUDTypes";
 import { MeetingsTableAPI } from "./handleInsertParticipantsGroup";
+import { TrainingProgramExercise } from "../../serviceStatistics/utilities/helpersStatisticsService";
 
 // const module = { module: Module };
 /**
@@ -134,18 +135,23 @@ export function createRoutesControllers({
     if (req.logAlertInfo?.error) return next();
 
     const [data, err] = await promiseHandler(
-      await insertQueryOneItem(tableName, req.body)
+      insertQueryOneItem(tableName, req.body)
     );
+
+    if (err) {
+      req.logAlertInfo = prepareLogAlert(undefined, err, "create", logAlert);
+      return next();
+    }
 
     if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
       req.statsData = {
-        updateExerciseData: data as any,
+        updateExerciseData: data as TrainingProgramExercise,
       };
     }
 
     if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
       const Data = data as MeetingsTableAPI;
-      req.body = { meeting_id: Data.meeting_id };
+      req.body = { meeting_id: Data?.meeting_id };
     }
 
     req.logAlertInfo = prepareLogAlert(
@@ -175,6 +181,8 @@ export function createRoutesControllers({
     // Rollback the query if there is error.
     if (err) {
       await client.query("ROLLBACK");
+      req.logAlertInfo = prepareLogAlert(undefined, err, "update", logAlert);
+      return next();
     }
 
     if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {

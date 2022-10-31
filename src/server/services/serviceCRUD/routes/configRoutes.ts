@@ -514,13 +514,6 @@ export const meetingOptionsCRUD: OptionsCRUD = {
     queryParams: {
       userID: "mt.user_id",
     },
-    //   modifiedOtherTable: {
-    //     delete: {
-    //       otherTableID: TABLES_DATA.MEETINGS_ID,
-    //       otherTableName: TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME,
-    //     },
-    //   },
-    // },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: meetingsSchema,
