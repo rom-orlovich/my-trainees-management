@@ -14,7 +14,7 @@ export const formatDate = (date: Date, plusDay = 1, timeStamp = false) => {
     newDate.getTime() + Math.abs(newDate.getTimezoneOffset() * 60000)
   );
   formatted.setDate(newDate.getDate() + plusDay);
-
+  // console.log(formatted.toISOString().slice(0, -1));
   if (timeStamp) return formatted.toISOString().slice(0, -1);
   return formatted.toLocaleDateString("en-CA");
 };

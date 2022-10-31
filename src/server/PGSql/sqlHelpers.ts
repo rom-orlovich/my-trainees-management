@@ -238,7 +238,7 @@ export async function selectQuery(
       `LINE 261:${statement} : values:${JSON.stringify(queryParams)}`,
       {
         objs: [error],
-        fileName: __filename,
+        __filename,
       }
     );
     throw error;
@@ -264,7 +264,7 @@ const insertQuery = async (
       `LINE 287:${statement} : values:${JSON.stringify(paramsArr)}`,
       {
         objs: [error],
-        fileName: __filename,
+        __filename,
       }
     );
     throw error;
@@ -288,7 +288,7 @@ const updateQuery = async (
     logger.debug(
       `line 265:${statement} : values:${JSON.stringify(paramsArr)}`,
       {
-        fileName: __filename,
+        __filename,
       }
     );
   try {
@@ -299,7 +299,7 @@ const updateQuery = async (
       `LINE 309:${statement} : values:${JSON.stringify(paramsArr)}`,
       {
         objs: [error],
-        fileName: __filename,
+        __filename,
       }
     );
     throw error;
@@ -368,7 +368,7 @@ export async function deleteQuery(
       `LINE 375:${statement} : values:${JSON.stringify(queryParams)}`,
       {
         objs: [error],
-        fileName: __filename,
+        __filename,
       }
     );
     throw error;

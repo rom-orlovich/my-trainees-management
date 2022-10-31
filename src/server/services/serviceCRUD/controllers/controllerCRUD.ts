@@ -22,7 +22,7 @@ import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { OptionsCRUD } from "../serviceCRUDTypes";
-import { MeetingsTableAPI } from "./handleInsertParticipantsGroup";
+import { MeetingAPI } from "./handleInsertParticipantsGroup";
 import { TrainingProgramExercise } from "../../serviceStatistics/utilities/helpersStatisticsService";
 
 // const module = { module: Module };
@@ -109,6 +109,11 @@ export function createRoutesControllers({
       req.statsData = { statsResult: { measures: responseData } };
       return next();
     }
+    if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
+      req.body = responseData;
+      return next();
+    }
+
     return res.status(200).json(responseData);
   };
 
@@ -150,7 +155,7 @@ export function createRoutesControllers({
     }
 
     if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
-      const Data = data as MeetingsTableAPI;
+      const Data = data as MeetingAPI;
       req.body = { meeting_id: Data?.meeting_id };
     }
 
@@ -192,7 +197,7 @@ export function createRoutesControllers({
     }
 
     if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
-      const Data = data as MeetingsTableAPI;
+      const Data = data as MeetingAPI;
       req.body = { meeting_id: Data.meeting_id };
     }
 

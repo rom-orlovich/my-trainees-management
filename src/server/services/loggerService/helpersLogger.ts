@@ -5,7 +5,7 @@ export const LOG_LEVEL: "debug" | "info" | "warn" | "error" = "debug";
 export const timezone = () =>
   new Date().toLocaleString("en-US", {
     timeZone: "Asia/Jerusalem",
-    dateStyle: "long",
+    dateStyle: "full",
   });
 
 const logAppDir = "./logs/dev";

@@ -369,10 +369,11 @@ export interface ActivitiesTableAPI {
   user_id?: number;
 }
 
-export interface MeetingsTableAPI {
+export interface MeetingAPI {
   meeting_id?: number;
   date_start: Date;
   date_end: Date;
+
   participants_group: ParticipantsGroupTableAPI[];
   activity_id: number;
   activity_name?: string;
@@ -381,3 +382,8 @@ export interface MeetingsTableAPI {
   note_text: string;
   user_id?: number;
 }
+export type MeetingTableAPI = OmitKey<MeetingAPI, "participants_group"> &
+  PickKey<
+    ParticipantsGroupTableAPI,
+    "first_name" | "last_name" | "trainee_id" | "participants_group_id"
+  >;

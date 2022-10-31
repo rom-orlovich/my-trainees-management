@@ -104,7 +104,7 @@ declare global {
 
       statsData?: StatsData;
 
-      excludedBody?: ExcludeBody;
+      insertParticipants?: ExcludeBody;
     }
   }
 }

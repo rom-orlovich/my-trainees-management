@@ -26,7 +26,6 @@ export class ErrorCustomizes<
   errorFieldValue: Record<string, any> = {};
 
   constructor(error?: E, action?: ActionType, errorPayload?: any) {
-    console.log("error log", error);
     this.error = error;
     this.errorPayload = errorPayload;
     this.action = action;
@@ -68,7 +67,7 @@ export class ErrorCustomizes<
       const newErrorMessage = `${invalidFieldFormatted} ${
         fullErrorMessage?.slice(1).join(" ") || ""
       }`;
-
+      this.statusCode = 400;
       this.message = newErrorMessage || `The ${this.errorPayload} is invalid.`;
     } else if (this.error?.code === ErrorCodes.RESULT_NOT_FOUND)
       this.message = this.error?.message || "";
@@ -78,6 +77,7 @@ export class ErrorCustomizes<
     } else if (this.error?.message) {
       this.message = this.error.message;
     }
+
     return this;
   }
 }
@@ -89,6 +89,7 @@ export const errorHandlerMiddleware: ErrorRequestHandler = async (
   next
 ) => {
   if (err) {
+    console.log("Sasdsda", err);
     const { statusCode, message } = err;
     return res.status(statusCode).json({ message });
   }

@@ -26,6 +26,7 @@
   border-radius: 8px;
   font-size: 1.2rem;
   margin-top: 0.1rem;
+  background-color: rgb(200, 216, 231);
   @include flex-dir(null, null, column);
 }
 .activeSuggestion {

@@ -9,18 +9,18 @@
 
   // For displaying events
   .event_container {
+    margin-top: 0.5rem;
     width: 100%;
     cursor: pointer;
     position: relative;
     h4 {
       font-size: 0.8rem;
-      color: rgb(58, 135, 243);
+      color: rgb(5, 18, 36);
     }
     .deleteIcon {
       cursor: pointer;
-
       color: rgb(217, 17, 17);
-      @include posAbs(0.5%, null, -1%, null);
+      @include posAbs(0.5%, null, 1%, null);
       z-index: 200;
     }
   }

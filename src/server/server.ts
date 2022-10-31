@@ -30,8 +30,12 @@ import {
   logger,
   winstonExpressOption,
 } from "./services/loggerService/logger";
+import {
+  loggerRequestInfo,
+  loggerRequestWarns,
+} from "./services/loggerService/helpersLogger";
 
-const fileName = { fileName: __filename };
+const fileName = { __filename };
 const PORT = process.env.PORT || 5000;
 
 export const app = express();
@@ -61,7 +65,11 @@ routesConfigArr.forEach(({ baseRoute, router }) => {
   app.use(baseRoute, router);
 });
 
-app.use(winstonExpress.errorLogger({ winstonInstance: logger }));
+app.use(
+  winstonExpress.errorLogger({
+    winstonInstance: requestLogger,
+  })
+);
 
 // Init alerts middleware.
 app.use(handleAlertsMiddleware);

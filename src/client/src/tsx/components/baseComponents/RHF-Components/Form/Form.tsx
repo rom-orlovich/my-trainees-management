@@ -98,14 +98,14 @@ export default function Form<TFormValues extends Record<string, any>>({
     try {
       await onSubmit(data);
       methods.reset();
-
-      if (!editMode)
-        dispatch(
-          saveFormState({
-            url: location.pathname,
-            values: methods.getValues(),
-          })
-        );
+      if (saveState)
+        if (!editMode)
+          dispatch(
+            saveFormState({
+              url: location.pathname,
+              values: methods.getValues(),
+            })
+          );
 
       if (goPrevPage) {
         nav((pathMove || -1) as any);
@@ -115,7 +115,7 @@ export default function Form<TFormValues extends Record<string, any>>({
       const Error = error as {
         data: { errorField: Path<TFormValues>; message: string };
       };
-
+      console.log(error);
       methods.setError("server" as any, { message: Error.data?.message });
     }
   };

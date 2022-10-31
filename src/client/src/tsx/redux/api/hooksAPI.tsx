@@ -24,7 +24,7 @@ import {
   IncomesTableAPI,
   ProductAPI,
   ActivitiesTableAPI,
-  MeetingsTableAPI,
+  MeetingAPI,
   ParticipantsGroupTableAPI,
 } from "./interfaceAPI";
 
@@ -218,7 +218,7 @@ export const activitiesApi = apiCreateCRUDHooks<ActivitiesTableAPI>({
   singleEntityName: API_ROUTES.ACTIVITIES_ENTITY,
   listId: "activities_list",
 });
-export const meetingApi = apiCreateCRUDHooks<MeetingsTableAPI>({
+export const meetingApi = apiCreateCRUDHooks<MeetingAPI>({
   reducerPath: "meetingApi",
   baseUrl: API_ROUTES.MEETINGS_ROUTE,
   singleEntityName: API_ROUTES.MEETINGS_ENTITY,

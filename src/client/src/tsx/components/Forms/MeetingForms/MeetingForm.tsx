@@ -12,7 +12,7 @@ import {
 import {
   ActivitiesTableAPI,
   LocationsGetRes,
-  MeetingsTableAPI,
+  MeetingAPI,
 } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
@@ -33,7 +33,7 @@ export function MeetingForm({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<MeetingsTableAPI>) {
+}: GeneralFormProps<MeetingAPI>) {
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   const [queryParams] = useSearchParams();
@@ -41,8 +41,16 @@ export function MeetingForm({
   const dateStart = Number(queryParams.get("dateStart"));
   const dateEnd = Number(queryParams.get("dateEnd"));
 
-  const DateStart = formatDate(new Date(dateStart), 0, true);
-  const DateEnd = formatDate(new Date(dateEnd), 0, true);
+  const DateStart = formatDate(
+    defaultValues?.date_start || new Date(dateStart),
+    0,
+    true
+  );
+  const DateEnd = formatDate(
+    defaultValues?.date_end || new Date(dateEnd),
+    0,
+    true
+  );
 
   const [inputValue, setInputValue] = useState("");
 
@@ -60,7 +68,7 @@ export function MeetingForm({
 
   return (
     <>
-      <Form<MeetingsTableAPI>
+      <Form<MeetingAPI>
         nameForm="Meeting"
         onSubmit={onSubmit}
         editMode={editMode}
@@ -125,7 +133,7 @@ export function MeetingForm({
                 setInputValue={setInputValue}
               />
               <div className="autocomplete_form_model_container">
-                <AutocompleteInputRHF<MeetingsTableAPI, ActivitiesTableAPI>
+                <AutocompleteInputRHF<MeetingAPI, ActivitiesTableAPI>
                   name="activity_id"
                   control={control}
                   AutocompleteInputProps={{
@@ -146,7 +154,7 @@ export function MeetingForm({
                     keys: ["activity_name"],
                   }}
                 />
-                <AutocompleteInputRHF<MeetingsTableAPI, LocationsGetRes>
+                <AutocompleteInputRHF<MeetingAPI, LocationsGetRes>
                   name="location_id"
                   control={control}
                   AutocompleteInputProps={{

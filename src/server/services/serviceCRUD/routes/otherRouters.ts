@@ -1,14 +1,20 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import { RequestHandler } from "webpack-dev-server";
+import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import { handleDeleteAllUserAlerts } from "../../serviceAlerts/handleAlerts";
 import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
 import { handleInsertNewMeasure } from "../../serviceStatistics/controllers/handleInsertNewMeasure";
-import { handleGetParticipantsGroup } from "../controllers/handleGetParticipantsGroup";
+import {
+  formatMeetingToHaveParticipantsGroupArr,
+  handleGetMeetingsHaveGroupArr,
+  handleGetParticipantsGroup,
+} from "../controllers/handleGetParticipantsGroup";
 import { handleInsertNewSubscription } from "../controllers/handleInsertNewSubscription";
 import {
   handleInsertParticipantsGroup,
-  MeetingsTableAPI,
+  MeetingAPI,
 } from "../controllers/handleInsertParticipantsGroup";
 import { createControllersHandlerAndRouterWithAppMiddleware } from "../utilities/helperServiceCRUD";
 import {
@@ -77,31 +83,38 @@ export const createMeetingRouter = () => {
     routeByEntityAndID,
     controllerHandlersObj,
     expressRouterObj,
+    routeByBaseRoute,
   } = createControllersHandlerAndRouterWithAppMiddleware(meetingOptionsCRUD);
-  const excludedBodyMiddleware: RequestHandler = (req, res, next) => {
-    const { participants_group, ...rest } = req.body as MeetingsTableAPI;
-    req.excludedBody = {
-      participantGroup: participants_group,
+  const insertParticipantsMiddleware: RequestHandler = (req, res, next) => {
+    if (req.logAlertInfo?.error) return next();
+    const { participants_group, ...rest } = req.body as MeetingAPI;
+    req.insertParticipants = {
+      participantGroup: participants_group?.map(
+        ({ first_name, last_name, ...el }) => ({
+          ...el,
+        })
+      ),
       user_id: rest.user_id,
     };
     req.body = rest;
-    next();
+    return next();
   };
+
+  routeByBaseRoute.get(handleGetMeetingsHaveGroupArr);
 
   routeByEntityAndID.get(handleGetParticipantsGroup);
 
   routeByEntity.post(
-    excludedBodyMiddleware,
+    insertParticipantsMiddleware,
     controllerHandlersObj.createNewValueInDB,
     handleInsertParticipantsGroup
   );
 
   routeByEntityAndID.put(
-    excludedBodyMiddleware,
+    insertParticipantsMiddleware,
     controllerHandlersObj.updateValueByID,
     handleInsertParticipantsGroup
   );
-  // routeByEntityAndID.delete();
 
   return expressRouterObj;
 };

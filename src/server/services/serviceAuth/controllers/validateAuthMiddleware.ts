@@ -4,6 +4,7 @@ import { RequestHandler } from "webpack-dev-server";
 import { selectQuery, updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
+import { logger } from "../../loggerService/logger";
 import {
   Permission,
   Permissions,
@@ -82,7 +83,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   }
 
   if (err) {
-    console.log("err", err);
+    logger.error(`LINE 156:  forbidden`, { __filename, objs: [err] });
     return res.sendStatus(403);
   }
 
@@ -150,7 +151,10 @@ export const validateRolePermission: (
     if (checkPermissionByRolesUpdateOperation) return next();
   } else if (req.method === "DELETE") {
     if (checkPermissionByRolesDeleteOperation) return next();
-  } else return res.sendStatus(401);
-
+  }
+  logger.error(
+    `LINE 156: permission denied only user with id ${req?.auth_data?.user_id} and role ${req?.auth_data?.role}`,
+    { __filename }
+  );
   return res.sendStatus(401);
 };

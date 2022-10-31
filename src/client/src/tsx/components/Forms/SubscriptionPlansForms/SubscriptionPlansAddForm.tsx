@@ -9,12 +9,11 @@ import SubscriptionPlansForm from "./SubscriptionPlansForm";
 function SubscriptionPlansAddForm() {
   const [addItem] = subscriptionPlansApi.useCreateOneItemMutation();
   const traineeID = Number(useParams().id);
-  const handleSubmit = ({ ...rest }: SubscriptionPlansAPI) => {
+  const handleSubmit = ({ ...rest }: SubscriptionPlansAPI) =>
     addFunction<SubscriptionPlansAPI>({ addItem })({
       ...rest,
       trainee_id: traineeID,
     });
-  };
 
   return <SubscriptionPlansForm onSubmit={handleSubmit} editMode={false} />;
 }

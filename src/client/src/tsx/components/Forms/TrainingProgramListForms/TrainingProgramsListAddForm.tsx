@@ -31,7 +31,7 @@ export function TrainingProgramsListAddForm({
     // Instead after submit this form the function will move the user to his training program's exercises list.
     dispatch(disableGoPrevPage());
 
-    addFunction({
+    return addFunction({
       addItem,
     })({ ...body, trainee_id: traineeID }).then((response) => {
       const Response = response as unknown as { data: ResponseMutationAPI };
@@ -41,6 +41,8 @@ export function TrainingProgramsListAddForm({
           Response.data.id
         )}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`
       );
+
+      return Response;
     });
   };
 

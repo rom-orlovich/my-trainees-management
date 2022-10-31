@@ -23,8 +23,8 @@ const { timestamp, combine, printf, colorize, errors, json, prettyPrint } =
 // Message Format
 export const myFormat = printf(
   ({ level, message, timestamp, stack, ...meta }) => {
-    const filename = meta?.fileName
-      ? path.resolve(meta?.fileName).split("/").slice(-1).join("")
+    const filename = meta?.__filename
+      ? path.resolve(meta?.__filename).split("/").slice(-1).join("")
       : "";
 
     const obj = meta?.objs
@@ -40,7 +40,10 @@ export const myFormat = printf(
 );
 
 // Shared Formats
-const formats = [timestamp({ format: timezone() }), errors({ stack: true })];
+const formats = [
+  timestamp({ format: "DD/MM/YY, HH:MM:SS" }),
+  errors({ stack: true }),
+];
 const combineFormatConsole = combine(...formats, colorize(), myFormat);
 const combineLogFile = combine(...formats, myFormat);
 const httpFormat = combine(...formats, json(), prettyPrint());

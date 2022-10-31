@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 
 import { WithContext as ReactTags } from "react-tag-input";
-import { MeetingsTableAPI } from "../../../../redux/api/interfaceAPI";
+import { MeetingAPI } from "../../../../redux/api/interfaceAPI";
 import style from "./TagsInput.module.scss";
 
 const KeyCodes = {
@@ -24,7 +24,7 @@ export default function TagsInput({
 }: {
   defaultTags?: Tag[];
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
-  setTagResult: UseFormSetValue<MeetingsTableAPI>;
+  setTagResult: UseFormSetValue<MeetingAPI>;
   suggestions: Tag[];
 }) {
   const [tags, setTags] = React.useState<Tag[]>(defaultTags || []);
