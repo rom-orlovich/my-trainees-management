@@ -20,7 +20,7 @@ export function MeetingAddForm() {
     ...body
   }: MeetingAPI) => {
     dispatch(disableGoPrevPage());
-    addFunction({
+    return addFunction({
       addItem,
     })({ ...body }).then((res) => {
       dispatch(changeModelState());

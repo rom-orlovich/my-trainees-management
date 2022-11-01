@@ -441,8 +441,8 @@ CREATE TABLE IF NOT EXISTS "activities" (
 CREATE TABLE IF NOT EXISTS "meetings" (
   "meeting_id" serial PRIMARY KEY,
   "activity_id" INTEGER,
-  "date_start" DATE NOT NULL,
-  "date_end" DATE NOT NULL,
+  "date_start" timestamptz NOT NULL,
+  "date_end" timestamptz NOT NULL,
   "location_id" INTEGER,
   "note_topic" TEXT,
   "note_text" TEXT,
