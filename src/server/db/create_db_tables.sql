@@ -469,11 +469,9 @@ CREATE TABLE IF NOT EXISTS "participants_group" (
   "user_id" INTEGER DEFAULT 1,
   CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE ON
   UPDATE CASCADE,
-  CONSTRAINT fk_meeting_id FOREIGN KEY(meeting_id) REFERENCES meetings(meeting_id) ON DELETE
-  SET
-    NULL ON
+  CONSTRAINT fk_meeting_id FOREIGN KEY(meeting_id) REFERENCES meetings(meeting_id) ON DELETE CASCADE ON
   UPDATE CASCADE,
-    CONSTRAINT fk_trainee_id FOREIGN KEY(trainee_id) REFERENCES trainees(trainee_id) ON DELETE
+  CONSTRAINT fk_trainee_id FOREIGN KEY(trainee_id) REFERENCES trainees(trainee_id) ON DELETE
   SET
     NULL ON
   UPDATE CASCADE

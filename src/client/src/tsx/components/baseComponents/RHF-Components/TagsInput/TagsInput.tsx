@@ -76,7 +76,7 @@ export default function TagsInput({
         suggestions: style.suggestion,
       }}
       tags={tags}
-      minQueryLength={1}
+      minQueryLength={0}
       delimiters={delimiters}
       suggestions={suggestions}
       handleDelete={handleDelete}

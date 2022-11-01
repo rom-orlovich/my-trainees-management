@@ -25,6 +25,7 @@ export interface SelectTableQueryParam {
     };
     delete?: { otherTableName: string; otherTableID: string };
   };
+  groupBy?: string;
 }
 
 export interface OptionsCRUD {

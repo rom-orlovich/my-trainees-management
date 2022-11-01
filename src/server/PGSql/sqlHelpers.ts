@@ -229,7 +229,13 @@ export async function selectQuery(
   queryParams = [] as any[]
 ) {
   const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
-
+  // logger.debug(
+  //   `LINE 232:${statement} : values:${JSON.stringify(queryParams)}`,
+  //   {
+  //     // objs: [error],
+  //     __filename,
+  //   }
+  // );
   try {
     const rows = await client.query(statement, queryParams);
     return rows.rows;
@@ -423,7 +429,8 @@ export async function selectPagination(
   ascending = true,
   numResult = 10,
   orderBy = "",
-  comparisonQuery: { gt: string[]; lt: string[] }
+  comparisonQuery: { gt: string[]; lt: string[] },
+  groupBy = ""
 ) {
   const numPage = Number(page) - 1;
   const offset = numPage * numResult;
@@ -448,9 +455,11 @@ export async function selectPagination(
   // Return if the table is empty.
   if (!numTotalRows) return { rows: [], next: false, countRows: 0 };
 
-  const limitOffsetStatement = `order by ${orderBy} ${
+  const groupByStatement = groupBy ? `GROUP BY ${groupBy}` : "";
+  const limitOffsetStatement = `order by ${orderBy} ${groupByStatement} ${
     ascending ? "ASC" : "DESC"
-  } LIMIT $${queryParamsRes.length + 1} OFFSET $${queryParamsRes.length + 2}`;
+  } LIMIT $${queryParamsRes.length + 1} OFFSET $${queryParamsRes.length + 2} 
+   `;
 
   const rows = await selectQuery(
     tableName,

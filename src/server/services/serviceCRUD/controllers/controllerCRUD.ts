@@ -3,6 +3,7 @@ import { RequestHandler } from "express";
 import { DatabaseError } from "pg";
 import * as yup from "yup";
 import { Module } from "module";
+import { groupBy } from "lodash";
 import {
   createRealQueryKeyValuesObj,
   deleteQuery,
@@ -43,6 +44,7 @@ export function createRoutesControllers({
     modifiedOtherTable,
     orderByParam,
     comparisonQuery,
+    groupBy,
   },
   logAlert = true,
   validateSchema,
@@ -87,7 +89,8 @@ export function createRoutesControllers({
         ascDefault,
         numResultDefault > 100 ? 100 : numResultDefault,
         orderByParamRes,
-        comparisonQueryKeyValue
+        comparisonQueryKeyValue,
+        groupBy
       )
     );
 

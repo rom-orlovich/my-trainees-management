@@ -223,7 +223,12 @@ SELECT
   pg_catalog.setval('public.profiles_profile_id_seq', 7, false);
 
 INSERT INTO
-  trainees (user_id, profile_id, trainer_user_id, sign_up_token)
+  trainees (
+    user_id,
+    profile_id,
+    trainer_user_id,
+    sign_up_token
+  )
 VALUES
   (3, 3, 2, '');
 
@@ -1680,3 +1685,88 @@ SELECT
     14,
     false
   );
+
+-- SELECT
+-- mt.*,
+-- pro.first_name,
+-- pro.last_name,
+-- pgt.trainee_id,
+-- pgt.participants_group_id,
+-- act.activity_name,
+--   array_agg(pgt.participants_group_id, pgt.trainee_id)
+-- FROM
+--   meetings as mt
+--   LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
+--   LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
+--   LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
+--   LEFT JOIN activities as act ON mt.activity_id = act.activity_id
+-- GROUP BY
+--   pgt.participants_group_id,
+--   pgt.trainee_id
+-- SELECT
+--   mt.*,
+--   array_agg(
+--     json_build_object(
+--       'trainee_id',
+--       pgt.trainee_id,
+--       'participants_group_id',
+--       pgt.participants_group_id
+--     )
+--   ) AS participants_group
+-- FROM
+--   meetings as mt
+--   LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
+-- GROUP BY
+--   mt.meeting_id
+-- ORDER BY
+--   mt.meeting_id
+-- SELECT
+--   mt.*,
+--   pro.first_name,
+--   pro.last_name,
+--   act.activity_name,
+--   array_agg(
+--     json_build_object(
+--       'trainee_id',
+--       pgt.trainee_id,
+--       'participants_group_id',
+--       pgt.participants_group_id
+--     )
+--   ) AS participants_group
+-- FROM
+--   meetings as mt
+--   LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
+--   LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
+--   LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
+--   LEFT JOIN activities as act ON mt.activity_id = act.activity_id
+-- WHERE
+--   mt.user_id = $ 1
+-- order by
+--   mt.meeting_id
+-- GROUP BY
+--   mt.meeting_id
+-- SELECT
+--   mt.*,
+--   pro.first_name,
+--   pro.last_name,
+--   act.activity_name,
+--   (
+--     array_agg(
+--       json_build_object(
+--         'trainee_id',
+--         pgt.trainee_id,
+--         'participants_group_id',
+--         pgt.participants_group_id
+--       )
+--     )
+--   ) AS participants_group
+-- FROM
+--   meetings as mt
+--   LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
+--   LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
+--   LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
+--   LEFT JOIN activities as act ON mt.activity_id = act.activity_id
+-- group by
+--   mt.*
+-- order by
+--   mt.meeting_id;

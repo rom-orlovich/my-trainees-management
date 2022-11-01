@@ -11,7 +11,7 @@ const keys = ["first_name", "last_name", "trainee_id", "participants_group_id"];
 const formatMeetingToHaveParticipantsGroupArr2 = (
   meetings: MeetingTableAPI[]
 ) => {
-  let tempIndex = meetings[0].meeting_id;
+  let tempIndex = meetings[0]?.meeting_id;
   let meetingObj = {} as Record<string, any>;
   const meetingArr = [];
 
@@ -24,6 +24,7 @@ const formatMeetingToHaveParticipantsGroupArr2 = (
     participants_group: [includeKeyValueObj],
   };
 
+  meetingArr.push(meetingObj);
   for (let i = 1; i < meetings.length; i++) {
     const { excludedKeyValueObj, includeKeyValueObj } = spreadObj(
       meetings[i],
@@ -41,6 +42,7 @@ const formatMeetingToHaveParticipantsGroupArr2 = (
       tempIndex = meetings[i].meeting_id;
     }
   }
+
   return meetingArr as MeetingAPI[];
 };
 
