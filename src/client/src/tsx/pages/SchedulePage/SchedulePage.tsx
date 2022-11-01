@@ -16,6 +16,7 @@ import interactionPlugin, {
 
 import { useSearchParams } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
+import { date } from "yup";
 import { genClassName } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
 
@@ -29,10 +30,12 @@ import { meetingApi } from "../../redux/api/hooksAPI";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import { MeetingAPI } from "../../redux/api/interfaceAPI";
 
+const isDesktopWidth = window.innerWidth > 500;
+
 function SchedulePage() {
   const authState = useGetUserLoginData();
   const dispatch = useAppDispatch();
-  const [queryParmas, setQueryParams] = useSearchParams();
+  const [queryParams, setQueryParams] = useSearchParams();
   const [deleteEvent] = meetingApi.useDeleteItemMutation();
   const [updateEvent] = meetingApi.useUpdateItemMutation({
     fixedCacheKey: "sd",
@@ -48,21 +51,12 @@ function SchedulePage() {
     end: el.date_end,
   }));
   const handleEventContent = (event: EventContentArg) => (
-    // <div className={style.event_container}>
-    //   <AiFillDelete
-    //     onClick={() => {
-    //       deleteEvent(String(event.event.id));
-    //     }}
-    //     className={style.deleteIcon}
-    //   />
-    //   <h4>
-    //     <span>{event.timeText}</span> {event.event.title}
-    //   </h4>
-    // </div>
     <div className={style.event_container}>
       <AiFillDelete className={style.deleteIcon} />
-      <b>{event.timeText}</b>
-      <i>{event.event.title}</i>
+      <div className={style.date_data}>
+        <b>{event.timeText}</b>
+        <i>{event.event.title}</i>
+      </div>
     </div>
   );
   const handleSelectEvent = (event: DateSelectArg) => {
@@ -131,12 +125,13 @@ function SchedulePage() {
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           handleWindowResize={true}
-          initialView="dayGridMonth"
+          initialView={isDesktopWidth ? "dayGridMonth" : "timeGridDay"}
           headerToolbar={{
             left: "prev,next today",
             center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay",
+            right: "dayGridMonth,timeGridDay",
           }}
+          allDaySlot={false}
           eventClick={handleEventClick}
           eventDrop={handleDropEvent}
           eventResize={handleResizeEvent}
@@ -145,7 +140,7 @@ function SchedulePage() {
           eventOverlap={false}
           events={events}
           eventContent={handleEventContent}
-          longPressDelay={2} // This is the property you need to change
+          longPressDelay={500} // This is the property you need to change
           select={handleSelectEvent}
         />
       </section>

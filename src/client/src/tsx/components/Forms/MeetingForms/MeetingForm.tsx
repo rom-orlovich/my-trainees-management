@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDebounceHook } from "../../../hooks/useDebounceHook";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
@@ -36,7 +36,7 @@ export function MeetingForm({
 }: GeneralFormProps<MeetingAPI>) {
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
-  const [queryParams] = useSearchParams();
+  const [queryParams, setQueryParams] = useSearchParams();
 
   const dateStart = Number(queryParams.get("dateStart"));
   const dateEnd = Number(queryParams.get("dateEnd"));

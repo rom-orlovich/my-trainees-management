@@ -5,6 +5,12 @@
     th {
       z-index: 50;
     }
+    td {
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   // For displaying events
@@ -13,10 +19,7 @@
     width: 100%;
     cursor: pointer;
     position: relative;
-    h4 {
-      font-size: 0.8rem;
-      color: rgb(5, 18, 36);
-    }
+
     .deleteIcon {
       cursor: pointer;
       color: rgb(217, 17, 17);
@@ -25,12 +28,18 @@
     }
   }
   // for dayGridMonth display
-  // @include classMatcher("fc-daygrid fc-dayGridMonth-view fc-view") {
-  // }
+
   &:has([class*="fc-daygrid fc-dayGridMonth-view fc-view"]) {
     overflow-y: scroll;
-    // @include classMatcher("fc-daygrid fc-dayGridMonth-view fc-view") {
-    // }
+    .event_container {
+      .date_data {
+        @include flex-dir(null, null, column);
+      }
+
+      .deleteIcon {
+        @include posAbs(2%, null, 2%, null);
+      }
+    }
   }
 
   // For the container of the header.
@@ -46,6 +55,7 @@
     }
   }
   @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
+    overflow-y: hidden;
     // For selection number of cells
     @include classMatcher("fc-highlight") {
       background-color: rgba(12, 131, 155, 0.3);
@@ -67,42 +77,46 @@
       }
     }
   }
+
+  // for timeGridDay-view color td
+  @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
+    table {
+      th {
+        width: 100%;
+      }
+      td {
+        height: 3rem;
+      }
+      @include classMatcher("fc-timegrid-event") {
+        height: fit-content; // For displaying customize events
+        .event_container {
+          margin-top: 0;
+          .date_data {
+            @include flex-dir(center, null, row);
+            gap: 0.2rem;
+            font-size: 1rem;
+          }
+          .deleteIcon {
+            @include posAbs(0.5%, null, 1%, null);
+          }
+        }
+      }
+    }
+  }
 }
 
 @include smartphone() {
   .schedule_page {
-    width: 95%;
+    width: 100%;
     overflow-y: hidden;
     table {
+      width: 95%;
       th {
-        height: 0.5rem;
-        font-size: 0.9em;
-      }
-    }
-    ::-webkit-scrollbar {
-      border-radius: 5px;
-      height: 0.5rem;
-      width: 0.8rem !important;
-    }
-
-    //First row of table in day-grid display
-    @include classMatcher("fc-timegrid-axis fc-scrollgrid-shrink") {
-      @include classMatcher("fc-daygrid-day fc-day fc-day-wed fc-day-future") {
         height: 2rem;
+        width: 1.2rem;
+        font-size: 1.2rem;
+        text-align: center;
       }
-    }
-
-    @include classMatcher("fc-daygrid-day-frame fc-scrollgrid-sync-inner") {
-      @include classMatcher("fc-daygrid-day-events") {
-        margin-bottom: 0;
-      }
-    }
-
-    // All day column td
-    @include classMatcher(
-      "fc-timegrid-axis-cushion fc-scrollgrid-shrink-cushion fc-scrollgrid-sync-inner"
-    ) {
-      font-size: 0.8rem;
     }
 
     // The whole calender.
@@ -113,15 +127,26 @@
 
       // for dayGridMonth display
       @include classMatcher("fc-daygrid fc-dayGridMonth-view fc-view") {
+        overflow-y: hidden;
         table {
           th {
             width: 3rem;
           }
-          td {
-            height: 0.5rem;
+        }
+        .event_container {
+          height: 2rem;
+          font-size: 0.7rem;
+
+          .deleteIcon {
+            @include posAbs(0%, null, 3%, null);
           }
         }
+
+        @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
+          overflow-y: hidden !important;
+        }
       }
+
       // For the container of the header.
       @include classMatcher("fc-header-toolbar fc-toolbar ") {
         padding: 0;
@@ -149,20 +174,15 @@
           width: 100%;
         }
         td {
-          // height: none !important;
+          height: 2rem;
         }
 
         @include classMatcher("fc-timegrid-event") {
           height: fit-content; // For displaying customize events
           .event_container {
-            // h4 {
-            //   font-size: 0.8rem;
-            //   color: rgb(5, 18, 36);
-            // }
-            margin-top: 0;
-            @include flex-dir(center, null, row);
-            gap: 0.2rem;
-            font-size: 0.7rem;
+            .date_data {
+              font-size: 0.7rem;
+            }
             .deleteIcon {
               @include posAbs(0.5%, null, 1%, null);
             }
@@ -170,5 +190,10 @@
         }
       }
     }
+  }
+  ::-webkit-scrollbar {
+    border-radius: 5px;
+    height: 0.5rem;
+    width: 0.8rem !important;
   }
 }
