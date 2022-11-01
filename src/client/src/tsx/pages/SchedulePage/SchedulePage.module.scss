@@ -84,6 +84,27 @@
       height: 0.5rem;
       width: 0.8rem !important;
     }
+
+    //First row of table in day-grid display
+    @include classMatcher("fc-timegrid-axis fc-scrollgrid-shrink") {
+      @include classMatcher("fc-daygrid-day fc-day fc-day-wed fc-day-future") {
+        height: 2rem;
+      }
+    }
+
+    @include classMatcher("fc-daygrid-day-frame fc-scrollgrid-sync-inner") {
+      @include classMatcher("fc-daygrid-day-events") {
+        margin-bottom: 0;
+      }
+    }
+
+    // All day column td
+    @include classMatcher(
+      "fc-timegrid-axis-cushion fc-scrollgrid-shrink-cushion fc-scrollgrid-sync-inner"
+    ) {
+      font-size: 0.8rem;
+    }
+
     // The whole calender.
     @include classMatcher(
       "fc fc-media-screen fc-direction-ltr fc-theme-standard"
@@ -128,7 +149,24 @@
           width: 100%;
         }
         td {
-          height: none !important;
+          // height: none !important;
+        }
+
+        @include classMatcher("fc-timegrid-event") {
+          height: fit-content; // For displaying customize events
+          .event_container {
+            // h4 {
+            //   font-size: 0.8rem;
+            //   color: rgb(5, 18, 36);
+            // }
+            margin-top: 0;
+            @include flex-dir(center, null, row);
+            gap: 0.2rem;
+            font-size: 0.7rem;
+            .deleteIcon {
+              @include posAbs(0.5%, null, 1%, null);
+            }
+          }
         }
       }
     }
