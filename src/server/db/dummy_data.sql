@@ -65,7 +65,7 @@ VALUES
   (6, 'Rishon Lezion', 'center', 200000, 2);
 
 SELECT
-  pg_catalog.setval('public.cities_city_id_seq', 7, false);
+  pg_catalog.setval ('public.cities_city_id_seq', 7, false);
 
 INSERT INTO
   public.locations (location_id, city_id, street, user_id)
@@ -108,7 +108,7 @@ VALUES
   (8, 2, '22 Kvir St', 2);
 
 SELECT
-  pg_catalog.setval('public.locations_location_id_seq', 9, false);
+  pg_catalog.setval ('public.locations_location_id_seq', 9, false);
 
 update
   profiles
@@ -220,7 +220,7 @@ VALUES
   );
 
 SELECT
-  pg_catalog.setval('public.profiles_profile_id_seq', 7, false);
+  pg_catalog.setval ('public.profiles_profile_id_seq', 7, false);
 
 INSERT INTO
   trainees (
@@ -284,7 +284,7 @@ VALUES
   );
 
 SELECT
-  pg_catalog.setval('public.trainees_trainee_id_seq', 5, false);
+  pg_catalog.setval ('public.trainees_trainee_id_seq', 5, false);
 
 INSERT INTO
   public.leads (
@@ -449,7 +449,7 @@ VALUES
   );
 
 SELECT
-  pg_catalog.setval('public.leads_lead_id_seq', 7, false);
+  pg_catalog.setval ('public.leads_lead_id_seq', 7, false);
 
 INSERT INTO
   public.equipments (
@@ -524,7 +524,7 @@ VALUES
   (6, 'Weight Plates', 'none', 2020, NULL, 2);
 
 SELECT
-  pg_catalog.setval('public.equipments_equipment_id_seq', 7, false);
+  pg_catalog.setval ('public.equipments_equipment_id_seq', 7, false);
 
 --
 -- Data for Name: muscles_group; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -565,7 +565,7 @@ VALUES
   (5, 'Shoulders', 2);
 
 SELECT
-  pg_catalog.setval(
+  pg_catalog.setval (
     'public.muscles_group_muscles_group_id_seq',
     8,
     false
@@ -696,7 +696,7 @@ VALUES
   (13, 'Pull Ups with weight', 3, 6, 2);
 
 SELECT
-  pg_catalog.setval(
+  pg_catalog.setval (
     'public.exercises_list_exercise_id_seq',
     14,
     false
@@ -867,7 +867,7 @@ VALUES
   );
 
 SELECT
-  pg_catalog.setval('public.measures_measure_id_seq', 5, false);
+  pg_catalog.setval ('public.measures_measure_id_seq', 5, false);
 
 --
 -- Data for Name: subscription_plans; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -944,7 +944,7 @@ VALUES
   (5, 2, 'fbw', '2022-10-26', '2022-10-27', '', '');
 
 SELECT
-  pg_catalog.setval(
+  pg_catalog.setval (
     'public.training_programs_list_training_programs_list_id_seq',
     6,
     false
@@ -1476,7 +1476,7 @@ VALUES
   );
 
 SELECT
-  pg_catalog.setval(
+  pg_catalog.setval (
     'public.training_program_training_program_row_id_seq',
     20,
     false
@@ -1680,148 +1680,37 @@ VALUES
   (13, '2022-10-17', 19, 2, '10-12', 3, 1.5, 60, 1);
 
 SELECT
-  pg_catalog.setval(
+  pg_catalog.setval (
     'public.training_program_exercises_st_training_program_exercises_st_seq',
     14,
     false
   );
 
--- SELECT
--- mt.*,
--- pro.first_name,
--- pro.last_name,
--- pgt.trainee_id,
--- pgt.participants_group_id,
--- act.activity_name,
---   array_agg(pgt.participants_group_id, pgt.trainee_id)
--- FROM
---   meetings as mt
---   LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
---   LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
---   LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
---   LEFT JOIN activities as act ON mt.activity_id = act.activity_id
--- GROUP BY
---   pgt.participants_group_id,
---   pgt.trainee_id
--- SELECT
---   mt.*,
---   array_agg(
---     json_build_object(
---       'trainee_id',
---       pgt.trainee_id,
---       'participants_group_id',
---       pgt.participants_group_id
---     )
---   ) AS participants_group
--- FROM
---   meetings as mt
---   LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
--- GROUP BY
---   mt.meeting_id
--- ORDER BY
---   mt.meeting_id
--- SELECT
---   mt.*,
---   pro.first_name,
---   pro.last_name,
---   act.activity_name,
---   array_agg(
---     json_build_object(
---       'trainee_id',
---       pgt.trainee_id,
---       'participants_group_id',
---       pgt.participants_group_id
---     )
---   ) AS participants_group
--- FROM
---   meetings as mt
---   LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
---   LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
---   LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
---   LEFT JOIN activities as act ON mt.activity_id = act.activity_id
--- WHERE
---   mt.user_id = $ 1
--- order by
---   mt.meeting_id
--- GROUP BY
---   mt.meeting_id
--- SELECT
---   mt.*,
---   pro.first_name,
---   pro.last_name,
---   act.activity_name,
+-- select
+--   res.*,
+--   act.activity_name
+-- from
 --   (
---     array_agg(
---       json_build_object(
---         'trainee_id',
---         pgt.trainee_id,
---         'participants_group_id',
---         pgt.participants_group_id
---       )
---     )
---   ) AS participants_group
--- FROM
---   meetings as mt
---   LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
---   LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
---   LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
---   LEFT JOIN activities as act ON mt.activity_id = act.activity_id
--- group by
---   mt.*
--- order by
---   mt.meeting_id;
--- SELECT
---   *,
---   (
---     SELECT
---       json_agg(m.*)
---     FROM
---       participants_group as pgt
---     WHERE
---       gpt.meeting_id = mt.meeting_id
---   ) AS participants_group
--- FROM
---   meeting as mt;
--- SELECT
---   id,
---   i.title
--- FROM
---   meetings as mt
---   JOIN (
---     -- or LEFT JOIN ?
---     SELECT
---       trainee AS id,
---       array_agg(t.title) AS tag_array
---     FROM
---       items_tags it
---       JOIN tags t ON t.id = it.tag_id
---     GROUP BY
---       it.item_id
---   ) t USING (id);
-SELECT
-  mt.*,
-  pro.first_name,
-  pro.last_name,
-  act.activity_name,
-  (
-    array_agg(
-      json_build_object(
-        'trainee_id',
-        pgt.trainee_id,
-        'participants_group_id',
-        pgt.participants_group_id
-      )
-    )
-  ) AS participants_group
-FROM
-  meetings as mt
-  LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
-  LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
-  LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
-  LEFT JOIN activities as act ON mt.activity_id = act.activity_id
-group by
-  mt.pro.first_name,
-  pro.last_name,
-  act.activity_name
-order by
-  mt.meeting_id;
+--     select
+--       mt.*,
+--       json_agg(
+--         json_build_object(
+--           'participants_group_id',
+--           pgt.participants_group_id,
+--           'trainee_id',
+--           pgt.trainee_id,
+--           'first_name',
+--           pro.first_name,
+--           "last_name",
+--           pro.last_name
+--         )
+--       ) as "participants_group"
+--     from
+--       meetings as mt
+--       LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
+--       LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
+--       LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
+--     group by
+--       mt.meeting_id
+--   ) as res
+--   LEFT JOIN activities as act ON res.activity_id = act.activity_id;

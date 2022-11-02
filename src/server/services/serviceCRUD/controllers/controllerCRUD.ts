@@ -45,6 +45,7 @@ export function createRoutesControllers({
     orderByParam,
     comparisonQuery,
     groupBy,
+    selectTableName,
   },
   logAlert = true,
   validateSchema,
@@ -80,7 +81,7 @@ export function createRoutesControllers({
 
     const [data, err] = await promiseHandler(
       selectPagination(
-        tableName,
+        selectTableName || tableName,
         page as string,
         fieldNamesQuery,
         querySelectLogic,
@@ -112,10 +113,10 @@ export function createRoutesControllers({
       req.statsData = { statsResult: { measures: responseData } };
       return next();
     }
-    if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
-      req.body = responseData;
-      return next();
-    }
+    // if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
+    //   req.body = responseData;
+    //   return next();
+    // }
 
     return res.status(200).json(responseData);
   };
@@ -127,14 +128,16 @@ export function createRoutesControllers({
     const id = Number(req.params.id);
 
     const [data, err] = await promiseHandler(
-      selectQuery(`${tableName}`, `${fieldNamesQuery}`, queryLogic, [id])
+      selectQuery(
+        selectTableName || tableName,
+        `${fieldNamesQuery}`,
+        queryLogic,
+        [id]
+      )
     );
 
     if (err) return next(new ErrorCustomizes(err, "get"));
-    if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
-      req.body = data;
-      return next();
-    }
+
     return res.status(200).json(data[0]);
   };
 
@@ -179,8 +182,8 @@ export function createRoutesControllers({
     const [data, err] = await promiseHandler<any, DatabaseError>(
       updateExistTableData(
         tableName,
-        req.body,
         tableID,
+        req.body,
         req.params.id,
         modifiedOtherTable?.update
       )

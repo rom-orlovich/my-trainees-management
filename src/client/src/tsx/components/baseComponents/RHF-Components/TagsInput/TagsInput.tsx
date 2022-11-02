@@ -79,6 +79,8 @@ export default function TagsInput({
       minQueryLength={0}
       delimiters={delimiters}
       suggestions={suggestions}
+      allowDeleteFromEmptyInput={true}
+      allowUnique={true}
       handleDelete={handleDelete}
       handleAddition={handleAddition}
       handleDrag={handleDrag}

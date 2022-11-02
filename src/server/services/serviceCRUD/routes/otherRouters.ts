@@ -100,9 +100,9 @@ export const createMeetingRouter = () => {
     return next();
   };
 
-  routeByBaseRoute.get(handleGetMeetingsHaveGroupArr);
+  // routeByBaseRoute.get(handleGetMeetingsHaveGroupArr);
 
-  routeByEntityAndID.get(handleGetParticipantsGroup);
+  // routeByEntityAndID.get(handleGetParticipantsGroup);
 
   routeByEntity.post(
     insertParticipantsMiddleware,

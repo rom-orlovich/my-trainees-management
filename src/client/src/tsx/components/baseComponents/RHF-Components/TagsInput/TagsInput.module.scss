@@ -2,9 +2,9 @@
 .label {
   background-color: rgba(40, 142, 225, 0.759);
   border-radius: 8px;
-  padding: 0 0.2rem;
+  padding: 0 0.1rem;
   color: rgb(15, 2, 2);
-  font-size: 1.2rem;
+  font-size: 0.9rem;
 }
 
 .selected {
@@ -24,7 +24,7 @@
 }
 .suggestion {
   border-radius: 8px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-top: 0.1rem;
   background-color: rgb(200, 216, 231);
   @include flex-dir(null, null, column);

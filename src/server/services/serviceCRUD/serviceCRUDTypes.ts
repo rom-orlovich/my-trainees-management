@@ -11,7 +11,6 @@ export interface SelectTableQueryParam {
     gt: string;
     lt: string;
   };
-
   // The purpose of below params is to encapsulate the real table's fields from the client,
   // so the client won't able to know what are the real fields name of the table.
   queryParams?: Record<string, string>;
@@ -26,6 +25,7 @@ export interface SelectTableQueryParam {
     delete?: { otherTableName: string; otherTableID: string };
   };
   groupBy?: string;
+  selectTableName?: string;
 }
 
 export interface OptionsCRUD {

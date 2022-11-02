@@ -226,9 +226,12 @@ export async function selectQuery(
   tableName: string,
   fields = "*",
   queryLogic = "",
-  queryParams = [] as any[]
+  queryParams = [] as any[],
+  wholeSelectQueryLogic = ""
 ) {
-  const statement = `SELECT ${fields} FROM ${tableName} ${queryLogic} `;
+  const statement = `${
+    wholeSelectQueryLogic || `SELECT ${fields} FROM ${tableName}`
+  } ${queryLogic} `;
   // logger.debug(
   //   `LINE 232:${statement} : values:${JSON.stringify(queryParams)}`,
   //   {
@@ -430,7 +433,8 @@ export async function selectPagination(
   numResult = 10,
   orderBy = "",
   comparisonQuery: { gt: string[]; lt: string[] },
-  groupBy = ""
+  groupBy = "",
+  selectTableName = ""
 ) {
   const numPage = Number(page) - 1;
   const offset = numPage * numResult;
@@ -540,8 +544,8 @@ export const insertNewTableData = async (
 
 export const updateExistTableData = async (
   mainTableName: string,
-  reqBody: Record<string, any>,
   mainTableID: string,
+  reqBody: Record<string, any>,
   paramID: string,
   modifiedOtherTable?: {
     otherTableName: string;
