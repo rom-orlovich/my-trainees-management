@@ -28,7 +28,6 @@
     }
   }
   // for dayGridMonth display
-
   &:has([class*="fc-daygrid fc-dayGridMonth-view fc-view"]) {
     overflow-y: scroll;
     .event_container {
@@ -54,39 +53,25 @@
       }
     }
   }
+  //For the main content of the table
   @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
     overflow-y: hidden;
     // For selection number of cells
     @include classMatcher("fc-highlight") {
       background-color: rgba(12, 131, 155, 0.3);
     }
-
-    // for timeGridDay-view color td
-    @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
-      @include classMatcher("fc-timegrid-slot fc-timegrid-slot-lane ") {
-        background-color: white;
-      }
-      @include classMatcher(
-        "fc-timegrid-slot fc-timegrid-slot-lane fc-timegrid-slot-minor"
-      ) {
-        background-color: rgb(220, 227, 252);
-      }
-
-      @include classMatcher("fc-daygrid-day-frame fc-scrollgrid-sync-inner") {
-        background-color: rgb(220, 227, 252);
-      }
-    }
   }
-
   // for timeGridDay-view color td
   @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
     table {
+      height: 60%;
       th {
         width: 100%;
       }
       td {
         height: 3rem;
       }
+
       @include classMatcher("fc-timegrid-event") {
         height: fit-content; // For displaying customize events
         .event_container {
@@ -101,6 +86,19 @@
           }
         }
       }
+    }
+    // Change the color of the td to weight.
+    @include classMatcher("fc-timegrid-slot fc-timegrid-slot-lane ") {
+      background-color: white;
+    }
+    @include classMatcher(
+      "fc-timegrid-slot fc-timegrid-slot-lane fc-timegrid-slot-minor"
+    ) {
+      background-color: rgb(220, 227, 252);
+    }
+
+    @include classMatcher("fc-daygrid-day-frame fc-scrollgrid-sync-inner") {
+      background-color: rgb(220, 227, 252);
     }
   }
 }
@@ -141,7 +139,7 @@
             @include posAbs(0%, null, 3%, null);
           }
         }
-
+        //The main content of table
         @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
           overflow-y: hidden !important;
         }
@@ -170,9 +168,8 @@
     // for timeGridDay-view color td
     @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
       table {
-        th {
-          width: 100%;
-        }
+        height: 100%;
+
         td {
           height: 2rem;
         }

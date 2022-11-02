@@ -135,6 +135,16 @@ function SchedulePage() {
           eventClick={handleEventClick}
           eventDrop={handleDropEvent}
           eventResize={handleResizeEvent}
+          eventTimeFormat={{
+            hour: "2-digit",
+            minute: "2-digit",
+            meridiem: false,
+          }}
+          slotLabelFormat={{
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          }}
           editable={true}
           selectable={true}
           eventOverlap={false}

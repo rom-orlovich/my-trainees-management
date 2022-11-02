@@ -1770,3 +1770,58 @@ SELECT
 --   mt.*
 -- order by
 --   mt.meeting_id;
+-- SELECT
+--   *,
+--   (
+--     SELECT
+--       json_agg(m.*)
+--     FROM
+--       participants_group as pgt
+--     WHERE
+--       gpt.meeting_id = mt.meeting_id
+--   ) AS participants_group
+-- FROM
+--   meeting as mt;
+-- SELECT
+--   id,
+--   i.title
+-- FROM
+--   meetings as mt
+--   JOIN (
+--     -- or LEFT JOIN ?
+--     SELECT
+--       trainee AS id,
+--       array_agg(t.title) AS tag_array
+--     FROM
+--       items_tags it
+--       JOIN tags t ON t.id = it.tag_id
+--     GROUP BY
+--       it.item_id
+--   ) t USING (id);
+SELECT
+  mt.*,
+  pro.first_name,
+  pro.last_name,
+  act.activity_name,
+  (
+    array_agg(
+      json_build_object(
+        'trainee_id',
+        pgt.trainee_id,
+        'participants_group_id',
+        pgt.participants_group_id
+      )
+    )
+  ) AS participants_group
+FROM
+  meetings as mt
+  LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
+  LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
+  LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
+  LEFT JOIN activities as act ON mt.activity_id = act.activity_id
+group by
+  mt.pro.first_name,
+  pro.last_name,
+  act.activity_name
+order by
+  mt.meeting_id;
