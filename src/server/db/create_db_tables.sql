@@ -44,6 +44,8 @@ DROP TABLE IF EXISTS "training_program_exercises_stats" CASCADE;
 
 DROP TABLE IF EXISTS "measures" CASCADE;
 
+DROP TABLE IF EXISTS "paticipants_groups_list" CASCADE;
+
 CREATE TABLE IF NOT EXISTS "cities" (
   "city_id" serial PRIMARY KEY,
   "city_name" VARCHAR(255) UNIQUE NOT NULL,
@@ -438,11 +440,38 @@ CREATE TABLE IF NOT EXISTS "activities" (
   UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS "participants_group" (
+  "participants_group_id" serial PRIMARY KEY,
+  "participants_groups_list_id" INTEGER,
+  "trainee_id" INTEGER NOT NULL,
+  "user_id" INTEGER DEFAULT 1,
+  CONSTRAINT fk_participants_groups_list_id FOREIGN KEY(participants_groups_list_id) REFERENCES participants_groups_list(participants_groups_list_id) ON DELETE CASCADE ON
+  UPDATE CASCADE,
+  CONSTRAINT fk_trainee_id FOREIGN KEY(trainee_id) REFERENCES trainees(trainee_id) ON DELETE
+  SET
+    NULL ON
+  UPDATE CASCADE,
+    CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE ON
+  UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "participants_groups_list"(
+  "participants_groups_list_id" serial PRIMARY KEY,
+  "group_name" VARCHAR(55),
+  "public" BOOLEAN DEFAULT false,
+  "user_id" INTEGER DEFAULT 1,
+  CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
+  SET
+    NULL ON
+  UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS "meetings" (
   "meeting_id" serial PRIMARY KEY,
   "activity_id" INTEGER,
   "date_start" timestamptz NOT NULL,
   "date_end" timestamptz NOT NULL,
+  "participants_groups_list_id" INTEGER,
   "location_id" INTEGER,
   "note_topic" TEXT,
   "note_text" TEXT,
@@ -456,22 +485,9 @@ CREATE TABLE IF NOT EXISTS "meetings" (
   SET
     NULL ON
   UPDATE CASCADE,
+    CONSTRAINT fk_participants_groups_list_id FOREIGN KEY(participants_groups_list_id) REFERENCES participants_groups_list(participants_groups_list_id) ON DELETE CASCADE ON
+  UPDATE CASCADE,
     CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
-  SET
-    NULL ON
-  UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS "participants_group" (
-  "participants_group_id" serial PRIMARY KEY,
-  "meeting_id" INTEGER,
-  "trainee_id" INTEGER NOT NULL,
-  "user_id" INTEGER DEFAULT 1,
-  CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE ON
-  UPDATE CASCADE,
-  CONSTRAINT fk_meeting_id FOREIGN KEY(meeting_id) REFERENCES meetings(meeting_id) ON DELETE CASCADE ON
-  UPDATE CASCADE,
-  CONSTRAINT fk_trainee_id FOREIGN KEY(trainee_id) REFERENCES trainees(trainee_id) ON DELETE
   SET
     NULL ON
   UPDATE CASCADE

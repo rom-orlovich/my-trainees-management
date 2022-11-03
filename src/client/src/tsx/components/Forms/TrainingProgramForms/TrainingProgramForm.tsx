@@ -31,7 +31,7 @@ export default function TrainingProgramForms({
         editMode={editMode}
         nameForm={"Training Exercise"}
         formProps={{
-          className: ` ${fromProps?.className}`,
+          className: `${fromProps?.className}`,
           ...fromProps,
         }}
         formOptions={{

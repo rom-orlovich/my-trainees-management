@@ -23,6 +23,7 @@ import {
   activitySchema,
   participantsGroupSchema,
   meetingsSchema,
+  participantsGroupListSchema,
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
@@ -482,13 +483,12 @@ export const activityOptionsCRUD: OptionsCRUD = {
   validateSchema: activitySchema,
   logAlert: true,
 };
-export const participantsOptionsCRUD: OptionsCRUD = {
+export const participantsGroupOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.PARTICIPANTS_GROUP_ENTITY,
   selectQuery: {
     tableName: `${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt`,
     tableID: `pgt.${TABLES_DATA.PARTICIPANTS_GROUP_ID}`,
-    fieldNamesQuery: ` pgt.*,pro.first_name,
-    pro.last_name`,
+    fieldNamesQuery: ` pgt.*,pro.first_name,pro.last_name`,
     querySelectLogic: `
     LEFT JOIN trainees AS tr ON tr.trainee_id = pgt.trainee_id
     LEFT JOIN profiles AS pro ON tr.profile_id = pro.profile_id`,
@@ -501,48 +501,83 @@ export const participantsOptionsCRUD: OptionsCRUD = {
   validateSchema: participantsGroupSchema,
   logAlert: true,
 };
+export const participantsGroupListOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.PARTICIPANTS_GROUPS_LIST_ROUTE,
+  selectQuery: {
+    tableName: `${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_TABLE_NAME} as pgl`,
+    tableID: `pgl.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}`,
+    fieldNamesQuery: `pgl.*`,
+    querySelectLogic: ``,
+    queryParams: {
+      userID: "pgl.user_id",
+    },
+  },
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  validateSchema: participantsGroupListSchema,
+  logAlert: true,
+};
+
 export const meetingOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.MEETINGS_ENTITY,
   selectQuery: {
     tableName: `${TABLES_DATA.MEETINGS_TABLE_NAME} as mt`,
-    tableID: `${TABLES_DATA.MEETINGS_ID}`,
-    fieldNamesQuery: `res.*,
-    act.activity_name`,
+    tableID: `mt.${TABLES_DATA.MEETINGS_ID}`,
+    fieldNamesQuery: ` mt.*,act.activity_name`,
     querySelectLogic: `
-    LEFT JOIN activities AS act ON res.activity_id = act.activity_id`,
+    LEFT JOIN ${TABLES_DATA.ACTIVITIES_TABLE_NAME} as act ON
+    mt.${TABLES_DATA.ACTIVITIES_ID}= act.${TABLES_DATA.ACTIVITIES_ID}`,
     queryParams: {
-      userID: "res.user_id",
+      userID: "mt.user_id",
     },
-    selectTableName: `(
-      SELECT
-        mt.*,
-        json_agg(
-          json_build_object(
-            'participants_group_id',
-            pgt.participants_group_id,
-            'trainee_id',
-            pgt.trainee_id,
-            'first_name',
-            pro.first_name,
-            'last_name',
-            pro.last_name,
-            'user_id',
-            pgt.user_id
-          )
-        ) as "participants_group"
-      FROM
-        meetings AS mt
-        LEFT JOIN participants_group AS pgt ON mt.meeting_id = pgt.meeting_id
-        LEFT JOIN trainees AS tr ON tr.trainee_id = pgt.trainee_id
-        LEFT JOIN profiles AS pro ON tr.profile_id = pro.profile_id
-      group by
-        mt.meeting_id
-    ) AS res`,
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: meetingsSchema,
   logAlert: true,
 };
+
+// export const meetingOptionsCRUD: OptionsCRUD = {
+//   singleEntityName: API_ROUTES.MEETINGS_ENTITY,
+//   selectQuery: {
+//     tableName: `${TABLES_DATA.MEETINGS_TABLE_NAME} as mt`,
+//     tableID: `${TABLES_DATA.MEETINGS_ID}`,
+//     fieldNamesQuery: `res.*,
+//     act.activity_name`,
+//     querySelectLogic: `
+//     LEFT JOIN activities AS act ON res.activity_id = act.activity_id`,
+//     queryParams: {
+//       userID: "res.user_id",
+//     },
+//     selectTableName: `(
+//       SELECT
+//         mt.*,
+//         json_agg(
+//           json_build_object(
+//             'participants_group_id',
+//             pgt.participants_group_id,
+//             'trainee_id',
+//             pgt.trainee_id,
+//             'first_name',
+//             pro.first_name,
+//             'last_name',
+//             pro.last_name,
+//             'user_id',
+//             pgt.user_id
+//           )
+//         ) as "participants_group"
+//       FROM
+//         meetings AS mt
+//         LEFT JOIN participants_group AS pgt ON mt.meeting_id = pgt.meeting_id
+//         LEFT JOIN trainees AS tr ON tr.trainee_id = pgt.trainee_id
+//         LEFT JOIN profiles AS pro ON tr.profile_id = pro.profile_id
+//       group by
+//         mt.meeting_id
+//     ) AS res`,
+//   },
+//   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+//   validateSchema: meetingsSchema,
+//   logAlert: true,
+// };
+
 // export const meetingOptionsCRUD: OptionsCRUD = {
 //   singleEntityName: API_ROUTES.MEETINGS_ENTITY,
 //   selectQuery: {
@@ -550,7 +585,8 @@ export const meetingOptionsCRUD: OptionsCRUD = {
 //     tableID: `mt.${TABLES_DATA.MEETINGS_ID}`,
 //     fieldNamesQuery: ` mt.*,pro.first_name,pro.last_name ,pgt.trainee_id,
 //     pgt.participants_group_id,act.activity_name`,
-//     querySelectLogic: `LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt ON
+//     querySelectLogic: `
+//     LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt ON
 //     mt.${TABLES_DATA.MEETINGS_ID}=pgt.${TABLES_DATA.MEETINGS_ID}
 //     LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON
 //     tr.${TABLES_DATA.TRAINEE_ID}= pgt.${TABLES_DATA.TRAINEE_ID}

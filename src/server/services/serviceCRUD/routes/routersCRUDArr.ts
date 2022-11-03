@@ -13,7 +13,7 @@ import {
   musclesGroupOptionsCRUD,
   nutritionProgramOptionsCRUD,
   nutritionProgramsListOptionsCRUD,
-  participantsOptionsCRUD,
+  participantsGroupOptionsCRUD,
   productsOptionsCRUD,
   providersOptionsCRUD,
   subscriptionPlansOptionsCRUD,
@@ -121,7 +121,11 @@ export const routesConfigArr: {
   },
   {
     baseRoute: API_ROUTES.PARTICIPANTS_GROUP_ROUTE,
-    router: createCRUDroutes(participantsOptionsCRUD),
+    router: createCRUDroutes(participantsGroupOptionsCRUD),
+  },
+  {
+    baseRoute: API_ROUTES.PARTICIPANTS_GROUPS_LIST_ROUTE,
+    router: createCRUDroutes(participantsGroupOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.ACTIVITIES_ROUTE,
@@ -129,6 +133,6 @@ export const routesConfigArr: {
   },
   {
     baseRoute: API_ROUTES.MEETINGS_ROUTE,
-    router: createMeetingRouter(),
+    router: createCRUDroutes(meetingOptionsCRUD),
   },
 ];

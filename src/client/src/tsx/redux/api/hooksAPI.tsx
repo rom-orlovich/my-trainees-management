@@ -26,6 +26,7 @@ import {
   ActivitiesTableAPI,
   MeetingAPI,
   ParticipantsGroupTableAPI,
+  ParticipantsGroupsListTableAPI,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -218,19 +219,27 @@ export const activitiesApi = apiCreateCRUDHooks<ActivitiesTableAPI>({
   singleEntityName: API_ROUTES.ACTIVITIES_ENTITY,
   listId: "activities_list",
 });
+export const participantsGroupApi =
+  apiCreateCRUDHooks<ParticipantsGroupTableAPI>({
+    reducerPath: "participantsGroupApi",
+    baseUrl: API_ROUTES.PARTICIPANTS_GROUP_ROUTE,
+    singleEntityName: API_ROUTES.PARTICIPANTS_GROUP_ENTITY,
+    listId: "participantsGroup_list",
+  });
+export const participantsGroupsListApi =
+  apiCreateCRUDHooks<ParticipantsGroupsListTableAPI>({
+    reducerPath: "participantsGroupsListApi",
+    baseUrl: API_ROUTES.PARTICIPANTS_GROUPS_LIST_ROUTE,
+    singleEntityName: API_ROUTES.PARTICIPANTS_GROUPS_LIST_ENTITY,
+    listId: "participantsGroups_list",
+  });
+
 export const meetingApi = apiCreateCRUDHooks<MeetingAPI>({
   reducerPath: "meetingApi",
   baseUrl: API_ROUTES.MEETINGS_ROUTE,
   singleEntityName: API_ROUTES.MEETINGS_ENTITY,
   listId: "meetings_list",
 });
-export const participantsGroupApi =
-  apiCreateCRUDHooks<ParticipantsGroupTableAPI>({
-    reducerPath: "participantsGroupApi",
-    baseUrl: API_ROUTES.PARTICIPANTS_GROUP_ROUTE,
-    singleEntityName: API_ROUTES.PARTICIPANTS_GROUP_ENTITY,
-    listId: "participantsGroupApi_list",
-  });
 
 export const apiCreateCrudArr = [
   leadsApi,

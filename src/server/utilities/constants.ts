@@ -74,4 +74,6 @@ export enum TABLES_DATA {
   ACTIVITIES_ID = "activity_id",
   PARTICIPANTS_GROUP_TABLE_NAME = "participants_group",
   PARTICIPANTS_GROUP_ID = "participants_group_id",
+  PARTICIPANTS_GROUPS_LIST_TABLE_NAME = "participants_groups_list",
+  PARTICIPANTS_GROUPS_LIST_ID = "participants_groups_list_id",
 }

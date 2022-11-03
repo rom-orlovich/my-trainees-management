@@ -276,10 +276,18 @@ export const activitySchema = yup.object().shape({
 
 export const participantsGroupSchema = yup.object().shape({
   participants_group_id: yup.number().notRequired().nullable(),
-  meeting_id: yup.number().notRequired().nullable(),
+  participants_groups_list_id: yup.number().required(),
   trainee_id: yup.number().required(),
   user_id: yup.number().notRequired().nullable().default(1),
 });
+
+export const participantsGroupListSchema = yup.object().shape({
+  participants_groups_list_id: yup.number().notRequired().nullable(),
+  group_name: yup.string().required(),
+  status: yup.boolean().required(),
+  user_id: yup.number().notRequired().nullable().default(1),
+});
+
 export const meetingsSchema = yup.object().shape({
   meeting_id: yup.number().notRequired().nullable(),
   date_start: yup.date().required(),
@@ -288,7 +296,7 @@ export const meetingsSchema = yup.object().shape({
     .notRequired()
     .nullable()
     .min(yup.ref("date_start"), "End date can't be before start date."),
-  participants_group: yup.array().of(participantsGroupSchema),
+  participants_groups_list_id: yup.number().required(),
   activity_id: yup.number().required(),
   location_id: yup.number().required(),
   note_topic: yup.string().notRequired().default(""),

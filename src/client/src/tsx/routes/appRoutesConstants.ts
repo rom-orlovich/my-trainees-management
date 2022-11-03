@@ -72,6 +72,8 @@ export enum APP_ROUTE {
   SCHEDULE_ROUTE = "schedule",
   ACTIVITIES_ROUTE = "activities",
   ACTIVITIES_ROUTE_ADD = "addActivitY",
-  PARTICIPANTS_ROUTE = "participants",
-  PARTICIPANTS_ROUTE_ADD = "addParticipants",
+  PARTICIPANTS_GROUP_ROUTE = "participantsGroup",
+  PARTICIPANTS_GROUP_ROUTE_ADD = "addParticipants",
+  PARTICIPANTS_GROUPS_LIST_ROUTE = "participantsGroupsList",
+  PARTICIPANTS_GROUPS_LIST_ROUTE_ADD = "addParticipantsGroupList",
 }

@@ -75,7 +75,7 @@ export function IncomeForms({
               control={control}
               AutocompleteInputProps={{
                 queriesOptions,
-                defaultValueID: defaultValues?.product_id,
+                defaultValueID: defaultValues?.buyer_id,
                 InputLabelProps: {
                   LabelProps: { labelText: "Buyer" },
                   InputProps: { placeholder: "Search Buyer" },

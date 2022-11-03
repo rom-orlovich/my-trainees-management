@@ -152,7 +152,7 @@ export function MeetingForm({
                   />
                 </InputLabel>
               </div>
-              <TagsInput
+              {/* <TagsInput
                 defaultTags={
                   defaultValues?.participants_group[0].participants_group_id
                     ? defaultValues?.participants_group.map((el) => ({
@@ -166,7 +166,7 @@ export function MeetingForm({
                 setInputValue={setInputValue}
                 deleteParticipant={deleteParticipantFUN}
                 // addParticipant={addParticipant}
-              />
+              /> */}
               <div className="autocomplete_form_model_container">
                 <AutocompleteInputRHF<MeetingAPI, ActivitiesTableAPI>
                   name="activity_id"

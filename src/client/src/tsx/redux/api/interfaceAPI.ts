@@ -60,8 +60,10 @@ export enum API_ROUTES {
   ACTIVITIES_ENTITY = "activity",
   MEETINGS_ROUTE = "/api/meetings",
   MEETINGS_ENTITY = "meeting",
-  PARTICIPANTS_GROUP_ROUTE = "/api/participants_group",
-  PARTICIPANTS_GROUP_ENTITY = "participant",
+  PARTICIPANTS_GROUP_ROUTE = "/api/participantsGroup",
+  PARTICIPANTS_GROUP_ENTITY = "participantsGroup",
+  PARTICIPANTS_GROUPS_LIST_ROUTE = "/api/participantsGroupsList",
+  PARTICIPANTS_GROUPS_LIST_ENTITY = "participantsGroupsList",
 }
 export interface PayloadAPI<T> {
   id: number;
@@ -357,11 +359,17 @@ export interface ProductAPI {
 
 export interface ParticipantsGroupTableAPI {
   participants_group_id?: number;
-  meeting_id?: number;
+  participants_groups_list_id?: number;
   trainee_id: number;
   user_id?: number;
   first_name?: string;
   last_name?: string;
+}
+export interface ParticipantsGroupsListTableAPI {
+  participants_groups_list_id?: number;
+  public: boolean;
+  group_name: string;
+  user_id?: number;
 }
 export interface ActivitiesTableAPI {
   activity_id?: number;
@@ -373,8 +381,7 @@ export interface MeetingAPI {
   meeting_id?: number;
   date_start: Date;
   date_end: Date;
-
-  participants_group: ParticipantsGroupTableAPI[];
+  participants_groups_list_id: number;
   activity_id: number;
   activity_name?: string;
   location_id: number;
@@ -382,8 +389,8 @@ export interface MeetingAPI {
   note_text: string;
   user_id?: number;
 }
-export type MeetingTableAPI = OmitKey<MeetingAPI, "participants_group"> &
-  PickKey<
-    ParticipantsGroupTableAPI,
-    "first_name" | "last_name" | "trainee_id" | "participants_group_id"
-  >;
+// export type MeetingTableAPI = OmitKey<MeetingAPI, "participants_group"> &
+//   PickKey<
+//     ParticipantsGroupTableAPI,
+//     "first_name" | "last_name" | "trainee_id" | "participants_group_id"
+//   >;

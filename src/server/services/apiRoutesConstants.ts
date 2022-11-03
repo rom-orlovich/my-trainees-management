@@ -63,8 +63,10 @@ export enum API_ROUTES {
   ACTIVITIES_ENTITY = "activity",
   MEETINGS_ROUTE = "/api/meetings",
   MEETINGS_ENTITY = "meeting",
-  PARTICIPANTS_GROUP_ROUTE = "/api/participants_group",
-  PARTICIPANTS_GROUP_ENTITY = "participant",
+  PARTICIPANTS_GROUP_ROUTE = "/api/participantsGroup",
+  PARTICIPANTS_GROUP_ENTITY = "participantsGroup",
+  PARTICIPANTS_GROUPS_LIST_ROUTE = "/api/participantsGroupsList",
+  PARTICIPANTS_GROUPS_LIST_ENTITY = "participantsGroupsList",
 }
 
 export const URL_REACT_CLIENT = "http://localhost:3000";
