@@ -31,16 +31,12 @@ import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { meetingsSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
-import TagsInput, {
-  Tag,
-} from "../../baseComponents/RHF-Components/TagsInput/TagsInput";
 
 export function MeetingForm({
   onSubmit,
   defaultValues,
   editMode,
 }: GeneralFormProps<MeetingAPI>) {
-  const dispatch = useAppDispatch();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   const [queryParams, setQueryParams] = useSearchParams();
@@ -59,44 +55,6 @@ export function MeetingForm({
     true
   );
 
-  const [inputValue, setInputValue] = useState("");
-
-  const debounce = useDebounceHook(inputValue, 500);
-  const suggestions: Tag[] | undefined = traineesApi?.endpoints?.getItems
-    .useQuery({
-      mainName: debounce,
-      ...queriesOptions,
-    })
-    ?.currentData?.data.map((el) => ({
-      id: String(el.trainee_id),
-      text: `${el.first_name} ${el.last_name}`,
-    }));
-
-  const { useDeleteItemMutation, useCreateOneItemMutation } =
-    participantsGroupApi;
-  const [deleteParticipant] = useDeleteItemMutation();
-  const [addParticipant] = useCreateOneItemMutation();
-
-  const deleteParticipantFUN = (id: string) => {
-    deleteParticipant(id)
-      .unwrap()
-      .then(() => {
-        dispatch(
-          meetingApi.util.invalidateTags([
-            {
-              type: API_ROUTES.MEETINGS_ENTITY,
-              id: defaultValues?.meeting_id,
-            },
-          ])
-        );
-      });
-  };
-
-  const data = participantsGroupApi?.endpoints?.getItems.useQuery({
-    ...queriesOptions,
-    meetingID: defaultValues?.meeting_id,
-  }).currentData;
-  console.log(defaultValues);
   return (
     <>
       <Form<MeetingAPI>
@@ -155,21 +113,7 @@ export function MeetingForm({
                   />
                 </InputLabel>
               </div>
-              {/* <TagsInput
-                defaultTags={
-                  defaultValues?.participants_group[0].participants_group_id
-                    ? defaultValues?.participants_group.map((el) => ({
-                        id: `${el.trainee_id},${el.participants_group_id}`,
-                        text: `${el.first_name} ${el.last_name}`,
-                      }))
-                    : []
-                }
-                setTagResult={setValue}
-                suggestions={suggestions || []}
-                setInputValue={setInputValue}
-                deleteParticipant={deleteParticipantFUN}
-                // addParticipant={addParticipant}
-              /> */}
+
               <div className="participants_groups_form_model_container">
                 <AutocompleteInputRHF<
                   MeetingAPI,

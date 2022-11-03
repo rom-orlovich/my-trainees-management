@@ -24,17 +24,13 @@
           max-width: 50%;
         }
       }
-      @include classMatcher("ReactTags__tags react-tags-wrapper") {
-        width: 100%;
-        @include classMatcher("ReactTags__tagInputField") {
-          width: 100%;
-        }
-      }
+
       @include classMatcher("participants_groups_form_model_container") {
         width: 100%;
         @include flex-dir(null, center, column);
         @include classMatcher("AutocompleteInput_autocomplete_container") {
           max-width: 100%;
+          width: 100%;
         }
       }
       @include classMatcher("Form_buttons_container_one_button") {

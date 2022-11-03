@@ -145,7 +145,10 @@ function SchedulePage() {
           }}
           editable={true}
           selectable={true}
-          eventOverlap={false}
+          // eventOverlap={true}
+
+          selectOverlap={false}
+          slotEventOverlap={false}
           events={events}
           eventContent={handleEventContent}
           longPressDelay={500} // This is the property you need to change
