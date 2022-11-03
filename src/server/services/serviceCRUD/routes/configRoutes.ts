@@ -37,7 +37,6 @@ import {
   PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
 } from "../../usersPermission";
 import { OptionsCRUD } from "../serviceCRUDTypes";
-import { meetingsSelectStatement } from "./statementsLogic";
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
@@ -487,11 +486,15 @@ export const participantsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.PARTICIPANTS_GROUP_ENTITY,
   selectQuery: {
     tableName: `${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt`,
-    tableID: `pgt.${TABLES_DATA.ACTIVITIES_ID}`,
-    fieldNamesQuery: ` pgt.*`,
-    querySelectLogic: ``,
+    tableID: `pgt.${TABLES_DATA.PARTICIPANTS_GROUP_ID}`,
+    fieldNamesQuery: ` pgt.*,pro.first_name,
+    pro.last_name`,
+    querySelectLogic: `
+    LEFT JOIN trainees AS tr ON tr.trainee_id = pgt.trainee_id
+    LEFT JOIN profiles AS pro ON tr.profile_id = pro.profile_id`,
     queryParams: {
       userID: "pgt.user_id",
+      participantID: "pgt.participantID",
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
@@ -522,7 +525,9 @@ export const meetingOptionsCRUD: OptionsCRUD = {
             'first_name',
             pro.first_name,
             'last_name',
-            pro.last_name
+            pro.last_name,
+            'user_id',
+            pgt.user_id
           )
         ) as "participants_group"
       FROM

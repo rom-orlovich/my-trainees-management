@@ -7,13 +7,17 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import {
   activitiesApi,
   locationsApi,
+  meetingApi,
+  participantsGroupApi,
   traineesApi,
 } from "../../../redux/api/hooksAPI";
 import {
   ActivitiesTableAPI,
+  API_ROUTES,
   LocationsGetRes,
   MeetingAPI,
 } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
@@ -34,6 +38,7 @@ export function MeetingForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<MeetingAPI>) {
+  const dispatch = useAppDispatch();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   const [queryParams, setQueryParams] = useSearchParams();
@@ -55,7 +60,6 @@ export function MeetingForm({
   const [inputValue, setInputValue] = useState("");
 
   const debounce = useDebounceHook(inputValue, 500);
-
   const suggestions: Tag[] | undefined = traineesApi?.endpoints?.getItems
     .useQuery({
       mainName: debounce,
@@ -66,6 +70,31 @@ export function MeetingForm({
       text: `${el.first_name} ${el.last_name}`,
     }));
 
+  const { useDeleteItemMutation, useCreateOneItemMutation } =
+    participantsGroupApi;
+  const [deleteParticipant] = useDeleteItemMutation();
+  const [addParticipant] = useCreateOneItemMutation();
+
+  const deleteParticipantFUN = (id: string) => {
+    deleteParticipant(id)
+      .unwrap()
+      .then(() => {
+        dispatch(
+          meetingApi.util.invalidateTags([
+            {
+              type: API_ROUTES.MEETINGS_ENTITY,
+              id: defaultValues?.meeting_id,
+            },
+          ])
+        );
+      });
+  };
+
+  const data = participantsGroupApi?.endpoints?.getItems.useQuery({
+    ...queriesOptions,
+    meetingID: defaultValues?.meeting_id,
+  }).currentData;
+  console.log(defaultValues);
   return (
     <>
       <Form<MeetingAPI>
@@ -124,13 +153,19 @@ export function MeetingForm({
                 </InputLabel>
               </div>
               <TagsInput
-                defaultTags={defaultValues?.participants_group.map((el) => ({
-                  id: String(el.trainee_id),
-                  text: `${el.first_name} ${el.last_name}`,
-                }))}
+                defaultTags={
+                  defaultValues?.participants_group[0].participants_group_id
+                    ? defaultValues?.participants_group.map((el) => ({
+                        id: `${el.trainee_id},${el.participants_group_id}`,
+                        text: `${el.first_name} ${el.last_name}`,
+                      }))
+                    : []
+                }
                 setTagResult={setValue}
                 suggestions={suggestions || []}
                 setInputValue={setInputValue}
+                deleteParticipant={deleteParticipantFUN}
+                // addParticipant={addParticipant}
               />
               <div className="autocomplete_form_model_container">
                 <AutocompleteInputRHF<MeetingAPI, ActivitiesTableAPI>

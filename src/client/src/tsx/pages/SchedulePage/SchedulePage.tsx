@@ -37,9 +37,7 @@ function SchedulePage() {
   const dispatch = useAppDispatch();
   const [queryParams, setQueryParams] = useSearchParams();
   const [deleteEvent] = meetingApi.useDeleteItemMutation();
-  const [updateEvent] = meetingApi.useUpdateItemMutation({
-    fixedCacheKey: "sd",
-  });
+  const [updateEvent] = meetingApi.useUpdateItemMutation();
   const { data } = meetingApi.useGetItemsQuery({
     userID: authState.user_id,
   });

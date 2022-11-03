@@ -53,9 +53,9 @@ export const handleInsertParticipantsGroup: RequestHandler = async (
       insertQueryOneItem(
         TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME,
         {
-          user_id,
-          meeting_id,
           ...el,
+          meeting_id,
+          user_id,
         },
         `ON CONFLICT (${TABLES_DATA.PARTICIPANTS_GROUP_ID}) DO UPDATE SET 
         ${TABLES_DATA.TRAINEE_ID} = EXCLUDED.${TABLES_DATA.TRAINEE_ID},

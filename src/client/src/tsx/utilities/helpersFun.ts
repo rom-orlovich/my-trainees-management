@@ -4,7 +4,10 @@ export const getKeysArrObj = <T extends object>(obj: T) => Object.keys(obj);
 export const getValuesArrObj = <T extends object>(obj: T) => Object.values(obj);
 export const getEntriesArrObj = <T extends object>(obj: T) =>
   Object.entries(obj);
-
+export const uniqueObjArr = <T extends Record<string, any>>(
+  arr: T[],
+  key: keyof T
+) => [...new Map(arr.map((item) => [item[key], item])).values()];
 export const capitalFirstLetter = (str: string) =>
   str[0].toUpperCase() + str.slice(1).toLowerCase();
 export const formatDate = (date: Date, plusDay = 1, timeStamp = false) => {

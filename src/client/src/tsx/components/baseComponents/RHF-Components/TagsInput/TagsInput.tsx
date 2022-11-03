@@ -1,9 +1,16 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable camelcase */
+import {
+  MutationTrigger,
+  UseMutation,
+} from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import React, { useState } from "react";
-
 import { UseFormSetValue } from "react-hook-form";
 
 import { WithContext as ReactTags } from "react-tag-input";
 import { MeetingAPI } from "../../../../redux/api/interfaceAPI";
+
+import { uniqueObjArr } from "../../../../utilities/helpersFun";
 import style from "./TagsInput.module.scss";
 
 const KeyCodes = {
@@ -21,22 +28,63 @@ export default function TagsInput({
   suggestions,
   setInputValue,
   setTagResult,
+  deleteParticipant,
 }: {
   defaultTags?: Tag[];
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   setTagResult: UseFormSetValue<MeetingAPI>;
+  deleteParticipant: (id: string) => void;
+
   suggestions: Tag[];
 }) {
   const [tags, setTags] = React.useState<Tag[]>(defaultTags || []);
 
+  const checkIfTraineeIsInGroup = (tag: Tag) => {
+    const [suggestTraineeID] = tag.id.split(",");
+    const suggestionTrainee = tags.find((el) => {
+      const [defaultTraineeID, participants_group_id] = el.id.split(",");
+      return participants_group_id && suggestTraineeID === defaultTraineeID;
+    });
+    const participantsGroupId = suggestionTrainee?.id.split(",")[1];
+    if (participantsGroupId)
+      return { id: `${tag.id},${participantsGroupId}`, text: tag.text };
+    return tag;
+  };
+
+  // The tags array which will send to the server.
+  const getParticipantValuesArr = (tags: Tag[]) => {
+    const mapTag: { trainee_id: number }[] = tags.map((el) => {
+      const [trainee_id, participants_group_id] = el.id.split(",");
+      const obj = participants_group_id
+        ? { participants_group_id: Number(participants_group_id) }
+        : {};
+
+      return {
+        trainee_id: Number(trainee_id),
+        ...obj,
+      };
+    });
+
+    return uniqueObjArr(mapTag, "trainee_id");
+  };
+  // The tags array of the component.
+  const getUniqueTagsArr = (tags: Tag[]) => {
+    const mapTag: Tag[] = tags.map((el) => {
+      const [trainee_id] = el.id.split(",");
+      return {
+        ...el,
+        id: String(trainee_id),
+      };
+    });
+
+    return uniqueObjArr(mapTag, "id");
+  };
+
   const handleDelete = (i: number) => {
-    setTags(tags.filter((tag, index) => index !== i));
-    setTagResult(
-      "participants_group",
-      tags
-        .filter((tag, index) => index !== i)
-        .map((el) => ({ trainee_id: Number(el.id) }))
-    );
+    const tagsFilter = tags.filter((tag, index) => index !== i);
+    setTags(tagsFilter);
+    deleteParticipant(tags[i].id.split(",")[1]);
+    setTagResult("participants_group", getParticipantValuesArr(tagsFilter));
   };
 
   const handleOnChange = (value: string) => {
@@ -44,25 +92,17 @@ export default function TagsInput({
   };
 
   const handleAddition = (tag: Tag) => {
-    setTags([...tags, tag]);
-    setTagResult(
-      "participants_group",
-      [...tags, tag].map((el) => ({ trainee_id: Number(el.id) }))
-    );
+    const newTags = [...tags, checkIfTraineeIsInGroup(tag)];
+    setTags(newTags);
+    setTagResult("participants_group", getParticipantValuesArr(newTags));
   };
 
   const handleDrag = (tag: Tag, currPos: number, newPos: number) => {
     const newTags = tags.slice();
-
     newTags.splice(currPos, 1);
     newTags.splice(newPos, 0, tag);
-
-    // re-render
     setTags(newTags);
-    setTagResult(
-      "participants_group",
-      newTags.map((el) => ({ trainee_id: Number(el.id) }))
-    );
+    setTagResult("participants_group", getParticipantValuesArr(newTags));
   };
 
   return (
@@ -75,7 +115,7 @@ export default function TagsInput({
         activeSuggestion: style.activeSuggestion,
         suggestions: style.suggestion,
       }}
-      tags={tags}
+      tags={getUniqueTagsArr(tags)}
       minQueryLength={0}
       delimiters={delimiters}
       suggestions={suggestions}
