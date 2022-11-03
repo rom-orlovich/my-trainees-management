@@ -502,7 +502,7 @@ export const participantsGroupOptionsCRUD: OptionsCRUD = {
   logAlert: true,
 };
 export const participantsGroupListOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.PARTICIPANTS_GROUPS_LIST_ROUTE,
+  singleEntityName: API_ROUTES.PARTICIPANTS_GROUPS_LIST_ENTITY,
   selectQuery: {
     tableName: `${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_TABLE_NAME} as pgl`,
     tableID: `pgl.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}`,

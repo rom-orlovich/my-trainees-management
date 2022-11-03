@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
+import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { ParticipantsGroupsListTableAPI } from "../../../redux/api/interfaceAPI";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -21,13 +22,17 @@ export function ParticipantsGroupsListForm({
         nameForm={"Participants Group"}
         // heading={`Training Program ${!editMode ? "Building" : "Edit"}`}
         onSubmit={onSubmit}
+        pathMove={""}
         editMode={editMode}
         formOptions={{
-          defaultValues,
+          defaultValues: {
+            ...defaultValues,
+            user_id: useGetUserLoginData().user_id,
+          },
           resolver: yupResolver(participantsGroupListSchema),
         }}
       >
-        {({ register, formState }) => {
+        {({ register, formState, getValues }) => {
           const { errors } = formState;
 
           return (
@@ -47,9 +52,12 @@ export function ParticipantsGroupsListForm({
 
               <Checkbox
                 LabelProps={{ labelText: "Public?" }}
-                InputProps={{ ...register("public") }}
+                InputProps={{ ...register("is_private") }}
               >
-                <InputErrorMessage nameInput="public" error={errors.public} />
+                <InputErrorMessage
+                  nameInput="is_private"
+                  error={errors.is_private}
+                />
               </Checkbox>
             </>
           );

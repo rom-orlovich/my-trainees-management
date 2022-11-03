@@ -284,7 +284,7 @@ export const participantsGroupSchema = yup.object().shape({
 export const participantsGroupListSchema = yup.object().shape({
   participants_groups_list_id: yup.number().notRequired().nullable(),
   group_name: yup.string().required(),
-  status: yup.boolean().required(),
+  is_private: yup.boolean().required(),
   user_id: yup.number().notRequired().nullable().default(1),
 });
 

@@ -97,7 +97,6 @@ const BusinessDataRoutes = () => (
         element={<ParticipantsGroupsListAddForm />}
       />
       <Route path=":id" element={<ParticipantsGroupsListEditForm />} />
-
       <Route
         path={`:id/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`}
         element={<ParticipantsGroupPage />}

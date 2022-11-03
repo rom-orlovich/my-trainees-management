@@ -1,16 +1,10 @@
 /* eslint-disable camelcase */
 import { useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import {
-  participantsGroupApi,
-  participantsGroupsListApi,
-} from "../../redux/api/hooksAPI";
-import {
-  ParticipantsGroupsListTableAPI,
-  ParticipantsGroupTableAPI,
-} from "../../redux/api/interfaceAPI";
+import { participantsGroupApi } from "../../redux/api/hooksAPI";
+import { ParticipantsGroupTableAPI } from "../../redux/api/interfaceAPI";
 
 import style from "../Page.module.scss";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";

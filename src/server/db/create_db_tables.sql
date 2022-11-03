@@ -44,7 +44,7 @@ DROP TABLE IF EXISTS "training_program_exercises_stats" CASCADE;
 
 DROP TABLE IF EXISTS "measures" CASCADE;
 
-DROP TABLE IF EXISTS "paticipants_groups_list" CASCADE;
+DROP TABLE IF EXISTS "participants_groups_list" CASCADE;
 
 CREATE TABLE IF NOT EXISTS "cities" (
   "city_id" serial PRIMARY KEY,
@@ -443,7 +443,7 @@ CREATE TABLE IF NOT EXISTS "activities" (
 CREATE TABLE IF NOT EXISTS "participants_groups_list"(
   "participants_groups_list_id" serial PRIMARY KEY,
   "group_name" VARCHAR(55),
-  "public" BOOLEAN DEFAULT false,
+  "is_private" BOOLEAN DEFAULT false,
   "user_id" INTEGER DEFAULT 1,
   CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
   SET

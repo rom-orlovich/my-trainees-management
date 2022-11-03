@@ -367,7 +367,7 @@ export interface ParticipantsGroupTableAPI {
 }
 export interface ParticipantsGroupsListTableAPI {
   participants_groups_list_id?: number;
-  public: boolean;
+  is_private: boolean;
   group_name: string;
   user_id?: number;
 }

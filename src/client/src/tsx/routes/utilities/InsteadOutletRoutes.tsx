@@ -13,8 +13,9 @@ export type InsteadOutletRoutesProps<CTX> = PropsBasic & {
 
 /**
  * 
- When the url endpoint matches the InsteadOutletRoutesPaths, the component will display the children
- instead  and not the Outlet component.
+ When the url endpoint matches the InsteadOutletRoutesPaths, 
+ the component will display the parent route component,
+ instead and not the Outlet component, namely the children route components.
  */
 
 function InsteadOutletRoutes<CTX>({

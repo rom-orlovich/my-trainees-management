@@ -13,6 +13,7 @@ import {
   musclesGroupOptionsCRUD,
   nutritionProgramOptionsCRUD,
   nutritionProgramsListOptionsCRUD,
+  participantsGroupListOptionsCRUD,
   participantsGroupOptionsCRUD,
   productsOptionsCRUD,
   providersOptionsCRUD,
@@ -125,7 +126,7 @@ export const routesConfigArr: {
   },
   {
     baseRoute: API_ROUTES.PARTICIPANTS_GROUPS_LIST_ROUTE,
-    router: createCRUDroutes(participantsGroupOptionsCRUD),
+    router: createCRUDroutes(participantsGroupListOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.ACTIVITIES_ROUTE,

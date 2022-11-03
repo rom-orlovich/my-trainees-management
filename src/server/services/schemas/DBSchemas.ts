@@ -1,13 +1,13 @@
 import * as yup from "yup";
 
 export const musclesGroupSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
   muscles_group_id: yup.number().notRequired().nullable(),
   muscles_group_name: yup.string().required(),
 });
 
 export const leadsSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
   lead_id: yup.number().notRequired().nullable(),
   lead_date: yup.date().required(),
   first_name: yup.string().required(),
@@ -19,7 +19,7 @@ export const leadsSchema = yup.object().shape({
   note_text: yup.string().notRequired().default(""),
 });
 export const citiesSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
   city_id: yup.number().notRequired().nullable(),
   city_name: yup.string().required(),
   district: yup.string().required(),
@@ -27,21 +27,21 @@ export const citiesSchema = yup.object().shape({
 });
 
 export const locationsSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
   location_id: yup.number().notRequired().nullable(),
   city_id: yup.number().required(),
   street: yup.string().notRequired().nullable(),
 });
 
 export const providersSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
   provider_id: yup.number().notRequired().nullable(),
   provider_name: yup.string().required(),
   location_id: yup.number().required(),
 });
 
 export const equipmentSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
   equipment_id: yup.number().notRequired().nullable(),
   equipment_name: yup.string().required(),
   brand: yup.string().required(),
@@ -50,7 +50,7 @@ export const equipmentSchema = yup.object().shape({
 });
 
 export const exercisesListSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
   exercise_id: yup.number().notRequired().nullable(),
   exercise_name: yup.string().required(),
   muscles_group_id: yup.number().notRequired().nullable(),
@@ -220,7 +220,7 @@ export const incomesSchema = yup.object().shape({
     .min(1, "Total price must be a positive value"),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
 });
 
 export const expensesSchema = yup.object().shape({
@@ -235,7 +235,7 @@ export const expensesSchema = yup.object().shape({
     .min(1, "Total price must be a positive value"),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
 });
 
 export const productSchema = yup.object().shape({
@@ -247,7 +247,7 @@ export const productSchema = yup.object().shape({
     .notRequired()
     .transform((value) => (Number.isNaN(value) ? undefined : value)),
   price: yup.number().required().min(1, "Total price must be a positive value"),
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
 });
 
 export const loginSchema = yup.object().shape({
@@ -266,21 +266,21 @@ export const emailVerifySchema = signUpSchema.omit(["username", "password"]);
 export const activitySchema = yup.object().shape({
   activity_id: yup.number().notRequired().nullable(),
   activity_name: yup.string().required(),
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
 });
 
 export const participantsGroupSchema = yup.object().shape({
   participants_group_id: yup.number().notRequired().nullable(),
   participants_groups_list_id: yup.number().required(),
   trainee_id: yup.number().required(),
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
 });
 
 export const participantsGroupListSchema = yup.object().shape({
   participants_groups_list_id: yup.number().notRequired().nullable(),
-  status: yup.boolean().required(),
+  is_private: yup.boolean().required(),
   group_name: yup.string().required(),
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
 });
 
 export const meetingsSchema = yup.object().shape({
@@ -296,5 +296,5 @@ export const meetingsSchema = yup.object().shape({
   location_id: yup.number().required(),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
 });

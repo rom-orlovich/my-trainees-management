@@ -11,7 +11,7 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 const transformParticipantsGroupsList = ({
   group_name,
   participants_groups_list_id,
-  public: isPublic,
+  is_private: isPublic,
 }: ParticipantsGroupsListTableAPI) => ({
   participants_groups_list_id,
   group_name: (

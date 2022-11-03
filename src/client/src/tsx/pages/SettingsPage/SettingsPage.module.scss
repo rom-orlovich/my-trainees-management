@@ -15,9 +15,9 @@
   &_links {
     @include flex-dir(null, null, column);
 
-    gap: 2rem;
+    gap: 1rem;
     a {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
 }

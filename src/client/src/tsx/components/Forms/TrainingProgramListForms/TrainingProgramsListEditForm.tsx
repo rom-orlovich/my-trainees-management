@@ -44,7 +44,7 @@ export function TrainingProgramsListEditForm() {
             note_topic: data?.note_topic,
             note_text: data.note_text,
           }}
-        ></TrainingProgramListForms>
+        />
       )}
     </LoadingSpinner>
   );

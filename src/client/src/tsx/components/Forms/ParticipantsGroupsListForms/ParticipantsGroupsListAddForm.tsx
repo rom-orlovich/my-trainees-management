@@ -26,19 +26,19 @@ export function ParticipantsGroupsListAddForm({
     participants_groups_list_id,
     ...body
   }: ParticipantsGroupsListTableAPI) => {
-    // resetGoPrevPagesState disable the behavior of returning to pre page , after submit form.
+    // resetGoPrevPagesState disable the behavior of returning to pre page, after submit form.
     // Instead after submit this form the function will move the user to his training program's exercises list.
     dispatch(disableGoPrevPage());
 
     return addFunction({
       addItem,
-    })({ ...body, trainee_id: traineeID }).then((response) => {
+    })(body).then((response) => {
       const Response = response as unknown as { data: ResponseMutationAPI };
 
       navigate(
-        `/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${Number(
-          Response.data.id
-        )}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`
+        `${APP_ROUTE.SETTINGS_ROUTE}/${
+          APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE
+        }/${Number(Response.data.id)}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`
       );
 
       return Response;

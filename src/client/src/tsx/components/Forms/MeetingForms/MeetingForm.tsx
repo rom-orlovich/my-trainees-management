@@ -9,6 +9,7 @@ import {
   locationsApi,
   meetingApi,
   participantsGroupApi,
+  participantsGroupsListApi,
   traineesApi,
 } from "../../../redux/api/hooksAPI";
 import {
@@ -189,7 +190,7 @@ export function MeetingForm({
                       link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE_ADD}`,
                     },
                     loadingSpinnerResult: { nameData: "Search Groups" },
-                    useGetData: participantsGroupApi.useGetItemsQuery,
+                    useGetData: participantsGroupsListApi.useGetItemsQuery,
                     id: "participants_groups_list_id",
                     keys: ["group_name"],
                   }}

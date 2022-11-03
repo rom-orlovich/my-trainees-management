@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
+import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { citiesApi, traineesApi } from "../../../redux/api/hooksAPI";
 import {
@@ -29,46 +30,51 @@ export function ParticipantsGroupForm({
 }: GeneralFormProps<ParticipantsGroupTableAPI>) {
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
+  const participantsGroupsListId = Number(useParams().id);
   return (
     <Form<ParticipantsGroupTableAPI>
       nameForm="Participant"
       onSubmit={onSubmit}
-      formProps={{ className: style.form_locations }}
+      formProps={{ className: style.participants_group_form }}
       editMode={editMode}
       formOptions={{
         defaultValues: {
-          user_id: useGetUserLoginData().user_id,
+          participants_groups_list_id: participantsGroupsListId,
           ...defaultValues,
+          user_id: useGetUserLoginData().user_id,
         },
         resolver: yupResolver(participantsGroupSchema),
       }}
     >
-      {({ control }) => (
-        <>
-          <AutocompleteInputRHF<
-            ParticipantsGroupTableAPI,
-            TraineesTableExtendsAPI
-          >
-            name="trainee_id"
-            control={control}
-            AutocompleteInputProps={{
-              queriesOptions,
-              defaultValueID: defaultValues?.trainee_id,
-              InputLabelProps: {
-                LabelProps: { labelText: "Trainee" },
-                InputProps: { placeholder: "Search Trainee" },
-              },
-              addOption: {
-                link: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
-              },
-              loadingSpinnerResult: { nameData: "Trainees" },
-              useGetData: traineesApi.useGetItemsQuery,
-              id: "trainee_id",
-              keys: ["first_name", "last_name"],
-            }}
-          />
-        </>
-      )}
+      {({ control, formState }) => {
+        console.log(formState.errors);
+        return (
+          <>
+            <AutocompleteInputRHF<
+              ParticipantsGroupTableAPI,
+              TraineesTableExtendsAPI
+            >
+              name="trainee_id"
+              control={control}
+              AutocompleteInputProps={{
+                queriesOptions,
+                defaultValueID: defaultValues?.trainee_id,
+                InputLabelProps: {
+                  LabelProps: { labelText: "Trainee" },
+                  InputProps: { placeholder: "Search Trainee" },
+                },
+                addOption: {
+                  link: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
+                },
+                loadingSpinnerResult: { nameData: "Trainees" },
+                useGetData: traineesApi.useGetItemsQuery,
+                id: "trainee_id",
+                keys: ["first_name", "last_name"],
+              }}
+            />
+          </>
+        );
+      }}
     </Form>
   );
 }
