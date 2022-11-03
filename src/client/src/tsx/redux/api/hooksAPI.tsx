@@ -266,6 +266,7 @@ export const apiCreateCrudArr = [
   activitiesApi,
   meetingApi,
   participantsGroupApi,
+  participantsGroupsListApi,
 ];
 
 // Create Reducer arr that contains  object with key of the reducer name and value the reducer function.

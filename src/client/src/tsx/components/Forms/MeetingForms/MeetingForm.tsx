@@ -16,6 +16,7 @@ import {
   API_ROUTES,
   LocationsGetRes,
   MeetingAPI,
+  ParticipantsGroupsListTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
@@ -106,14 +107,15 @@ export function MeetingForm({
         formWithOneButton={true}
         formOptions={{
           defaultValues: {
-            participants_group: [],
             ...defaultValues,
             date_start: DateStart as any,
             date_end: DateEnd as any,
             user_id: authState.user_id,
           },
+
           resolver: yupResolver(meetingsSchema),
         }}
+        // formProps={{ className: "" }}
       >
         {({ register, formState, control, setValue }) => {
           const { errors } = formState;
@@ -167,6 +169,32 @@ export function MeetingForm({
                 deleteParticipant={deleteParticipantFUN}
                 // addParticipant={addParticipant}
               /> */}
+              <div className="participants_groups_form_model_container">
+                <AutocompleteInputRHF<
+                  MeetingAPI,
+                  ParticipantsGroupsListTableAPI
+                >
+                  name="participants_groups_list_id"
+                  control={control}
+                  AutocompleteInputProps={{
+                    queriesOptions: {
+                      ...queriesOptions,
+                    },
+                    defaultValueID: defaultValues?.participants_groups_list_id,
+                    InputLabelProps: {
+                      LabelProps: { labelText: "Participants Groups" },
+                      InputProps: { placeholder: "Search Groups" },
+                    },
+                    addOption: {
+                      link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE_ADD}`,
+                    },
+                    loadingSpinnerResult: { nameData: "Search Groups" },
+                    useGetData: participantsGroupApi.useGetItemsQuery,
+                    id: "participants_groups_list_id",
+                    keys: ["group_name"],
+                  }}
+                />
+              </div>
               <div className="autocomplete_form_model_container">
                 <AutocompleteInputRHF<MeetingAPI, ActivitiesTableAPI>
                   name="activity_id"

@@ -440,6 +440,17 @@ CREATE TABLE IF NOT EXISTS "activities" (
   UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS "participants_groups_list"(
+  "participants_groups_list_id" serial PRIMARY KEY,
+  "group_name" VARCHAR(55),
+  "public" BOOLEAN DEFAULT false,
+  "user_id" INTEGER DEFAULT 1,
+  CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
+  SET
+    NULL ON
+  UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS "participants_group" (
   "participants_group_id" serial PRIMARY KEY,
   "participants_groups_list_id" INTEGER,
@@ -452,17 +463,6 @@ CREATE TABLE IF NOT EXISTS "participants_group" (
     NULL ON
   UPDATE CASCADE,
     CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE ON
-  UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS "participants_groups_list"(
-  "participants_groups_list_id" serial PRIMARY KEY,
-  "group_name" VARCHAR(55),
-  "public" BOOLEAN DEFAULT false,
-  "user_id" INTEGER DEFAULT 1,
-  CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
-  SET
-    NULL ON
   UPDATE CASCADE
 );
 

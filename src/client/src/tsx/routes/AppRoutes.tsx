@@ -31,11 +31,12 @@ import { MeasureAddForm } from "../components/Forms/MeasuresForms/MeasureAddForm
 import MeasureEditForm from "../components/Forms/MeasuresForms/MeasureEditForm";
 import FinancesPage from "../pages/FinancesPage/FinancesPage";
 import { IncomeAddForm } from "../components/Forms/IncomeForms/IncomeAddForm";
-import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
+
 import IncomeEditForm from "../components/Forms/IncomeForms/IncomeEditForm";
 import ExpenseEditForm from "../components/Forms/ExpenseForms/ExpenseEditForm";
 import { ExpenseAddForm } from "../components/Forms/ExpenseForms/ExpenseAddForm";
 import SchedulePage from "../pages/SchedulePage/SchedulePage";
+import ParticipantsGroupPage from "../pages/ParticipantsGroupPage /ParticipantsGroupPage";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -62,7 +63,6 @@ function AppRoutes() {
             path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/*`}
             element={<TrainingProgramListRoutes />}
           />
-
           <Route path={APP_ROUTE.MEASURES_ROUTE}>
             <Route path={APP_ROUTE.MEASURE_ADD} element={<MeasureAddForm />} />
             <Route
@@ -72,6 +72,12 @@ function AppRoutes() {
           </Route>
           <Route path={APP_ROUTE.SCHEDULE_ROUTE}>
             <Route index element={<SchedulePage />} />
+          </Route>
+
+          <Route
+            path={`${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/:id/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}}`}
+          >
+            <Route index element={<ParticipantsGroupPage />} />
           </Route>
 
           {/* The admin and trainer shared role routes. */}

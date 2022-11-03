@@ -494,7 +494,7 @@ export const participantsGroupOptionsCRUD: OptionsCRUD = {
     LEFT JOIN profiles AS pro ON tr.profile_id = pro.profile_id`,
     queryParams: {
       userID: "pgt.user_id",
-      participantID: "pgt.participantID",
+      participantsGroupsListID: "pgt.participants_groups_list_id",
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,

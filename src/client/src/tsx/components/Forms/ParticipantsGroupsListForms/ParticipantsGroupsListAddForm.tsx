@@ -12,7 +12,7 @@ import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ParticipantsGroupsListForm } from "./ParticipantsGroupsListForm";
 
-export function TrainingProgramsListAddForm({
+export function ParticipantsGroupsListAddForm({
   className,
 }: {
   className?: string;

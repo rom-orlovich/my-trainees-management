@@ -30,6 +30,13 @@
           width: 100%;
         }
       }
+      @include classMatcher("participants_groups_form_model_container") {
+        width: 100%;
+        @include flex-dir(null, center, column);
+        @include classMatcher("AutocompleteInput_autocomplete_container") {
+          max-width: 100%;
+        }
+      }
       @include classMatcher("Form_buttons_container_one_button") {
         button {
           width: 80%;
