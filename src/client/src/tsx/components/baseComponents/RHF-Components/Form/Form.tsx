@@ -97,6 +97,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   const handleSubmit = async (data: TFormValues) => {
     try {
       await onSubmit(data);
+      // console.log("after", goPrevPage);
       methods.reset();
       if (saveState)
         if (!editMode)
@@ -117,6 +118,7 @@ export default function Form<TFormValues extends Record<string, any>>({
       };
       console.log(error);
       methods.setError("server" as any, { message: Error.data?.message });
+    } finally {
     }
   };
 

@@ -51,7 +51,7 @@ export function ParticipantsGroupsListForm({
               </InputLabel>
 
               <Checkbox
-                LabelProps={{ labelText: "Public?" }}
+                LabelProps={{ labelText: "isPrivate?" }}
                 InputProps={{ ...register("is_private") }}
               >
                 <InputErrorMessage

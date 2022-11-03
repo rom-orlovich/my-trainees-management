@@ -27,9 +27,11 @@ export const apiSideEffectSlice = createSlice({
   reducers: {
     // Enable behavior of go back to previous page.
     enableGoPrevPage: (state) => {
+      console.log("s");
       state.goPrePageBehaviorState.goPrevPage = true;
     },
     disableGoPrevPage: (state) => {
+      console.log("s");
       state.goPrePageBehaviorState.goPrevPage = false;
     },
 
@@ -74,6 +76,13 @@ export const apiSideEffectSlice = createSlice({
           state.fetchAlerts = true;
         }
       ),
+  // .addMatcher(
+  //   (action: PayloadAction<Record<string, any> | undefined>) => true,
+  //   (state, action) => {
+  //     // // Enable fetch alerts.
+  //     console.log(action, state.goPrePageBehaviorState.goPrevPage);
+  //   }
+  // ),
 });
 export const {
   enableGoPrevPage,

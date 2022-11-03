@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { trainingProgramsListApi } from "../../../redux/api/hooksAPI";
 import {
@@ -23,15 +24,17 @@ export function TrainingProgramsListAddForm({
   const navigate = useNavigate();
   const [addItem] = trainingProgramsListApi.useCreateOneItemMutation();
   const dispatch = useAppDispatch();
+  // resetGoPrevPagesState disable the behavior of returning to pre page , after submit form.
+  // Instead after submit this form the function will move the user to his training program's exercises list.
+  useEffect(() => {
+    dispatch(disableGoPrevPage());
+  }, []);
+
   const handleSubmit = ({
     training_programs_list_id,
     ...body
-  }: TrainingProgramsListTableAPI) => {
-    // resetGoPrevPagesState disable the behavior of returning to pre page , after submit form.
-    // Instead after submit this form the function will move the user to his training program's exercises list.
-    dispatch(disableGoPrevPage());
-
-    return addFunction({
+  }: TrainingProgramsListTableAPI) =>
+    addFunction({
       addItem,
     })({ ...body, trainee_id: traineeID }).then((response) => {
       const Response = response as unknown as { data: ResponseMutationAPI };
@@ -44,7 +47,5 @@ export function TrainingProgramsListAddForm({
 
       return Response;
     });
-  };
-
   return <TrainingProgramListForms onSubmit={handleSubmit} />;
 }
