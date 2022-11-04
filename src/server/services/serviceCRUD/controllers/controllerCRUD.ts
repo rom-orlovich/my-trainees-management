@@ -63,9 +63,7 @@ export function createRoutesControllers({
     } = req.query;
 
     const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
-
     const numResultDefault = Number(numResults || 5);
-
     const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
     const comparisonQueryKeyValue = comparisonQuery
       ? {
@@ -73,6 +71,8 @@ export function createRoutesControllers({
           lt: [comparisonQuery.lt, lt as string],
         }
       : { gt: [], lt: [] };
+
+    console.log("role", req.auth_data?.role);
     const orderByParamRes =
       orderByParam && orderBy ? orderByParam[orderBy as string] : tableID;
 

@@ -19,7 +19,7 @@ const checkTraineeHaveToken = async (token: string, profileID: number) => {
     selectQuery(
       TABLES_DATA.TRAINEES_TABLE_NAME,
       "*",
-      `where sign_up_token=$1 and profile_id=$2`,
+      `where sign_up_token=$1 and ${TABLES_DATA.PROFILE_ID}=$2`,
       [token, profileID]
     )
   );
@@ -33,7 +33,7 @@ const checkUsersHaveToken = async (token: string, userID: number) => {
     selectQuery(
       TABLES_DATA.USERS_TABLE_NAME,
       "*",
-      `where verify_token=$1 and user_id=$2`,
+      `where verify_token=$1 and ${TABLES_DATA.USERS_TABLE_ID}=$2`,
       [token, userID]
     )
   );
@@ -47,6 +47,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   res,
   next
 ) => {
+  console.log("hey there");
   const accessToken = req.headers.authorization?.split("Bearer ")[1];
   if (!accessToken) {
     return res.sendStatus(401);
@@ -78,7 +79,7 @@ export const validateTokenMiddleware: RequestHandler = async (
   }
 
   if (err) {
-    logger.error(`LINE 156:  forbidden`, { __filename, objs: [err] });
+    logger.error(`LINE 156: forbidden`, { __filename, objs: [err] });
     return res.sendStatus(403);
   }
 

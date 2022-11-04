@@ -19,6 +19,11 @@ export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
     text: "My Nutrition",
     icon: <IoNutritionSharp className={style.icon} />,
   },
+  {
+    to: `${APP_ROUTE.SCHEDULE_ROUTE}`,
+    text: "MY Schedule",
+    icon: <AiFillSchedule className={style.icon} />,
+  },
 ];
 
 export const TRAINER_SIDE_BAR_LINKS: LinkData[] = [

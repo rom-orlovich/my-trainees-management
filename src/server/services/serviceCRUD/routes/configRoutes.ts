@@ -490,11 +490,13 @@ export const participantsGroupOptionsCRUD: OptionsCRUD = {
     tableID: `pgt.${TABLES_DATA.PARTICIPANTS_GROUP_ID}`,
     fieldNamesQuery: ` pgt.*,pro.first_name,pro.last_name`,
     querySelectLogic: `
-    LEFT JOIN trainees AS tr ON tr.trainee_id = pgt.trainee_id
-    LEFT JOIN profiles AS pro ON tr.profile_id = pro.profile_id`,
+    LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} AS tr 
+    ON tr.${TABLES_DATA.TRAINEE_ID} = pgt.${TABLES_DATA.TRAINEE_ID}
+    LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} AS pro 
+    ON tr.${TABLES_DATA.PRODUCT_ID} = pro.${TABLES_DATA.PRODUCT_ID}`,
     queryParams: {
-      userID: "pgt.user_id",
-      participantsGroupsListID: "pgt.participants_groups_list_id",
+      userID: `pgt.${TABLES_DATA.USERS_TABLE_ID}`,
+      participantsGroupsListID: `pgt.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}`,
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
@@ -509,7 +511,7 @@ export const participantsGroupListOptionsCRUD: OptionsCRUD = {
     fieldNamesQuery: `pgl.*`,
     querySelectLogic: ``,
     queryParams: {
-      userID: "pgl.user_id",
+      userID: `pgl.${TABLES_DATA.USERS_TABLE_ID}`,
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
@@ -527,7 +529,7 @@ export const meetingOptionsCRUD: OptionsCRUD = {
     LEFT JOIN ${TABLES_DATA.ACTIVITIES_TABLE_NAME} as act ON
     mt.${TABLES_DATA.ACTIVITIES_ID}= act.${TABLES_DATA.ACTIVITIES_ID}`,
     queryParams: {
-      userID: "mt.user_id",
+      userID: `mt.${TABLES_DATA.USERS_TABLE_ID}`,
     },
     comparisonQuery: {
       gt: "date_start",

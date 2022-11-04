@@ -1,7 +1,7 @@
 import { handleInsertStatistics } from "../../serviceStatistics/controllers/handleInsertStatistics";
 import { OptionsCRUD } from "../serviceCRUDTypes";
 
-import { createControllersHandlerAndRouterWithAppMiddleware } from "../utilities/helperServiceCRUD";
+import { createControllersHandlerAndRoutes } from "../utilities/helperServiceCRUD";
 
 /**
  *
@@ -15,7 +15,7 @@ export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
     routeByEntity,
     routeByEntityAndID,
     expressRouterObj,
-  } = createControllersHandlerAndRouterWithAppMiddleware(optionsCRUD);
+  } = createControllersHandlerAndRoutes(optionsCRUD);
 
   // POST route for CRUD with insert Statistics
   routeByEntity.post(

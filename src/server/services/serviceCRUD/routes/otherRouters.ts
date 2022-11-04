@@ -10,7 +10,7 @@ import { handleInsertNewMeasure } from "../../serviceStatistics/controllers/hand
 
 import { handleInsertNewSubscription } from "../controllers/handleInsertNewSubscription";
 
-import { createControllersHandlerAndRouterWithAppMiddleware } from "../utilities/helperServiceCRUD";
+import { createControllersHandlerAndRoutes } from "../utilities/helperServiceCRUD";
 import {
   alertsOptionsCRUD,
   incomesOptionsCRUD,
@@ -25,7 +25,7 @@ export const createMeasuresRouter = () => {
     expressRouterObj,
     routeByEntity,
     routeByEntityAndID,
-  } = createControllersHandlerAndRouterWithAppMiddleware(measuresOptionsCRUD);
+  } = createControllersHandlerAndRoutes(measuresOptionsCRUD);
   routeByEntity.post(handleInsertNewMeasure, createNewValueInDB);
   routeByEntityAndID.put(handleInsertNewMeasure, updateValueByID);
   return expressRouterObj;
@@ -37,7 +37,7 @@ export const createTraineesRouter = () => {
     expressRouterObj,
 
     routeByEntityAndID,
-  } = createControllersHandlerAndRouterWithAppMiddleware(traineesOptionsCRUD);
+  } = createControllersHandlerAndRoutes(traineesOptionsCRUD);
   expressRouterObj.post(
     API_ROUTES.REGISTER_TRAINEE_ROUTE,
     handleRegisterTrainee
@@ -58,7 +58,7 @@ export const createIncomesRouter = () => {
     routeByEntityAndID,
     controllerHandlersObj,
     expressRouterObj,
-  } = createControllersHandlerAndRouterWithAppMiddleware(incomesOptionsCRUD);
+  } = createControllersHandlerAndRoutes(incomesOptionsCRUD);
 
   routeByEntity.post(
     controllerHandlersObj.createNewValueInDB,
