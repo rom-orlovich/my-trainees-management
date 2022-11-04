@@ -182,8 +182,8 @@ export const equipmentsOptionsCRUD: OptionsCRUD = {
       mainName: "equipment_name",
     },
     queryParams: {
-      userID: "eq.user_id",
-      id: "equipment_id",
+      userID: `eq.${TABLES_DATA.USERS_TABLE_ID}`,
+      id: `${TABLES_DATA.EQUIPMENTS_ID}`,
     },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,
@@ -203,9 +203,9 @@ export const exerciseListOptionsCRUD: OptionsCRUD = {
       mainName: "exercise_name",
     },
     queryParams: {
-      id: "exercise_id",
-      userID: "exer.user_id",
-      trainerUserID: "exer.user_id",
+      id: `${TABLES_DATA.EXERCISES_ID}`,
+      userID: `exer.${TABLES_DATA.USERS_TABLE_ID}`,
+      trainerUserID: `exer.${TABLES_DATA.USERS_TABLE_ID}`,
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY,
@@ -295,7 +295,7 @@ export const measuresOptionsCRUD: OptionsCRUD = {
  mes.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}`,
     queryParams: {
       caloriesPie: "caloriesPie",
-      profileID: "pr.profile_id",
+      profileID: `pr.${TABLES_DATA.PROFILE_ID}`,
     },
   },
   permissions: PERMISSION_TRAINEE_BY_USER_ID,
@@ -339,7 +339,7 @@ export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
     querySelectLogic: `LEFT JOIN ${TABLES_DATA.PRODUCTS_TABLE_NAME} as pro ON
     pro.${TABLES_DATA.PRODUCT_ID}= subp.${TABLES_DATA.PRODUCT_ID}`,
     queryParams: {
-      traineeID: "trainee_id",
+      traineeID: `${TABLES_DATA.TRAINEE_ID}`,
     },
     orderByParam: {
       lastTraining: "last_training",
@@ -529,7 +529,9 @@ export const meetingOptionsCRUD: OptionsCRUD = {
     LEFT JOIN ${TABLES_DATA.ACTIVITIES_TABLE_NAME} as act ON
     mt.${TABLES_DATA.ACTIVITIES_ID}= act.${TABLES_DATA.ACTIVITIES_ID}`,
     queryParams: {
+      traineeID: `${TABLES_DATA.TRAINEE_ID}`,
       userID: `mt.${TABLES_DATA.USERS_TABLE_ID}`,
+      trainerUserID: `mt.${TABLES_DATA.USERS_TABLE_ID}`,
     },
     comparisonQuery: {
       gt: "date_start",
@@ -592,10 +594,10 @@ export const meetingOptionsCRUD: OptionsCRUD = {
 //     fieldNamesQuery: ` mt.*,pro.first_name,pro.last_name ,pgt.trainee_id,
 //     pgt.participants_group_id,act.activity_name`,
 //     querySelectLogic: `
-//     LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt ON
-//     mt.${TABLES_DATA.MEETINGS_ID}=pgt.${TABLES_DATA.MEETINGS_ID}
-//     LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON
-//     tr.${TABLES_DATA.TRAINEE_ID}= pgt.${TABLES_DATA.TRAINEE_ID}
+// LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt ON
+// mt.${TABLES_DATA.MEETINGS_ID}=pgt.${TABLES_DATA.MEETINGS_ID}
+// LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON
+// tr.${TABLES_DATA.TRAINEE_ID}= pgt.${TABLES_DATA.TRAINEE_ID}
 //     LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pro ON
 //     tr.${TABLES_DATA.PROFILE_ID}= pro.${TABLES_DATA.PROFILE_ID}
 //     LEFT JOIN ${TABLES_DATA.ACTIVITIES_TABLE_NAME} as act ON

@@ -24,6 +24,7 @@ function MeasureEditForm() {
 
   // If the user is trainee, the query is executed by his userID instead his trainerUserID.
   const { profileID, traineeID, userID } = useGetUserTraineeData();
+
   const queryOptions = traineeID
     ? { profileID, userID }
     : { profileID, trainerUserID: userID };

@@ -94,7 +94,7 @@ export const createRealQueryKeyValuesObj = (
     if (queryFromReq[key] || (!queryFromReq[key] && key === "secName")) {
       const newKeyValue = key.includes("diff")
         ? {
-            [`${fakeQueryName[key]}-diff`]: queryFromReq[key],
+            [`${fakeQueryName[key]}-diff`]: queryFromReq[key], // for != operator
           }
         : {
             [fakeQueryName[key]]: queryFromReq[key],

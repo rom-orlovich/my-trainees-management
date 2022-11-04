@@ -33,6 +33,7 @@ import style from "./SchedulePage.module.scss";
 import { meetingApi } from "../../redux/api/hooksAPI";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import { MeetingAPI } from "../../redux/api/interfaceAPI";
+import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 const isDesktopWidth = window.innerWidth > 500;
 
@@ -42,12 +43,21 @@ function SchedulePage() {
   const [queryParams, setQueryParams] = useSearchParams();
   const [deleteEvent] = meetingApi.useDeleteItemMutation();
   const [updateEvent] = meetingApi.useUpdateItemMutation();
+
+  const { isTrainee, traineeID, userID, trainerUserID } =
+    useGetUserTraineeData();
+
+  const queryOptions = isTrainee
+    ? { traineeID, trainerUserID, userID }
+    : { userID };
+
   const [dateRange, setDateRange] = useState<{
     gt: Date | string;
     lt: Date | string;
   }>({ gt: "", lt: "" });
+
   const { data } = meetingApi.useGetItemsQuery({
-    userID: authState.user_id,
+    ...queryOptions,
     ...dateRange,
     numResults: 100,
   });

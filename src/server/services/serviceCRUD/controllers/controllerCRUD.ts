@@ -72,7 +72,17 @@ export function createRoutesControllers({
         }
       : { gt: [], lt: [] };
 
-    console.log("role", req.auth_data?.role);
+    let querySelectLogicAddOns = "";
+    let fieldNamesQueryAddOns = "";
+    if (req.auth_data?.role === "trainee") {
+      console.log("trainee");
+      if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
+        console.log("yes");
+        querySelectLogicAddOns += ` LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt ON
+        mt.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}=pgt.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}`;
+        fieldNamesQueryAddOns += ` ,pgt.${TABLES_DATA.TRAINEE_ID}`;
+      }
+    }
     const orderByParamRes =
       orderByParam && orderBy ? orderByParam[orderBy as string] : tableID;
 
@@ -80,8 +90,8 @@ export function createRoutesControllers({
       selectPagination(
         selectTableName || tableName,
         page as string,
-        fieldNamesQuery,
-        querySelectLogic,
+        fieldNamesQuery + fieldNamesQueryAddOns,
+        querySelectLogic + querySelectLogicAddOns,
         createRealQueryKeyValuesObj(rest, queryParams),
         createRealQueryKeyValuesObj(rest, queryNameParam),
         ascDefault,
