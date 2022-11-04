@@ -112,7 +112,7 @@ function SchedulePage() {
       (el) => el?.meeting_id === Number(event.oldEvent.id)
     );
     if (lastEventData) {
-      const { activity_name, ...rest } = lastEventData;
+      const { activity_name, city_name, street, ...rest } = lastEventData;
 
       updateEvent({
         payload: {
@@ -130,7 +130,7 @@ function SchedulePage() {
       (el) => el?.meeting_id === Number(event.oldEvent.id)
     );
     if (lastEventData) {
-      const { activity_name, ...rest } = lastEventData;
+      const { activity_name, city_name, street, ...rest } = lastEventData;
 
       updateEvent({
         payload: {

@@ -72,13 +72,14 @@ function AutocompleteInput<T extends Record<string, any>>({
   // The first element in array is the id of the option. The sec element is the input value.
   const [inputValueName, setInputValue] = useState(["", ""]);
   // Debounce the input value change.
-
+  const firstRender = useRef(true);
   const debounce = useDebounceHook(inputValueName, 500);
   const autoCompleteContainerRef = useRef<HTMLDivElement | null>(null);
   const isVisible = useHideUnFocusElement(autoCompleteContainerRef);
   const [lastDataState, setLastData] = useState<any[]>([]);
 
-  const defaultIDQuery = defaultValueID ? { id: defaultValueID } : {};
+  const defaultIDQuery =
+    firstRender.current && defaultValueID ? { id: defaultValueID } : {};
   const { data } = useGetData({
     page,
     mainName: debounce[1],
@@ -87,7 +88,6 @@ function AutocompleteInput<T extends Record<string, any>>({
   });
 
   const Data = data as ResponseQueryAPI<T> | undefined;
-  const firstRender = useRef(true);
 
   useEffect(() => {
     // Set default value by given id, when the data is defined and the id
