@@ -70,6 +70,7 @@ export function createRoutesControllers({
 
     const numResultDefault = Number(numResults || 5);
 
+    const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
     const comparisonQueryKeyValue = comparisonQuery
       ? {
           gt: [comparisonQuery.gt, gt as string],
@@ -88,7 +89,7 @@ export function createRoutesControllers({
         createRealQueryKeyValuesObj(rest, queryParams),
         createRealQueryKeyValuesObj(rest, queryNameParam),
         ascDefault,
-        numResultDefault > 100 ? 100 : numResultDefault,
+        maxNumResult,
         orderByParamRes,
         comparisonQueryKeyValue,
         groupBy

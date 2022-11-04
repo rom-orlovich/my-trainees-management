@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/no-shadow */
-import React from "react";
+import React, { useState } from "react";
 import FullCalendar, {
   DateSelectArg,
   EventClickArg,
@@ -16,7 +16,7 @@ import interactionPlugin, {
 
 import { useSearchParams } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
-import { date } from "yup";
+
 import { genClassName } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
 
@@ -38,8 +38,14 @@ function SchedulePage() {
   const [queryParams, setQueryParams] = useSearchParams();
   const [deleteEvent] = meetingApi.useDeleteItemMutation();
   const [updateEvent] = meetingApi.useUpdateItemMutation();
+  const [dateRange, setDateRange] = useState<{
+    gt: Date | string;
+    lt: Date | string;
+  }>({ gt: "", lt: "" });
   const { data } = meetingApi.useGetItemsQuery({
     userID: authState.user_id,
+    ...dateRange,
+    numResults: 100,
   });
 
   const events: EventInput[] | undefined = data?.data?.map((el) => ({
@@ -145,14 +151,31 @@ function SchedulePage() {
           }}
           editable={true}
           selectable={true}
-          // eventOverlap={true}
+          // slotEventOverlap={true}
+          eventOverlap={true}
+          // selectOverlap={true}
 
-          selectOverlap={false}
-          slotEventOverlap={false}
+          // slotEventOverlap={false}
+          // datesSet={(DatesSetArg) => {
+          //   console.log(DatesSetArg);
+          //   setDateRange({
+          //     gt: DatesSetArg.start.toISOString(),
+          //     lt: DatesSetArg.end.toISOString(),
+          //   });
+          // }}
           events={events}
           eventContent={handleEventContent}
           longPressDelay={500} // This is the property you need to change
           select={handleSelectEvent}
+          // visibleRange={(currentDate) => {
+          //   const startDate = new Date(currentDate.valueOf());
+          //   const endDate = new Date(currentDate.valueOf());
+
+          //   // Adjust the start & end dates, respectively
+          //   startDate.setDate(startDate.getDate() - 1); // One day in the past
+          //   endDate.setDate(endDate.getMonth() + 2); // Two days into the future
+          //   return { start: startDate, end: endDate };
+          // }}
         />
       </section>
     </>

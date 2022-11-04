@@ -275,8 +275,8 @@ export const trainingProgramsExerciseStatsOptionsCRUD: OptionsCRUD = {
     querySelectLogic: ``,
     queryParams: {
       exerciseID: TABLES_DATA.TRAINING_PROGRAM_ID,
-      gt: "gt",
-      lt: "lt",
+      gt: "update_date",
+      lt: "update_date",
     },
     comparisonQuery: { gt: "update_date", lt: "update_date" },
   },
@@ -528,6 +528,10 @@ export const meetingOptionsCRUD: OptionsCRUD = {
     mt.${TABLES_DATA.ACTIVITIES_ID}= act.${TABLES_DATA.ACTIVITIES_ID}`,
     queryParams: {
       userID: "mt.user_id",
+    },
+    comparisonQuery: {
+      gt: "date_start",
+      lt: "date_end",
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
