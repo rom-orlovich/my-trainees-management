@@ -2,11 +2,14 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { useState } from "react";
 import FullCalendar, {
+  DateFormatter,
   DateSelectArg,
+  DatesSetArg,
   EventClickArg,
   EventContentArg,
   EventDropArg,
   EventInput,
+  FormatterInput,
 } from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -47,6 +50,11 @@ function SchedulePage() {
     ...dateRange,
     numResults: 100,
   });
+  const formatTimeObj: FormatterInput | DateFormatter | undefined = {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  };
 
   const events: EventInput[] | undefined = data?.data?.map((el) => ({
     id: String(el.meeting_id),
@@ -64,12 +72,14 @@ function SchedulePage() {
     </div>
   );
   const handleSelectEvent = (event: DateSelectArg) => {
-    dispatch(changeModelState());
-    setQueryParams({
-      dateStart: String(event.start.getTime()),
-      dateEnd: String(event.end.getTime()),
-      modelFormState: "add",
-    });
+    if (event.view.type === "timeGridDay") {
+      dispatch(changeModelState());
+      setQueryParams({
+        dateStart: String(event.start.getTime()),
+        dateEnd: String(event.end.getTime()),
+        modelFormState: "add",
+      });
+    }
   };
 
   const handleEventClick = (event: EventClickArg) => {
@@ -120,6 +130,17 @@ function SchedulePage() {
       });
     }
   };
+
+  const handleDateset = (DatesSetArg: DatesSetArg) => {
+    console.log({
+      gt: DatesSetArg.start.toISOString(),
+      lt: DatesSetArg.end.toISOString(),
+    });
+    setDateRange({
+      gt: DatesSetArg.start.toISOString(),
+      lt: DatesSetArg.end.toISOString(),
+    });
+  };
   return (
     <>
       <ModelNewMeeting />
@@ -128,54 +149,33 @@ function SchedulePage() {
       >
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          handleWindowResize={true}
           initialView={isDesktopWidth ? "dayGridMonth" : "timeGridDay"}
           headerToolbar={{
             left: "prev,next today",
             center: "title",
             right: "dayGridMonth,timeGridDay",
           }}
-          allDaySlot={false}
+          events={events}
+          datesSet={handleDateset}
+          dateClick={(date) => {
+            if (date.view.type !== "timeGridDay") {
+              date.view.calendar.gotoDate(date.date);
+              date.view.calendar.changeView("timeGridDay");
+            }
+          }}
           eventClick={handleEventClick}
           eventDrop={handleDropEvent}
           eventResize={handleResizeEvent}
-          eventTimeFormat={{
-            hour: "2-digit",
-            minute: "2-digit",
-            meridiem: false,
-          }}
-          slotLabelFormat={{
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-          }}
+          eventContent={handleEventContent}
+          select={handleSelectEvent}
+          eventTimeFormat={formatTimeObj}
+          slotLabelFormat={formatTimeObj}
+          allDaySlot={false}
           editable={true}
           selectable={true}
-          // slotEventOverlap={true}
           eventOverlap={true}
-          // selectOverlap={true}
-
-          // slotEventOverlap={false}
-          // datesSet={(DatesSetArg) => {
-          //   console.log(DatesSetArg);
-          //   setDateRange({
-          //     gt: DatesSetArg.start.toISOString(),
-          //     lt: DatesSetArg.end.toISOString(),
-          //   });
-          // }}
-          events={events}
-          eventContent={handleEventContent}
-          longPressDelay={500} // This is the property you need to change
-          select={handleSelectEvent}
-          // visibleRange={(currentDate) => {
-          //   const startDate = new Date(currentDate.valueOf());
-          //   const endDate = new Date(currentDate.valueOf());
-
-          //   // Adjust the start & end dates, respectively
-          //   startDate.setDate(startDate.getDate() - 1); // One day in the past
-          //   endDate.setDate(endDate.getMonth() + 2); // Two days into the future
-          //   return { start: startDate, end: endDate };
-          // }}
+          handleWindowResize={true}
+          longPressDelay={500}
         />
       </section>
     </>

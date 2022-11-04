@@ -6,10 +6,6 @@
       z-index: 50;
     }
     td {
-      // max-width: 100px;
-      // overflow: hidden;
-      // text-overflow: ellipsis;
-      // white-space: nowrap;
       i {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -35,10 +31,6 @@
 
   // for dayGridMonth display
   &:has([class*="fc-daygrid fc-dayGridMonth-view fc-view"]) {
-    ::-webkit-scrollbar {
-      display: none;
-    }
-    overflow-y: scroll;
     .event_container {
       .date_data {
         @include flex-dir(null, null, column);
@@ -47,13 +39,6 @@
       .deleteIcon {
         @include posAbs(2%, null, 2%, null);
       }
-    }
-
-    // For dayGridMonth event's wrapper div
-    @include classMatcher(
-      "fc-daygrid-event-harness fc-daygrid-event-harness-abs"
-    ) {
-      // width: 100%;
     }
   }
 
@@ -71,7 +56,8 @@
   }
   //For the main content of the table
   @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
-    overflow-y: hidden !important;
+    overflow-y: hidden;
+    height: 60%;
     // For selection number of cells
     @include classMatcher("fc-highlight") {
       background-color: rgba(12, 131, 155, 0.3);
@@ -80,7 +66,7 @@
   // for timeGridDay-view color td
   @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
     table {
-      height: 60%;
+      height: 100%;
       th {
         width: 100%;
       }
