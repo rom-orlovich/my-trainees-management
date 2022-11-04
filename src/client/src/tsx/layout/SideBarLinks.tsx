@@ -21,7 +21,7 @@ export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
   },
   {
     to: `${APP_ROUTE.SCHEDULE_ROUTE}`,
-    text: "MY Schedule",
+    text: "My Schedule",
     icon: <AiFillSchedule className={style.icon} />,
   },
 ];

@@ -385,6 +385,8 @@ export interface MeetingAPI {
   activity_id: number;
   activity_name?: string;
   location_id: number;
+  city_name?: string;
+  street?: string;
   note_topic: string;
   note_text: string;
   user_id?: number;

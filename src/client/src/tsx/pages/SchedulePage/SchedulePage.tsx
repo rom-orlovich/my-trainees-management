@@ -99,7 +99,7 @@ function SchedulePage() {
     if (deleteButton) deleteEvent(String(event.event.id));
     else {
       setQueryParams({
-        id: event.event.id,
+        meetingID: event.event.id,
         modelFormState: "edit",
       });
       dispatch(changeModelState());

@@ -17,6 +17,8 @@ export function MeetingAddForm() {
   const handleSubmit = async ({
     meeting_id,
     activity_name,
+    city_name,
+    street,
     ...body
   }: MeetingAPI) => {
     dispatch(disableGoPrevPage());

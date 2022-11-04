@@ -10,18 +10,24 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { MeetingForm } from "./MeetingForm";
 
-export function MeetingEditForm({ id }: { id: number }) {
+export function MeetingEditForm({ meetingID }: { meetingID: number }) {
   const dispatch = useAppDispatch();
   const [updateItem] = meetingApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();
 
   const queriesOptions = { userID: authState.user_id };
   const { data, isLoading, isFetching, isError } =
-    meetingApi.useGetItemByIDQuery({ id, ...queriesOptions });
+    meetingApi.useGetItemByIDQuery({ id: meetingID, ...queriesOptions });
 
-  const handleSubmit = ({ meeting_id, activity_name, ...body }: MeetingAPI) =>
+  const handleSubmit = ({
+    meeting_id,
+    activity_name,
+    city_name,
+    street,
+    ...body
+  }: MeetingAPI) =>
     updateFunction({
-      id,
+      id: meetingID,
       updateItem,
     })(body).then((value) => {
       dispatch(changeModelState());
