@@ -9,5 +9,5 @@ export function ActivityAddForm() {
     addItem,
   });
 
-  return <ActivityForm onSubmit={handleSubmit}></ActivityForm>;
+  return <ActivityForm onSubmit={handleSubmit} />;
 }

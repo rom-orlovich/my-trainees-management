@@ -12,6 +12,9 @@ export const leadsSchema = yup.object().shape({
   lead_date: yup.date().required(),
   first_name: yup.string().required(),
   last_name: yup.string().required(),
+  gender: yup.string().required(),
+  location_id: yup.number().required(),
+  birthday: yup.date().required(),
   phone_number: yup.string().required(),
   email: yup.string().email().notRequired().nullable(),
   status: yup.boolean().required(),
@@ -61,7 +64,6 @@ export const trainingProgramsListSchema = yup.object().shape({
   training_programs_list_id: yup.number().notRequired().nullable(),
   trainee_id: yup.number().required(),
   program_type: yup.string().required(),
-
   date_start: yup.date().required(),
   date_end: yup
     .date()

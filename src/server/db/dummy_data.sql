@@ -292,6 +292,9 @@ INSERT INTO
     lead_date,
     first_name,
     last_name,
+    gender,
+    birthday,
+    location_id,
     phone_number,
     email,
     status,
@@ -305,6 +308,9 @@ VALUES
     '2022-10-10',
     'Ido',
     'Gideon',
+    'male',
+    '1995-10-25',
+    3,
     '21223123',
     'a@b.com',
     false,
@@ -319,6 +325,9 @@ INSERT INTO
     lead_date,
     first_name,
     last_name,
+    gender,
+    birthday,
+    location_id,
     phone_number,
     email,
     status,
@@ -331,7 +340,10 @@ VALUES
     2,
     '2022-10-25',
     'Nitza',
-    ' Daniela',
+    'Daniela',
+    'female',
+    '1990-10-25',
+    5,
     '054-617-4272',
     'aaas@asd.com',
     false,
@@ -346,6 +358,9 @@ INSERT INTO
     lead_date,
     first_name,
     last_name,
+    gender,
+    birthday,
+    location_id,
     phone_number,
     email,
     status,
@@ -359,6 +374,9 @@ VALUES
     '2022-10-25',
     'Tzvi',
     'yehc',
+    'female',
+    '1970-10-25',
+    3,
     '21223123',
     'sasd@oads.com',
     false,
@@ -373,6 +391,9 @@ INSERT INTO
     lead_date,
     first_name,
     last_name,
+    gender,
+    birthday,
+    location_id,
     phone_number,
     email,
     status,
@@ -386,6 +407,9 @@ VALUES
     '2022-10-25',
     'Ido',
     'asd',
+    'male',
+    '1975-10-11',
+    7,
     '059-960-0499',
     'olgapaveleva87@gmailwe.com',
     false,
@@ -400,6 +424,9 @@ INSERT INTO
     lead_date,
     first_name,
     last_name,
+    gender,
+    birthday,
+    location_id,
     phone_number,
     email,
     status,
@@ -412,7 +439,10 @@ VALUES
     5,
     '2022-10-24',
     'Shachar',
-    ' Leah',
+    'Leah',
+    'male',
+    '1983-10-01',
+    7,
     '058-983-7010',
     'tequilasunrise@dogbackpack.net',
     true,
@@ -427,6 +457,9 @@ INSERT INTO
     lead_date,
     first_name,
     last_name,
+    gender,
+    birthday,
+    location_id,
     phone_number,
     email,
     status,
@@ -440,6 +473,9 @@ VALUES
     '2022-10-25',
     'Ora',
     'Uriel',
+    'female',
+    '2003-10-01',
+    7,
     '055-729-4430',
     'gobugayu@unair.nl',
     false,
@@ -1685,32 +1721,3 @@ SELECT
     14,
     false
   );
-
--- select
---   res.*,
---   act.activity_name
--- from
---   (
---     select
---       mt.*,
---       json_agg(
---         json_build_object(
---           'participants_group_id',
---           pgt.participants_group_id,
---           'trainee_id',
---           pgt.trainee_id,
---           'first_name',
---           pro.first_name,
---           "last_name",
---           pro.last_name
---         )
---       ) as "participants_group"
---     from
---       meetings as mt
---       LEFT JOIN participants_group as pgt ON mt.meeting_id = pgt.meeting_id
---       LEFT JOIN trainees as tr ON tr.trainee_id = pgt.trainee_id
---       LEFT JOIN profiles as pro ON tr.profile_id = pro.profile_id
---     group by
---       mt.meeting_id
---   ) as res
---   LEFT JOIN activities as act ON res.activity_id = act.activity_id;

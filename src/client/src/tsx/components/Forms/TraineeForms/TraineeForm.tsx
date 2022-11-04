@@ -95,6 +95,7 @@ export function TraineeForm({
               options={[
                 { value: "male", label: "Male" },
                 { value: "female", label: "Female" },
+                { value: "other", label: "Other" },
               ]}
               LabelProps={{ labelText: "Gender" }}
             />

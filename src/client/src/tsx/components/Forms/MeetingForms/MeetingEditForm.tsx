@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { useParams } from "react-router-dom";
+
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { meetingApi } from "../../../redux/api/hooksAPI";
 import { MeetingAPI } from "../../../redux/api/interfaceAPI";

@@ -20,7 +20,6 @@ export function ActivityForm({
       <Form<ActivitiesTableAPI>
         onSubmit={onSubmit}
         editMode={editMode}
-        // pathMove={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}`}
         nameForm="Activity"
         formProps={{ className: style.form_activity }}
         formOptions={{
@@ -31,7 +30,7 @@ export function ActivityForm({
           resolver: yupResolver(activitySchema),
         }}
       >
-        {({ register, formState, reset }) => {
+        {({ register, formState }) => {
           const { errors } = formState;
 
           return (
@@ -39,7 +38,6 @@ export function ActivityForm({
               <InputLabel
                 InputProps={{
                   ...register("activity_name"),
-                  // isError: !!muscles_group_name,
                 }}
                 LabelProps={{
                   htmlFor: "activity_name",

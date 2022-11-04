@@ -66,7 +66,8 @@ CREATE TABLE IF NOT EXISTS "profiles" (
   "location_id" INTEGER,
   "date_join" DATE,
   "status" BOOLEAN DEFAULT FALSE,
-  "measure_id" INTEGER
+  "measure_id" INTEGER,
+  CONSTRAINT "gender" CHECK ("gender" IN ('male', 'female', 'other'))
 );
 
 CREATE TABLE IF NOT EXISTS "measures"(
@@ -166,13 +167,21 @@ CREATE TABLE IF NOT EXISTS "leads"(
   "lead_date" DATE NOT NULL,
   "first_name" VARCHAR(40) NOT NULL,
   "last_name" VARCHAR(40) NOT NULL,
+  "location_id" INTEGER,
+  "birthday" DATE,
+  "gender" VARCHAR (20),
   "phone_number" VARCHAR(12) NOT NULL,
   "email" VARCHAR(255),
   "status" BOOLEAN DEFAULT FALSE,
   "note_topic" TEXT NOT NULL,
   "note_text" TEXT,
   "user_id" INTEGER DEFAULT 1,
-  CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
+  CONSTRAINT "gender" CHECK ("gender" IN ('male', 'female', 'other')),
+  CONSTRAINT fk_location_id FOREIGN KEY(location_id) REFERENCES locations(location_id) ON DELETE
+  SET
+    NULL ON
+UPDATE CASCADE,
+    CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE
   SET
     NULL ON
   UPDATE CASCADE

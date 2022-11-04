@@ -10,19 +10,28 @@ import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { leadsSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
-import { LeadsTableAPI } from "../../../redux/api/interfaceAPI";
+import {
+  LeadsTableAPI,
+  LocationsGetRes,
+} from "../../../redux/api/interfaceAPI";
 
 import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import { SelectInput } from "../../baseComponents/RHF-Components/SelectInput/SelectInput";
+import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
+import { locationsApi } from "../../../redux/api/hooksAPI";
 
+const today = new Date();
 export function LeadForm({
   onSubmit,
   defaultValues,
   editMode,
 }: GeneralFormProps<LeadsTableAPI>) {
+  const authState = useGetUserLoginData();
+  const queriesOptions = { userID: authState.user_id };
   return (
     <Form<LeadsTableAPI>
       editMode={editMode}
@@ -32,17 +41,20 @@ export function LeadForm({
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          user_id: useGetUserLoginData().user_id,
-          lead_date: formatDate(defaultValues?.lead_date || new Date()) as any,
+          user_id: authState.user_id,
+          lead_date: formatDate(defaultValues?.lead_date || today) as any,
+          birthday: formatDate(defaultValues?.birthday || today) as any,
         },
         resolver: yupResolver(leadsSchema),
       }}
     >
-      {({ register, formState }) => {
+      {({ register, formState, control }) => {
         const {
           lead_date,
           first_name,
           last_name,
+          birthday,
+
           email,
           phone_number,
           status,
@@ -82,6 +94,47 @@ export function LeadForm({
             >
               <InputErrorMessage nameInput="Last Name" error={last_name} />
             </InputLabel>
+
+            <SelectInput
+              selectProps={{ ...register("gender") }}
+              options={[
+                { value: "male", label: "Male" },
+                { value: "female", label: "Female" },
+                { value: "other", label: "Other" },
+              ]}
+              LabelProps={{ labelText: "Gender" }}
+            />
+
+            <InputLabel
+              InputProps={{ ...register("birthday"), type: "date" }}
+              LabelProps={{
+                htmlFor: "birthday",
+                labelText: "Birthday",
+              }}
+            >
+              <InputErrorMessage nameInput="Birthday" error={birthday} />
+            </InputLabel>
+
+            <AutocompleteInputRHF<LeadsTableAPI, LocationsGetRes>
+              name="location_id"
+              control={control}
+              AutocompleteInputProps={{
+                queriesOptions,
+                defaultValueID: defaultValues?.location_id,
+                InputLabelProps: {
+                  LabelProps: { labelText: "Locations" },
+                  InputProps: { placeholder: "Search Location" },
+                },
+                addOption: {
+                  link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.LOCATION_ROUTE}/${APP_ROUTE.LOCATION_ROUTE_ADD}`,
+                },
+                loadingSpinnerResult: { nameData: "Locations" },
+                useGetData: locationsApi.useGetItemsQuery,
+                id: "location_id",
+                keys: ["street", "city_name"],
+              }}
+            />
+
             <InputLabel
               InputProps={{ ...register("phone_number") }}
               LabelProps={{

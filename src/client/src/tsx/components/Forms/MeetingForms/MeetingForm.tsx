@@ -61,7 +61,7 @@ export function MeetingForm({
         nameForm="Meeting"
         onSubmit={onSubmit}
         editMode={editMode}
-        customButtonText={"submit"}
+        customButtonText={"Submit"}
         saveState={false}
         formWithOneButton={true}
         formOptions={{
@@ -75,9 +75,23 @@ export function MeetingForm({
           resolver: yupResolver(meetingsSchema),
         }}
       >
-        {({ register, formState, control }) => {
+        {({ register, formState, control, watch, setValue }) => {
           const { errors } = formState;
-          console.log(defaultValues?.participants_groups_list_id);
+          const date_start = watch("date_start");
+          if (date_start) {
+            const curStartDate = new Date(date_start);
+            setValue(
+              "date_end",
+              formatDate(
+                new Date(
+                  curStartDate.setTime(curStartDate.getTime() + 45 * 1000 * 60)
+                ),
+                0,
+                true
+              ) as any
+            );
+          }
+
           return (
             <>
               <div className="dates_meeting_model_form_container">

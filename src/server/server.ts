@@ -38,14 +38,6 @@ app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.use((req, res, next) => {
-//   logger.debug(`LINE 43: ${req.url} ${req.method}`, {
-//     objs: [{ body: req.body }, { query: req.query }, { params: req.params }],
-//     __filename,
-//   });
-
-//   next();
-// });
 app.use(winstonExpress.logger(winstonExpressOption));
 
 winstonExpress.requestWhitelist.push("body");

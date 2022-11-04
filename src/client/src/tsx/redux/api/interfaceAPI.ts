@@ -137,6 +137,9 @@ export interface LeadsTableAPI {
   lead_date: Date;
   first_name: string;
   last_name: string;
+  gender: string;
+  location_id: number;
+  birthday: Date;
   phone_number: string;
   email?: string;
   status: boolean;
@@ -391,8 +394,3 @@ export interface MeetingAPI {
   note_text: string;
   user_id?: number;
 }
-// export type MeetingTableAPI = OmitKey<MeetingAPI, "participants_group"> &
-//   PickKey<
-//     ParticipantsGroupTableAPI,
-//     "first_name" | "last_name" | "trainee_id" | "participants_group_id"
-//   >;

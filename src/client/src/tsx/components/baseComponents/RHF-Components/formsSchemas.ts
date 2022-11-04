@@ -7,11 +7,14 @@ export const musclesGroupSchema = yup.object().shape({
 });
 
 export const leadsSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable().default(1),
+  user_id: yup.number().notRequired().nullable(),
   lead_id: yup.number().notRequired().nullable(),
   lead_date: yup.date().required(),
   first_name: yup.string().required(),
   last_name: yup.string().required(),
+  gender: yup.string().required(),
+  location_id: yup.number().required(),
+  birthday: yup.date().required(),
   phone_number: yup.string().required(),
   email: yup.string().email().notRequired().nullable(),
   status: yup.boolean().required(),
