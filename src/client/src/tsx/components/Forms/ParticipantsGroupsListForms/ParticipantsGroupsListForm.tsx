@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { ParticipantsGroupsListTableAPI } from "../../../redux/api/interfaceAPI";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
@@ -20,7 +22,6 @@ export function ParticipantsGroupsListForm({
       <Form<ParticipantsGroupsListTableAPI>
         buttonNext={!editMode}
         nameForm={"Participants Group"}
-        // heading={`Training Program ${!editMode ? "Building" : "Edit"}`}
         onSubmit={onSubmit}
         pathMove={""}
         editMode={editMode}
@@ -59,6 +60,13 @@ export function ParticipantsGroupsListForm({
                   error={errors.is_private}
                 />
               </Checkbox>
+              {editMode && (
+                <Link
+                  to={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${defaultValues?.participants_groups_list_id}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`}
+                >
+                  Edit Participants Group
+                </Link>
+              )}
             </>
           );
         }}

@@ -1,5 +1,9 @@
 @use "../../../../style/utilities/utilities.scss" as *;
-.form_card_model_container {
+.trainee_meeting_model_container {
+  justify-content: initial;
+}
+
+.meeting_model_container {
   padding: 0.8rem;
   border-radius: 10px;
   @include classMatcher("Form_form_container") {
@@ -9,7 +13,7 @@
       align-items: initial;
       gap: 0.5rem;
 
-      @include classMatcher("dates_form_model_container") {
+      @include classMatcher("dates_meeting_model_form_container") {
         width: 100%;
         @include flex-dir(null, null, row);
         column-gap: 0.5rem;
@@ -17,7 +21,7 @@
           max-width: 50%;
         }
       }
-      @include classMatcher("autocomplete_form_model_container") {
+      @include classMatcher("autocomplete_meeting_model_form_container") {
         @include flex-dir(null, null, row);
         column-gap: 0.5rem;
         @include classMatcher("AutocompleteInput_autocomplete_container") {
@@ -25,7 +29,9 @@
         }
       }
 
-      @include classMatcher("participants_groups_form_model_container") {
+      @include classMatcher(
+        "participants_groups_meeting_model_form_container"
+      ) {
         width: 100%;
         @include flex-dir(null, center, column);
         @include classMatcher("AutocompleteInput_autocomplete_container") {
@@ -49,14 +55,14 @@
 }
 
 @include smartphone() {
-  .form_card_model_container {
+  .meeting_model_container {
     @include classMatcher("Form_form_container") {
       min-height: fit-content;
       form {
         width: 95%;
         flex-flow: column;
         align-items: initial;
-        @include classMatcher("dates_form_model_container") {
+        @include classMatcher("dates_meeting_model_form_container") {
           width: 100%;
           @include flex-dir(null, null, column);
           column-gap: 0.5rem;
@@ -67,7 +73,7 @@
             }
           }
         }
-        @include classMatcher("autocomplete_form_model_container") {
+        @include classMatcher("autocomplete_meeting_model_form_container") {
           @include flex-dir(null, null, column);
           column-gap: 0.5rem;
           @include classMatcher("AutocompleteInput_autocomplete_container") {
@@ -77,14 +83,9 @@
             }
           }
         }
-        @include classMatcher("ReactTags__tags react-tags-wrapper") {
-          width: 100%;
-          @include classMatcher("ReactTags__tagInputField") {
-            width: 100%;
-          }
-        }
       }
       @include classMatcher("title") {
+        width: 100%;
         input {
           min-width: 100%;
         }

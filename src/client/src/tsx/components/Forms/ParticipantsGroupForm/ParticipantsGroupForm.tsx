@@ -46,35 +46,32 @@ export function ParticipantsGroupForm({
         resolver: yupResolver(participantsGroupSchema),
       }}
     >
-      {({ control, formState }) => {
-        console.log(formState.errors);
-        return (
-          <>
-            <AutocompleteInputRHF<
-              ParticipantsGroupTableAPI,
-              TraineesTableExtendsAPI
-            >
-              name="trainee_id"
-              control={control}
-              AutocompleteInputProps={{
-                queriesOptions,
-                defaultValueID: defaultValues?.trainee_id,
-                InputLabelProps: {
-                  LabelProps: { labelText: "Trainee" },
-                  InputProps: { placeholder: "Search Trainee" },
-                },
-                addOption: {
-                  link: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
-                },
-                loadingSpinnerResult: { nameData: "Trainees" },
-                useGetData: traineesApi.useGetItemsQuery,
-                id: "trainee_id",
-                keys: ["first_name", "last_name"],
-              }}
-            />
-          </>
-        );
-      }}
+      {({ control, formState }) => (
+        <>
+          <AutocompleteInputRHF<
+            ParticipantsGroupTableAPI,
+            TraineesTableExtendsAPI
+          >
+            name="trainee_id"
+            control={control}
+            AutocompleteInputProps={{
+              queriesOptions,
+              defaultValueID: defaultValues?.trainee_id,
+              InputLabelProps: {
+                LabelProps: { labelText: "Trainee" },
+                InputProps: { placeholder: "Search Trainee" },
+              },
+              addOption: {
+                link: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
+              },
+              loadingSpinnerResult: { nameData: "Trainees" },
+              useGetData: traineesApi.useGetItemsQuery,
+              id: "trainee_id",
+              keys: ["first_name", "last_name"],
+            }}
+          />
+        </>
+      )}
     </Form>
   );
 }

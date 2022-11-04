@@ -1,0 +1,35 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+
+.meeting_details_container {
+  font-size: 1.2rem;
+  padding-left: 1rem;
+  text-align: left;
+  h1 {
+    margin-top: 0.5rem;
+  }
+
+  .meeting_details_content {
+    margin-top: 0.2rem;
+    @include flex-dir(null, flex-start, column);
+
+    gap: 0.5rem;
+    span {
+      b {
+        font-weight: 500;
+      }
+    }
+  }
+  .button_submit {
+    margin-top: 0.2rem;
+    align-self: center;
+    @include button(rgb(114, 151, 224));
+    color: white;
+    font-size: 1.2rem;
+  }
+}
+
+@include smartphone() {
+  .meeting_details_container {
+    font-size: 1rem;
+  }
+}

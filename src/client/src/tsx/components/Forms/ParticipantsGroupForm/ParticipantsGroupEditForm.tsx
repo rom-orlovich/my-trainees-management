@@ -1,14 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import {
-  locationsApi,
-  participantsGroupApi,
-} from "../../../redux/api/hooksAPI";
-import {
-  LocationsTableAPI,
-  ParticipantsGroupTableAPI,
-} from "../../../redux/api/interfaceAPI";
+import { participantsGroupApi } from "../../../redux/api/hooksAPI";
+import { ParticipantsGroupTableAPI } from "../../../redux/api/interfaceAPI";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ParticipantsGroupForm } from "./ParticipantsGroupForm";

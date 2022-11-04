@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
@@ -11,14 +12,10 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 
 function transformExerciseTable({
-  equipment_id,
-  muscles_group_id,
   exercise_name,
   muscles_group_name,
   equipment_name,
-  user_id,
   exercise_id,
-  ...rest
 }: ExercisesTableAPI) {
   return {
     exercise_id,

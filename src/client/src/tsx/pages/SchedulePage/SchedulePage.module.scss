@@ -1,6 +1,11 @@
 @use "../../../style/utilities/utilities.scss" as *;
 .schedule_page {
-  // overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+    border-radius: 5px;
+    height: 0.5rem;
+    width: 0rem !important;
+  }
   table {
     th {
       z-index: 50;
@@ -12,6 +17,11 @@
         white-space: nowrap;
       }
     }
+  }
+  @include classMatcher("fc-daygrid-event-harness") {
+    background-color: rgb(55, 136, 216);
+    color: white;
+    border-radius: 8px;
   }
 
   // For displaying events
@@ -193,10 +203,5 @@
         }
       }
     }
-  }
-  ::-webkit-scrollbar {
-    border-radius: 5px;
-    height: 0.5rem;
-    width: 0.8rem !important;
   }
 }

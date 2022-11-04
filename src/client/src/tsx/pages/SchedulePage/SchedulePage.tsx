@@ -38,7 +38,6 @@ import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 const isDesktopWidth = window.innerWidth > 500;
 
 function SchedulePage() {
-  const authState = useGetUserLoginData();
   const dispatch = useAppDispatch();
   const [queryParams, setQueryParams] = useSearchParams();
   const [deleteEvent] = meetingApi.useDeleteItemMutation();
@@ -75,7 +74,7 @@ function SchedulePage() {
   }));
   const handleEventContent = (event: EventContentArg) => (
     <div className={style.event_container}>
-      <AiFillDelete className={style.deleteIcon} />
+      {!isTrainee && <AiFillDelete className={style.deleteIcon} />}
       <div className={style.date_data}>
         <b>{event.timeText}</b>
         <i>{event.event.title}</i>
@@ -83,6 +82,7 @@ function SchedulePage() {
     </div>
   );
   const handleSelectEvent = (event: DateSelectArg) => {
+    if (isTrainee) return;
     if (event.view.type === "timeGridDay") {
       dispatch(changeModelState());
       setQueryParams({
@@ -107,6 +107,7 @@ function SchedulePage() {
   };
 
   const handleDropEvent = (event: EventDropArg) => {
+    if (isTrainee) return;
     const lastEventData = data?.data.find(
       (el) => el?.meeting_id === Number(event.oldEvent.id)
     );
@@ -124,6 +125,7 @@ function SchedulePage() {
     }
   };
   const handleResizeEvent = (event: EventResizeDoneArg) => {
+    if (isTrainee) return;
     const lastEventData = data?.data.find(
       (el) => el?.meeting_id === Number(event.oldEvent.id)
     );
@@ -178,8 +180,8 @@ function SchedulePage() {
           eventTimeFormat={formatTimeObj}
           slotLabelFormat={formatTimeObj}
           allDaySlot={false}
-          editable={true}
-          selectable={true}
+          editable={!isTrainee}
+          selectable={!isTrainee}
           eventOverlap={true}
           handleWindowResize={true}
           longPressDelay={500}

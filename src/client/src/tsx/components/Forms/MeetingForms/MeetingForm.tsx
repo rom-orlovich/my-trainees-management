@@ -74,14 +74,13 @@ export function MeetingForm({
 
           resolver: yupResolver(meetingsSchema),
         }}
-        // formProps={{ className: "" }}
       >
-        {({ register, formState, control, setValue }) => {
+        {({ register, formState, control }) => {
           const { errors } = formState;
-
+          console.log(defaultValues?.participants_groups_list_id);
           return (
             <>
-              <div className="dates_form_model_container">
+              <div className="dates_meeting_model_form_container">
                 <InputLabel
                   InputProps={{
                     ...register("date_start"),
@@ -114,7 +113,7 @@ export function MeetingForm({
                 </InputLabel>
               </div>
 
-              <div className="participants_groups_form_model_container">
+              <div className="participants_groups_meeting_model_form_container">
                 <AutocompleteInputRHF<
                   MeetingAPI,
                   ParticipantsGroupsListTableAPI
@@ -144,7 +143,7 @@ export function MeetingForm({
                   }}
                 />
               </div>
-              <div className="autocomplete_form_model_container">
+              <div className="autocomplete_meeting_model_form_container">
                 <AutocompleteInputRHF<MeetingAPI, ActivitiesTableAPI>
                   name="activity_id"
                   control={control}

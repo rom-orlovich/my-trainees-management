@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { equipmentsApi, musclesGroupApi } from "../../../redux/api/hooksAPI";
 import {
@@ -8,8 +8,7 @@ import {
   ExercisesTableAPI,
   MusclesGroupTableAPI,
 } from "../../../redux/api/interfaceAPI";
-import { useAppSelector } from "../../../redux/hooks";
-import { getAuthState } from "../../../redux/slices/authSlice";
+
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";

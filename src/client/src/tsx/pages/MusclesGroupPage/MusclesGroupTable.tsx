@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";

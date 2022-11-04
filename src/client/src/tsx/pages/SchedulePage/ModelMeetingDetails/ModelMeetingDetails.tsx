@@ -1,13 +1,10 @@
 /* eslint-disable camelcase */
+import { formatDate, FormatDateOptions } from "@fullcalendar/react";
 import React from "react";
 import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
-import {
-  locationsApi,
-  meetingApi,
-  participantsGroupApi,
-} from "../../../redux/api/hooksAPI";
-import { formatDate } from "../../../utilities/helpersFun";
+import { meetingApi, participantsGroupApi } from "../../../redux/api/hooksAPI";
+import style from "./ModelMeetingDetails.module.scss";
 
 function ModelMeetingDetails({ meetingID }: { meetingID: number }) {
   const { isTrainee, traineeID, userID, trainerUserID } =
@@ -32,6 +29,12 @@ function ModelMeetingDetails({ meetingID }: { meetingID: number }) {
       participantsGroupsListID: meetingData?.participants_groups_list_id,
     });
 
+  const dateFormat: FormatDateOptions | undefined = {
+    dateStyle: "medium",
+    timeStyle: "short",
+    hour12: false,
+  };
+  const lengthParticipants = participantsGroupData?.data.length;
   return (
     <LoadingSpinner
       stateData={{
@@ -42,28 +45,38 @@ function ModelMeetingDetails({ meetingID }: { meetingID: number }) {
       }}
     >
       {(data) => {
-        const { activity_name, date_end, date_start } = data;
+        const { activity_name, date_end, date_start, street, city_name } = data;
         return (
-          <div>
+          <div className={style.meeting_details_container}>
             <h1> {activity_name} </h1>
-            <div className="dates">
+            <div className={style.meeting_details_content}>
               <span>
-                Start: <b>{formatDate(date_start, 0, true)}</b>
+                Start: <b>{formatDate(date_start, dateFormat)}</b>
               </span>
               <span>
-                End: <b>{formatDate(date_end, 0, true)}</b>
+                End: <b>{formatDate(date_end, dateFormat)}</b>
               </span>
-            </div>
-            <div>
-              <span>City: {data?.city_name}</span>
-              <span>Address: {data?.street}</span>
-            </div>
-            <div>
-              {participantsGroupData?.data.map((el) => (
-                <span key={el.participants_groups_list_id}>
-                  {el.first_name}
-                </span>
-              ))}
+
+              <span>
+                {`Location: `}
+                <b>
+                  {street}, {city_name}
+                </b>
+              </span>
+
+              <span>
+                {`Participants: `}
+                {participantsGroupData?.data.map((el, i) => {
+                  const delimiter =
+                    lengthParticipants && i < lengthParticipants - 1 ? "," : "";
+                  return (
+                    <b key={el.participants_group_id}>
+                      {`${el.first_name} ${el.last_name}${delimiter} `}
+                    </b>
+                  );
+                })}
+              </span>
+              <button className={style.button_submit}>Submit</button>
             </div>
           </div>
         );

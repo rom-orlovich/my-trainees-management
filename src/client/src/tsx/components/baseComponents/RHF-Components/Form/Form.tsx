@@ -118,7 +118,6 @@ export default function Form<TFormValues extends Record<string, any>>({
       };
       console.log(error);
       methods.setError("server" as any, { message: Error.data?.message });
-    } finally {
     }
   };
 

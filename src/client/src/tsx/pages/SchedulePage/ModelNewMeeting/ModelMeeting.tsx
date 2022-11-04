@@ -22,13 +22,18 @@ function ModelMeeting() {
     ) : (
       <MeetingAddForm />
     );
-
-  const modelContent = !useCheckRole().isTrainee
+  const { isTrainee } = useCheckRole();
+  const modelContent = !isTrainee
     ? formMeetingContent
     : ModelMeetingDetailsContent;
 
   return (
-    <ModelCard className={genClassName(style.form_card_model_container)}>
+    <ModelCard
+      className={genClassName(
+        style.meeting_model_container,
+        isTrainee ? style.trainee_meeting_model_container : ""
+      )}
+    >
       {modelContent}
     </ModelCard>
   );
