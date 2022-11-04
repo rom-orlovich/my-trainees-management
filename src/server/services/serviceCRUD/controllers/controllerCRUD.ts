@@ -1,14 +1,11 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "express";
 import { DatabaseError } from "pg";
-import * as yup from "yup";
-import { Module } from "module";
-import { groupBy } from "lodash";
+
 import {
   createRealQueryKeyValuesObj,
-  deleteQuery,
   deleteTableWithOtherTableData,
-  insertNewTableData,
   insertQueryOneItem,
   selectPagination,
   selectQuery,
@@ -23,10 +20,9 @@ import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { OptionsCRUD } from "../serviceCRUDTypes";
-import { MeetingAPI } from "./handleInsertParticipantsGroup";
+
 import { TrainingProgramExercise } from "../../serviceStatistics/utilities/helpersStatisticsService";
 
-// const module = { module: Module };
 /**
  *
  * @param param0 Options of the CRUD controller routes.
@@ -114,10 +110,6 @@ export function createRoutesControllers({
       req.statsData = { statsResult: { measures: responseData } };
       return next();
     }
-    // if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
-    //   req.body = responseData;
-    //   return next();
-    // }
 
     return res.status(200).json(responseData);
   };
@@ -161,11 +153,6 @@ export function createRoutesControllers({
       };
     }
 
-    if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
-      const Data = data as MeetingAPI;
-      req.body = { meeting_id: Data?.meeting_id };
-    }
-
     req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },
       err,
@@ -201,11 +188,6 @@ export function createRoutesControllers({
       req.statsData = {
         updateExerciseData: data,
       };
-    }
-
-    if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
-      const Data = data as MeetingAPI;
-      req.body = { meeting_id: Data.meeting_id };
     }
 
     req.logAlertInfo = prepareLogAlert(

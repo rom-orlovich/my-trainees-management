@@ -5,11 +5,7 @@ import { selectQuery, updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
 import { logger } from "../../loggerService/logger";
-import {
-  Permission,
-  Permissions,
-  PermissionsRolesType,
-} from "../../usersPermission";
+import { Permission, Permissions } from "../../usersPermission";
 
 import { UserRoles, verifyAsync } from "../utilities/authHelpers";
 

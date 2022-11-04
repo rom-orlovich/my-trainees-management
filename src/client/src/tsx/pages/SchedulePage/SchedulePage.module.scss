@@ -118,7 +118,10 @@
         text-align: center;
       }
     }
-
+    //The main content of table
+    @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
+      height: 100%;
+    }
     // The whole calender.
     @include classMatcher(
       "fc fc-media-screen fc-direction-ltr fc-theme-standard"
@@ -143,6 +146,7 @@
         }
         //The main content of table
         @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
+          height: 100%;
           overflow-y: hidden !important;
         }
       }

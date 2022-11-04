@@ -16,7 +16,7 @@ import UsersPage from "../pages/UsersPage/UsersPage";
 import ComingSoonPage from "../pages/ComingSoonPage/ComingSoonPage";
 import MyWorkoutsPage from "../pages/MyWorkoutsPage/MyWorkoutsPage";
 import AuthRoutes from "./AuthRoutes";
-import PublicRoute from "./utilities/PublicRoute";
+
 import PersistedLogin from "./utilities/PersistedLogin";
 import ProtectedRoute from "./utilities/ProtectedRoute";
 
@@ -121,22 +121,21 @@ function AppRoutes() {
               </Route>
             </Route>
           </Route>
-        </Route>
-
-        {/* The admin role routes. */}
-        <Route element={<ProtectedRoute allowedRole={isAdmin} />}>
-          <Route path={APP_ROUTE.USERS_ROUTE}>
-            <Route path="" element={<UsersPage />} />
-            <Route path=":id" element={<ComingSoonPage />} />
+          {/* The admin role routes. */}
+          <Route element={<ProtectedRoute allowedRole={isAdmin} />}>
+            <Route path={APP_ROUTE.USERS_ROUTE}>
+              <Route path="" element={<UsersPage />} />
+              <Route path=":id" element={<ComingSoonPage />} />
+            </Route>
           </Route>
-        </Route>
 
-        {/* The trainee role routes. */}
-        <Route element={<ProtectedRoute allowedRole={isTrainee} />}>
-          <Route
-            path={APP_ROUTE.MY_WORKOUTS_ROUTE}
-            element={<MyWorkoutsPage />}
-          />
+          {/* The trainee role routes. */}
+          <Route element={<ProtectedRoute allowedRole={isTrainee} />}>
+            <Route
+              path={APP_ROUTE.MY_WORKOUTS_ROUTE}
+              element={<MyWorkoutsPage />}
+            />
+          </Route>
         </Route>
       </Route>
     </Routes>

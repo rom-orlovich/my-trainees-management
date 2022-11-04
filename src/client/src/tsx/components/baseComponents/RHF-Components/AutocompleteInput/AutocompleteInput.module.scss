@@ -36,13 +36,19 @@
     z-index: 20;
     background-color: white;
     li {
+      position: relative;
       @include flex-dir(center, center);
       font-size: 1.2rem;
       height: 3rem;
       background-color: white;
       &:hover {
-        background-color: rgb(107, 146, 218);
+        background-color: rgb(123, 160, 228);
         cursor: pointer;
+      }
+      @include classMatcher("editOption") {
+        @include posAbs(null, null, 3%, null);
+        color: rgba(53, 194, 53, 0.89);
+        z-index: 70;
       }
     }
   }

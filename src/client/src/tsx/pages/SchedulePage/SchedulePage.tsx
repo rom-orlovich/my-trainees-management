@@ -14,6 +14,7 @@ import FullCalendar, {
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, {
+  DateClickArg,
   EventResizeDoneArg,
 } from "@fullcalendar/interaction";
 
@@ -87,7 +88,6 @@ function SchedulePage() {
     const deleteButton = target.closest(`[class*="deleteIcon"]`);
     if (deleteButton) deleteEvent(String(event.event.id));
     else {
-      // else {
       setQueryParams({
         id: event.event.id,
         modelFormState: "edit",
@@ -132,14 +132,16 @@ function SchedulePage() {
   };
 
   const handleDateset = (DatesSetArg: DatesSetArg) => {
-    console.log({
-      gt: DatesSetArg.start.toISOString(),
-      lt: DatesSetArg.end.toISOString(),
-    });
     setDateRange({
-      gt: DatesSetArg.start.toISOString(),
-      lt: DatesSetArg.end.toISOString(),
+      gt: DatesSetArg.startStr,
+      lt: DatesSetArg.endStr,
     });
+  };
+  const handleDateClick = (date: DateClickArg) => {
+    if (date.view.type !== "timeGridDay") {
+      date.view.calendar.gotoDate(date.date);
+      date.view.calendar.changeView("timeGridDay");
+    }
   };
   return (
     <>
@@ -157,12 +159,7 @@ function SchedulePage() {
           }}
           events={events}
           datesSet={handleDateset}
-          dateClick={(date) => {
-            if (date.view.type !== "timeGridDay") {
-              date.view.calendar.gotoDate(date.date);
-              date.view.calendar.changeView("timeGridDay");
-            }
-          }}
+          dateClick={handleDateClick}
           eventClick={handleEventClick}
           eventDrop={handleDropEvent}
           eventResize={handleResizeEvent}

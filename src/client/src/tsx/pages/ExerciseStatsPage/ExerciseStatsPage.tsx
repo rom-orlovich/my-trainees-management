@@ -22,16 +22,6 @@ function ExerciseStatsPage() {
   const [queryParams] = useSearchParams();
   const authState = useAppSelector(getAuthState);
 
-  // const [{ gt, lt, display }, setQueryState] = useState({
-  //   gt: "",
-  //   lt: "",
-  //   display: "graph",
-  // });
-
-  // const onChange = <T extends { id: any; value: any }>(e: ChangeEvent<T>) => {
-  //   setQueryState((pre) => ({ ...pre, [e.target.id]: e.target.value }));
-  // };
-
   const [{ gt, lt, display }, onChange] = useOnChangeInput({
     gt: "",
     lt: "",

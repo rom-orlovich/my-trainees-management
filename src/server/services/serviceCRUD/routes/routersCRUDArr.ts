@@ -2,7 +2,6 @@ import { Router } from "express";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import {
   activityOptionsCRUD,
-  alertsOptionsCRUD,
   citiesOptionsCRUD,
   equipmentsOptionsCRUD,
   exerciseListOptionsCRUD,
@@ -28,7 +27,6 @@ import {
   createAlertsRouter,
   createIncomesRouter,
   createMeasuresRouter,
-  createMeetingRouter,
   createTraineesRouter,
 } from "./otherRouters";
 

@@ -232,13 +232,13 @@ export async function selectQuery(
   const statement = `${
     wholeSelectQueryLogic || `SELECT ${fields} FROM ${tableName}`
   } ${queryLogic} `;
-  // logger.debug(
-  //   `LINE 232:${statement} : values:${JSON.stringify(queryParams)}`,
-  //   {
-  //     // objs: [error],
-  //     __filename,
-  //   }
-  // );
+  logger.debug(
+    `LINE 232:${statement} : values:${JSON.stringify(queryParams)}`,
+    {
+      // objs: [error],
+      __filename,
+    }
+  );
   try {
     const rows = await client.query(statement, queryParams);
     return rows.rows;

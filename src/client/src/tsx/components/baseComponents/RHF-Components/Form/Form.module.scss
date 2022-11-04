@@ -81,7 +81,10 @@ span[class*="checkbox_label"] {
       flex: 40%;
       max-width: 32%;
       li {
-        font-size: 1.2rem !important;
+        font-size: 1rem !important;
+        text-overflow: hidden;
+
+        word-spacing: -2px;
       }
     }
     span[class*="textarea_label"] {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import {
   UseLazyQuery,
   UseQuery,
@@ -40,11 +41,12 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
 
   addOption?: {
     link: string;
-    saveState?: () => void;
+  };
+  editOption?: {
+    link: string | ((id: any) => string);
   };
   externalInputValueOnChange?: React.Dispatch<React.SetStateAction<string>>;
   useGetData: UseQuery<any>;
-
   setSelectOptionValue?: React.Dispatch<React.SetStateAction<string[]>>;
   children?: ReactNode;
   defaultValueID?: number;
@@ -59,7 +61,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   useGetData,
   keys,
   id,
-
+  editOption,
   setSelectOptionValue,
   children,
   addOption,
@@ -161,6 +163,7 @@ function AutocompleteInput<T extends Record<string, any>>({
             className: style.list_res,
             LI: (props) => (
               <AutocompleteLi<T>
+                editOption={editOption}
                 {...props.liProps}
                 {...liProps}
                 handleOnClick={handleClickLi}

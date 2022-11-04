@@ -2,7 +2,7 @@
 
 .settings_page {
   @include flex-dir(null, null, column);
-  padding: 1rem 4rem;
+
   width: 100%;
   gap: 2rem;
   margin-left: 2rem;
@@ -14,14 +14,11 @@
   }
 
   &_links {
-    // @include flex-dir(null, null, column);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    @include flex-dir(null, null, column);
 
     gap: 1rem;
     a {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
   }
 }

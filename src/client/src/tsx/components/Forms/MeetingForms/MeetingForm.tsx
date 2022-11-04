@@ -137,6 +137,10 @@ export function MeetingForm({
                     useGetData: participantsGroupsListApi.useGetItemsQuery,
                     id: "participants_groups_list_id",
                     keys: ["group_name"],
+                    editOption: {
+                      link: (id) =>
+                        `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${id}`,
+                    },
                   }}
                 />
               </div>
@@ -156,6 +160,10 @@ export function MeetingForm({
                     addOption: {
                       link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE_ADD}`,
                     },
+                    editOption: {
+                      link: (id) =>
+                        `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE}/${id}`,
+                    },
                     loadingSpinnerResult: { nameData: "Activity" },
                     useGetData: activitiesApi.useGetItemsQuery,
                     id: "activity_id",
@@ -174,6 +182,10 @@ export function MeetingForm({
                     },
                     addOption: {
                       link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.LOCATION_ROUTE}/${APP_ROUTE.LOCATION_ROUTE_ADD}`,
+                    },
+                    editOption: {
+                      link: (id) =>
+                        `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.LOCATION_ROUTE}/${id}`,
                     },
                     loadingSpinnerResult: { nameData: "Locations" },
                     useGetData: locationsApi.useGetItemsQuery,

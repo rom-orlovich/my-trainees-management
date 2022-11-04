@@ -1,4 +1,6 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
+import { AiFillEdit } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import { AnyFun } from "../../../../types";
 import {
   getEntriesArrObj,
@@ -23,20 +25,34 @@ function AutocompleteLi<T extends Record<string, any>>({
   id,
   handleOnClick,
   props,
-  ...rest
+  editOption,
 }: { props: ComponentProps<T> } & {
   liProps?: LiProps;
-} & { handleOnClick: AnyFun } & { keys: (keyof T)[]; id: keyof T }) {
+} & { handleOnClick: AnyFun } & { keys: (keyof T)[]; id: keyof T } & {
+  editOption?: {
+    link: string | ((id: any) => string);
+  };
+}) {
+  const nav = useNavigate();
   const obj = props as T;
   const liID = obj[id];
 
   const labelText = createStrFromValuesOfChosenKeys(obj, keys);
-  const handleLiClick = () => {
-    handleOnClick({ [obj[id]]: labelText });
+  const handleLiClick: MouseEventHandler = (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest(".editOption")) {
+      if (editOption) {
+        if (typeof editOption.link === "function") {
+          nav(editOption.link(liID));
+        } else nav(editOption.link as any);
+      }
+    } else handleOnClick({ [obj[id]]: labelText });
   };
+
   return (
     <li onClick={handleLiClick} {...liProps} id={liID}>
       {labelText.slice(0, 25)}
+      {editOption && <AiFillEdit onClick={() => {}} className="editOption" />}
     </li>
   );
 }

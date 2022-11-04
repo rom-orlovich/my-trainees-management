@@ -30,12 +30,7 @@ import {
   logger,
   winstonExpressOption,
 } from "./services/loggerService/logger";
-import {
-  loggerRequestInfo,
-  loggerRequestWarns,
-} from "./services/loggerService/helpersLogger";
 
-const fileName = { __filename };
 const PORT = process.env.PORT || 5000;
 
 export const app = express();
@@ -43,6 +38,14 @@ app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// app.use((req, res, next) => {
+//   logger.debug(`LINE 43: ${req.url} ${req.method}`, {
+//     objs: [{ body: req.body }, { query: req.query }, { params: req.params }],
+//     __filename,
+//   });
+
+//   next();
+// });
 app.use(winstonExpress.logger(winstonExpressOption));
 
 winstonExpress.requestWhitelist.push("body");
@@ -84,23 +87,23 @@ async function connectDB() {
   try {
     await client.connect();
     client.on("error", (err) => {
-      logger.error("something bad has happened!", err.stack, fileName);
+      logger.error("something bad has happened!", err.stack, __filename);
     });
 
-    logger.log("info", `Connected pgSQL server.`, fileName);
+    logger.log("info", `Connected pgSQL server.`, __filename);
 
     // Uncomment this line will init the  db.
     // This line is for development purpose.
     // await initDB();
 
     server = app.listen(PORT, () => {
-      logger.log("info", `listen port ${PORT}`, fileName);
+      logger.log("info", `listen port ${PORT}`, __filename);
     });
   } catch (error) {
     logger.error(error);
     if (server)
       server.close(() => {
-        logger.log("info", "server is closed");
+        logger.log("info", "server is closed", __filename);
       });
   }
 }

@@ -7,22 +7,14 @@ import { logger } from "../../loggerService/logger";
 import { handleDeleteAllUserAlerts } from "../../serviceAlerts/handleAlerts";
 import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
 import { handleInsertNewMeasure } from "../../serviceStatistics/controllers/handleInsertNewMeasure";
-import {
-  formatMeetingToHaveParticipantsGroupArr,
-  handleGetMeetingsHaveGroupArr,
-  handleGetParticipantsGroup,
-} from "../controllers/handleGetParticipantsGroup";
+
 import { handleInsertNewSubscription } from "../controllers/handleInsertNewSubscription";
-import {
-  handleInsertParticipantsGroup,
-  MeetingAPI,
-} from "../controllers/handleInsertParticipantsGroup";
+
 import { createControllersHandlerAndRouterWithAppMiddleware } from "../utilities/helperServiceCRUD";
 import {
   alertsOptionsCRUD,
   incomesOptionsCRUD,
   measuresOptionsCRUD,
-  meetingOptionsCRUD,
   traineesOptionsCRUD,
 } from "./configRoutes";
 import { createCRUDroutes } from "./createCRUDroutes";
@@ -74,54 +66,6 @@ export const createIncomesRouter = () => {
   );
 
   routeByEntityAndID.put(controllerHandlersObj.updateValueByID);
-
-  return expressRouterObj;
-};
-
-export const createMeetingRouter = () => {
-  const {
-    routeByEntity,
-    routeByEntityAndID,
-    controllerHandlersObj,
-    expressRouterObj,
-    routeByBaseRoute,
-  } = createControllersHandlerAndRouterWithAppMiddleware(meetingOptionsCRUD);
-  const insertParticipantsMiddleware: RequestHandler = (req, res, next) => {
-    if (req.method === "PUT" || req.method === "POST")
-      logger.debug(`LINE 91:${req.url}  ${req.method} - req.body`, {
-        objs: [req.body],
-        __filename,
-      });
-
-    if (req.logAlertInfo?.error) return next();
-    const { participants_group, ...rest } = req.body as MeetingAPI;
-    req.insertParticipants = {
-      participantGroup: participants_group?.map(
-        ({ first_name, last_name, ...el }) => ({
-          ...el,
-        })
-      ),
-      user_id: rest.user_id,
-    };
-    req.body = rest;
-    return next();
-  };
-
-  // routeByBaseRoute.get(handleGetMeetingsHaveGroupArr);
-
-  // routeByEntityAndID.get(handleGetParticipantsGroup);
-
-  routeByEntity.post(
-    insertParticipantsMiddleware,
-    controllerHandlersObj.createNewValueInDB,
-    handleInsertParticipantsGroup
-  );
-
-  routeByEntityAndID.put(
-    insertParticipantsMiddleware,
-    controllerHandlersObj.updateValueByID,
-    handleInsertParticipantsGroup
-  );
 
   return expressRouterObj;
 };
