@@ -32,24 +32,23 @@ INSERT INTO public.profiles (profile_id, first_name, last_name, gender, identify
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.users (user_id, role, username, password, refresh_tokens, verify_token, profile_id) VALUES (2, 'trainer', 'trainer123', '$2a$10$AbCTVp/Jk7QVLfflOIwN7OZaZdH488zzP0pND9yZJHEl2bbmiBBBK', '{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzU3MDUwOCwiZXhwIjoxNjY3Njc2NjkxfQ.HsRq-9q9G86tSpwj8nmg-WuF5_TyTr5WUKDe4voZ7GM,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzU3Njc4MywiZXhwIjoxNjY3NzQ5NTgzfQ.MEiga_MfxOM2NPeZrio1gwJX8OeJqm0omNVUuYICs74,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzU4MTg0NSwiZXhwIjoxNjY3NzU0NjQ1fQ.F_k39sTp3LZqofB0qolE-TSIfGp_EN-3elIRAVABhrA,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzU5MTI1OSwiZXhwIjoxNjY3NzY0MDU5fQ.2Bp19LU_ST_pNjx9DDeaHqg5mofXzBxIocNv3qTm4Bs,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzU5MTMwMCwiZXhwIjoxNjY3NzY0MTAwfQ.LcHncjZpKVt24oCI2z8CtdI7S4pdsPdmEA5C4fhSGgA,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzU5MTMzNSwiZXhwIjoxNjY3NzY0MTM1fQ.rcd8iOAvdvJHA3i7YNsmZe7KY0Q8xZlA7jsc5wf3Upk,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzU5NDA0NiwiZXhwIjoxNjY3NzY2ODQ2fQ.gfKHpefd_xHQpcAGgE7q3s6SmTvdjgA6cuahGZfYPI4,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzU5NTkwMiwiZXhwIjoxNjY3NzY4NzAyfQ.qOdQUJWkylRAbA0ahMZB0SO378v_HoNTGideEuSkuC8,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzU5NjE3NiwiZXhwIjoxNjY3NzY4OTc2fQ.iMYHnQi6FEic9Q4LECa2lRI3stJHm4VF5Z79mAHNp_I,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzYwMDM0MywiZXhwIjoxNjY3NzY5MzkzfQ.eINo54Z9tktcCF5fapsCRHGm3bxxsqqcVGlUvurA4hA}', NULL, 2);
-INSERT INTO public.users (user_id, role, username, password, refresh_tokens, verify_token, profile_id) VALUES (1, 'admin', 'admin123', '$2a$10$WWHUTphuspaHtQr6P1Ve.eeKwzY1Yl5waI8RaAHjsRUdc5TZtJwBG', '{}', NULL, 1);
-INSERT INTO public.users (user_id, role, username, password, refresh_tokens, verify_token, profile_id) VALUES (3, 'trainee', 'trainee123', '$2a$10$7m.G2pE.mD3u8VtxB.iG7u9jAo2PLX17DPzgWOiKySMoY1AAXVO2u', '{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lZSIsInVzZXJfaWQiOjMsInVzZXJuYW1lIjoidHJhaW5lZTEyMyIsImlhdCI6MTY2NzU4MDU2NiwiZXhwIjoxNjY3NzUzMzY2fQ.GVh82m4gw1pTG-BiI-RWq2dOU5fN_aAN2XbPU6CqgR4,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lZSIsInVzZXJfaWQiOjMsInVzZXJuYW1lIjoidHJhaW5lZTEyMyIsImlhdCI6MTY2NzU4MDc1OSwiZXhwIjoxNjY3NzUzNTU5fQ.ExxS6VvjqXJheUXkGPwWzWJUlBaapFqmpSr-73pcWe8,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lZSIsInVzZXJfaWQiOjMsInVzZXJuYW1lIjoidHJhaW5lZTEyMyIsImlhdCI6MTY2NzU4Mzc1NSwiZXhwIjoxNjY3NzUzNTY0fQ.qlJTmZnrXfL75M1KrZMj2VnRox3K_K6eOfvRqhjWVIs,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lZSIsInVzZXJfaWQiOjMsInVzZXJuYW1lIjoidHJhaW5lZTEyMyIsImlhdCI6MTY2NzU5NTc3NywiZXhwIjoxNjY3NzY4NTc3fQ.wMJAYQ1TEAIXvCrEBwpa7RToNmDBbpvUnEm92ZhnSEc}', NULL, 3);
+INSERT INTO public.users (user_id, role, username, password, refresh_tokens, verify_token, profile_id) VALUES (1, 'admin', 'admin123', '$2a$10$/kNGZbr2KRzvRGOv8.NfP.nzZEQs1IZquDbW3TIBmcK8qX87OHBxq', '{}', NULL, 1);
+INSERT INTO public.users (user_id, role, username, password, refresh_tokens, verify_token, profile_id) VALUES (3, 'trainee', 'trainee123', '$2a$10$nsfxPRs.WOnL29U1ClrA/Ohcoyav/IARGtwGUVxYuA8Qr4e9SUGJa', '{}', NULL, 3);
+INSERT INTO public.users (user_id, role, username, password, refresh_tokens, verify_token, profile_id) VALUES (2, 'trainer', 'trainer123', '$2a$10$JH7Um2KiFcm36NBk/oa7MObLlH5.sTC4.dyuyVwmx/K7cCbWvAP4K', '{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzYwMzQ1OSwiZXhwIjoxNjY3Nzc0ODcwfQ.YuF-45bp8no7ceUdPWUblSMYkyaqCmjz_Al2zrJk0T0,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY2NzYwNzEyOSwiZXhwIjoxNjY3Nzc2MjU3fQ.jwOTM4oawSxaIqu-MPyHINdT2VZku82fJWwFG32ikGc}', NULL, 2);
 
 
 --
 -- Data for Name: activities; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.activities (activity_id, activity_name, user_id) VALUES (1, 'Couples training', 2);
-INSERT INTO public.activities (activity_id, activity_name, user_id) VALUES (2, 'Personal Training', 2);
+INSERT INTO public.activities (activity_id, activity_name, user_id) VALUES (1, 'personal training', 2);
+INSERT INTO public.activities (activity_id, activity_name, user_id) VALUES (2, 'Couples training', 2);
 
 
 --
 -- Data for Name: alerts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.alerts (alert_id, alert_date, alert_message, user_id) VALUES (180, '2022-11-04 17:00:58.910444+02', 'Login is success!', 1);
 
 
 --
@@ -87,7 +86,6 @@ INSERT INTO public.muscles_group (muscles_group_id, muscles_group_name, user_id)
 INSERT INTO public.muscles_group (muscles_group_id, muscles_group_name, user_id) VALUES (6, 'ABS', 2);
 INSERT INTO public.muscles_group (muscles_group_id, muscles_group_name, user_id) VALUES (7, 'Biceps', 2);
 INSERT INTO public.muscles_group (muscles_group_id, muscles_group_name, user_id) VALUES (5, 'Shoulders', 2);
-INSERT INTO public.muscles_group (muscles_group_id, muscles_group_name, user_id) VALUES (8, 't', 2);
 
 
 --
@@ -111,14 +109,23 @@ INSERT INTO public.exercises_list (exercise_id, exercise_name, muscles_group_id,
 -- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (7, 'weights', 'Expense', 1, 20, 2);
-INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (8, 'training 1', 'Subscription Plan', 1, 1, 2);
+INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (8, '1 training package', 'Subscription Plan', 1, 120, 2);
+INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (10, '2 trainings package', 'Subscription Plan', 2, 240, 2);
+INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (11, '4 couple trainings package', 'Subscription Plan', 4, 480, 2);
+INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (12, '8 couple trainings package', 'Subscription Plan', 8, 960, 2);
+INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (13, '2 first Trainings package', 'Subscription Plan', 2, 200, 2);
+INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (7, 'weights 10kg', 'Expense', 1, 20, 2);
+INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (14, 'pull bar', 'Expense', NULL, 120, 2);
+INSERT INTO public.products (product_id, product_name, product_type, max_training, price, user_id) VALUES (15, 'kettlebell 10kg', 'Expense', NULL, 50, 2);
 
 
 --
 -- Data for Name: expenses; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.expenses (expense_id, date, amount, product_id, seller_name, total_price, note_topic, note_text, user_id) VALUES (1, '2022-11-04', 2, 7, 'sport stock', 40, '', '', 2);
+INSERT INTO public.expenses (expense_id, date, amount, product_id, seller_name, total_price, note_topic, note_text, user_id) VALUES (2, '2022-11-04', 2, 15, 'mega sport', 100, '', '', 2);
+INSERT INTO public.expenses (expense_id, date, amount, product_id, seller_name, total_price, note_topic, note_text, user_id) VALUES (3, '2022-11-04', 1, 14, 'mega sport', 120, '', '', 2);
 
 
 --
@@ -135,18 +142,10 @@ INSERT INTO public.trainees (trainee_id, trainer_user_id, user_id, profile_id, s
 -- Data for Name: incomes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-
-
---
--- Data for Name: leads; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, phone_number, email, status, note_topic, note_text, user_id) VALUES (1, '2022-10-10', 'Ido', 'Gideon', '21223123', 'a@b.com', false, '', '', 2);
-INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, phone_number, email, status, note_topic, note_text, user_id) VALUES (2, '2022-10-25', 'Nitza', ' Daniela', '054-617-4272', 'aaas@asd.com', false, '', '', 2);
-INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, phone_number, email, status, note_topic, note_text, user_id) VALUES (3, '2022-10-25', 'Tzvi', 'yehc', '21223123', 'sasd@oads.com', false, 'b', '', 2);
-INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, phone_number, email, status, note_topic, note_text, user_id) VALUES (4, '2022-10-25', 'Ido', 'asd', '059-960-0499', 'olgapaveleva87@gmailwe.com', false, '', '', 2);
-INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, phone_number, email, status, note_topic, note_text, user_id) VALUES (5, '2022-10-24', 'Shachar', ' Leah', '058-983-7010', 'tequilasunrise@dogbackpack.net', true, '', '', 2);
-INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, phone_number, email, status, note_topic, note_text, user_id) VALUES (6, '2022-10-25', 'Ora', 'Uriel', '055-729-4430', 'gobugayu@unair.nl', false, '', '', 2);
+INSERT INTO public.incomes (income_id, date, amount, product_id, buyer_id, total_price, note_topic, note_text, user_id) VALUES (1, '2022-11-04', 1, 8, 1, 120, '', '', 2);
+INSERT INTO public.incomes (income_id, date, amount, product_id, buyer_id, total_price, note_topic, note_text, user_id) VALUES (2, '2022-11-04', 1, 12, 3, 960, '', '', 2);
+INSERT INTO public.incomes (income_id, date, amount, product_id, buyer_id, total_price, note_topic, note_text, user_id) VALUES (3, '2022-11-04', 1, 10, 2, 240, '', '', 2);
+INSERT INTO public.incomes (income_id, date, amount, product_id, buyer_id, total_price, note_topic, note_text, user_id) VALUES (4, '2022-11-04', 1, 13, 4, 200, '', '', 2);
 
 
 --
@@ -164,6 +163,18 @@ INSERT INTO public.locations (location_id, city_id, street, user_id) VALUES (8, 
 
 
 --
+-- Data for Name: leads; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, location_id, birthday, gender, phone_number, email, status, note_topic, note_text, user_id) VALUES (1, '2022-10-10', 'Ido', 'Gideon', 3, '1995-10-25', 'male', '21223123', 'a@b.com', false, '', '', 2);
+INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, location_id, birthday, gender, phone_number, email, status, note_topic, note_text, user_id) VALUES (2, '2022-10-25', 'Nitza', 'Daniela', 5, '1990-10-25', 'female', '054-617-4272', 'aaas@asd.com', false, '', '', 2);
+INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, location_id, birthday, gender, phone_number, email, status, note_topic, note_text, user_id) VALUES (3, '2022-10-25', 'Tzvi', 'yehc', 3, '1970-10-25', 'female', '21223123', 'sasd@oads.com', false, 'b', '', 2);
+INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, location_id, birthday, gender, phone_number, email, status, note_topic, note_text, user_id) VALUES (4, '2022-10-25', 'Ido', 'asd', 7, '1975-10-11', 'male', '059-960-0499', 'olgapaveleva87@gmailwe.com', false, '', '', 2);
+INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, location_id, birthday, gender, phone_number, email, status, note_topic, note_text, user_id) VALUES (5, '2022-10-24', 'Shachar', 'Leah', 7, '1983-10-01', 'male', '058-983-7010', 'tequilasunrise@dogbackpack.net', true, '', '', 2);
+INSERT INTO public.leads (lead_id, lead_date, first_name, last_name, location_id, birthday, gender, phone_number, email, status, note_topic, note_text, user_id) VALUES (6, '2022-10-25', 'Ora', 'Uriel', 7, '2003-10-01', 'female', '055-729-4430', 'gobugayu@unair.nl', false, '', '', 2);
+
+
+--
 -- Data for Name: measures; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -177,25 +188,20 @@ INSERT INTO public.measures (measure_id, profile_id, date, weight, height, fat_p
 -- Data for Name: participants_groups_list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (2, 'ido trainings', true, 2);
-INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (35, 'y', false, 2);
-INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (47, 't', false, 2);
-INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (48, 's', false, 2);
-INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (49, 'r', false, 2);
-INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (50, 'r', false, 2);
-INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (16, 'guy training', true, 2);
-INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (1, 'rom training', false, 2);
+INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (1, 'Rom''s training', false, 2);
+INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (2, 'ido trainings', false, 2);
+INSERT INTO public.participants_groups_list (participants_groups_list_id, group_name, is_private, user_id) VALUES (3, 'Nitza and Tzvi training', false, 2);
 
 
 --
 -- Data for Name: meetings; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (17, 1, '2022-11-03 06:00:00+02', '2022-11-03 06:30:00+02', 1, 1, '2', '', 2);
-INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (18, 2, '2022-11-06 18:00:00+02', '2022-11-06 18:30:00+02', 2, 1, 'personal training', '', 2);
-INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (19, 2, '2022-11-09 18:00:00+02', '2022-11-09 18:30:00+02', 2, 1, 'personal training', '', 2);
-INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (20, 2, '2022-11-15 13:00:00+02', '2022-11-15 13:30:00+02', 1, 1, 'Personal training', '', 2);
-INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (21, 2, '2022-11-09 19:30:00+02', '2022-11-09 20:00:00+02', 16, 1, 'personal training', '', 2);
+INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (1, 2, '2022-11-06 07:30:00+02', '2022-11-06 08:00:00+02', 3, 1, 'Nitza and Tzvi training', '', 2);
+INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (3, 1, '2022-11-06 18:00:00+02', '2022-11-06 18:45:00+02', 1, 1, 'Rom''s training', '', 2);
+INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (2, 1, '2022-11-09 18:00:00+02', '2022-11-09 18:45:00+02', 2, 1, 'ido trainings', '', 2);
+INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (4, 2, '2022-11-09 16:00:00+02', '2022-11-09 16:45:00+02', 3, 1, 'Nitza and Tzvi training', '', 2);
+INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, participants_groups_list_id, location_id, note_topic, note_text, user_id) VALUES (5, 1, '2022-11-16 18:00:00+02', '2022-11-16 18:45:00+02', 1, 1, 'Rom''s training', '', 2);
 
 
 --
@@ -215,6 +221,9 @@ INSERT INTO public.meetings (meeting_id, activity_id, date_start, date_end, part
 --
 
 INSERT INTO public.participants_group (participants_group_id, participants_groups_list_id, trainee_id, user_id) VALUES (1, 1, 1, 2);
+INSERT INTO public.participants_group (participants_group_id, participants_groups_list_id, trainee_id, user_id) VALUES (2, 2, 2, 2);
+INSERT INTO public.participants_group (participants_group_id, participants_groups_list_id, trainee_id, user_id) VALUES (3, 3, 3, 2);
+INSERT INTO public.participants_group (participants_group_id, participants_groups_list_id, trainee_id, user_id) VALUES (4, 3, 4, 2);
 
 
 --
@@ -227,6 +236,10 @@ INSERT INTO public.participants_group (participants_group_id, participants_group
 -- Data for Name: subscription_plans; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.subscription_plans (subscription_plan_id, product_id, trainee_id, current_num_trainings, total_trainings, last_training) VALUES (1, 8, 1, 0, 1, '2022-11-05');
+INSERT INTO public.subscription_plans (subscription_plan_id, product_id, trainee_id, current_num_trainings, total_trainings, last_training) VALUES (2, 12, 3, 0, 8, '2022-11-05');
+INSERT INTO public.subscription_plans (subscription_plan_id, product_id, trainee_id, current_num_trainings, total_trainings, last_training) VALUES (3, 10, 2, 0, 2, '2022-11-05');
+INSERT INTO public.subscription_plans (subscription_plan_id, product_id, trainee_id, current_num_trainings, total_trainings, last_training) VALUES (4, 13, 4, 0, 2, '2022-11-05');
 
 
 --
@@ -238,7 +251,6 @@ INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id
 INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, program_type, update_date, date_start, date_end, note_topic, note_text) VALUES (3, 1, 'fbw', NULL, '2022-10-19', '2022-10-27', '', '');
 INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, program_type, update_date, date_start, date_end, note_topic, note_text) VALUES (4, 4, 'fbw', NULL, '2022-10-26', '2022-10-27', '', '');
 INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, program_type, update_date, date_start, date_end, note_topic, note_text) VALUES (5, 2, 'fbw', NULL, '2022-10-26', '2022-10-27', '', '');
-INSERT INTO public.training_programs_list (training_programs_list_id, trainee_id, program_type, update_date, date_start, date_end, note_topic, note_text) VALUES (7, 1, 'k', NULL, '2022-11-04', '2022-11-05', '', '');
 
 
 --
@@ -301,7 +313,7 @@ SELECT pg_catalog.setval('public.activities_activity_id_seq', 2, true);
 -- Name: alerts_alert_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.alerts_alert_id_seq', 219, true);
+SELECT pg_catalog.setval('public.alerts_alert_id_seq', 45, true);
 
 
 --
@@ -329,14 +341,14 @@ SELECT pg_catalog.setval('public.exercises_list_exercise_id_seq', 14, false);
 -- Name: expenses_expense_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.expenses_expense_id_seq', 1, false);
+SELECT pg_catalog.setval('public.expenses_expense_id_seq', 3, true);
 
 
 --
 -- Name: incomes_income_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.incomes_income_id_seq', 1, false);
+SELECT pg_catalog.setval('public.incomes_income_id_seq', 4, true);
 
 
 --
@@ -364,14 +376,14 @@ SELECT pg_catalog.setval('public.measures_measure_id_seq', 5, false);
 -- Name: meetings_meeting_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.meetings_meeting_id_seq', 21, true);
+SELECT pg_catalog.setval('public.meetings_meeting_id_seq', 5, true);
 
 
 --
 -- Name: muscles_group_muscles_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.muscles_group_muscles_group_id_seq', 8, true);
+SELECT pg_catalog.setval('public.muscles_group_muscles_group_id_seq', 8, false);
 
 
 --
@@ -392,21 +404,21 @@ SELECT pg_catalog.setval('public.nutrition_programs_list_nutrition_programs_list
 -- Name: participants_group_participants_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.participants_group_participants_group_id_seq', 2, true);
+SELECT pg_catalog.setval('public.participants_group_participants_group_id_seq', 4, true);
 
 
 --
 -- Name: participants_groups_list_participants_groups_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.participants_groups_list_participants_groups_list_id_seq', 50, true);
+SELECT pg_catalog.setval('public.participants_groups_list_participants_groups_list_id_seq', 3, true);
 
 
 --
 -- Name: products_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.products_product_id_seq', 9, true);
+SELECT pg_catalog.setval('public.products_product_id_seq', 15, true);
 
 
 --
@@ -427,7 +439,7 @@ SELECT pg_catalog.setval('public.providers_provider_id_seq', 1, false);
 -- Name: subscription_plans_subscription_plan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.subscription_plans_subscription_plan_id_seq', 1, false);
+SELECT pg_catalog.setval('public.subscription_plans_subscription_plan_id_seq', 4, true);
 
 
 --
@@ -455,7 +467,7 @@ SELECT pg_catalog.setval('public.training_program_training_program_row_id_seq', 
 -- Name: training_programs_list_training_programs_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.training_programs_list_training_programs_list_id_seq', 7, true);
+SELECT pg_catalog.setval('public.training_programs_list_training_programs_list_id_seq', 6, false);
 
 
 --
@@ -469,7 +481,7 @@ SELECT pg_catalog.setval('public.users_user_id_seq', 3, true);
 -- Name: weeks_week_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-
+SELECT pg_catalog.setval('public.weeks_week_id_seq', 1, false);
 
 
 --

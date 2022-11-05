@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable @typescript-eslint/no-shadow */
 
 import path from "path";
@@ -13,7 +14,6 @@ import {
   loggerRequestInfo,
   loggerRequestWarns,
   LOG_LEVEL,
-  timezone,
 } from "./helpersLogger";
 
 const loggerRequestTransport = [loggerRequestWarns, loggerRequestErrors];

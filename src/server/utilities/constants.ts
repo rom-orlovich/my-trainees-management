@@ -77,3 +77,5 @@ export enum TABLES_DATA {
   PARTICIPANTS_GROUPS_LIST_TABLE_NAME = "participants_groups_list",
   PARTICIPANTS_GROUPS_LIST_ID = "participants_groups_list_id",
 }
+
+export const IS_DEVELOPMENT_MODE = process.env.NODE_ENV === "development";

@@ -1,6 +1,8 @@
 import { transports } from "winston";
+import { IS_DEVELOPMENT_MODE } from "../../utilities/constants";
 
-export const LOG_LEVEL: "debug" | "info" | "warn" | "error" = "debug";
+export const LOG_LEVEL: "debug" | "info" | "warn" | "error" =
+  IS_DEVELOPMENT_MODE ? "debug" : "info";
 
 export const timezone = () =>
   new Date().toLocaleString("en-US", {

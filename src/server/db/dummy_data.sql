@@ -905,15 +905,6 @@ VALUES
 SELECT
   pg_catalog.setval ('public.measures_measure_id_seq', 5, false);
 
---
--- Data for Name: subscription_plans; Type: TABLE DATA; Schema: public; Owner: postgres
---
--- INSERT INTO public.subscription_plans (subscription_plan_id, trainee_id, plan_name, current_num_trainings, total_trainings, last_training) VALUES (1, 1, '2 trainings', 2, 2, '2022-10-23');
--- INSERT INTO public.subscription_plans (subscription_plan_id, trainee_id, plan_name, current_num_trainings, total_trainings, last_training) VALUES (2, 1, '2 training', 0, 2, '2022-10-27');
--- SELECT pg_catalog.setval('public.subscription_plans_subscription_plan_id_seq', 3, false);
---
--- Data for Name: training_programs_list; Type: TABLE DATA; Schema: public; Owner: postgres
---
 INSERT INTO
   public.training_programs_list (
     training_programs_list_id,
@@ -1721,3 +1712,513 @@ SELECT
     14,
     false
   );
+
+INSERT INTO
+  public.products (
+    product_id,
+    product_name,
+    product_type,
+    max_training,
+    price,
+    user_id
+  )
+VALUES
+  (
+    8,
+    '1 training package',
+    'Subscription Plan',
+    1,
+    120,
+    2
+  );
+
+INSERT INTO
+  public.products (
+    product_id,
+    product_name,
+    product_type,
+    max_training,
+    price,
+    user_id
+  )
+VALUES
+  (
+    10,
+    '2 trainings package',
+    'Subscription Plan',
+    2,
+    240,
+    2
+  );
+
+INSERT INTO
+  public.products (
+    product_id,
+    product_name,
+    product_type,
+    max_training,
+    price,
+    user_id
+  )
+VALUES
+  (
+    11,
+    '4 couple trainings package',
+    'Subscription Plan',
+    4,
+    480,
+    2
+  );
+
+INSERT INTO
+  public.products (
+    product_id,
+    product_name,
+    product_type,
+    max_training,
+    price,
+    user_id
+  )
+VALUES
+  (
+    13,
+    '2 first Trainings package',
+    'Subscription Plan',
+    2,
+    200,
+    2
+  );
+
+INSERT INTO
+  public.products (
+    product_id,
+    product_name,
+    product_type,
+    max_training,
+    price,
+    user_id
+  )
+VALUES
+  (7, 'weights 10kg', 'Expense', 1, 20, 2);
+
+INSERT INTO
+  public.products (
+    product_id,
+    product_name,
+    product_type,
+    max_training,
+    price,
+    user_id
+  )
+VALUES
+  (14, 'pull bar', 'Expense', NULL, 120, 2);
+
+INSERT INTO
+  public.products (
+    product_id,
+    product_name,
+    product_type,
+    max_training,
+    price,
+    user_id
+  )
+VALUES
+  (15, 'kettlebell 10kg', 'Expense', NULL, 50, 2);
+
+SELECT
+  pg_catalog.setval ('public.products_product_id_seq', 15, true);
+
+INSERT INTO
+  public.subscription_plans (
+    subscription_plan_id,
+    product_id,
+    trainee_id,
+    current_num_trainings,
+    total_trainings,
+    last_training
+  )
+VALUES
+  (1, 8, 1, 0, 1, '2022-11-05');
+
+INSERT INTO
+  public.subscription_plans (
+    subscription_plan_id,
+    product_id,
+    trainee_id,
+    current_num_trainings,
+    total_trainings,
+    last_training
+  )
+VALUES
+  (3, 10, 2, 0, 2, '2022-11-05');
+
+INSERT INTO
+  public.subscription_plans (
+    subscription_plan_id,
+    product_id,
+    trainee_id,
+    current_num_trainings,
+    total_trainings,
+    last_training
+  )
+VALUES
+  (4, 13, 4, 0, 2, '2022-11-05');
+
+SELECT
+  pg_catalog.setval (
+    'public.subscription_plans_subscription_plan_id_seq',
+    4,
+    true
+  );
+
+INSERT INTO
+  public.expenses (
+    expense_id,
+    date,
+    amount,
+    product_id,
+    seller_name,
+    total_price,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (
+    1,
+    '2022-11-04',
+    2,
+    7,
+    'sport stock',
+    40,
+    '',
+    '',
+    2
+  );
+
+INSERT INTO
+  public.expenses (
+    expense_id,
+    date,
+    amount,
+    product_id,
+    seller_name,
+    total_price,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (
+    2,
+    '2022-11-04',
+    2,
+    15,
+    'mega sport',
+    100,
+    '',
+    '',
+    2
+  );
+
+INSERT INTO
+  public.expenses (
+    expense_id,
+    date,
+    amount,
+    product_id,
+    seller_name,
+    total_price,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (
+    3,
+    '2022-11-04',
+    1,
+    14,
+    'mega sport',
+    120,
+    '',
+    '',
+    2
+  );
+
+--
+SELECT
+  pg_catalog.setval ('public.expenses_expense_id_seq', 3, true);
+
+INSERT INTO
+  public.incomes (
+    income_id,
+    date,
+    amount,
+    product_id,
+    buyer_id,
+    total_price,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (1, '2022-11-04', 1, 8, 1, 120, '', '', 2);
+
+INSERT INTO
+  public.incomes (
+    income_id,
+    date,
+    amount,
+    product_id,
+    buyer_id,
+    total_price,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (3, '2022-11-04', 1, 10, 2, 240, '', '', 2);
+
+INSERT INTO
+  public.incomes (
+    income_id,
+    date,
+    amount,
+    product_id,
+    buyer_id,
+    total_price,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (4, '2022-11-04', 1, 13, 4, 200, '', '', 2);
+
+SELECT
+  pg_catalog.setval ('public.incomes_income_id_seq', 4, true);
+
+INSERT INTO
+  public.activities (activity_id, activity_name, user_id)
+VALUES
+  (1, 'personal training', 2);
+
+INSERT INTO
+  public.activities (activity_id, activity_name, user_id)
+VALUES
+  (2, 'Couples training', 2);
+
+SELECT
+  pg_catalog.setval ('public.activities_activity_id_seq', 2, true);
+
+INSERT INTO
+  public.participants_groups_list (
+    participants_groups_list_id,
+    group_name,
+    is_private,
+    user_id
+  )
+VALUES
+  (1, 'Rom''s training', false, 2);
+
+INSERT INTO
+  public.participants_groups_list (
+    participants_groups_list_id,
+    group_name,
+    is_private,
+    user_id
+  )
+VALUES
+  (2, 'ido trainings', false, 2);
+
+INSERT INTO
+  public.participants_groups_list (
+    participants_groups_list_id,
+    group_name,
+    is_private,
+    user_id
+  )
+VALUES
+  (3, 'Nitza and Tzvi training', false, 2);
+
+SELECT
+  pg_catalog.setval (
+    'public.participants_groups_list_participants_groups_list_id_seq',
+    3,
+    true
+  );
+
+INSERT INTO
+  public.participants_group (
+    participants_group_id,
+    participants_groups_list_id,
+    trainee_id,
+    user_id
+  )
+VALUES
+  (1, 1, 1, 2);
+
+INSERT INTO
+  public.participants_group (
+    participants_group_id,
+    participants_groups_list_id,
+    trainee_id,
+    user_id
+  )
+VALUES
+  (2, 2, 2, 2);
+
+INSERT INTO
+  public.participants_group (
+    participants_group_id,
+    participants_groups_list_id,
+    trainee_id,
+    user_id
+  )
+VALUES
+  (3, 3, 3, 2);
+
+INSERT INTO
+  public.participants_group (
+    participants_group_id,
+    participants_groups_list_id,
+    trainee_id,
+    user_id
+  )
+VALUES
+  (4, 3, 4, 2);
+
+SELECT
+  pg_catalog.setval (
+    'public.participants_group_participants_group_id_seq',
+    4,
+    true
+  );
+
+INSERT INTO
+  public.meetings (
+    meeting_id,
+    activity_id,
+    date_start,
+    date_end,
+    participants_groups_list_id,
+    location_id,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (
+    1,
+    2,
+    '2022-11-06 07:30:00+02',
+    '2022-11-06 08:00:00+02',
+    3,
+    1,
+    'Nitza and Tzvi training',
+    '',
+    2
+  );
+
+INSERT INTO
+  public.meetings (
+    meeting_id,
+    activity_id,
+    date_start,
+    date_end,
+    participants_groups_list_id,
+    location_id,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (
+    3,
+    1,
+    '2022-11-06 18:00:00+02',
+    '2022-11-06 18:45:00+02',
+    1,
+    1,
+    'Rom''s training',
+    '',
+    2
+  );
+
+INSERT INTO
+  public.meetings (
+    meeting_id,
+    activity_id,
+    date_start,
+    date_end,
+    participants_groups_list_id,
+    location_id,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (
+    2,
+    1,
+    '2022-11-09 18:00:00+02',
+    '2022-11-09 18:45:00+02',
+    2,
+    2,
+    'ido trainings',
+    '',
+    2
+  );
+
+INSERT INTO
+  public.meetings (
+    meeting_id,
+    activity_id,
+    date_start,
+    date_end,
+    participants_groups_list_id,
+    location_id,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (
+    4,
+    2,
+    '2022-11-09 16:00:00+02',
+    '2022-11-09 16:45:00+02',
+    3,
+    2,
+    'Nitza and Tzvi training',
+    '',
+    2
+  );
+
+INSERT INTO
+  public.meetings (
+    meeting_id,
+    activity_id,
+    date_start,
+    date_end,
+    participants_groups_list_id,
+    location_id,
+    note_topic,
+    note_text,
+    user_id
+  )
+VALUES
+  (
+    5,
+    1,
+    '2022-11-16 18:00:00+02',
+    '2022-11-16 18:45:00+02',
+    1,
+    2,
+    'Rom''s training',
+    '',
+    2
+  );
+
+SELECT
+  pg_catalog.setval ('public.meetings_meeting_id_seq', 5, true);
