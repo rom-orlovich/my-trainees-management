@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React from "react";
+import React, { useRef } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -18,6 +18,7 @@ export function ProductForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<ProductAPI>) {
+  const firstRender = useRef(true);
   return (
     <Form<ProductAPI>
       editMode={editMode}
@@ -36,8 +37,9 @@ export function ProductForm({
       {({ register, formState, setValue, watch }) => {
         const product_type = watch("product_type");
         const checkProductType = product_type === "Subscription Plan";
-        if (checkProductType) {
-          setValue("max_training", 1);
+        if (checkProductType && firstRender.current) {
+          firstRender.current = false;
+          setValue("max_training", defaultValues?.max_training || 1);
         }
 
         const { errors } = formState;

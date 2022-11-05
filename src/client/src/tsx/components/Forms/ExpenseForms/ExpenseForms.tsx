@@ -44,10 +44,14 @@ export function ExpenseForms({
 
         const productID = Number(getValues("product_id"));
         const amount = Number(getValues("amount"));
-        const data =
-          productsApi.endpoints.getItems.useQuery(queriesOptions).currentData;
-        const product = data?.data.find((el) => el.product_id === productID);
+        const { data } = productsApi.endpoints.getItemByID.useQuery({
+          id: productID,
+          ...queriesOptions,
+        });
+        // const product = data?.data.find((el) => el.product_id === productID);
+        const product = data;
         const price = Number(product?.price || 1);
+
         setValue("total_price", price * amount);
 
         return (
@@ -81,6 +85,10 @@ export function ExpenseForms({
                 },
                 addOption: {
                   link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PRODUCTS_ROUTE}/${APP_ROUTE.PRODUCTS_ADD}`,
+                },
+                editOption: {
+                  link: (productID) =>
+                    `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PRODUCTS_ROUTE}/${productID}`,
                 },
                 loadingSpinnerResult: { nameData: "Products" },
                 useGetData: productsApi.useGetItemsQuery,

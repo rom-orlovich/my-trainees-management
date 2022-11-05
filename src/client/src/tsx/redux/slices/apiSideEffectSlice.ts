@@ -27,11 +27,9 @@ export const apiSideEffectSlice = createSlice({
   reducers: {
     // Enable behavior of go back to previous page.
     enableGoPrevPage: (state) => {
-      console.log("s");
       state.goPrePageBehaviorState.goPrevPage = true;
     },
     disableGoPrevPage: (state) => {
-      console.log("s");
       state.goPrePageBehaviorState.goPrevPage = false;
     },
 

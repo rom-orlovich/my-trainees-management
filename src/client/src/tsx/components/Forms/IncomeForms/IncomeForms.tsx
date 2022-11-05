@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import {
@@ -20,7 +21,6 @@ import AutocompleteInputRHF from "../../baseComponents/RHF-Components/Autocomple
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { productsApi, traineesApi } from "../../../redux/api/hooksAPI";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import { useAppSelector } from "../../../redux/hooks";
 
 export function IncomeForms({
   onSubmit,
@@ -34,7 +34,6 @@ export function IncomeForms({
       editMode={editMode}
       onSubmit={onSubmit}
       nameForm="income"
-      pathMove={``}
       formOptions={{
         defaultValues: {
           user_id: authState.user_id,
@@ -47,12 +46,17 @@ export function IncomeForms({
     >
       {({ register, formState, control, getValues, setValue }) => {
         const { errors } = formState;
+
         const productID = Number(getValues("product_id"));
         const amount = Number(getValues("amount"));
-        const data =
-          productsApi.endpoints.getItems.useQuery(queriesOptions).currentData;
-        const product = data?.data.find((el) => el.product_id === productID);
+        const { data } = productsApi.endpoints.getItemByID.useQuery({
+          id: productID,
+          ...queriesOptions,
+        });
+        // const product = data?.data.find((el) => el.product_id === productID);
+        const product = data;
         const price = Number(product?.price || 1);
+
         setValue("total_price", price * amount);
 
         return (
@@ -104,6 +108,10 @@ export function IncomeForms({
                 },
                 addOption: {
                   link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PRODUCTS_ROUTE}/${APP_ROUTE.PRODUCTS_ADD}`,
+                },
+                editOption: {
+                  link: (productID) =>
+                    `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PRODUCTS_ROUTE}/${productID}`,
                 },
                 loadingSpinnerResult: { nameData: "Products" },
                 useGetData: productsApi.useGetItemsQuery,

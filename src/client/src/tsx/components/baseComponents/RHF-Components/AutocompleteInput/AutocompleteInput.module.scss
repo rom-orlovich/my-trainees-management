@@ -50,6 +50,9 @@
         color: rgba(53, 194, 53, 0.89);
         z-index: 70;
       }
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
   }
 
