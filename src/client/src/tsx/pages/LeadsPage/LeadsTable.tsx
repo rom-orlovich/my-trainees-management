@@ -18,6 +18,9 @@ export const transformDataLead = (arg: LeadsTableAPI) => {
     first_name,
     last_name,
     lead_date,
+    birthday,
+    gender,
+    location_id,
     ...rest
   } = arg;
 
