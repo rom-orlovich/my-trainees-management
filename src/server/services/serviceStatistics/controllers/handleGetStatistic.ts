@@ -4,6 +4,7 @@ import {
   TrainingProgramExerciseStatsAPI,
 } from "../../../express";
 import { formatDate } from "../../../utilities/helpers";
+import { API_ROUTES } from "../../apiRoutesConstants";
 
 export interface ChartDataResult {
   labelFormatted: string[];
@@ -87,25 +88,28 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
   if (!req.statsData?.statsResult) return next();
 
   const { statsResult } = req.statsData;
-  let result;
-  if (statsResult.exerciseStats?.data.length) {
-    result = exerciseStatsCreateLabelAndDatasets(
-      statsResult.exerciseStats?.data
-    );
-  }
-  if (statsResult.measures?.data.length) {
-    const results = statsResult.measures?.data;
-    if (req.query.caloriesPie === "true") {
-      const lastResult = results[results.length - 1];
-      result = caloriesChartCreateLabelAndDatasets(lastResult);
-    }
 
-    if (req.query.measuresChartLine === "true") {
-      result = measuresChartLineCreateLabelAndDatasets(results);
+  let result: Record<string, any> = {};
+  if (statsResult?.countRows) {
+    if (req.baseUrl === API_ROUTES.EXERCISES_STATS_ROUTE) {
+      result = exerciseStatsCreateLabelAndDatasets(
+        statsResult?.data as TrainingProgramExerciseStatsAPI[]
+      );
+    } else if (req.baseUrl === API_ROUTES.MEASURES_ROUTE) {
+      const results = statsResult?.data as MeasuresCalResAPI[];
+      if (req.query.caloriesPie === "true") {
+        const lastResult = results[results.length - 1];
+        result = caloriesChartCreateLabelAndDatasets(lastResult);
+      }
+
+      if (req.query.measuresChartLine === "true") {
+        result = measuresChartLineCreateLabelAndDatasets(results);
+      }
     }
   }
 
-  return res
-    .status(200)
-    .json({ ...statsResult.measures, ...statsResult.exerciseStats, ...result });
+  return res.status(200).json({
+    ...statsResult,
+    ...result,
+  });
 };

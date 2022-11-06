@@ -65,18 +65,40 @@ export interface MeasuresCalResAPI {
   calories_total: number;
 }
 
-export interface getRes<T extends Record<string, any>> {
+export interface LeadsTableAPI {
+  user_id?: number;
+  lead_id?: number;
+  lead_date: Date;
+  first_name: string;
+  last_name: string;
+  gender: string;
+  location_id: number;
+  birthday: Date;
+  phone_number: string;
+  email?: string;
+  status: boolean;
+  note_topic: string | null;
+  note_text: string | null;
+}
+
+export interface GetRes<T = Record<string, any>> {
   data: T[];
   next: boolean;
   countRows: number;
 }
 
-export interface StatsData {
+export interface StatsData<T = Record<string, any>> {
   updateExerciseData?: TrainingProgramExercise;
-  statsResult?: {
-    exerciseStats?: getRes<TrainingProgramExerciseStatsAPI>;
-    measures?: getRes<MeasuresCalResAPI>;
-  };
+  statsResult?: GetRes;
+
+  // {
+  // exerciseStats?: GetRes<TrainingProgramExerciseStatsAPI>;
+  // measures?: GetRes<MeasuresCalResAPI>;
+  // leads?: GetRes<LeadsTableAPI>;
+  // data: T[];
+  // next: boolean;
+  // countRows: number;
+  // };
 }
 /* eslint-disable no-unused-vars */
 export {};

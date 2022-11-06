@@ -79,7 +79,7 @@ export const routesConfigArr: {
     router: createCRUDroutes(trainingProgramsListOptionsCRUD),
   },
   {
-    baseRoute: API_ROUTES.TRAINING_PROGRAMS_STATS_ROUTE,
+    baseRoute: API_ROUTES.EXERCISES_STATS_ROUTE,
     router: createCRUDroutes(trainingProgramsExerciseStatsOptionsCRUD),
   },
   {

@@ -5,6 +5,7 @@ import { DatabaseError } from "pg";
 
 import {
   createRealQueryKeyValuesObj,
+  createSelectPaginationParams,
   deleteTableWithOtherTableData,
   insertQueryOneItem,
   selectPagination,
@@ -19,52 +20,6 @@ import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { ComparisonQuery, OptionsCRUD } from "../serviceCRUDTypes";
 import { TrainingProgramExercise } from "../../serviceStatistics/utilities/helpersStatisticsService";
-
-const createSelectQueryParams = (
-  queryParams: Record<string, any>,
-  queryValueParams: Record<string, any> | undefined,
-  queryNameParam: Record<string, any> | undefined,
-  orderByParam: Record<string, string> | undefined,
-  comparisonQuery: ComparisonQuery | undefined
-) => {
-  const {
-    page,
-    asc,
-    numResults,
-    caloriesPie,
-    measuresChartLine,
-    orderBy,
-    gt,
-    lt,
-    ...rest
-  } = queryParams;
-
-  const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
-  const numResultDefault = Number(numResults || 5);
-  const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
-  const comparisonQueryKeyValue = comparisonQuery
-    ? {
-        gt: [comparisonQuery.gt, gt as string],
-        lt: [comparisonQuery.lt, lt as string],
-      }
-    : { gt: [], lt: [] };
-  const orderByParamRes =
-    orderByParam && orderBy ? orderByParam[orderBy as string] : "";
-  const realQueryParams = createRealQueryKeyValuesObj(rest, queryValueParams);
-  const realQueryByNameParams = createRealQueryKeyValuesObj(
-    rest,
-    queryNameParam
-  );
-  return {
-    page,
-    ascDefault,
-    maxNumResult,
-    realQueryParams,
-    realQueryByNameParams,
-    comparisonQueryKeyValue,
-    orderByParamRes,
-  };
-};
 
 /**
  *
@@ -101,7 +56,7 @@ export function createRoutesControllers({
       realQueryParams,
       realQueryByNameParams,
       orderByParamRes,
-    } = createSelectQueryParams(
+    } = createSelectPaginationParams(
       req.query,
       queryParams,
       queryNameParam,
@@ -136,11 +91,11 @@ export function createRoutesControllers({
         TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME
       )
     ) {
-      req.statsData = { statsResult: { exerciseStats: responseData } };
+      req.statsData = { statsResult: responseData };
       return next();
     }
     if (tableName.includes(TABLES_DATA.MEASURES_TABLE_NAME)) {
-      req.statsData = { statsResult: { measures: responseData } };
+      req.statsData = { statsResult: responseData };
       return next();
     }
 

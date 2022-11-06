@@ -5,6 +5,7 @@
 /* eslint-disable no-unused-vars */
 
 import { logger } from "../services/loggerService/logger";
+import { ComparisonQuery } from "../services/serviceCRUD/serviceCRUDTypes";
 
 import { TABLES_DATA } from "../utilities/constants";
 import {
@@ -418,6 +419,53 @@ const prepareStatementLogic = (
       : ""
   } `;
   return { queryStrStatement, queryParamsRes };
+};
+
+export const createSelectPaginationParams = (
+  queryParams: Record<string, any>,
+  queryValueParams: Record<string, any> | undefined,
+  queryNameParam: Record<string, any> | undefined,
+  orderByParam: Record<string, string> | undefined,
+  comparisonQuery: ComparisonQuery | undefined
+) => {
+  const {
+    page,
+    asc,
+    numResults,
+    caloriesPie,
+    measuresChartLine,
+    orderBy,
+    gt,
+    lt,
+    ...rest
+  } = queryParams;
+
+  const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
+  const numResultDefault = Number(numResults || 5);
+  const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
+  const comparisonQueryKeyValue = comparisonQuery
+    ? {
+        gt: [comparisonQuery.gt, gt as string],
+        lt: [comparisonQuery.lt, lt as string],
+      }
+    : { gt: [], lt: [] };
+  const orderByParamRes =
+    orderByParam && orderBy ? orderByParam[orderBy as string] : "";
+
+  const realQueryParams = createRealQueryKeyValuesObj(rest, queryValueParams);
+  const realQueryByNameParams = createRealQueryKeyValuesObj(
+    rest,
+    queryNameParam
+  );
+  return {
+    page,
+    ascDefault,
+    maxNumResult,
+    realQueryParams,
+    realQueryByNameParams,
+    comparisonQueryKeyValue,
+    orderByParamRes,
+  };
 };
 
 // Make pagination by select query.
