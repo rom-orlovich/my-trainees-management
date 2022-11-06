@@ -3,6 +3,7 @@
 import { RequestHandler } from "express";
 import { DatabaseError } from "pg";
 
+import { logger } from "express-winston";
 import {
   createRealQueryKeyValuesObj,
   createSelectPaginationParams,
@@ -48,35 +49,52 @@ export function createRoutesControllers({
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
     if (req.logAlertInfo?.error) return next();
 
-    const {
-      ascDefault,
-      comparisonQueryKeyValue,
-      maxNumResult,
-      page,
-      realQueryParams,
-      realQueryByNameParams,
-      orderByParamRes,
-    } = createSelectPaginationParams(
-      req.query,
+    // const {
+    //   ascDefault,
+    //   comparisonQueryKeyValue,
+    //   maxNumResult,
+    //   page,
+    //   realQueryParams,
+    //   realQueryByNameParams,
+    //   orderByParamRes,
+    // } = createSelectPaginationParams(
+    //   req.query,
+    //   queryParams,
+    //   queryNameParam,
+    //   orderByParam,
+    //   comparisonQuery
+    // );
+
+    const selectPaginationQueryParam = {
+      requestQuery: req.query,
       queryParams,
       queryNameParam,
       orderByParam,
-      comparisonQuery
-    );
+      comparisonQuery,
+    };
+    const tablePropsData = {
+      tableName,
+      fieldNamesQuery,
+      querySelectLogic,
+      groupBy,
+      tableID,
+    };
 
     const [data, err] = await promiseHandler(
       selectPagination(
-        tableName,
-        page as string,
-        fieldNamesQuery,
-        querySelectLogic,
-        realQueryParams,
-        realQueryByNameParams,
-        ascDefault,
-        maxNumResult,
-        orderByParamRes || tableID,
-        comparisonQueryKeyValue,
-        groupBy
+        tablePropsData,
+        selectPaginationQueryParam
+
+        // page as string,
+        // fieldNamesQuery,
+
+        // realQueryParams,
+        // realQueryByNameParams,
+        // ascDefault,
+        // maxNumResult,
+        // orderByParamRes || tableID,
+        // comparisonQueryKeyValue,
+        // groupBy
       )
     );
 

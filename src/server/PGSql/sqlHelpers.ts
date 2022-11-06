@@ -245,7 +245,7 @@ export async function selectQuery(
     return rows.rows;
   } catch (error) {
     logger.error(
-      `LINE 261:${statement} : values:${JSON.stringify(queryParams)}`,
+      `LINE 248:${statement} : values:${JSON.stringify(queryParams)}`,
       {
         objs: [error],
         __filename,
@@ -406,40 +406,60 @@ const prepareStatementLogic = (
     keyValuesStrArr.length > 0 ? " and " : ""
   );
 
-  const comparisonStatementStr = prepareComparisonParamsStatement(
+  const comparisonStr = prepareComparisonParamsStatement(
     comparisonQuery,
     queryParamsRes
   );
+  const comparisonStatementStr = comparisonStr || `and ${comparisonStr}`;
 
-  const queryStrStatement = `${querySelectLogic} ${
-    queryStrJoin
-      ? `WHERE ${queryStrJoin}  ${
-          comparisonStatementStr ? `and ${comparisonStatementStr}` : ""
-        }`
-      : ""
-  } `;
+  const whereQueryStatement = `${
+    queryStrJoin ? `WHERE ${queryStrJoin} ${comparisonStatementStr}}` : ""
+  }`;
+
+  const queryStrStatement = `${querySelectLogic} ${whereQueryStatement}`;
+  // console.log(
+  //   "comparisonStatementStr",
+  //   comparisonStatementStr,
+  //   "queryStrStatement",
+  //   queryStrStatement,
+  //   "queryStrJoin",
+  //   queryStrJoin
+  // );
   return { queryStrStatement, queryParamsRes };
 };
 
+interface SelectPaginationQueryParam {
+  requestQuery: Record<string, any>;
+  queryValuesParams?: Record<string, any>;
+  queryNamesParam?: Record<string, any>;
+  orderByParam?: Record<string, string>;
+  comparisonQuery?: ComparisonQuery;
+}
+
 export const createSelectPaginationParams = (
-  queryParams: Record<string, any>,
-  queryValueParams: Record<string, any> | undefined,
-  queryNameParam: Record<string, any> | undefined,
-  orderByParam: Record<string, string> | undefined,
-  comparisonQuery: ComparisonQuery | undefined
+  selectPaginationQueryParam: SelectPaginationQueryParam
 ) => {
+  const {
+    requestQuery,
+    queryValuesParams,
+    queryNamesParam,
+    orderByParam,
+    comparisonQuery,
+  } = selectPaginationQueryParam;
+
   const {
     page,
     asc,
     numResults,
     caloriesPie,
     measuresChartLine,
-    orderBy,
-    gt,
-    lt,
+    orderBy, // The client send in the url query the name of field to order by.
+    gt, // The client send in the url query the name of field that his value is greater than.
+    lt, // The client send in the url query the name of field that his value is lesser than.
     ...rest
-  } = queryParams;
+  } = requestQuery;
 
+  const pageNumber = Number(page || 1);
   const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
   const numResultDefault = Number(numResults || 5);
   const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
@@ -449,16 +469,17 @@ export const createSelectPaginationParams = (
         lt: [comparisonQuery.lt, lt as string],
       }
     : { gt: [], lt: [] };
+
   const orderByParamRes =
     orderByParam && orderBy ? orderByParam[orderBy as string] : "";
 
-  const realQueryParams = createRealQueryKeyValuesObj(rest, queryValueParams);
+  const realQueryParams = createRealQueryKeyValuesObj(rest, queryValuesParams);
   const realQueryByNameParams = createRealQueryKeyValuesObj(
     rest,
-    queryNameParam
+    queryNamesParam
   );
   return {
-    page,
+    page: pageNumber,
     ascDefault,
     maxNumResult,
     realQueryParams,
@@ -468,30 +489,54 @@ export const createSelectPaginationParams = (
   };
 };
 
+export interface TablePropsData {
+  tableName: string;
+  tableID: string;
+  fieldNamesQuery: string;
+  querySelectLogic: string;
+  groupBy?: string;
+}
+
 // Make pagination by select query.
 // Return the items array and boolean value if there is next page.
 export async function selectPagination(
-  tableName: string,
-  page = "1",
-  fields = "*",
-  querySelectLogic = "",
-  queryParams: Record<string, any> = {},
-  queryNameParams: Record<string, any> = {},
-  ascending = true,
-  numResult = 10,
-  orderBy = "",
-  comparisonQuery: { gt: string[]; lt: string[] },
-  groupBy = ""
+  tablePropsData: TablePropsData,
+
+  selectPaginationQueryParam: SelectPaginationQueryParam
+
+  // page = "1",
+  // fields = "*",
+  // querySelectLogic = "",
+  // queryParams: Record<string, any> = {},
+  // queryNameParams: Record<string, any> = {},
+  // ascending = true,
+  // numResult = 10,
+  // orderBy = "",
+  // comparisonQuery: { gt: string[]; lt: string[] },
+  // groupBy = ""
 ) {
-  const numPage = Number(page) - 1;
-  const offset = numPage * numResult;
-  const numResultsReach = offset + numResult;
+  const { fieldNamesQuery, groupBy, querySelectLogic, tableName, tableID } =
+    tablePropsData;
+
+  const {
+    page,
+    realQueryParams,
+    realQueryByNameParams,
+    orderByParamRes,
+    ascDefault,
+    comparisonQueryKeyValue,
+    maxNumResult,
+  } = createSelectPaginationParams(selectPaginationQueryParam);
+
+  const numPage = page - 1;
+  const offset = numPage * maxNumResult;
+  const numResultsReach = offset + maxNumResult;
 
   const { queryParamsRes, queryStrStatement } = prepareStatementLogic(
     querySelectLogic,
-    queryParams,
-    queryNameParams,
-    comparisonQuery
+    realQueryParams,
+    realQueryByNameParams,
+    comparisonQueryKeyValue
   );
 
   // Check the number of items that are in the table .
@@ -506,17 +551,20 @@ export async function selectPagination(
   // Return if the table is empty.
   if (!numTotalRows) return { rows: [], next: false, countRows: 0 };
 
+  // Select query addons statements
+  const orderByStatement = `ORDER BY ${orderByParamRes || tableID}`;
   const groupByStatement = groupBy ? `GROUP BY ${groupBy}` : "";
-  const limitOffsetStatement = `order by ${orderBy} ${groupByStatement} ${
-    ascending ? "ASC" : "DESC"
-  } LIMIT $${queryParamsRes.length + 1} OFFSET $${queryParamsRes.length + 2} 
-   `;
+  const isAscOrder = ascDefault ? "ASC" : "DESC";
+  const limitOffsetStatement = `LIMIT $${queryParamsRes.length + 1} OFFSET $${
+    queryParamsRes.length + 2
+  } `;
+  const queryStatementAddons = `${orderByStatement} ${groupByStatement} ${isAscOrder} ${limitOffsetStatement}`;
 
   const rows = await selectQuery(
     tableName,
-    fields,
-    `${queryStrStatement} ${limitOffsetStatement}`,
-    [...queryParamsRes, numResult, offset]
+    fieldNamesQuery,
+    `${queryStrStatement} ${queryStatementAddons}`,
+    [...queryParamsRes, maxNumResult, offset]
   );
 
   return {
