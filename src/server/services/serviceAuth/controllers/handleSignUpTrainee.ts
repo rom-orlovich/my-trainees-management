@@ -2,7 +2,8 @@
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "express";
 import { client } from "../../../PGSql/DBConnectConfig";
-import { updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
+import { updateQuerySingleItem } from "../../../PGSql/simpleSqlQueries";
+
 import { TABLES_DATA } from "../../../utilities/constants";
 import { createUser } from "../utilities/authHelpers";
 import { prepareLogAlert } from "./handleRegisterTrainee";

@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "webpack-dev-server";
 import { ModifiedActionResult } from "../../express";
-import { deleteQuery, insertQueryOneItem } from "../../PGSql/sqlHelpers";
+import { deleteQuery, insertQueryOneItem } from "../../PGSql/simpleSqlQueries";
+
 import { TABLES_DATA } from "../../utilities/constants";
 import { createObjValuesArr, promiseHandler } from "../../utilities/helpers";
 import { ActionType, ErrorCustomizes } from "../serviceErrors/handleErrors";
@@ -140,10 +141,3 @@ export const handleDeleteAllUserAlerts: RequestHandler = async (
   if (err) return next(new ErrorCustomizes(err));
   return res.status(200).json("Old alerts are deleted successfully");
 };
-// // Delete all user's alerts routes.
-// app.delete(
-//   API_ROUTES.ALERT_ROUTE,
-//   validateTokenMiddleware,
-//   validateRolePermission(PERMISSION_TRAINEE_WITHOUT_UPDATE),
-//   handleDeleteAllUserAlerts
-// );

@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { promiseHandler } from "../../utilities/helpers";
 import { logger } from "../loggerService/logger";
 import { createLogAlertInfo } from "../serviceAlerts/handleAlerts";
-import { ErrorCodes, ErrorCustomizes } from "../serviceErrors/handleErrors";
+import { ErrorCodes } from "../serviceErrors/handleErrors";
 
 const createLogAlertInfoHandler = createLogAlertInfo("data");
 export const validateMiddleware: (

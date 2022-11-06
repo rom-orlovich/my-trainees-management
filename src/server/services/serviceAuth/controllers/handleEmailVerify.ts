@@ -1,5 +1,9 @@
 import { RequestHandler } from "webpack-dev-server";
-import { selectQuery, updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
+import {
+  selectQuery,
+  updateQuerySingleItem,
+} from "../../../PGSql/simpleSqlQueries";
+
 import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
 import { API_ROUTES, URL_CUR_CLIENT } from "../../apiRoutesConstants";

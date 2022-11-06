@@ -3,23 +3,22 @@
 import { RequestHandler } from "express";
 import { DatabaseError } from "pg";
 
-import { includes } from "lodash";
 import {
   deleteTableWithOtherTableData,
-  insertQueryOneItem,
   selectPagination,
-  selectQuery,
   updateExistTableData,
-} from "../../../PGSql/sqlHelpers";
+} from "../../../PGSql/complexSqlQueries";
 import { promiseHandler } from "../../../utilities/helpers";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 import { ErrorCodes, ErrorCustomizes } from "../../serviceErrors/handleErrors";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
-import { TABLES_DATA } from "../../../utilities/constants";
 import { OptionsCRUD } from "../serviceCRUDTypes";
-import { TrainingProgramExercise } from "../../serviceStatistics/utilities/helpersStatisticsService";
 import { API_ROUTES } from "../../apiRoutesConstants";
+import {
+  insertQueryOneItem,
+  selectQuery,
+} from "../../../PGSql/simpleSqlQueries";
 
 const URL_STATISTIC: string[] = [
   API_ROUTES.EXERCISES_STATS_ROUTE,

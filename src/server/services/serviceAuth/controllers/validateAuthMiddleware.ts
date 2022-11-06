@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "webpack-dev-server";
+import { selectQuery } from "../../../PGSql/simpleSqlQueries";
 // eslint-disable-next-line no-unused-vars
-import { selectQuery, updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
+
 import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
 import { logger } from "../../loggerService/logger";

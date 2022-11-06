@@ -2,8 +2,6 @@
 import { RequestHandler } from "webpack-dev-server";
 import { hash, compare } from "bcryptjs";
 
-import { CookieOptions } from "express";
-import { selectQuery, updateQuerySingleItem } from "../../../PGSql/sqlHelpers";
 import { promiseHandler } from "../../../utilities/helpers";
 
 import { TABLES_DATA } from "../../../utilities/constants";
@@ -20,6 +18,10 @@ import {
   USER_TABLE_ALIAS_US,
   USER_TABLE_RETURN_FIELDS,
 } from "./handleLogin";
+import {
+  selectQuery,
+  updateQuerySingleItem,
+} from "../../../PGSql/simpleSqlQueries";
 
 export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   console.log("handle refresh");

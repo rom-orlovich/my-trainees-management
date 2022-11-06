@@ -35,3 +35,19 @@ export interface OptionsCRUD {
   permissions: Permissions;
   logAlert?: boolean;
 }
+
+export interface SelectPaginationQueryParam {
+  requestQuery: Record<string, any>;
+  queryParams?: Record<string, any>;
+  queryNameParam?: Record<string, any>;
+  orderByParam?: Record<string, string>;
+  comparisonQuery?: ComparisonQuery;
+}
+
+export interface TablePropsData {
+  tableName: string;
+  tableID: string;
+  fieldNamesQuery: string;
+  querySelectLogic: string;
+  groupBy?: string;
+}

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { client } from "../../../PGSql/DBConnectConfig";
-import { insertQueryOneItem } from "../../../PGSql/sqlHelpers";
+
+import { insertQueryOneItem } from "../../../PGSql/simpleSqlQueries";
 import { TABLES_DATA } from "../../../utilities/constants";
 
 export interface TrainingProgramExercise {

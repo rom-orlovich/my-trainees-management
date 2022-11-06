@@ -6,10 +6,6 @@ import { CookieOptions } from "express";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 
 import Mail from "nodemailer/lib/mailer";
-import {
-  insertQueryOneItem,
-  updateQuerySingleItem,
-} from "../../../PGSql/sqlHelpers";
 
 import { API_ROUTES } from "../../apiRoutesConstants";
 import { TABLES_DATA } from "../../../utilities/constants";
@@ -20,6 +16,10 @@ import {
   MAIL_OPTIONS,
   MY_USER_MAIL,
 } from "../../googleApiConstants";
+import {
+  insertQueryOneItem,
+  updateQuerySingleItem,
+} from "../../../PGSql/simpleSqlQueries";
 
 export type UserRoles = "admin" | "trainee" | "trainer";
 

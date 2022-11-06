@@ -1,6 +1,9 @@
 import { RequestHandler } from "webpack-dev-server";
+import {
+  insertQueryOneItem,
+  selectQuery,
+} from "../../../PGSql/simpleSqlQueries";
 
-import { insertQueryOneItem, selectQuery } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 

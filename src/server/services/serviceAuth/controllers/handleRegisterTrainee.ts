@@ -2,7 +2,7 @@
 import { RequestHandler } from "express";
 
 import { client } from "../../../PGSql/DBConnectConfig";
-import { insertNewTableData } from "../../../PGSql/sqlHelpers";
+import { insertNewTableData } from "../../../PGSql/complexSqlQueries";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES, URL_CUR_CLIENT } from "../../apiRoutesConstants";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
