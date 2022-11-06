@@ -433,8 +433,7 @@ export async function selectPagination(
   numResult = 10,
   orderBy = "",
   comparisonQuery: { gt: string[]; lt: string[] },
-  groupBy = "",
-  selectTableName = ""
+  groupBy = ""
 ) {
   const numPage = Number(page) - 1;
   const offset = numPage * numResult;

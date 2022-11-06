@@ -11,17 +11,60 @@ import {
   selectQuery,
   updateExistTableData,
 } from "../../../PGSql/sqlHelpers";
-
 import { promiseHandler } from "../../../utilities/helpers";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
-
 import { ErrorCodes, ErrorCustomizes } from "../../serviceErrors/handleErrors";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
-import { OptionsCRUD } from "../serviceCRUDTypes";
-
+import { ComparisonQuery, OptionsCRUD } from "../serviceCRUDTypes";
 import { TrainingProgramExercise } from "../../serviceStatistics/utilities/helpersStatisticsService";
+
+const createSelectQueryParams = (
+  queryParams: Record<string, any>,
+  queryValueParams: Record<string, any> | undefined,
+  queryNameParam: Record<string, any> | undefined,
+  orderByParam: Record<string, string> | undefined,
+  comparisonQuery: ComparisonQuery | undefined
+) => {
+  const {
+    page,
+    asc,
+    numResults,
+    caloriesPie,
+    measuresChartLine,
+    orderBy,
+    gt,
+    lt,
+    ...rest
+  } = queryParams;
+
+  const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
+  const numResultDefault = Number(numResults || 5);
+  const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
+  const comparisonQueryKeyValue = comparisonQuery
+    ? {
+        gt: [comparisonQuery.gt, gt as string],
+        lt: [comparisonQuery.lt, lt as string],
+      }
+    : { gt: [], lt: [] };
+  const orderByParamRes =
+    orderByParam && orderBy ? orderByParam[orderBy as string] : "";
+  const realQueryParams = createRealQueryKeyValuesObj(rest, queryValueParams);
+  const realQueryByNameParams = createRealQueryKeyValuesObj(
+    rest,
+    queryNameParam
+  );
+  return {
+    page,
+    ascDefault,
+    maxNumResult,
+    realQueryParams,
+    realQueryByNameParams,
+    comparisonQueryKeyValue,
+    orderByParamRes,
+  };
+};
 
 /**
  *
@@ -41,7 +84,6 @@ export function createRoutesControllers({
     orderByParam,
     comparisonQuery,
     groupBy,
-    selectTableName,
   },
   logAlert = true,
   validateSchema,
@@ -50,53 +92,34 @@ export function createRoutesControllers({
   // Controller of the get method. Gets data from the db.
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
     if (req.logAlertInfo?.error) return next();
+
     const {
+      ascDefault,
+      comparisonQueryKeyValue,
+      maxNumResult,
       page,
-      asc,
-      numResults,
-      caloriesPie,
-      measuresChartLine,
-      orderBy,
-      gt,
-      lt,
-      ...rest
-    } = req.query;
-
-    const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
-    const numResultDefault = Number(numResults || 5);
-    const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
-    const comparisonQueryKeyValue = comparisonQuery
-      ? {
-          gt: [comparisonQuery.gt, gt as string],
-          lt: [comparisonQuery.lt, lt as string],
-        }
-      : { gt: [], lt: [] };
-
-    let querySelectLogicAddOns = "";
-    let fieldNamesQueryAddOns = "";
-    if (req.auth_data?.role === "trainee") {
-      console.log("trainee");
-      if (tableName.includes(TABLES_DATA.MEETINGS_TABLE_NAME)) {
-        console.log("yes");
-        querySelectLogicAddOns += ` LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt ON
-        mt.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}=pgt.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}`;
-        fieldNamesQueryAddOns += ` ,pgt.${TABLES_DATA.TRAINEE_ID}`;
-      }
-    }
-    const orderByParamRes =
-      orderByParam && orderBy ? orderByParam[orderBy as string] : tableID;
+      realQueryParams,
+      realQueryByNameParams,
+      orderByParamRes,
+    } = createSelectQueryParams(
+      req.query,
+      queryParams,
+      queryNameParam,
+      orderByParam,
+      comparisonQuery
+    );
 
     const [data, err] = await promiseHandler(
       selectPagination(
-        selectTableName || tableName,
+        tableName,
         page as string,
-        fieldNamesQuery + fieldNamesQueryAddOns,
-        querySelectLogic + querySelectLogicAddOns,
-        createRealQueryKeyValuesObj(rest, queryParams),
-        createRealQueryKeyValuesObj(rest, queryNameParam),
+        fieldNamesQuery,
+        querySelectLogic,
+        realQueryParams,
+        realQueryByNameParams,
         ascDefault,
         maxNumResult,
-        orderByParamRes,
+        orderByParamRes || tableID,
         comparisonQueryKeyValue,
         groupBy
       )
@@ -131,12 +154,7 @@ export function createRoutesControllers({
     const id = Number(req.params.id);
 
     const [data, err] = await promiseHandler(
-      selectQuery(
-        selectTableName || tableName,
-        `${fieldNamesQuery}`,
-        queryLogic,
-        [id]
-      )
+      selectQuery(tableName, `${fieldNamesQuery}`, queryLogic, [id])
     );
 
     if (err) return next(new ErrorCustomizes(err, "get"));

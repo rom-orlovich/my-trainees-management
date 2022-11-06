@@ -1,8 +1,7 @@
 import { RequestHandler } from "webpack-dev-server";
-import { client } from "../../../PGSql/DBConnectConfig";
+
 import { insertQueryOneItem, selectQuery } from "../../../PGSql/sqlHelpers";
 import { TABLES_DATA } from "../../../utilities/constants";
-import { logger } from "../../loggerService/logger";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 
 export interface IncomeAPI {

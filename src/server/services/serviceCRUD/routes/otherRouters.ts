@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
-import { RequestHandler } from "webpack-dev-server";
-import { TABLES_DATA } from "../../../utilities/constants";
+
 import { API_ROUTES } from "../../apiRoutesConstants";
-import { logger } from "../../loggerService/logger";
+
 import { handleDeleteAllUserAlerts } from "../../serviceAlerts/handleAlerts";
 import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
 import { handleInsertNewMeasure } from "../../serviceStatistics/controllers/handleInsertNewMeasure";
