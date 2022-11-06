@@ -1,5 +1,3 @@
-import eachDayOfInterval from "date-fns/eachDayOfInterval";
-
 import { RequestHandler } from "webpack-dev-server";
 import {
   MeasuresCalResAPI,

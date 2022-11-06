@@ -307,16 +307,16 @@ CREATE TABLE IF NOT EXISTS "training_program"(
     0 < "rpe"
     AND "rpe" <= 10
   ),
-  CONSTRAINT fk_training_programs_list_id FOREIGN KEY(training_programs_list_id) REFERENCES training_programs_list(training_programs_list_id) ON DELETE
-  SET
-    NULL ON
+  CONSTRAINT fk_training_programs_list_id FOREIGN KEY(training_programs_list_id) REFERENCES training_programs_list(training_programs_list_id) ON DELETE CASCADE ON
   UPDATE CASCADE,
-    CONSTRAINT fk_exercise_id FOREIGN KEY(exercise_id) REFERENCES exercises_list(exercise_id) ON DELETE
+  CONSTRAINT fk_exercise_id FOREIGN KEY(exercise_id) REFERENCES exercises_list(exercise_id) ON DELETE
   SET
     NULL ON
   UPDATE CASCADE
 );
 
+-- The exericses in training_program table have only one instance while  
+-- the training_program_exercises_stats table contains many instances of the updated exercises. 
 CREATE TABLE IF NOT EXISTS "training_program_exercises_stats" (
   "training_program_exercises_stats_id" serial PRIMARY KEY,
   "update_date" DATE,

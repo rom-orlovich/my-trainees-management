@@ -1,5 +1,4 @@
 import { UserRoles } from "./services/serviceAuth/utilities/authHelpers";
-import { ParticipantsGroupTableAPI } from "./services/serviceCRUD/controllers/handleInsertParticipantsGroup";
 import { ErrorCustomizes } from "./services/serviceErrors/handleErrors";
 import { TrainingProgramExercise } from "./services/serviceStatistics/utilities/helpersStatisticsService";
 
@@ -72,11 +71,6 @@ export interface getRes<T extends Record<string, any>> {
   countRows: number;
 }
 
-export interface ExcludeBody {
-  participantGroup: ParticipantsGroupTableAPI[];
-  user_id?: number;
-}
-
 export interface StatsData {
   updateExerciseData?: TrainingProgramExercise;
   statsResult?: {
@@ -103,8 +97,6 @@ declare global {
       };
 
       statsData?: StatsData;
-
-      insertParticipants?: ExcludeBody;
     }
   }
 }
