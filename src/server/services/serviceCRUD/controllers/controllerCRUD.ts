@@ -3,10 +3,8 @@
 import { RequestHandler } from "express";
 import { DatabaseError } from "pg";
 
-import { logger } from "express-winston";
+import { includes } from "lodash";
 import {
-  createRealQueryKeyValuesObj,
-  createSelectPaginationParams,
   deleteTableWithOtherTableData,
   insertQueryOneItem,
   selectPagination,
@@ -19,8 +17,14 @@ import { ErrorCodes, ErrorCustomizes } from "../../serviceErrors/handleErrors";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { TABLES_DATA } from "../../../utilities/constants";
-import { ComparisonQuery, OptionsCRUD } from "../serviceCRUDTypes";
+import { OptionsCRUD } from "../serviceCRUDTypes";
 import { TrainingProgramExercise } from "../../serviceStatistics/utilities/helpersStatisticsService";
+import { API_ROUTES } from "../../apiRoutesConstants";
+
+const URL_STATISTIC: string[] = [
+  API_ROUTES.EXERCISES_STATS_ROUTE,
+  API_ROUTES.MEASURES_ROUTE,
+];
 
 /**
  *
@@ -49,22 +53,6 @@ export function createRoutesControllers({
   const getValuesFromDB: RequestHandler = async (req, res, next) => {
     if (req.logAlertInfo?.error) return next();
 
-    // const {
-    //   ascDefault,
-    //   comparisonQueryKeyValue,
-    //   maxNumResult,
-    //   page,
-    //   realQueryParams,
-    //   realQueryByNameParams,
-    //   orderByParamRes,
-    // } = createSelectPaginationParams(
-    //   req.query,
-    //   queryParams,
-    //   queryNameParam,
-    //   orderByParam,
-    //   comparisonQuery
-    // );
-
     const selectPaginationQueryParam = {
       requestQuery: req.query,
       queryParams,
@@ -81,21 +69,7 @@ export function createRoutesControllers({
     };
 
     const [data, err] = await promiseHandler(
-      selectPagination(
-        tablePropsData,
-        selectPaginationQueryParam
-
-        // page as string,
-        // fieldNamesQuery,
-
-        // realQueryParams,
-        // realQueryByNameParams,
-        // ascDefault,
-        // maxNumResult,
-        // orderByParamRes || tableID,
-        // comparisonQueryKeyValue,
-        // groupBy
-      )
+      selectPagination(tablePropsData, selectPaginationQueryParam)
     );
 
     if (err) return next(new ErrorCustomizes(err));
@@ -104,19 +78,11 @@ export function createRoutesControllers({
       next: data.next,
       countRows: data.countRows,
     };
-    if (
-      tableName.includes(
-        TABLES_DATA.TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME
-      )
-    ) {
-      req.statsData = { statsResult: responseData };
-      return next();
-    }
-    if (tableName.includes(TABLES_DATA.MEASURES_TABLE_NAME)) {
-      req.statsData = { statsResult: responseData };
-      return next();
-    }
 
+    if (URL_STATISTIC.includes(req.baseUrl)) {
+      req.statsData = { statsResult: responseData };
+      return next();
+    }
     return res.status(200).json(responseData);
   };
 
@@ -148,11 +114,10 @@ export function createRoutesControllers({
       return next();
     }
 
-    if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
+    if (req.baseUrl === API_ROUTES.TRAINING_PROGRAMS_ROUTE)
       req.statsData = {
-        updateExerciseData: data as TrainingProgramExercise,
+        updateExerciseData: data,
       };
-    }
 
     req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },
@@ -185,11 +150,10 @@ export function createRoutesControllers({
       return next();
     }
 
-    if (tableName.includes(TABLES_DATA.TRAINING_PROGRAM_TABLE_NAME)) {
+    if (req.baseUrl === API_ROUTES.TRAINING_PROGRAMS_ROUTE)
       req.statsData = {
         updateExerciseData: data,
       };
-    }
 
     req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },

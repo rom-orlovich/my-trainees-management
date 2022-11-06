@@ -410,28 +410,21 @@ const prepareStatementLogic = (
     comparisonQuery,
     queryParamsRes
   );
-  const comparisonStatementStr = comparisonStr || `and ${comparisonStr}`;
+  const comparisonStatementStr = comparisonStr ? `and ${comparisonStr}` : "";
 
   const whereQueryStatement = `${
-    queryStrJoin ? `WHERE ${queryStrJoin} ${comparisonStatementStr}}` : ""
+    queryStrJoin ? `WHERE ${queryStrJoin} ${comparisonStatementStr}` : ""
   }`;
 
   const queryStrStatement = `${querySelectLogic} ${whereQueryStatement}`;
-  // console.log(
-  //   "comparisonStatementStr",
-  //   comparisonStatementStr,
-  //   "queryStrStatement",
-  //   queryStrStatement,
-  //   "queryStrJoin",
-  //   queryStrJoin
-  // );
+
   return { queryStrStatement, queryParamsRes };
 };
 
 interface SelectPaginationQueryParam {
   requestQuery: Record<string, any>;
-  queryValuesParams?: Record<string, any>;
-  queryNamesParam?: Record<string, any>;
+  queryParams?: Record<string, any>;
+  queryNameParam?: Record<string, any>;
   orderByParam?: Record<string, string>;
   comparisonQuery?: ComparisonQuery;
 }
@@ -441,8 +434,8 @@ export const createSelectPaginationParams = (
 ) => {
   const {
     requestQuery,
-    queryValuesParams,
-    queryNamesParam,
+    queryParams,
+    queryNameParam,
     orderByParam,
     comparisonQuery,
   } = selectPaginationQueryParam;
@@ -473,11 +466,12 @@ export const createSelectPaginationParams = (
   const orderByParamRes =
     orderByParam && orderBy ? orderByParam[orderBy as string] : "";
 
-  const realQueryParams = createRealQueryKeyValuesObj(rest, queryValuesParams);
+  const realQueryParams = createRealQueryKeyValuesObj(rest, queryParams);
   const realQueryByNameParams = createRealQueryKeyValuesObj(
     rest,
-    queryNamesParam
+    queryNameParam
   );
+
   return {
     page: pageNumber,
     ascDefault,
@@ -501,19 +495,7 @@ export interface TablePropsData {
 // Return the items array and boolean value if there is next page.
 export async function selectPagination(
   tablePropsData: TablePropsData,
-
   selectPaginationQueryParam: SelectPaginationQueryParam
-
-  // page = "1",
-  // fields = "*",
-  // querySelectLogic = "",
-  // queryParams: Record<string, any> = {},
-  // queryNameParams: Record<string, any> = {},
-  // ascending = true,
-  // numResult = 10,
-  // orderBy = "",
-  // comparisonQuery: { gt: string[]; lt: string[] },
-  // groupBy = ""
 ) {
   const { fieldNamesQuery, groupBy, querySelectLogic, tableName, tableID } =
     tablePropsData;
