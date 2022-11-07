@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
@@ -17,7 +18,7 @@ function LeadEditForm() {
     { id, userID: useGetUserLoginData().user_id }
   );
 
-  const handleSubmit = (body: LeadsTableAPI) =>
+  const handleSubmit = ({ city_name, ...body }: LeadsTableAPI) =>
     updateFunction({
       updateItem,
       id,
@@ -28,7 +29,7 @@ function LeadEditForm() {
       nameData="Lead"
       stateData={{ data, isFetching, isError, isLoading }}
     >
-      {({ lead_id, ...data }) => (
+      {({ lead_id, city_name, ...data }) => (
         <LeadsForm
           editMode={true}
           onSubmit={handleSubmit}

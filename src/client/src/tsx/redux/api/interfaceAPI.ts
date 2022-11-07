@@ -137,6 +137,7 @@ export interface LeadsTableAPI {
   lead_date: Date;
   first_name: string;
   last_name: string;
+  city_name?: string;
   gender: string;
   location_id: number;
   birthday: Date;

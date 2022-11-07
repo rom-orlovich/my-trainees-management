@@ -5,7 +5,6 @@ import {
   prepareKeyValuesToUpdate,
   prepareValuesToInsert,
 } from "./queriesHelpers";
-
 // Select items from the db.
 export async function selectQuery(
   tableName: string,

@@ -24,12 +24,15 @@ const { timestamp, combine, printf, colorize, errors, json, prettyPrint } =
 // Message Format
 export const myFormat = printf(
   ({ level, message, timestamp, stack, ...meta }) => {
+    // console.log(meta?.__filename, meta?.objs);
+
+    // console.log(meta && meta instanceof Error);
     const filename = meta?.__filename
       ? path.resolve(meta?.__filename).split("/").slice(-1).join("")
       : "";
 
     const obj = meta?.objs
-      ? `${+"valuesObj:"} ${meta?.objs.reduce(
+      ? `${"valuesObj:"} ${meta?.objs.reduce(
           (pre: string, cur: object) => `${pre} ${JSON.stringify(cur)}`,
           ""
         )}`

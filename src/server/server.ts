@@ -82,7 +82,7 @@ async function connectDB() {
       logger.error("something bad has happened!", err.stack, __filename);
     });
 
-    logger.log("info", `Connected pgSQL server.`, __filename);
+    logger.log("info", `Connected pgSQL server.`, { __filename });
 
     // Uncomment this line will init the  db.
     // This line is for development purpose.

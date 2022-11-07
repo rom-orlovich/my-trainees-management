@@ -76,14 +76,17 @@ export const leadsOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.LEADS_TABLE_NAME} as le`,
     tableID: `le.${TABLES_DATA.LEADS_TABLE_ID}`,
-    fieldNamesQuery: `le.*`,
-    querySelectLogic: ``,
+    fieldNamesQuery: `le.*,c.city_name`,
+    querySelectLogic: ` LEFT JOIN ${TABLES_DATA.LOCATION_TABLE_NAME} as lo ON 
+    le.${TABLES_DATA.LOCATION_ID}=lo.${TABLES_DATA.LOCATION_ID}
+     LEFT JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c on 
+   c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID}`,
     queryNameParam: {
       mainName: "first_name",
       secName: "last_name",
     },
     queryParams: {
-      userID: `${TABLES_DATA.USERS_TABLE_ID}`,
+      userID: `le.${TABLES_DATA.USERS_TABLE_ID}`,
     },
     orderByParam: {
       leadDate: "lead_date",
@@ -412,7 +415,7 @@ export const incomesOptionsCRUD: OptionsCRUD = {
     tr.${TABLES_DATA.TRAINEE_ID}=inc.buyer_id
     LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as profile ON 
     profile.${TABLES_DATA.PROFILE_ID}= tr.${TABLES_DATA.PROFILE_ID} 
-    LEFT  JOIN ${TABLES_DATA.PRODUCTS_TABLE_NAME} as pr ON 
+    LEFT JOIN ${TABLES_DATA.PRODUCTS_TABLE_NAME} as pr ON 
     pr.${TABLES_DATA.PRODUCT_ID}= inc.${TABLES_DATA.PRODUCT_ID}
     `,
     queryParams: {

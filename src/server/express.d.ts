@@ -21,7 +21,7 @@ export interface ModifiedActionResult {
   logAlert?: boolean;
 }
 
-export interface TrainingProgramExerciseStatsAPI {
+export interface ExerciseStatsAPI {
   training_program_row_id: number;
   update_date: Date;
   exercise_id: number;
@@ -73,6 +73,7 @@ export interface LeadsTableAPI {
   last_name: string;
   gender: string;
   location_id: number;
+  city_name?: string;
   birthday: Date;
   phone_number: string;
   email?: string;
@@ -92,7 +93,7 @@ export interface StatsData<T = Record<string, any>> {
   statsResult?: GetRes;
 
   // {
-  // exerciseStats?: GetRes<TrainingProgramExerciseStatsAPI>;
+  // exerciseStats?: GetRes<ExerciseStatsAPI>;
   // measures?: GetRes<MeasuresCalResAPI>;
   // leads?: GetRes<LeadsTableAPI>;
   // data: T[];

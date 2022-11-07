@@ -29,7 +29,6 @@ export const transformTrainingProgramExerciseData = ({
 }: TrainingProgramExercise) => {
   const intensityAsNumber = Number(intensity.replace(/kg/g, " ").split(" ")[0]);
   const restAsNumber = Number(rest.replace(/min/g, " ").split(" ")[0]);
-
   return {
     training_program_row_id,
     update_date,

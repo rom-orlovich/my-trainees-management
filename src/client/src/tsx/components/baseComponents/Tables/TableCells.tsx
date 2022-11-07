@@ -48,7 +48,7 @@ export function TdCell({ value, td, fitTh }: TdProps) {
   if (typeof value === "string") Value = checkIfStrIsValidDate(value);
   else if (typeof value === "boolean") {
     Value = value ? "Active" : "Unactive";
-    className = value ? "active" : "unactive";
+    className = value ? "active" : "inactive";
   } else Value = value;
 
   return (

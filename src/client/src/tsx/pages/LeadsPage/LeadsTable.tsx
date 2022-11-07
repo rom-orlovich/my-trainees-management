@@ -15,6 +15,7 @@ export const transformDataLead = (arg: LeadsTableAPI) => {
     note_text,
     note_topic,
     lead_id,
+    city_name,
     first_name,
     last_name,
     lead_date,

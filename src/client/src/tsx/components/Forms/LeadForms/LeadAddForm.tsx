@@ -6,10 +6,10 @@ import LeadForm from "./LeadForm";
 export function LeadAddForm() {
   const [addItem] = leadsApi.useCreateOneItemMutation();
 
-  const handleSubmit = (body: LeadsTableAPI) => {
+  const handleSubmit = ({ city_name, ...body }: LeadsTableAPI) => {
     addFunction({
       addItem,
-    })({ ...body });
+    })(body);
   };
 
   return <LeadForm onSubmit={handleSubmit}></LeadForm>;
