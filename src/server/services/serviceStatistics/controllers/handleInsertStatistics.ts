@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 
 import { promiseHandler } from "../../../utilities/helpers";
-import { insertIntoTrainingProgramExerciseData } from "../utilities/helpersStatisticsService";
+import { insertIntoTrainingProgramExerciseData } from "../utilities/helpersInsertStats";
 
 export const handleInsertStatistics: RequestHandler = async (
   req,
