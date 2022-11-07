@@ -25,6 +25,7 @@ import {
 import { createCRUDroutes } from "./createCRUDroutes";
 import {
   createAlertsRouter,
+  createFinanceRouter,
   createIncomesRouter,
   createMeasuresRouter,
   createTraineesRouter,
@@ -133,5 +134,9 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.MEETINGS_ROUTE,
     router: createCRUDroutes(meetingOptionsCRUD),
+  },
+  {
+    baseRoute: API_ROUTES.FINANCES_ROUTE,
+    router: createFinanceRouter(),
   },
 ];

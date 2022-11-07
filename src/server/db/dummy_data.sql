@@ -2219,6 +2219,3 @@ VALUES
     '',
     2
   );
-
-SELECT
-  pg_catalog.setval ('public.meetings_meeting_id_seq', 5, true);

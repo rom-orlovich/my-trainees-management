@@ -45,16 +45,7 @@ export interface GetRes<T = Record<string, any>> {
 
 export interface StatsData<T = Record<string, any>> {
   updateExerciseData?: TrainingProgramExercise;
-  statsResult?: GetRes;
-
-  // {
-  // exerciseStats?: GetRes<ExerciseStatsAPI>;
-  // measures?: GetRes<MeasuresCalResAPI>;
-  // leads?: GetRes<LeadsTableAPI>;
-  // data: T[];
-  // next: boolean;
-  // countRows: number;
-  // };
+  statsResult?: GetRes | GetRes[];
 }
 /* eslint-disable no-unused-vars */
 export {};

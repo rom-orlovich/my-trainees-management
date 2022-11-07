@@ -5,13 +5,19 @@ import { API_ROUTES } from "../../apiRoutesConstants";
 
 import { handleDeleteAllUserAlerts } from "../../serviceAlerts/handleAlerts";
 import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegisterTrainee";
+import { handleGetFinanceStats } from "../../serviceStatistics/controllers/handleGetFinanceStats";
+import { handleGetStatistic } from "../../serviceStatistics/controllers/handleGetStatistic";
 import { handleInsertNewMeasure } from "../../serviceStatistics/controllers/handleInsertNewMeasure";
 
 import { handleInsertNewSubscription } from "../controllers/handleInsertNewSubscription";
 
-import { createControllersHandlerAndRoutes } from "../utilities/helperServiceCRUD";
+import {
+  createControllersHandlerAndRouterWithAuthMiddleware,
+  createControllersHandlerAndRoutes,
+} from "../utilities/helperServiceCRUD";
 import {
   alertsOptionsCRUD,
+  financesStatsOptionsCRUD,
   incomesOptionsCRUD,
   measuresOptionsCRUD,
   traineesOptionsCRUD,
@@ -65,6 +71,16 @@ export const createIncomesRouter = () => {
   );
 
   routeByEntityAndID.put(controllerHandlersObj.updateValueByID);
+
+  return expressRouterObj;
+};
+
+export const createFinanceRouter = () => {
+  const { routeByBaseRoute, expressRouterObj } =
+    createControllersHandlerAndRouterWithAuthMiddleware(
+      financesStatsOptionsCRUD
+    );
+  routeByBaseRoute.get(handleGetFinanceStats, handleGetStatistic);
 
   return expressRouterObj;
 };

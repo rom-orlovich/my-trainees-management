@@ -1,1 +1,0 @@
-const getIncomesStats = (incomesData: any) => {};

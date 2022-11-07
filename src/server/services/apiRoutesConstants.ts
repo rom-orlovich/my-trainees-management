@@ -58,6 +58,8 @@ export enum API_ROUTES {
   EXPENSES_ENTITY = "expense",
   PRODUCTS_ROUTE = "/api/products",
   PRODUCT_ENTITY = "product",
+  FINANCES_ROUTE = "/api/finances",
+  FINANCES_ENTITY = "finance",
 
   ACTIVITIES_ROUTE = "/api/activities",
   ACTIVITIES_ENTITY = "activity",

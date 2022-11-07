@@ -57,3 +57,32 @@ export interface LeadsTableAPI {
   note_topic: string | null;
   note_text: string | null;
 }
+
+export interface ExpensesTableAPI {
+  user_id?: number;
+  date: Date;
+  expense_id?: number;
+  product_name: string;
+  amount: number;
+  total_price: number;
+  note_topic: string | null;
+  note_text: string | null;
+  product_id: number;
+  seller_name: string;
+}
+
+export interface IncomesTableAPI {
+  income_id?: number;
+  product_id: number;
+  date: Date;
+  buyer_id: number;
+  first_name: string;
+  last_name: string;
+  price: number;
+  product_name: string;
+  amount: number;
+  total_price: number;
+  note_topic?: string;
+  note_text?: string;
+  user_id?: number;
+}
