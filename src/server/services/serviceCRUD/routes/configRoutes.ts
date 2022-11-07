@@ -451,6 +451,19 @@ export const expensesOptionsCRUD: OptionsCRUD = {
   validateSchema: expensesSchema,
 };
 
+export const financesStatsOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.USER_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.USERS_TABLE_NAME} as us`,
+    tableID: ``,
+    fieldNamesQuery: `us.user_id,`,
+    querySelectLogic: `JOIN ${TABLES_DATA.EXPENSES_TABLE_NAME} as pr ON 
+    pr.${TABLES_DATA.PROFILE_ID}=us.${TABLES_DATA.PROFILE_ID}`,
+  },
+
+  permissions: PERMISSION_TRAINER_BY_USER_ID,
+};
+
 export const productsOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.PRODUCT_ENTITY,
   selectQuery: {

@@ -1,15 +1,14 @@
 /* eslint-disable no-param-reassign */
 import { RequestHandler } from "webpack-dev-server";
 
-import {
-  MeasuresCalResAPI,
-  ExerciseStatsAPI,
-  LeadsTableAPI,
-} from "../../../express";
-
 import { API_ROUTES } from "../../apiRoutesConstants";
 import { logger } from "../../loggerService/logger";
-import { getCalAgesCitiesGendersStats } from "../utilities/helpersCalAgesCitiesGenderStats";
+import {
+  ExerciseStatsAPI,
+  LeadsTableAPI,
+  MeasuresCalResAPI,
+} from "../serviceStatisticsTypes";
+import { getGetAgesCitiesGendersStats } from "../utilities/helpersGetAgesCitiesGenderStats";
 import { exerciseStatsCreateLabelAndDatasets } from "../utilities/helpersGetExercisesStats";
 import {
   caloriesChartCreateLabelAndDatasets,
@@ -37,13 +36,12 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
       }
     } else if (req.baseUrl === API_ROUTES.LEADS_ROUTE) {
       if (req.query.stats === "true") {
-        result = getCalAgesCitiesGendersStats(
+        result = getGetAgesCitiesGendersStats(
           statsResult?.data as LeadsTableAPI[]
         );
       }
     } else if (req.baseUrl === API_ROUTES.INCOMES_ROUTE) {
       if (req.query.stats === "true") {
-        logger.debug("LINE 240:", { objs: [statsResult.data], __filename });
       }
     }
   }

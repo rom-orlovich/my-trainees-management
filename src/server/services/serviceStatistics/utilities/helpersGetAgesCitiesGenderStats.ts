@@ -65,7 +65,7 @@ const calStatsHandlesLeads = (
   else handleLeadsStats.notHandle++;
 };
 
-export const getCalAgesCitiesGendersStats = (data: LeadsTableAPI[]) => {
+export const getGetAgesCitiesGendersStats = (data: LeadsTableAPI[]) => {
   const agesStats: Record<string, number> = {};
   const gendersStats: Record<string, number> = {};
   const citiesStats: Record<string, number> = {};
