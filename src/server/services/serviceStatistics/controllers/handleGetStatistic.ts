@@ -32,10 +32,10 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
         );
       } else if (req.baseUrl === API_ROUTES.MEASURES_ROUTE) {
         const results = statsResult?.data as MeasuresCalResAPI[];
-        if (req.query.caloriesPie === "true") {
+        if (req.query.display === "caloriesPie") {
           const lastResult = results[results.length - 1];
           result = caloriesChartCreateLabelAndDatasets(lastResult);
-        } else if (req.query.measuresChartLine === "true") {
+        } else if (req.query.display === "measuresChartLine") {
           result = measuresChartLineCreateLabelAndDatasets(results);
         }
       } else if (req.baseUrl === API_ROUTES.LEADS_ROUTE) {

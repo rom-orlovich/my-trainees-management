@@ -118,7 +118,7 @@ const createMonthFinanceObj = () => {
   return monthsFinancesObj;
 };
 
-// Calculates the finance sum as perspective of this week, weekly, monthly, yearly, and total.
+// Calculates the finance sum as perspective of this week, weekly, monthly, yearly and total.
 const calFinancesSum = (
   incomesData: IncomesTableAPI[],
   expenseData: ExpensesTableAPI[]

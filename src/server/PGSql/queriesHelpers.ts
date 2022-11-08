@@ -246,8 +246,7 @@ export const createSelectPaginationParams = (
     page,
     asc,
     numResults,
-    caloriesPie,
-    measuresChartLine,
+    display,
     orderBy, // The client send in the url query the name of field to order by.
     gt, // The client send in the url query the name of field that his value is greater than.
     lt, // The client send in the url query the name of field that his value is lesser than.

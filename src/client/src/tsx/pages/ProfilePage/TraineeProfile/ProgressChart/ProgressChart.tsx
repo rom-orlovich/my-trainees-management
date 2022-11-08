@@ -23,7 +23,7 @@ function ProgressChart({ className }: PropsBasic) {
     {
       profileID,
       userID,
-      measuresChartLine: "true",
+      display: "measuresChartLine",
 
       asc: "false",
       numResults: 100,

@@ -297,7 +297,6 @@ export const measuresOptionsCRUD: OptionsCRUD = {
     querySelectLogic: `LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr on 
  mes.${TABLES_DATA.PROFILE_ID}=pr.${TABLES_DATA.PROFILE_ID}`,
     queryParams: {
-      caloriesPie: "caloriesPie",
       profileID: `pr.${TABLES_DATA.PROFILE_ID}`,
     },
   },
