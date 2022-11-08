@@ -256,7 +256,7 @@ export const createSelectPaginationParams = (
 
   const pageNumber = Number(page || 1);
   const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
-  const numResultDefault = Number(numResults || 5);
+  const numResultDefault = Number(numResults || 8);
   const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
   const comparisonQueryKeyValue = comparisonQuery
     ? {

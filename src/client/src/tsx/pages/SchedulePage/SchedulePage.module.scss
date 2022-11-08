@@ -26,12 +26,14 @@
 
   // For displaying events
   .event_container {
-    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    // margin-top: 0rem;
     width: 100%;
     cursor: pointer;
     position: relative;
 
     .deleteIcon {
+      font-size: 1rem;
       cursor: pointer;
       color: rgb(217, 17, 17);
       @include posAbs(0.5%, null, 1%, null);
@@ -54,6 +56,7 @@
 
   // For the container of the header.
   @include classMatcher("fc-header-toolbar fc-toolbar ") {
+    margin-bottom: 0.5rem !important;
     padding: 0 0.5rem;
     // For focus on arrow buttons.
     @include classMatcher("fc-button-primary") {
