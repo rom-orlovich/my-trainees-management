@@ -13,16 +13,13 @@ import {
 import { getGetAgesCitiesGendersStats } from "../utilities/helpersGetAgesCitiesGenderStats";
 import { exerciseStatsCreateLabelAndDatasets } from "../utilities/helpersGetExercisesStats";
 import { getFinanceStats } from "../utilities/helpersGetFinanceStats";
-import {
-  caloriesChartCreateLabelAndDatasets,
-  measuresChartLineCreateLabelAndDatasets,
-} from "../utilities/helpersGetMeasuresStats";
+import { getMeasuresStats } from "../utilities/helpersGetMeasuresStats";
 
 export const handleGetStatistic: RequestHandler = async (req, res, next) => {
   if (!req.statsData?.statsResult) return next();
 
   const { statsResult } = req.statsData;
-
+  const displayStats = req.query.displayStats as string | undefined;
   let result: Record<string, any> = {};
   if (!Array.isArray(statsResult)) {
     if (statsResult?.countRows) {
@@ -31,26 +28,23 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
           statsResult?.data as ExerciseStatsAPI[]
         );
       } else if (req.baseUrl === API_ROUTES.MEASURES_ROUTE) {
-        const results = statsResult?.data as MeasuresCalResAPI[];
-        if (req.query.display === "caloriesPie") {
-          const lastResult = results[results.length - 1];
-          result = caloriesChartCreateLabelAndDatasets(lastResult);
-        } else if (req.query.display === "measuresChartLine") {
-          result = measuresChartLineCreateLabelAndDatasets(results);
-        }
+        result = getMeasuresStats(
+          statsResult?.data as MeasuresCalResAPI[],
+          displayStats
+        );
       } else if (req.baseUrl === API_ROUTES.LEADS_ROUTE) {
-        if (req.query.stats === "true") {
-          result = getGetAgesCitiesGendersStats(
-            statsResult?.data as LeadsTableAPI[]
-          );
-        }
+        result = getGetAgesCitiesGendersStats(
+          statsResult?.data as LeadsTableAPI[],
+          displayStats
+        );
       }
     }
   } else if (req.baseUrl === API_ROUTES.FINANCES_ROUTE) {
     const [incomesRes, expenseRes] = statsResult;
     result = getFinanceStats(
       incomesRes.data as IncomesTableAPI[],
-      expenseRes.data as ExpensesTableAPI[]
+      expenseRes.data as ExpensesTableAPI[],
+      displayStats
     );
   }
 

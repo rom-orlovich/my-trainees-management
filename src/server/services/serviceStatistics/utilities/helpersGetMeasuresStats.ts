@@ -39,3 +39,19 @@ export const caloriesChartCreateLabelAndDatasets = (
     calories_total: measuresCalData.calories_total,
   };
 };
+
+export const getMeasuresStats = (
+  measuresData: MeasuresCalResAPI[],
+  display?: string
+) => {
+  let result = {};
+  if (display) {
+    if (display === "caloriesPie") {
+      const lastResult = measuresData[measuresData.length - 1];
+      result = caloriesChartCreateLabelAndDatasets(lastResult);
+    } else if (display === "measuresChartLine")
+      result = measuresChartLineCreateLabelAndDatasets(measuresData);
+  }
+
+  return result;
+};

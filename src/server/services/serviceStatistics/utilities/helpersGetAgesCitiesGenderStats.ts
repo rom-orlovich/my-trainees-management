@@ -65,7 +65,11 @@ const calStatsHandlesLeads = (
   else handleLeadsStats.notHandle++;
 };
 
-export const getGetAgesCitiesGendersStats = (data: LeadsTableAPI[]) => {
+export const getGetAgesCitiesGendersStats = (
+  data: LeadsTableAPI[],
+  displayStats?: string
+) => {
+  if (displayStats !== "all") return {};
   const agesStats: Record<string, number> = {};
   const gendersStats: Record<string, number> = {};
   const citiesStats: Record<string, number> = {};
@@ -78,6 +82,7 @@ export const getGetAgesCitiesGendersStats = (data: LeadsTableAPI[]) => {
       calStatsCities(citiesStats, data.city_name);
       calStatsHandlesLeads(handleLeadsStats, data.status);
     });
+
     const res = {
       agesStatsRes: createLabelDatasetFromObj(agesStats),
       gendersStatsRes: createLabelDatasetFromObj(gendersStats),

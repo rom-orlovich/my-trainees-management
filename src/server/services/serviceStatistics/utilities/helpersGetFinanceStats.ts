@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
 import {
   eachDayOfInterval,
   endOfWeek,
@@ -118,115 +120,245 @@ const createMonthFinanceObj = () => {
   return monthsFinancesObj;
 };
 
+const calculateYearFinance = (
+  yearsFinanceObj: Record<string, FinancesObj>,
+  incomesOrExpenses: "incomes" | "expenses",
+  curYear: number,
+  totalPrice: number
+) => {
+  if (yearsFinanceObj[curYear]) {
+    yearsFinanceObj[curYear][incomesOrExpenses] += totalPrice;
+  } else {
+    // initial expense to 0 and set cur income.
+    const initialFinanceYear =
+      incomesOrExpenses === "incomes"
+        ? {
+            expenses: 0,
+            incomes: totalPrice,
+          }
+        : {
+            expenses: totalPrice,
+            incomes: 0,
+          };
+
+    yearsFinanceObj = {
+      ...yearsFinanceObj,
+      [curYear]: initialFinanceYear,
+    };
+  }
+  return yearsFinanceObj;
+};
+
+export type FinanceDisplayStats =
+  | "thisWeek"
+  | "weeksMonthRange"
+  | "curMonth"
+  | "monthly"
+  | "yearly";
+
+export enum FinanceDisplayStatsType {
+  THIS_WEEK = "thisWeek",
+  CUR_MONTH = "curMonth",
+  WEEKS_MONTH_RANGE = "weeksMonthRange",
+  MONTHLY = "monthly",
+  YEARLY = "yearly",
+}
+
 // Calculates the finance sum as perspective of this week, weekly, monthly, yearly and total.
 const calFinancesSum = (
   incomesData: IncomesTableAPI[],
-  expenseData: ExpensesTableAPI[]
+  expenseData: ExpensesTableAPI[],
+  displayStats?: string
 ) => {
-  let expensesTotalSum = 0;
-  let incomesTotalSum = 0;
+  const checkCurStatsDisplay = (checkDisplayStats: FinanceDisplayStats) =>
+    checkDisplayStats === displayStats;
+  // const expensesTotalSum = 0;
+  // const incomesTotalSum = 0;
 
-  const curMonthTotalSum = {
+  const totalSum: FinancesObj = {
     expenses: 0,
     incomes: 0,
   };
+  // const curMonth = getNameMonth(new Date());
 
-  let yearsFinanceObj = {} as Record<string, FinancesObj>;
+  // const thisWeekDays = createWeekDaysDisplay();
 
-  const thisWeekDays = createWeekDaysDisplay();
-  const weeksRangeMonth = createWeeksRangeMonthFinanceObj();
-  const monthsFinancesObj = createMonthFinanceObj();
+  // const weeksRangeMonth = createWeeksRangeMonthFinanceObj();
+
+  // const monthsFinancesObj = createMonthFinanceObj();
+
+  // let yearsFinanceObj = {} as Record<string, FinancesObj>;
+
   const curMonth = getNameMonth(new Date());
 
-  // Incomes
-  incomesData.forEach((income) => {
-    const formattedDate = formatDate(income.date, 0);
-    const weekRangeInMonth = getWeekRangeInMonthStr(income.date);
-    const dateMonth = getNameMonth(income.date);
-    const curYear = income.date.getFullYear();
-    incomesTotalSum += income.total_price;
-    // Calculate total sum.
-    if (dateMonth === curMonth) curMonthTotalSum.incomes += income.total_price;
+  const curMonthTotalSum = checkCurStatsDisplay("curMonth")
+    ? {
+        expenses: 0,
+        incomes: 0,
+      }
+    : undefined;
+  const thisWeekDays = checkCurStatsDisplay("thisWeek")
+    ? createWeekDaysDisplay()
+    : undefined;
+  const weeksRangeMonth = checkCurStatsDisplay("weeksMonthRange")
+    ? createWeeksRangeMonthFinanceObj()
+    : undefined;
+  const monthsFinancesObj = checkCurStatsDisplay("monthly")
+    ? createMonthFinanceObj()
+    : undefined;
+  let yearsFinanceObj = checkCurStatsDisplay("yearly")
+    ? ({} as Record<string, FinancesObj>)
+    : undefined;
+
+  let resultFinances: { totalSum: FinancesObj } & Record<string, any> = {
+    totalSum,
+  };
+
+  const createFinanceOverviewByTimeLine = <
+    T extends { date: Date; total_price: number }
+  >(
+    financeObj: T,
+    incomesOrExpenses: "incomes" | "expenses"
+  ) => {
+    const formattedDate = formatDate(financeObj.date, 0);
+    const weekRangeInMonth = getWeekRangeInMonthStr(financeObj.date);
+    const dateMonth = getNameMonth(financeObj.date);
+    const curYear = financeObj.date.getFullYear();
+    totalSum[incomesOrExpenses] += financeObj.total_price;
 
     // Calculate this week sum.
-    if (thisWeekDays[formattedDate])
-      thisWeekDays[formattedDate].incomes += income.total_price;
+    if (thisWeekDays && thisWeekDays[formattedDate]) {
+      thisWeekDays[formattedDate][incomesOrExpenses] += financeObj.total_price;
+    }
+
+    // Calculate total month sum.
+    if (curMonthTotalSum && dateMonth === curMonth)
+      curMonthTotalSum[incomesOrExpenses] += financeObj.total_price;
 
     // Calculate weekly sum.
-    if (weeksRangeMonth[weekRangeInMonth])
-      weeksRangeMonth[weekRangeInMonth].incomes += income.total_price;
+    if (weeksRangeMonth && weeksRangeMonth[weekRangeInMonth])
+      weeksRangeMonth[weekRangeInMonth][incomesOrExpenses] +=
+        financeObj.total_price;
 
     // Calculate monthly sum.
-    if (monthsFinancesObj[dateMonth])
-      monthsFinancesObj[dateMonth].incomes += income.total_price;
+    if (monthsFinancesObj && monthsFinancesObj[dateMonth])
+      monthsFinancesObj[dateMonth][incomesOrExpenses] += financeObj.total_price;
 
-    // Calculate year sum
-    const curYearFinance = yearsFinanceObj[curYear];
-    if (curYearFinance) {
-      curYearFinance.incomes += income.total_price;
-    } else {
-      // initial expense to 0 and set cur income.
-      yearsFinanceObj = {
-        ...yearsFinanceObj,
-        [curYear]: {
-          expenses: 0,
-          incomes: income.total_price,
-        },
-      };
+    // Calculate yearly sum
+    if (yearsFinanceObj) {
+      yearsFinanceObj = calculateYearFinance(
+        yearsFinanceObj,
+        incomesOrExpenses,
+        curYear,
+        financeObj.total_price
+      );
     }
-  });
-
-  // Expenses
-  expenseData.forEach((expense) => {
-    const formattedDate = formatDate(expense.date, 0);
-    const weeksRange = getWeekRangeInMonthStr(expense.date);
-    const dateMonth = getNameMonth(expense.date);
-    const curYear = expense.date.getFullYear();
-    expensesTotalSum += expense.total_price;
-    // Calculate total sum.
-    if (dateMonth === curMonth)
-      curMonthTotalSum.expenses += expense.total_price;
-
-    // Calculate this week sum.
-    if (thisWeekDays[formattedDate])
-      thisWeekDays[formattedDate].expenses += expense.total_price;
-
-    // Calculate monthly sum.
-    if (weeksRangeMonth[weeksRange])
-      weeksRangeMonth[weeksRange].expenses += expense.total_price;
-
-    // Calculate year sum
-    if (monthsFinancesObj[dateMonth])
-      monthsFinancesObj[dateMonth].expenses += expense.total_price;
-
-    // Calculate year sum
-    const curYearFinance = yearsFinanceObj[curYear];
-    if (curYearFinance) {
-      curYearFinance.expenses += expense.total_price;
-    } else {
-      // initial expense to 0 and set cur income.
-      yearsFinanceObj = {
-        ...yearsFinanceObj,
-        [curYear]: {
-          incomes: 0,
-          expenses: expense.total_price,
-        },
-      };
-    }
-  });
-
-  return {
-    expensesTotalSum,
-    incomesTotalSum,
-    thisWeekDays,
-    curMonthTotalSum,
-    weeksRangeMonth,
-    monthsFinancesObj,
-    yearsFinanceObj,
   };
+
+  let j = 0;
+  let i = 0;
+  while (incomesData[i] || expenseData[j]) {
+    if (incomesData[i]) {
+      createFinanceOverviewByTimeLine(incomesData[i], "incomes");
+      i++;
+    }
+
+    if (expenseData[j]) {
+      createFinanceOverviewByTimeLine(expenseData[j], "expenses");
+      j++;
+    }
+  }
+
+  // // Incomes
+  // incomesData.forEach((income) => {
+  //   const formattedDate = formatDate(income.date, 0);
+  //   const weekRangeInMonth = getWeekRangeInMonthStr(income.date);
+  //   const dateMonth = getNameMonth(income.date);
+  //   const curYear = income.date.getFullYear();
+  //   incomesTotalSum += income.total_price;
+  //   // Calculate total sum.
+  //   if (dateMonth === curMonth) curMonthTotalSum.incomes += income.total_price;
+
+  //   // Calculate this week sum.
+  //   if (thisWeekDays[formattedDate])
+  //     thisWeekDays[formattedDate].incomes += income.total_price;
+
+  //   // Calculate weekly sum.
+  //   if (weeksRangeMonth[weekRangeInMonth])
+  //     weeksRangeMonth[weekRangeInMonth].incomes += income.total_price;
+
+  //   // Calculate monthly sum.
+  //   if (monthsFinancesObj[dateMonth])
+  //     monthsFinancesObj[dateMonth].incomes += income.total_price;
+
+  //   // Calculate year sum
+  //   const curYearFinance = yearsFinanceObj[curYear];
+  //   if (curYearFinance) {
+  //     curYearFinance.incomes += income.total_price;
+  //   } else {
+  //     // initial expense to 0 and set cur income.
+  //     yearsFinanceObj = {
+  //       ...yearsFinanceObj,
+  //       [curYear]: {
+  //         expenses: 0,
+  //         incomes: income.total_price,
+  //       },
+  //     };
+  //   }
+  // });
+
+  // // Expenses
+  // expenseData.forEach((expense) => {
+  //   const formattedDate = formatDate(expense.date, 0);
+  //   const weeksRange = getWeekRangeInMonthStr(expense.date);
+  //   const dateMonth = getNameMonth(expense.date);
+  //   const curYear = expense.date.getFullYear();
+  //   expensesTotalSum += expense.total_price;
+  //   // Calculate total sum.
+  //   if (dateMonth === curMonth)
+  //     curMonthTotalSum.expenses += expense.total_price;
+
+  //   // Calculate this week sum.
+  //   if (thisWeekDays[formattedDate])
+  //     thisWeekDays[formattedDate].expenses += expense.total_price;
+
+  //   // Calculate monthly sum.
+  //   if (weeksRangeMonth[weeksRange])
+  //     weeksRangeMonth[weeksRange].expenses += expense.total_price;
+
+  //   // Calculate year sum
+  //   if (monthsFinancesObj[dateMonth])
+  //     monthsFinancesObj[dateMonth].expenses += expense.total_price;
+
+  //   // Calculate year sum
+  //   const curYearFinance = yearsFinanceObj[curYear];
+  //   if (curYearFinance) {
+  //     curYearFinance.expenses += expense.total_price;
+  //   } else {
+  //     // initial expense to 0 and set cur income.
+  //     yearsFinanceObj = {
+  //       ...yearsFinanceObj,
+  //       [curYear]: {
+  //         incomes: 0,
+  //         expenses: expense.total_price,
+  //       },
+  //     };
+  //   }
+  // });
+
+  if (curMonthTotalSum)
+    resultFinances = { ...resultFinances, curMonthTotalSum };
+  if (thisWeekDays) resultFinances = { ...resultFinances, thisWeekDays };
+  if (weeksRangeMonth) resultFinances = { ...resultFinances, weeksRangeMonth };
+  if (monthsFinancesObj)
+    resultFinances = { ...resultFinances, monthsFinancesObj };
+  if (yearsFinanceObj) resultFinances = { ...resultFinances, yearsFinanceObj };
+
+  return resultFinances;
 };
 
 export const getFinanceStats = (
   incomesData: IncomesTableAPI[],
-  expenseData: ExpensesTableAPI[]
-) => ({ financeSum: calFinancesSum(incomesData, expenseData) });
+  expenseData: ExpensesTableAPI[],
+  displayStats?: string
+) => ({ financeSum: calFinancesSum(incomesData, expenseData, displayStats) });
