@@ -1,3 +1,5 @@
+import { Interface } from "readline";
+
 /* eslint-disable no-unused-vars */
 export interface TrainingProgramExercise {
   training_program_row_id: number;
@@ -88,6 +90,16 @@ export interface IncomesTableAPI {
   user_id?: number;
 }
 
+export interface SharedIncomesExpensesProps {
+  date: Date;
+  total_price: number;
+  product_name: string;
+  first_name?: string;
+  last_name?: string;
+  amount: number;
+  seller_name?: string;
+}
+
 export interface FinancesObj {
   incomes: number;
   expenses: number;
@@ -98,7 +110,8 @@ export type FinanceDisplayStats =
   | "weeksMonthRange"
   | "curMonth"
   | "monthly"
-  | "yearly";
+  | "yearly"
+  | "distributionFinances";
 
 export enum FinanceDisplayStatsType {
   THIS_WEEK = "thisWeek",
@@ -109,3 +122,28 @@ export enum FinanceDisplayStatsType {
 }
 
 export type IncomesOrExpenses = "incomes" | "expenses";
+
+export interface FinancesChartStatsDisplay {
+  labelFormatted: string[];
+  datasetsValues: {
+    expenses: number[];
+    incomes: number[];
+  };
+}
+export interface FinancesDistributionStatsDisplay {
+  labelFormatted: string[];
+  datasetsValues: {
+    amounts: number[];
+    totalPrice: number[];
+  };
+}
+
+export interface ProductData {
+  amount: number;
+  total_price: number;
+}
+
+export interface DistributionFinances {
+  incomes: Record<string, ProductData>;
+  expenses: Record<string, ProductData>;
+}
