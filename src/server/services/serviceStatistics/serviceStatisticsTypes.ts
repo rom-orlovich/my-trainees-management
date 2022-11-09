@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export interface TrainingProgramExercise {
   training_program_row_id: number;
   update_date: Date;
@@ -86,3 +87,25 @@ export interface IncomesTableAPI {
   note_text?: string;
   user_id?: number;
 }
+
+export interface FinancesObj {
+  incomes: number;
+  expenses: number;
+}
+
+export type FinanceDisplayStats =
+  | "thisWeek"
+  | "weeksMonthRange"
+  | "curMonth"
+  | "monthly"
+  | "yearly";
+
+export enum FinanceDisplayStatsType {
+  THIS_WEEK = "thisWeek",
+  CUR_MONTH = "curMonth",
+  WEEKS_MONTH_RANGE = "weeksMonthRange",
+  MONTHLY = "monthly",
+  YEARLY = "yearly",
+}
+
+export type IncomesOrExpenses = "incomes" | "expenses";

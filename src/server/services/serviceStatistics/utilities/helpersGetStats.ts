@@ -1,5 +1,12 @@
 import { formatDate } from "../../../utilities/helpers";
 
+export const createLabelDatasetFromObj = <T extends Record<string, T[keyof T]>>(
+  obj: T
+) => ({
+  labelFormatted: Object.keys(obj),
+  datasetsValues: Object.values(obj),
+});
+
 export const normalizeDatesValues = <T extends { date: Date; value: number }[]>(
   arr: T
 ) => {
@@ -22,9 +29,3 @@ export const normalizeDatesValues = <T extends { date: Date; value: number }[]>(
     datasetsValues: values,
   };
 };
-export const createLabelDatasetFromObj = <T extends Record<string, number>>(
-  obj: T
-) => ({
-  labelFormatted: Object.keys(obj),
-  datasetsValues: Object.values(obj),
-});

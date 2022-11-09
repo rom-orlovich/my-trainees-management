@@ -10,12 +10,15 @@ import {
 } from "date-fns";
 import { formatDate } from "../../../utilities/helpers";
 
-import { ExpensesTableAPI, IncomesTableAPI } from "../serviceStatisticsTypes";
+import {
+  ExpensesTableAPI,
+  FinanceDisplayStats,
+  FinancesObj,
+  IncomesOrExpenses,
+  IncomesTableAPI,
+} from "../serviceStatisticsTypes";
+import { createLabelDatasetFromObj } from "./helpersGetStats";
 
-interface FinancesObj {
-  incomes: number;
-  expenses: number;
-}
 const getNameMonth = (date: Date) => format(date, "MMMMMM");
 
 // Creates for each day in the week a financeObj.
@@ -120,49 +123,58 @@ const createMonthFinanceObj = () => {
   return monthsFinancesObj;
 };
 
+// calculate year finance stats
 const calculateYearFinance = (
   yearsFinanceObj: Record<string, FinancesObj>,
-  incomesOrExpenses: "incomes" | "expenses",
+  incomesOrExpenses: IncomesOrExpenses,
   curYear: number,
   totalPrice: number
 ) => {
   if (yearsFinanceObj[curYear]) {
     yearsFinanceObj[curYear][incomesOrExpenses] += totalPrice;
   } else {
-    // initial expense to 0 and set cur income.
-    const initialFinanceYear =
-      incomesOrExpenses === "incomes"
-        ? {
-            expenses: 0,
-            incomes: totalPrice,
-          }
-        : {
-            expenses: totalPrice,
-            incomes: 0,
-          };
+    // Initial expenses/incomes to 0 if they are not exist and set cur expenses/incomes.
+    const initialFinanceYear = {
+      incomes: {
+        expenses: 0,
+        incomes: totalPrice,
+      },
+      expenses: {
+        expenses: totalPrice,
+        incomes: 0,
+      },
+    };
 
     yearsFinanceObj = {
       ...yearsFinanceObj,
-      [curYear]: initialFinanceYear,
+      [curYear]: initialFinanceYear[incomesOrExpenses],
     };
   }
   return yearsFinanceObj;
 };
 
-export type FinanceDisplayStats =
-  | "thisWeek"
-  | "weeksMonthRange"
-  | "curMonth"
-  | "monthly"
-  | "yearly";
+// Creates labels and datasets for chart display in the client.
+const normalizeDatesValuesFinance = (
+  financeObj: Record<string, FinancesObj>
+) => {
+  const { datasetsValues, labelFormatted } =
+    createLabelDatasetFromObj(financeObj);
 
-export enum FinanceDisplayStatsType {
-  THIS_WEEK = "thisWeek",
-  CUR_MONTH = "curMonth",
-  WEEKS_MONTH_RANGE = "weeksMonthRange",
-  MONTHLY = "monthly",
-  YEARLY = "yearly",
-}
+  const incomes = datasetsValues.map(
+    (financeObjValue) => financeObjValue.incomes
+  );
+  const expenses = datasetsValues.map(
+    (financeObjValue) => financeObjValue.expenses
+  );
+
+  return {
+    labelFormatted,
+    datasetsValues: {
+      expenses,
+      incomes,
+    },
+  };
+};
 
 // Calculates the finance sum as perspective of this week, weekly, monthly, yearly and total.
 const calFinancesSum = (
@@ -170,33 +182,16 @@ const calFinancesSum = (
   expenseData: ExpensesTableAPI[],
   displayStats?: string
 ) => {
+  // Check the current display according to the displayStats.
   const checkCurStatsDisplay = (checkDisplayStats: FinanceDisplayStats) =>
     checkDisplayStats === displayStats;
-  // const expensesTotalSum = 0;
-  // const incomesTotalSum = 0;
 
-  const totalSum: FinancesObj = {
+  const totalFinancesSum: FinancesObj = {
     expenses: 0,
     incomes: 0,
   };
-  // const curMonth = getNameMonth(new Date());
 
-  // const thisWeekDays = createWeekDaysDisplay();
-
-  // const weeksRangeMonth = createWeeksRangeMonthFinanceObj();
-
-  // const monthsFinancesObj = createMonthFinanceObj();
-
-  // let yearsFinanceObj = {} as Record<string, FinancesObj>;
-
-  const curMonth = getNameMonth(new Date());
-
-  const curMonthTotalSum = checkCurStatsDisplay("curMonth")
-    ? {
-        expenses: 0,
-        incomes: 0,
-      }
-    : undefined;
+  // If display is not requested so the the timeline finance object is undefined.
   const thisWeekDays = checkCurStatsDisplay("thisWeek")
     ? createWeekDaysDisplay()
     : undefined;
@@ -210,41 +205,36 @@ const calFinancesSum = (
     ? ({} as Record<string, FinancesObj>)
     : undefined;
 
-  let resultFinances: { totalSum: FinancesObj } & Record<string, any> = {
-    totalSum,
-  };
+  let resultFinances: Record<string, FinancesObj> = {};
 
-  const createFinanceOverviewByTimeLine = <
+  // Calculate for each expense or incomes the change in finance stats.
+  const calFinanceOverviewByTimeLine = <
     T extends { date: Date; total_price: number }
   >(
     financeObj: T,
-    incomesOrExpenses: "incomes" | "expenses"
+    incomesOrExpenses: IncomesOrExpenses
   ) => {
     const formattedDate = formatDate(financeObj.date, 0);
     const weekRangeInMonth = getWeekRangeInMonthStr(financeObj.date);
     const dateMonth = getNameMonth(financeObj.date);
     const curYear = financeObj.date.getFullYear();
-    totalSum[incomesOrExpenses] += financeObj.total_price;
+    totalFinancesSum[incomesOrExpenses] += financeObj.total_price;
 
-    // Calculate this week sum.
+    // Calculate this week sum if display this week is defined.
     if (thisWeekDays && thisWeekDays[formattedDate]) {
       thisWeekDays[formattedDate][incomesOrExpenses] += financeObj.total_price;
     }
 
-    // Calculate total month sum.
-    if (curMonthTotalSum && dateMonth === curMonth)
-      curMonthTotalSum[incomesOrExpenses] += financeObj.total_price;
-
-    // Calculate weekly sum.
+    // Calculate weekly sum if display this weekly is defined.
     if (weeksRangeMonth && weeksRangeMonth[weekRangeInMonth])
       weeksRangeMonth[weekRangeInMonth][incomesOrExpenses] +=
         financeObj.total_price;
 
-    // Calculate monthly sum.
+    // Calculate monthly sum if display monthly is defined.
     if (monthsFinancesObj && monthsFinancesObj[dateMonth])
       monthsFinancesObj[dateMonth][incomesOrExpenses] += financeObj.total_price;
 
-    // Calculate yearly sum
+    // Calculate yearly sum if display yearly is defined.
     if (yearsFinanceObj) {
       yearsFinanceObj = calculateYearFinance(
         yearsFinanceObj,
@@ -255,106 +245,24 @@ const calFinancesSum = (
     }
   };
 
-  let j = 0;
-  let i = 0;
-  while (incomesData[i] || expenseData[j]) {
-    if (incomesData[i]) {
-      createFinanceOverviewByTimeLine(incomesData[i], "incomes");
-      i++;
-    }
+  // Loop over the incomeData and expenseData and calculate the finance stats.
+  incomesData.forEach((income) =>
+    calFinanceOverviewByTimeLine(income, "incomes")
+  );
+  expenseData.forEach((expense) =>
+    calFinanceOverviewByTimeLine(expense, "expenses")
+  );
 
-    if (expenseData[j]) {
-      createFinanceOverviewByTimeLine(expenseData[j], "expenses");
-      j++;
-    }
-  }
-
-  // // Incomes
-  // incomesData.forEach((income) => {
-  //   const formattedDate = formatDate(income.date, 0);
-  //   const weekRangeInMonth = getWeekRangeInMonthStr(income.date);
-  //   const dateMonth = getNameMonth(income.date);
-  //   const curYear = income.date.getFullYear();
-  //   incomesTotalSum += income.total_price;
-  //   // Calculate total sum.
-  //   if (dateMonth === curMonth) curMonthTotalSum.incomes += income.total_price;
-
-  //   // Calculate this week sum.
-  //   if (thisWeekDays[formattedDate])
-  //     thisWeekDays[formattedDate].incomes += income.total_price;
-
-  //   // Calculate weekly sum.
-  //   if (weeksRangeMonth[weekRangeInMonth])
-  //     weeksRangeMonth[weekRangeInMonth].incomes += income.total_price;
-
-  //   // Calculate monthly sum.
-  //   if (monthsFinancesObj[dateMonth])
-  //     monthsFinancesObj[dateMonth].incomes += income.total_price;
-
-  //   // Calculate year sum
-  //   const curYearFinance = yearsFinanceObj[curYear];
-  //   if (curYearFinance) {
-  //     curYearFinance.incomes += income.total_price;
-  //   } else {
-  //     // initial expense to 0 and set cur income.
-  //     yearsFinanceObj = {
-  //       ...yearsFinanceObj,
-  //       [curYear]: {
-  //         expenses: 0,
-  //         incomes: income.total_price,
-  //       },
-  //     };
-  //   }
-  // });
-
-  // // Expenses
-  // expenseData.forEach((expense) => {
-  //   const formattedDate = formatDate(expense.date, 0);
-  //   const weeksRange = getWeekRangeInMonthStr(expense.date);
-  //   const dateMonth = getNameMonth(expense.date);
-  //   const curYear = expense.date.getFullYear();
-  //   expensesTotalSum += expense.total_price;
-  //   // Calculate total sum.
-  //   if (dateMonth === curMonth)
-  //     curMonthTotalSum.expenses += expense.total_price;
-
-  //   // Calculate this week sum.
-  //   if (thisWeekDays[formattedDate])
-  //     thisWeekDays[formattedDate].expenses += expense.total_price;
-
-  //   // Calculate monthly sum.
-  //   if (weeksRangeMonth[weeksRange])
-  //     weeksRangeMonth[weeksRange].expenses += expense.total_price;
-
-  //   // Calculate year sum
-  //   if (monthsFinancesObj[dateMonth])
-  //     monthsFinancesObj[dateMonth].expenses += expense.total_price;
-
-  //   // Calculate year sum
-  //   const curYearFinance = yearsFinanceObj[curYear];
-  //   if (curYearFinance) {
-  //     curYearFinance.expenses += expense.total_price;
-  //   } else {
-  //     // initial expense to 0 and set cur income.
-  //     yearsFinanceObj = {
-  //       ...yearsFinanceObj,
-  //       [curYear]: {
-  //         incomes: 0,
-  //         expenses: expense.total_price,
-  //       },
-  //     };
-  //   }
-  // });
-
-  if (curMonthTotalSum)
-    resultFinances = { ...resultFinances, curMonthTotalSum };
-  if (thisWeekDays) resultFinances = { ...resultFinances, thisWeekDays };
-  if (weeksRangeMonth) resultFinances = { ...resultFinances, weeksRangeMonth };
+  // Assign the requested display to resultFinances.
+  if (thisWeekDays) resultFinances = { ...resultFinances, ...thisWeekDays };
+  if (weeksRangeMonth)
+    resultFinances = { ...resultFinances, ...weeksRangeMonth };
   if (monthsFinancesObj)
-    resultFinances = { ...resultFinances, monthsFinancesObj };
-  if (yearsFinanceObj) resultFinances = { ...resultFinances, yearsFinanceObj };
+    resultFinances = { ...resultFinances, ...monthsFinancesObj };
+  if (yearsFinanceObj)
+    resultFinances = { ...resultFinances, ...yearsFinanceObj };
 
-  return resultFinances;
+  return { totalFinancesSum, ...normalizeDatesValuesFinance(resultFinances) };
 };
 
 export const getFinanceStats = (
