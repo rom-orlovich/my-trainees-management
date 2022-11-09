@@ -91,6 +91,10 @@ export const leadsOptionsCRUD: OptionsCRUD = {
     orderByParam: {
       leadDate: "lead_date",
     },
+    comparisonQuery: {
+      gt: "le.lead_date",
+      lt: "le.lead_date",
+    },
   },
   permissions: PERMISSION_TRAINER_BY_USER_ID,
 
