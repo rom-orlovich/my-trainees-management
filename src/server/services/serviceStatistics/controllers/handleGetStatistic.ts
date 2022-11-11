@@ -11,7 +11,7 @@ import {
   MeasuresCalResAPI,
   SharedTraineesLeadsProps,
 } from "../serviceStatisticsTypes";
-import { getGetAgesCitiesGendersStats } from "../utilities/helpersGetAgesCitiesGenderStats";
+import { helpersGetAgesCitiesGenderTimeLinesStats } from "../utilities/helpersGetAgesCitiesGenderTimeLinesStats";
 import { exerciseStatsCreateLabelAndDatasets } from "../utilities/helpersGetExercisesStats";
 import { getFinanceStats } from "../utilities/helpersGetFinanceStats";
 import { getMeasuresStats } from "../utilities/helpersGetMeasuresStats";
@@ -35,13 +35,13 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
           displayStats
         );
       } else if (req.baseUrl === API_ROUTES.LEADS_ROUTE) {
-        result = getGetAgesCitiesGendersStats(
+        result = helpersGetAgesCitiesGenderTimeLinesStats(
           statsResult?.data as SharedTraineesLeadsProps[],
           "leads",
           displayStats as ChartDisplayTypes
         );
       } else if (req.baseUrl === API_ROUTES.TRAINEES_ROUTE) {
-        result = getGetAgesCitiesGendersStats(
+        result = helpersGetAgesCitiesGenderTimeLinesStats(
           statsResult?.data as SharedTraineesLeadsProps[],
           "trainees",
           displayStats as ChartDisplayTypes
@@ -64,6 +64,6 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
 
   return res.status(200).json({
     ...rawRes,
-    ...result,
+    stats: result,
   });
 };

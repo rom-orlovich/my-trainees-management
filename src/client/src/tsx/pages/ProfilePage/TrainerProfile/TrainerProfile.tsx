@@ -7,6 +7,7 @@ import IncomeEventsBoard from "./IncomeEventsBoard/IncomeEventsBoard";
 import LeadsStatus from "./LeadsStatus/LeadsStatus";
 import TraineeStatus from "./TraineeStatus/TraineeStatus";
 import style from "./TrainerProfile.module.scss";
+import TrainerUserDetails from "./TrainerUserDetails/TraineeUserDetails";
 
 export interface TrainerProfileProps {
   queryOptions: { userID?: number };
@@ -22,13 +23,16 @@ function TrainerProfile() {
           queryOptions={queryOptions}
           className={style.income_events_board_grid_item}
         />
-        <TraineeUserDetails className={style.user_details_grid_item} />
+        <TrainerUserDetails className={style.user_details_grid_item} />
         <FinancesStatus
           queryOptions={queryOptions}
           className={style.finances_status_grid_item}
         />
         <TraineeStatus className={style.trainees_status_grid_item} />
-        <LeadsStatus className={style.leads_status_grid_item} />
+        <LeadsStatus
+          queryOptions={queryOptions}
+          className={style.leads_status_grid_item}
+        />
       </div>
     </section>
   );

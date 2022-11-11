@@ -107,14 +107,13 @@ const normalizeDatesValuesSumObj = (
   };
 };
 
-export const getGetAgesCitiesGendersStats = <
+export const helpersGetAgesCitiesGenderTimeLinesStats = <
   T extends SharedTraineesLeadsProps
 >(
   data: T[],
   dataType: LeadTraineeType,
   displayStats?: ChartDisplayTypes
 ) => {
-  if (displayStats !== "all") return {};
   const checkCurStatsDisplay = (checkDisplayStats: ChartDisplayTypes) =>
     checkDisplayStats === displayStats || displayStats === "all";
   const agesStats: GenericRecord<number> = {};
@@ -148,10 +147,12 @@ export const getGetAgesCitiesGendersStats = <
       const dateMonth = getNameMonth(curDate);
       const curYear = curDate.getFullYear();
       // cal distributed stats.
-      calStatsAges(agesStats, data.birthday);
-      calStatsGenders(gendersStats, data.gender);
-      calStatsCities(citiesStats, data.city_name);
-      calStatsHandlesStatus(handleStatus, data.status, dataType);
+      if (checkCurStatsDisplay("distribution")) {
+        calStatsAges(agesStats, data.birthday);
+        calStatsGenders(gendersStats, data.gender);
+        calStatsCities(citiesStats, data.city_name);
+        calStatsHandlesStatus(handleStatus, data.status, dataType);
+      }
 
       // Cal timeline stats.
       thisWeekSumObj = calTimeLineObj(dataType, formattedDate, thisWeekSumObj);
@@ -171,12 +172,14 @@ export const getGetAgesCitiesGendersStats = <
     });
 
     // Get results
-    let res: GenericRecord<any> = {
-      agesStatsRes: createLabelDatasetFromObj(agesStats),
-      gendersStatsRes: createLabelDatasetFromObj(gendersStats),
-      calStatsCitiesRes: createLabelDatasetFromObj(citiesStats),
-      calStatsHandlesLeadsRes: createLabelDatasetFromObj(handleStatus),
-    };
+    let res: GenericRecord<any> = checkCurStatsDisplay("distribution")
+      ? {
+          agesStatsRes: createLabelDatasetFromObj(agesStats),
+          gendersStatsRes: createLabelDatasetFromObj(gendersStats),
+          calStatsCitiesRes: createLabelDatasetFromObj(citiesStats),
+          calStatsHandlesLeadsRes: createLabelDatasetFromObj(handleStatus),
+        }
+      : {};
 
     if (thisWeekSumObj) {
       res = {

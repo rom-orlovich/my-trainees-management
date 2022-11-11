@@ -30,12 +30,12 @@ function TrainingProgramsExerciseStatsChart({
           datasets={[
             {
               label: `${queryParams.get("exercise")}`,
-              data: data.datasetsValues,
+              data: data.stats.datasetsValues,
               backgroundColor: "red",
               borderColor: "red",
             },
           ]}
-          labels={data.labelFormatted}
+          labels={data.stats.labelFormatted}
         />
       )}
     </LoadingSpinner>

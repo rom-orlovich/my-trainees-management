@@ -25,8 +25,8 @@ import { TraineeProfileProps } from "../TraineeProfile";
 import style from "./CaloriesChart.module.scss";
 
 interface CaloriesChartRes {
-  weightsDisplay: ChartsDataAPI;
-  caloriesDisplay: ChartsDataAPI;
+  weightsDisplay: ChartsDataAPI<number[]>;
+  caloriesDisplay: ChartsDataAPI<number[]>;
   calories_total: number;
 }
 function CaloriesChart({
@@ -69,9 +69,8 @@ function CaloriesChart({
         stateData={{ data, isError, isFetching, isLoading }}
       >
         {(data) => {
-          const { caloriesDisplay, weightsDisplay, calories_total } =
-            data as unknown as CaloriesChartRes;
-
+          const { stats } = data as unknown as { stats: CaloriesChartRes };
+          const { caloriesDisplay, weightsDisplay, calories_total } = stats;
           const caloriesPieDisplay = {
             g: weightsDisplay,
             Kcal: caloriesDisplay,

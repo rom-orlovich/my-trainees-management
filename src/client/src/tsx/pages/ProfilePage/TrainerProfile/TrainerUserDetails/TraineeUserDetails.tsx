@@ -5,10 +5,6 @@ import { PropsBasic } from "../../../../components/baseComponents/baseComponents
 import Card from "../../../../components/baseComponents/Card/Card";
 import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 
-import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
-
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
-
 import { genClassName } from "../../../../utilities/helpersFun";
 import style from "../../UserDetails/UserDetails.module.scss";
 

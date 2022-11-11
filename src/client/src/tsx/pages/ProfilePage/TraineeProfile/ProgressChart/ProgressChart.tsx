@@ -29,7 +29,9 @@ function ProgressChart({ className }: PropsBasic) {
       numResults: 100,
     }
   );
-  const Data = data as ResponseQueryAPI<MeasuresCalResAPI> & ChartsDataAPI;
+  const Data = data as ResponseQueryAPI<MeasuresCalResAPI> & {
+    stats: ChartsDataAPI<number[]>;
+  };
   return (
     <Card className={genClassName(className, style.progress_chart_container)}>
       <LoadingSpinner
@@ -43,12 +45,12 @@ function ProgressChart({ className }: PropsBasic) {
             datasets={[
               {
                 label: `Measures Weights Progress`,
-                data: data.datasetsValues,
+                data: data.stats.datasetsValues,
                 backgroundColor: "red",
                 borderColor: "red",
               },
             ]}
-            labels={data.labelFormatted}
+            labels={data.stats.labelFormatted}
             options={{
               plugins: {
                 datalabels: {

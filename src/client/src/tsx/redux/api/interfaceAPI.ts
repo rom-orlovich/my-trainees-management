@@ -322,10 +322,10 @@ export interface ExerciseStatsAPI {
   intensity: number;
   rpe: number;
 }
-export interface ChartsDataAPI {
-  labelFormatted: string[];
-  datasetsValues: number[];
-}
+// export interface ChartsDataAPI {
+//   labelFormatted: string[];
+//   datasetsValues: number[];
+// }
 export interface ExpensesTableAPI {
   user_id?: number;
   date: Date;
@@ -401,7 +401,7 @@ export interface MeetingAPI {
   user_id?: number;
 }
 
-export interface ChartData<V> {
+export interface ChartsDataAPI<V> {
   labelFormatted: string[];
   datasetsValues: V;
 }
@@ -417,19 +417,19 @@ export interface FinancesValue {
 }
 
 export interface ResultDistributionFinances {
-  incomes: ChartData<number>;
-  expenses: ChartData<number>;
+  incomes: ChartsDataAPI<number>;
+  expenses: ChartsDataAPI<number>;
 }
 
 export interface FinanceAPI {
   incomes: ResponseQueryAPI<IncomesTableAPI>;
   expenses: ResponseQueryAPI<ExpensesTableAPI>;
-  financesSum: {
+  stats: {
     totalFinancesSum: FinancesValue;
-    thisWeekDays: ChartData<FinancesValues>;
-    weeksRangeMonth: ChartData<FinancesValues>;
-    monthsFinancesObj: ChartData<FinancesValues>;
-    yearsFinanceObj: ChartData<FinancesValues>;
+    thisWeekDays: ChartsDataAPI<FinancesValues>;
+    weeksRangeMonth: ChartsDataAPI<FinancesValues>;
+    monthsFinancesObj: ChartsDataAPI<FinancesValues>;
+    yearsFinanceObj: ChartsDataAPI<FinancesValues>;
     resultDistributionFinances: ResultDistributionFinances;
   };
 }

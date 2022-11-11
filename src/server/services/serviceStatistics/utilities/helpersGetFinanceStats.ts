@@ -234,4 +234,4 @@ export const getFinanceStats = (
   incomesData: IncomesTableAPI[],
   expenseData: ExpensesTableAPI[],
   displayStats?: string
-) => ({ financesSum: calFinancesSum(incomesData, expenseData, displayStats) });
+) => calFinancesSum(incomesData, expenseData, displayStats);
