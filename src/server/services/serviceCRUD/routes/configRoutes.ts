@@ -505,12 +505,14 @@ export const participantsGroupOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pgt`,
     tableID: `pgt.${TABLES_DATA.PARTICIPANTS_GROUP_ID}`,
-    fieldNamesQuery: ` pgt.*,pro.first_name,pro.last_name`,
+    fieldNamesQuery: ` pgt.*,pro.first_name,pro.last_name,pro.profile_id,us.username`,
     querySelectLogic: `
     LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} AS tr 
     ON tr.${TABLES_DATA.TRAINEE_ID} = pgt.${TABLES_DATA.TRAINEE_ID}
     LEFT JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} AS pro 
-    ON tr.${TABLES_DATA.PROFILE_ID} = pro.${TABLES_DATA.PROFILE_ID}`,
+    ON tr.${TABLES_DATA.PROFILE_ID} = pro.${TABLES_DATA.PROFILE_ID}
+    LEFT JOIN ${TABLES_DATA.USERS_TABLE_NAME} AS us on 
+   tr.${TABLES_DATA.USERS_TABLE_ID}=us.${TABLES_DATA.USERS_TABLE_ID}`,
     queryParams: {
       userID: `pgt.${TABLES_DATA.USERS_TABLE_ID}`,
       trainerUserID: `pgt.${TABLES_DATA.USERS_TABLE_ID}`,
@@ -543,7 +545,7 @@ export const meetingOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.MEETINGS_TABLE_NAME} as mt`,
     tableID: `mt.${TABLES_DATA.MEETINGS_ID}`,
-    fieldNamesQuery: ` mt.*,act.activity_name,lo.street,c.city_name`,
+    fieldNamesQuery: ` mt.*,act.activity_name,lo.street,c.city_name,pgl.group_name`,
     querySelectLogic: `
     LEFT JOIN ${TABLES_DATA.ACTIVITIES_TABLE_NAME} as act ON
     mt.${TABLES_DATA.ACTIVITIES_ID}= act.${TABLES_DATA.ACTIVITIES_ID}
@@ -551,6 +553,8 @@ export const meetingOptionsCRUD: OptionsCRUD = {
     mt.${TABLES_DATA.LOCATION_ID}=lo.${TABLES_DATA.LOCATION_ID}
     JOIN ${TABLES_DATA.CITIES_TABLE_NAME} as c ON
     c.${TABLES_DATA.CITY_ID}=lo.${TABLES_DATA.CITY_ID}
+    LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_TABLE_NAME} as pgl ON
+    mt.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}= pgl.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}
     `,
     queryParams: {
       traineeID: `${TABLES_DATA.TRAINEE_ID}`,

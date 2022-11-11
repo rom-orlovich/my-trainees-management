@@ -40,7 +40,7 @@ function ListProfile<T extends Record<string, any>>({
         }}
       >
         {(data) => (
-          <>
+          <div className={style.list_container}>
             <h2>{heading}</h2>
             <div className={style.list_content}>
               <List
@@ -54,7 +54,7 @@ function ListProfile<T extends Record<string, any>>({
                 </div>
               )}
             </div>
-          </>
+          </div>
         )}
       </LoadingSpinner>
     </>

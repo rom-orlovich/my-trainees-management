@@ -1,6 +1,7 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 
 .programs_container {
+  position: relative;
   @include classMatcher("selectInput_label") {
     @include posAbs(3%, null, 3%, null);
     width: initial;

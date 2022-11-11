@@ -22,7 +22,7 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
     <Card
       className={genClassName(
         className,
-        listProfileStyle.list_container,
+        // listProfileStyle.list_container,
         style.subscription_plans_container
       )}
     >

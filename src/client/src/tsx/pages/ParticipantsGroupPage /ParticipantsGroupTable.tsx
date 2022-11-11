@@ -3,25 +3,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
-import {
-  participantsGroupApi,
-  participantsGroupsListApi,
-} from "../../redux/api/hooksAPI";
-import {
-  ParticipantsGroupsListTableAPI,
-  ParticipantsGroupTableAPI,
-} from "../../redux/api/interfaceAPI";
+import { participantsGroupApi } from "../../redux/api/hooksAPI";
+import { ParticipantsGroupTableAPI } from "../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 const transformParticipantsGroup = ({
   first_name,
   last_name,
+  trainee_id,
   participants_group_id,
+  username,
+  profile_id,
 }: ParticipantsGroupTableAPI) => ({
   participants_group_id,
-  first_name,
-  last_name,
+  full_name: (
+    <Link
+      to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${APP_ROUTE.PROFILE_ROUTE}?profileID=${profile_id}&username=${username}`}
+    >
+      {`${first_name} ${last_name}`}
+    </Link>
+  ),
 });
 function ParticipantsGroupTable({
   queriesOptions,

@@ -2,6 +2,7 @@
 .list_container {
   padding: 1rem;
   position: relative;
+  height: 100%;
   @include flex-dir(null, null, column);
   @include classMatcher("message_spinner") {
     @include centerAbs();
@@ -31,11 +32,13 @@
         //   gap: 0.3rem 2.5rem;
         padding: 0.1rem 0.5rem;
         .list_detail {
-          @include flex-dir(null, center, column);
+          width: 10rem;
+          text-align: center;
+          @include flex-dir(center, center, column);
           gap: 0.1rem;
           :first-child {
             font-weight: 500;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
           }
           :nth-child(2) {
             font-size: 1rem;

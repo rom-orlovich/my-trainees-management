@@ -368,6 +368,8 @@ export interface ParticipantsGroupTableAPI {
   user_id?: number;
   first_name?: string;
   last_name?: string;
+  profile_id: number;
+  username?: string;
 }
 export interface ParticipantsGroupsListTableAPI {
   participants_groups_list_id?: number;
@@ -388,6 +390,7 @@ export interface MeetingAPI {
   participants_groups_list_id: number;
   activity_id: number;
   activity_name?: string;
+  group_name: string;
   location_id: number;
   city_name?: string;
   street?: string;
