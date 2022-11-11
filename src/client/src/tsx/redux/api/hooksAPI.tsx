@@ -1,3 +1,4 @@
+import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import {
   MusclesGroupTableAPI,
   CitiesTableAPI,
@@ -27,10 +28,13 @@ import {
   MeetingAPI,
   ParticipantsGroupTableAPI,
   ParticipantsGroupsListTableAPI,
+  FinanceAPI,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
 import { providerTag, providerTags } from "../reduxHelpers";
+import { baseQueryWithReauth } from "./apiReauthQuery";
+import { GenericRecord } from "../../types";
 
 export const usersApi = apiCreateCRUDHooks<User>({
   reducerPath: "usersApi",
@@ -207,6 +211,23 @@ export const expenseApi = apiCreateCRUDHooks<ExpensesTableAPI>({
   singleEntityName: API_ROUTES.EXPENSES_ENTITY,
   listId: "expense_list",
 });
+// export const financeApi = apiCreateCRUDHooks({
+//   baseUrl: API_ROUTES.FINANCES_ROUTE,
+//   reducerPath: "financesApi",
+//   singleEntityName: API_ROUTES.FINANCES_ENTITY,
+//   listId: "finances_list",
+// });
+export const financesApi = createApi({
+  tagTypes: ["finances_list"],
+  baseQuery: baseQueryWithReauth(API_ROUTES.FINANCES_ROUTE),
+  endpoints: (builder) => ({
+    getFinances: builder.query<FinanceAPI, GenericRecord<any>>({
+      query: () => ({ url: "/" }),
+      providesTags: ["finances_list"],
+    }),
+  }),
+});
+
 export const productsApi = apiCreateCRUDHooks<ProductAPI>({
   reducerPath: "productsApi",
   baseUrl: API_ROUTES.PRODUCTS_ROUTE,
@@ -267,6 +288,7 @@ export const apiCreateCrudArr = [
   meetingApi,
   participantsGroupApi,
   participantsGroupsListApi,
+  financesApi,
 ];
 
 // Create Reducer arr that contains  object with key of the reducer name and value the reducer function.

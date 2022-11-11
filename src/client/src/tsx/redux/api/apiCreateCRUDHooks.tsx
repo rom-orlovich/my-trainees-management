@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { GenericRecord } from "../../types";
 
 import { providerTag, providerTags } from "../reduxHelpers";
 import { RootState } from "../store";
@@ -45,9 +46,9 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
 
     baseQuery: baseQueryWithReauth(baseUrl),
     endpoints: (builder) => ({
-      getItems: builder.query<ResponseQueryAPI<T>, Record<string, any>>({
+      getItems: builder.query<ResponseQueryAPI<T>, GenericRecord<any>>({
         extraOptions: {},
-        query: (params: Record<string, any>) => ({
+        query: (params: GenericRecord<any>) => ({
           url: "/",
           params,
         }),
@@ -59,7 +60,7 @@ export function apiCreateCRUDHooks<T extends object, K extends object = any>({
 
         keepUnusedDataFor: keepUnusedDataFor ?? 60,
       }),
-      getItemByID: builder.query<T, Record<string, any> & { id: number }>({
+      getItemByID: builder.query<T, GenericRecord<any> & { id: number }>({
         query: ({ id, ...params }) => ({
           url: `/${singleEntityName}/${id}`,
           params,

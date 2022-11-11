@@ -226,7 +226,7 @@ const calFinancesSum = (
   return {
     totalFinancesSum,
     ...resultChartStatsDisplayFinances,
-    ...resultDistributionFinances,
+    resultDistributionFinances,
   };
 };
 

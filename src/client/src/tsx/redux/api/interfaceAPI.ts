@@ -53,9 +53,11 @@ export enum API_ROUTES {
   INCOMES_ENTITY = "income",
   EXPENSES_ROUTE = "/api/expenses",
   EXPENSES_ENTITY = "expense",
+  FINANCES_ROUTE = "/api/finances",
+  FINANCES_ENTITY = "finance",
   PRODUCTS_ROUTE = "/api/products",
-  PRODUCT_ENTITY = "product",
 
+  PRODUCT_ENTITY = "product",
   ACTIVITIES_ROUTE = "/api/activities",
   ACTIVITIES_ENTITY = "activity",
   MEETINGS_ROUTE = "/api/meetings",
@@ -397,4 +399,35 @@ export interface MeetingAPI {
   note_topic: string;
   note_text: string;
   user_id?: number;
+}
+
+export interface ChartData<V> {
+  labelFormatted: string[];
+  datasetsValues: V;
+}
+
+export interface FinancesValues {
+  expenses: number[];
+  incomes: number[];
+}
+
+export interface FinancesValue {
+  expenses: number;
+  incomes: number;
+}
+
+export interface ResultDistributionFinances {
+  incomes: ChartData<number>;
+  expenses: ChartData<number>;
+}
+
+export interface FinanceAPI {
+  incomes: ResponseQueryAPI<IncomesTableAPI>;
+  expenses: ResponseQueryAPI<ExpensesTableAPI>;
+  totalFinancesSum: FinancesValue;
+  thisWeekDays: ChartData<FinancesValues>;
+  weeksRangeMonth: ChartData<FinancesValues>;
+  monthsFinancesObj: ChartData<FinancesValues>;
+  yearsFinanceObj: ChartData<FinancesValues>;
+  resultDistributionFinances: ResultDistributionFinances;
 }

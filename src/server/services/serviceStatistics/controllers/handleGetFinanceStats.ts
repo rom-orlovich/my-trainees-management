@@ -54,10 +54,19 @@ export const handleGetFinanceStats: RequestHandler = async (req, res, next) => {
       requestQuery: req.query,
       ...expenseSelectPaginationQueryParam,
     });
+
     req.statsData = {
       statsResult: [
-        { data: selectIncomes.rows, ...selectIncomes },
-        { data: selectExpenses.rows, ...selectExpenses },
+        {
+          data: selectIncomes.rows,
+          next: selectIncomes.next,
+          countRows: selectIncomes.countRows,
+        },
+        {
+          data: selectExpenses.rows,
+          next: selectExpenses.next,
+          countRows: selectExpenses.countRows,
+        },
       ],
     };
   } catch (error) {
