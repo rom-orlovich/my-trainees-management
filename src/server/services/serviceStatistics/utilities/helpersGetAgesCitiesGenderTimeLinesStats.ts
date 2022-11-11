@@ -177,7 +177,7 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
           agesStatsRes: createLabelDatasetFromObj(agesStats),
           gendersStatsRes: createLabelDatasetFromObj(gendersStats),
           calStatsCitiesRes: createLabelDatasetFromObj(citiesStats),
-          calStatsHandlesLeadsRes: createLabelDatasetFromObj(handleStatus),
+          calStatusHandlesRes: createLabelDatasetFromObj(handleStatus),
         }
       : {};
 

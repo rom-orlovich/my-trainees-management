@@ -28,7 +28,10 @@ function TrainerProfile() {
           queryOptions={queryOptions}
           className={style.finances_status_grid_item}
         />
-        <TraineeStatus className={style.trainees_status_grid_item} />
+        <TraineeStatus
+          queryOptions={queryOptions}
+          className={style.trainees_status_grid_item}
+        />
         <LeadsStatus
           queryOptions={queryOptions}
           className={style.leads_status_grid_item}

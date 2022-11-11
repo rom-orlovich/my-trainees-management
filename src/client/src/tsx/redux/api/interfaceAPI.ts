@@ -433,11 +433,11 @@ export interface FinanceAPI {
     resultDistributionFinances: ResultDistributionFinances;
   };
 }
-export interface LeadsStatsAPI {
+export interface GetCitiesGendersAgesStatsAPI {
   agesStatsRes?: ChartsDataAPI<number[]>;
   gendersStatsRes?: ChartsDataAPI<number[]>;
   calStatsCitiesRes?: ChartsDataAPI<number[]>;
-  calStatsHandlesLeadsRes?: ChartsDataAPI<number[]>;
+  calStatusHandlesRes?: ChartsDataAPI<number[]>;
   thisWeekSumObj?: ChartsDataAPI<number[]>;
   weeksRangeMonthSumObj?: ChartsDataAPI<number[]>;
   monthlySumObj?: ChartsDataAPI<number[]>;
