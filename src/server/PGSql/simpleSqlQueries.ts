@@ -148,6 +148,12 @@ export async function deleteQuery(
 
   try {
     const rows = await client.query(statement, queryParams);
+    // logger.debug(
+    //   `LINE 375:${statement} : values:${JSON.stringify(queryParams)}`,
+    //   {
+    //     __filename,
+    //   }
+    // );
     return rows.rows;
   } catch (error) {
     logger.error(

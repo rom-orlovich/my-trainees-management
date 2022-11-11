@@ -1,10 +1,9 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PropsBasic } from "../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../components/baseComponents/Card/Card";
-import useCheckRole from "../../../hooks/useCheckRole";
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
@@ -27,11 +26,13 @@ function UserDetails({ className }: PropsBasic) {
           Edit Details
         </Link>
 
-        <Link
-          to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}
-        >
-          Edit Measures
-        </Link>
+        {!!profileID && (
+          <Link
+            to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}
+          >
+            Edit Measures
+          </Link>
+        )}
       </div>
     </Card>
   );

@@ -1,0 +1,74 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+.trainer_profile_page {
+  height: 80vh;
+  overflow-y: scroll;
+  width: 100%;
+  .trainer_profile_page_container {
+    $GRID_ROW: 3;
+    $ROW_HEIGHT: 60vh;
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: 1.5fr 1.5fr 2.5fr;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    height: calc($GRID_ROW * $ROW_HEIGHT);
+
+    .income_events_board_grid_item {
+      grid-area: 1 / 1 / 2 / 8;
+    }
+    .user_details_grid_item {
+      grid-area: 1 /8/ 2 /10;
+    }
+    .finances_status_grid_item {
+      grid-area: 2 / 1 / 3 / 4;
+    }
+    .trainees_status_grid_item {
+      grid-area: 2 /4/ 3 / 7;
+    }
+    .leads_status_grid_item {
+      grid-area: 2 /7/ 3 / 10;
+    }
+  }
+}
+
+@include smartphone() {
+  %shared {
+    min-height: 20rem;
+  }
+  .trainee_profile_page {
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+
+    .trainee_profile_page_container {
+      height: 100%;
+      padding: 0.5rem;
+      overflow: hidden;
+      @include flex-dir(null, null, column);
+    }
+
+    .user_details_grid_item {
+      order: 1;
+    }
+    .subscription_plans_grid_item {
+      order: 4;
+      @extend %shared;
+    }
+    .programs_grid_item {
+      order: 2;
+      @extend %shared;
+    }
+
+    .calories_chart_grid_item {
+      order: 3;
+      @extend %shared;
+    }
+
+    .progress_chart_grid_item {
+      height: 30vh;
+      order: 5;
+      @extend %shared;
+    }
+  }
+}

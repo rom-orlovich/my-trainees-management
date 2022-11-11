@@ -1,8 +1,6 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+
 import { PropsBasic } from "../../../components/baseComponents/baseComponentsTypes";
-import useCheckRole from "../../../hooks/useCheckRole";
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 import UserDetails from "../UserDetails/UserDetails";
 import CaloriesChart from "./CaloriesChart/CaloriesChart";

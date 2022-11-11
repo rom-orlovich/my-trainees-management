@@ -17,14 +17,14 @@ function List<T extends Record<string, any>>({
   if (!dataArr[0]) return <> </>;
 
   const keys = getKeysArrObj(dataArr[0]);
-  let key = keys[0] + keys[1];
+  const key = keys[0] + keys[1];
 
   return (
     <ul {...UlProps} ref={UlProps?.ref} className={className}>
       {!insertChildLast ? children : ""}
-      {dataArr.map((el, i) => {
-        return <LI key={`${key}${i}`} {...el} />;
-      })}
+      {dataArr.map((el, i) => (
+        <LI key={`${key}${i}`} {...el} />
+      ))}
       {insertChildLast ? children : ""}
     </ul>
   );
