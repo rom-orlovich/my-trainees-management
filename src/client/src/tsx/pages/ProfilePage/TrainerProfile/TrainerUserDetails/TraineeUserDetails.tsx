@@ -6,7 +6,7 @@ import Card from "../../../../components/baseComponents/Card/Card";
 import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 
 import { genClassName } from "../../../../utilities/helpersFun";
-import style from "../../UserDetails/UserDetails.module.scss";
+import style from "../../UserDetailsStyle/UserDetails.module.scss";
 
 function TrainerUserDetails({ className }: PropsBasic) {
   const { authState, user_id } = useGetUserLoginData();

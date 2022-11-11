@@ -1,0 +1,72 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+.chart_profile_container {
+  position: relative;
+  @include classMatcher("selectInput_label") {
+    @include posAbs(2%, null, 2%, null);
+    select {
+      min-width: 5rem;
+    }
+  }
+  h2 {
+    display: none;
+  }
+  .heading {
+    @include flex-dir(center, null);
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+  }
+  .pie_chart {
+    width: 86% !important;
+    height: 86% !important;
+    @include centerAbs();
+    @include posAbs(55% !important, null, null, null);
+  }
+
+  @include classMatcher("message_spinner") {
+    @include centerAbs();
+    text-align: center;
+    width: 100%;
+    a {
+      @include button(rgb(127 165 241), 0.5rem, 0.8rem);
+      font-size: 1.2rem;
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
+
+@include smartphone() {
+  .chart_profile_container {
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      display: block;
+      text-align: center;
+    }
+    .heading {
+      @include flex-dir(center, null);
+
+      h3 {
+        text-align: center;
+      }
+    }
+    .pie_chart {
+      width: 78% !important;
+      height: 78% !important;
+
+      @include posAbs(60% !important, null, null, null);
+    }
+
+    @include classMatcher("message_spinner") {
+      @include centerAbs();
+      text-align: center;
+      width: 100%;
+      a {
+        @include button(rgb(127 165 241), 0.5rem, 0.8rem);
+      }
+    }
+  }
+}

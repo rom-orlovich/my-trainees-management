@@ -25,6 +25,12 @@ export const dataLabelFormatterByUnit =
   (unit?: string) => (value: any, ctx: Context) =>
     `${value} ${unit || ""}`;
 
+export enum COLORS_CHART {
+  RED = "rgb(240 ,91, 85)",
+  BLUE = "rgb(0 ,182, 196)",
+  YELLOW = " rgb(250 ,209 ,55)",
+  GREEN = "#4ACE6B",
+}
 export const PIE_CHART_FONTS = {
   color: "rgb(59, 71, 66)",
   font: {

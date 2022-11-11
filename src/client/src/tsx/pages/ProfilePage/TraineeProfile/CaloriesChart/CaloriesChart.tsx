@@ -1,17 +1,17 @@
 /* eslint-disable camelcase */
 import React from "react";
-import { Doughnut } from "react-chartjs-2";
+
 import { Link } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import {
+  COLORS_CHART,
   dataLabelFormatterByUnit,
   DOUGHNUT_CHART_FONTS,
   labelFormatterByUnit,
-  PIE_CHART_FONTS,
 } from "../../../../components/baseComponents/Charts/chartsUtils";
 import DoughnutChart from "../../../../components/baseComponents/Charts/DoughnutChart";
-import PieChart from "../../../../components/baseComponents/Charts/PieChart";
+
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import { SelectInput } from "../../../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 
@@ -44,9 +44,9 @@ function CaloriesChart({
       displayStats: "caloriesPie",
     }
   );
-  const PROTEIN_COLOR = "rgb(240 ,91, 85)";
-  const CRABS_COLOR = "rgb(0 ,182, 196)";
-  const FATS_COLOR = " rgb(250 ,209 ,55)";
+  // const PROTEIN_COLOR = "rgb(240 ,91, 85)";
+  // const CRABS_COLOR = "rgb(0 ,182, 196)";
+  // const FATS_COLOR = " rgb(250 ,209 ,55)";
 
   return (
     <Card className={genClassName(className, style.calories_chart_container)}>
@@ -85,8 +85,16 @@ function CaloriesChart({
                   {
                     label: "Calories Chart",
                     data: caloriesPieDisplay.datasetsValues,
-                    backgroundColor: [PROTEIN_COLOR, FATS_COLOR, CRABS_COLOR],
-                    borderColor: [PROTEIN_COLOR, FATS_COLOR, CRABS_COLOR],
+                    backgroundColor: [
+                      COLORS_CHART.RED,
+                      COLORS_CHART.YELLOW,
+                      COLORS_CHART.BLUE,
+                    ],
+                    borderColor: [
+                      COLORS_CHART.RED,
+                      COLORS_CHART.YELLOW,
+                      COLORS_CHART.BLUE,
+                    ],
                   },
                 ]}
                 labels={caloriesPieDisplay.labelFormatted}

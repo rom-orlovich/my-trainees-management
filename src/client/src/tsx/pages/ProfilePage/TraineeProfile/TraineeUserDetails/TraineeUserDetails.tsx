@@ -9,7 +9,7 @@ import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 
 import { genClassName } from "../../../../utilities/helpersFun";
-import style from "../../UserDetails/UserDetails.module.scss";
+import style from "../../UserDetailsStyle/UserDetails.module.scss";
 
 function TraineeUserDetails({ className }: PropsBasic) {
   const { profileID, traineeID, username, userData } = useGetUserTraineeData();
