@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-param-reassign */
 
 import { formatDate } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
 import {
   ChartDisplayTypes,
+  LeadTraineeType,
   SharedTraineesLeadsProps,
+  SharedTraineesLeadsSumObj,
 } from "../serviceStatisticsTypes";
 import {
-  calculateYearSum,
+  calTimeLineObj,
   createLabelDatasetFromObj,
   createMonthObj,
   createThisWeekDaysDisplayObj,
@@ -16,18 +19,7 @@ import {
   getWeekRangeInMonthStr,
 } from "./helpersGetStats";
 
-export type SharedTraineesLeadsSumObj =
-  | {
-      leads: number;
-      trainees?: undefined;
-    }
-  | {
-      trainees: number;
-      leads?: undefined;
-    };
-
-export type LeadTraineeType = "leads" | "trainees";
-
+// Calculates ages range stats
 const calStatsAges = (agesStats: GenericRecord<number>, leadBirthday: Date) => {
   const age = new Date().getFullYear() - leadBirthday.getFullYear();
 
@@ -57,6 +49,8 @@ const calStatsAges = (agesStats: GenericRecord<number>, leadBirthday: Date) => {
     } else agesStats["71-100"]++;
   }
 };
+
+// Calculates genders stats.
 const calStatsGenders = (
   genderStats: GenericRecord<number>,
   gender: string
@@ -65,6 +59,8 @@ const calStatsGenders = (
     genderStats[gender] = 1;
   } else genderStats[gender]++;
 };
+
+// Calculates cities stats.
 const calStatsCities = (
   cityStats: GenericRecord<number>,
   city: string | undefined
@@ -74,7 +70,7 @@ const calStatsCities = (
     cityStats[city] = 1;
   } else cityStats[city]++;
 };
-
+// Calculates handle stats.
 const calStatsHandlesStatus = (
   handleStatus: GenericRecord<number>,
   status?: boolean,
@@ -93,90 +89,8 @@ const calStatsHandlesStatus = (
     handleStatus.unActive++;
   }
 };
-const calTimeLineObj = <
-  O extends GenericRecord<any>,
-  K1 extends keyof O,
-  T extends GenericRecord<O>,
-  K2 extends keyof T
->(
-  dataType: K1,
-  timeLine: K2,
-  objTimeLine: T | undefined,
-  amount?: number,
-  addTimeLine?: boolean
-) => {
-  if (!objTimeLine) return undefined;
-  if (!objTimeLine[timeLine]) {
-    if (addTimeLine)
-      return {
-        ...objTimeLine,
-        [timeLine]: {
-          [dataType]: amount || 1,
-        },
-      };
-    return { ...objTimeLine };
-  }
-  return {
-    ...objTimeLine,
-    [timeLine]: {
-      ...objTimeLine[timeLine],
-      [dataType]: (objTimeLine[timeLine][dataType] || 0) + (amount || 1),
-    },
-  } as T;
-};
 
-const calThisWeekSumObj = (
-  thisWeekObj: GenericRecord<SharedTraineesLeadsSumObj> | undefined,
-  date: string,
-  dataType: LeadTraineeType
-) => {
-  if (!thisWeekObj) return undefined;
-  if (!thisWeekObj[date]) return { ...thisWeekObj };
-  return {
-    ...thisWeekObj,
-    [date]: { [dataType]: (thisWeekObj[date][dataType] || 0) + 1 },
-  } as GenericRecord<SharedTraineesLeadsSumObj>;
-};
-const calWeeksMonthRangeSumObj = (
-  weeksMonthRangeSumObj: GenericRecord<SharedTraineesLeadsSumObj> | undefined,
-  week: string,
-  dataType: LeadTraineeType
-) => {
-  if (!weeksMonthRangeSumObj) return undefined;
-  if (!weeksMonthRangeSumObj[week]) return { ...weeksMonthRangeSumObj };
-
-  return {
-    ...weeksMonthRangeSumObj,
-    [week]: { [dataType]: (weeksMonthRangeSumObj[week][dataType] || 0) + 1 },
-  } as GenericRecord<SharedTraineesLeadsSumObj>;
-};
-const calMonthlySumObj = (
-  monthlySumObj: GenericRecord<SharedTraineesLeadsSumObj> | undefined,
-  month: keyof GenericRecord<SharedTraineesLeadsSumObj>,
-  dataType: LeadTraineeType
-) => {
-  if (!monthlySumObj) return undefined;
-
-  if (!monthlySumObj[month]) return { ...monthlySumObj };
-
-  return {
-    ...monthlySumObj,
-    [month]: { [dataType]: (monthlySumObj[month][dataType] || 0) + 1 },
-  } as GenericRecord<SharedTraineesLeadsSumObj>;
-};
-const calYearsSumObj = (
-  yearsSumObj: GenericRecord<SharedTraineesLeadsSumObj> | undefined,
-  year: number,
-  dataType: LeadTraineeType
-) => {
-  if (!yearsSumObj) return undefined;
-  if (!yearsSumObj[year]) return { ...yearsSumObj, [year]: { [dataType]: 1 } };
-  return {
-    ...yearsSumObj,
-    [year]: { [dataType]: (yearsSumObj[year][dataType] || 0) + 1 },
-  } as GenericRecord<SharedTraineesLeadsSumObj>;
-};
-
+// Create datasets values and labels
 const normalizeDatesValuesSumObj = (
   sumObj: GenericRecord<SharedTraineesLeadsSumObj>,
   dataType: LeadTraineeType
@@ -233,10 +147,13 @@ export const getGetAgesCitiesGendersStats = <
       const weekRangeInMonthStr = getWeekRangeInMonthStr(curDate);
       const dateMonth = getNameMonth(curDate);
       const curYear = curDate.getFullYear();
+      // cal distributed stats.
       calStatsAges(agesStats, data.birthday);
       calStatsGenders(gendersStats, data.gender);
       calStatsCities(citiesStats, data.city_name);
       calStatsHandlesStatus(handleStatus, data.status, dataType);
+
+      // Cal timeline stats.
       thisWeekSumObj = calTimeLineObj(dataType, formattedDate, thisWeekSumObj);
       weeksRangeMonthSumObj = calTimeLineObj(
         dataType,
@@ -252,6 +169,8 @@ export const getGetAgesCitiesGendersStats = <
         true
       );
     });
+
+    // Get results
     let res: GenericRecord<any> = {
       agesStatsRes: createLabelDatasetFromObj(agesStats),
       gendersStatsRes: createLabelDatasetFromObj(gendersStats),

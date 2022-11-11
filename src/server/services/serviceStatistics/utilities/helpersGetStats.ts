@@ -158,15 +158,6 @@ export const createMonthObj = <
   });
   return monthsFinancesObj;
 };
-// export const createYearsObj = <
-//   K extends GenericRecord<any>,
-//   R = GenericRecord<K>
-// >(
-//   initialObj: K
-// ) => {
-//   const curYear = new Date().getFullYear();
-//   return { [curYear]: initialObj } as R;
-// };
 
 // calculate year sum stats
 export const calculateYearSum = <
@@ -190,4 +181,37 @@ export const calculateYearSum = <
     };
   }
   return resultObj as R;
+};
+
+// Generic function that calculate object timeline in pure way.
+export const calTimeLineObj = <
+  O extends GenericRecord<any>,
+  K1 extends keyof O,
+  T extends GenericRecord<O>,
+  K2 extends keyof T
+>(
+  dataType: K1,
+  timeLine: K2,
+  objTimeLine: T | undefined,
+  amount?: number,
+  addTimeLine?: boolean
+) => {
+  if (!objTimeLine) return undefined;
+  if (!objTimeLine[timeLine]) {
+    if (addTimeLine)
+      return {
+        ...objTimeLine,
+        [timeLine]: {
+          [dataType]: amount || 1,
+        },
+      };
+    return { ...objTimeLine };
+  }
+  return {
+    ...objTimeLine,
+    [timeLine]: {
+      ...objTimeLine[timeLine],
+      [dataType]: (objTimeLine[timeLine][dataType] || 0) + (amount || 1),
+    },
+  } as T;
 };

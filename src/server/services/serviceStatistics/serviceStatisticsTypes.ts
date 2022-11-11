@@ -156,3 +156,15 @@ export interface DistributionFinances {
   incomes: Record<string, ProductData>;
   expenses: Record<string, ProductData>;
 }
+
+export type SharedTraineesLeadsSumObj =
+  | {
+      leads: number;
+      trainees?: undefined;
+    }
+  | {
+      trainees: number;
+      leads?: undefined;
+    };
+
+export type LeadTraineeType = "leads" | "trainees";

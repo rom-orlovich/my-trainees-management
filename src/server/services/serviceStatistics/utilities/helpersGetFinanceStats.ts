@@ -18,6 +18,7 @@ import {
 } from "../serviceStatisticsTypes";
 import {
   calculateYearSum,
+  calTimeLineObj,
   createLabelDatasetFromObj,
   createMonthObj,
   createThisWeekDaysDisplayObj,
@@ -170,15 +171,13 @@ const calFinancesSum = (
       monthsFinancesObj[dateMonth][incomesOrExpenses] += financeObj.total_price;
 
     // Calculate yearly sum if display yearly is defined.
-    if (yearsFinanceObj) {
-      yearsFinanceObj = calculateYearSum(
-        totalFinancesSum,
-        yearsFinanceObj,
-        incomesOrExpenses,
-        financeObj.total_price,
-        curYear
-      );
-    }
+    yearsFinanceObj = calTimeLineObj(
+      incomesOrExpenses,
+      String(curYear),
+      yearsFinanceObj,
+      financeObj.total_price,
+      true
+    );
   };
 
   // Loop over the incomeData and expenseData and calculate the finance stats.
