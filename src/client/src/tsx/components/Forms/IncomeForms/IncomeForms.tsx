@@ -49,11 +49,12 @@ export function IncomeForms({
 
         const productID = Number(getValues("product_id"));
         const amount = Number(getValues("amount"));
+
         const { data } = productsApi.endpoints.getItemByID.useQuery({
-          id: productID,
+          id: productID || 0,
           ...queriesOptions,
         });
-        // const product = data?.data.find((el) => el.product_id === productID);
+
         const product = data;
         const price = Number(product?.price || 1);
 

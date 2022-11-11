@@ -424,10 +424,12 @@ export interface ResultDistributionFinances {
 export interface FinanceAPI {
   incomes: ResponseQueryAPI<IncomesTableAPI>;
   expenses: ResponseQueryAPI<ExpensesTableAPI>;
-  totalFinancesSum: FinancesValue;
-  thisWeekDays: ChartData<FinancesValues>;
-  weeksRangeMonth: ChartData<FinancesValues>;
-  monthsFinancesObj: ChartData<FinancesValues>;
-  yearsFinanceObj: ChartData<FinancesValues>;
-  resultDistributionFinances: ResultDistributionFinances;
+  financesSum: {
+    totalFinancesSum: FinancesValue;
+    thisWeekDays: ChartData<FinancesValues>;
+    weeksRangeMonth: ChartData<FinancesValues>;
+    monthsFinancesObj: ChartData<FinancesValues>;
+    yearsFinanceObj: ChartData<FinancesValues>;
+    resultDistributionFinances: ResultDistributionFinances;
+  };
 }

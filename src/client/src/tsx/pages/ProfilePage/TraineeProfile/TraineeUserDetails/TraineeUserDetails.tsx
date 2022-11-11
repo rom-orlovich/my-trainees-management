@@ -1,17 +1,17 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { PropsBasic } from "../../../components/baseComponents/baseComponentsTypes";
-import Card from "../../../components/baseComponents/Card/Card";
+import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
+import Card from "../../../../components/baseComponents/Card/Card";
 
-import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
+import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 
-import { genClassName } from "../../../utilities/helpersFun";
-import style from "./UserDetails.module.scss";
+import { genClassName } from "../../../../utilities/helpersFun";
+import style from "../../UserDetails/UserDetails.module.scss";
 
-function UserDetails({ className }: PropsBasic) {
+function TraineeUserDetails({ className }: PropsBasic) {
   const { profileID, traineeID, username, userData } = useGetUserTraineeData();
 
   return (
@@ -38,4 +38,4 @@ function UserDetails({ className }: PropsBasic) {
   );
 }
 
-export default UserDetails;
+export default TraineeUserDetails;

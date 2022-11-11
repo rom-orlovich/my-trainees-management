@@ -1,4 +1,8 @@
-import { incomesApi, subscriptionPlansApi } from "../../../redux/api/hooksAPI";
+import {
+  financesApi,
+  incomesApi,
+  subscriptionPlansApi,
+} from "../../../redux/api/hooksAPI";
 import { API_ROUTES, IncomesTableAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 
@@ -9,9 +13,8 @@ export function IncomeAddForm() {
   const [addItem] = incomesApi.useCreateOneItemMutation();
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (body: IncomesTableAPI) => {
-    console.log(body);
-    return addFunction({
+  const handleSubmit = (body: IncomesTableAPI) =>
+    addFunction({
       addItem,
     })({ ...body }).then(() => {
       dispatch(
@@ -22,8 +25,8 @@ export function IncomeAddForm() {
           },
         ])
       );
+      dispatch(financesApi.util.invalidateTags(["finances_list"]));
     });
-  };
 
   return <IncomeForms onSubmit={handleSubmit} />;
 }

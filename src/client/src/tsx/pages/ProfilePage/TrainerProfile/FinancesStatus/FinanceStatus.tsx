@@ -2,10 +2,26 @@ import React from "react";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { financesApi } from "../../../../redux/api/hooksAPI";
+import { TrainerProfileProps } from "../TrainerProfile";
 
-function FinancesStatus({ className }: PropsBasic) {
-  const {} = financesApi.useGetFinancesQuery({});
-  return <Card className={className}>TraineeStatus</Card>;
+function FinancesStatus({
+  className,
+  queryOptions,
+}: PropsBasic & TrainerProfileProps) {
+  const { data } = financesApi.useGetFinancesQuery({ ...queryOptions });
+  console.log(data);
+  return (
+    <Card className={className}>
+      <div>
+        <h2>Total Incomes:</h2>
+        <div> {data?.financesSum.totalFinancesSum.incomes}</div>
+      </div>
+      <div>
+        <h2>Total Expenses:</h2>
+        <div> {data?.financesSum.totalFinancesSum.expenses}</div>
+      </div>
+    </Card>
+  );
 }
 
 export default FinancesStatus;

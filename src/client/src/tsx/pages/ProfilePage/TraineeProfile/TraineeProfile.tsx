@@ -2,7 +2,8 @@ import React from "react";
 
 import { PropsBasic } from "../../../components/baseComponents/baseComponentsTypes";
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
-import UserDetails from "../UserDetails/UserDetails";
+import TraineeUserDetails from "./TraineeUserDetails/TraineeUserDetails";
+
 import CaloriesChart from "./CaloriesChart/CaloriesChart";
 import ProgramsList from "./ProgramsList/ProgramsList";
 import ProgressChart from "./ProgressChart/ProgressChart";
@@ -36,7 +37,7 @@ function TraineeProfile() {
           className={style.programs_grid_item}
           queryOptions={queryOptions}
         />
-        <UserDetails className={style.user_details_grid_item} />
+        <TraineeUserDetails className={style.user_details_grid_item} />
         <ProgressChart className={style.progress_chart_grid_item} />
         <SubscriptionPlans
           className={style.subscription_plans_grid_item}

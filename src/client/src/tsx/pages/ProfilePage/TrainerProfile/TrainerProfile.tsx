@@ -1,6 +1,6 @@
 import React from "react";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import UserDetails from "../UserDetails/UserDetails";
+import TraineeUserDetails from "../TraineeProfile/TraineeUserDetails/TraineeUserDetails";
 import FinancesStatus from "./FinancesStatus/FinanceStatus";
 
 import IncomeEventsBoard from "./IncomeEventsBoard/IncomeEventsBoard";
@@ -22,8 +22,11 @@ function TrainerProfile() {
           queryOptions={queryOptions}
           className={style.income_events_board_grid_item}
         />
-        <UserDetails className={style.user_details_grid_item} />
-        <FinancesStatus className={style.finances_status_grid_item} />
+        <TraineeUserDetails className={style.user_details_grid_item} />
+        <FinancesStatus
+          queryOptions={queryOptions}
+          className={style.finances_status_grid_item}
+        />
         <TraineeStatus className={style.trainees_status_grid_item} />
         <LeadsStatus className={style.leads_status_grid_item} />
       </div>

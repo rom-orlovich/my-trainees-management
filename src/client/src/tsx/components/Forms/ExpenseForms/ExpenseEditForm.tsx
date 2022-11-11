@@ -5,8 +5,9 @@ import { useParams } from "react-router-dom";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
-import { expenseApi } from "../../../redux/api/hooksAPI";
+import { expenseApi, financesApi } from "../../../redux/api/hooksAPI";
 import { ExpensesTableAPI } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
 
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
@@ -14,6 +15,7 @@ import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ExpenseForms } from "./ExpenseForms";
 
 function ExpenseEditForm() {
+  const dispatch = useAppDispatch();
   const [updateItem] = expenseApi.useUpdateItemMutation();
 
   const { user_id } = useGetUserLoginData();
@@ -33,12 +35,13 @@ function ExpenseEditForm() {
       stateData={{ data, isFetching, isError, isLoading }}
     >
       {(data) => {
-        const handleSubmit = (body: ExpensesTableAPI) => {
+        const handleSubmit = ({ product_name, ...body }: ExpensesTableAPI) =>
           updateFunction({
             updateItem,
             id: Number(data.expense_id),
-          })(body);
-        };
+          })(body).then(() => {
+            dispatch(financesApi.util.invalidateTags(["finances_list"]));
+          });
 
         return (
           <ExpenseForms
