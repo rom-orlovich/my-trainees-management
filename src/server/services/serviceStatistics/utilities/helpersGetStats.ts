@@ -159,30 +159,6 @@ export const createMonthObj = <
   return monthsFinancesObj;
 };
 
-// calculate year sum stats
-export const calculateYearSum = <
-  K extends Record<string, any>,
-  R extends Record<string, any> = Record<string, K>
->(
-  initialObj: K,
-  resultObj: R,
-  propsIncrease: string,
-  paramsValue: number,
-  curYear: number
-) => {
-  const CurYear = String(curYear);
-
-  if (resultObj[CurYear]) {
-    resultObj[CurYear][propsIncrease] += paramsValue;
-  } else {
-    resultObj = {
-      ...resultObj,
-      [String(CurYear)]: { ...initialObj, [propsIncrease]: paramsValue },
-    };
-  }
-  return resultObj as R;
-};
-
 // Generic function that calculate object timeline in pure way.
 export const calTimeLineObj = <
   O extends GenericRecord<any>,

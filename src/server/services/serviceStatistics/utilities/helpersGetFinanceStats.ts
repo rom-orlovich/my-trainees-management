@@ -17,7 +17,6 @@ import {
   SharedIncomesExpensesProps,
 } from "../serviceStatisticsTypes";
 import {
-  calculateYearSum,
   calTimeLineObj,
   createLabelDatasetFromObj,
   createMonthObj,
