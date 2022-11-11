@@ -70,7 +70,7 @@
   //For the main content of the table
   @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
     overflow-y: hidden;
-    height: 60%;
+    height: 80%;
     // For selection number of cells
     @include classMatcher("fc-highlight") {
       background-color: rgba(12, 131, 155, 0.3);

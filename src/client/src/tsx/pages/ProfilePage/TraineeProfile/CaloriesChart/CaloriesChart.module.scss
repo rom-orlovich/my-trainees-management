@@ -2,9 +2,9 @@
 .calories_chart_container {
   position: relative;
   @include classMatcher("selectInput_label") {
-    @include posAbs(0%, null, 0%, null);
+    @include posAbs(2%, null, 2%, null);
     select {
-      min-width: 4rem;
+      min-width: 5rem;
     }
   }
   h2 {

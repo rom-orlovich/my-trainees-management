@@ -4,11 +4,12 @@ import { RequestHandler } from "webpack-dev-server";
 import { API_ROUTES } from "../../apiRoutesConstants";
 
 import {
+  ChartDisplayTypes,
   ExerciseStatsAPI,
   ExpensesTableAPI,
   IncomesTableAPI,
-  LeadsTableAPI,
   MeasuresCalResAPI,
+  SharedTraineesLeadsProps,
 } from "../serviceStatisticsTypes";
 import { getGetAgesCitiesGendersStats } from "../utilities/helpersGetAgesCitiesGenderStats";
 import { exerciseStatsCreateLabelAndDatasets } from "../utilities/helpersGetExercisesStats";
@@ -34,8 +35,15 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
         );
       } else if (req.baseUrl === API_ROUTES.LEADS_ROUTE) {
         result = getGetAgesCitiesGendersStats(
-          statsResult?.data as LeadsTableAPI[],
-          displayStats
+          statsResult?.data as SharedTraineesLeadsProps[],
+          "leads",
+          displayStats as ChartDisplayTypes
+        );
+      } else if (req.baseUrl === API_ROUTES.TRAINEES_ROUTE) {
+        result = getGetAgesCitiesGendersStats(
+          statsResult?.data as SharedTraineesLeadsProps[],
+          "trainees",
+          displayStats as ChartDisplayTypes
         );
       }
     }

@@ -89,6 +89,14 @@ export interface IncomesTableAPI {
   note_text?: string;
   user_id?: number;
 }
+export interface SharedTraineesLeadsProps {
+  birthday: Date;
+  gender: string;
+  city_name: string;
+  status: boolean;
+  lead_date?: Date;
+  date_join?: Date;
+}
 
 export interface SharedIncomesExpensesProps {
   date: Date;
@@ -105,15 +113,16 @@ export interface FinancesObj {
   expenses: number;
 }
 
-export type FinanceDisplayStats =
+export type ChartDisplayTypes =
   | "thisWeek"
   | "weeksMonthRange"
   | "curMonth"
   | "monthly"
   | "yearly"
-  | "distributionFinances";
+  | "distribution"
+  | "all";
 
-export enum FinanceDisplayStatsType {
+export enum ChartDisplayTypesType {
   THIS_WEEK = "thisWeek",
   CUR_MONTH = "curMonth",
   WEEKS_MONTH_RANGE = "weeksMonthRange",

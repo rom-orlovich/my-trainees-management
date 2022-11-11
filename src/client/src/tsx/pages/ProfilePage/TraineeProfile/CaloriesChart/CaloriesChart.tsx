@@ -1,13 +1,16 @@
 /* eslint-disable camelcase */
 import React from "react";
+import { Doughnut } from "react-chartjs-2";
 import { Link } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import {
   dataLabelFormatterByUnit,
+  DOUGHNUT_CHART_FONTS,
   labelFormatterByUnit,
   PIE_CHART_FONTS,
 } from "../../../../components/baseComponents/Charts/chartsUtils";
+import DoughnutChart from "../../../../components/baseComponents/Charts/DoughnutChart";
 import PieChart from "../../../../components/baseComponents/Charts/PieChart";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import { SelectInput } from "../../../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
@@ -31,8 +34,8 @@ function CaloriesChart({
   queryOptions,
 }: PropsBasic & TraineeProfileProps) {
   const { profileID, username } = useGetUserTraineeData();
-  const [state, onChange] = useOnChangeInput<{ display: "cal" | "g" }>({
-    display: "cal",
+  const [state, onChange] = useOnChangeInput<{ display: "Kcal" | "g" }>({
+    display: "Kcal",
   });
   const { data, isError, isFetching, isLoading } = measuresApi.useGetItemsQuery(
     {
@@ -52,7 +55,7 @@ function CaloriesChart({
         selectProps={{ onChange, defaultValue: state.display }}
         options={[
           { label: "g", value: "g" },
-          { label: "cal", value: "cal" },
+          { label: "Kcal", value: "Kcal" },
         ]}
       />
       <LoadingSpinner
@@ -71,15 +74,13 @@ function CaloriesChart({
 
           const caloriesPieDisplay = {
             g: weightsDisplay,
-            cal: caloriesDisplay,
+            Kcal: caloriesDisplay,
           }[state.display];
           return (
             <>
               <h2> Calories Chart</h2>
-              <div className={style.calories_heading}>
-                <h3>{calories_total} cal</h3>
-              </div>
-              <PieChart
+
+              <DoughnutChart
                 className={style.pie_chart}
                 datasets={[
                   {
@@ -92,21 +93,22 @@ function CaloriesChart({
                 labels={caloriesPieDisplay.labelFormatted}
                 options={{
                   plugins: {
+                    pluginCenter: {
+                      textCenter: `${calories_total}Kcal `,
+                      fontSize: "1.2",
+                    },
                     tooltip: {
                       callbacks: { label: labelFormatterByUnit(state.display) },
                       position: "average",
-
                       padding: 10,
+
                       bodyFont: {
                         size: 18,
                       },
                     },
                     datalabels: {
                       formatter: dataLabelFormatterByUnit(state.display),
-                      ...PIE_CHART_FONTS,
-                      anchor: "end",
-                      offset: [0, 2, 5],
-                      align: "start",
+                      ...DOUGHNUT_CHART_FONTS,
                     },
                   },
                 }}

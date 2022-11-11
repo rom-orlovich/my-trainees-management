@@ -1,19 +1,13 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
-import {
-  eachDayOfInterval,
-  endOfWeek,
-  format,
-  getDaysInMonth,
-  lastDayOfMonth,
-  startOfWeek,
-} from "date-fns";
+
 import { formatDate } from "../../../utilities/helpers";
+import { GenericRecord } from "../../../utilities/types";
 
 import {
   DistributionFinances,
   ExpensesTableAPI,
-  FinanceDisplayStats,
+  ChartDisplayTypes,
   FinancesChartStatsDisplay,
   FinancesDistributionStatsDisplay,
   FinancesObj,
@@ -22,145 +16,19 @@ import {
   ProductData,
   SharedIncomesExpensesProps,
 } from "../serviceStatisticsTypes";
-import { createLabelDatasetFromObj } from "./helpersGetStats";
-
-const getNameMonth = (date: Date) => format(date, "MMMMMM");
-
-// Creates for each day in the week a financeObj.
-const createWeekDaysDisplay = () => {
-  const curDate = new Date();
-  // Get the start and the end date of the week.
-  const startWeek = startOfWeek(curDate);
-  const endWeek = endOfWeek(curDate);
-  let thisWeekDaysObj = {} as Record<string, FinancesObj>;
-  // Create array of dates.
-  eachDayOfInterval({
-    start: startWeek,
-    end: endWeek,
-  }).forEach((date) => {
-    thisWeekDaysObj = {
-      ...thisWeekDaysObj,
-      [formatDate(date, 0)]: { incomes: 0, expenses: 0 },
-    };
-  });
-  return thisWeekDaysObj;
-};
-
-// Gets date and return his week range in month.
-const getWeekRangeInMonthStr = (date: Date) => {
-  const curDate = new Date(date);
-  const curDay = curDate.getDate();
-  const remainder = curDay % 7;
-  const reminderDiff = 7 - remainder;
-
-  const start = formatDate(new Date(date.setDate(curDay - remainder)));
-  const end = formatDate(new Date(curDate.setDate(curDay + reminderDiff - 1)));
-
-  const str = `${start}-${end}`;
-  return str;
-};
-
-// Creates weeksRangeMonthFinanceObj.
-const createWeeksRangeMonthFinanceObj = () => {
-  const curDate = new Date();
-  const firstDate = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
-  const lastDate = lastDayOfMonth(curDate);
-
-  let weeksRangeMonthFinanceObj = {} as Record<string, FinancesObj>;
-
-  // Creates weeksRangeInMonthFinanceObj by looping over the datesArr parameter the function get.
-  const loopToCreateWeeksRangeMonthFinanceObj = (
-    datesArr: Date[],
-    subtractLastDay = -1 // In the last days of month subtractLastDay is zero, to get all the days.
-  ) => {
-    for (let i = 0; i < datesArr.length - 1; i++) {
-      const startWeek = formatDate(datesArr[i], 0);
-      const endWeek = formatDate(datesArr[i + 1], subtractLastDay);
-      weeksRangeMonthFinanceObj = {
-        ...weeksRangeMonthFinanceObj,
-        [`${startWeek}-${endWeek}`]: { incomes: 0, expenses: 0 },
-      };
-    }
-  };
-
-  // Create dates array of the first day in each week that exist in month, start from the 1th.
-  const datesEachSevenDay = eachDayOfInterval(
-    { start: firstDate, end: lastDate },
-    { step: 7 }
-  );
-  loopToCreateWeeksRangeMonthFinanceObj(datesEachSevenDay);
-
-  // Create dates array from the last days of the month if they exist.
-  if (getDaysInMonth(curDate) > 28) {
-    const endMonthDates = eachDayOfInterval({
-      start: datesEachSevenDay.at(-1)!,
-      end: lastDate,
-    });
-    loopToCreateWeeksRangeMonthFinanceObj(endMonthDates, 0);
-  }
-
-  return weeksRangeMonthFinanceObj;
-};
-
-// Creates for each month a financeObj.
-const createMonthFinanceObj = () => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  let monthsFinancesObj = {} as Record<string, FinancesObj>;
-  months.forEach((month) => {
-    monthsFinancesObj = {
-      ...monthsFinancesObj,
-      [month]: { incomes: 0, expenses: 0 },
-    };
-  });
-  return monthsFinancesObj;
-};
-
-// calculate year finance stats
-const calculateYearFinance = (
-  yearsFinanceObj: Record<string, FinancesObj>,
-  incomesOrExpenses: IncomesOrExpenses,
-  curYear: number,
-  totalPrice: number
-) => {
-  if (yearsFinanceObj[curYear]) {
-    yearsFinanceObj[curYear][incomesOrExpenses] += totalPrice;
-  } else {
-    // Initial expenses/incomes to 0 if they are not exist and set cur expenses/incomes.
-    const initialFinanceYear = {
-      incomes: {
-        expenses: 0,
-        incomes: totalPrice,
-      },
-      expenses: {
-        expenses: totalPrice,
-        incomes: 0,
-      },
-    };
-
-    yearsFinanceObj = {
-      ...yearsFinanceObj,
-      [curYear]: initialFinanceYear[incomesOrExpenses],
-    };
-  }
-  return yearsFinanceObj;
-};
+import {
+  calculateYearSum,
+  createLabelDatasetFromObj,
+  createMonthObj,
+  createThisWeekDaysDisplayObj,
+  createWeeksRangeMonthObj,
+  getNameMonth,
+  getWeekRangeInMonthStr,
+} from "./helpersGetStats";
 
 // Creates labels and datasets for chart display in the client.
 const normalizeDatesValuesFinance = (
-  financeObj: Record<string, FinancesObj>
+  financeObj: GenericRecord<FinancesObj>
 ) => {
   const { datasetsValues, labelFormatted } =
     createLabelDatasetFromObj(financeObj);
@@ -208,7 +76,7 @@ const calDistributionFinances = (
 };
 // Creates labels and datasets for chart distribution finances in the client.
 const normalizeDatesValuesDistributionFinance = (
-  distributionFinances: Record<string, ProductData>
+  distributionFinances: GenericRecord<ProductData>
 ) => {
   const { datasetsValues, labelFormatted } =
     createLabelDatasetFromObj(distributionFinances);
@@ -233,7 +101,7 @@ const calFinancesSum = (
   displayStats?: string
 ) => {
   // Check the current display according to the displayStats.
-  const checkCurStatsDisplay = (checkDisplayStats: FinanceDisplayStats) =>
+  const checkCurStatsDisplay = (checkDisplayStats: ChartDisplayTypes) =>
     checkDisplayStats === displayStats || displayStats === "all";
 
   const totalFinancesSum: FinancesObj = {
@@ -243,28 +111,26 @@ const calFinancesSum = (
 
   // If display is not requested so the the timeline finance object is undefined.
   const thisWeekDays = checkCurStatsDisplay("thisWeek")
-    ? createWeekDaysDisplay()
+    ? createThisWeekDaysDisplayObj<FinancesObj>(totalFinancesSum)
     : undefined;
   const weeksRangeMonth = checkCurStatsDisplay("weeksMonthRange")
-    ? createWeeksRangeMonthFinanceObj()
+    ? createWeeksRangeMonthObj<FinancesObj>(totalFinancesSum)
     : undefined;
   const monthsFinancesObj = checkCurStatsDisplay("monthly")
-    ? createMonthFinanceObj()
+    ? createMonthObj<FinancesObj>(totalFinancesSum)
     : undefined;
   let yearsFinanceObj = checkCurStatsDisplay("yearly")
-    ? ({} as Record<string, FinancesObj>)
+    ? ({} as GenericRecord<FinancesObj>)
     : undefined;
 
   // If display is distribution finances.
   let distributionFinances: DistributionFinances | undefined =
-    checkCurStatsDisplay("distributionFinances")
+    checkCurStatsDisplay("distribution")
       ? { incomes: {}, expenses: {} }
       : undefined;
 
-  let resultChartStatsDisplayFinances: Record<
-    string,
-    FinancesChartStatsDisplay
-  > = {};
+  let resultChartStatsDisplayFinances: GenericRecord<FinancesChartStatsDisplay> =
+    {};
   let resultDistributionFinances:
     | Record<IncomesOrExpenses, FinancesDistributionStatsDisplay>
     | object = {};
@@ -288,27 +154,29 @@ const calFinancesSum = (
         financeObj
       );
     }
+
     // Calculate this week sum if display this week is defined.
     if (thisWeekDays && thisWeekDays[formattedDate]) {
       thisWeekDays[formattedDate][incomesOrExpenses] += financeObj.total_price;
     }
 
     // Calculate weekly sum if display this weekly is defined.
-    if (weeksRangeMonth && weeksRangeMonth[weekRangeInMonth])
+    if (weeksRangeMonth && weeksRangeMonth[weekRangeInMonth]) {
       weeksRangeMonth[weekRangeInMonth][incomesOrExpenses] +=
         financeObj.total_price;
-
+    }
     // Calculate monthly sum if display monthly is defined.
     if (monthsFinancesObj && monthsFinancesObj[dateMonth])
       monthsFinancesObj[dateMonth][incomesOrExpenses] += financeObj.total_price;
 
     // Calculate yearly sum if display yearly is defined.
     if (yearsFinanceObj) {
-      yearsFinanceObj = calculateYearFinance(
+      yearsFinanceObj = calculateYearSum(
+        totalFinancesSum,
         yearsFinanceObj,
         incomesOrExpenses,
-        curYear,
-        financeObj.total_price
+        financeObj.total_price,
+        curYear
       );
     }
   };
@@ -317,6 +185,7 @@ const calFinancesSum = (
   incomesData.forEach((income) =>
     calFinanceOverviewByTimeLine(income, "incomes")
   );
+
   expenseData.forEach((expense) =>
     calFinanceOverviewByTimeLine(expense, "expenses")
   );

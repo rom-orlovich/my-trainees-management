@@ -1,6 +1,6 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 .list_container {
-  padding: 0.5rem;
+  padding: 1rem;
   position: relative;
   @include flex-dir(null, null, column);
   @include classMatcher("message_spinner") {
@@ -8,45 +8,50 @@
     text-align: center;
     width: 100%;
   }
+
   h2 {
     margin-bottom: 0.2rem;
-    margin-top: 2rem;
+
     padding-left: 0.8rem;
     font-weight: 400;
   }
-  .list {
-    @include flex-dir(null, null, column);
-    overflow-y: auto;
-    gap: 0.3rem;
+  .list_content {
+    @include flex-dir(space-between, null, column);
+    height: 100%;
+    .list {
+      @include flex-dir(null, null, column);
+      overflow-y: auto;
+      gap: 0.3rem;
 
-    & li:nth-child(2n) {
-      background-color: rgb(220, 227, 252);
-    }
-    li {
-      @include flex-dir(space-around, null);
-      //   gap: 0.3rem 2.5rem;
-      padding: 0.1rem 0.5rem;
-      .list_detail {
-        @include flex-dir(null, null, column);
-        gap: 0.1rem;
-        :first-child {
-          font-weight: 500;
-          font-size: 1rem;
-        }
-        :nth-child(2) {
-          font-size: 0.9rem;
+      & li:nth-child(2n) {
+        background-color: rgb(220, 227, 252);
+      }
+      li {
+        @include flex-dir(space-around, null);
+        //   gap: 0.3rem 2.5rem;
+        padding: 0.1rem 0.5rem;
+        .list_detail {
+          @include flex-dir(null, center, column);
+          gap: 0.1rem;
+          :first-child {
+            font-weight: 500;
+            font-size: 1.2rem;
+          }
+          :nth-child(2) {
+            font-size: 1rem;
+          }
         }
       }
     }
-  }
-  a {
-    text-decoration: none;
-  }
-  .list_page_link {
-    justify-self: end;
-    margin-top: 0.1rem;
-    text-align: center;
-    font-size: 0.8rem;
+    a {
+      text-decoration: none;
+    }
+    .list_page_link {
+      justify-self: end;
+      margin-top: 0.1rem;
+      text-align: center;
+      font-size: 1rem;
+    }
   }
 }
 
@@ -64,35 +69,37 @@
       font-size: 1.4rem;
       text-align: center;
     }
-    ul.list {
-      overflow-y: hidden;
-      @include flex-dir(null, null, column);
+    .list_content {
+      ul.list {
+        overflow-y: hidden;
+        @include flex-dir(null, null, column);
 
-      gap: 0.8rem;
+        gap: 0.8rem;
 
-      & li:nth-child(2n) {
-        background-color: rgb(220, 227, 252);
-      }
-      li.list_li {
-        @include flex-dir(space-around, null, row);
+        & li:nth-child(2n) {
+          background-color: rgb(220, 227, 252);
+        }
+        li.list_li {
+          @include flex-dir(space-around, null, row);
 
-        padding: 0.1rem 0.2rem;
-        .list_detail {
-          @include flex-dir(null, center, column);
+          padding: 0.1rem 0.2rem;
+          .list_detail {
+            @include flex-dir(null, center, column);
 
-          gap: 0.2rem;
-          :first-child {
-            font-size: 1.1rem;
-          }
-          :nth-child(2) {
-            font-size: 1rem;
+            gap: 0.2rem;
+            :first-child {
+              font-size: 1.1rem;
+            }
+            :nth-child(2) {
+              font-size: 1rem;
+            }
           }
         }
       }
-    }
-    .list_page_link {
-      margin-top: 0.8rem;
-      font-size: 1.1rem;
+      .list_page_link {
+        margin-top: 0.8rem;
+        font-size: 1.1rem;
+      }
     }
   }
 }

@@ -42,16 +42,18 @@ function ListProfile<T extends Record<string, any>>({
         {(data) => (
           <>
             <h2>{heading}</h2>
-            <List
-              className={style.list}
-              dataArr={data.data.slice(0, 3)}
-              LI={LI}
-            />
-            {pagePath && (
-              <div className={genClassName(style.list_page_link)}>
-                <Link to={pagePath}>{heading} Page</Link>
-              </div>
-            )}
+            <div className={style.list_content}>
+              <List
+                className={style.list}
+                dataArr={data.data.slice(0, 3)}
+                LI={LI}
+              />
+              {pagePath && (
+                <div className={genClassName(style.list_page_link)}>
+                  <Link to={pagePath}>{heading} Page</Link>
+                </div>
+              )}
+            </div>
           </>
         )}
       </LoadingSpinner>
