@@ -9,14 +9,14 @@ function TraineeStatus({
   className,
   queryOptions,
 }: PropsBasic & TrainerProfileProps) {
-  const { data, status, isFetching, isError } = traineesApi.useGetItemsQuery({
-    ...queryOptions,
-    displayStats: "distribution",
-  });
-  const Data = data as unknown as { stats: GetCitiesGendersAgesStatsAPI };
+  // const { data, status, isFetching, isError } = traineesApi.useGetItemsQuery({
+  //   ...queryOptions,
+  //   displayStats: "distribution",
+  // });
+  // const Data = data as unknown as { stats: GetCitiesGendersAgesStatsAPI };
   return (
     <Card className={className}>
-      {Data.stats.calStatusHandlesRes?.datasetsValues.map((el) => el)}
+      {/* {Data.stats.calStatusHandlesRes?.datasetsValues.map((el) => el)} */}
     </Card>
   );
 }

@@ -65,7 +65,9 @@ export function createRoutesControllers({
     const tablePropsData = {
       tableName,
       fieldNamesQuery,
-      querySelectLogic,
+      querySelectLogic: `${querySelectLogic} ${
+        req?.querySelectLogicAddOns || ""
+      }`,
       groupBy,
       tableID,
     };
@@ -91,7 +93,9 @@ export function createRoutesControllers({
   // Controller of the get method. Gets one item by ID from the db.
   const getValueFromDBbyID: RequestHandler = async (req, res, next) => {
     if (req.logAlertInfo?.error) return next();
-    const queryLogic = `${querySelectLogic}  WHERE ${tableID}=$1`;
+    const queryLogic = `${`${querySelectLogic} ${
+      req?.querySelectLogicAddOns || ""
+    }`}  WHERE ${tableID}=$1`;
     const id = Number(req.params.id);
 
     const [data, err] = await promiseHandler(

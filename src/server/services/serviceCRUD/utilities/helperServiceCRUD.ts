@@ -23,10 +23,10 @@ export const createControllersHandlerAndRouterWithAuthMiddleware = (
   const controllerHandlersObj = createRoutesControllers(optionsCRUD);
 
   // Middleware of token's and permission validation
-  // expressRouterObj.use(
-  //   validateTokenMiddleware,
-  //   validateRolePermission(optionsCRUD.permissions)
-  // );
+  expressRouterObj.use(
+    validateTokenMiddleware,
+    validateRolePermission(optionsCRUD.permissions)
+  );
 
   const routeByBaseRoute = expressRouterObj.route("/");
   const routeByEntity = expressRouterObj.route(singleEntityNameEndPoint);
@@ -56,7 +56,7 @@ export const createControllersHandlerAndRoutes = (optionsCRUD: OptionsCRUD) => {
     controllerHandlersObj,
   } = createControllersHandlerAndRouterWithAuthMiddleware(optionsCRUD);
 
-  //   GET route, middleware and handleGetStatistic.
+  // GET route, middleware and handleGetStatistic.
   routeByBaseRoute.get(
     controllerHandlersObj.getValuesFromDB,
     handleGetStatistic

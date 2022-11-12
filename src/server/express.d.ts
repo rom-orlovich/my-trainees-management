@@ -66,6 +66,7 @@ declare global {
       };
 
       statsData?: StatsData;
+      querySelectLogicAddOns?: string;
     }
   }
 }

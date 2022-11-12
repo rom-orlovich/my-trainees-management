@@ -505,3 +505,25 @@ CREATE TABLE IF NOT EXISTS "meetings" (
 );
 
 -- pg_dump --column-inserts --data-only my_trainees_management  > dummy_data.sql
+SELECT
+  mt.*
+FROM
+  meetings as mt
+  LEFT JOIN activities as act ON mt.activity_id = act.activity_id
+  JOIN locations as lo ON mt.location_id = lo.location_id
+  JOIN cities as c ON c.city_id = lo.city_id
+  LEFT JOIN (
+    SELECT
+      pgl.participants_groups_list_id,
+      pg.trainee_id
+    from
+      participants_groups_list as pgl
+      LEFT JOIN participants_group as pg on pg.participants_groups_list_id = pgl.participants_groups_list_id
+    GROUP BY
+      (pgl.participants_groups_list_id, pg.trainee_id)
+  ) as pgl ON mt.participants_groups_list_id = pgl.participants_groups_list_id
+where
+  pgl.trainee_id = 1
+  and mt.user_id = 2
+  and date_start >= '2022-10-30T00:00:00+03:00'
+  and date_end <= '2022-12-11T00:00:00+02:00';

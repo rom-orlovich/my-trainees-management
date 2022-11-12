@@ -28,6 +28,7 @@ import {
   createFinanceRouter,
   createIncomesRouter,
   createMeasuresRouter,
+  createMeetingRouter,
   createTraineesRouter,
 } from "./otherRouters";
 
@@ -133,7 +134,8 @@ export const routesConfigArr: {
   },
   {
     baseRoute: API_ROUTES.MEETINGS_ROUTE,
-    router: createCRUDroutes(meetingOptionsCRUD),
+    router: createMeetingRouter(),
+    // router: createCRUDroutes(meetingOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.FINANCES_ROUTE,
