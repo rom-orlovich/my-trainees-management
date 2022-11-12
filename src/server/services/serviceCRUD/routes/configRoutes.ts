@@ -569,6 +569,3 @@ export const meetingOptionsCRUD: OptionsCRUD = {
   validateSchema: meetingsSchema,
   logAlert: true,
 };
-
-// LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pg ON
-// pgl.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}= pg.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}

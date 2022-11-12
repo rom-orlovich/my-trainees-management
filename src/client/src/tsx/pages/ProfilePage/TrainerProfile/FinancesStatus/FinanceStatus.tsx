@@ -9,7 +9,7 @@ function FinancesStatus({
   queryOptions,
 }: PropsBasic & TrainerProfileProps) {
   const { data } = financesApi.useGetFinancesQuery({ ...queryOptions });
-  console.log(data);
+
   return (
     <Card className={className}>
       <div>

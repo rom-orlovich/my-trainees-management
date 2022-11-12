@@ -222,7 +222,7 @@ export const financesApi = createApi({
   baseQuery: baseQueryWithReauth(API_ROUTES.FINANCES_ROUTE),
   endpoints: (builder) => ({
     getFinances: builder.query<FinanceAPI, GenericRecord<any>>({
-      query: () => ({ url: "/" }),
+      query: (params) => ({ url: "/", params }),
       providesTags: ["finances_list"],
     }),
   }),
