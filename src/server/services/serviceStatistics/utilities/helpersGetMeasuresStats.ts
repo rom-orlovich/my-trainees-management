@@ -1,6 +1,7 @@
 import {
   ChartTypes,
-  GraphTimeLineDisplay,
+  CHART_DISPLAY,
+  GRAPH_TIME_LINE,
   MeasuresCalResAPI,
   TimeLineDisplay,
 } from "../serviceStatisticsTypes";
@@ -52,12 +53,12 @@ export const getMeasuresStats = (
 ) => {
   let result = {};
   if (chartDisplay) {
-    if (chartDisplay === "distribution") {
+    if (chartDisplay === CHART_DISPLAY.DISTRIBUTION) {
       const lastResult = measuresData[measuresData.length - 1];
       result = {
         caloriesChart: caloriesChartCreateLabelAndDatasets(lastResult),
       };
-    } else if (chartDisplay === "graph")
+    } else if (chartDisplay === CHART_DISPLAY.GRAPH)
       result = {
         graphStats: measuresChartLineCreateLabelAndDatasets(measuresData),
       };

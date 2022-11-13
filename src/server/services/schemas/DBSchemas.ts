@@ -14,7 +14,10 @@ export const leadsSchema = yup.object().shape({
   last_name: yup.string().required(),
   gender: yup.string().required(),
   location_id: yup.number().required(),
-  birthday: yup.date().required(),
+  birthday: yup
+    .date()
+    .required()
+    .max(new Date(2010, 1, 1), "Min age is 12 years old."),
   phone_number: yup.string().required(),
   email: yup.string().email().notRequired().nullable(),
   status: yup.boolean().required(),
@@ -184,7 +187,10 @@ export const traineesSchema = yup.object().shape({
   last_name: yup.string().required(),
   gender: yup.string().required(),
   identify_num: yup.number().required(),
-  birthday: yup.date().required(),
+  birthday: yup
+    .date()
+    .required()
+    .max(new Date(2010, 1, 1), "Min age is 12 years old."),
   email: yup.string().email().notRequired().nullable(),
   phone_number: yup.string().max(12).required(),
   location_id: yup.number().required(),

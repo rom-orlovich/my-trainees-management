@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { dataLabelFormatterByUnit } from "../../../../components/baseComponents/Charts/chartsUtils";
-import LineChart from "../../../../components/baseComponents/Charts/LineChart";
+import LineChart, {
+  LINE_CHART_OPTIONS,
+} from "../../../../components/baseComponents/Charts/LineChart";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 import { measuresApi } from "../../../../redux/api/hooksAPI";
 import {
   ChartsDataAPI,
+  CHART_DISPLAY,
   MeasuresCalResAPI,
   ResponseQueryAPI,
 } from "../../../../redux/api/interfaceAPI";
@@ -23,7 +26,7 @@ function ProgressChart({ className }: PropsBasic) {
     {
       profileID,
       userID,
-      chartDisplay: "graph",
+      chartDisplay: CHART_DISPLAY.GRAPH,
       asc: "false",
       numResults: 100,
     }
@@ -50,13 +53,7 @@ function ProgressChart({ className }: PropsBasic) {
               },
             ]}
             labels={data.stats.graphStats.labelFormatted}
-            options={{
-              plugins: {
-                datalabels: {
-                  formatter: dataLabelFormatterByUnit("kg"),
-                },
-              },
-            }}
+            options={LINE_CHART_OPTIONS}
           />
         )}
       </LoadingSpinner>

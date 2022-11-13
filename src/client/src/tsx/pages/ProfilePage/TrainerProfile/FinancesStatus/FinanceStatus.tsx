@@ -2,6 +2,7 @@ import React from "react";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { financesApi } from "../../../../redux/api/hooksAPI";
+import { CHART_DISPLAY } from "../../../../redux/api/interfaceAPI";
 import { TrainerProfileProps } from "../TrainerProfile";
 
 function FinancesStatus({
@@ -10,7 +11,7 @@ function FinancesStatus({
 }: PropsBasic & TrainerProfileProps) {
   const { data } = financesApi.useGetFinancesQuery({
     ...queryOptions,
-    chartDisplay: "distribution",
+    chartDisplay: CHART_DISPLAY.DISTRIBUTION,
   });
 
   return (

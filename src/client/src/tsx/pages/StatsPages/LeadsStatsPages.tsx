@@ -28,10 +28,10 @@ function LeadsStatsPages() {
     //             className={style.pie_chart}
     //             datasets={[
     //               {
-    //                 label: "Leads Handle",
-    //                 data: calStatusHandlesRes?.datasetsValues || [],
-    //                 backgroundColor: [COLORS_CHART.GREEN, COLORS_CHART.RED],
-    //                 borderColor: [COLORS_CHART.GREEN, COLORS_CHART.RED],
+    // label: "Leads Handle",
+    // data: calStatusHandlesRes?.datasetsValues || [],
+    // backgroundColor: [COLORS_CHART.GREEN, COLORS_CHART.RED],
+    // borderColor: [COLORS_CHART.GREEN, COLORS_CHART.RED],
     //               },
     //             ]}
     //             labels={
@@ -42,27 +42,27 @@ function LeadsStatsPages() {
     //               }) || []
     //             }
     //             options={{
-    //               plugins: {
-    //                 tooltip: {
-    //                   callbacks: { label: labelFormatterByUnit("Leads") },
-    //                   position: "average",
-    //                   padding: 10,
-    //                   bodyFont: {
-    //                     size: 18,
-    //                   },
-    //                 },
-    //                 datalabels: {
-    //                   align: "end",
-    //                   // anchor: "end",
-    //                   offset: -20,
-    //                   formatter: (value, ctx) => {
-    //                     console.log(ctx.dataIndex);
-    //                     if (ctx.dataIndex === 1) return `Not Handle ${value}`;
-    //                     return `Handle ${value}`;
-    //                   },
-    //                   ...PIE_CHART_FONTS,
-    //                 },
-    //               },
+    // plugins: {
+    //   tooltip: {
+    //     callbacks: { label: labelFormatterByUnit("Leads") },
+    //     position: "average",
+    //     padding: 10,
+    //     bodyFont: {
+    //       size: 18,
+    //     },
+    //   },
+    //   datalabels: {
+    //     align: "end",
+    //     // anchor: "end",
+    //     offset: -20,
+    //     formatter: (value, ctx) => {
+    //       console.log(ctx.dataIndex);
+    //       if (ctx.dataIndex === 1) return `Not Handle ${value}`;
+    //       return `Handle ${value}`;
+    //     },
+    //     ...PIE_CHART_FONTS,
+    //   },
+    // },
     //             }}
     //           />
     //         </>

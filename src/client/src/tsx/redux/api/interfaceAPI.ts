@@ -439,8 +439,16 @@ export interface GetCitiesGendersAgesStatsAPI {
   calStatsCitiesRes?: ChartsDataAPI<number[]>;
   calStatusHandlesRes?: ChartsDataAPI<number[]>;
   graphStats?: ChartsDataAPI<number[]>;
-  // thisWeekSumObj?: ChartsDataAPI<number[]>;
-  // weeksRangeMonthSumObj?: ChartsDataAPI<number[]>;
-  // monthlySumObj?: ChartsDataAPI<number[]>;
-  // yearsSumObj?: ChartsDataAPI<number[]>;
+}
+
+export enum GRAPH_TIME_LINE {
+  THIS_WEEK = "thisWeek",
+  THIS_MONTH = "thisMonth",
+  MONTHLY = "monthly",
+  YEARLY = "yearly",
+}
+export enum CHART_DISPLAY {
+  GRAPH = "graph",
+  DISTRIBUTION = "distribution",
+  ALL = "all",
 }

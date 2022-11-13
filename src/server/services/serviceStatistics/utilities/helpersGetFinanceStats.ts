@@ -16,6 +16,8 @@ import {
   ProductData,
   SharedIncomesExpensesProps,
   ChartTypes,
+  GRAPH_TIME_LINE,
+  CHART_DISPLAY,
 } from "../serviceStatisticsTypes";
 import {
   calTimeLineObj,
@@ -104,7 +106,7 @@ const calFinancesSum = (
 ) => {
   // Check the current display according to the timeLineDisplay and chartDisplay.
   const checkCurChartDisplay = (checkDisplayStats: ChartTypes) =>
-    checkDisplayStats === chartDisplay || chartDisplay === "all";
+    checkDisplayStats === chartDisplay;
   const checkCurTimeLineDisplay = (checkTimeLineDisplay: TimeLineDisplay) =>
     checkTimeLineDisplay === timeLineDisplay;
 
@@ -115,25 +117,29 @@ const calFinancesSum = (
 
   // If display is not requested so the the timeline finance object is undefined.
   const thisWeekDays =
-    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("thisWeek")
+    checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_WEEK)
       ? createThisWeekDaysDisplayObj<FinancesObj>(totalFinancesSum)
       : undefined;
   const weeksRangeMonth =
-    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("weeksMonthRange")
+    checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_MONTH)
       ? createWeeksRangeMonthObj<FinancesObj>(totalFinancesSum)
       : undefined;
   const monthsFinancesObj =
-    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("monthly")
+    checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
       ? createMonthObj<FinancesObj>(totalFinancesSum)
       : undefined;
   let yearsFinanceObj =
-    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("yearly")
+    checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARLY)
       ? ({} as GenericRecord<FinancesObj>)
       : undefined;
 
   // If display is distribution finances.
   let distributionFinances: DistributionFinances | undefined =
-    checkCurChartDisplay("distribution")
+    checkCurChartDisplay(CHART_DISPLAY.DISTRIBUTION)
       ? { incomes: {}, expenses: {} }
       : undefined;
 

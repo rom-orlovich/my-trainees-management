@@ -51,7 +51,6 @@ export const LINE_CHART_OPTIONS: ChartOptions<"line"> = {
     },
     tooltip: {
       callbacks: {
-        // label: (ctx) => `${ctx.raw}kg`,
         label: labelFormatterByUnit("kg"),
       },
     },
@@ -62,6 +61,7 @@ function LineChart<D, L>({
   datasets,
   labels,
   className,
+  options,
 }: {
   className?: string;
 } & ChartsProps<"line", D, L>) {
@@ -74,7 +74,7 @@ function LineChart<D, L>({
     <Line
       className={className}
       data={data}
-      options={LINE_CHART_OPTIONS}
+      options={options}
       updateMode="resize"
     />
   );

@@ -113,21 +113,20 @@ export interface FinancesObj {
   expenses: number;
 }
 
-export type TimeLineDisplay =
-  | "thisWeek"
-  | "weeksMonthRange"
-  | "curMonth"
-  | "monthly"
-  | "yearly";
+export type TimeLineDisplay = "thisWeek" | "thisMonth" | "monthly" | "yearly";
 
 export type ChartTypes = "graph" | "distribution" | "all";
 
-export enum GraphTimeLineDisplay {
+export enum GRAPH_TIME_LINE {
   THIS_WEEK = "thisWeek",
-  CUR_MONTH = "curMonth",
-  WEEKS_MONTH_RANGE = "weeksMonthRange",
+  THIS_MONTH = "thisMonth",
   MONTHLY = "monthly",
   YEARLY = "yearly",
+}
+export enum CHART_DISPLAY {
+  GRAPH = "graph",
+  DISTRIBUTION = "distribution",
+  ALL = "all",
 }
 
 export type IncomesOrExpenses = "incomes" | "expenses";

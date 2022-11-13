@@ -18,7 +18,10 @@ import { SelectInput } from "../../../../components/baseComponents/RHF-Component
 import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 import useOnChangeInput from "../../../../hooks/useOnChangeInput";
 import { measuresApi } from "../../../../redux/api/hooksAPI";
-import { ChartsDataAPI } from "../../../../redux/api/interfaceAPI";
+import {
+  ChartsDataAPI,
+  CHART_DISPLAY,
+} from "../../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 import { genClassName } from "../../../../utilities/helpersFun";
 import { TraineeProfileProps } from "../TraineeProfile";
@@ -41,7 +44,7 @@ function CaloriesChart({
     {
       ...queryOptions,
       profileID,
-      chartDisplay: "distribution",
+      chartDisplay: CHART_DISPLAY.DISTRIBUTION,
     }
   );
 

@@ -6,6 +6,7 @@
   width: 100%;
   .stats_page_header_filters {
     .dates_container {
+      @include flex-dir(null, null, row);
     }
   }
   .stats_page_container {
@@ -16,13 +17,15 @@
     $ROW_HEIGHT: 35vh;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1.8fr 2fr;
+    grid-template-rows: 1.8fr 1.9fr;
     height: calc($GRID_ROW * $ROW_HEIGHT);
     .distribution_card_container {
       grid-area: 1 / auto / 1 / auto;
     }
     .graph_card_container {
-      grid-area: 2 / 1/7 / 4;
+      height: fit-content;
+      grid-area: 2 / 1/7 / 5;
+      padding: 1rem;
     }
   }
 }

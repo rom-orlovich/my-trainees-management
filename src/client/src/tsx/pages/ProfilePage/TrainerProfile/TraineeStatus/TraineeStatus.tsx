@@ -3,7 +3,10 @@ import React from "react";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { traineesApi } from "../../../../redux/api/hooksAPI";
-import { GetCitiesGendersAgesStatsAPI } from "../../../../redux/api/interfaceAPI";
+import {
+  CHART_DISPLAY,
+  GetCitiesGendersAgesStatsAPI,
+} from "../../../../redux/api/interfaceAPI";
 import OverviewProfileCard from "../OverviewProfileCard/OverviewProfileCard";
 import { TrainerProfileProps } from "../TrainerProfile";
 import overviewProfileCardStyle from "../OverviewProfileCard/OverviewProfileCard.module.scss";
@@ -15,7 +18,7 @@ function TraineeStatus({
 }: PropsBasic & TrainerProfileProps) {
   const { data, status, isFetching, isError } = traineesApi.useGetItemsQuery({
     ...queryOptions,
-    chartDisplay: "distribution",
+    chartDisplay: CHART_DISPLAY.DISTRIBUTION,
   });
 
   const Data = data as unknown as { stats: GetCitiesGendersAgesStatsAPI };

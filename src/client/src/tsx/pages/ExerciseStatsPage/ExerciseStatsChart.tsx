@@ -20,25 +20,18 @@ function TrainingProgramsExerciseStatsChart({
     });
 
   return (
-    <LoadingSpinner
-      nameData="Data"
-      stateData={{ data, isError, isFetching, isLoading }}
-    >
-      {(data) => (
-        <LineChart
-          className={genClassName(style.chart_exercise)}
-          datasets={[
-            {
-              label: `${queryParams.get("exercise")}`,
-              data: data.stats.graphStats.datasetsValues,
-              backgroundColor: "red",
-              borderColor: "red",
-            },
-          ]}
-          labels={data.stats.graphStats.labelFormatted}
-        />
-      )}
-    </LoadingSpinner>
+    <LineChart
+      className={genClassName(style.chart_exercise)}
+      datasets={[
+        {
+          label: `${queryParams.get("exercise")}`,
+          data: data?.stats?.graphStats.datasetsValues || [],
+          backgroundColor: "red",
+          borderColor: "red",
+        },
+      ]}
+      labels={data?.stats?.graphStats.labelFormatted || []}
+    />
   );
 }
 

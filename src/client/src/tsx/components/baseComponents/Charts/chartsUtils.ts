@@ -5,7 +5,9 @@ import { Context } from "vm";
 export const labelFormatterByUnit =
   <T extends keyof ChartTypeRegistry>(unit?: string) =>
   (value: TooltipItem<T>) =>
-    `${value.label} ${value.raw} ${unit || ""}`;
+    `${value.label}${unit === "g" || unit === "Kcal" ? "" : ","} ${value.raw} ${
+      unit || ""
+    }`;
 
 export const labelFormatterByPercents = <T extends keyof ChartTypeRegistry>(
   ctx: TooltipItem<T>
@@ -14,7 +16,7 @@ export const labelFormatterByPercents = <T extends keyof ChartTypeRegistry>(
   const values = ctx.chart.data.datasets[0].data as unknown as number[];
   const sum = values.reduce((pre, cur) => pre + cur, 0);
   const val = ctx.parsed as number;
-  return `${ctx.label} ${((val / sum) * 100).toFixed(1)}%`;
+  return `${ctx.label}, ${((val / sum) * 100).toFixed(1)}%`;
 };
 
 export const dataLabelFormatterByPercents = (value: any, ctx: Context) => {
@@ -24,7 +26,7 @@ export const dataLabelFormatterByPercents = (value: any, ctx: Context) => {
 };
 export const dataLabelFormatterByUnit =
   (unit?: string) => (value: any, ctx: Context) =>
-    `${value} ${unit || ""}`;
+    `${value}${unit === "g" || unit === "Kcal" ? "" : ","}  ${unit || ""}`;
 
 export enum COLORS_CHART {
   RED = "#EC1515",
@@ -45,4 +47,18 @@ export const DOUGHNUT_CHART_FONTS = {
     size: window.innerWidth < 500 ? 20 : 16,
     weight: 400,
   },
+};
+
+export const generateRandomColorNum = () =>
+  Math.floor(Math.random() * (235 - 52 + 1) + 52);
+
+export const generateColors = (labelLength: number, opacity = 1) => {
+  const colors = [];
+  for (let i = 0; i < labelLength; i++) {
+    const r = generateRandomColorNum();
+    const g = generateRandomColorNum();
+    const b = generateRandomColorNum();
+    colors.push(`rgba(${r},${g},${b},${opacity})`);
+  }
+  return colors;
 };

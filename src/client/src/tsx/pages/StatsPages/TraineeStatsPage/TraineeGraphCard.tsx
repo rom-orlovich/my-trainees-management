@@ -1,38 +1,72 @@
 /* eslint-disable camelcase */
+import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import React from "react";
+import {
+  COLORS_CHART,
+  dataLabelFormatterByUnit,
+  generateColors,
+  labelFormatterByUnit,
+} from "../../../components/baseComponents/Charts/chartsUtils";
 import LineChart from "../../../components/baseComponents/Charts/LineChart";
-import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
+
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import { traineesApi } from "../../../redux/api/hooksAPI";
-import { GetCitiesGendersAgesStatsAPI } from "../../../redux/api/interfaceAPI";
+
+import {
+  CHART_DISPLAY,
+  GetCitiesGendersAgesStatsAPI,
+} from "../../../redux/api/interfaceAPI";
 import GraphCard, { GraphFilterByDates } from "../GraphCard";
 
-function TraineeGraphCard({
+function LineGraphCard({
   queryOptions,
   className,
+  getItems,
+  chartHeading,
+  unit,
+  color,
 }: {
+  chartHeading: string;
+  unit?: string;
   className: string;
   queryOptions: GraphFilterByDates;
+  getItems: UseQuery<any>;
+  color?: string;
 }) {
   return (
     <GraphCard queryOptions={queryOptions} className={className}>
       {(queryOptionsData) => {
         const { user_id } = useGetUserLoginData();
-        const { data, isError, isFetching, isLoading } =
-          traineesApi.useGetItemsQuery({
-            ...queryOptionsData,
-            userID: user_id,
-            chartDisplay: "graph",
-          });
-        const Data = data as unknown as { stats: GetCitiesGendersAgesStatsAPI };
 
+        const { data } = getItems({
+          ...queryOptionsData,
+          userID: user_id,
+          chartDisplay: CHART_DISPLAY.GRAPH,
+        });
+
+        const Data = data as unknown as { stats: GetCitiesGendersAgesStatsAPI };
+        const defaultColors =
+          color ||
+          (Data?.stats.graphStats?.labelFormatted &&
+            generateColors(Data?.stats.graphStats?.labelFormatted.length, 0.5));
         return (
           <LineChart
+            options={{
+              plugins: {
+                tooltip: {
+                  callbacks: { label: labelFormatterByUnit(unit) },
+                  position: "average",
+                  padding: 10,
+                  bodyFont: {
+                    size: 12,
+                  },
+                },
+              },
+            }}
             datasets={[
               {
-                label: `Measures Weights Progress`,
-                backgroundColor: "red",
-                borderColor: "red",
+                label: chartHeading,
+                backgroundColor: defaultColors,
+                borderColor: defaultColors,
                 data: Data?.stats.graphStats?.datasetsValues || [],
               },
             ]}
@@ -44,4 +78,4 @@ function TraineeGraphCard({
   );
 }
 
-export default TraineeGraphCard;
+export default LineGraphCard;

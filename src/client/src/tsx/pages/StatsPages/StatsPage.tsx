@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { PropsBasic } from "../../components/baseComponents/baseComponentsTypes";
+import ChildrenFunComponent from "../../components/baseComponents/ChildrenFunComponent/ChildrenFunComponent";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
@@ -12,7 +13,7 @@ function StatsPage({
 {
   children: (data: { gt: string; lt: string }) => ReactNode;
 }) {
-  const [{ gt, lt }, onChange] = useOnChangeInput({
+  const [queryOptions, onChange] = useOnChangeInput({
     gt: "",
     lt: "",
   });
@@ -33,12 +34,9 @@ function StatsPage({
       </div>
 
       <div className={style.stats_page_container}>
-        {typeof children === "function"
-          ? children({
-              gt: "",
-              lt: "",
-            })
-          : children}
+        <ChildrenFunComponent data={queryOptions}>
+          {(data) => children(data)}
+        </ChildrenFunComponent>
       </div>
     </section>
   );
