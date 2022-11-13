@@ -37,6 +37,8 @@ import ExpenseEditForm from "../components/Forms/ExpenseForms/ExpenseEditForm";
 import { ExpenseAddForm } from "../components/Forms/ExpenseForms/ExpenseAddForm";
 import SchedulePage from "../pages/SchedulePage/SchedulePage";
 import ParticipantsGroupPage from "../pages/ParticipantsGroupPage /ParticipantsGroupPage";
+import TraineeStatsPage from "../pages/StatsPages/TraineeStatsPage/TraineeStatsPage";
+import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -57,7 +59,27 @@ function AppRoutes() {
             path={`${APP_ROUTE.COMING_SOON}/*`}
             element={<ComingSoonPage />}
           />
-          <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />} />
+          <Route
+            path={APP_ROUTE.PROFILE_ROUTE}
+            element={
+              <InsteadOutletRoutes
+                InsteadOutletRoutesPaths={APP_ROUTE.PROFILE_ROUTE}
+              >
+                <ProfilePage />
+              </InsteadOutletRoutes>
+            }
+          >
+            <Route
+              element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
+            >
+              <Route path={APP_ROUTE.STATS_ROUTE}>
+                <Route
+                  path={APP_ROUTE.TRAINEES_STATS_ROUTE}
+                  element={<TraineeStatsPage />}
+                />
+              </Route>
+            </Route>
+          </Route>
 
           <Route
             path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/*`}

@@ -1,0 +1,25 @@
+@use "../../../style/utilities/utilities.scss" as *;
+
+.stats_page {
+  height: 80vh;
+  overflow-y: scroll;
+  width: 100%;
+
+  .stats_page_container {
+    padding: 1rem;
+    gap: 1rem;
+    width: 100%;
+    $GRID_ROW: 3;
+    $ROW_HEIGHT: 35vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1.8fr 2fr;
+    height: calc($GRID_ROW * $ROW_HEIGHT);
+    .distribution_card_container {
+      grid-area: 1 / auto / 1 / auto;
+    }
+    .chart_card_container {
+      grid-area: 2 / 1/7 / 4;
+    }
+  }
+}

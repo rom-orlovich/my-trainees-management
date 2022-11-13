@@ -1,6 +1,6 @@
 import React from "react";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import TraineeUserDetails from "../TraineeProfile/TraineeUserDetails/TraineeUserDetails";
+
 import FinancesStatus from "./FinancesStatus/FinanceStatus";
 
 import IncomeEventsBoard from "./IncomeEventsBoard/IncomeEventsBoard";

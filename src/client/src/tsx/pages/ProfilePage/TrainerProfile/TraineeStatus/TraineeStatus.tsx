@@ -7,6 +7,7 @@ import { GetCitiesGendersAgesStatsAPI } from "../../../../redux/api/interfaceAPI
 import OverviewProfileCard from "../OverviewProfileCard/OverviewProfileCard";
 import { TrainerProfileProps } from "../TrainerProfile";
 import overviewProfileCardStyle from "../OverviewProfileCard/OverviewProfileCard.module.scss";
+import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 
 function TraineeStatus({
   className,
@@ -22,7 +23,10 @@ function TraineeStatus({
   return (
     <OverviewProfileCard
       heading="Current Trainees"
-      StatsLink={{ statsPagePath: "", text: "Trainee Stats" }}
+      StatsLink={{
+        statsPagePath: `${APP_ROUTE.STATS_ROUTE}/${APP_ROUTE.TRAINEES_STATS_ROUTE}`,
+        text: "Trainee Stats",
+      }}
       className={className}
     >
       <div className={overviewProfileCardStyle.overview_card_item}>
