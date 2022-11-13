@@ -4,45 +4,19 @@ import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/Lo
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 import { GetCitiesGendersAgesStatsAPI } from "../../../redux/api/interfaceAPI";
+import StatsPage from "../StatsPage";
 
 import StatsPageStyle from "../StatsPages.module.scss";
+import TraineeStatsCards from "./TraineeStatsCards";
 
 function TraineeStatsPage() {
-  const { user_id } = useGetUserLoginData();
-  const { data, isLoading, isFetching, isError } = traineesApi.useGetItemsQuery(
-    {
-      userID: user_id,
-      displayStats: "all",
-    }
-  );
-
   return (
-    <section className={StatsPageStyle.stats_page}>
-      <div className={StatsPageStyle.stats_page_container}>
-        <LoadingSpinner stateData={{ data, isLoading, isFetching, isError }}>
-          {(data) => {
-            const Data = data as unknown as {
-              stats: GetCitiesGendersAgesStatsAPI;
-            };
-            console.log(Data);
-            return (
-              <>
-                <Card
-                  className={StatsPageStyle.distribution_card_container}
-                ></Card>
-                <Card
-                  className={StatsPageStyle.distribution_card_container}
-                ></Card>
-                <Card
-                  className={StatsPageStyle.distribution_card_container}
-                ></Card>
-                <Card className={StatsPageStyle.chart_card_container}></Card>
-              </>
-            );
-          }}
-        </LoadingSpinner>
-      </div>
-    </section>
+    // <section className={StatsPageStyle.stats_page}>
+    //   <div className={StatsPageStyle.stats_page_container}>
+
+    <StatsPage>{(data) => <TraineeStatsCards queryOptions={data} />}</StatsPage>
+    // </div>
+    // </section>
   );
 }
 

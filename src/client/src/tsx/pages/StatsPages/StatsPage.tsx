@@ -8,7 +8,10 @@ import style from "./StatsPages.module.scss";
 
 function StatsPage({
   children,
-}: PropsBasic & { children: (data: { gt: string; lt: string }) => ReactNode }) {
+}: // PropsBasic &
+{
+  children: (data: { gt: string; lt: string }) => ReactNode;
+}) {
   const [{ gt, lt }, onChange] = useOnChangeInput({
     gt: "",
     lt: "",
