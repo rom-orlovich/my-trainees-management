@@ -66,8 +66,12 @@ function CaloriesChart({
         stateData={{ data, isError, isFetching, isLoading }}
       >
         {(data) => {
-          const { stats } = data as unknown as { stats: CaloriesChartRes };
-          const { caloriesDisplay, weightsDisplay, calories_total } = stats;
+          const { stats } = data as unknown as {
+            stats: { caloriesChart: CaloriesChartRes };
+          };
+          const {
+            caloriesChart: { caloriesDisplay, weightsDisplay, calories_total },
+          } = stats;
           const caloriesPieDisplay = {
             g: weightsDisplay,
             Kcal: caloriesDisplay,

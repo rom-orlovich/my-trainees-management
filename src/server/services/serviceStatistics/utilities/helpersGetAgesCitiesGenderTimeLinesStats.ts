@@ -118,7 +118,7 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
   timeLineDisplay?: TimeLineDisplay
 ) => {
   const checkCurChartDisplay = (checkDisplayStats: ChartTypes) =>
-    checkDisplayStats === chartDisplay || chartDisplay === "all";
+    checkDisplayStats === chartDisplay;
   const checkCurTimeLineDisplay = (checkTimeLineDisplay: TimeLineDisplay) =>
     checkTimeLineDisplay === timeLineDisplay;
   const agesStats: GenericRecord<number> = {};
@@ -193,28 +193,22 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
     if (thisWeekSumObj) {
       res = {
         ...res,
-        thisWeekSumObj: normalizeDatesValuesSumObj(thisWeekSumObj, dataType),
+        graphStats: normalizeDatesValuesSumObj(thisWeekSumObj, dataType),
       };
-    }
-    if (weeksRangeMonthSumObj) {
+    } else if (weeksRangeMonthSumObj) {
       res = {
         ...res,
-        weeksRangeMonthSumObj: normalizeDatesValuesSumObj(
-          weeksRangeMonthSumObj,
-          dataType
-        ),
+        graphStats: normalizeDatesValuesSumObj(weeksRangeMonthSumObj, dataType),
       };
-    }
-    if (monthlySumObj) {
+    } else if (monthlySumObj) {
       res = {
         ...res,
-        monthlySumObj: normalizeDatesValuesSumObj(monthlySumObj, dataType),
+        graphStats: normalizeDatesValuesSumObj(monthlySumObj, dataType),
       };
-    }
-    if (yearsSumObj) {
+    } else if (yearsSumObj) {
       res = {
         ...res,
-        yearsSumObj: normalizeDatesValuesSumObj(yearsSumObj, dataType),
+        graphStats: normalizeDatesValuesSumObj(yearsSumObj, dataType),
       };
     }
 

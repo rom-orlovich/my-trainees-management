@@ -29,7 +29,7 @@ function ProgressChart({ className }: PropsBasic) {
     }
   );
   const Data = data as ResponseQueryAPI<MeasuresCalResAPI> & {
-    stats: ChartsDataAPI<number[]>;
+    stats: { graphStats: ChartsDataAPI<number[]> };
   };
   return (
     <Card className={genClassName(className, style.progress_chart_container)}>
@@ -44,12 +44,12 @@ function ProgressChart({ className }: PropsBasic) {
             datasets={[
               {
                 label: `Measures Weights Progress`,
-                data: data.stats.datasetsValues,
+                data: data.stats.graphStats.datasetsValues,
                 backgroundColor: "red",
                 borderColor: "red",
               },
             ]}
-            labels={data.stats.labelFormatted}
+            labels={data.stats.graphStats.labelFormatted}
             options={{
               plugins: {
                 datalabels: {

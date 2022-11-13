@@ -54,9 +54,13 @@ export const getMeasuresStats = (
   if (chartDisplay) {
     if (chartDisplay === "distribution") {
       const lastResult = measuresData[measuresData.length - 1];
-      result = caloriesChartCreateLabelAndDatasets(lastResult);
+      result = {
+        caloriesChart: caloriesChartCreateLabelAndDatasets(lastResult),
+      };
     } else if (chartDisplay === "graph")
-      result = measuresChartLineCreateLabelAndDatasets(measuresData);
+      result = {
+        graphStats: measuresChartLineCreateLabelAndDatasets(measuresData),
+      };
   }
 
   return result;

@@ -28,10 +28,12 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
   if (!Array.isArray(statsResult)) {
     if (statsResult?.countRows) {
       if (req.baseUrl === API_ROUTES.EXERCISES_STATS_ROUTE) {
-        result = exerciseStatsCreateLabelAndDatasets(
-          statsResult?.data as ExerciseStatsAPI[],
-          timeLineDisplay as TimeLineDisplay
-        );
+        result = {
+          graphStats: exerciseStatsCreateLabelAndDatasets(
+            statsResult?.data as ExerciseStatsAPI[],
+            timeLineDisplay as TimeLineDisplay
+          ),
+        };
       } else if (req.baseUrl === API_ROUTES.MEASURES_ROUTE) {
         result = getMeasuresStats(
           statsResult?.data as MeasuresCalResAPI[],

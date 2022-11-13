@@ -5,6 +5,7 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 import { GetCitiesGendersAgesStatsAPI } from "../../../redux/api/interfaceAPI";
 import StatsPageStyle from "../StatsPages.module.scss";
+import TraineeGraphCard from "./TraineeGraphCard";
 
 function TraineeStatsCards({
   queryOptions,
@@ -16,26 +17,38 @@ function TraineeStatsCards({
     {
       ...queryOptions,
       userID: user_id,
-      timeLineDisplay: "all",
+      chartDisplay: "all",
     }
   );
+  traineesApi.endpoints.getItems.initiate({});
   return (
-    <LoadingSpinner stateData={{ data, isLoading, isFetching, isError }}>
-      {(data) => {
-        const Data = data as unknown as {
-          stats: GetCitiesGendersAgesStatsAPI;
-        };
-        console.log(Data);
-        return (
-          <>
-            <Card className={StatsPageStyle.distribution_card_container}></Card>
-            <Card className={StatsPageStyle.distribution_card_container}></Card>
-            <Card className={StatsPageStyle.distribution_card_container}></Card>
-            <Card className={StatsPageStyle.graph_card_container}></Card>
-          </>
-        );
-      }}
-    </LoadingSpinner>
+    <>
+      <LoadingSpinner stateData={{ data, isLoading, isFetching, isError }}>
+        {(data) => {
+          const Data = data as unknown as {
+            stats: GetCitiesGendersAgesStatsAPI;
+          };
+          console.log(Data);
+          return (
+            <>
+              <Card
+                className={StatsPageStyle.distribution_card_container}
+              ></Card>
+              <Card
+                className={StatsPageStyle.distribution_card_container}
+              ></Card>
+              <Card
+                className={StatsPageStyle.distribution_card_container}
+              ></Card>
+            </>
+          );
+        }}
+      </LoadingSpinner>
+      <TraineeGraphCard
+        queryOptions={queryOptions}
+        className={StatsPageStyle.graph_card_container}
+      />
+    </>
   );
 }
 

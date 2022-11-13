@@ -438,8 +438,9 @@ export interface GetCitiesGendersAgesStatsAPI {
   gendersStatsRes?: ChartsDataAPI<number[]>;
   calStatsCitiesRes?: ChartsDataAPI<number[]>;
   calStatusHandlesRes?: ChartsDataAPI<number[]>;
-  thisWeekSumObj?: ChartsDataAPI<number[]>;
-  weeksRangeMonthSumObj?: ChartsDataAPI<number[]>;
-  monthlySumObj?: ChartsDataAPI<number[]>;
-  yearsSumObj?: ChartsDataAPI<number[]>;
+  graphStats?: ChartsDataAPI<number[]>;
+  // thisWeekSumObj?: ChartsDataAPI<number[]>;
+  // weeksRangeMonthSumObj?: ChartsDataAPI<number[]>;
+  // monthlySumObj?: ChartsDataAPI<number[]>;
+  // yearsSumObj?: ChartsDataAPI<number[]>;
 }

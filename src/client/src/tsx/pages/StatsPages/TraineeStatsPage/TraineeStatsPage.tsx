@@ -1,9 +1,5 @@
 import React from "react";
-import Card from "../../../components/baseComponents/Card/Card";
-import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import { traineesApi } from "../../../redux/api/hooksAPI";
-import { GetCitiesGendersAgesStatsAPI } from "../../../redux/api/interfaceAPI";
+
 import StatsPage from "../StatsPage";
 
 import StatsPageStyle from "../StatsPages.module.scss";

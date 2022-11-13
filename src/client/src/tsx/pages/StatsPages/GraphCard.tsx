@@ -17,11 +17,15 @@ function GraphCard({
   queryOptions,
 }: {
   queryOptions: { gt: string; lt: string };
-  children: ComponentFunType<{ display: string; gt: string; lt: string }>;
+  children: ComponentFunType<{
+    timeLineDisplay: string;
+    gt: string;
+    lt: string;
+  }>;
   className?: string;
 }) {
   const [{ display }, onChange] = useOnChangeInput({
-    display: "",
+    display: "weeksMonthRange",
   });
 
   return (
@@ -29,9 +33,11 @@ function GraphCard({
       <SelectInput
         LabelProps={{ labelText: "Display", htmlFor: "display" }}
         selectProps={{ onChange, defaultValue: display }}
-        options={[{ label: "", value: "" }]}
+        options={[{ label: "thisMonth", value: "weeksMonthRange" }]}
       />
-      <ChildrenFunComponent data={{ display, ...queryOptions }}>
+      <ChildrenFunComponent
+        data={{ timeLineDisplay: display, ...queryOptions }}
+      >
         {(data) => children(data)}
       </ChildrenFunComponent>
     </Card>
