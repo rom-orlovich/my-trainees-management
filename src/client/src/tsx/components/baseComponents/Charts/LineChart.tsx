@@ -58,7 +58,7 @@ export const LINE_CHART_OPTIONS: ChartOptions<"line"> = {
   },
 };
 
-function LineCharts<D, L>({
+function LineChart<D, L>({
   datasets,
   labels,
   className,
@@ -80,4 +80,4 @@ function LineCharts<D, L>({
   );
 }
 
-export default LineCharts;
+export default LineChart;

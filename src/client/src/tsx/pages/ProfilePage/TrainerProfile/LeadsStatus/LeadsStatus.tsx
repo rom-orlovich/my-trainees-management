@@ -22,7 +22,7 @@ function LeadsStatus({
 }: PropsBasic & TrainerProfileProps) {
   const { data, isError, isFetching, isLoading } = leadsApi.useGetItemsQuery({
     ...queryOptions,
-    displayStats: "distribution",
+    timeLineDisplay: "distribution",
   });
   const Data = data as unknown as { stats: GetCitiesGendersAgesStatsAPI };
 

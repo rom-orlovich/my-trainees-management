@@ -1,8 +1,9 @@
-import { ExerciseStatsAPI } from "../serviceStatisticsTypes";
+import { ExerciseStatsAPI, TimeLineDisplay } from "../serviceStatisticsTypes";
 import { normalizeDatesValues } from "./helpersGetStats";
 
 export const exerciseStatsCreateLabelAndDatasets = (
-  exerciseStatsAPI: ExerciseStatsAPI[]
+  exerciseStatsAPI: ExerciseStatsAPI[],
+  timeLineDisplay?: TimeLineDisplay
 ) => {
   const statsArr = exerciseStatsAPI
     .sort((a, b) => a.update_date.getTime() - b.update_date.getTime())

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { dataLabelFormatterByUnit } from "../../../../components/baseComponents/Charts/chartsUtils";
-import LineCharts from "../../../../components/baseComponents/Charts/LineChart";
+import LineChart from "../../../../components/baseComponents/Charts/LineChart";
 import LoadingSpinner from "../../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 import { measuresApi } from "../../../../redux/api/hooksAPI";
@@ -23,7 +23,7 @@ function ProgressChart({ className }: PropsBasic) {
     {
       profileID,
       userID,
-      displayStats: "measuresChartLine",
+      timeLineDisplay: "measuresChartLine",
 
       asc: "false",
       numResults: 100,
@@ -40,7 +40,7 @@ function ProgressChart({ className }: PropsBasic) {
         message={<>Data Not Found</>}
       >
         {(data) => (
-          <LineCharts
+          <LineChart
             className={style.progress_chart}
             datasets={[
               {

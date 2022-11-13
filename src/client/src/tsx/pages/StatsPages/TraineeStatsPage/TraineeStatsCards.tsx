@@ -16,7 +16,7 @@ function TraineeStatsCards({
     {
       ...queryOptions,
       userID: user_id,
-      displayStats: "all",
+      timeLineDisplay: "all",
     }
   );
   return (

@@ -1,4 +1,9 @@
-import { MeasuresCalResAPI } from "../serviceStatisticsTypes";
+import {
+  ChartTypes,
+  GraphTimeLineDisplay,
+  MeasuresCalResAPI,
+  TimeLineDisplay,
+} from "../serviceStatisticsTypes";
 import { normalizeDatesValues } from "./helpersGetStats";
 
 export const measuresChartLineCreateLabelAndDatasets = (
@@ -42,14 +47,15 @@ export const caloriesChartCreateLabelAndDatasets = (
 
 export const getMeasuresStats = (
   measuresData: MeasuresCalResAPI[],
-  display?: string
+  chartDisplay?: ChartTypes,
+  timeLineDisplay?: TimeLineDisplay
 ) => {
   let result = {};
-  if (display) {
-    if (display === "caloriesPie") {
+  if (chartDisplay) {
+    if (chartDisplay === "distribution") {
       const lastResult = measuresData[measuresData.length - 1];
       result = caloriesChartCreateLabelAndDatasets(lastResult);
-    } else if (display === "measuresChartLine")
+    } else if (chartDisplay === "graph")
       result = measuresChartLineCreateLabelAndDatasets(measuresData);
   }
 

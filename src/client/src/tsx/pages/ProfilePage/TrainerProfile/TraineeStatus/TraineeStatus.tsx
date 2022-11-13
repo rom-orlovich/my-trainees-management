@@ -15,7 +15,7 @@ function TraineeStatus({
 }: PropsBasic & TrainerProfileProps) {
   const { data, status, isFetching, isError } = traineesApi.useGetItemsQuery({
     ...queryOptions,
-    displayStats: "distribution",
+    timeLineDisplay: "distribution",
   });
 
   const Data = data as unknown as { stats: GetCitiesGendersAgesStatsAPI };

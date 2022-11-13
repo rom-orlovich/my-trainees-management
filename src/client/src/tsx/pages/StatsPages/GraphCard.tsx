@@ -6,6 +6,11 @@ import ChildrenFunComponent, {
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
 
+export type GraphFilterByDates = {
+  gt: string;
+  lt: string;
+};
+
 function GraphCard({
   children,
   className,

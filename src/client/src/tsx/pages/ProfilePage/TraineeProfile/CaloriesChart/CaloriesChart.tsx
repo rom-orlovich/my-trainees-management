@@ -41,7 +41,7 @@ function CaloriesChart({
     {
       ...queryOptions,
       profileID,
-      displayStats: "caloriesPie",
+      timeLineDisplay: "caloriesPie",
     }
   );
   // const PROTEIN_COLOR = "rgb(240 ,91, 85)";

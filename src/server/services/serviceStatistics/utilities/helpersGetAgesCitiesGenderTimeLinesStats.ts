@@ -4,10 +4,11 @@
 import { formatDate } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
 import {
-  ChartDisplayTypes,
+  TimeLineDisplay,
   LeadTraineeType,
   SharedTraineesLeadsProps,
   SharedTraineesLeadsSumObj,
+  ChartTypes,
 } from "../serviceStatisticsTypes";
 import {
   calTimeLineObj,
@@ -112,10 +113,14 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
 >(
   data: T[],
   dataType: LeadTraineeType,
-  displayStats?: ChartDisplayTypes
+
+  chartDisplay?: ChartTypes,
+  timeLineDisplay?: TimeLineDisplay
 ) => {
-  const checkCurStatsDisplay = (checkDisplayStats: ChartDisplayTypes) =>
-    checkDisplayStats === displayStats || displayStats === "all";
+  const checkCurChartDisplay = (checkDisplayStats: ChartTypes) =>
+    checkDisplayStats === chartDisplay || chartDisplay === "all";
+  const checkCurTimeLineDisplay = (checkTimeLineDisplay: TimeLineDisplay) =>
+    checkTimeLineDisplay === timeLineDisplay;
   const agesStats: GenericRecord<number> = {};
   const gendersStats: GenericRecord<number> = {};
   const citiesStats: GenericRecord<number> = {};
@@ -126,18 +131,22 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
 
   const initialObj = dataType === "leads" ? { leads: 0 } : { trainees: 0 };
 
-  let thisWeekSumObj = checkCurStatsDisplay("thisWeek")
-    ? createThisWeekDaysDisplayObj(initialObj)
-    : undefined;
-  let weeksRangeMonthSumObj = checkCurStatsDisplay("weeksMonthRange")
-    ? createWeeksRangeMonthObj(initialObj)
-    : undefined;
-  let monthlySumObj = checkCurStatsDisplay("monthly")
-    ? createMonthObj(initialObj)
-    : undefined;
-  let yearsSumObj = checkCurStatsDisplay("yearly")
-    ? ({} as GenericRecord<typeof initialObj>)
-    : undefined;
+  let thisWeekSumObj =
+    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("thisWeek")
+      ? createThisWeekDaysDisplayObj(initialObj)
+      : undefined;
+  let weeksRangeMonthSumObj =
+    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("weeksMonthRange")
+      ? createWeeksRangeMonthObj(initialObj)
+      : undefined;
+  let monthlySumObj =
+    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("monthly")
+      ? createMonthObj(initialObj)
+      : undefined;
+  let yearsSumObj =
+    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("yearly")
+      ? ({} as GenericRecord<typeof initialObj>)
+      : undefined;
 
   return (() => {
     data.forEach((data) => {
@@ -147,7 +156,7 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
       const dateMonth = getNameMonth(curDate);
       const curYear = curDate.getFullYear();
       // cal distributed stats.
-      if (checkCurStatsDisplay("distribution")) {
+      if (checkCurChartDisplay("distribution")) {
         calStatsAges(agesStats, data.birthday);
         calStatsGenders(gendersStats, data.gender);
         calStatsCities(citiesStats, data.city_name);
@@ -172,7 +181,7 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
     });
 
     // Get results
-    let res: GenericRecord<any> = checkCurStatsDisplay("distribution")
+    let res: GenericRecord<any> = checkCurChartDisplay("distribution")
       ? {
           agesStatsRes: createLabelDatasetFromObj(agesStats),
           gendersStatsRes: createLabelDatasetFromObj(gendersStats),

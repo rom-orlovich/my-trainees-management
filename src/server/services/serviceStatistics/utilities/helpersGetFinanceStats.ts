@@ -7,7 +7,7 @@ import { GenericRecord } from "../../../utilities/types";
 import {
   DistributionFinances,
   ExpensesTableAPI,
-  ChartDisplayTypes,
+  TimeLineDisplay,
   FinancesChartStatsDisplay,
   FinancesDistributionStatsDisplay,
   FinancesObj,
@@ -15,6 +15,7 @@ import {
   IncomesTableAPI,
   ProductData,
   SharedIncomesExpensesProps,
+  ChartTypes,
 } from "../serviceStatisticsTypes";
 import {
   calTimeLineObj,
@@ -98,11 +99,14 @@ const normalizeDatesValuesDistributionFinance = (
 const calFinancesSum = (
   incomesData: IncomesTableAPI[],
   expenseData: ExpensesTableAPI[],
-  displayStats?: string
+  chartDisplay?: ChartTypes,
+  timeLineDisplay?: TimeLineDisplay
 ) => {
-  // Check the current display according to the displayStats.
-  const checkCurStatsDisplay = (checkDisplayStats: ChartDisplayTypes) =>
-    checkDisplayStats === displayStats || displayStats === "all";
+  // Check the current display according to the timeLineDisplay and chartDisplay.
+  const checkCurChartDisplay = (checkDisplayStats: ChartTypes) =>
+    checkDisplayStats === chartDisplay || chartDisplay === "all";
+  const checkCurTimeLineDisplay = (checkTimeLineDisplay: TimeLineDisplay) =>
+    checkTimeLineDisplay === timeLineDisplay;
 
   const totalFinancesSum: FinancesObj = {
     expenses: 0,
@@ -110,22 +114,26 @@ const calFinancesSum = (
   };
 
   // If display is not requested so the the timeline finance object is undefined.
-  const thisWeekDays = checkCurStatsDisplay("thisWeek")
-    ? createThisWeekDaysDisplayObj<FinancesObj>(totalFinancesSum)
-    : undefined;
-  const weeksRangeMonth = checkCurStatsDisplay("weeksMonthRange")
-    ? createWeeksRangeMonthObj<FinancesObj>(totalFinancesSum)
-    : undefined;
-  const monthsFinancesObj = checkCurStatsDisplay("monthly")
-    ? createMonthObj<FinancesObj>(totalFinancesSum)
-    : undefined;
-  let yearsFinanceObj = checkCurStatsDisplay("yearly")
-    ? ({} as GenericRecord<FinancesObj>)
-    : undefined;
+  const thisWeekDays =
+    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("thisWeek")
+      ? createThisWeekDaysDisplayObj<FinancesObj>(totalFinancesSum)
+      : undefined;
+  const weeksRangeMonth =
+    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("weeksMonthRange")
+      ? createWeeksRangeMonthObj<FinancesObj>(totalFinancesSum)
+      : undefined;
+  const monthsFinancesObj =
+    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("monthly")
+      ? createMonthObj<FinancesObj>(totalFinancesSum)
+      : undefined;
+  let yearsFinanceObj =
+    checkCurChartDisplay("graph") && checkCurTimeLineDisplay("yearly")
+      ? ({} as GenericRecord<FinancesObj>)
+      : undefined;
 
   // If display is distribution finances.
   let distributionFinances: DistributionFinances | undefined =
-    checkCurStatsDisplay("distribution")
+    checkCurChartDisplay("distribution")
       ? { incomes: {}, expenses: {} }
       : undefined;
 
@@ -233,5 +241,6 @@ const calFinancesSum = (
 export const getFinanceStats = (
   incomesData: IncomesTableAPI[],
   expenseData: ExpensesTableAPI[],
-  displayStats?: string
-) => calFinancesSum(incomesData, expenseData, displayStats);
+  chartDisplay?: ChartTypes,
+  timeLineDisplay?: TimeLineDisplay
+) => calFinancesSum(incomesData, expenseData, chartDisplay, timeLineDisplay);
