@@ -30,7 +30,6 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
       if (req.baseUrl === API_ROUTES.EXERCISES_STATS_ROUTE) {
         result = exerciseStatsCreateLabelAndDatasets(
           statsResult?.data as ExerciseStatsAPI[],
-
           timeLineDisplay as TimeLineDisplay
         );
       } else if (req.baseUrl === API_ROUTES.MEASURES_ROUTE) {

@@ -8,7 +8,10 @@ function FinancesStatus({
   className,
   queryOptions,
 }: PropsBasic & TrainerProfileProps) {
-  const { data } = financesApi.useGetFinancesQuery({ ...queryOptions });
+  const { data } = financesApi.useGetFinancesQuery({
+    ...queryOptions,
+    chartDisplay: "distribution",
+  });
 
   return (
     <Card className={className}>

@@ -41,12 +41,9 @@ function CaloriesChart({
     {
       ...queryOptions,
       profileID,
-      timeLineDisplay: "caloriesPie",
+      chartDisplay: "distribution",
     }
   );
-  // const PROTEIN_COLOR = "rgb(240 ,91, 85)";
-  // const CRABS_COLOR = "rgb(0 ,182, 196)";
-  // const FATS_COLOR = " rgb(250 ,209 ,55)";
 
   return (
     <Card className={genClassName(className, style.calories_chart_container)}>
