@@ -6,6 +6,7 @@ import { traineesApi } from "../../../../redux/api/hooksAPI";
 import { GetCitiesGendersAgesStatsAPI } from "../../../../redux/api/interfaceAPI";
 import OverviewProfileCard from "../OverviewProfileCard/OverviewProfileCard";
 import { TrainerProfileProps } from "../TrainerProfile";
+import overviewProfileCardStyle from "../OverviewProfileCard/OverviewProfileCard.module.scss";
 
 function TraineeStatus({
   className,
@@ -20,17 +21,25 @@ function TraineeStatus({
 
   return (
     <OverviewProfileCard
-      heading="CurrentTrainees"
+      heading="Current Trainees"
       StatsLink={{ statsPagePath: "", text: "Trainee Stats" }}
       className={className}
     >
-      <div>
-        <h3>Active:</h3>
-        <div>{Data?.stats.calStatusHandlesRes?.datasetsValues[0]} Trainees</div>
+      <div className={overviewProfileCardStyle.overview_card_item}>
+        <span className={overviewProfileCardStyle.overview_card_item_value}>
+          {Data?.stats.calStatusHandlesRes?.datasetsValues[0]} Trainees
+        </span>
+        <span className={overviewProfileCardStyle.overview_card_item_text}>
+          Active
+        </span>
       </div>
-      <div>
-        <h3>Not Active:</h3>
-        <div>{Data?.stats.calStatusHandlesRes?.datasetsValues[1]} Trainees</div>
+      <div className={overviewProfileCardStyle.overview_card_item}>
+        <span className={overviewProfileCardStyle.overview_card_item_value}>
+          {Data?.stats.calStatusHandlesRes?.datasetsValues[1]} Trainees
+        </span>
+        <span className={overviewProfileCardStyle.overview_card_item_text}>
+          Not Active
+        </span>
       </div>
     </OverviewProfileCard>
   );

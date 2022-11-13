@@ -20,9 +20,7 @@ function OverviewProfileCard({
     <Card className={genClassName(className, style.overview_container)}>
       {heading && <h2>{heading}</h2>}
 
-      <div className={genClassName(className, style.overview_content)}>
-        {children}
-      </div>
+      <div className={genClassName(style.overview_content)}>{children}</div>
       {StatsLink && <Link to={StatsLink.statsPagePath}>{StatsLink.text}</Link>}
     </Card>
   );
