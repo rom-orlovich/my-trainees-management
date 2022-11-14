@@ -7,6 +7,7 @@ import {
   CHART_DISPLAY,
   GetCitiesGendersAgesStatsAPI,
 } from "../../../redux/api/interfaceAPI";
+import { GenericRecord } from "../../../types";
 import {
   generateRandomColor,
   labelFormatterByUnit,
@@ -20,20 +21,27 @@ function LineGraphCard({
   chartHeading,
   unit,
   color,
+  lineChartProps,
+  useTimeLine = true,
 }: {
   chartHeading: string;
   unit?: string;
-  className: string;
-  queryOptions: GraphFilterByDates;
+  className?: string;
+  queryOptions: Partial<GraphFilterByDates> & GenericRecord<any>;
   getItems: UseQuery<any>;
   color?: string;
+  lineChartProps?: { className: string };
+  useTimeLine?: boolean;
 }) {
   return (
-    <GraphCard queryOptions={queryOptions} className={className}>
+    <GraphCard
+      queryOptions={queryOptions}
+      className={className}
+      useTimeLine={useTimeLine}
+    >
       {(queryOptionsData) => {
         const { data } = getItems({
           ...queryOptionsData,
-
           chartDisplay: CHART_DISPLAY.GRAPH,
         });
 
@@ -43,6 +51,7 @@ function LineGraphCard({
           (Data?.stats.graphStats?.labelFormatted && generateRandomColor(0.5));
         return (
           <LineChart
+            className={lineChartProps?.className}
             options={{
               plugins: {
                 tooltip: {

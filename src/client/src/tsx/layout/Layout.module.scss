@@ -18,6 +18,7 @@
   }
   .main_content {
     // overflow: scroll;
+
     margin-top: 0.5rem;
     @include flex-dir(center, null);
     flex: $MAIN_CONTENT_FLEX_WIDTH;

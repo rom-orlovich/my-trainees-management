@@ -16,14 +16,16 @@ function GraphCard({
   children,
   className,
   queryOptions,
+  useTimeLine = true,
 }: {
-  queryOptions: { gt: string; lt: string };
+  queryOptions: Partial<{ gt: string; lt: string }>;
   children: ComponentFunType<{
     timeLineDisplay: string;
-    gt: string;
-    lt: string;
+    gt?: string;
+    lt?: string;
   }>;
   className?: string;
+  useTimeLine?: boolean;
 }) {
   const [{ display }, onChange] = useOnChangeInput({
     display: GRAPH_TIME_LINE.WEEKLY,
@@ -31,16 +33,18 @@ function GraphCard({
 
   return (
     <Card className={className}>
-      <SelectInput
-        LabelProps={{ labelText: "Display", htmlFor: "display" }}
-        selectProps={{ onChange, defaultValue: display }}
-        options={[
-          { label: "Weekly", value: GRAPH_TIME_LINE.WEEKLY },
-          { label: "Monthly", value: GRAPH_TIME_LINE.MONTHLY },
-          { label: "Months", value: GRAPH_TIME_LINE.MONTHS },
-          { label: "Years", value: GRAPH_TIME_LINE.YEARS },
-        ]}
-      />
+      {useTimeLine && (
+        <SelectInput
+          LabelProps={{ labelText: "Display", htmlFor: "display" }}
+          selectProps={{ onChange, defaultValue: display }}
+          options={[
+            { label: "Weekly", value: GRAPH_TIME_LINE.WEEKLY },
+            { label: "Monthly", value: GRAPH_TIME_LINE.MONTHLY },
+            { label: "Months", value: GRAPH_TIME_LINE.MONTHS },
+            { label: "Years", value: GRAPH_TIME_LINE.YEARS },
+          ]}
+        />
+      )}
       <ChildrenFunComponent
         data={{ timeLineDisplay: display, ...queryOptions }}
       >

@@ -3,6 +3,7 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
+import LineGraphCard from "../../../../components/baseComponents/CardCharts/LineGraphCard";
 import {
   dataLabelFormatterByUnit,
   generateRandomColor,
@@ -26,6 +27,15 @@ import style from "./ProgressChart.module.scss";
 
 function ProgressChart({ className }: PropsBasic) {
   const { profileID, userID } = useGetUserTraineeData();
+  const queryOptions = {
+    profileID,
+    userID,
+    chartDisplay: CHART_DISPLAY.GRAPH,
+    asc: "false",
+    numResults: 100,
+    gt: "",
+    lt: "",
+  };
   const { data, isError, isFetching, isLoading } = measuresApi.useGetItemsQuery(
     {
       profileID,
@@ -39,30 +49,14 @@ function ProgressChart({ className }: PropsBasic) {
     stats: { graphStats: ChartsDataAPI<number[]> };
   };
   return (
-    // <Card className={genClassName(className, style.progress_chart_container)}>
-    //   <LoadingSpinner
-    //     stateData={{ data: Data, isError, isFetching, isLoading }}
-    //     showNoDataMessage={true}
-    //     message={<>Data Not Found</>}
-    //   >
-    //     {(data) => (
-    //       <LineChart
-    //         className={style.progress_chart}
-    //         datasets={[
-    //           {
-    //             label: `Measures Weights Progress`,
-    //             data: data.stats.graphStats.datasetsValues,
-    //             backgroundColor: generateRandomColor(0.8),
-    //             borderColor: generateRandomColor(0.8),
-    //           },
-    //         ]}
-    //         labels={data.stats.graphStats.labelFormatted}
-    //         options={LINE_CHART_OPTIONS}
-    //       />
-    //     )}
-    //   </LoadingSpinner>
-    // </Card>
-    <></>
+    <LineGraphCard
+      unit="kg"
+      useTimeLine={false}
+      getItems={measuresApi.useGetItemsQuery}
+      chartHeading="Measures Weights Progress"
+      queryOptions={queryOptions}
+      className={genClassName(className, style.progress_chart_container)}
+    />
   );
 }
 
