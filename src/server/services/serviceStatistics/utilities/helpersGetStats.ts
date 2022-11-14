@@ -54,18 +54,18 @@ export const createThisWeekDaysDisplayObj = <
   // Get the start and the end date of the week.
   const startWeek = startOfWeek(curDate);
   const endWeek = endOfWeek(curDate);
-  let thisWeekDaysObj = {} as R;
+  let weeklyDaysObj = {} as R;
   // Create array of dates.
   eachDayOfInterval({
     start: startWeek,
     end: endWeek,
   }).forEach((date) => {
-    thisWeekDaysObj = {
-      ...thisWeekDaysObj,
+    weeklyDaysObj = {
+      ...weeklyDaysObj,
       [formatDate(date, 0)]: { ...initialObj },
     };
   });
-  return thisWeekDaysObj;
+  return weeklyDaysObj;
 };
 
 // Gets date and return his week range in month.

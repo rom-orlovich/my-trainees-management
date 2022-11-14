@@ -4,7 +4,7 @@ import Card from "../../components/baseComponents/Card/Card";
 import {
   COLORS_CHART,
   dataLabelFormatterByPercents,
-  generateColors,
+  generateRandomColors,
   labelFormatterByPercents,
   labelFormatterByUnit,
   PIE_CHART_FONTS,
@@ -25,21 +25,19 @@ function PieChartCard({
     chartHeading?: string;
     unit?: string;
   }) {
-  //   const defaultColors = colors || [COLORS_CHART.GREEN, COLORS_CHART.RED];
-
-  const colorsGenerate = colors || generateColors(labelFormatted.length, 0.7);
+  const colorsGenerate =
+    colors || generateRandomColors(labelFormatted.length, 0.7);
   return (
     <Card className={className}>
       <PieChart
         datasets={[
           {
-            // label: chartHeading,
             data: datasetsValues || [],
             backgroundColor: colorsGenerate,
             borderColor: colorsGenerate,
           },
         ]}
-        labels={labelFormatted}
+        labels={labelFormatted || []}
         options={{
           plugins: {
             title: {
@@ -49,7 +47,7 @@ function PieChartCard({
             },
             tooltip: {
               callbacks: {
-                label: labelFormatterByUnit(unit),
+                label: labelFormatterByPercents,
               },
               position: "average",
               padding: 10,

@@ -4,7 +4,8 @@ import React from "react";
 import {
   COLORS_CHART,
   dataLabelFormatterByUnit,
-  generateColors,
+  generateRandomColor,
+  generateRandomColors,
   labelFormatterByUnit,
 } from "../../../components/baseComponents/Charts/chartsUtils";
 import LineChart from "../../../components/baseComponents/Charts/LineChart";
@@ -46,8 +47,7 @@ function LineGraphCard({
         const Data = data as unknown as { stats: GetCitiesGendersAgesStatsAPI };
         const defaultColors =
           color ||
-          (Data?.stats.graphStats?.labelFormatted &&
-            generateColors(Data?.stats.graphStats?.labelFormatted.length, 0.5));
+          (Data?.stats.graphStats?.labelFormatted && generateRandomColor(0.5));
         return (
           <LineChart
             options={{
@@ -60,13 +60,21 @@ function LineGraphCard({
                     size: 12,
                   },
                 },
+                datalabels: {
+                  formatter: () => "",
+                },
               },
             }}
             datasets={[
               {
-                label: chartHeading,
                 backgroundColor: defaultColors,
                 borderColor: defaultColors,
+                pointBorderColor: defaultColors,
+                pointBackgroundColor: defaultColors,
+                pointRadius: 4,
+                pointStyle: "circle",
+                tension: 0.5,
+                label: chartHeading,
                 data: Data?.stats.graphStats?.datasetsValues || [],
               },
             ]}

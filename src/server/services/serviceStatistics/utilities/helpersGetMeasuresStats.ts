@@ -1,7 +1,6 @@
 import {
   ChartTypes,
   CHART_DISPLAY,
-  GRAPH_TIME_LINE,
   MeasuresCalResAPI,
   TimeLineDisplay,
 } from "../serviceStatisticsTypes";

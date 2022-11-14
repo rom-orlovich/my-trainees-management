@@ -59,7 +59,7 @@ const mainTransportLogger: TransportStream[] = [
 ];
 if (process.env.NODE_ENV === "development") {
   mainTransportLogger.push(
-    new transports.Console({ format: combineFormatConsole })
+    new transports.Console({ format: combineFormatConsole, level: LOG_LEVEL })
   );
   loggerRequestTransport.push(loggerRequestInfo);
 }

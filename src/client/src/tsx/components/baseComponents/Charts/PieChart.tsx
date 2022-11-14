@@ -50,6 +50,7 @@ function PieChart<D, L>({
   };
   return (
     <Pie
+      style={{ padding: "0.5rem" }}
       className={className}
       data={data}
       options={{ ...PIE_CHART_OPTIONS, ...options }}

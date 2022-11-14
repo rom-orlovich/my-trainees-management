@@ -30,29 +30,35 @@ function TraineeStatsCards({
   const Data = data as unknown as {
     stats: GetCitiesGendersAgesStatsAPI;
   };
-  console.log(Data);
+
   return (
     <>
       <PieChartCard
         unit="%"
         chartHeading="Cities"
         className={StatsPageStyle.distribution_card_container}
-        datasetsValues={Data?.stats?.calStatsCitiesRes?.datasetsValues || []}
-        labelFormatted={Data?.stats?.calStatsCitiesRes?.labelFormatted || []}
+        datasetsValues={Data?.stats?.calStatsCitiesRes?.datasetsValues || [100]}
+        labelFormatted={
+          Data?.stats?.calStatsCitiesRes?.labelFormatted || ["No data"]
+        }
       />
       <PieChartCard
         unit="%"
         chartHeading="Ages"
         className={StatsPageStyle.distribution_card_container}
-        datasetsValues={Data?.stats?.agesStatsRes?.datasetsValues || []}
-        labelFormatted={Data?.stats?.agesStatsRes?.labelFormatted || []}
+        datasetsValues={Data?.stats?.agesStatsRes?.datasetsValues || [100]}
+        labelFormatted={
+          Data?.stats?.agesStatsRes?.labelFormatted || ["No data"]
+        }
       />
       <PieChartCard
         unit="%"
         chartHeading="Genders"
         className={StatsPageStyle.distribution_card_container}
-        datasetsValues={Data?.stats?.gendersStatsRes?.datasetsValues || []}
-        labelFormatted={Data?.stats?.gendersStatsRes?.labelFormatted || []}
+        datasetsValues={Data?.stats?.gendersStatsRes?.datasetsValues || [100]}
+        labelFormatted={
+          Data?.stats?.gendersStatsRes?.labelFormatted || ["No data"]
+        }
       />
 
       <LineGraphCard

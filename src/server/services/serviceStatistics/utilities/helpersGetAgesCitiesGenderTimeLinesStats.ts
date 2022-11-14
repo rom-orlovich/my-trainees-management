@@ -139,24 +139,24 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
 
   const initialObj = dataType === "leads" ? { leads: 0 } : { trainees: 0 };
 
-  let thisWeekSumObj =
+  let weeklySumObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_WEEK)
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
       ? createThisWeekDaysDisplayObj(initialObj, dateStart)
       : undefined;
   let weeksRangeMonthSumObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_MONTH)
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
       ? createWeeksRangeMonthObj(initialObj, dateStart)
       : undefined;
-  let monthlySumObj =
+  let monthsSumObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
       ? createMonthObj(initialObj)
       : undefined;
   let yearsSumObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARLY)
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARS)
       ? ({} as GenericRecord<typeof initialObj>)
       : undefined;
 
@@ -176,13 +176,13 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
       }
 
       // Cal timeline stats.
-      thisWeekSumObj = calTimeLineObj(dataType, formattedDate, thisWeekSumObj);
+      weeklySumObj = calTimeLineObj(dataType, formattedDate, weeklySumObj);
       weeksRangeMonthSumObj = calTimeLineObj(
         dataType,
         weekRangeInMonthStr,
         weeksRangeMonthSumObj
       );
-      monthlySumObj = calTimeLineObj(dataType, dateMonth, monthlySumObj);
+      monthsSumObj = calTimeLineObj(dataType, dateMonth, monthsSumObj);
       yearsSumObj = calTimeLineObj(
         dataType,
         String(curYear),
@@ -204,20 +204,20 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
         }
       : {};
 
-    if (thisWeekSumObj) {
+    if (weeklySumObj) {
       res = {
         ...res,
-        graphStats: normalizeDatesValuesSumObj(thisWeekSumObj, dataType),
+        graphStats: normalizeDatesValuesSumObj(weeklySumObj, dataType),
       };
     } else if (weeksRangeMonthSumObj) {
       res = {
         ...res,
         graphStats: normalizeDatesValuesSumObj(weeksRangeMonthSumObj, dataType),
       };
-    } else if (monthlySumObj) {
+    } else if (monthsSumObj) {
       res = {
         ...res,
-        graphStats: normalizeDatesValuesSumObj(monthlySumObj, dataType),
+        graphStats: normalizeDatesValuesSumObj(monthsSumObj, dataType),
       };
     } else if (yearsSumObj) {
       res = {

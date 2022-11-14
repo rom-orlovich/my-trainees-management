@@ -97,7 +97,7 @@ const normalizeDatesValuesDistributionFinance = (
   };
 };
 
-// Calculates the finance sum as perspective of this week, weekly, monthly, yearly and total.
+// Calculates the finance sum as perspective of this week, weekly, months, yearly and total.
 const calFinancesSum = (
   incomesData: IncomesTableAPI[],
   expenseData: ExpensesTableAPI[],
@@ -117,24 +117,24 @@ const calFinancesSum = (
   };
 
   // If display is not requested so the the timeline finance object is undefined.
-  const thisWeekDays =
+  const weeklyDays =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_WEEK)
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
       ? createThisWeekDaysDisplayObj<FinancesObj>(totalFinancesSum, dateStart)
       : undefined;
   const weeksRangeMonth =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_MONTH)
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
       ? createWeeksRangeMonthObj<FinancesObj>(totalFinancesSum, dateStart)
       : undefined;
   const monthsFinancesObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
       ? createMonthObj<FinancesObj>(totalFinancesSum)
       : undefined;
   let yearsFinanceObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARLY)
+    checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARS)
       ? ({} as GenericRecord<FinancesObj>)
       : undefined;
 
@@ -171,8 +171,8 @@ const calFinancesSum = (
     }
 
     // Calculate this week sum if display this week is defined.
-    if (thisWeekDays && thisWeekDays[formattedDate]) {
-      thisWeekDays[formattedDate][incomesOrExpenses] += financeObj.total_price;
+    if (weeklyDays && weeklyDays[formattedDate]) {
+      weeklyDays[formattedDate][incomesOrExpenses] += financeObj.total_price;
     }
 
     // Calculate weekly sum if display this weekly is defined.
@@ -180,7 +180,7 @@ const calFinancesSum = (
       weeksRangeMonth[weekRangeInMonth][incomesOrExpenses] +=
         financeObj.total_price;
     }
-    // Calculate monthly sum if display monthly is defined.
+    // Calculate months sum if display months is defined.
     if (monthsFinancesObj && monthsFinancesObj[dateMonth])
       monthsFinancesObj[dateMonth][incomesOrExpenses] += financeObj.total_price;
 
@@ -204,10 +204,10 @@ const calFinancesSum = (
   );
 
   // Assign the requested display to resultChartStatsDisplayFinances and resultDistributionFinances.
-  if (thisWeekDays)
+  if (weeklyDays)
     resultChartStatsDisplayFinances = {
       ...resultChartStatsDisplayFinances,
-      thisWeekDays: normalizeDatesValuesFinance(thisWeekDays),
+      weeklyDays: normalizeDatesValuesFinance(weeklyDays),
     };
   if (weeksRangeMonth)
     resultChartStatsDisplayFinances = {

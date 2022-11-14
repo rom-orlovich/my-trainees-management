@@ -426,7 +426,7 @@ export interface FinanceAPI {
   expenses: ResponseQueryAPI<ExpensesTableAPI>;
   stats: {
     totalFinancesSum: FinancesValue;
-    thisWeekDays: ChartsDataAPI<FinancesValues>;
+    weeklyDays: ChartsDataAPI<FinancesValues>;
     weeksRangeMonth: ChartsDataAPI<FinancesValues>;
     monthsFinancesObj: ChartsDataAPI<FinancesValues>;
     yearsFinanceObj: ChartsDataAPI<FinancesValues>;
@@ -442,10 +442,10 @@ export interface GetCitiesGendersAgesStatsAPI {
 }
 
 export enum GRAPH_TIME_LINE {
-  THIS_WEEK = "thisWeek",
-  THIS_MONTH = "thisMonth",
+  WEEKLY = "weekly",
   MONTHLY = "monthly",
-  YEARLY = "yearly",
+  MONTHS = "months",
+  YEARS = "years",
 }
 export enum CHART_DISPLAY {
   GRAPH = "graph",

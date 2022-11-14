@@ -2,7 +2,7 @@ import { transports } from "winston";
 import { IS_DEVELOPMENT_MODE } from "../../utilities/constants";
 
 export const LOG_LEVEL: "debug" | "info" | "warn" | "error" =
-  IS_DEVELOPMENT_MODE ? "debug" : "info";
+  IS_DEVELOPMENT_MODE ? "info" : "info";
 
 export const timezone = () =>
   new Date().toLocaleString("en-US", {

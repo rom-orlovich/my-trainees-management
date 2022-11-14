@@ -5,8 +5,16 @@
   overflow-y: scroll;
   width: 100%;
   .stats_page_header_filters {
+    padding-left: 1rem;
     .dates_container {
       @include flex-dir(null, null, row);
+      gap: 0.5rem;
+      @include classMatcher("InputLabel") {
+        flex: initial;
+        input {
+          min-width: 5rem;
+        }
+      }
     }
   }
   .stats_page_container {

@@ -51,14 +51,17 @@ export const DOUGHNUT_CHART_FONTS = {
 
 export const generateRandomColorNum = () =>
   Math.floor(Math.random() * (235 - 52 + 1) + 52);
+export const generateRandomColor = (opacity = 1) => {
+  const r = generateRandomColorNum();
+  const g = generateRandomColorNum();
+  const b = generateRandomColorNum();
+  return `rgba(${r},${g},${b},${opacity})`;
+};
 
-export const generateColors = (labelLength: number, opacity = 1) => {
+export const generateRandomColors = (labelLength: number, opacity = 1) => {
   const colors = [];
   for (let i = 0; i < labelLength; i++) {
-    const r = generateRandomColorNum();
-    const g = generateRandomColorNum();
-    const b = generateRandomColorNum();
-    colors.push(`rgba(${r},${g},${b},${opacity})`);
+    colors.push(generateRandomColor(0.5));
   }
   return colors;
 };

@@ -26,7 +26,7 @@ function GraphCard({
   className?: string;
 }) {
   const [{ display }, onChange] = useOnChangeInput({
-    display: GRAPH_TIME_LINE.THIS_MONTH,
+    display: GRAPH_TIME_LINE.WEEKLY,
   });
 
   return (
@@ -35,10 +35,10 @@ function GraphCard({
         LabelProps={{ labelText: "Display", htmlFor: "display" }}
         selectProps={{ onChange, defaultValue: display }}
         options={[
-          { label: "This Week", value: GRAPH_TIME_LINE.THIS_WEEK },
-          { label: "This Month", value: GRAPH_TIME_LINE.THIS_MONTH },
+          { label: "Weekly", value: GRAPH_TIME_LINE.WEEKLY },
           { label: "Monthly", value: GRAPH_TIME_LINE.MONTHLY },
-          { label: "Yearly", value: GRAPH_TIME_LINE.YEARLY },
+          { label: "Months", value: GRAPH_TIME_LINE.MONTHS },
+          { label: "Years", value: GRAPH_TIME_LINE.YEARS },
         ]}
       />
       <ChildrenFunComponent

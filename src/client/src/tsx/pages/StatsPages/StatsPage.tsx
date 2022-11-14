@@ -1,10 +1,9 @@
 import React, { ReactNode } from "react";
-import { PropsBasic } from "../../components/baseComponents/baseComponentsTypes";
 import ChildrenFunComponent from "../../components/baseComponents/ChildrenFunComponent/ChildrenFunComponent";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
-import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
-import { GenericRecord } from "../../types";
+import { formatDate } from "../../utilities/helpersFun";
+
 import style from "./StatsPages.module.scss";
 
 function StatsPage({
@@ -24,7 +23,11 @@ function StatsPage({
         <span className={style.dates_container}>
           <InputLabel
             LabelProps={{ labelText: "Date Start", htmlFor: "gt" }}
-            InputProps={{ type: "date", onChange }}
+            InputProps={{
+              type: "date",
+              onChange,
+              value: queryOptions.gt,
+            }}
           />
           <InputLabel
             LabelProps={{ labelText: "Date End", htmlFor: "lt" }}
