@@ -1,7 +1,5 @@
-import { Stats } from "fs";
-import React from "react";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
-import Card from "../../../../components/baseComponents/Card/Card";
+
 import { traineesApi } from "../../../../redux/api/hooksAPI";
 import {
   CHART_DISPLAY,

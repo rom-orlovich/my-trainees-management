@@ -1,9 +1,12 @@
 import React from "react";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
-import Card from "../../../../components/baseComponents/Card/Card";
+
 import { financesApi } from "../../../../redux/api/hooksAPI";
-import { CHART_DISPLAY } from "../../../../redux/api/interfaceAPI";
+import { CHART_DISPLAY, FinanceAPI } from "../../../../redux/api/interfaceAPI";
+import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import OverviewProfileCard from "../OverviewProfileCard/OverviewProfileCard";
 import { TrainerProfileProps } from "../TrainerProfile";
+import overviewProfileCardStyle from "../OverviewProfileCard/OverviewProfileCard.module.scss";
 
 function FinancesStatus({
   className,
@@ -14,17 +17,34 @@ function FinancesStatus({
     chartDisplay: CHART_DISPLAY.DISTRIBUTION,
   });
 
+  const Data = data as unknown as FinanceAPI;
+
   return (
-    <Card className={className}>
-      <div>
-        <h2>Total Incomes:</h2>
-        <div> {data?.stats.totalFinancesSum.incomes}</div>
+    <OverviewProfileCard
+      heading="Finances Status"
+      StatsLink={{
+        statsPagePath: `${APP_ROUTE.STATS_ROUTE}/${APP_ROUTE.FINANCES_STATS_ROUTE}`,
+        text: "Finances Stats",
+      }}
+      className={className}
+    >
+      <div className={overviewProfileCardStyle.overview_card_item}>
+        <span className={overviewProfileCardStyle.overview_card_item_value}>
+          {Data?.stats?.totalFinancesSum.incomes} Nis
+        </span>
+        <span className={overviewProfileCardStyle.overview_card_item_text}>
+          Incomes
+        </span>
       </div>
-      <div>
-        <h2>Total Expenses:</h2>
-        <div> {data?.stats.totalFinancesSum.expenses}</div>
+      <div className={overviewProfileCardStyle.overview_card_item}>
+        <span className={overviewProfileCardStyle.overview_card_item_value}>
+          {Data?.stats?.totalFinancesSum.expenses} Nis
+        </span>
+        <span className={overviewProfileCardStyle.overview_card_item_text}>
+          Expenses
+        </span>
       </div>
-    </Card>
+    </OverviewProfileCard>
   );
 }
 

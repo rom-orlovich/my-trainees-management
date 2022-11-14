@@ -56,6 +56,7 @@ export enum APP_ROUTE {
   STATS_ROUTE = "stats",
   TRAINEES_STATS_ROUTE = "trainees",
   LEADS_STATS_ROUTE = "leads",
+  FINANCES_STATS_ROUTE = "finances",
 
   MY_WORKOUTS_ROUTE = "myWorkouts",
   MY_WORKOUTS_ROUTE_EXERCISES = "myWorkoutsExercises",

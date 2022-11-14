@@ -420,6 +420,10 @@ export interface ResultDistributionFinances {
   incomes: ChartsDataAPI<number>;
   expenses: ChartsDataAPI<number>;
 }
+export interface ProductData {
+  totalPrice: number[];
+  amounts: number[];
+}
 
 export interface FinanceAPI {
   incomes: ResponseQueryAPI<IncomesTableAPI>;
@@ -430,7 +434,13 @@ export interface FinanceAPI {
     weeksRangeMonth: ChartsDataAPI<FinancesValues>;
     monthsFinancesObj: ChartsDataAPI<FinancesValues>;
     yearsFinanceObj: ChartsDataAPI<FinancesValues>;
-    resultDistributionFinances: ResultDistributionFinances;
+    mostSpendingCustomers: {
+      incomes: ChartsDataAPI<ProductData>;
+    };
+    resultPopularIncomesExpenses: {
+      incomes: ChartsDataAPI<ProductData>;
+      expenses: ChartsDataAPI<ProductData>;
+    };
   };
 }
 export interface GetCitiesGendersAgesStatsAPI {

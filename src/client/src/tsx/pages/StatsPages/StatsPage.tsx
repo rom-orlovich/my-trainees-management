@@ -2,7 +2,6 @@ import React, { ReactNode } from "react";
 import ChildrenFunComponent from "../../components/baseComponents/ChildrenFunComponent/ChildrenFunComponent";
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
-import { formatDate } from "../../utilities/helpersFun";
 
 import style from "./StatsPages.module.scss";
 
