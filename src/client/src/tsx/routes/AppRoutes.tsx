@@ -39,6 +39,7 @@ import SchedulePage from "../pages/SchedulePage/SchedulePage";
 import ParticipantsGroupPage from "../pages/ParticipantsGroupPage /ParticipantsGroupPage";
 import TraineeStatsPage from "../pages/StatsPages/TraineeStatsPage/TraineeStatsPage";
 import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
+import LeadsStatsPage from "../pages/StatsPages/LeadsStatsPage/LeadsStatsPage";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -76,6 +77,10 @@ function AppRoutes() {
                 <Route
                   path={APP_ROUTE.TRAINEES_STATS_ROUTE}
                   element={<TraineeStatsPage />}
+                />
+                <Route
+                  path={APP_ROUTE.LEADS_STATS_ROUTE}
+                  element={<LeadsStatsPage />}
                 />
               </Route>
             </Route>

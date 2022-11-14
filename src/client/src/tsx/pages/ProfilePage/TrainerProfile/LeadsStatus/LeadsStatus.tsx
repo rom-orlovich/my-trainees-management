@@ -8,30 +8,49 @@ import {
   CHART_DISPLAY,
   GetCitiesGendersAgesStatsAPI,
 } from "../../../../redux/api/interfaceAPI";
+import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import OverviewProfileCard from "../OverviewProfileCard/OverviewProfileCard";
 
 import { TrainerProfileProps } from "../TrainerProfile";
+import overviewProfileCardStyle from "../OverviewProfileCard/OverviewProfileCard.module.scss";
 
 function LeadsStatus({
   className,
   queryOptions,
 }: PropsBasic & TrainerProfileProps) {
-  const { data, isError, isFetching, isLoading } = leadsApi.useGetItemsQuery({
+  const { data } = leadsApi.useGetItemsQuery({
     ...queryOptions,
     chartDisplay: CHART_DISPLAY.DISTRIBUTION,
   });
+
   const Data = data as unknown as { stats: GetCitiesGendersAgesStatsAPI };
 
   return (
-    <Card className={className}>
-      <div>
-        <h2>Handle</h2>
-        {Data?.stats.calStatusHandlesRes?.datasetsValues[0]}
+    <OverviewProfileCard
+      heading="Leads Status"
+      StatsLink={{
+        statsPagePath: `${APP_ROUTE.STATS_ROUTE}/${APP_ROUTE.LEADS_STATS_ROUTE}`,
+        text: "Leads Stats",
+      }}
+      className={className}
+    >
+      <div className={overviewProfileCardStyle.overview_card_item}>
+        <span className={overviewProfileCardStyle.overview_card_item_value}>
+          {Data?.stats.calStatusHandlesRes?.datasetsValues[0]} Leads
+        </span>
+        <span className={overviewProfileCardStyle.overview_card_item_text}>
+          Handle
+        </span>
       </div>
-      <div>
-        <h2>Not Handle:</h2>
-        <div> {Data?.stats.calStatusHandlesRes?.datasetsValues[1]}</div>
+      <div className={overviewProfileCardStyle.overview_card_item}>
+        <span className={overviewProfileCardStyle.overview_card_item_value}>
+          {Data?.stats.calStatusHandlesRes?.datasetsValues[1]} Leads
+        </span>
+        <span className={overviewProfileCardStyle.overview_card_item_text}>
+          Not Handle
+        </span>
       </div>
-    </Card>
+    </OverviewProfileCard>
   );
 }
 

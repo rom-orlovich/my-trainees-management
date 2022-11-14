@@ -9,14 +9,15 @@ import {
 } from "../../../../redux/api/interfaceAPI";
 import OverviewProfileCard from "../OverviewProfileCard/OverviewProfileCard";
 import { TrainerProfileProps } from "../TrainerProfile";
-import overviewProfileCardStyle from "../OverviewProfileCard/OverviewProfileCard.module.scss";
+
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import overviewProfileCardStyle from "../OverviewProfileCard/OverviewProfileCard.module.scss";
 
 function TraineeStatus({
   className,
   queryOptions,
 }: PropsBasic & TrainerProfileProps) {
-  const { data, status, isFetching, isError } = traineesApi.useGetItemsQuery({
+  const { data } = traineesApi.useGetItemsQuery({
     ...queryOptions,
     chartDisplay: CHART_DISPLAY.DISTRIBUTION,
   });

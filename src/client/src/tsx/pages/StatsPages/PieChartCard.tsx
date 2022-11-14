@@ -20,24 +20,24 @@ function PieChartCard({
   unit,
   chartHeading,
 }: PropsBasic &
-  ChartsDataAPI<number[]> & {
+  Partial<ChartsDataAPI<number[]>> & {
     colors?: (keyof typeof COLORS_CHART)[];
     chartHeading?: string;
     unit?: string;
   }) {
   const colorsGenerate =
-    colors || generateRandomColors(labelFormatted.length, 0.7);
+    colors || generateRandomColors(labelFormatted?.length || 0, 0.7);
   return (
     <Card className={className}>
       <PieChart
         datasets={[
           {
-            data: datasetsValues || [],
+            data: datasetsValues || [100],
             backgroundColor: colorsGenerate,
             borderColor: colorsGenerate,
           },
         ]}
-        labels={labelFormatted || []}
+        labels={labelFormatted || ["No data"]}
         options={{
           plugins: {
             title: {

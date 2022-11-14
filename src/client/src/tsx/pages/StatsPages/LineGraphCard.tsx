@@ -7,16 +7,16 @@ import {
   generateRandomColor,
   generateRandomColors,
   labelFormatterByUnit,
-} from "../../../components/baseComponents/Charts/chartsUtils";
-import LineChart from "../../../components/baseComponents/Charts/LineChart";
+} from "../../components/baseComponents/Charts/chartsUtils";
+import LineChart from "../../components/baseComponents/Charts/LineChart";
 
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 
 import {
   CHART_DISPLAY,
   GetCitiesGendersAgesStatsAPI,
-} from "../../../redux/api/interfaceAPI";
-import GraphCard, { GraphFilterByDates } from "../GraphCard";
+} from "../../redux/api/interfaceAPI";
+import GraphCard, { GraphFilterByDates } from "./GraphCard";
 
 function LineGraphCard({
   queryOptions,
