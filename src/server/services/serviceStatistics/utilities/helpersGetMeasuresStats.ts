@@ -28,7 +28,7 @@ export const createTimeLineObj = <T extends GenericRecord<any>>(
   if (graphDisplay !== CHART_DISPLAY.GRAPH)
     return {
       weeklySumObj: undefined,
-      weeksRangeMonthSumObj: undefined,
+      monthlySumObj: undefined,
       monthsSumObj: undefined,
       yearsSumObj: undefined,
     };
@@ -37,7 +37,7 @@ export const createTimeLineObj = <T extends GenericRecord<any>>(
   const weeklySumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
     ? createThisWeekDaysDisplayObj(initialObj, dateStart)
     : undefined;
-  const weeksRangeMonthSumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
+  const monthlySumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
     ? createWeeksRangeMonthObj(initialObj, dateStart)
     : undefined;
   const monthsSumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
@@ -47,16 +47,18 @@ export const createTimeLineObj = <T extends GenericRecord<any>>(
     ? ({} as GenericRecord<typeof initialObj>)
     : undefined;
 
-  return { weeklySumObj, weeksRangeMonthSumObj, monthsSumObj, yearsSumObj };
+  return { weeklySumObj, monthlySumObj, monthsSumObj, yearsSumObj };
 };
 
 export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   date: Date,
   dataType: string,
-  weeklySumObj?: T,
-  weeksRangeMonthSumObj?: T,
-  monthsSumObj?: T,
-  yearsSumObj?: T
+  objAllTimeLine: {
+    weeklySumObj?: GenericRecord<T>;
+    monthlySumObj?: GenericRecord<T>;
+    monthsSumObj?: GenericRecord<T>;
+    yearsSumObj?: GenericRecord<T>;
+  }
 ) => {
   const formattedDate = formatDate(date, 0);
   const weekRangeInMonth = getWeekRangeInMonthStr(date);
@@ -64,17 +66,25 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   const curYear = date.getFullYear();
 
   return {
-    weeklySumObj: calTimeLineObj(dataType, formattedDate, weeklySumObj),
-    weeksRangeMonthSumObj: calTimeLineObj(
+    weeklySumObj: calTimeLineObj(
+      dataType,
+      formattedDate,
+      objAllTimeLine.weeklySumObj
+    ),
+    monthlySumObj: calTimeLineObj(
       dataType,
       weekRangeInMonth,
-      weeksRangeMonthSumObj
+      objAllTimeLine.monthlySumObj
     ),
-    monthsSumObj: calTimeLineObj(dataType, dateMonth, monthsSumObj),
+    monthsSumObj: calTimeLineObj(
+      dataType,
+      dateMonth,
+      objAllTimeLine.monthsSumObj
+    ),
     yearsSumObj: calTimeLineObj(
       dataType,
       String(curYear),
-      yearsSumObj,
+      objAllTimeLine.yearsSumObj,
       1,
       true
     ),

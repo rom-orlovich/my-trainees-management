@@ -16,15 +16,7 @@ import {
   calAllTimeLineObj,
   createTimeLineObj,
 } from "./helpersGetMeasuresStats";
-import {
-  calTimeLineObj,
-  createLabelDatasetFromObj,
-  createMonthObj,
-  createThisWeekDaysDisplayObj,
-  createWeeksRangeMonthObj,
-  getNameMonth,
-  getWeekRangeInMonthStr,
-} from "./helpersGetStats";
+import { createLabelDatasetFromObj } from "./helpersGetStats";
 
 // Calculates ages range stats
 const calStatsAges = (agesStats: GenericRecord<number>, leadBirthday: Date) => {
@@ -129,8 +121,6 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
   timeLineDisplay?: TimeLineDisplay,
   dateStart?: string
 ) => {
-  const checkCurChartDisplay = (checkDisplayStats: ChartTypes) =>
-    checkDisplayStats === chartDisplay;
   const checkIsDistributionChart = CHART_DISPLAY.DISTRIBUTION === chartDisplay;
 
   const agesStats: GenericRecord<number> = {};
@@ -143,7 +133,7 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
 
   const initialObj = dataType === "leads" ? { leads: 0 } : { trainees: 0 };
 
-  let objTimeLine = createTimeLineObj(
+  let objAllTimeLine = createTimeLineObj(
     initialObj,
     timeLineDisplay,
     chartDisplay,
@@ -153,10 +143,7 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
   return (() => {
     data.forEach((data) => {
       const curDate = data.lead_date || data.date_join || new Date();
-      const formattedDate = formatDate(curDate, 0);
-      const weekRangeInMonthStr = getWeekRangeInMonthStr(curDate);
-      const dateMonth = getNameMonth(curDate);
-      const curYear = curDate.getFullYear();
+
       // cal distributed stats.
       if (checkIsDistributionChart) {
         calStatsAges(agesStats, data.birthday);
@@ -164,80 +151,50 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
         calStatsCities(citiesStats, data.city_name);
         calStatsHandlesStatus(handleStatus, data.status, dataType);
       }
-
-      // Cal timeline stats.
-      // weeklySumObj = calTimeLineObj(dataType, formattedDate, weeklySumObj);
-      // weeksRangeMonthSumObj = calTimeLineObj(
-      //   dataType,
-      //   weekRangeInMonthStr,
-      //   weeksRangeMonthSumObj
-      // );
-      // monthsSumObj = calTimeLineObj(dataType, dateMonth, monthsSumObj);
-      // yearsSumObj = calTimeLineObj(
-      //   dataType,
-      //   String(curYear),
-      //   yearsSumObj,
-      //   1,
-      //   true
-      // );
-      objTimeLine = calAllTimeLineObj(
-        curDate,
-        dataType,
-        objTimeLine.weeklySumObj,
-        objTimeLine.weeksRangeMonthSumObj,
-        objTimeLine.monthsSumObj,
-        objTimeLine.yearsSumObj
-      );
-      // weeklySumObj = weekSumNew;
-      // weeksRangeMonthSumObj = monthlyObjNew;
-      // monthsSumObj = monthsObjNew;
-      // yearsSumObj = yearsObjNew;
+      objAllTimeLine = calAllTimeLineObj(curDate, dataType, objAllTimeLine);
     });
 
     // Get results
-    let res: GenericRecord<any> = checkIsDistributionChart
-      ? {
-          agesStatsRes: createLabelDatasetFromObj(agesStats),
-          gendersStatsRes: createLabelDatasetFromObj(gendersStats),
-          calStatsCitiesRes: createLabelDatasetFromObj(citiesStats),
-          calStatusHandlesRes: createLabelDatasetFromObj(handleStatus),
-        }
-      : {};
+    if (checkIsDistributionChart)
+      return {
+        agesStatsRes: createLabelDatasetFromObj(agesStats),
+        gendersStatsRes: createLabelDatasetFromObj(gendersStats),
+        calStatsCitiesRes: createLabelDatasetFromObj(citiesStats),
+        calStatusHandlesRes: createLabelDatasetFromObj(handleStatus),
+      };
 
-    if (objTimeLine.weeklySumObj) {
-      res = {
-        ...res,
+    if (objAllTimeLine.weeklySumObj) {
+      return {
         graphStats: normalizeDatesValuesSumObj(
-          objTimeLine.weeklySumObj,
-          dataType
-        ),
-      };
-    } else if (objTimeLine.weeksRangeMonthSumObj) {
-      res = {
-        ...res,
-        graphStats: normalizeDatesValuesSumObj(
-          objTimeLine.weeksRangeMonthSumObj,
-          dataType
-        ),
-      };
-    } else if (objTimeLine.monthsSumObj) {
-      res = {
-        ...res,
-        graphStats: normalizeDatesValuesSumObj(
-          objTimeLine.monthsSumObj,
-          dataType
-        ),
-      };
-    } else if (objTimeLine.yearsSumObj) {
-      res = {
-        ...res,
-        graphStats: normalizeDatesValuesSumObj(
-          objTimeLine.yearsSumObj,
+          objAllTimeLine.weeklySumObj,
           dataType
         ),
       };
     }
-
-    return res;
+    if (objAllTimeLine.monthlySumObj) {
+      return {
+        graphStats: normalizeDatesValuesSumObj(
+          objAllTimeLine.monthlySumObj,
+          dataType
+        ),
+      };
+    }
+    if (objAllTimeLine.monthsSumObj) {
+      return {
+        graphStats: normalizeDatesValuesSumObj(
+          objAllTimeLine.monthsSumObj,
+          dataType
+        ),
+      };
+    }
+    if (objAllTimeLine.yearsSumObj) {
+      return {
+        graphStats: normalizeDatesValuesSumObj(
+          objAllTimeLine.yearsSumObj,
+          dataType
+        ),
+      };
+    }
+    return {};
   })();
 };

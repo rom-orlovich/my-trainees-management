@@ -19,7 +19,10 @@ import {
   GRAPH_TIME_LINE,
   CHART_DISPLAY,
 } from "../serviceStatisticsTypes";
-import { createTimeLineObj } from "./helpersGetMeasuresStats";
+import {
+  calAllTimeLineObj,
+  createTimeLineObj,
+} from "./helpersGetMeasuresStats";
 import {
   calTimeLineObj,
   createLabelDatasetFromObj,
@@ -117,43 +120,19 @@ const calFinancesSum = (
     incomes: 0,
   };
 
-  // If display is not requested so the the timeline finance object is undefined.
-  // const weeklyDays =
-  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
-  //     ? createThisWeekDaysDisplayObj<FinancesObj>(totalFinancesSum, dateStart)
-  //     : undefined;
-  // const weeksRangeMonth =
-  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
-  //     ? createWeeksRangeMonthObj<FinancesObj>(totalFinancesSum, dateStart)
-  //     : undefined;
-  // const monthsFinancesObj =
-  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
-  //     ? createMonthObj<FinancesObj>(totalFinancesSum)
-  //     : undefined;
-  // let yearsFinanceObj =
-  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARS)
-  //     ? ({} as GenericRecord<FinancesObj>)
-  //     : undefined;
-  let { weeklySumObj, weeksRangeMonthSumObj, monthsSumObj, yearsSumObj } =
-    createTimeLineObj(
-      totalFinancesSum,
-      timeLineDisplay,
-      chartDisplay,
-      dateStart
-    );
-
+  let objAllTimeLine = createTimeLineObj(
+    totalFinancesSum,
+    timeLineDisplay,
+    chartDisplay,
+    dateStart
+  );
   // If display is distribution finances.
   let distributionFinances: DistributionFinances | undefined =
     checkCurChartDisplay(CHART_DISPLAY.DISTRIBUTION)
       ? { incomes: {}, expenses: {} }
       : undefined;
 
-  const resultChartStatsDisplayFinances: GenericRecord<FinancesChartStatsDisplay> =
-    {};
+  let results: GenericRecord<FinancesChartStatsDisplay> = {};
   let resultDistributionFinances:
     | Record<IncomesOrExpenses, FinancesDistributionStatsDisplay>
     | object = {};
@@ -163,10 +142,11 @@ const calFinancesSum = (
     financeObj: T,
     incomesOrExpenses: IncomesOrExpenses
   ) => {
-    const formattedDate = formatDate(financeObj.date, 0);
-    const weekRangeInMonth = getWeekRangeInMonthStr(financeObj.date);
-    const dateMonth = getNameMonth(financeObj.date);
-    const curYear = financeObj.date.getFullYear();
+    const curDate = financeObj.date;
+    const formattedDate = formatDate(curDate, 0);
+    const weekRangeInMonth = getWeekRangeInMonthStr(curDate);
+    const dateMonth = getNameMonth(curDate);
+    const curYear = curDate.getFullYear();
     totalFinancesSum[incomesOrExpenses] += financeObj.total_price;
 
     // Calculate distributionFinances of incomes and expenses if distributionFinances is defined.
@@ -194,12 +174,17 @@ const calFinancesSum = (
     //   monthsFinancesObj[dateMonth][incomesOrExpenses] += financeObj.total_price;
 
     // Calculate yearly sum if display yearly is defined.
-    yearsSumObj = calTimeLineObj(
+    // yearsSumObj = calTimeLineObj(
+    //   incomesOrExpenses,
+    //   String(curYear),
+    //   yearsSumObj,
+    //   financeObj.total_price,
+    //   true
+    // );
+    objAllTimeLine = calAllTimeLineObj(
+      curDate,
       incomesOrExpenses,
-      String(curYear),
-      yearsSumObj,
-      financeObj.total_price,
-      true
+      objAllTimeLine
     );
   };
 
@@ -212,31 +197,27 @@ const calFinancesSum = (
     calFinanceOverviewByTimeLine(expense, "expenses")
   );
 
-  // Assign the requested display to resultChartStatsDisplayFinances and resultDistributionFinances.
-  // if (weeklyDays)
-  //   resultChartStatsDisplayFinances = {
-  //     ...resultChartStatsDisplayFinances,
-  //     weeklyDays: normalizeDatesValuesFinance(weeklyDays),
-  //   };
-  // if (weeksRangeMonth)
-  //   resultChartStatsDisplayFinances = {
-  //     ...resultChartStatsDisplayFinances,
-  //     weeksRangeMonth: normalizeDatesValuesFinance(weeksRangeMonth),
-  //   };
-  // if (monthsFinancesObj)
-  //   resultChartStatsDisplayFinances = {
-  //     ...resultChartStatsDisplayFinances,
-  //     monthsFinancesObj: normalizeDatesValuesFinance(monthsFinancesObj),
-  //   };
-  // if (yearsFinanceObj)
-  //   resultChartStatsDisplayFinances = {
-  //     ...resultChartStatsDisplayFinances,
-  //     yearsFinanceObj: normalizeDatesValuesFinance(yearsFinanceObj),
-  //   };
+  // Assign the requested display to resultChartStatsDisplayFinances and
+  if (objAllTimeLine.weeklySumObj)
+    results = {
+      graphStats: normalizeDatesValuesFinance(objAllTimeLine.weeklySumObj),
+    };
+  if (objAllTimeLine.weeklySumObj)
+    results = {
+      graphStats: normalizeDatesValuesFinance(objAllTimeLine.weeklySumObj),
+    };
+  if (objAllTimeLine.weeklySumObj)
+    results = {
+      graphStats: normalizeDatesValuesFinance(objAllTimeLine.weeklySumObj),
+    };
+  if (objAllTimeLine.weeklySumObj)
+    results = {
+      graphStats: normalizeDatesValuesFinance(objAllTimeLine.weeklySumObj),
+    };
 
   if (distributionFinances) {
     resultDistributionFinances = {
-      ...resultDistributionFinances,
+      ...distributionFinances,
 
       incomes: normalizeDatesValuesDistributionFinance(
         distributionFinances.incomes
@@ -249,7 +230,7 @@ const calFinancesSum = (
 
   return {
     totalFinancesSum,
-    ...resultChartStatsDisplayFinances,
+    ...results,
     resultDistributionFinances,
   };
 };
