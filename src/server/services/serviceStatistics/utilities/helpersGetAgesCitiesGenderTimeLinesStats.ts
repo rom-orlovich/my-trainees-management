@@ -95,15 +95,13 @@ const calStatsHandlesStatus = (
 };
 
 // Create datasets values and labels
-const normalizeDatesValuesSumObj = (
+export const normalizeDatesValuesSumObj = (
   sumObj: GenericRecord<SharedTraineesLeadsSumObj>,
   dataType: LeadTraineeType
 ) => {
   const { datasetsValues, labelFormatted } = createLabelDatasetFromObj(sumObj);
 
-  const values = datasetsValues.map(
-    (financeObjValue) => financeObjValue[dataType]
-  );
+  const values = datasetsValues.map((objValues) => objValues[dataType]);
 
   return {
     labelFormatted,

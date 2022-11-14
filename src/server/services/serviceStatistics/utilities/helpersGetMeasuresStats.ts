@@ -1,3 +1,4 @@
+import { GenericRecord } from "../../../utilities/types";
 import { logger } from "../../loggerService/logger";
 import {
   ChartTypes,
@@ -5,40 +6,59 @@ import {
   MeasuresCalResAPI,
   TimeLineDisplay,
 } from "../serviceStatisticsTypes";
+
 import {
   calAllTimeLineObj,
+  createLabelDatasetFromObj,
   createTimeLineObj,
+  getResultGraphStats,
   normalizeDatesValues,
 } from "./helpersGetStats";
+
+export const normalizeDatesValuesSumObj = (
+  sumObj: GenericRecord<{ weight: number }>
+) => {
+  const { datasetsValues, labelFormatted } = createLabelDatasetFromObj(sumObj);
+
+  const values = datasetsValues.map((objValues) => objValues.weight);
+
+  return {
+    labelFormatted,
+    datasetsValues: values,
+  };
+};
 
 export const measuresChartLineCreateLabelAndDatasets = (
   measuresCalData: MeasuresCalResAPI[],
   timeLineDisplay?: TimeLineDisplay,
   dateStart?: string
 ) => {
-  // const statsArr = measuresCalData
-  //   .sort((a, b) => a.date.getTime() - b.date.getTime())
-  //   .map((el) => ({
-  //     date: el.date,
-  //     value: el.weight,
-  //   }));
-  // return normalizeDatesValues(statsArr);
-  const initialObj = { weight: 0 };
-  let objAllTimeLine = createTimeLineObj(
-    initialObj,
-    timeLineDisplay,
-    "graph",
-    dateStart
-  );
-  measuresCalData.forEach((measure) => {
-    objAllTimeLine = calAllTimeLineObj(
-      measure.date,
-      "measures",
-      objAllTimeLine,
-      undefined,
-      measure.weight
-    );
-  });
+  const statsArr = measuresCalData
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
+    .map((el) => ({
+      date: el.date,
+      value: el.weight,
+    }));
+  return normalizeDatesValues(statsArr);
+  // const initialObj = { weight: 0 };
+  // let objAllTimeLine = createTimeLineObj(
+  //   initialObj,
+  //   timeLineDisplay,
+  //   "graph",
+  //   dateStart
+  // );
+  // measuresCalData.forEach((measure) => {
+  //   objAllTimeLine = calAllTimeLineObj(
+  //     measure.date,
+  //     "weight",
+  //     objAllTimeLine,
+  //     undefined,
+  //     measure.weight
+  //   );
+  //   console.log(objAllTimeLine);
+  // });
+
+  // return getResultGraphStats(objAllTimeLine, normalizeDatesValuesSumObj);
 };
 
 export const caloriesChartCreateLabelAndDatasets = (
