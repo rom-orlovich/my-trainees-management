@@ -8,7 +8,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import { formatDate } from "../../../utilities/helpers";
-import { GenericRecord } from "../../../utilities/types";
+import { AnyFun, GenericRecord } from "../../../utilities/types";
 import {
   ChartTypes,
   CHART_DISPLAY,
@@ -178,7 +178,8 @@ export const calTimeLineObj = <
   timeLine: K2,
   objTimeLine: T | undefined,
   amount?: number,
-  addTimeLine?: boolean
+  addTimeLine?: boolean,
+  assignNum?: number
 ) => {
   if (!objTimeLine) return undefined;
   if (!objTimeLine[timeLine]) {
@@ -191,6 +192,16 @@ export const calTimeLineObj = <
       };
     return { ...objTimeLine };
   }
+  if (assignNum) {
+    return {
+      ...objTimeLine,
+      [timeLine]: {
+        ...objTimeLine[timeLine],
+        [dataType]: assignNum,
+      },
+    };
+  }
+
   return {
     ...objTimeLine,
     [timeLine]: {
@@ -230,17 +241,18 @@ export const createTimeLineObj = <T extends GenericRecord<any>>(
 
   return { weeklySumObj, monthlySumObj, monthsSumObj, yearsSumObj };
 };
-
+export interface ObjAllTimeLine<T> {
+  weeklySumObj?: GenericRecord<T>;
+  monthlySumObj?: GenericRecord<T>;
+  monthsSumObj?: GenericRecord<T>;
+  yearsSumObj?: GenericRecord<T>;
+}
 export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   date: Date,
   dataType: string,
-  objAllTimeLine: {
-    weeklySumObj?: GenericRecord<T>;
-    monthlySumObj?: GenericRecord<T>;
-    monthsSumObj?: GenericRecord<T>;
-    yearsSumObj?: GenericRecord<T>;
-  },
-  amount?: number
+  objAllTimeLine: ObjAllTimeLine<T>,
+  amount?: number,
+  assignNum?: number
 ) => {
   const formattedDate = formatDate(date, 0);
   const weekRangeInMonth = getWeekRangeInMonthStr(date);
@@ -252,26 +264,52 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
       dataType,
       formattedDate,
       objAllTimeLine.weeklySumObj,
-      amount
+      amount,
+      false,
+      assignNum
     ),
     monthlySumObj: calTimeLineObj(
       dataType,
       weekRangeInMonth,
       objAllTimeLine.monthlySumObj,
-      amount
+      amount,
+      false,
+      assignNum
     ),
     monthsSumObj: calTimeLineObj(
       dataType,
       dateMonth,
       objAllTimeLine.monthsSumObj,
-      amount
+      amount,
+      false,
+      assignNum
     ),
     yearsSumObj: calTimeLineObj(
       dataType,
       String(curYear),
       objAllTimeLine.yearsSumObj,
       amount,
-      true
+      true,
+      assignNum
     ),
   };
+};
+
+export const getResultGraphStats = <T>(
+  objAllTimeLine: ObjAllTimeLine<T>,
+  normalizeDateValues: AnyFun
+) => {
+  if (objAllTimeLine.weeklySumObj)
+    return normalizeDateValues(objAllTimeLine.weeklySumObj);
+
+  if (objAllTimeLine.monthlySumObj)
+    return normalizeDateValues(objAllTimeLine.monthlySumObj);
+
+  if (objAllTimeLine.monthsSumObj)
+    return normalizeDateValues(objAllTimeLine.monthsSumObj);
+
+  if (objAllTimeLine.yearsSumObj)
+    return normalizeDateValues(objAllTimeLine.yearsSumObj);
+
+  return {};
 };

@@ -23,6 +23,7 @@ import {
   calAllTimeLineObj,
   createLabelDatasetFromObj,
   createTimeLineObj,
+  getResultGraphStats,
 } from "./helpersGetStats";
 
 // Creates labels and datasets for chart display in the client.
@@ -49,21 +50,24 @@ const normalizeDatesValuesFinance = (
 };
 
 // Calculates the distribution Finances of expenses and incomes
-const calDistributionFinances = (
-  distributionFinances: DistributionFinances,
+const calPopularIncomesExpenses = (
+  popularIncomesExpenses: DistributionFinances,
   incomesOrExpenses: IncomesOrExpenses,
   financeObj: SharedIncomesExpensesProps
 ) => {
-  if (distributionFinances) {
-    if (distributionFinances[incomesOrExpenses][`${financeObj.product_name}`]) {
-      distributionFinances[incomesOrExpenses][financeObj.product_name].amount +=
-        financeObj.amount;
-      distributionFinances[incomesOrExpenses][
+  if (popularIncomesExpenses) {
+    if (
+      popularIncomesExpenses[incomesOrExpenses][`${financeObj.product_name}`]
+    ) {
+      popularIncomesExpenses[incomesOrExpenses][
+        financeObj.product_name
+      ].amount += financeObj.amount;
+      popularIncomesExpenses[incomesOrExpenses][
         financeObj.product_name
       ].total_price += financeObj.total_price;
     } else {
-      distributionFinances[incomesOrExpenses] = {
-        ...distributionFinances[incomesOrExpenses],
+      popularIncomesExpenses[incomesOrExpenses] = {
+        ...popularIncomesExpenses[incomesOrExpenses],
         [financeObj.product_name]: {
           amount: financeObj.amount,
           total_price: financeObj.total_price,
@@ -71,7 +75,29 @@ const calDistributionFinances = (
       };
     }
   }
-  return distributionFinances;
+  return popularIncomesExpenses;
+};
+const calMostSpendingCustomers = (
+  mostSpendingCustomers: DistributionFinances,
+  financeObj: SharedIncomesExpensesProps
+) => {
+  const nameCustomer = `${financeObj.first_name}-${financeObj.last_name}`;
+  if (mostSpendingCustomers) {
+    if (mostSpendingCustomers.incomes[nameCustomer]) {
+      mostSpendingCustomers.incomes[nameCustomer].amount += financeObj.amount;
+      mostSpendingCustomers.incomes[nameCustomer].total_price +=
+        financeObj.total_price;
+    } else {
+      mostSpendingCustomers.incomes = {
+        ...mostSpendingCustomers.incomes,
+        [nameCustomer]: {
+          amount: financeObj.amount,
+          total_price: financeObj.total_price,
+        },
+      };
+    }
+  }
+  return mostSpendingCustomers;
 };
 // Creates labels and datasets for chart distribution finances in the client.
 const normalizeDatesValuesDistributionFinance = (
@@ -116,13 +142,15 @@ const calFinancesSum = (
     dateStart
   );
   // If display is distribution finances.
-  let distributionFinances: DistributionFinances | undefined =
-    checkIsDistributionChart ? { incomes: {}, expenses: {} } : undefined;
+  let popularIncomesExpenses: DistributionFinances = {
+    incomes: {},
+    expenses: {},
+  };
 
-  let resultDistributionFinances:
-    | Record<IncomesOrExpenses, FinancesDistributionStatsDisplay>
-    | object = {};
-
+  let mostSpendingCustomers: DistributionFinances = {
+    incomes: {},
+    expenses: {},
+  };
   // Calculate for each expense or incomes the change in finance stats.
   const calFinanceOverviewByTimeLine = <T extends SharedIncomesExpensesProps>(
     financeObj: T,
@@ -132,12 +160,17 @@ const calFinancesSum = (
     totalFinancesSum[incomesOrExpenses] += financeObj.total_price;
 
     // Calculate distributionFinances of incomes and expenses if distributionFinances is defined.
-    if (distributionFinances) {
-      distributionFinances = calDistributionFinances(
-        distributionFinances,
+    if (checkIsDistributionChart) {
+      popularIncomesExpenses = calPopularIncomesExpenses(
+        popularIncomesExpenses,
         incomesOrExpenses,
         financeObj
       );
+      if (incomesOrExpenses === "incomes")
+        mostSpendingCustomers = calMostSpendingCustomers(
+          mostSpendingCustomers,
+          financeObj
+        );
     }
     objAllTimeLine = calAllTimeLineObj(
       curDate,
@@ -155,42 +188,33 @@ const calFinancesSum = (
   expenseData.forEach((expense) =>
     calFinanceOverviewByTimeLine(expense, "expenses")
   );
-  let results: GenericRecord<FinancesChartStatsDisplay> = {};
-  // Assign the requested display to resultChartStatsDisplayFinances and
-  if (objAllTimeLine.weeklySumObj)
-    results = {
-      graphStats: normalizeDatesValuesFinance(objAllTimeLine.weeklySumObj),
-    };
-  if (objAllTimeLine.monthlySumObj)
-    results = {
-      graphStats: normalizeDatesValuesFinance(objAllTimeLine.monthlySumObj),
-    };
-  if (objAllTimeLine.monthsSumObj)
-    results = {
-      graphStats: normalizeDatesValuesFinance(objAllTimeLine.monthsSumObj),
-    };
-  if (objAllTimeLine.yearsSumObj)
-    results = {
-      graphStats: normalizeDatesValuesFinance(objAllTimeLine.yearsSumObj),
-    };
+  let results: GenericRecord<any> = {};
 
-  if (distributionFinances) {
-    resultDistributionFinances = {
-      ...distributionFinances,
-
-      incomes: normalizeDatesValuesDistributionFinance(
-        distributionFinances.incomes
-      ),
-      expenses: normalizeDatesValuesDistributionFinance(
-        distributionFinances.expenses
-      ),
+  if (checkIsDistributionChart) {
+    results = {
+      resultPopularIncomesExpenses: {
+        incomes: normalizeDatesValuesDistributionFinance(
+          popularIncomesExpenses.incomes
+        ),
+        expenses: normalizeDatesValuesDistributionFinance(
+          popularIncomesExpenses.expenses
+        ),
+      },
+      mostSpendingCustomers: {
+        incomes: normalizeDatesValuesDistributionFinance(
+          mostSpendingCustomers.incomes
+        ),
+      },
     };
   }
 
   return {
     totalFinancesSum,
+    graphStats: getResultGraphStats(
+      objAllTimeLine,
+      normalizeDatesValuesFinance
+    ),
     ...results,
-    resultDistributionFinances,
   };
 };
 

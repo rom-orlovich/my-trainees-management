@@ -1,38 +1,44 @@
-import { initial } from "lodash";
-import { formatDate } from "../../../utilities/helpers";
-import { GenericRecord } from "../../../utilities/types";
 import { logger } from "../../loggerService/logger";
 import {
   ChartTypes,
   CHART_DISPLAY,
-  GRAPH_TIME_LINE,
   MeasuresCalResAPI,
   TimeLineDisplay,
 } from "../serviceStatisticsTypes";
 import {
-  calTimeLineObj,
-  createMonthObj,
-  createThisWeekDaysDisplayObj,
-  createWeeksRangeMonthObj,
-  getNameMonth,
-  getWeekRangeInMonthStr,
+  calAllTimeLineObj,
+  createTimeLineObj,
   normalizeDatesValues,
 } from "./helpersGetStats";
 
-
-
 export const measuresChartLineCreateLabelAndDatasets = (
   measuresCalData: MeasuresCalResAPI[],
-  timeLineDisplay?: TimeLineDisplay
+  timeLineDisplay?: TimeLineDisplay,
+  dateStart?: string
 ) => {
-  const statsArr = measuresCalData
-    .sort((a, b) => a.date.getTime() - b.date.getTime())
-    .map((el) => ({
-      date: el.date,
-      value: el.weight,
-    }));
-
-  return normalizeDatesValues(statsArr);
+  // const statsArr = measuresCalData
+  //   .sort((a, b) => a.date.getTime() - b.date.getTime())
+  //   .map((el) => ({
+  //     date: el.date,
+  //     value: el.weight,
+  //   }));
+  // return normalizeDatesValues(statsArr);
+  const initialObj = { weight: 0 };
+  let objAllTimeLine = createTimeLineObj(
+    initialObj,
+    timeLineDisplay,
+    "graph",
+    dateStart
+  );
+  measuresCalData.forEach((measure) => {
+    objAllTimeLine = calAllTimeLineObj(
+      measure.date,
+      "measures",
+      objAllTimeLine,
+      undefined,
+      measure.weight
+    );
+  });
 };
 
 export const caloriesChartCreateLabelAndDatasets = (
