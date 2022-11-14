@@ -16,21 +16,13 @@ import {
   ProductData,
   SharedIncomesExpensesProps,
   ChartTypes,
-  GRAPH_TIME_LINE,
   CHART_DISPLAY,
 } from "../serviceStatisticsTypes";
+
 import {
   calAllTimeLineObj,
-  createTimeLineObj,
-} from "./helpersGetMeasuresStats";
-import {
-  calTimeLineObj,
   createLabelDatasetFromObj,
-  createMonthObj,
-  createThisWeekDaysDisplayObj,
-  createWeeksRangeMonthObj,
-  getNameMonth,
-  getWeekRangeInMonthStr,
+  createTimeLineObj,
 } from "./helpersGetStats";
 
 // Creates labels and datasets for chart display in the client.
@@ -110,10 +102,7 @@ const calFinancesSum = (
   dateStart?: string
 ) => {
   // Check the current display according to the timeLineDisplay and chartDisplay.
-  const checkCurChartDisplay = (checkDisplayStats: ChartTypes) =>
-    checkDisplayStats === chartDisplay;
-  const checkCurTimeLineDisplay = (checkTimeLineDisplay: TimeLineDisplay) =>
-    checkTimeLineDisplay === timeLineDisplay;
+  const checkIsDistributionChart = CHART_DISPLAY.DISTRIBUTION === chartDisplay;
 
   const totalFinancesSum: FinancesObj = {
     expenses: 0,
@@ -128,11 +117,8 @@ const calFinancesSum = (
   );
   // If display is distribution finances.
   let distributionFinances: DistributionFinances | undefined =
-    checkCurChartDisplay(CHART_DISPLAY.DISTRIBUTION)
-      ? { incomes: {}, expenses: {} }
-      : undefined;
+    checkIsDistributionChart ? { incomes: {}, expenses: {} } : undefined;
 
-  let results: GenericRecord<FinancesChartStatsDisplay> = {};
   let resultDistributionFinances:
     | Record<IncomesOrExpenses, FinancesDistributionStatsDisplay>
     | object = {};
@@ -143,10 +129,6 @@ const calFinancesSum = (
     incomesOrExpenses: IncomesOrExpenses
   ) => {
     const curDate = financeObj.date;
-    const formattedDate = formatDate(curDate, 0);
-    const weekRangeInMonth = getWeekRangeInMonthStr(curDate);
-    const dateMonth = getNameMonth(curDate);
-    const curYear = curDate.getFullYear();
     totalFinancesSum[incomesOrExpenses] += financeObj.total_price;
 
     // Calculate distributionFinances of incomes and expenses if distributionFinances is defined.
@@ -157,34 +139,11 @@ const calFinancesSum = (
         financeObj
       );
     }
-
-    // Calculate this week sum if display this week is defined.
-    // if (weeklyDays && weeklyDays[formattedDate]) {
-    //   weeklyDays[formattedDate][incomesOrExpenses] += financeObj.total_price;
-    // }
-
-    // Calculate weekly sum if display this weekly is defined.
-    // if (weeksRangeMonth && weeksRangeMonth[weekRangeInMonth]) {
-    //   weeksRangeMonth[weekRangeInMonth][incomesOrExpenses] +=
-    //     financeObj.total_price;
-    // }
-    // Calculate months sum if display months is defined.
-
-    // if (monthsFinancesObj && monthsFinancesObj[dateMonth])
-    //   monthsFinancesObj[dateMonth][incomesOrExpenses] += financeObj.total_price;
-
-    // Calculate yearly sum if display yearly is defined.
-    // yearsSumObj = calTimeLineObj(
-    //   incomesOrExpenses,
-    //   String(curYear),
-    //   yearsSumObj,
-    //   financeObj.total_price,
-    //   true
-    // );
     objAllTimeLine = calAllTimeLineObj(
       curDate,
       incomesOrExpenses,
-      objAllTimeLine
+      objAllTimeLine,
+      financeObj.total_price
     );
   };
 
@@ -196,23 +155,23 @@ const calFinancesSum = (
   expenseData.forEach((expense) =>
     calFinanceOverviewByTimeLine(expense, "expenses")
   );
-
+  let results: GenericRecord<FinancesChartStatsDisplay> = {};
   // Assign the requested display to resultChartStatsDisplayFinances and
   if (objAllTimeLine.weeklySumObj)
     results = {
       graphStats: normalizeDatesValuesFinance(objAllTimeLine.weeklySumObj),
     };
-  if (objAllTimeLine.weeklySumObj)
+  if (objAllTimeLine.monthlySumObj)
     results = {
-      graphStats: normalizeDatesValuesFinance(objAllTimeLine.weeklySumObj),
+      graphStats: normalizeDatesValuesFinance(objAllTimeLine.monthlySumObj),
     };
-  if (objAllTimeLine.weeklySumObj)
+  if (objAllTimeLine.monthsSumObj)
     results = {
-      graphStats: normalizeDatesValuesFinance(objAllTimeLine.weeklySumObj),
+      graphStats: normalizeDatesValuesFinance(objAllTimeLine.monthsSumObj),
     };
-  if (objAllTimeLine.weeklySumObj)
+  if (objAllTimeLine.yearsSumObj)
     results = {
-      graphStats: normalizeDatesValuesFinance(objAllTimeLine.weeklySumObj),
+      graphStats: normalizeDatesValuesFinance(objAllTimeLine.yearsSumObj),
     };
 
   if (distributionFinances) {

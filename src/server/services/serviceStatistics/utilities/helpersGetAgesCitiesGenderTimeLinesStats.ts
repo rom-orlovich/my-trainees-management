@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-param-reassign */
 
-import { formatDate } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
 import {
   TimeLineDisplay,
@@ -9,14 +8,14 @@ import {
   SharedTraineesLeadsProps,
   SharedTraineesLeadsSumObj,
   ChartTypes,
-  GRAPH_TIME_LINE,
   CHART_DISPLAY,
 } from "../serviceStatisticsTypes";
+
 import {
   calAllTimeLineObj,
+  createLabelDatasetFromObj,
   createTimeLineObj,
-} from "./helpersGetMeasuresStats";
-import { createLabelDatasetFromObj } from "./helpersGetStats";
+} from "./helpersGetStats";
 
 // Calculates ages range stats
 const calStatsAges = (agesStats: GenericRecord<number>, leadBirthday: Date) => {

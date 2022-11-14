@@ -9,6 +9,12 @@ import {
 } from "date-fns";
 import { formatDate } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
+import {
+  ChartTypes,
+  CHART_DISPLAY,
+  GRAPH_TIME_LINE,
+  TimeLineDisplay,
+} from "../serviceStatisticsTypes";
 
 export const createLabelDatasetFromObj = <T extends GenericRecord<T[keyof T]>>(
   obj: T
@@ -192,4 +198,80 @@ export const calTimeLineObj = <
       [dataType]: (objTimeLine[timeLine][dataType] || 0) + (amount || 1),
     },
   } as T;
+};
+
+export const createTimeLineObj = <T extends GenericRecord<any>>(
+  initialObj: T,
+  timeLineDisplay?: TimeLineDisplay,
+  graphDisplay?: ChartTypes,
+  dateStart?: string
+) => {
+  if (graphDisplay !== CHART_DISPLAY.GRAPH)
+    return {
+      weeklySumObj: undefined,
+      monthlySumObj: undefined,
+      monthsSumObj: undefined,
+      yearsSumObj: undefined,
+    };
+  const checkCurTimeLineDisplay = (checkTimeLineDisplay: TimeLineDisplay) =>
+    checkTimeLineDisplay === timeLineDisplay;
+  const weeklySumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
+    ? createThisWeekDaysDisplayObj(initialObj, dateStart)
+    : undefined;
+  const monthlySumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
+    ? createWeeksRangeMonthObj(initialObj, dateStart)
+    : undefined;
+  const monthsSumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
+    ? createMonthObj(initialObj)
+    : undefined;
+  const yearsSumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARS)
+    ? ({} as GenericRecord<typeof initialObj>)
+    : undefined;
+
+  return { weeklySumObj, monthlySumObj, monthsSumObj, yearsSumObj };
+};
+
+export const calAllTimeLineObj = <T extends GenericRecord<any>>(
+  date: Date,
+  dataType: string,
+  objAllTimeLine: {
+    weeklySumObj?: GenericRecord<T>;
+    monthlySumObj?: GenericRecord<T>;
+    monthsSumObj?: GenericRecord<T>;
+    yearsSumObj?: GenericRecord<T>;
+  },
+  amount?: number
+) => {
+  const formattedDate = formatDate(date, 0);
+  const weekRangeInMonth = getWeekRangeInMonthStr(date);
+  const dateMonth = getNameMonth(date);
+  const curYear = date.getFullYear();
+
+  return {
+    weeklySumObj: calTimeLineObj(
+      dataType,
+      formattedDate,
+      objAllTimeLine.weeklySumObj,
+      amount
+    ),
+    monthlySumObj: calTimeLineObj(
+      dataType,
+      weekRangeInMonth,
+      objAllTimeLine.monthlySumObj,
+      amount
+    ),
+    monthsSumObj: calTimeLineObj(
+      dataType,
+      dateMonth,
+      objAllTimeLine.monthsSumObj,
+      amount
+    ),
+    yearsSumObj: calTimeLineObj(
+      dataType,
+      String(curYear),
+      objAllTimeLine.yearsSumObj,
+      amount,
+      true
+    ),
+  };
 };
