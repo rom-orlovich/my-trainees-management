@@ -102,7 +102,8 @@ const calFinancesSum = (
   incomesData: IncomesTableAPI[],
   expenseData: ExpensesTableAPI[],
   chartDisplay?: ChartTypes,
-  timeLineDisplay?: TimeLineDisplay
+  timeLineDisplay?: TimeLineDisplay,
+  dateStart?: string
 ) => {
   // Check the current display according to the timeLineDisplay and chartDisplay.
   const checkCurChartDisplay = (checkDisplayStats: ChartTypes) =>
@@ -119,12 +120,12 @@ const calFinancesSum = (
   const thisWeekDays =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
     checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_WEEK)
-      ? createThisWeekDaysDisplayObj<FinancesObj>(totalFinancesSum)
+      ? createThisWeekDaysDisplayObj<FinancesObj>(totalFinancesSum, dateStart)
       : undefined;
   const weeksRangeMonth =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
     checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_MONTH)
-      ? createWeeksRangeMonthObj<FinancesObj>(totalFinancesSum)
+      ? createWeeksRangeMonthObj<FinancesObj>(totalFinancesSum, dateStart)
       : undefined;
   const monthsFinancesObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
@@ -248,5 +249,13 @@ export const getFinanceStats = (
   incomesData: IncomesTableAPI[],
   expenseData: ExpensesTableAPI[],
   chartDisplay?: ChartTypes,
-  timeLineDisplay?: TimeLineDisplay
-) => calFinancesSum(incomesData, expenseData, chartDisplay, timeLineDisplay);
+  timeLineDisplay?: TimeLineDisplay,
+  dateStart?: string
+) =>
+  calFinancesSum(
+    incomesData,
+    expenseData,
+    chartDisplay,
+    timeLineDisplay,
+    dateStart
+  );

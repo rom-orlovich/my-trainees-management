@@ -24,6 +24,7 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
   let rawRes = statsResult as any;
   const timeLineDisplay = req.query.timeLineDisplay as string | undefined;
   const chartDisplay = req.query.chartDisplay as string | undefined;
+  const dateStart = req.query.gt;
   let result: Record<string, any> = {};
   if (!Array.isArray(statsResult)) {
     if (statsResult?.countRows) {
@@ -45,14 +46,16 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
           statsResult?.data as SharedTraineesLeadsProps[],
           "leads",
           chartDisplay as ChartTypes,
-          timeLineDisplay as TimeLineDisplay
+          timeLineDisplay as TimeLineDisplay,
+          dateStart as string
         );
       } else if (req.baseUrl === API_ROUTES.TRAINEES_ROUTE) {
         result = helpersGetAgesCitiesGenderTimeLinesStats(
           statsResult?.data as SharedTraineesLeadsProps[],
           "trainees",
           chartDisplay as ChartTypes,
-          timeLineDisplay as TimeLineDisplay
+          timeLineDisplay as TimeLineDisplay,
+          dateStart as string
         );
       }
     }
@@ -63,7 +66,8 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
       incomesRes.data as IncomesTableAPI[],
       expenseRes.data as ExpensesTableAPI[],
       chartDisplay as ChartTypes,
-      timeLineDisplay as TimeLineDisplay
+      timeLineDisplay as TimeLineDisplay,
+      dateStart as string
     );
     rawRes = {
       incomes: incomesRes,

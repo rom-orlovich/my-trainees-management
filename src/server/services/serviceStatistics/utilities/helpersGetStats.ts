@@ -47,9 +47,10 @@ export const createThisWeekDaysDisplayObj = <
   K extends GenericRecord<any>,
   R = GenericRecord<K>
 >(
-  initialObj: K
+  initialObj: K,
+  dateStart?: string
 ) => {
-  const curDate = new Date();
+  const curDate = dateStart ? new Date(dateStart) : new Date();
   // Get the start and the end date of the week.
   const startWeek = startOfWeek(curDate);
   const endWeek = endOfWeek(curDate);
@@ -86,9 +87,10 @@ export const createWeeksRangeMonthObj = <
   K extends GenericRecord<any>,
   R = GenericRecord<K>
 >(
-  initialObj: K
+  initialObj: K,
+  dateStart?: string
 ) => {
-  const curDate = new Date();
+  const curDate = dateStart ? new Date(dateStart) : new Date();
   const firstDate = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
   const lastDate = lastDayOfMonth(curDate);
 

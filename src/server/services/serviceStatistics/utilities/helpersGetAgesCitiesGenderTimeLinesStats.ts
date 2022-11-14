@@ -63,7 +63,7 @@ const calStatsGenders = (
   if (gender === "male") Gender = "Male";
   else if (gender === "female") Gender = "Female";
   else if (gender === "other") Gender = "Other";
-  console.log(Gender);
+
   if (!genderStats[Gender]) {
     genderStats[Gender] = 1;
   } else genderStats[Gender]++;
@@ -121,9 +121,9 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
 >(
   data: T[],
   dataType: LeadTraineeType,
-
   chartDisplay?: ChartTypes,
-  timeLineDisplay?: TimeLineDisplay
+  timeLineDisplay?: TimeLineDisplay,
+  dateStart?: string
 ) => {
   const checkCurChartDisplay = (checkDisplayStats: ChartTypes) =>
     checkDisplayStats === chartDisplay;
@@ -142,12 +142,12 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
   let thisWeekSumObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
     checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_WEEK)
-      ? createThisWeekDaysDisplayObj(initialObj)
+      ? createThisWeekDaysDisplayObj(initialObj, dateStart)
       : undefined;
   let weeksRangeMonthSumObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
     checkCurTimeLineDisplay(GRAPH_TIME_LINE.THIS_MONTH)
-      ? createWeeksRangeMonthObj(initialObj)
+      ? createWeeksRangeMonthObj(initialObj, dateStart)
       : undefined;
   let monthlySumObj =
     checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
