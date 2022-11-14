@@ -12,7 +12,10 @@ import {
   GRAPH_TIME_LINE,
   CHART_DISPLAY,
 } from "../serviceStatisticsTypes";
-import { createTimeLineObj } from "./helpersGetMeasuresStats";
+import {
+  calAllTimeLineObj,
+  createTimeLineObj,
+} from "./helpersGetMeasuresStats";
 import {
   calTimeLineObj,
   createLabelDatasetFromObj,
@@ -128,8 +131,8 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
 ) => {
   const checkCurChartDisplay = (checkDisplayStats: ChartTypes) =>
     checkDisplayStats === chartDisplay;
-  const checkCurTimeLineDisplay = (checkTimeLineDisplay: TimeLineDisplay) =>
-    checkTimeLineDisplay === timeLineDisplay;
+  const checkIsDistributionChart = CHART_DISPLAY.DISTRIBUTION === chartDisplay;
+
   const agesStats: GenericRecord<number> = {};
   const gendersStats: GenericRecord<number> = {};
   const citiesStats: GenericRecord<number> = {};
@@ -140,28 +143,12 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
 
   const initialObj = dataType === "leads" ? { leads: 0 } : { trainees: 0 };
 
-  // let weeklySumObj =
-  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
-  //     ? createThisWeekDaysDisplayObj(initialObj, dateStart)
-  //     : undefined;
-  // let weeksRangeMonthSumObj =
-  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
-  //     ? createWeeksRangeMonthObj(initialObj, dateStart)
-  //     : undefined;
-  // let monthsSumObj =
-  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
-  //     ? createMonthObj(initialObj)
-  //     : undefined;
-  // let yearsSumObj =
-  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARS)
-  //     ? ({} as GenericRecord<typeof initialObj>)
-  //     : undefined;
-  let { weeklySumObj, weeksRangeMonthSumObj, monthsSumObj, yearsSumObj } =
-    createTimeLineObj(initialObj, timeLineDisplay, chartDisplay, dateStart);
+  let objTimeLine = createTimeLineObj(
+    initialObj,
+    timeLineDisplay,
+    chartDisplay,
+    dateStart
+  );
 
   return (() => {
     data.forEach((data) => {
@@ -171,7 +158,7 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
       const dateMonth = getNameMonth(curDate);
       const curYear = curDate.getFullYear();
       // cal distributed stats.
-      if (checkCurChartDisplay(CHART_DISPLAY.DISTRIBUTION)) {
+      if (checkIsDistributionChart) {
         calStatsAges(agesStats, data.birthday);
         calStatsGenders(gendersStats, data.gender);
         calStatsCities(citiesStats, data.city_name);
@@ -179,26 +166,36 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
       }
 
       // Cal timeline stats.
-      weeklySumObj = calTimeLineObj(dataType, formattedDate, weeklySumObj);
-      weeksRangeMonthSumObj = calTimeLineObj(
+      // weeklySumObj = calTimeLineObj(dataType, formattedDate, weeklySumObj);
+      // weeksRangeMonthSumObj = calTimeLineObj(
+      //   dataType,
+      //   weekRangeInMonthStr,
+      //   weeksRangeMonthSumObj
+      // );
+      // monthsSumObj = calTimeLineObj(dataType, dateMonth, monthsSumObj);
+      // yearsSumObj = calTimeLineObj(
+      //   dataType,
+      //   String(curYear),
+      //   yearsSumObj,
+      //   1,
+      //   true
+      // );
+      objTimeLine = calAllTimeLineObj(
+        curDate,
         dataType,
-        weekRangeInMonthStr,
-        weeksRangeMonthSumObj
+        objTimeLine.weeklySumObj,
+        objTimeLine.weeksRangeMonthSumObj,
+        objTimeLine.monthsSumObj,
+        objTimeLine.yearsSumObj
       );
-      monthsSumObj = calTimeLineObj(dataType, dateMonth, monthsSumObj);
-      yearsSumObj = calTimeLineObj(
-        dataType,
-        String(curYear),
-        yearsSumObj,
-        1,
-        true
-      );
+      // weeklySumObj = weekSumNew;
+      // weeksRangeMonthSumObj = monthlyObjNew;
+      // monthsSumObj = monthsObjNew;
+      // yearsSumObj = yearsObjNew;
     });
 
     // Get results
-    let res: GenericRecord<any> = checkCurChartDisplay(
-      CHART_DISPLAY.DISTRIBUTION
-    )
+    let res: GenericRecord<any> = checkIsDistributionChart
       ? {
           agesStatsRes: createLabelDatasetFromObj(agesStats),
           gendersStatsRes: createLabelDatasetFromObj(gendersStats),
@@ -207,25 +204,37 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
         }
       : {};
 
-    if (weeklySumObj) {
+    if (objTimeLine.weeklySumObj) {
       res = {
         ...res,
-        graphStats: normalizeDatesValuesSumObj(weeklySumObj, dataType),
+        graphStats: normalizeDatesValuesSumObj(
+          objTimeLine.weeklySumObj,
+          dataType
+        ),
       };
-    } else if (weeksRangeMonthSumObj) {
+    } else if (objTimeLine.weeksRangeMonthSumObj) {
       res = {
         ...res,
-        graphStats: normalizeDatesValuesSumObj(weeksRangeMonthSumObj, dataType),
+        graphStats: normalizeDatesValuesSumObj(
+          objTimeLine.weeksRangeMonthSumObj,
+          dataType
+        ),
       };
-    } else if (monthsSumObj) {
+    } else if (objTimeLine.monthsSumObj) {
       res = {
         ...res,
-        graphStats: normalizeDatesValuesSumObj(monthsSumObj, dataType),
+        graphStats: normalizeDatesValuesSumObj(
+          objTimeLine.monthsSumObj,
+          dataType
+        ),
       };
-    } else if (yearsSumObj) {
+    } else if (objTimeLine.yearsSumObj) {
       res = {
         ...res,
-        graphStats: normalizeDatesValuesSumObj(yearsSumObj, dataType),
+        graphStats: normalizeDatesValuesSumObj(
+          objTimeLine.yearsSumObj,
+          dataType
+        ),
       };
     }
 

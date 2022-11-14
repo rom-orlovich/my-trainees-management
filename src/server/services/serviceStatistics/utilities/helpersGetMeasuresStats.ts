@@ -1,4 +1,5 @@
 import { initial } from "lodash";
+import { formatDate } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
 import { logger } from "../../loggerService/logger";
 import {
@@ -9,9 +10,12 @@ import {
   TimeLineDisplay,
 } from "../serviceStatisticsTypes";
 import {
+  calTimeLineObj,
   createMonthObj,
   createThisWeekDaysDisplayObj,
   createWeeksRangeMonthObj,
+  getNameMonth,
+  getWeekRangeInMonthStr,
   normalizeDatesValues,
 } from "./helpersGetStats";
 
@@ -44,6 +48,37 @@ export const createTimeLineObj = <T extends GenericRecord<any>>(
     : undefined;
 
   return { weeklySumObj, weeksRangeMonthSumObj, monthsSumObj, yearsSumObj };
+};
+
+export const calAllTimeLineObj = <T extends GenericRecord<any>>(
+  date: Date,
+  dataType: string,
+  weeklySumObj?: T,
+  weeksRangeMonthSumObj?: T,
+  monthsSumObj?: T,
+  yearsSumObj?: T
+) => {
+  const formattedDate = formatDate(date, 0);
+  const weekRangeInMonth = getWeekRangeInMonthStr(date);
+  const dateMonth = getNameMonth(date);
+  const curYear = date.getFullYear();
+
+  return {
+    weeklySumObj: calTimeLineObj(dataType, formattedDate, weeklySumObj),
+    weeksRangeMonthSumObj: calTimeLineObj(
+      dataType,
+      weekRangeInMonth,
+      weeksRangeMonthSumObj
+    ),
+    monthsSumObj: calTimeLineObj(dataType, dateMonth, monthsSumObj),
+    yearsSumObj: calTimeLineObj(
+      dataType,
+      String(curYear),
+      yearsSumObj,
+      1,
+      true
+    ),
+  };
 };
 
 export const measuresChartLineCreateLabelAndDatasets = (
