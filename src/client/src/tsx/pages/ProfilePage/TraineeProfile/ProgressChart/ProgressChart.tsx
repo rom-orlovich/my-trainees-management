@@ -3,7 +3,11 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
-import { dataLabelFormatterByUnit } from "../../../../components/baseComponents/Charts/chartsUtils";
+import {
+  dataLabelFormatterByUnit,
+  generateRandomColor,
+  generateRandomColorNum,
+} from "../../../../components/baseComponents/Charts/chartsUtils";
 import LineChart, {
   LINE_CHART_OPTIONS,
 } from "../../../../components/baseComponents/Charts/LineChart";
@@ -35,29 +39,30 @@ function ProgressChart({ className }: PropsBasic) {
     stats: { graphStats: ChartsDataAPI<number[]> };
   };
   return (
-    <Card className={genClassName(className, style.progress_chart_container)}>
-      <LoadingSpinner
-        stateData={{ data: Data, isError, isFetching, isLoading }}
-        showNoDataMessage={true}
-        message={<>Data Not Found</>}
-      >
-        {(data) => (
-          <LineChart
-            className={style.progress_chart}
-            datasets={[
-              {
-                label: `Measures Weights Progress`,
-                data: data.stats.graphStats.datasetsValues,
-                backgroundColor: "red",
-                borderColor: "red",
-              },
-            ]}
-            labels={data.stats.graphStats.labelFormatted}
-            options={LINE_CHART_OPTIONS}
-          />
-        )}
-      </LoadingSpinner>
-    </Card>
+    // <Card className={genClassName(className, style.progress_chart_container)}>
+    //   <LoadingSpinner
+    //     stateData={{ data: Data, isError, isFetching, isLoading }}
+    //     showNoDataMessage={true}
+    //     message={<>Data Not Found</>}
+    //   >
+    //     {(data) => (
+    //       <LineChart
+    //         className={style.progress_chart}
+    //         datasets={[
+    //           {
+    //             label: `Measures Weights Progress`,
+    //             data: data.stats.graphStats.datasetsValues,
+    //             backgroundColor: generateRandomColor(0.8),
+    //             borderColor: generateRandomColor(0.8),
+    //           },
+    //         ]}
+    //         labels={data.stats.graphStats.labelFormatted}
+    //         options={LINE_CHART_OPTIONS}
+    //       />
+    //     )}
+    //   </LoadingSpinner>
+    // </Card>
+    <></>
   );
 }
 

@@ -12,6 +12,7 @@ import {
   GRAPH_TIME_LINE,
   CHART_DISPLAY,
 } from "../serviceStatisticsTypes";
+import { createTimeLineObj } from "./helpersGetMeasuresStats";
 import {
   calTimeLineObj,
   createLabelDatasetFromObj,
@@ -139,26 +140,28 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
 
   const initialObj = dataType === "leads" ? { leads: 0 } : { trainees: 0 };
 
-  let weeklySumObj =
-    checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
-      ? createThisWeekDaysDisplayObj(initialObj, dateStart)
-      : undefined;
-  let weeksRangeMonthSumObj =
-    checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
-      ? createWeeksRangeMonthObj(initialObj, dateStart)
-      : undefined;
-  let monthsSumObj =
-    checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
-      ? createMonthObj(initialObj)
-      : undefined;
-  let yearsSumObj =
-    checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
-    checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARS)
-      ? ({} as GenericRecord<typeof initialObj>)
-      : undefined;
+  // let weeklySumObj =
+  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
+  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
+  //     ? createThisWeekDaysDisplayObj(initialObj, dateStart)
+  //     : undefined;
+  // let weeksRangeMonthSumObj =
+  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
+  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
+  //     ? createWeeksRangeMonthObj(initialObj, dateStart)
+  //     : undefined;
+  // let monthsSumObj =
+  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
+  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
+  //     ? createMonthObj(initialObj)
+  //     : undefined;
+  // let yearsSumObj =
+  //   checkCurChartDisplay(CHART_DISPLAY.GRAPH) &&
+  //   checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARS)
+  //     ? ({} as GenericRecord<typeof initialObj>)
+  //     : undefined;
+  let { weeklySumObj, weeksRangeMonthSumObj, monthsSumObj, yearsSumObj } =
+    createTimeLineObj(initialObj, timeLineDisplay, chartDisplay, dateStart);
 
   return (() => {
     data.forEach((data) => {

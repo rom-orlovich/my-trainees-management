@@ -43,6 +43,7 @@ function CaloriesChart({
   const { data, isError, isFetching, isLoading } = measuresApi.useGetItemsQuery(
     {
       ...queryOptions,
+      asc: "false",
       profileID,
       chartDisplay: CHART_DISPLAY.DISTRIBUTION,
     }

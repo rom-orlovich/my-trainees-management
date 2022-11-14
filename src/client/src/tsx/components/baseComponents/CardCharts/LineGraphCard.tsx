@@ -1,22 +1,17 @@
-/* eslint-disable camelcase */
 import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
-import React from "react";
-import {
-  COLORS_CHART,
-  dataLabelFormatterByUnit,
-  generateRandomColor,
-  generateRandomColors,
-  labelFormatterByUnit,
-} from "../../components/baseComponents/Charts/chartsUtils";
-import LineChart from "../../components/baseComponents/Charts/LineChart";
 
-import useGetUserLoginData from "../../hooks/useGetUserLoginData";
-
+import GraphCard, {
+  GraphFilterByDates,
+} from "../../../pages/StatsPages/GraphCard";
 import {
   CHART_DISPLAY,
   GetCitiesGendersAgesStatsAPI,
-} from "../../redux/api/interfaceAPI";
-import GraphCard, { GraphFilterByDates } from "./GraphCard";
+} from "../../../redux/api/interfaceAPI";
+import {
+  generateRandomColor,
+  labelFormatterByUnit,
+} from "../Charts/chartsUtils";
+import LineChart from "../Charts/LineChart";
 
 function LineGraphCard({
   queryOptions,
@@ -36,11 +31,9 @@ function LineGraphCard({
   return (
     <GraphCard queryOptions={queryOptions} className={className}>
       {(queryOptionsData) => {
-        const { user_id } = useGetUserLoginData();
-
         const { data } = getItems({
           ...queryOptionsData,
-          userID: user_id,
+
           chartDisplay: CHART_DISPLAY.GRAPH,
         });
 

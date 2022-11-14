@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React from "react";
-import LineGraphCard from "../../../components/baseComponents/CardCharts/LineGraphCard";
 import PieChartCard from "../../../components/baseComponents/CardCharts/PieChartCard";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
@@ -12,7 +11,7 @@ import {
 
 import StatsPageStyle from "../StatsPages.module.scss";
 
-function LeadsStatsCards({
+function FinancesStatsCards({
   queryOptions,
 }: {
   queryOptions: { gt: string; lt: string };
@@ -51,15 +50,15 @@ function LeadsStatsCards({
         labelFormatted={Data?.stats?.gendersStatsRes?.labelFormatted}
       />
 
-      <LineGraphCard
-        unit="Leads"
-        chartHeading="New Leads"
+      {/* <LineGraphCard
+        unit="Finances"
+        chartHeading="New Finances"
         getItems={traineesApi.useGetItemsQuery}
         queryOptions={queryOptions}
         className={StatsPageStyle.graph_card_container}
-      />
+      /> */}
     </>
   );
 }
 
-export default LeadsStatsCards;
+export default FinancesStatsCards;

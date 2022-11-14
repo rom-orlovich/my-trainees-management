@@ -1,18 +1,15 @@
 import React from "react";
-import Card from "../../../components/baseComponents/Card/Card";
-import { COLORS_CHART } from "../../../components/baseComponents/Charts/chartsUtils";
-import PieChart from "../../../components/baseComponents/Charts/PieChart";
-import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
+import LineGraphCard from "../../../components/baseComponents/CardCharts/LineGraphCard";
+import PieChartCard from "../../../components/baseComponents/CardCharts/PieChartCard";
+
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 import {
   CHART_DISPLAY,
   GetCitiesGendersAgesStatsAPI,
 } from "../../../redux/api/interfaceAPI";
-import PieChartCard from "../PieChartCard";
 
 import StatsPageStyle from "../StatsPages.module.scss";
-import LineGraphCard from "../LineGraphCard";
 
 function TraineeStatsCards({
   queryOptions,

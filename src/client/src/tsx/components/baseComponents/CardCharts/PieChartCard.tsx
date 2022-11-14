@@ -1,16 +1,15 @@
 import React from "react";
-import { PropsBasic } from "../../components/baseComponents/baseComponentsTypes";
-import Card from "../../components/baseComponents/Card/Card";
+import { ChartsDataAPI } from "../../../redux/api/interfaceAPI";
+import { PropsBasic } from "../baseComponentsTypes";
+import Card from "../Card/Card";
 import {
   COLORS_CHART,
   dataLabelFormatterByPercents,
   generateRandomColors,
   labelFormatterByPercents,
-  labelFormatterByUnit,
   PIE_CHART_FONTS,
-} from "../../components/baseComponents/Charts/chartsUtils";
-import PieChart from "../../components/baseComponents/Charts/PieChart";
-import { ChartsDataAPI } from "../../redux/api/interfaceAPI";
+} from "../Charts/chartsUtils";
+import PieChart from "../Charts/PieChart";
 
 function PieChartCard({
   className,
@@ -25,8 +24,9 @@ function PieChartCard({
     chartHeading?: string;
     unit?: string;
   }) {
+  const labelsArr = labelFormatted || ["No data"];
   const colorsGenerate =
-    colors || generateRandomColors(labelFormatted?.length || 0, 0.7);
+    colors || generateRandomColors(labelsArr.length || 0, 0.7);
   return (
     <Card className={className}>
       <PieChart
@@ -37,7 +37,7 @@ function PieChartCard({
             borderColor: colorsGenerate,
           },
         ]}
-        labels={labelFormatted || ["No data"]}
+        labels={labelsArr}
         options={{
           plugins: {
             title: {
