@@ -6,6 +6,7 @@ import {
   Legend,
   ChartData,
   ChartOptions,
+  Plugin,
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
@@ -17,6 +18,15 @@ import {
   PIE_CHART_FONTS,
 } from "./chartsUtils";
 
+// const plugin1: Plugin<"pie"> = {
+//   id: "s",
+//   afterLayout(chart) {
+//     chart?.legend?.legendItems?.map((label) => {
+//       label.text = label.text.slice(0, 5);
+//       return label;
+//     });
+//   },
+// };
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 export const PIE_CHART_OPTIONS: ChartOptions<"pie"> = {

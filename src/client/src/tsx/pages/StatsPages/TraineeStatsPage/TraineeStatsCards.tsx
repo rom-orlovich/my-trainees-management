@@ -17,13 +17,11 @@ function TraineeStatsCards({
   queryOptions: { gt: string; lt: string };
 }) {
   const { user_id } = useGetUserLoginData();
-  const { data, isLoading, isFetching, isError } = traineesApi.useGetItemsQuery(
-    {
-      ...queryOptions,
-      userID: user_id,
-      chartDisplay: CHART_DISPLAY.DISTRIBUTION,
-    }
-  );
+  const { data } = traineesApi.useGetItemsQuery({
+    ...queryOptions,
+    userID: user_id,
+    chartDisplay: CHART_DISPLAY.DISTRIBUTION,
+  });
   const Data = data as unknown as {
     stats: GetCitiesGendersAgesStatsAPI;
   };

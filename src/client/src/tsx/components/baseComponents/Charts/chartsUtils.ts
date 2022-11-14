@@ -5,9 +5,9 @@ import { Context } from "vm";
 export const labelFormatterByUnit =
   <T extends keyof ChartTypeRegistry>(unit?: string) =>
   (value: TooltipItem<T>) =>
-    `${value.label}${unit === "g" || unit === "Kcal" ? "" : ","} ${value.raw} ${
-      unit || ""
-    }`;
+    `${value.label} ${
+      unit === "g" || unit === "Kcal" || unit === "NIS" ? "" : ", "
+    }${value.raw} ${unit || ""}`;
 
 export const labelFormatterByPercents = <T extends keyof ChartTypeRegistry>(
   ctx: TooltipItem<T>
@@ -26,7 +26,9 @@ export const dataLabelFormatterByPercents = (value: any, ctx: Context) => {
 };
 export const dataLabelFormatterByUnit =
   (unit?: string) => (value: any, ctx: Context) =>
-    `${value}${unit === "g" || unit === "Kcal" ? "" : ","}  ${unit || ""}`;
+    `${value} ${unit === "g" || unit === "Kcal" || unit === "NIS" ? "" : ", "}${
+      unit || ""
+    }`;
 
 export enum COLORS_CHART {
   RED = "#EC1515",
@@ -37,7 +39,7 @@ export enum COLORS_CHART {
 export const PIE_CHART_FONTS = {
   color: "rgb(59, 71, 66)",
   font: {
-    size: window.innerWidth < 500 ? 22 : 18,
+    size: window.innerWidth < 500 ? 22 : 15,
     weight: 500,
   },
 };

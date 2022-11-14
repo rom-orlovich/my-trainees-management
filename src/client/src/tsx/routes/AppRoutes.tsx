@@ -40,6 +40,7 @@ import ParticipantsGroupPage from "../pages/ParticipantsGroupPage /ParticipantsG
 import TraineeStatsPage from "../pages/StatsPages/TraineeStatsPage/TraineeStatsPage";
 import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 import LeadsStatsPage from "../pages/StatsPages/LeadsStatsPage/LeadsStatsPage";
+import FinanceStatsPage from "../pages/StatsPages/FinancesStatsPage/FinancesStatsPage";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -75,12 +76,16 @@ function AppRoutes() {
             >
               <Route path={APP_ROUTE.STATS_ROUTE}>
                 <Route
-                  path={APP_ROUTE.TRAINEES_STATS_ROUTE}
+                  path={APP_ROUTE.TRAINEES_ROUTE}
                   element={<TraineeStatsPage />}
                 />
                 <Route
-                  path={APP_ROUTE.LEADS_STATS_ROUTE}
+                  path={APP_ROUTE.LEADS_ROUTE}
                   element={<LeadsStatsPage />}
+                />
+                <Route
+                  path={APP_ROUTE.FINANCES_ROUTE}
+                  element={<FinanceStatsPage />}
                 />
               </Route>
             </Route>

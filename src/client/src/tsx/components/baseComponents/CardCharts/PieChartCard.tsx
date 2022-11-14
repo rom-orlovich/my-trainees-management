@@ -5,12 +5,20 @@ import Card from "../Card/Card";
 import {
   COLORS_CHART,
   dataLabelFormatterByPercents,
+  dataLabelFormatterByUnit,
   generateRandomColors,
   labelFormatterByPercents,
+  labelFormatterByUnit,
   PIE_CHART_FONTS,
 } from "../Charts/chartsUtils";
 import PieChart from "../Charts/PieChart";
 
+export type PieChartCardProps = PropsBasic &
+  Partial<ChartsDataAPI<number[]>> & {
+    colors?: (keyof typeof COLORS_CHART)[];
+    chartHeading?: string;
+    unit?: string;
+  };
 function PieChartCard({
   className,
   datasetsValues,
@@ -45,9 +53,22 @@ function PieChartCard({
               text: chartHeading,
               font: { size: 15, lineHeight: 0.1 },
             },
+            legend: {
+              fullSize: false,
+              maxWidth: 5,
+              labels: {
+                filter: (el) => {
+                  el.text = el.text.slice(0, 12);
+                  return true;
+                },
+              },
+            },
             tooltip: {
               callbacks: {
-                label: labelFormatterByPercents,
+                label:
+                  unit === "%"
+                    ? labelFormatterByPercents
+                    : labelFormatterByUnit(unit),
               },
               position: "average",
               padding: 10,
@@ -56,8 +77,7 @@ function PieChartCard({
               },
             },
             datalabels: {
-              formatter:
-                unit === "%" ? dataLabelFormatterByPercents : undefined,
+              formatter: dataLabelFormatterByPercents,
               align: "end",
               offset: -20,
               ...PIE_CHART_FONTS,

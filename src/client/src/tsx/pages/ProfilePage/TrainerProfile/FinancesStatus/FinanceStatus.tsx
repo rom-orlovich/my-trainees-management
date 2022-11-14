@@ -30,7 +30,7 @@ function FinancesStatus({
     >
       <div className={overviewProfileCardStyle.overview_card_item}>
         <span className={overviewProfileCardStyle.overview_card_item_value}>
-          {Data?.stats?.totalFinancesSum.incomes} Nis
+          {Data?.stats?.totalFinancesSum.incomes} NIS
         </span>
         <span className={overviewProfileCardStyle.overview_card_item_text}>
           Incomes
@@ -38,7 +38,7 @@ function FinancesStatus({
       </div>
       <div className={overviewProfileCardStyle.overview_card_item}>
         <span className={overviewProfileCardStyle.overview_card_item_value}>
-          {Data?.stats?.totalFinancesSum.expenses} Nis
+          {Data?.stats?.totalFinancesSum.expenses} NIS
         </span>
         <span className={overviewProfileCardStyle.overview_card_item_text}>
           Expenses

@@ -25,15 +25,74 @@
     $ROW_HEIGHT: 35vh;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1.8fr 1.9fr;
+    grid-template-rows: repeat(4, 1fr);
     height: calc($GRID_ROW * $ROW_HEIGHT);
     .distribution_card_container {
-      grid-area: 1 / auto / 1 / auto;
+      grid-area: 1 / auto / 3 / auto;
     }
     .graph_card_container {
       height: fit-content;
-      grid-area: 2 / 1/7 / 5;
+      grid-area: 3 / 1/ 5 / 5;
       padding: 1rem;
+    }
+
+    .finances_pie_chart_card {
+      position: relative;
+      width: 100%;
+      @include classMatcher("selectInput") {
+        @include posAbs(0%, null, 0%, null);
+      }
+    }
+  }
+}
+
+@include smartphone() {
+  .stats_page {
+    height: inherit;
+    // overflow-y: scroll;
+    width: 100%;
+    .stats_page_header_filters {
+      padding-left: 1rem;
+      .dates_container {
+        @include flex-dir(null, null, row);
+        gap: 0.5rem;
+        @include classMatcher("InputLabel") {
+          flex: initial;
+          input {
+            min-width: 5rem;
+          }
+        }
+      }
+    }
+    .stats_page_container {
+      padding: 1rem;
+      gap: 1rem;
+      width: 100%;
+      // $GRID_ROW: 3;
+      // $ROW_HEIGHT: 35vh;
+      // display: grid;
+      // grid-template-columns: repeat(3, 1fr);
+      // grid-template-rows: repeat(4, 1fr);
+      display: flex;
+      @include flex-dir(null, null, column);
+      // height: calc($GRID_ROW * $ROW_HEIGHT);
+      .distribution_card_container {
+        min-height: 15rem;
+        // grid-area: 1 / auto / 3 / auto;
+      }
+      .graph_card_container {
+        // height: fit-content;
+        min-height: 20rem;
+        padding: 1rem;
+      }
+
+      .finances_pie_chart_card {
+        position: relative;
+        width: 100%;
+        @include classMatcher("selectInput") {
+          @include posAbs(0%, null, 0%, null);
+        }
+      }
     }
   }
 }

@@ -28,7 +28,7 @@ function GraphCard({
   useTimeLine?: boolean;
 }) {
   const [{ display }, onChange] = useOnChangeInput({
-    display: GRAPH_TIME_LINE.WEEKLY,
+    display: GRAPH_TIME_LINE.MONTHS,
   });
 
   return (

@@ -430,10 +430,7 @@ export interface FinanceAPI {
   expenses: ResponseQueryAPI<ExpensesTableAPI>;
   stats: {
     totalFinancesSum: FinancesValue;
-    weeklyDays: ChartsDataAPI<FinancesValues>;
-    weeksRangeMonth: ChartsDataAPI<FinancesValues>;
-    monthsFinancesObj: ChartsDataAPI<FinancesValues>;
-    yearsFinanceObj: ChartsDataAPI<FinancesValues>;
+    graphStats?: ChartsDataAPI<FinancesValues>;
     mostSpendingCustomers: {
       incomes: ChartsDataAPI<ProductData>;
     };
