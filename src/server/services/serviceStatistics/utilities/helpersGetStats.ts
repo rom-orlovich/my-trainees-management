@@ -46,8 +46,23 @@ export const normalizeDatesValues = <T extends { date: Date; value: number }[]>(
   };
 };
 
-export const getNameMonth = (date: Date) => format(date, "MMMMMM");
+export const newDate = (
+  date: Date,
+  add?: { yPlus?: number; mPlus?: number; dPlus?: number }
+) => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
 
+  return new Date(
+    year + (add?.yPlus || 0),
+    month + (add?.mPlus || 0),
+    day + (add?.dPlus || 0)
+  );
+};
+
+export const getNameMonth = (date: Date) => format(date, "MMMMMM");
+export const getDateLocal = (date: Date) => format(date, "dd/MM/yy");
 // Creates for each day in the week a initialObj.
 export const createThisWeekDaysDisplayObj = <
   K extends GenericRecord<any>,
@@ -80,9 +95,13 @@ export const getWeekRangeInMonthStr = (date: Date) => {
   const curDay = curDate.getDate();
   const remainder = curDay % 7;
   const reminderDiff = 7 - remainder;
+  const dateStartWeek = new Date(date.setDate(curDay - remainder));
+  const dateEndWeek = new Date(curDate.setDate(curDay + reminderDiff - 1));
+  const start = getDateLocal(newDate(dateStartWeek, { dPlus: 1 }));
+  const end = getDateLocal(newDate(dateEndWeek, { dPlus: 1 }));
 
-  const start = formatDate(new Date(date.setDate(curDay - remainder)));
-  const end = formatDate(new Date(curDate.setDate(curDay + reminderDiff - 1)));
+  // const start = formatDate(new Date(date.setDate(curDay - remainder)));
+  // const end = formatDate(new Date(curDate.setDate(curDay + reminderDiff - 1)));
 
   const str = `${start}-${end}`;
   return str;
@@ -103,16 +122,11 @@ export const createWeeksRangeMonthObj = <
   let weeksRangeMonthFinanceObj = {} as R;
 
   // Creates createWeeksRangeMonthObj by looping over the datesArr parameter the function get.
-  const loopToCreateWeeksRangeMonthObj = (
-    datesArr: Date[],
-    subtractLastDay = -1 // In the last days of month subtractLastDay is zero, to get all the days.
-  ) => {
+  const loopToCreateWeeksRangeMonthObj = (datesArr: Date[]) => {
     for (let i = 0; i < datesArr.length - 1; i++) {
-      const startWeek = formatDate(datesArr[i], 0);
-      const endWeek = formatDate(datesArr[i + 1], subtractLastDay);
       weeksRangeMonthFinanceObj = {
         ...weeksRangeMonthFinanceObj,
-        [`${startWeek}-${endWeek}`]: { ...initialObj },
+        [`${getWeekRangeInMonthStr(datesArr[i])}`]: { ...initialObj },
       };
     }
   };
@@ -122,15 +136,19 @@ export const createWeeksRangeMonthObj = <
     { start: firstDate, end: lastDate },
     { step: 7 }
   );
+
   loopToCreateWeeksRangeMonthObj(datesEachSevenDay);
 
   // Create dates array from the last days of the month if they exist.
   if (getDaysInMonth(curDate) > 28) {
-    const endMonthDates = eachDayOfInterval({
-      start: datesEachSevenDay.at(-1)!,
-      end: lastDate,
-    });
-    loopToCreateWeeksRangeMonthObj(endMonthDates, 0);
+    const dateStart = datesEachSevenDay.at(-1)!;
+
+    weeksRangeMonthFinanceObj = {
+      ...weeksRangeMonthFinanceObj,
+      [`${getDateLocal(dateStart)}-${getDateLocal(lastDate)}`]: {
+        ...initialObj,
+      },
+    };
   }
 
   return weeksRangeMonthFinanceObj;
