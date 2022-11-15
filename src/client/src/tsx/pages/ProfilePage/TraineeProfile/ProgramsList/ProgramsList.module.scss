@@ -19,6 +19,9 @@
 
 @include smartphone() {
   .programs_container {
+    h2 {
+      margin-top: 1.8rem;
+    }
     @include classMatcher("selectInput_label") {
     }
     @include classMatcher(" LoadingSpinner_loading_spinner") {
