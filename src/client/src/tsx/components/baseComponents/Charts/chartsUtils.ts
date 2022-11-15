@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ChartTypeRegistry, TooltipItem } from "chart.js";
+import { ChartOptions, ChartTypeRegistry, TooltipItem } from "chart.js";
 import { Context } from "vm";
 
 export const labelFormatterByUnit =
@@ -66,4 +66,25 @@ export const generateRandomColors = (labelLength: number, opacity = 1) => {
     colors.push(generateRandomColor(0.5));
   }
   return colors;
+};
+
+export const CHART_BASE_OPTIONS = {
+  responsive: true,
+  maintainAspectRatio: false,
+};
+
+export const LINE_CHART_OPTIONS: ChartOptions<"line"> = {
+  ...CHART_BASE_OPTIONS,
+  plugins: {
+    legend: {
+      position: "top" as const,
+      labels: { font: { size: 25 }, boxHeight: 10, boxWidth: 10 },
+      maxHeight: 100,
+    },
+    tooltip: {
+      callbacks: {
+        label: labelFormatterByUnit("kg"),
+      },
+    },
+  },
 };

@@ -8,16 +8,15 @@ import {
   ChartOptions,
   Plugin,
 } from "chart.js";
-import { Doughnut, Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
-import { Options } from "chartjs-plugin-datalabels/types/options";
-import { ChartsProps, CHART_BASE_OPTIONS } from "./LineChart";
+import { ChartsProps } from "./LineChart";
 import {
+  CHART_BASE_OPTIONS,
   dataLabelFormatterByPercents,
   DOUGHNUT_CHART_FONTS,
   labelFormatterByUnit,
-  PIE_CHART_FONTS,
 } from "./chartsUtils";
 
 const pluginCenter: Plugin<"doughnut"> = {

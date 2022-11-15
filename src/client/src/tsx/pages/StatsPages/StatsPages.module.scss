@@ -47,19 +47,26 @@
 }
 
 @include smartphone() {
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .stats_page {
-    height: inherit;
-    // overflow-y: scroll;
+    height: fit-content;
+    overflow-y: scroll;
+
     width: 100%;
     .stats_page_header_filters {
-      padding-left: 1rem;
+      padding-left: 0rem;
+      padding: 0.5rem;
       .dates_container {
-        @include flex-dir(null, null, row);
+        @include flex-dir(null, null, column);
+
         gap: 0.5rem;
         @include classMatcher("InputLabel") {
           flex: initial;
+          max-width: 100%;
           input {
-            min-width: 5rem;
+            min-width: 100%;
           }
         }
       }
@@ -68,22 +75,12 @@
       padding: 1rem;
       gap: 1rem;
       width: 100%;
-      // $GRID_ROW: 3;
-      // $ROW_HEIGHT: 35vh;
-      // display: grid;
-      // grid-template-columns: repeat(3, 1fr);
-      // grid-template-rows: repeat(4, 1fr);
+
       display: flex;
       @include flex-dir(null, null, column);
-      // height: calc($GRID_ROW * $ROW_HEIGHT);
+
       .distribution_card_container {
-        min-height: 15rem;
-        // grid-area: 1 / auto / 3 / auto;
-      }
-      .graph_card_container {
-        // height: fit-content;
-        min-height: 20rem;
-        padding: 1rem;
+        min-height: 18rem;
       }
 
       .finances_pie_chart_card {
@@ -91,6 +88,14 @@
         width: 100%;
         @include classMatcher("selectInput") {
           @include posAbs(0%, null, 0%, null);
+        }
+      }
+      .graph_card_container {
+        min-height: 30rem;
+
+        padding: 1rem;
+        canvas {
+          height: 80% !important;
         }
       }
     }

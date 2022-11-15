@@ -2,6 +2,7 @@
 
 .programs_container {
   position: relative;
+
   @include classMatcher("selectInput_label") {
     @include posAbs(3%, null, 3%, null);
     width: initial;
@@ -19,6 +20,15 @@
 @include smartphone() {
   .programs_container {
     @include classMatcher("selectInput_label") {
+    }
+    @include classMatcher(" LoadingSpinner_loading_spinner") {
+      @include centerAbs();
+
+      text-align: center;
+      a {
+        text-decoration: none;
+      }
+      width: 100%;
     }
   }
 }

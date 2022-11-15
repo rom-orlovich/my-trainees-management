@@ -36,26 +36,7 @@ export interface ChartsProps<
   options?: ChartOptions<T>;
 }
 
-export const CHART_BASE_OPTIONS = {
-  responsive: true,
-  maintainAspectRatio: false,
-};
 
-export const LINE_CHART_OPTIONS: ChartOptions<"line"> = {
-  ...CHART_BASE_OPTIONS,
-  plugins: {
-    legend: {
-      position: "top" as const,
-      labels: { font: { size: 25 }, boxHeight: 10, boxWidth: 10 },
-      maxHeight: 100,
-    },
-    tooltip: {
-      callbacks: {
-        label: labelFormatterByUnit("kg"),
-      },
-    },
-  },
-};
 
 function LineChart<D, L>({
   datasets,

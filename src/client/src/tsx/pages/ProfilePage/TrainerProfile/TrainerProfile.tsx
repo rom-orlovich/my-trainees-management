@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
@@ -13,7 +14,7 @@ export interface TrainerProfileProps {
   queryOptions: { userID?: number };
 }
 function TrainerProfile() {
-  const { user_id, authState } = useGetUserLoginData();
+  const { user_id } = useGetUserLoginData();
 
   const queryOptions = { userID: user_id };
   return (

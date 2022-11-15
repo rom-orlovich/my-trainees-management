@@ -31,10 +31,7 @@ function IncomeEventBoardLi({
           {dateStart}-{dateEnd}
         </span>
       </span>
-      <span className={listProfileStyle.list_detail}>
-        <span>Activity</span>
-        <span>{activity_name}</span>
-      </span>
+
       <span className={listProfileStyle.list_detail}>
         <span>Location</span>
         <span>
@@ -51,10 +48,6 @@ function IncomeEventBoardLi({
           </Link>
         </span>
       </span>
-      {/* <span className={listProfileStyle.list_detail}>
-        <span>Last</span>
-        <span>{formatDate(last_training, 0)}</span>
-      </span> */}
     </li>
   );
 }

@@ -41,10 +41,11 @@
 @include smartphone() {
   .calories_chart_container {
     h2 {
-      font-size: 1.8rem;
-      font-weight: 400;
-      display: block;
-      text-align: center;
+      // margin-top: 2rem;
+      // font-size: 1.8rem;
+      // font-weight: 400;
+      // display: block;
+      // text-align: center;
     }
     .calories_heading {
       @include flex-dir(center, null);
@@ -54,10 +55,10 @@
       }
     }
     .pie_chart {
-      width: 78% !important;
-      height: 78% !important;
+      width: 90% !important;
+      height: 90% !important;
 
-      @include posAbs(60% !important, null, null, null);
+      @include posAbs(55% !important, null, null, null);
     }
 
     @include classMatcher("message_spinner") {

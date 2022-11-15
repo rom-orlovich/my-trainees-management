@@ -9,6 +9,7 @@ import {
 } from "../../../redux/api/interfaceAPI";
 import { GenericRecord } from "../../../types";
 import {
+  CHART_BASE_OPTIONS,
   generateRandomColor,
   labelFormatterByUnit,
 } from "../Charts/chartsUtils";
@@ -53,6 +54,7 @@ function LineGraphCard({
           <LineChart
             className={lineChartProps?.className}
             options={{
+              ...CHART_BASE_OPTIONS,
               plugins: {
                 tooltip: {
                   callbacks: { label: labelFormatterByUnit(unit) },

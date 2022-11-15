@@ -12,7 +12,6 @@
 
   h2 {
     margin-bottom: 0.2rem;
-
     padding-left: 0.8rem;
     font-weight: 400;
   }
@@ -29,10 +28,9 @@
       }
       li {
         @include flex-dir(space-around, null);
-        //   gap: 0.3rem 2.5rem;
+
         padding: 0.1rem 0.5rem;
         .list_detail {
-          width: 10rem;
           text-align: center;
           @include flex-dir(center, center, column);
           gap: 0.1rem;
@@ -63,17 +61,19 @@
     @include flex-dir(null, null, column);
     @include classMatcher("message_spinner") {
       @include centerAbs();
-      text-align: center;
-      width: 100%;
+      p {
+        text-align: center !important;
+        width: 100% !important;
+      }
     }
     h2 {
       font-weight: 500;
-      margin-top: 2.2rem;
+      margin-top: 0.5rem;
       font-size: 1.4rem;
       text-align: center;
     }
     .list_content {
-      ul.list {
+      .list {
         overflow-y: hidden;
         @include flex-dir(null, null, column);
 
@@ -82,19 +82,19 @@
         & li:nth-child(2n) {
           background-color: rgb(220, 227, 252);
         }
-        li.list_li {
+        .list_li {
           @include flex-dir(space-around, null, row);
-
+          gap: 0.2rem;
           padding: 0.1rem 0.2rem;
           .list_detail {
             @include flex-dir(null, center, column);
 
             gap: 0.2rem;
             :first-child {
-              font-size: 1.1rem;
+              font-size: 0.9rem;
             }
             :nth-child(2) {
-              font-size: 1rem;
+              font-size: 0.8rem;
             }
           }
         }

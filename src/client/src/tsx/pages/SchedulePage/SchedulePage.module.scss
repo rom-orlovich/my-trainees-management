@@ -78,6 +78,7 @@
   }
   // for timeGridDay-view color td
   @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
+    padding: 0 0.5rem;
     table {
       height: 100%;
       th {

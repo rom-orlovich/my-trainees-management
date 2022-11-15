@@ -6,9 +6,11 @@ import GraphCard, {
 import { CHART_DISPLAY, FinanceAPI } from "../../../redux/api/interfaceAPI";
 import { GenericRecord } from "../../../types";
 import {
+  CHART_BASE_OPTIONS,
   generateRandomColors,
   labelFormatterByUnit,
 } from "../Charts/chartsUtils";
+
 import VerticalBarChart from "../Charts/VerticalChart";
 
 function VerticalBarChartCard({
@@ -52,6 +54,7 @@ function VerticalBarChartCard({
           <VerticalBarChart
             className={lineChartProps?.className}
             options={{
+              ...CHART_BASE_OPTIONS,
               scales: { y: { title: { display: true, text: yTitle } } },
               plugins: {
                 tooltip: {
