@@ -2,8 +2,6 @@
 
 .loading_spinner {
   font-size: 1.5rem;
-
+  text-align: center;
   @include centerAbs();
-
-  // @include heightWidth(1.5rem, 1.5rem);
 }
