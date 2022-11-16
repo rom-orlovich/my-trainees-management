@@ -5,7 +5,7 @@
   width: 100%;
   .trainer_profile_page_container {
     $GRID_ROW: 2;
-    $ROW_HEIGHT: 50vh;
+    $ROW_HEIGHT: 45vh;
     display: grid;
     gap: 1.2rem;
     grid-template-columns: repeat(9, 1fr);
@@ -44,10 +44,10 @@
       width: 100%;
     }
     %shared {
-      // min-height: 25rem;
       padding: 0.5rem 0;
       height: 18rem;
     }
+
     .user_details_grid_item {
       order: 1;
       @extend %shared;

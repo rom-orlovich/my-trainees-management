@@ -1,5 +1,6 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 .overview_container {
+  @include flex-dir(center, null, column);
   h2 {
     margin-top: 0.5rem;
     text-align: center;
