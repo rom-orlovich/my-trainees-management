@@ -34,7 +34,6 @@ function LineGraphCard({
   lineChartProps?: { className: string };
   useTimeLine?: boolean;
 }) {
-  console.log(queryOptions);
   return (
     <GraphCard
       queryOptions={queryOptions}

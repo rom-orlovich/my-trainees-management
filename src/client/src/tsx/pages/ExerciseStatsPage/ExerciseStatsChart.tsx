@@ -12,26 +12,9 @@ function TrainingProgramsExerciseStatsChart({
   queriesOptions?: Record<string, any>;
 }) {
   const [queryParams] = useSearchParams();
-  const { data, isError, isFetching, isLoading } =
-    trainingProgramsApi.useGetExerciseStatsQuery({
-      ...queriesOptions,
-    });
+
   const options = { ...queriesOptions };
 
-  // return (
-  //   <LineChart
-  //     className={genClassName(style.chart_exercise)}
-  //     datasets={[
-  //       {
-  //         label: `${queryParams.get("exercise")}`,
-  //         data: data?.stats?.graphStats?.datasetsValues || [],
-  //         backgroundColor: "red",
-  //         borderColor: "red",
-  //       },
-  //     ]}
-  //     labels={data?.stats?.graphStats?.labelFormatted || []}
-  //   />
-  // );
   return (
     <LineGraphCard
       className={style.card_exercise_container}

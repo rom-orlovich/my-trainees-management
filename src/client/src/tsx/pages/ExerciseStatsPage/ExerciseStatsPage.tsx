@@ -1,5 +1,3 @@
-import { ChangeEvent, useEffect, useState } from "react";
-
 import { useParams, useSearchParams } from "react-router-dom";
 import ExerciseStatsTable from "./ExerciseStatsTable";
 
