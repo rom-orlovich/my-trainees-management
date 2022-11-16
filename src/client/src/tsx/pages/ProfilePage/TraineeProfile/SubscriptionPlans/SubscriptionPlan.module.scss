@@ -2,9 +2,10 @@
 .subscription_plans_container {
   position: relative;
   .plus_button_icon {
-    @include posAbs(3%, null, 4%, null);
-    @include heightWidth(1.5rem, 1.5rem);
+    @include posAbs(3%, null, 1%, null);
+    @include heightWidth(2.5rem, 2.5rem);
     color: rgb(127 165 241);
+    cursor: pointer;
   }
 
   @include classMatcher("list_detail") {

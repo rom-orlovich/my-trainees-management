@@ -22,15 +22,16 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
     <Card
       className={genClassName(
         className,
-        // listProfileStyle.list_container,
+
         style.subscription_plans_container
       )}
     >
       {!isTrainee && (
         <Link
+          className={style.plus_button_icon}
           to={`/${APP_ROUTE.TRAINEES_ROUTE}/${queryOptions?.traineeID}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_ADD}`}
         >
-          <BsFillPlusSquareFill className={style.plus_button_icon} />
+          <BsFillPlusSquareFill />
         </Link>
       )}
 

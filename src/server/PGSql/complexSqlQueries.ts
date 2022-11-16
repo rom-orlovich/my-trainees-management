@@ -209,6 +209,7 @@ export const deleteTableWithOtherTableData = async (
       [paramID],
       true
     );
+
     const secTableQueryLogic = `WHERE ${otherTableID}=$1`;
     const otherTableData = await deleteQuery(
       otherTableName,

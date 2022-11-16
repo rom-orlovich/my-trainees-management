@@ -70,12 +70,17 @@ span[class*="checkbox_label"] {
       font-weight: 500;
     }
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .form {
+    overflow-y: scroll;
+
     display: flex;
     flex-flow: row wrap;
     align-items: center;
     width: 100%;
-    gap: 1.2rem;
+    gap: 1rem;
 
     span[class*="AutocompleteInput"] {
       flex: 40%;
@@ -138,6 +143,9 @@ span[class*="checkbox_label"] {
   }
 }
 @include smartphone() {
+  ::-webkit-scrollbar {
+    display: initial;
+  }
   .form_container {
     @include flex-dir(initial, center, column);
 
@@ -153,6 +161,7 @@ span[class*="checkbox_label"] {
       }
     }
     .form {
+      overflow-y: hidden;
       span[class*="input_label"],
       span[class*="textarea_label"],
       span[class*="selectInput_label"],

@@ -20,7 +20,7 @@ function SignUpPage({
   defaultValues?: { email: string; id: number };
 }) {
   const [signUp] = authApi.useSignUpMutation();
-  const onSubmit = async (body: SignUpForm) =>
+  const onSubmit = (body: SignUpForm) =>
     signUp({
       credentials: body,
       endPoint: defaultValues ? `trainee/${defaultValues.id}` : "trainer",

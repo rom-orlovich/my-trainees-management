@@ -1,5 +1,6 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 .user_details_container {
+  padding: 0.5rem;
   @include flex-dir(center, center, column);
   gap: 0.3rem;
   .profile_icon {
