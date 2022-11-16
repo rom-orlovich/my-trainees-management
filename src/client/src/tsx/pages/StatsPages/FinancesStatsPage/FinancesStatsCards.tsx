@@ -15,9 +15,13 @@ function FinancesStatsCards({
   queryOptions: { gt: string; lt: string };
 }) {
   const { user_id } = useGetUserLoginData();
-  const { data } = financesApi.useGetFinancesQuery({
+  const queryOptionsData = {
     ...queryOptions,
     userID: user_id,
+  };
+
+  const { data } = financesApi.useGetFinancesQuery({
+    ...queryOptionsData,
     chartDisplay: CHART_DISPLAY.DISTRIBUTION,
   });
   const Data = data as unknown as FinanceAPI;
@@ -61,7 +65,7 @@ function FinancesStatsCards({
         yTitle="NIS"
         chartHeading={["incomes", "expenses"]}
         getItems={financesApi.useGetFinancesQuery}
-        queryOptions={queryOptions}
+        queryOptions={queryOptionsData}
         className={StatsPageStyle.graph_card_container}
       />
     </>

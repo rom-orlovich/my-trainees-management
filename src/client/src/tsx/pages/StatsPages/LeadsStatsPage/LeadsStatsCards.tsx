@@ -18,9 +18,13 @@ function LeadsStatsCards({
   queryOptions: { gt: string; lt: string };
 }) {
   const { user_id } = useGetUserLoginData();
-  const { data } = leadsApi.useGetItemsQuery({
+  const queryOptionsData = {
     ...queryOptions,
     userID: user_id,
+  };
+
+  const { data } = leadsApi.useGetItemsQuery({
+    ...queryOptionsData,
     chartDisplay: CHART_DISPLAY.DISTRIBUTION,
   });
   const Data = data as unknown as {
@@ -55,7 +59,7 @@ function LeadsStatsCards({
         unit="Leads"
         chartHeading="New Leads"
         getItems={traineesApi.useGetItemsQuery}
-        queryOptions={queryOptions}
+        queryOptions={queryOptionsData}
         className={StatsPageStyle.graph_card_container}
       />
     </>

@@ -6,6 +6,7 @@ import ChildrenFunComponent, {
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
 import { GRAPH_TIME_LINE } from "../../redux/api/interfaceAPI";
+import { GenericRecord } from "../../types";
 
 export type GraphFilterByDates = {
   gt: string;
@@ -18,7 +19,7 @@ function GraphCard({
   queryOptions,
   useTimeLine = true,
 }: {
-  queryOptions: Partial<{ gt: string; lt: string }>;
+  queryOptions: Partial<{ gt: string; lt: string }> & GenericRecord<any>;
   children: ComponentFunType<{
     timeLineDisplay: string;
     gt?: string;

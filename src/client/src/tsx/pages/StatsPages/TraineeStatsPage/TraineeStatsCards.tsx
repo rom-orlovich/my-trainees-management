@@ -17,9 +17,12 @@ function TraineeStatsCards({
   queryOptions: { gt: string; lt: string };
 }) {
   const { user_id } = useGetUserLoginData();
-  const { data } = traineesApi.useGetItemsQuery({
+  const queryOptionsData = {
     ...queryOptions,
     userID: user_id,
+  };
+  const { data } = traineesApi.useGetItemsQuery({
+    ...queryOptionsData,
     chartDisplay: CHART_DISPLAY.DISTRIBUTION,
   });
   const Data = data as unknown as {
@@ -54,7 +57,7 @@ function TraineeStatsCards({
         unit="Trainees"
         chartHeading="New Trainees"
         getItems={traineesApi.useGetItemsQuery}
-        queryOptions={queryOptions}
+        queryOptions={queryOptionsData}
         className={StatsPageStyle.graph_card_container}
       />
     </>
