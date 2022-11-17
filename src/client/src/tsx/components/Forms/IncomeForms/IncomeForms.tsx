@@ -1,13 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { useSelector } from "react-redux";
-import { useState } from "react";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
-import {
-  incomesSchema,
-  measuresSchema,
-} from "../../baseComponents/RHF-Components/formsSchemas";
+import { incomesSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import {

@@ -6,7 +6,7 @@ import { Client, ClientConfig } from "pg";
 // The options are:  "development" | "production"
 
 const configClient: ClientConfig =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === "development"
     ? {
         connectionString: process.env.DATABASE_URL,
         ssl: {

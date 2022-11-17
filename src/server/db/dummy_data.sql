@@ -82,7 +82,7 @@ set
   date_join = '2022-10-15T21:00:00.000Z',
   location_id = 1,
   phone_number = '054-3552144',
-  birthday = '2022-10-16T21:00:00.000Z',
+  birthday = '1997-07-28T14:00:00.000Z',
   identify_num = 222222,
   gender = 'male',
   last_name = 'orlovich',
@@ -93,17 +93,17 @@ WHERE
 INSERT INTO
   public.profiles (profile_id, first_name, last_name, gender, identify_num, birthday, email, phone_number, location_id, date_join, status, measure_id)
 VALUES
-  (4, 'Ido', 'Gideon', 'male', 920213, '2022-10-11', 'glind57@pickuplanet.com', '054-617-4272', 7, '2022-10-25', false, NULL);
+  (4, 'Ido', 'Gideon', 'male', 920213, '2022-10-11', 'glind57@pickuplanet.com', '054-617-4272', 7, '2001-10-25', false, NULL);
 
 INSERT INTO
   public.profiles (profile_id, first_name, last_name, gender, identify_num, birthday, email, phone_number, location_id, date_join, status, measure_id)
 VALUES
-  (6, 'Tzvi', 'Daniela', 'male', 3851455, '2022-10-01', 'ninchu@grecc.me', '055-011-9485', 7, '2022-10-25', false, NULL);
+  (6, 'Tzvi', 'Daniela', 'male', 3851455, '2022-10-01', 'ninchu@grecc.me', '055-011-9485', 7, '1992-10-25', false, NULL);
 
 INSERT INTO
   public.profiles (profile_id, first_name, last_name, gender, identify_num, birthday, email, phone_number, location_id, date_join, status, measure_id)
 VALUES
-  (5, 'Nitza', 'Meira', 'female', 488554, '2022-10-09', 'czena1@chantellegribbon.com', '054-245-5250', 2, '2022-10-25', false, NULL);
+  (5, 'Nitza', 'Meira', 'female', 488554, '2022-10-09', 'czena1@chantellegribbon.com', '054-245-5250', 2, '1975-10-25', false, NULL);
 
 SELECT
   pg_catalog.setval ('public.profiles_profile_id_seq', 7, false);

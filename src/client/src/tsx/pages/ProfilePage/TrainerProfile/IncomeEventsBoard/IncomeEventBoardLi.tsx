@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
-import { formatDate } from "@fullcalendar/react";
-import React from "react";
+
+import { format } from "date-fns";
+
 import { Link } from "react-router-dom";
 import { MeetingAPI } from "../../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
@@ -10,15 +12,23 @@ function IncomeEventBoardLi({
   note_topic,
   date_start,
   date_end,
-  activity_name,
   participants_groups_list_id,
   city_name,
   street,
   group_name,
-  ...rest
 }: MeetingAPI) {
-  const dateStart = formatDate(date_start, { timeStyle: "short" });
-  const dateEnd = formatDate(date_end, { timeStyle: "short" });
+  const dateStart = new Date(date_start);
+  const dateEnd = new Date(date_end);
+  const dateStartStr = format(dateStart, "dd/MM/yy");
+  let dateDisplayStr;
+  if (dateStart.getDate() === dateEnd.getDate()) {
+    dateDisplayStr = dateStartStr;
+  } else {
+    dateDisplayStr = `${dateStartStr}-${format(dateEnd, "dd/MM/yy")}`;
+  }
+  const hourStart = format(dateStart, "HH:mma");
+  const hourEnd = format(dateEnd, "HH:mma");
+
   return (
     <li className={listProfileStyle.list_li}>
       <span className={listProfileStyle.list_detail}>
@@ -26,9 +36,9 @@ function IncomeEventBoardLi({
         {note_topic || ""}
       </span>
       <span className={listProfileStyle.list_detail}>
-        <span>Duration</span>
+        <span>{dateDisplayStr}</span>
         <span>
-          {dateStart}-{dateEnd}
+          {hourStart}-{hourEnd}
         </span>
       </span>
 

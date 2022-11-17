@@ -18,7 +18,7 @@
         @include flex-dir(null, null, row);
         column-gap: 0.5rem;
         @include classMatcher("input_label") {
-          max-width: 50%;
+          max-width: 49%;
         }
       }
       @include classMatcher("autocomplete_meeting_model_form_container") {

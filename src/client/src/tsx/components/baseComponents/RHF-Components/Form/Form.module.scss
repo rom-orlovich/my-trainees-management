@@ -75,7 +75,6 @@ span[class*="checkbox_label"] {
   }
   .form {
     overflow-y: scroll;
-
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -83,6 +82,9 @@ span[class*="checkbox_label"] {
     gap: 1rem;
 
     span[class*="AutocompleteInput"] {
+      ::-webkit-scrollbar {
+        display: initial;
+      }
       flex: 40%;
       max-width: 32%;
       li {
@@ -161,7 +163,7 @@ span[class*="checkbox_label"] {
       }
     }
     .form {
-      overflow-y: hidden;
+      overflow-y: inherit;
       span[class*="input_label"],
       span[class*="textarea_label"],
       span[class*="selectInput_label"],
