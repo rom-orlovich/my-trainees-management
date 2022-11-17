@@ -32,7 +32,7 @@ import {
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
-import { providerTag, providerTags } from "../reduxHelpers";
+import { providerTags } from "../reduxHelpers";
 import { baseQueryWithReauth } from "./apiReauthQuery";
 import { GenericRecord } from "../../types";
 
@@ -213,12 +213,7 @@ export const expenseApi = apiCreateCRUDHooks<ExpensesTableAPI>({
   singleEntityName: API_ROUTES.EXPENSES_ENTITY,
   listId: "expense_list",
 });
-// export const financeApi = apiCreateCRUDHooks({
-//   baseUrl: API_ROUTES.FINANCES_ROUTE,
-//   reducerPath: "financesApi",
-//   singleEntityName: API_ROUTES.FINANCES_ENTITY,
-//   listId: "finances_list",
-// });
+
 export const financesApi = createApi({
   tagTypes: ["finances_list"],
   baseQuery: baseQueryWithReauth(API_ROUTES.FINANCES_ROUTE),

@@ -379,7 +379,6 @@ export const traineesOptionsCRUD: OptionsCRUD = {
       mainName: "first_name",
       secName: "last_name",
     },
-
     queryParams: {
       trainerUserID: "tr.trainer_user_id",
       id: `tr.${TABLES_DATA.TRAINEE_ID}`,

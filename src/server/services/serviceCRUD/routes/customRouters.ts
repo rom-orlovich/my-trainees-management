@@ -10,7 +10,6 @@ import { handleRegisterTrainee } from "../../serviceAuth/controllers/handleRegis
 import { handleGetFinanceStats } from "../../serviceStatistics/controllers/handleGetFinanceStats";
 import { handleGetStatistic } from "../../serviceStatistics/controllers/handleGetStatistic";
 import { handleInsertNewMeasure } from "../../serviceStatistics/controllers/handleInsertNewMeasure";
-import { handleInsertStatistics } from "../../serviceStatistics/controllers/handleInsertStatistics";
 
 import { handleInsertNewSubscription } from "../controllers/handleInsertNewSubscription";
 

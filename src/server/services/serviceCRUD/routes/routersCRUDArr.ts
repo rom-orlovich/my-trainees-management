@@ -8,7 +8,6 @@ import {
   expensesOptionsCRUD,
   leadsOptionsCRUD,
   locationsOptionsCRUD,
-  meetingOptionsCRUD,
   musclesGroupOptionsCRUD,
   nutritionProgramOptionsCRUD,
   nutritionProgramsListOptionsCRUD,
@@ -30,7 +29,7 @@ import {
   createMeasuresRouter,
   createMeetingRouter,
   createTraineesRouter,
-} from "./otherRouters";
+} from "./customRouters";
 
 // Array of the baseRoutes and the router params.
 export const routesConfigArr: {
@@ -135,7 +134,6 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.MEETINGS_ROUTE,
     router: createMeetingRouter(),
-    // router: createCRUDroutes(meetingOptionsCRUD),
   },
   {
     baseRoute: API_ROUTES.FINANCES_ROUTE,
