@@ -49,7 +49,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
   - [Express](https://www.npmjs.com/package/express)- For building the server.
   - [Node-postgres](https://www.npmjs.com/package/pg) - For DB management.
   - [Yup](https://www.npmjs.com/package/yup) - For validation.
-  - [Webpack](https://www.npmjs.com/package/webpack) - For modules bundling and building the server side.
+  - [Webpack](https://www.npmjs.com/package/webpack) - For modules bundling of the server side.
   - [Dotenv](https://www.npmjs.com/package/dotenv) - For environment variables.
   - [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - For generating tokens.
   - [Bycrpt](https://www.npmjs.com/package/bcryptjs) - For password hashing.
