@@ -84,8 +84,8 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 ## Main Features:
 
 1. **Modify App's Data** - Create/Read/Update/Delete the following data: Trainees, training programs, exercises, muscles group, equipment, leads, cities and locations.
-2. **Table Pagination** - This shows when there are more than ten items.
-3. **Filter Table's Rows By Name** - Filters the table items by name.
+2. **Table Pagination** - Shows when there are more than ten items.
+3. **Filter Table's Rows By Name** - Filters the table's items by name.
 4. **Autocomplete Search Input** - Suggests a list of results from the server. \
    Infinite scroll: When there are more than ten possible suggestions, the users can scroll and fetch more suggestions from the server.
 5. **Notifications System** - Notifications display for various user activities.
@@ -94,19 +94,18 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
    - Personal trainers can register new trainees to their system and send them an email to sign up and create users to track their progress. 
    - Each user role has different permission to access app resources. 
    - Persistent login system based on Refresh Token Rotation mechanism.
-7.  **Trainee & Trainer Profile Page** - The page display their personal account data.
-8.  **Statistics Page** - Personal trainers have a graphical overview of their business. \
+7. **Trainee & Trainer Profile Page** - The page display their personal account data.
+8. **Statistics Page** - Personal trainers have a graphical overview of their business. \
      Trainees will have a graphical overview of their progress.
 9. **Trainer & Trainee Schedule** - Personal Trainers can schedule new training and meeting sessions. \
     Trainees can watch their next sessions.
 
 ## Coming soon:
-1.  **Additional System Data** - Nutrition program's progress, financial system and suppliers.
-2.  **Food Nutrition API** - The app will interface with food API to build nutrition menus.
+1. **Additional System Data** - Nutrition program's progress, financial system and suppliers.
+2. **Food Nutrition API** - The app will interface with food API to build nutrition menus.
 
 
 ## Images: 
-
 ### Trainer's Profile
 <img alt="trainer profile" src="./readme-images/trainer_profile.png" width="600" hight="600">
 
