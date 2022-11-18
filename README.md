@@ -30,7 +30,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 - **[React](https://reactjs.org/)**
 - **[TypeScript](https://www.typescriptlang.org/)**
 - **[Sass](https://www.npmjs.com/package/sass)**
-- **[Express](https://www.npmjs.com/package/express)**
+- **[Node.js](https://nodejs.org/en/)**
 - **[PostgreSQL](https://www.postgresql.org/)**
 
 ## Packages:
@@ -45,14 +45,15 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
   
 
 - **Back-end**:
-  - [node-postgres](https://www.npmjs.com/package/pg) - For DB management.
+  - [Express](https://www.npmjs.com/package/express)- For building the server.
+  - [Node-postgres](https://www.npmjs.com/package/pg) - For DB management.
   - [Yup](https://www.npmjs.com/package/yup) - For validation.
-  - [webpack](https://www.npmjs.com/package/webpack) - For modules bundling and building the server side.
-  - [dotenv](https://www.npmjs.com/package/dotenv) - For environment variables.
-  - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - For generating tokens.
-  - [bycrpt](https://www.npmjs.com/package/bcryptjs) - For password hashing.
+  - [Webpack](https://www.npmjs.com/package/webpack) - For modules bundling and building the server side.
+  - [Dotenv](https://www.npmjs.com/package/dotenv) - For environment variables.
+  - [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - For generating tokens.
+  - [Bycrpt](https://www.npmjs.com/package/bcryptjs) - For password hashing.
   - [Google API](https://www.npmjs.com/package/googleapis) - For Gmail service.
-  - [nodemailer](https://www.npmjs.com/package/nodemailer) - For sending emails.
+  - [Nodemailer](https://www.npmjs.com/package/nodemailer) - For sending emails.
   
 
 ## Installation
