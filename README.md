@@ -110,7 +110,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 ### Trainer's Profile
 <img alt="trainer profile" src="./readme-images/trainer_profile.png" width="600" hight="600">
 
-### Pages Stats Example
+### Statistic Page Example
 <img alt="finance stats" src="./readme-images/finances_stats.png" width="600" hight="600">
 <img alt="finances graph" src="./readme-images/finances_graph.png" width="600" hight="600">
 
