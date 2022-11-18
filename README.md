@@ -104,5 +104,3 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 1.  **Additional System Data** - Nutrition program's progress, financial system and suppliers.
 2.  **Food Nutrition API** - The app will interface with food API to build nutrition menus.
 
-
-
