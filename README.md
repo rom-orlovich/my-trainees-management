@@ -121,11 +121,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 ### Trainee's Profile
 <img alt="Trainee's Profile" src="./readme-images/trainee_profile.png" width="600" hight="600">
 <img alt="Trainee's Profile calories chart" src="./readme-images/trainee_profile_calroies_chart.png" width="600" hight="600">
-<img alt="Weight measures progress" src="./readme-images/trainee_weight_masures_graph" width="600" hight="600">
-
-### Trainee's Training Program
-<img alt="Training programs" src="./readme-images/trainee_program_page.png" width="600" hight="600">
-<img alt="Training program's exericses" src="./readme-images/trainees program_exercises.png" width="600" hight="600">
+<img alt="Weight measures progress" src="./readme-images/trainee_weight_masures_graph.png" width="600" hight="600">
 
 ### Trainee's Training Program
 <img alt="Training programs" src="./readme-images/trainee's_program_page.png" width="600" hight="600">
