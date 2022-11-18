@@ -116,7 +116,7 @@ function AutocompleteInput<T extends Record<string, any>>({
     debounce[0] && RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
   }, [debounce, RHFProps, setSelectOptionValue]);
 
-  // Handle the input change value, open the option,
+  // Handle the input change value, open the options,
   // set page to first page and reset the data array.
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLastData([]);

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 export function useDebounceHook<T>(value: T, sec: number) {
   const [debounceState, setDebounceState] = useState<T>();
   useEffect(() => {
@@ -7,9 +8,9 @@ export function useDebounceHook<T>(value: T, sec: number) {
     }, sec);
 
     return () => {
-clearTimeout(timer);
+      clearTimeout(timer);
     };
   }, [value, sec]);
   if (debounceState) return debounceState;
-  else return value;
+  return value;
 }
