@@ -129,6 +129,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 
 ### Admin's Account 
 <img alt="Admin account" src="./readme-images/admin_account.png" width="600" hight="600">
+
 ### Trainee's Account 
 <img alt="Admin account" src="./readme-images/trainee_account.png" width="600" hight="600">
 
