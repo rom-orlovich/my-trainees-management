@@ -42,6 +42,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
   - [React Hook Form](https://www.npmjs.com/package/react-hook-form) - For forms management.
   - [Yup](https://www.npmjs.com/package/yup) - For validation.
   - [React Icons](https://www.npmjs.com/package/react-icons) - For icons
+  - [Full-Calender](https://fullcalendar.io/) -For calender display.
   
 
 - **Back-end**:
@@ -54,6 +55,8 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
   - [Bycrpt](https://www.npmjs.com/package/bcryptjs) - For password hashing.
   - [Google API](https://www.npmjs.com/package/googleapis) - For Gmail service.
   - [Nodemailer](https://www.npmjs.com/package/nodemailer) - For sending emails.
+  - [Date-fns](https://date-fns.org/)- For date manipulation.
+  - [Winston-logger](https://www.npmjs.com/package/winston) -For server logs.
   
 
 ## Installation
@@ -91,12 +94,15 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
    - Personal trainers can register new trainees to their system and send them an email to sign up and create users to track their progress. 
    - Each user role has different permission to access app resources. 
    - Persistent login system based on Refresh Token Rotation mechanism.
+7.  **Trainee & Trainer Profile Page** - The page display their personal account data.
+8.  **Statistics Page** - Personal trainers have a graphical overview of their business. \
+     Trainees will have a graphical overview of their progress.
+9. **Trainer & Trainee Schedule** - Personal Trainers can schedule new training and meeting sessions. \
+    Trainees can watch their next sessions.
 
 ## Coming soon:
-1.  **Trainee & Trainer Profile Page** - The page will display their personal account data.
-2.  **Additional System Data** - Nutrition program's progress, financial system and suppliers.
-3.  **Food Nutrition Api** - The app will interface with food API to build nutrition menus.
-4.  **Statistics Page** - Personal trainers will have a graphical overview of their business. \
-Trainees will have a graphical overview of their progress.
-6. **Trainer & Trainee Schedule** - Personal Trainers can schedule new training and meeting sessions. \
-Trainees will be able to watch their next sessions.
+1.  **Additional System Data** - Nutrition program's progress, financial system and suppliers.
+2.  **Food Nutrition API** - The app will interface with food API to build nutrition menus.
+
+
+
