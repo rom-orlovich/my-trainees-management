@@ -27,7 +27,7 @@ function EquipmentsListPage() {
           <AutocompleteInput<EquipmentsTableAPI>
             keys={["equipment_name"]}
             id={"equipment_id"}
-            queriesOptions={{ ...queriesOptions }}
+            queriesOptions={queriesOptions}
             loadingSpinnerResult={{ nameData: "Equipments" }}
             setSelectOptionValue={setEquipment}
             useGetData={equipmentsApi.useGetItemsQuery}

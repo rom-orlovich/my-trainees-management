@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import React from "react";
-import { useSearchParams } from "react-router-dom";
 
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
 import { measuresApi } from "../../../redux/api/hooksAPI";
@@ -55,10 +53,6 @@ function MeasureEditForm() {
           addFunction({
             addItem,
           })({ ...body });
-        // updateFunction({
-        //   updateItem,
-        //   id: rest.measure_id,
-        // })(body);
 
         return (
           <MeasureForm

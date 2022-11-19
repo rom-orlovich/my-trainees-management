@@ -21,6 +21,7 @@ export function MeetingEditForm({ meetingID }: { meetingID: number }) {
 
   const handleSubmit = ({
     meeting_id,
+    group_name,
     activity_name,
     city_name,
     street,

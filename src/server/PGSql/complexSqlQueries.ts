@@ -155,6 +155,7 @@ export const updateExistTableData = async (
       values,
       include
     );
+
     // Update the main table and get the id of the other table.
     const mainTableData = await updateQuerySingleItem(
       mainTableName,

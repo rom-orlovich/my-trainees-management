@@ -574,6 +574,9 @@ export const meetingOptionsCRUD: OptionsCRUD = {
       gt: "date_start",
       lt: "date_end",
     },
+    orderByParam: {
+      dateStart: "date_start",
+    },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: meetingsSchema,

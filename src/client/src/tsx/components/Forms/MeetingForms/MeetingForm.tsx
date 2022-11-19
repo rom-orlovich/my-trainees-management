@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
 
 import { useSearchParams } from "react-router-dom";
 
@@ -15,18 +16,22 @@ import {
   MeetingAPI,
   ParticipantsGroupsListTableAPI,
 } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
+import { changeModelState } from "../../../redux/slices/apiSideEffectSlice";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
+import ModelCard from "../../baseComponents/Model/ModelCard";
 
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { meetingsSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
+import { ActivityAddForm } from "../ActivityForms/ActivityAddForm";
 
 export function MeetingForm({
   onSubmit,
@@ -71,22 +76,33 @@ export function MeetingForm({
           resolver: yupResolver(meetingsSchema),
         }}
       >
-        {({ register, formState, control, watch, setValue }) => {
-          const { errors } = formState;
+        {({ register, formState, control, watch, setValue, getValues }) => {
+          const { errors, touchedFields } = formState;
+
           const date_start = watch("date_start");
-          if (date_start) {
-            const curStartDate = new Date(date_start);
-            setValue(
-              "date_end",
-              formatDate(
-                new Date(
-                  curStartDate.setTime(curStartDate.getTime() + 45 * 1000 * 60)
-                ),
-                0,
-                true
-              ) as any
-            );
-          }
+
+          useEffect(() => {
+            // This purpose of this check is for the user will be able to change the date_end of the meeting.
+            if (
+              (!defaultValues?.date_end && date_start) ||
+              (touchedFields.date_start && defaultValues?.date_end)
+            ) {
+              const curStartDate = new Date(date_start);
+
+              setValue(
+                "date_end",
+                formatDate(
+                  new Date(
+                    curStartDate.setTime(
+                      curStartDate.getTime() + 45 * 1000 * 60
+                    )
+                  ),
+                  0,
+                  true
+                ) as any
+              );
+            }
+          }, [date_start, touchedFields.date_start]);
 
           return (
             <>

@@ -10,9 +10,14 @@ import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page from "../Page.module.scss";
 import ActivitiesTable from "./ActivitiesTable";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 
 function ActivitiesPage() {
   const [activity, setActivity] = useState<string[]>(["", ""]);
+  const authState = useGetUserLoginData();
+  const queriesOptions = {
+    userID: authState.user_id,
+  };
   return (
     <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.ACTIVITIES_ROUTE}>
       <section className={page.page_container}>
@@ -20,6 +25,7 @@ function ActivitiesPage() {
           <AutocompleteInput<ActivitiesTableAPI>
             keys={["activity_name"]}
             id={"activity_id"}
+            queriesOptions={queriesOptions}
             loadingSpinnerResult={{ nameData: "Activity" }}
             setSelectOptionValue={setActivity}
             useGetData={activitiesApi.useGetItemsQuery}
@@ -37,7 +43,10 @@ function ActivitiesPage() {
           </span>
         </div>
         <div className={page.page_main_content}>
-          <ActivitiesTable mainName={activity[1]} />
+          <ActivitiesTable
+            mainName={activity[1]}
+            queriesOptions={queriesOptions}
+          />
         </div>
       </section>
     </InsteadOutletRoutes>

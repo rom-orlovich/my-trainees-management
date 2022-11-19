@@ -15,6 +15,7 @@ function IncomeEventsBoard({
   const curDate = new Date();
   const meetingApiOptions = {
     ...queryOptions,
+    orderBy: "dateStart",
     gt: curDate.toISOString(),
     numResult: 3,
   };
@@ -24,7 +25,7 @@ function IncomeEventsBoard({
       <ListProfile
         queryOptions={meetingApiOptions}
         useQuery={meetingApi.useGetItemsQuery}
-        heading={"Incoming Event"}
+        heading={"Incoming Events"}
         pagePath={`/${APP_ROUTE.SCHEDULE_ROUTE}`}
         LI={IncomeEventBoardLi}
       />

@@ -41,6 +41,7 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
 
   addOption?: {
     link: string;
+    onClick?: () => void;
   };
   editOption?: {
     link: string | ((id: any) => string);

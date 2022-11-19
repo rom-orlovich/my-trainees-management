@@ -16,14 +16,15 @@ export async function selectQuery(
   const statement = `${
     wholeSelectQueryLogic || `SELECT ${fields} FROM ${tableName}`
   } ${queryLogic} `;
-  logger.debug(
-    `LINE 232:${statement} : values:${JSON.stringify(queryParams)}`,
-    {
-      __filename,
-    }
-  );
+
   try {
     const rows = await client.query(statement, queryParams);
+    logger.debug(
+      `LINE 232:${statement} : values:${JSON.stringify(queryParams)}`,
+      {
+        __filename,
+      }
+    );
     return rows.rows;
   } catch (error) {
     logger.error(
@@ -71,23 +72,21 @@ const updateQuery = async (
   paramId: string,
   paramsArr: any[]
 ) => {
+  const params = [paramId, ...paramsArr];
   const statement = `UPDATE ${tableName} SET ${keyValuesStr}
     ${queryLogic} RETURNING *`;
 
-  logger.debug(`line 265:${statement} : values:${JSON.stringify(paramsArr)}`, {
-    __filename,
-  });
   try {
-    const rows = await client.query(statement, [paramId, ...paramsArr]);
+    const rows = await client.query(statement, params);
+    logger.debug(`line 265:${statement} : values:${JSON.stringify(params)}`, {
+      __filename,
+    });
     return rows;
   } catch (error) {
-    logger.error(
-      `LINE 309:${statement} : values:${JSON.stringify(paramsArr)}`,
-      {
-        objs: [error],
-        __filename,
-      }
-    );
+    logger.error(`LINE 309:${statement} : values:${JSON.stringify(params)}`, {
+      objs: [error],
+      __filename,
+    });
     throw error;
   }
 };
