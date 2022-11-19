@@ -499,6 +499,9 @@ export const activityOptionsCRUD: OptionsCRUD = {
       userID: `act.${TABLES_DATA.USERS_TABLE_ID}`,
       id: `act.${TABLES_DATA.ACTIVITIES_ID}`,
     },
+    queryNameParam: {
+      mainName: "act.activity_name",
+    },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: activitySchema,
@@ -537,6 +540,9 @@ export const participantsGroupListOptionsCRUD: OptionsCRUD = {
     queryParams: {
       userID: `pgl.${TABLES_DATA.USERS_TABLE_ID}`,
       id: `pgl.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}`, // For general id search
+    },
+    queryNameParam: {
+      mainName: `pgl.group_name`,
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
