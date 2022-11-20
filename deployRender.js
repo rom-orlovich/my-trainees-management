@@ -13,7 +13,7 @@ const packageJson = {
     },
   };
 const path = require("path");
-export const cwd = path.resolve(".", "deploy-render");
+ const cwd = path.resolve(".", "deploy-render");
 
 console.log("Start building the app...");
 execSync("npm run build");
