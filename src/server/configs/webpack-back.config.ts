@@ -3,6 +3,7 @@ import * as path from "path";
 
 import ESLintPlugin from "eslint-webpack-plugin";
 
+const cwd = `deploy-render`;
 type Mode = "development" | "none" | "production";
 const mode = (process.env.NODE_ENV || "development") as Mode;
 const config: webpack.Configuration = {
@@ -14,7 +15,7 @@ const config: webpack.Configuration = {
   },
   output: {
     filename: "[name][contenthash].js",
-    path: path.resolve(__dirname, "../", "../", "../deploy/server"),
+    path: path.resolve(__dirname, "../", "../", `../${cwd}/server`),
     clean: true,
   },
   module: {
@@ -39,15 +40,7 @@ const config: webpack.Configuration = {
   resolve: {
     extensions: [".ts", ".js"],
   },
-  externals: [
-    "mongodb-client-encryption",
-    "pg-native",
-    // "node-gyp",
-    // "npm",
-    // "nock",
-    // "aws-sdk",
-    // "mock-aws-s3",
-  ],
+  externals: ["mongodb-client-encryption", "pg-native"],
   plugins: [new ESLintPlugin()],
 };
 
