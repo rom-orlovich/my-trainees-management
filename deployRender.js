@@ -2,7 +2,7 @@ const { execSync } = require("child_process");
 const { existsSync, rmSync, writeFileSync } = require("fs");
 const { copySync } = require("fs-extra");
 const packageJson = {
-    name: "My Trainees Management",
+    name: "",
     version: "2.0.0",
     description: "",
     scripts: {
@@ -30,10 +30,10 @@ console.log("Check git exist");
 
 if (!existsSync(path.resolve(cwd, ".git"))) {
   console.log(
-    "Git is not exist , init git repo and deploy to heroku. Please wait..."
+    "Git is not exist , init git repo. Please wait..."
   );
   execSync(
-    "git init && git add . && git commit -m 'init public' " ,
+    "git init && git add . && git commit -m 'init public' && git push origin main " ,
     { cwd }
   );
 
@@ -41,10 +41,10 @@ if (!existsSync(path.resolve(cwd, ".git"))) {
 } else {
   const commitMessage = process.argv[2];
   if (commitMessage) {
-    console.log("Commit the project and deploy to heroku. please wait...");
+    console.log("Commit the project.");
 
     execSync(
-      `git add . && git commit -m '${commitMessage}' `,
+      `git add . && git commit -m '${commitMessage}' && git push origin main  `,
       { cwd }
     );
     console.log("Finish commit.");

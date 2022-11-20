@@ -141,7 +141,7 @@ export const createWeeksRangeMonthObj = <
 
   // Create dates array from the last days of the month if they exist.
   if (getDaysInMonth(curDate) > 28) {
-    const dateStart = datesEachSevenDay.at(-1)!;
+    const dateStart = datesEachSevenDay[datesEachSevenDay.length - 1];
 
     weeksRangeMonthFinanceObj = {
       ...weeksRangeMonthFinanceObj,

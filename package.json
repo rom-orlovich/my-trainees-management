@@ -13,9 +13,8 @@
     "server": "cd ./src/server && npm run server",
     "start": "cd ./src/client && npm run start",
     "build-server": "cd ./src/server && npm run build",
-    "build-client": "cd ./src/client && npm run build",
-    "build-render": "node deployRender.js",
-    "start-render": "node ./deploy-render/server/*.js"
+    "build-client": "cd ./src/client && npm run build"
+
   },
   "keywords": [],
   "author": "",

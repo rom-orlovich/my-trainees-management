@@ -11,7 +11,6 @@ import path from "path";
 import { Server } from "http";
 import winstonExpress from "express-winston";
 
-import { Module } from "module";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
 

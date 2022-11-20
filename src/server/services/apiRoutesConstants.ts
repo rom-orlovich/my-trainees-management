@@ -72,8 +72,7 @@ export enum API_ROUTES {
 }
 
 export const URL_REACT_CLIENT = "http://localhost:3000";
-export const URL_HEROKU_CLIENT =
-  "https://my-trainees-management-v2.herokuapp.com";
+export const URL_HEROKU_CLIENT = "my-trainees-management-v2-pro.onrender.com";
 
 export const URL_CUR_CLIENT =
   process.env.NODE_ENV === "development" ? URL_REACT_CLIENT : URL_HEROKU_CLIENT;
