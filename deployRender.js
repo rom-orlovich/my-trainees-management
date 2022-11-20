@@ -24,5 +24,30 @@ rmSync(clientBuildPath, { recursive: true, force: true });
 console.log("Write new package.json");
 const packageJsonPath = path.resolve(cwd, "package.json");
 writeFileSync(packageJsonPath, JSON.stringify(packageJson));
-console.log("The building was finished successfully");
+console.log("Check git exist");
 
+
+
+if (!existsSync(path.resolve(cwd, ".git"))) {
+  console.log(
+    "Git is not exist , init git repo and deploy to heroku. Please wait..."
+  );
+  execSync(
+    "git init && git add . && git commit -m 'init public' " ,
+    { cwd }
+  );
+
+  console.log("Finish init git.");
+} else {
+  const commitMessage = process.argv[2];
+  if (commitMessage) {
+    console.log("Commit the project and deploy to heroku. please wait...");
+
+    execSync(
+      `git add . && git commit -m '${commitMessage}' `,
+      { cwd }
+    );
+    console.log("Finish commit.");
+  } else console.log("Please add commit message!");
+}
+console.log("The building was finished successfully");
