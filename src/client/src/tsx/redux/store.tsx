@@ -8,6 +8,7 @@ import { tablesPaginationState } from "./slices/trackTablePagesSlice";
 import { apiSideEffectSlice } from "./slices/apiSideEffectSlice";
 import { authSlice } from "./slices/authSlice";
 import { authApi } from "./api/authAPI";
+import { modelControllerSlice } from "./slices/modelControllerSlice";
 
 // Configure the reducers and the middleware of redux.
 export const store = configureStore({
@@ -17,9 +18,8 @@ export const store = configureStore({
     formValuesState: formValuesState.reducer,
     apiSideEffect: apiSideEffectSlice.reducer,
     authSlice: authSlice.reducer,
-
+    modelControllerSlice: modelControllerSlice.reducer,
     authApi: authApi.reducer,
-
     ...reducersArr,
   },
 

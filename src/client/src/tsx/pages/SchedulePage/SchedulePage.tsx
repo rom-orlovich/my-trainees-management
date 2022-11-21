@@ -24,16 +24,14 @@ import { AiFillDelete } from "react-icons/ai";
 import { genClassName } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
 
-import { changeModelState } from "../../redux/slices/apiSideEffectSlice";
 import { useAppDispatch } from "../../redux/hooks";
-
-import ModelMeetingContent from "./ModelMeetingContent/ModelMeetingContent";
 
 import style from "./SchedulePage.module.scss";
 import { meetingApi } from "../../redux/api/hooksAPI";
-import useGetUserLoginData from "../../hooks/useGetUserLoginData";
+
 import { MeetingAPI } from "../../redux/api/interfaceAPI";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
+import { changeModelState } from "../../redux/slices/modelControllerSlice";
 
 const isDesktopWidth = window.innerWidth > 500;
 
@@ -72,6 +70,8 @@ function SchedulePage() {
     start: el.date_start,
     end: el.date_end,
   }));
+
+  const changeModelAction = changeModelState("meeting");
   const handleEventContent = (event: EventContentArg) => (
     <div className={style.event_container}>
       {!isTrainee && <AiFillDelete className={style.deleteIcon} />}
@@ -84,7 +84,7 @@ function SchedulePage() {
   const handleSelectEvent = (event: DateSelectArg) => {
     if (isTrainee) return;
     if (event.view.type === "timeGridDay") {
-      dispatch(changeModelState());
+      dispatch(changeModelAction);
       setQueryParams({
         dateStart: String(event.start.getTime()),
         dateEnd: String(event.end.getTime()),
@@ -102,7 +102,7 @@ function SchedulePage() {
         meetingID: event.event.id,
         modelFormState: "edit",
       });
-      dispatch(changeModelState());
+      dispatch(changeModelAction);
     }
   };
 

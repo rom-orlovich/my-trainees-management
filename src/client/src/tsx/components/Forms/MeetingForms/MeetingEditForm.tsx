@@ -4,7 +4,7 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { meetingApi } from "../../../redux/api/hooksAPI";
 import { MeetingAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import { changeModelState } from "../../../redux/slices/apiSideEffectSlice";
+import { closeModel } from "../../../redux/slices/modelControllerSlice";
 
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
@@ -31,7 +31,7 @@ export function MeetingEditForm({ meetingID }: { meetingID: number }) {
       id: meetingID,
       updateItem,
     })(body).then((value) => {
-      dispatch(changeModelState());
+      dispatch(closeModel());
       return value;
     });
 

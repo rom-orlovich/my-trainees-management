@@ -1,5 +1,6 @@
 import { useAppDispatch } from "../../../redux/hooks";
-import { changeModelState } from "../../../redux/slices/apiSideEffectSlice";
+
+import { closeModel } from "../../../redux/slices/modelControllerSlice";
 import { genClassName } from "../../../utilities/helpersFun";
 import { PropsBasic } from "../baseComponentsTypes";
 import Card from "../Card/Card";
@@ -15,7 +16,7 @@ function ModelCard({ children, className }: PropsBasic) {
       <div
         id={style.backdrop}
         onClick={() => {
-          dispatch(changeModelState());
+          dispatch(closeModel());
         }}
       />
       <Card className={genClassName(style.model_card, className)}>

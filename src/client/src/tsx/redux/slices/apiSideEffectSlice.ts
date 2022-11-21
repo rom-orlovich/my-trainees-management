@@ -33,10 +33,6 @@ export const apiSideEffectSlice = createSlice({
       state.goPrePageBehaviorState.goPrevPage = false;
     },
 
-    // Toggle the state of the model.
-    changeModelState: (state) => {
-      state.isModelOpen = !state.isModelOpen;
-    },
     // Toggle the state of the alert.
     changeAlertsState: (state) => {
       state.isAlertsOpen = !state.isAlertsOpen;
@@ -74,19 +70,12 @@ export const apiSideEffectSlice = createSlice({
           state.fetchAlerts = true;
         }
       ),
-  // .addMatcher(
-  //   (action: PayloadAction<Record<string, any> | undefined>) => true,
-  //   (state, action) => {
-  //     // // Enable fetch alerts.
-  //     console.log(action, state.goPrePageBehaviorState.goPrevPage);
-  //   }
-  // ),
 });
 export const {
   enableGoPrevPage,
   disableGoPrevPage,
   disableFetchAlerts,
-  changeModelState,
+
   changeAlertsState,
 } = apiSideEffectSlice.actions;
 
