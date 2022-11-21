@@ -20,7 +20,7 @@ export type TraineeProfileProps = PropsBasic & {
 };
 
 function TraineeProfile() {
-  const { isTrainee, traineeID, userData, userID } = useGetUserTraineeData();
+  const { isTrainee, traineeID, userID } = useGetUserTraineeData();
 
   const queryOptions = isTrainee
     ? { traineeID, userID }

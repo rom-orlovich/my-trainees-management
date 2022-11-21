@@ -15,15 +15,7 @@ const TraineesRoutes = () => (
       <Route index element={<TraineeEditForm />} />
 
       <Route path={APP_ROUTE.PROFILE_ROUTE} element={<TraineeProfile />} />
-      <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}>
-        {/* <Route
-          path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_ADD}
-          element={<SubscriptionPlansAddForm />}
-        /> */}
-        {/* <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_EDIT}>
-          <Route path=":id" element={<SubscriptionPlansEditForm />} />
-        </Route> */}
-      </Route>
+      <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}></Route>
     </Route>
 
     <Route path={APP_ROUTE.TRAINEES_ROUTE_ADD} element={<TraineeAddForm />} />

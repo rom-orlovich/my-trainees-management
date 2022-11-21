@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { trainingProgramsListApi } from "../../redux/api/hooksAPI";
@@ -13,7 +13,7 @@ import { getAuthState } from "../../redux/slices/authSlice";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 function TrainingProgramsPage() {
-  const { isTrainee, traineeID } = useGetUserTraineeData();
+  const { traineeID } = useGetUserTraineeData();
   const [trainingProgram, setTrainingProgram] = useState<string[]>(["", ""]);
   const authState = useAppSelector(getAuthState);
 
