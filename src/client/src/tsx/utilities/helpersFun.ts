@@ -10,6 +10,7 @@ export const uniqueObjArr = <T extends Record<string, any>>(
 ) => [...new Map(arr.map((item) => [item[key], item])).values()];
 export const capitalFirstLetter = (str: string) =>
   str[0].toUpperCase() + str.slice(1).toLowerCase();
+
 export const formatDate = (date: Date, plusDay = 1, timeStamp = false) => {
   const newDate = new Date(date);
 
@@ -26,9 +27,34 @@ export const checkIfStrIsValidDate = (value: string) => {
   if (value.split("-").length <= 2) return value;
   const parseDate = Date.parse(value);
   if (Number.isNaN(parseDate)) return value;
-
   return formatDate(new Date(parseDate));
 };
+
+export const newDate = (
+  date: Date,
+  add?: {
+    yPlus?: number;
+    mPlus?: number;
+    dPlus?: number;
+    hPlus?: number;
+    minPlus?: number;
+  }
+) => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minutes = date.getMinutes();
+
+  return new Date(
+    year + (add?.yPlus || 0),
+    month + (add?.mPlus || 0),
+    day + (add?.dPlus || 0),
+    hour + (add?.hPlus || 0),
+    minutes + (add?.minPlus || 0)
+  );
+};
+
 export const deleteFunMutation = <T extends MutationTrigger<any>>(
   id: string,
   deleteItem: T

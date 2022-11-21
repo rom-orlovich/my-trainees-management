@@ -117,6 +117,19 @@
       background-color: rgb(220, 227, 252);
     }
   }
+
+  .float_add_meeting_button {
+    @include heightWidth(3.5rem, 3.5rem);
+    border-radius: 50%;
+    background-color: white;
+    @include posAbs(null, null, 4%, 2%);
+    z-index: 75;
+    color: rgb(62, 108, 194);
+    cursor: pointer;
+    :hover {
+      color: rgb(80, 127, 212);
+    }
+  }
 }
 
 @include smartphone() {
@@ -206,6 +219,14 @@
           }
         }
       }
+    }
+    .float_add_meeting_button {
+      @include heightWidth(3.5rem, 3.5rem);
+      border-radius: 50%;
+      background-color: white;
+      @include posAbs(null, null, 4%, -10%);
+
+      cursor: pointer;
     }
   }
 }

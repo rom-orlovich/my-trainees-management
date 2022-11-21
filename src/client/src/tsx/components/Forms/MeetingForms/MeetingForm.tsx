@@ -22,7 +22,7 @@ import { openModel } from "../../../redux/slices/modelControllerSlice";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
-import { formatDate } from "../../../utilities/helpersFun";
+import { formatDate, newDate } from "../../../utilities/helpersFun";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
@@ -76,13 +76,13 @@ export function MeetingForm({
           resolver: yupResolver(meetingsSchema),
         }}
       >
-        {({ register, formState, control, watch, setValue, getValues }) => {
+        {({ register, formState, control, watch, setValue }) => {
           const { errors, touchedFields } = formState;
 
           const date_start = watch("date_start");
 
           useEffect(() => {
-            // This purpose of this check is for the user will be able to change the date_end of the meeting.
+            // The purpose of this check is for the user will be able to change the date_end of the meeting.
             if (
               (!defaultValues?.date_end && date_start) ||
               (touchedFields.date_start && defaultValues?.date_end)
@@ -92,11 +92,8 @@ export function MeetingForm({
               setValue(
                 "date_end",
                 formatDate(
-                  new Date(
-                    curStartDate.setTime(
-                      curStartDate.getTime() + 45 * 1000 * 60
-                    )
-                  ),
+                  newDate(curStartDate, { minPlus: 45 }),
+
                   0,
                   true
                 ) as any

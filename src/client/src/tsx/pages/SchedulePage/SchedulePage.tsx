@@ -21,7 +21,8 @@ import interactionPlugin, {
 import { useSearchParams } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 
-import { genClassName } from "../../utilities/helpersFun";
+import { BsFillPlusSquareFill } from "react-icons/bs";
+import { genClassName, newDate } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
 
 import { useAppDispatch } from "../../redux/hooks";
@@ -185,6 +186,22 @@ function SchedulePage() {
           handleWindowResize={true}
           longPressDelay={500}
         />
+        <BsFillPlusSquareFill
+          onClick={() => {
+            dispatch(changeModelAction);
+
+            setQueryParams({
+              dateStart: String(
+                newDate(new Date(), { dPlus: -1, minPlus: 0 }).getTime()
+              ),
+              dateEnd: String(
+                newDate(new Date(), { dPlus: 1, minPlus: 0 }).getTime()
+              ),
+              modelFormState: "add",
+            });
+          }}
+          className={style.float_add_meeting_button}
+        ></BsFillPlusSquareFill>
       </section>
     </>
   );
