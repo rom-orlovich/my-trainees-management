@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import ModelController from "./components/baseComponents/Model/ModelController";
 
 import Header from "./components/layoutComponents/Header/Header";
 
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <>
+      <ModelController />
       <Layout />
     </>
   );

@@ -9,7 +9,7 @@ import { genClassName } from "../../../utilities/helpersFun";
 import ModelMeetingDetails from "../ModelMeetingDetails/ModelMeetingDetails";
 import style from "./ModelMeeting.module.scss";
 
-function ModelMeeting() {
+function ModelMeetingContent() {
   const [queryParams, setQueryParams] = useSearchParams();
 
   const meetingID = Number(queryParams.get("meetingID"));
@@ -28,12 +28,10 @@ function ModelMeeting() {
     : ModelMeetingDetailsContent;
 
   return (
-    <ModelCard>
-      <div className={genClassName(style.meeting_model_container)}>
-        {modelContent}
-      </div>
-    </ModelCard>
+    <div className={genClassName(style.meeting_model_container)}>
+      {modelContent}
+    </div>
   );
 }
 
-export default ModelMeeting;
+export default ModelMeetingContent;

@@ -157,7 +157,6 @@ function SchedulePage() {
   };
   return (
     <>
-      <ModelMeetingContent />
       <section
         className={genClassName(page.page_container, style.schedule_page)}
       >
