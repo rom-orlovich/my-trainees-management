@@ -21,6 +21,7 @@ export function ParticipantsGroupsListForm({
     <>
       <Form<ParticipantsGroupsListTableAPI>
         buttonNext={!editMode}
+        modelMode={true}
         nameForm={"Participants Group"}
         onSubmit={onSubmit}
         pathMove={""}
@@ -62,6 +63,7 @@ export function ParticipantsGroupsListForm({
               </Checkbox>
               {editMode && (
                 <Link
+                  style={{ textDecoration: "none" }}
                   to={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${defaultValues?.participants_groups_list_id}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`}
                 >
                   Edit Participants Group

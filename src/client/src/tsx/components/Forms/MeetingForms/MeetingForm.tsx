@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import { useSearchParams } from "react-router-dom";
 
@@ -16,6 +17,7 @@ import {
   MeetingAPI,
   ParticipantsGroupsListTableAPI,
 } from "../../../redux/api/interfaceAPI";
+import { openModel } from "../../../redux/slices/modelControllerSlice";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
@@ -34,6 +36,7 @@ export function MeetingForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<MeetingAPI>) {
+  const dispatch = useDispatch();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   const [queryParams, setQueryParams] = useSearchParams();
@@ -159,8 +162,17 @@ export function MeetingForm({
                     id: "participants_groups_list_id",
                     keys: ["group_name"],
                     editOption: {
-                      link: (id) =>
-                        `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${id}`,
+                      // link: (id) =>
+                      //   `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${id}`,
+                      link: "",
+                      onClick(id) {
+                        dispatch(
+                          openModel({
+                            displayContent: "participantsGroupsListForm",
+                            curParam: id,
+                          })
+                        );
+                      },
                     },
                   }}
                 />

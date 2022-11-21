@@ -16,13 +16,7 @@ import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ParticipantsGroupsListForm } from "./ParticipantsGroupsListForm";
 
-export function ParticipantsGroupsListAddForm({
-  className,
-}: {
-  className?: string;
-}) {
-  const traineeID = Number(useParams().id);
-
+export function ParticipantsGroupsListAddForm({}: { className?: string }) {
   const navigate = useNavigate();
   const [addItem] = participantsGroupsListApi.useCreateOneItemMutation();
   const dispatch = useAppDispatch();

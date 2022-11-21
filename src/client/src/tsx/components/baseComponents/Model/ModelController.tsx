@@ -1,10 +1,19 @@
 import React from "react";
 import ModelMeetingContent from "../../../pages/SchedulePage/ModelMeetingContent/ModelMeetingContent";
+import { useAppSelector } from "../../../redux/hooks";
+
+import { getModelControllerState } from "../../../redux/slices/modelControllerSlice";
+import ModelParticipantsGroupListFormContent from "../../Forms/ParticipantsGroupsListForms/ModelParticipantsGroupListFormContent";
 import ModelCard from "./ModelCard";
 
 function ModelController() {
+  const modelControllerState = useAppSelector(getModelControllerState);
   let content = <></>;
-  if (true) content = <ModelMeetingContent />;
+  if (modelControllerState.lastModel === "meeting")
+    content = <ModelMeetingContent />;
+
+  if (modelControllerState.lastModel === "participantsGroupsListForm")
+    content = <ModelParticipantsGroupListFormContent />;
   return <ModelCard>{content}</ModelCard>;
 }
 

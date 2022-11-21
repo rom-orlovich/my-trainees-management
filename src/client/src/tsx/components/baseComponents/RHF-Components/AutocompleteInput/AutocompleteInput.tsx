@@ -30,6 +30,14 @@ import AutocompleteLi, {
   createStrFromValuesOfChosenKeys,
 } from "./AutocompleteLi";
 
+export interface AddOption {
+  link: string;
+  onClick?: () => void;
+}
+export interface EditOption {
+  link: string | ((id: any) => string);
+  onClick?: (id: any) => void;
+}
 export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   className?: string;
   RHFProps?: Partial<ControllerRenderProps<O, Path<O>>>;
@@ -39,13 +47,8 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   keys?: (keyof T)[];
   id: keyof T;
 
-  addOption?: {
-    link: string;
-    onClick?: () => void;
-  };
-  editOption?: {
-    link: string | ((id: any) => string);
-  };
+  addOption?: AddOption;
+  editOption?: EditOption;
   externalInputValueOnChange?: React.Dispatch<React.SetStateAction<string>>;
   useGetData: UseQuery<any>;
   setSelectOptionValue?: React.Dispatch<React.SetStateAction<string[]>>;
@@ -177,7 +180,7 @@ function AutocompleteInput<T extends Record<string, any>>({
           }}
         />
       )}
-      <span className={style.select_plus_button}>
+      <span onClick={addOption?.onClick} className={style.select_plus_button}>
         {addOption ? (
           <Link to={addOption.link}>{<AiOutlinePlusCircle />} </Link>
         ) : (

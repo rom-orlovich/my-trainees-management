@@ -39,6 +39,6 @@ const LOCAL_CONNECTION = {
 const configClient: ClientConfig =
   process.env.NODE_ENV === "production"
     ? RENDER_INTERNAL_CONNECTION
-    : RENDER_EXTERNAL_CONNECTION;
+    : LOCAL_CONNECTION;
 
 export const client = new Client(configClient);

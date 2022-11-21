@@ -7,12 +7,14 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ParticipantsGroupForm } from "./ParticipantsGroupForm";
 
-export function ParticipantsGroupEditForm() {
-  const id = Number(useParams().id);
+export function ParticipantsGroupEditForm({ id }: { id?: number }) {
+  // const id = Number(useParams().id);
+  const ID = Number(useParams().id);
+  // const ID = id || 0;
   const [updateItem, state] = participantsGroupApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     participantsGroupApi.useGetItemByIDQuery({
-      id,
+      id: ID,
       userID: useGetUserLoginData().user_id,
     });
 
@@ -23,7 +25,7 @@ export function ParticipantsGroupEditForm() {
   }: ParticipantsGroupTableAPI) =>
     updateFunction({
       updateItem,
-      id,
+      id: ID,
     })(body);
 
   return (

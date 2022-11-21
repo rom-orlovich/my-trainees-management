@@ -79,6 +79,9 @@ async function connectDB() {
     await client.connect();
     client.on("error", (err) => {
       logger.error("something bad has happened!", err.stack, __filename);
+      client.end(() => {
+        logger.error("close PostgreSQL client connection");
+      });
     });
 
     logger.log("info", `Connected pgSQL server.`, { __filename });

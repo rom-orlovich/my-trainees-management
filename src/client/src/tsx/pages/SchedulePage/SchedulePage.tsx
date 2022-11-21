@@ -31,7 +31,7 @@ import { meetingApi } from "../../redux/api/hooksAPI";
 
 import { MeetingAPI } from "../../redux/api/interfaceAPI";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
-import { changeModelState } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlice";
 
 const isDesktopWidth = window.innerWidth > 500;
 
@@ -71,7 +71,7 @@ function SchedulePage() {
     end: el.date_end,
   }));
 
-  const changeModelAction = changeModelState("meeting");
+  const changeModelAction = openModel({ displayContent: "meeting" });
   const handleEventContent = (event: EventContentArg) => (
     <div className={style.event_container}>
       {!isTrainee && <AiFillDelete className={style.deleteIcon} />}

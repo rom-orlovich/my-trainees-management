@@ -18,6 +18,7 @@ import {
   getFormsState,
   saveFormState,
 } from "../../../../redux/slices/formValuesStateSlice";
+import { preModel } from "../../../../redux/slices/modelControllerSlice";
 
 import { FormProps } from "../../baseComponentsTypes";
 import style from "./Form.module.scss";
@@ -36,6 +37,7 @@ export type FormRHFProps<TFormValues extends FieldValues> = {
   saveState?: boolean;
   isLoginMode?: boolean;
   customButtonText?: string;
+  modelMode?: boolean;
 };
 
 export default function Form<TFormValues extends Record<string, any>>({
@@ -51,6 +53,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   formWithOneButton,
   customButtonText,
   isLoginMode,
+  modelMode,
   saveState = true,
 }: FormRHFProps<TFormValues>) {
   // const [disabled, setDisabled] = useState(true);
@@ -132,7 +135,15 @@ export default function Form<TFormValues extends Record<string, any>>({
     </div>
   ) : (
     <div className={style.buttons_container_two_buttons}>
-      <Link to={-1 as any}>Back</Link>
+      <Link
+        onClick={(e) => {
+          e.preventDefault();
+          dispatch(preModel());
+        }}
+        to={-1 as any}
+      >
+        Back
+      </Link>
       <button type="submit" disabled={!methods.formState.isValid}>
         {buttonNext ? "Next" : editModeText}
       </button>
