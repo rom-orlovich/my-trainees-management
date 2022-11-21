@@ -17,6 +17,7 @@ import {
   MeetingAPI,
   ParticipantsGroupsListTableAPI,
 } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
 import { openModel } from "../../../redux/slices/modelControllerSlice";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
@@ -36,7 +37,7 @@ export function MeetingForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<MeetingAPI>) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   const [queryParams, setQueryParams] = useSearchParams();
@@ -155,7 +156,6 @@ export function MeetingForm({
                       InputProps: { placeholder: "Search Groups" },
                     },
                     addOption: {
-                      // link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE_ADD}`,
                       onClick() {
                         dispatch(
                           openModel({
@@ -169,8 +169,6 @@ export function MeetingForm({
                     id: "participants_groups_list_id",
                     keys: ["group_name"],
                     editOption: {
-                      // link: (id) =>
-                      //   `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${id}`,
                       link: "",
                       onClick(id) {
                         dispatch(
@@ -198,7 +196,6 @@ export function MeetingForm({
                       InputProps: { placeholder: "Search Activities" },
                     },
                     addOption: {
-                      // link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE_ADD}`,
                       onClick() {
                         dispatch(
                           openModel({
@@ -208,8 +205,6 @@ export function MeetingForm({
                       },
                     },
                     editOption: {
-                      // link: (id) =>
-                      //   `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE}/${id}`,
                       onClick(id) {
                         dispatch(
                           openModel({
@@ -235,12 +230,25 @@ export function MeetingForm({
                       LabelProps: { labelText: "Locations" },
                       InputProps: { placeholder: "Search Location" },
                     },
+
                     addOption: {
-                      link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.LOCATION_ROUTE}/${APP_ROUTE.LOCATION_ROUTE_ADD}`,
+                      onClick() {
+                        dispatch(
+                          openModel({
+                            displayContent: "locationForm",
+                          })
+                        );
+                      },
                     },
                     editOption: {
-                      link: (id) =>
-                        `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.LOCATION_ROUTE}/${id}`,
+                      onClick(id) {
+                        dispatch(
+                          openModel({
+                            displayContent: "locationForm",
+                            curParam: id,
+                          })
+                        );
+                      },
                     },
                     loadingSpinnerResult: { nameData: "Locations" },
                     useGetData: locationsApi.useGetItemsQuery,

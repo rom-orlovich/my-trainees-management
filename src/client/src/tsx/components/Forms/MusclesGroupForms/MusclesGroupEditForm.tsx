@@ -5,8 +5,7 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { MusclesGroupForm } from "./MusclesGroupForm";
 
-export function MusclesGroupEditForm() {
-  const id = Number(useParams().id);
+export function MusclesGroupEditForm({ id }: { id: number }) {
   const [updateItem] = musclesGroupApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     musclesGroupApi.useGetItemByIDQuery({ id });
@@ -28,7 +27,7 @@ export function MusclesGroupEditForm() {
             editMode={true}
             onSubmit={handleSubmit}
             defaultValues={data}
-          ></MusclesGroupForm>
+          />
         )}
       </LoadingSpinner>
     </>

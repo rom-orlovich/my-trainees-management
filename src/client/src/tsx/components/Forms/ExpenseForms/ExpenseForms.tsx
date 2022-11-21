@@ -2,25 +2,25 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
-import {
-  expensesSchema,
-  incomesSchema,
-} from "../../baseComponents/RHF-Components/formsSchemas";
+import { expensesSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import { ExpensesTableAPI, ProductAPI } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
-import { productsApi, traineesApi } from "../../../redux/api/hooksAPI";
+
+import { productsApi } from "../../../redux/api/hooksAPI";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import { useAppDispatch } from "../../../redux/hooks";
+import { openModel } from "../../../redux/slices/modelControllerSlice";
 
 export function ExpenseForms({
   onSubmit,
   defaultValues,
   editMode,
 }: GeneralFormProps<ExpensesTableAPI>) {
+  const dispatch = useAppDispatch();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
@@ -84,11 +84,23 @@ export function ExpenseForms({
                   InputProps: { placeholder: "Search Products" },
                 },
                 addOption: {
-                  link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PRODUCTS_ROUTE}/${APP_ROUTE.PRODUCTS_ADD}`,
+                  onClick() {
+                    dispatch(
+                      openModel({
+                        displayContent: "productForm",
+                      })
+                    );
+                  },
                 },
                 editOption: {
-                  link: (productID) =>
-                    `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PRODUCTS_ROUTE}/${productID}`,
+                  onClick(id) {
+                    dispatch(
+                      openModel({
+                        displayContent: "productForm",
+                        curParam: id,
+                      })
+                    );
+                  },
                 },
                 loadingSpinnerResult: { nameData: "Products" },
                 useGetData: productsApi.useGetItemsQuery,

@@ -23,6 +23,8 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { SelectInput } from "../../baseComponents/RHF-Components/SelectInput/SelectInput";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import { locationsApi } from "../../../redux/api/hooksAPI";
+import { useAppDispatch } from "../../../redux/hooks";
+import { openModel } from "../../../redux/slices/modelControllerSlice";
 
 const today = new Date();
 export function LeadForm({
@@ -30,6 +32,7 @@ export function LeadForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<LeadsTableAPI>) {
+  const dispatch = useAppDispatch();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
@@ -126,7 +129,23 @@ export function LeadForm({
                   InputProps: { placeholder: "Search Location" },
                 },
                 addOption: {
-                  link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.LOCATION_ROUTE}/${APP_ROUTE.LOCATION_ROUTE_ADD}`,
+                  onClick() {
+                    dispatch(
+                      openModel({
+                        displayContent: "locationForm",
+                      })
+                    );
+                  },
+                },
+                editOption: {
+                  onClick(id) {
+                    dispatch(
+                      openModel({
+                        displayContent: "locationForm",
+                        curParam: id,
+                      })
+                    );
+                  },
                 },
                 loadingSpinnerResult: { nameData: "Locations" },
                 useGetData: locationsApi.useGetItemsQuery,

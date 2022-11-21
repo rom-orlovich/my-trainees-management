@@ -7,8 +7,9 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { LocationForm } from "./LocationForms";
 
-export function LocationEditForm() {
-  const id = Number(useParams().id);
+export function LocationEditForm({ id }: { id: number }) {
+  // const id = Number(useParams().id);
+
   const [updateItem, state] = locationsApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     locationsApi.useGetItemByIDQuery({
@@ -32,7 +33,7 @@ export function LocationEditForm() {
           editMode={true}
           onSubmit={handleSubmit}
           defaultValues={rest}
-        ></LocationForm>
+        />
       )}
     </LoadingSpinner>
   );

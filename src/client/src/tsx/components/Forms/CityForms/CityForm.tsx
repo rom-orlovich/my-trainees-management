@@ -18,6 +18,7 @@ export function CityForm({
     <Form<CitiesTableAPI>
       nameForm="City"
       editMode={editMode}
+      modelMode
       onSubmit={onSubmit}
       formOptions={{
         mode: "onChange",

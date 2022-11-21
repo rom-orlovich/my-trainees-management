@@ -6,8 +6,7 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { EquipmentForm } from "./EquipmentForm";
 
-export function EquipmentEditForm() {
-  const id = Number(useParams().id);
+export function EquipmentEditForm({ id }: { id: number }) {
   const [updateItem, state] = equipmentsApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     equipmentsApi.useGetItemByIDQuery({ id });

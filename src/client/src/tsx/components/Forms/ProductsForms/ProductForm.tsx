@@ -21,6 +21,7 @@ export function ProductForm({
   const firstRender = useRef(true);
   return (
     <Form<ProductAPI>
+      modelMode
       editMode={editMode}
       onSubmit={onSubmit}
       nameForm="Product"

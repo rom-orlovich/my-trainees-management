@@ -9,9 +9,7 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ProductForm } from "./ProductForm";
 
-function ProductEditForm() {
-  const id = Number(useParams().id);
-
+function ProductEditForm({ id }: { id: number }) {
   const [updateItem] = productsApi.useUpdateItemMutation();
   const { data, isFetching, isError, isLoading } =
     productsApi.useGetItemByIDQuery({

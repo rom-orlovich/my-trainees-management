@@ -7,6 +7,8 @@ import {
   ExercisesTableAPI,
   TrainingProgramExerciseOmit,
 } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
+import { openModel } from "../../../redux/slices/modelControllerSlice";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { formatDate } from "../../../utilities/helpersFun";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -22,6 +24,7 @@ export default function TrainingProgramForms({
   editMode,
   fromProps,
 }: GeneralFormProps<TrainingProgramExerciseOmit>) {
+  const dispatch = useAppDispatch();
   const { trainerUserID, userID, isTrainee } = useGetUserTraineeData();
   const queriesOptions = isTrainee ? { trainerUserID, userID } : { userID };
   return (
@@ -88,8 +91,27 @@ export default function TrainingProgramForms({
                     LabelProps: { labelText: "Exercise" },
                     InputProps: { placeholder: "Search Exercise" },
                   },
+                  // addOption: {
+                  //   link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.EXERCISES_LIST_ROUTE}/${APP_ROUTE.EXERCISE_ADD}`,
+                  // },
                   addOption: {
-                    link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.EXERCISES_LIST_ROUTE}/${APP_ROUTE.EXERCISE_ADD}`,
+                    onClick() {
+                      dispatch(
+                        openModel({
+                          displayContent: "exerciseForm",
+                        })
+                      );
+                    },
+                  },
+                  editOption: {
+                    onClick(id) {
+                      dispatch(
+                        openModel({
+                          displayContent: "exerciseForm",
+                          curParam: id,
+                        })
+                      );
+                    },
                   },
                   loadingSpinnerResult: { nameData: "Exercise" },
                   useGetData: exercisesApi.useGetItemsQuery,

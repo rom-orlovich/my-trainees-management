@@ -21,6 +21,8 @@ import AutocompleteInputRHF from "../../baseComponents/RHF-Components/Autocomple
 import { OmitKey } from "../../../types";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import { useAppDispatch } from "../../../redux/hooks";
+import { openModel } from "../../../redux/slices/modelControllerSlice";
 
 export function TraineeForm({
   fromProps,
@@ -33,6 +35,8 @@ export function TraineeForm({
   heading?: string;
   formWithOneButton?: boolean;
 }) {
+  const dispatch = useAppDispatch();
+
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
@@ -155,7 +159,23 @@ export function TraineeForm({
                   InputProps: { placeholder: "Search Location" },
                 },
                 addOption: {
-                  link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.LOCATION_ROUTE}/${APP_ROUTE.LOCATION_ROUTE_ADD}`,
+                  onClick() {
+                    dispatch(
+                      openModel({
+                        displayContent: "locationForm",
+                      })
+                    );
+                  },
+                },
+                editOption: {
+                  onClick(id) {
+                    dispatch(
+                      openModel({
+                        displayContent: "locationForm",
+                        curParam: id,
+                      })
+                    );
+                  },
                 },
                 loadingSpinnerResult: { nameData: "Locations" },
                 useGetData: locationsApi.useGetItemsQuery,

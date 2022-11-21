@@ -20,6 +20,7 @@ export function EquipmentForm({
       <Form<EquipmentsTableAPI>
         onSubmit={onSubmit}
         nameForm="Equipment"
+        modelMode
         editMode={editMode}
         formOptions={{
           mode: "onChange",

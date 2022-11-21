@@ -18,7 +18,8 @@ function Model(props: PropsBasic) {
   }, [location.pathname]);
   const modelControllerSlice = useAppSelector(getModelControllerState);
 
-  return modelControllerSlice.isModelOpen ? (
+  return modelControllerSlice.isModelOpen &&
+    modelControllerSlice.displayContent.length ? (
     createPortal(props.children, modelWarper)
   ) : (
     <></>

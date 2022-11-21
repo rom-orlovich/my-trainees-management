@@ -7,8 +7,7 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ExerciseForm } from "./ExerciseForm";
 
-export function ExerciseEditForm() {
-  const id = Number(useParams().id);
+export function ExerciseEditForm({ id }: { id: number }) {
   const [updateItem, state] = exercisesApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };

@@ -8,6 +8,8 @@ import {
   ExercisesTableAPI,
   MusclesGroupTableAPI,
 } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
+import { openModel } from "../../../redux/slices/modelControllerSlice";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -24,7 +26,7 @@ export function ExerciseForm({
   fromProps,
 }: GeneralFormProps<ExercisesTableAPI>) {
   const authState = useGetUserLoginData();
-
+  const dispatch = useAppDispatch();
   const queriesOptions = { userID: authState.user_id };
   return (
     <>
@@ -74,7 +76,23 @@ export function ExerciseForm({
                     InputProps: { placeholder: "Search Equipment" },
                   },
                   addOption: {
-                    link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.EQUIPMENTS_LIST_ROUTE}/${APP_ROUTE.EQUIPMENT_ADD}`,
+                    onClick() {
+                      dispatch(
+                        openModel({
+                          displayContent: "equipmentForm",
+                        })
+                      );
+                    },
+                  },
+                  editOption: {
+                    onClick(id) {
+                      dispatch(
+                        openModel({
+                          displayContent: "equipmentForm",
+                          curParam: id,
+                        })
+                      );
+                    },
                   },
                   loadingSpinnerResult: { nameData: "Equipment" },
                   useGetData: equipmentsApi.useGetItemsQuery,

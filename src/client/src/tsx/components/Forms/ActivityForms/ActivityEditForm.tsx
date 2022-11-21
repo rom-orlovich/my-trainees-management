@@ -6,19 +6,19 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ActivityForm } from "./ActivityForm";
 
-export function ActivityEditForm({ id }: { id?: number }) {
+export function ActivityEditForm({ id }: { id: number }) {
   // const id = Number(useParams().id);
-  const ID = id || 0;
+
   const [updateItem] = activitiesApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   const { data, isLoading, isFetching, isError } =
-    activitiesApi.useGetItemByIDQuery({ id: ID, ...queriesOptions });
+    activitiesApi.useGetItemByIDQuery({ id, ...queriesOptions });
 
   const handleSubmit = (body: ActivitiesTableAPI) =>
     updateFunction({
       updateItem,
-      id: ID,
+      id,
     })(body);
 
   return (

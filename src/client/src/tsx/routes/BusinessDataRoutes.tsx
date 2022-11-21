@@ -33,70 +33,70 @@ import { APP_ROUTE } from "./appRoutesConstants";
 const BusinessDataRoutes = () => (
   <Routes>
     <Route path={APP_ROUTE.EXERCISES_LIST_ROUTE} element={<ExercisesPage />}>
-      <Route
+      {/* <Route
         path={APP_ROUTE.EXERCISE_ADD}
         element={<ExerciseAddForm />}
-      ></Route>
-      <Route path=":id" element={<ExerciseEditForm />}></Route>
+      ></Route> */}
+      {/* <Route path=":id" element={<ExerciseEditForm />}></Route> */}
     </Route>
 
     <Route
       path={APP_ROUTE.EQUIPMENTS_LIST_ROUTE}
       element={<EquipmentsListPage />}
     >
-      <Route
+      {/* <Route
         path={APP_ROUTE.EQUIPMENT_ADD}
         element={<EquipmentAddForm />}
       ></Route>
-      <Route path=":id" element={<EquipmentEditForm />}></Route>
+      <Route path=":id" element={<EquipmentEditForm />}></Route> */}
     </Route>
 
     <Route
       path={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}
       element={<MusclesGroupPage />}
     >
-      <Route
+      {/* <Route
         path={APP_ROUTE.MUSCLES_GROUP_ADD}
         element={<MusclesGroupAddForm />}
       />
-      <Route path=":id" element={<MusclesGroupEditForm />}></Route>
+      <Route path=":id" element={<MusclesGroupEditForm />}></Route> */}
     </Route>
 
     <Route path={APP_ROUTE.LOCATION_ROUTE} element={<LocationsListPage />}>
-      <Route
+      {/* <Route
         path={APP_ROUTE.LOCATION_ROUTE_ADD}
         element={<LocationAddForm />}
       />
-      <Route path=":id" element={<LocationEditForm />} />
+      <Route path=":id" element={<LocationEditForm />} /> */}
     </Route>
 
     <Route path={APP_ROUTE.CITY_ROUTE} element={<CitiesPage />}>
-      <Route path={APP_ROUTE.CITY_ROUTE_ADD} element={<CityAddForm />} />
-      <Route path=":id" element={<CityEditForm />} />
+      {/* <Route path={APP_ROUTE.CITY_ROUTE_ADD} element={<CityAddForm />} />
+      <Route path=":id" element={<CityEditForm />} /> */}
     </Route>
 
     <Route path={APP_ROUTE.PRODUCTS_ROUTE} element={<ProductsPage />}>
-      <Route path={APP_ROUTE.PRODUCTS_ADD} element={<ProductAddForm />} />
-      <Route path=":id" element={<ProductEditForm />} />
+      {/* <Route path={APP_ROUTE.PRODUCTS_ADD} element={<ProductAddForm />} />
+      <Route path=":id" element={<ProductEditForm />} /> */}
     </Route>
 
     <Route path={APP_ROUTE.ACTIVITIES_ROUTE} element={<ActivitiesPage />}>
-      <Route
+      {/* <Route
         path={APP_ROUTE.ACTIVITIES_ROUTE_ADD}
         element={<ActivityAddForm />}
       />
-      <Route path=":id" element={<ActivityEditForm />} />
+      <Route path=":id" element={<ActivityEditForm />} /> */}
     </Route>
 
     <Route
       path={APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}
       element={<ParticipantsGroupsListPage />}
     >
-      <Route
+      {/* <Route
         path={APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE_ADD}
         element={<ParticipantsGroupsListAddForm />}
       />
-      <Route path=":id" element={<ParticipantsGroupsListEditForm />} />
+      <Route path=":id" element={<ParticipantsGroupsListEditForm />} /> */}
       <Route
         path={`:id/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`}
         element={<ParticipantsGroupPage />}

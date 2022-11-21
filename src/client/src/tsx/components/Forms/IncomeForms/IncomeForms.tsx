@@ -16,12 +16,15 @@ import AutocompleteInputRHF from "../../baseComponents/RHF-Components/Autocomple
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { productsApi, traineesApi } from "../../../redux/api/hooksAPI";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import { useAppDispatch } from "../../../redux/hooks";
+import { openModel } from "../../../redux/slices/modelControllerSlice";
 
 export function IncomeForms({
   onSubmit,
   defaultValues,
   editMode,
 }: GeneralFormProps<IncomesTableAPI>) {
+  const dispatch = useAppDispatch();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
@@ -83,6 +86,9 @@ export function IncomeForms({
                 addOption: {
                   link: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
                 },
+                editOption: {
+                  link: (id) => `/${APP_ROUTE.TRAINEES_ROUTE}/${id}`,
+                },
                 loadingSpinnerResult: { nameData: "Trainees" },
                 useGetData: traineesApi.useGetItemsQuery,
                 id: "trainee_id",
@@ -103,12 +109,25 @@ export function IncomeForms({
                   InputProps: { placeholder: "Search Products" },
                 },
                 addOption: {
-                  link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PRODUCTS_ROUTE}/${APP_ROUTE.PRODUCTS_ADD}`,
+                  onClick() {
+                    dispatch(
+                      openModel({
+                        displayContent: "productForm",
+                      })
+                    );
+                  },
                 },
                 editOption: {
-                  link: (productID) =>
-                    `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PRODUCTS_ROUTE}/${productID}`,
+                  onClick(id) {
+                    dispatch(
+                      openModel({
+                        displayContent: "productForm",
+                        curParam: id,
+                      })
+                    );
+                  },
                 },
+
                 loadingSpinnerResult: { nameData: "Products" },
                 useGetData: productsApi.useGetItemsQuery,
                 id: "product_id",

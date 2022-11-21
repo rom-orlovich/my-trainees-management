@@ -89,15 +89,16 @@ export default function Form<TFormValues extends Record<string, any>>({
   // and the component will unmount.
   useEffect(
     () => () => {
-      if (saveState)
-        if (!editMode) {
-          dispatch(
-            saveFormState({
-              url: location.pathname,
-              values: methods.getValues(),
-            })
-          );
-        }
+      if (!modelMode)
+        if (saveState)
+          if (!editMode) {
+            dispatch(
+              saveFormState({
+                url: location.pathname,
+                values: methods.getValues(),
+              })
+            );
+          }
     },
     [location.pathname, location, dispatch, methods, editMode]
   );

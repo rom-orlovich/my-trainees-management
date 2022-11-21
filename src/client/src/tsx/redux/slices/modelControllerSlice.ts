@@ -6,7 +6,13 @@ import { RootState } from "../store";
 export type ModelDisplayContentOptions =
   | "meeting"
   | "participantsGroupsListForm"
-  | "activityForm";
+  | "activityForm"
+  | "locationForm"
+  | "cityForm"
+  | "productForm"
+  | "exerciseForm"
+  | "equipmentForm"
+  | "muscleGroupForm";
 export interface ModelControllerState {
   displayContent: ModelDisplayContentOptions[];
   isModelOpen: boolean;

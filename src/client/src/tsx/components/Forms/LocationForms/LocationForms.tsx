@@ -6,8 +6,9 @@ import {
   CitiesTableAPI,
   LocationsTableAPI,
 } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
+import { openModel } from "../../../redux/slices/modelControllerSlice";
 
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
@@ -22,9 +23,11 @@ export function LocationForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<LocationsTableAPI>) {
+  const dispatch = useAppDispatch();
   return (
     <Form<LocationsTableAPI>
       nameForm="Location"
+      modelMode={true}
       onSubmit={onSubmit}
       formProps={{ className: style.form_locations }}
       editMode={editMode}
@@ -60,8 +63,25 @@ export function LocationForm({
                   LabelProps: { labelText: "City Name" },
                   InputProps: { placeholder: "Search City" },
                 },
+
                 addOption: {
-                  link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.CITY_ROUTE}/${APP_ROUTE.CITY_ROUTE_ADD}`,
+                  onClick() {
+                    dispatch(
+                      openModel({
+                        displayContent: "cityForm",
+                      })
+                    );
+                  },
+                },
+                editOption: {
+                  onClick(id) {
+                    dispatch(
+                      openModel({
+                        displayContent: "cityForm",
+                        curParam: id,
+                      })
+                    );
+                  },
                 },
                 loadingSpinnerResult: { nameData: "City" },
                 useGetData: citiesApi.useGetItemsQuery,
