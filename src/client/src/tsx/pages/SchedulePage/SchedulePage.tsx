@@ -27,7 +27,7 @@ import page from "../Page.module.scss";
 import { changeModelState } from "../../redux/slices/apiSideEffectSlice";
 import { useAppDispatch } from "../../redux/hooks";
 
-import ModelNewMeeting from "./ModelNewMeeting/ModelMeeting";
+import ModelMeetingContent from "./ModelMeetingContent/ModelMeetingContent";
 
 import style from "./SchedulePage.module.scss";
 import { meetingApi } from "../../redux/api/hooksAPI";
@@ -157,7 +157,7 @@ function SchedulePage() {
   };
   return (
     <>
-      <ModelNewMeeting />
+      <ModelMeetingContent />
       <section
         className={genClassName(page.page_container, style.schedule_page)}
       >

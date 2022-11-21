@@ -3,6 +3,7 @@
 .meeting_model_container {
   padding: 0.8rem;
   border-radius: 10px;
+  @include flex-dir(center, null);
   @include classMatcher("Form_form_container") {
     form {
       width: 95%;

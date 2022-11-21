@@ -28,8 +28,10 @@ function ModelMeeting() {
     : ModelMeetingDetailsContent;
 
   return (
-    <ModelCard className={genClassName(style.meeting_model_container)}>
-      {modelContent}
+    <ModelCard>
+      <div className={genClassName(style.meeting_model_container)}>
+        {modelContent}
+      </div>
     </ModelCard>
   );
 }
