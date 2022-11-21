@@ -36,7 +36,7 @@ import IncomeEditForm from "../components/Forms/IncomeForms/IncomeEditForm";
 import ExpenseEditForm from "../components/Forms/ExpenseForms/ExpenseEditForm";
 import { ExpenseAddForm } from "../components/Forms/ExpenseForms/ExpenseAddForm";
 import SchedulePage from "../pages/SchedulePage/SchedulePage";
-import ParticipantsGroupPage from "../pages/ParticipantsGroupPage /ParticipantsGroupPage";
+import ParticipantsGroupPage from "../pages/ParticipantsGroupPage/ParticipantsGroupPage";
 import TraineeStatsPage from "../pages/StatsPages/TraineeStatsPage/TraineeStatsPage";
 import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 import LeadsStatsPage from "../pages/StatsPages/LeadsStatsPage/LeadsStatsPage";

@@ -1,23 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { ActivityAddForm } from "../components/Forms/ActivityForms/ActivityAddForm";
-import { ActivityEditForm } from "../components/Forms/ActivityForms/ActivityEditForm";
-import { CityAddForm } from "../components/Forms/CityForms/CityAddForm";
-import { CityEditForm } from "../components/Forms/CityForms/CityEditForm";
-import { EquipmentAddForm } from "../components/Forms/EquipmentForms/EquipmentAddForm";
-import { EquipmentEditForm } from "../components/Forms/EquipmentForms/EquipmentEditForm";
-import { ExerciseAddForm } from "../components/Forms/ExerciseForms/ExerciseAddForm";
-import { ExerciseEditForm } from "../components/Forms/ExerciseForms/ExerciseEditForm";
-import { LocationAddForm } from "../components/Forms/LocationForms/LocationAddForm";
-import { LocationEditForm } from "../components/Forms/LocationForms/LocationEditForm";
-import { MusclesGroupAddForm } from "../components/Forms/MusclesGroupForms/MusclesGroupAddForm";
-import { MusclesGroupEditForm } from "../components/Forms/MusclesGroupForms/MusclesGroupEditForm";
-import { ParticipantsGroupAddForm } from "../components/Forms/ParticipantsGroupForm/ParticipantsGroupAddForm";
-import { ParticipantsGroupEditForm } from "../components/Forms/ParticipantsGroupForm/ParticipantsGroupEditForm";
-import { ParticipantsGroupsListAddForm } from "../components/Forms/ParticipantsGroupsListForms/ParticipantsGroupsListAddForm";
-import { ParticipantsGroupsListEditForm } from "../components/Forms/ParticipantsGroupsListForms/ParticipantsGroupsListEditForm.tsx";
-import { ProductAddForm } from "../components/Forms/ProductsForms/ProductAddForm";
-import ProductEditForm from "../components/Forms/ProductsForms/ProductEditForm";
+
 import ActivitiesPage from "../pages/ActivitiesPage/ActivitiesPage";
 
 import CitiesPage from "../pages/CitiesPage/CitiesPage";
@@ -25,7 +8,8 @@ import EquipmentsListPage from "../pages/EquipmentsListPage/EquipmentsListPage";
 import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
 import LocationsListPage from "../pages/LocationsPage/LocationsPage";
 import MusclesGroupPage from "../pages/MusclesGroupPage/MusclesGroupPage";
-import ParticipantsGroupPage from "../pages/ParticipantsGroupPage /ParticipantsGroupPage";
+import ParticipantsGroupPage from "../pages/ParticipantsGroupPage/ParticipantsGroupPage";
+
 import ParticipantsGroupsListPage from "../pages/ParticipantsGroupsListPage/ParticipantsGroupsListPage";
 import ProductsPage from "../pages/ProductsPage/ProductsPage";
 import { APP_ROUTE } from "./appRoutesConstants";
@@ -101,11 +85,11 @@ const BusinessDataRoutes = () => (
         path={`:id/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`}
         element={<ParticipantsGroupPage />}
       >
-        <Route
+        {/* <Route
           path={APP_ROUTE.PARTICIPANTS_GROUP_ROUTE_ADD}
           element={<ParticipantsGroupAddForm />}
         />
-        <Route path=":id" element={<ParticipantsGroupEditForm />} />
+        <Route path=":id" element={<ParticipantsGroupEditForm />} /> */}
       </Route>
     </Route>
   </Routes>

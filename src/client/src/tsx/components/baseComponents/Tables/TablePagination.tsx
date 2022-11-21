@@ -23,12 +23,14 @@ export function TablePagination<T extends Record<string, any>>({
   editPagePath,
   queriesOptions,
   actions,
+  openEditModel,
 }: {
   nameData: string;
   getAllQuery: UseQuery<any>;
   queriesOptions?: Record<string, any>;
   transformFun?: (arg: T) => any;
   editPagePath?: string;
+  openEditModel?: (id: any) => void;
 } & OmitKey<TableProps<T>, "dataArr">) {
   const { ButtonLeft, ButtonRight, numPage, setNumPage } =
     usePaginationButtons();
@@ -73,6 +75,7 @@ export function TablePagination<T extends Record<string, any>>({
                 dataArr={transformData.data}
                 deleteItemFun={deleteItemFun}
                 actions={actions}
+                openEditModel={openEditModel}
               />
             </div>
             <div className={style.buttons_container}>

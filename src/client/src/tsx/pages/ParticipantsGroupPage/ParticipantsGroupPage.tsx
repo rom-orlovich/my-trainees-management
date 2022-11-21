@@ -12,8 +12,11 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import ParticipantsGroupTable from "./ParticipantsGroupTable";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import { useAppDispatch } from "../../redux/hooks";
+import { openModel } from "../../redux/slices/modelControllerSlice";
 
 function ParticipantsGroupPage() {
+  const dispatch = useAppDispatch();
   const { user_id } = useGetUserLoginData();
   const participantsGroupsListID = String(useParams().id);
   const [participantsGroup, setParticipantsGroups] = useState<string[]>([
@@ -24,11 +27,6 @@ function ParticipantsGroupPage() {
   const queriesOptions = {
     userID: user_id,
     participantsGroupsListID,
-    // programType: trainingProgram[1],
-    // trainerUserID: authState.user?.user_id,
-
-    // orderBy: "updateDate",
-    // asc: "false",
   };
 
   return (
@@ -47,18 +45,24 @@ function ParticipantsGroupPage() {
             InputLabelProps={{
               InputProps: { placeholder: "Participant" },
               LabelProps: {
-                labelText: "Search Participants",
+                labelText: "Search Participant",
                 htmlFor: "searchParticipant",
               },
             }}
           />
 
           <span>
-            {
-              <Link to={`${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE_ADD}`}>
-                Add Participants
-              </Link>
-            }
+            {/* <Link to={`${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE_ADD}`}>
+            Add Participant 
+            </Link> */}
+            <Link
+              onClick={() => {
+                dispatch(openModel({ displayContent: "participantForm" }));
+              }}
+              to={``}
+            >
+              Add Participant
+            </Link>
           </span>
         </div>
         <div className={style.page_main_content}>

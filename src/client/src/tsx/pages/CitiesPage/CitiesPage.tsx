@@ -11,8 +11,11 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "../Page.module.scss";
 import CitiesTable from "./CitiesTable";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
+import { useAppDispatch } from "../../redux/hooks";
+import { openModel } from "../../redux/slices/modelControllerSlice";
 
 function CitiesPage() {
+  const dispatch = useAppDispatch();
   const [city, setCity] = useState<string[]>(["", ""]);
   const authState = useGetUserLoginData();
   const queriesOptions = {
@@ -39,11 +42,19 @@ function CitiesPage() {
           />
 
           <span>
-            <Link to={`${APP_ROUTE.CITY_ROUTE_ADD}`}>Add City</Link>
+            {/* <Link to={`${APP_ROUTE.CITY_ROUTE_ADD}`}>Add City</Link> */}
+            <Link
+              onClick={() => {
+                dispatch(openModel({ displayContent: "cityForm" }));
+              }}
+              to={``}
+            >
+              Add City
+            </Link>
           </span>
         </div>
         <div className={style.page_main_content}>
-          <CitiesTable mainName={city[1]} />
+          <CitiesTable mainName={city[1]} queriesOptions={queriesOptions} />
         </div>
       </section>
     </InsteadOutletRoutes>

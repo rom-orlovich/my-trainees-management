@@ -2,7 +2,7 @@
 .model_form_container {
   padding: 0.8rem;
   border-radius: 10px;
-
+  width: 100%;
   @include classMatcher("Form_form_container") {
     width: 100%;
     h2 {

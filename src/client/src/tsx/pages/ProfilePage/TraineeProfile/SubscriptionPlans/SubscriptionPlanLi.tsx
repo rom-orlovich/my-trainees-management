@@ -2,6 +2,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { SubscriptionPlansAPI } from "../../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { openModel } from "../../../../redux/slices/modelControllerSlice";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 import { formatDate } from "../../../../utilities/helpersFun";
 import listProfileStyle from "../../ListProfile/ListProfile.module.scss";
@@ -14,15 +16,31 @@ function SubscriptionPlanLi({
   subscription_plan_id,
   trainee_id,
 }: SubscriptionPlansAPI) {
+  const dispatch = useAppDispatch();
   return (
     <li className={listProfileStyle.list_li}>
       <span className={listProfileStyle.list_detail}>
         <span>Plan</span>
         <Link
-          to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_EDIT}/${subscription_plan_id}`}
+          onClick={(e) => {
+            e.preventDefault();
+            dispatch(
+              openModel({
+                displayContent: "subscriptionPlansForm",
+                curParam: subscription_plan_id,
+              })
+            );
+          }}
+          to={``}
         >
           {product_name || ""}
         </Link>
+
+        {/* <Link
+          to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_EDIT}/${subscription_plan_id}`}
+        >
+          {product_name || ""}
+        </Link> */}
       </span>
       <span className={listProfileStyle.list_detail}>
         <span>Current</span>

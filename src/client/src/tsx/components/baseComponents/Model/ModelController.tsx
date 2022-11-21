@@ -9,8 +9,10 @@ import ModelEquipmentFormContent from "../../Forms/EquipmentForms/ModelEquipment
 import ModelExerciseFormContent from "../../Forms/ExerciseForms/ModelExerciseFormContent";
 import ModelLocationFormContent from "../../Forms/LocationForms/ModelLocationFormContent";
 import ModelMuscleGroupFormContent from "../../Forms/MusclesGroupForms/ModelMuscleGroupFormContent";
+import ModelParticipantsGroupFormContent from "../../Forms/ParticipantsGroupForm/ModelParticipantsGroupFormContent";
 import ModelParticipantsGroupListFormContent from "../../Forms/ParticipantsGroupsListForms/ModelParticipantsGroupListFormContent";
 import ModelProductFormContent from "../../Forms/ProductsForms/ModelProductFormContent";
+import ModelSubscriptionPlansFormContent from "../../Forms/SubscriptionPlansForms/ModelSubscriptionPlansFormContent";
 import ModelCard from "./ModelCard";
 
 function ModelController() {
@@ -18,9 +20,10 @@ function ModelController() {
   let content = <></>;
   if (modelControllerState.lastModel === "meeting")
     content = <ModelMeetingContent />;
-
   if (modelControllerState.lastModel === "participantsGroupsListForm")
     content = <ModelParticipantsGroupListFormContent />;
+  if (modelControllerState.lastModel === "participantForm")
+    content = <ModelParticipantsGroupFormContent />;
   if (modelControllerState?.lastModel === "activityForm")
     content = <ModelActivityFormContent />;
   if (modelControllerState?.lastModel === "locationForm")
@@ -35,6 +38,8 @@ function ModelController() {
     content = <ModelMuscleGroupFormContent />;
   if (modelControllerState?.lastModel === "equipmentForm")
     content = <ModelEquipmentFormContent />;
+  if (modelControllerState?.lastModel === "subscriptionPlansForm")
+    content = <ModelSubscriptionPlansFormContent />;
 
   return <ModelCard>{content}</ModelCard>;
 }

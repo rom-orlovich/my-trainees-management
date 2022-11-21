@@ -10,6 +10,8 @@ import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
+import { openModel } from "../../redux/slices/modelControllerSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 function transformExerciseTable({
   exercise_name,
@@ -28,6 +30,8 @@ function ExercisesTable({
   mainName,
   queriesOptions,
 }: PageTableProps & { queriesOptions?: Record<string, any> }) {
+  const dispatch = useAppDispatch();
+
   const { useGetItemsQuery, useDeleteItemMutation } = exercisesApi;
   const [deleteItem] = useDeleteItemMutation();
 
@@ -37,6 +41,9 @@ function ExercisesTable({
     >
       <TablePagination<ExercisesTableAPI>
         queriesOptions={{ mainName, ...queriesOptions }}
+        openEditModel={(id) => {
+          dispatch(openModel({ displayContent: "exerciseForm", curParam: id }));
+        }}
         nameData={"Exercises List"}
         transformFun={transformExerciseTable}
         getAllQuery={useGetItemsQuery}

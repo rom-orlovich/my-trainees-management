@@ -11,6 +11,7 @@ export function ExerciseEditForm({ id }: { id: number }) {
   const [updateItem, state] = exercisesApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
+
   const { data, isLoading, isFetching, isError } =
     exercisesApi.useGetItemByIDQuery({ id, ...queriesOptions });
 

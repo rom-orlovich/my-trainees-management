@@ -10,6 +10,8 @@ import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
+import { useAppDispatch } from "../../redux/hooks";
+import { openModel } from "../../redux/slices/modelControllerSlice";
 
 export const transformDataCity = (arg: ProductAPI) => {
   const { product_name, product_type, price, product_id } = arg;
@@ -28,12 +30,16 @@ function ProductsTable({
   const { useGetItemsQuery, useDeleteItemMutation } = productsApi;
 
   const [deleteItem] = useDeleteItemMutation();
+  const dispatch = useAppDispatch();
 
   return (
     <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.PRODUCTS_ROUTE}>
       <TablePagination<ProductAPI>
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Products List"}
+        openEditModel={(id) => {
+          dispatch(openModel({ displayContent: "productForm", curParam: id }));
+        }}
         getAllQuery={useGetItemsQuery}
         transformFun={transformDataCity}
         deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}

@@ -29,6 +29,7 @@ export function ParticipantsGroupForm({
     <Form<ParticipantsGroupTableAPI>
       nameForm="Participant"
       onSubmit={onSubmit}
+      modelMode
       formProps={{ className: style.participants_group_form }}
       editMode={editMode}
       formOptions={{

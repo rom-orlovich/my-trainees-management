@@ -10,8 +10,7 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import SubscriptionPlansForm from "./SubscriptionPlansForm";
 
-function SubscriptionPlansEditForm() {
-  const id = Number(useParams().id);
+function SubscriptionPlansEditForm({ id }: { id: number }) {
   const { data, isError, isFetching, isLoading } =
     subscriptionPlansApi.useGetItemByIDQuery({
       id,

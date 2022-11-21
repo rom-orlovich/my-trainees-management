@@ -6,7 +6,6 @@ import { musclesGroupSchema } from "../../baseComponents/RHF-Components/formsSch
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
-import style from "./MusclesGroupForm.module.scss";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
@@ -22,7 +21,6 @@ export function MusclesGroupForm({
         editMode={editMode}
         modelMode
         nameForm="Muscles Group"
-        formProps={{ className: style.form_musclesGroup }}
         formOptions={{
           defaultValues: {
             user_id: useGetUserLoginData().user_id,

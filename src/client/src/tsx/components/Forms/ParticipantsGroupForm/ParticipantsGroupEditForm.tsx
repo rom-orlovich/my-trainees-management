@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
@@ -7,14 +8,11 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ParticipantsGroupForm } from "./ParticipantsGroupForm";
 
-export function ParticipantsGroupEditForm({ id }: { id?: number }) {
-  // const id = Number(useParams().id);
-  const ID = Number(useParams().id);
-  // const ID = id || 0;
+export function ParticipantsGroupEditForm({ id }: { id: number }) {
   const [updateItem, state] = participantsGroupApi.useUpdateItemMutation();
   const { data, isLoading, isFetching, isError } =
     participantsGroupApi.useGetItemByIDQuery({
-      id: ID,
+      id,
       userID: useGetUserLoginData().user_id,
     });
 
@@ -25,7 +23,7 @@ export function ParticipantsGroupEditForm({ id }: { id?: number }) {
   }: ParticipantsGroupTableAPI) =>
     updateFunction({
       updateItem,
-      id: ID,
+      id,
     })(body);
 
   return (

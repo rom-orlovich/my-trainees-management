@@ -10,11 +10,16 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "../Page.module.scss";
 import ExercisesTable from "./ExercisesTable";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
+import { useAppDispatch } from "../../redux/hooks";
+import { openModel } from "../../redux/slices/modelControllerSlice";
 
 function ExercisesPage() {
   const [exercise, setExercise] = useState<string[]>(["", ""]);
+  const dispatch = useAppDispatch();
+
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
+  console.log(queriesOptions);
   return (
     <InsteadOutletRoutes
       InsteadOutletRoutesPaths={APP_ROUTE.EXERCISES_LIST_ROUTE}
@@ -24,7 +29,7 @@ function ExercisesPage() {
           <AutocompleteInput<ExercisesTableAPI>
             keys={["exercise_name"]}
             id={"exercise_id"}
-            queriesOptions={{ ...queriesOptions }}
+            queriesOptions={queriesOptions}
             loadingSpinnerResult={{ nameData: "Exercises" }}
             setSelectOptionValue={setExercise}
             useGetData={exercisesApi.useGetItemsQuery}
@@ -38,7 +43,15 @@ function ExercisesPage() {
           />
 
           <span>
-            <Link to={`${APP_ROUTE.EXERCISE_ADD}`}>Add Exercise</Link>
+            {/* <Link to={`${APP_ROUTE.EXERCISE_ADD}`}>Add Exercise</Link> */}
+            <Link
+              onClick={() => {
+                dispatch(openModel({ displayContent: "exerciseForm" }));
+              }}
+              to={``}
+            >
+              Add Exercise
+            </Link>
           </span>
         </div>
         <div className={style.page_main_content}>

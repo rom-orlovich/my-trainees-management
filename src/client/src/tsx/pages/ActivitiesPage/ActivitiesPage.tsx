@@ -11,8 +11,11 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page from "../Page.module.scss";
 import ActivitiesTable from "./ActivitiesTable";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
+import { openModel } from "../../redux/slices/modelControllerSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 function ActivitiesPage() {
+  const dispatch = useAppDispatch();
   const [activity, setActivity] = useState<string[]>(["", ""]);
   const authState = useGetUserLoginData();
   const queriesOptions = {
@@ -39,7 +42,15 @@ function ActivitiesPage() {
           />
 
           <span>
-            <Link to={`${APP_ROUTE.ACTIVITIES_ROUTE_ADD}`}>Add Activity</Link>
+            {/* <Link to={`${APP_ROUTE.ACTIVITIES_ROUTE_ADD}`}>Add Activity</Link> */}
+            <Link
+              onClick={() => {
+                dispatch(openModel({ displayContent: "activityForm" }));
+              }}
+              to={``}
+            >
+              Add Activity
+            </Link>
           </span>
         </div>
         <div className={page.page_main_content}>

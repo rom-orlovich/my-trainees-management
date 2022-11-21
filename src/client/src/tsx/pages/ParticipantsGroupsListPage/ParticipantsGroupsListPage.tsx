@@ -11,8 +11,11 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import { useAppDispatch } from "../../redux/hooks";
+import { openModel } from "../../redux/slices/modelControllerSlice";
 
 function ParticipantsGroupsListPage() {
+  const dispatch = useAppDispatch();
   const { user_id } = useGetUserLoginData();
   const [participantsGroupsList, setParticipantsGroupsList] = useState<
     string[]
@@ -20,11 +23,6 @@ function ParticipantsGroupsListPage() {
 
   const queriesOptions = {
     userID: user_id,
-    // programType: trainingProgram[1],
-    // trainerUserID: authState.user?.user_id,
-
-    // orderBy: "updateDate",
-    // asc: "false",
   };
 
   return (
@@ -50,11 +48,19 @@ function ParticipantsGroupsListPage() {
           />
 
           <span>
-            {
-              <Link to={`${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE_ADD}`}>
-                Add Participants Group
-              </Link>
-            }
+            {/* <Link to={`${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE_ADD}`}>
+              Add Participants Group //{" "}
+            </Link> */}
+            <Link
+              onClick={() => {
+                dispatch(
+                  openModel({ displayContent: "participantsGroupsListForm" })
+                );
+              }}
+              to={``}
+            >
+              Add Participants Group
+            </Link>
           </span>
         </div>
         <div className={style.page_main_content}>

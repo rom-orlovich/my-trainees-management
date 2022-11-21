@@ -11,6 +11,8 @@ import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
+import { useAppDispatch } from "../../redux/hooks";
+import { openModel } from "../../redux/slices/modelControllerSlice";
 
 export const transformDataCity = (arg: CitiesTableAPI) => {
   const { city_name, city_id, ...rest } = arg;
@@ -22,7 +24,7 @@ function CitiesTable({
   queriesOptions,
 }: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = citiesApi;
-
+  const dispatch = useAppDispatch();
   const [deleteItem] = useDeleteItemMutation();
 
   return (
@@ -31,6 +33,9 @@ function CitiesTable({
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Cities List"}
         getAllQuery={useGetItemsQuery}
+        openEditModel={(id) => {
+          dispatch(openModel({ displayContent: "cityForm", curParam: id }));
+        }}
         transformFun={transformDataCity}
         deleteItemFun={
           useGetUserLoginData().authState.user?.role === "admin"

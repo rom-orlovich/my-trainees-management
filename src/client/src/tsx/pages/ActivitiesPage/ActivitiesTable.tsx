@@ -14,6 +14,8 @@ import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
+import { openModel } from "../../redux/slices/modelControllerSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 const transformActivity = ({
   activity_id,
@@ -29,13 +31,16 @@ function ActivitiesTable({
 }: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = activitiesApi;
   const [deleteItem] = useDeleteItemMutation();
-
+  const dispatch = useAppDispatch();
   return (
     <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.ACTIVITIES_ROUTE}>
       <TablePagination<MusclesGroupTableAPI>
         queriesOptions={{ mainName, ...queriesOptions }}
         transformFun={transformActivity}
         nameData={"Activity"}
+        openEditModel={(id) => {
+          dispatch(openModel({ displayContent: "activityForm", curParam: id }));
+        }}
         getAllQuery={useGetItemsQuery}
         deleteItemFun={
           useGetUserLoginData().authState.user?.role === "trainer"

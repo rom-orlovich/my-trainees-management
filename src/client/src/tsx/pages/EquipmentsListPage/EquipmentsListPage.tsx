@@ -10,8 +10,11 @@ import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "../Page.module.scss";
 import LeadsTable from "./EquipmentsListTable";
+import { openModel } from "../../redux/slices/modelControllerSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 function EquipmentsListPage() {
+  const dispatch = useAppDispatch();
   const [equipment, setEquipment] = useState<string[]>(["", ""]);
 
   const authState = useGetUserLoginData();
@@ -41,7 +44,15 @@ function EquipmentsListPage() {
           />
 
           <span>
-            <Link to={`${APP_ROUTE.EQUIPMENT_ADD}`}>Add Equipment</Link>
+            {/* <Link to={`${APP_ROUTE.EQUIPMENT_ADD}`}>Add Equipment</Link> */}
+            <Link
+              onClick={() => {
+                dispatch(openModel({ displayContent: "equipmentForm" }));
+              }}
+              to={``}
+            >
+              Add Equipment
+            </Link>
           </span>
         </div>
         <div className={style.page_main_content}>

@@ -4,6 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   genClassName,
   getKeysArrObj,
@@ -12,6 +13,8 @@ import {
 import { TableProps } from "../baseComponentsTypes";
 import { formatThValue, TdCell, ThCell } from "./TableCells";
 import style from "./Table.module.scss";
+import { ModelDisplayContentOptions } from "../../../redux/slices/modelControllerSlice";
+import { useAppDispatch } from "../../../redux/hooks";
 
 // Creates dynamic data table with action of edit and remove.
 // customizes the table by Td and Th cells component.
@@ -20,11 +23,14 @@ function Table<T extends Record<string, any>>({
   className,
   Td,
   Th,
-
   editPagePath,
   deleteItemFun,
+  openEditModel,
   actions = true,
-}: TableProps<T> & { editPagePath: string }) {
+}: TableProps<T> & {
+  editPagePath: string;
+  openEditModel?: (id: any) => void;
+}) {
   const TH = Th || ThCell;
   const TD = Td || TdCell;
   const newDataArr = dataArr.map((obj: T) => {
@@ -65,7 +71,17 @@ function Table<T extends Record<string, any>>({
                 <td data-label="Actions">
                   <span className={`${style.actions}`}>
                     {
-                      <Link to={`/${editPagePath}/${values[0]}`}>
+                      <Link
+                        onClick={(e) => {
+                          if (openEditModel) {
+                            e.preventDefault();
+                            openEditModel(values[0]);
+                          }
+                        }}
+                        to={
+                          openEditModel ? " " : `/${editPagePath}/${values[0]}`
+                        }
+                      >
                         <FaEdit className={style.iconEdit} />
                       </Link>
                     }

@@ -25,8 +25,8 @@ export function ExerciseForm({
   editMode,
   fromProps,
 }: GeneralFormProps<ExercisesTableAPI>) {
-  const authState = useGetUserLoginData();
   const dispatch = useAppDispatch();
+  const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
   return (
     <>

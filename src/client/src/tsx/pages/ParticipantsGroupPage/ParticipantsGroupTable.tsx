@@ -1,17 +1,11 @@
 /* eslint-disable camelcase */
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
-import {
-  participantsGroupApi,
-  participantsGroupsListApi,
-} from "../../redux/api/hooksAPI";
-import {
-  ParticipantsGroupsListTableAPI,
-  ParticipantsGroupTableAPI,
-} from "../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { participantsGroupApi } from "../../redux/api/hooksAPI";
+import { ParticipantsGroupTableAPI } from "../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../redux/hooks";
+import { openModel } from "../../redux/slices/modelControllerSlice";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 const transformParticipantsGroup = ({
@@ -29,10 +23,16 @@ function ParticipantsGroupTable({
 }: { mainName?: string } & {
   queriesOptions?: Record<string, any>;
 }) {
+  const dispatch = useAppDispatch();
   const [deleteItem] = participantsGroupApi.useDeleteItemMutation();
 
   return (
     <TablePagination
+      openEditModel={(id) => {
+        dispatch(
+          openModel({ displayContent: "participantForm", curParam: id })
+        );
+      }}
       transformFun={transformParticipantsGroup}
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       queriesOptions={{ mainName, ...queriesOptions }}

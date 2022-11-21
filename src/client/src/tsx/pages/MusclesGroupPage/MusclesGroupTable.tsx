@@ -11,6 +11,8 @@ import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
+import { useAppDispatch } from "../../redux/hooks";
+import { openModel } from "../../redux/slices/modelControllerSlice";
 
 const transformMuscleGroup = ({
   muscles_group_name,
@@ -26,7 +28,7 @@ function MusclesGroupTable({
 }: PageTableProps & { queriesOptions?: Record<string, any> }) {
   const { useGetItemsQuery, useDeleteItemMutation } = musclesGroupApi;
   const [deleteItem] = useDeleteItemMutation();
-
+  const dispatch = useAppDispatch();
   return (
     <InsteadOutletRoutes
       InsteadOutletRoutesPaths={APP_ROUTE.MUSCLES_GROUP_LIST_ROUTE}
@@ -35,6 +37,11 @@ function MusclesGroupTable({
         queriesOptions={{ mainName, ...queriesOptions }}
         transformFun={transformMuscleGroup}
         nameData={"Muscles Group List"}
+        openEditModel={(id) => {
+          dispatch(
+            openModel({ displayContent: "muscleGroupForm", curParam: id })
+          );
+        }}
         getAllQuery={useGetItemsQuery}
         deleteItemFun={
           useGetUserLoginData().authState.user?.role === "admin"
