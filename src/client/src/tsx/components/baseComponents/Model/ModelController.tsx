@@ -3,6 +3,7 @@ import ModelMeetingContent from "../../../pages/SchedulePage/ModelMeetingContent
 import { useAppSelector } from "../../../redux/hooks";
 
 import { getModelControllerState } from "../../../redux/slices/modelControllerSlice";
+import ModelActivityFormContent from "../../Forms/ActivityForms/ModelActivityFormContent";
 import ModelParticipantsGroupListFormContent from "../../Forms/ParticipantsGroupsListForms/ModelParticipantsGroupListFormContent";
 import ModelCard from "./ModelCard";
 
@@ -14,6 +15,9 @@ function ModelController() {
 
   if (modelControllerState.lastModel === "participantsGroupsListForm")
     content = <ModelParticipantsGroupListFormContent />;
+  if (modelControllerState?.lastModel === "activityForm")
+    content = <ModelActivityFormContent />;
+
   return <ModelCard>{content}</ModelCard>;
 }
 

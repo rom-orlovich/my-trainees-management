@@ -1,0 +1,47 @@
+@use "./../../../../style/utilities/utilities.scss" as *;
+#backdrop {
+  @include posAbs(0%, 0%);
+  @include heightWidth(100vh, 100%);
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+
+  z-index: 80;
+  cursor: pointer;
+}
+.model_card {
+  @include centerAbs();
+  @include minHeightWidth(45vh, 40vw);
+  z-index: 82;
+
+  background-color: white;
+  text-align: center;
+  @include flex-dir(center, center, column);
+  gap: 4rem;
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .button_container {
+    width: 100%;
+    @include flex-dir(center, center);
+
+    button {
+      color: white;
+      font-size: 1.2rem;
+      @include button(rgb(114, 151, 224), 0.6rem, 1.2rem);
+      &:hover {
+        background-color: #75b1dd;
+      }
+    }
+  }
+}
+
+@include smartphone() {
+  #backdrop {
+    @include heightWidth(100vh, 100%);
+  }
+  .model_card {
+    @include minHeightWidth(30vh, 90vw);
+  }
+}

@@ -27,6 +27,7 @@ export function ParticipantsGroupsListForm({
         modelMode={true}
         nameForm={"Participants Group"}
         onSubmit={onSubmit}
+        saveState={false}
         pathMove={""}
         editMode={editMode}
         formOptions={{

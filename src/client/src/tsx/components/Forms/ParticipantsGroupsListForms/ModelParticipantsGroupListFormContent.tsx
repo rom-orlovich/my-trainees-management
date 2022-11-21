@@ -8,6 +8,7 @@ import style from "../../baseComponents/Model/ModelFormContainer.module.scss";
 
 function ModelParticipantsGroupListFormContent() {
   const id = useAppSelector(getModelControllerState).curParam;
+
   return (
     <div className={style.model_form_container}>
       {id ? (

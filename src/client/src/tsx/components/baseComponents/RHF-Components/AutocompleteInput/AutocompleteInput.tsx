@@ -186,7 +186,7 @@ function AutocompleteInput<T extends Record<string, any>>({
             }}
             to={addOption.link || ""}
           >
-            {<AiOutlinePlusCircle />}{" "}
+            {<AiOutlinePlusCircle />}
           </Link>
         ) : (
           <> </>

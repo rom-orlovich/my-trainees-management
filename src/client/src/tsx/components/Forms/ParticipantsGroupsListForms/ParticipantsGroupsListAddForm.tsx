@@ -7,17 +7,14 @@ import {
   ResponseMutationAPI,
 } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import {
-  disableGoPrevPage,
-  getApiSideEffect,
-} from "../../../redux/slices/apiSideEffectSlice";
+import { disableGoPrevPage } from "../../../redux/slices/apiSideEffectSlice";
 import { preModel } from "../../../redux/slices/modelControllerSlice";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ParticipantsGroupsListForm } from "./ParticipantsGroupsListForm";
 
-export function ParticipantsGroupsListAddForm({}: { className?: string }) {
+export function ParticipantsGroupsListAddForm({}) {
   const navigate = useNavigate();
   const [addItem] = participantsGroupsListApi.useCreateOneItemMutation();
   const dispatch = useAppDispatch();
@@ -27,9 +24,6 @@ export function ParticipantsGroupsListAddForm({}: { className?: string }) {
     dispatch(disableGoPrevPage());
   }, []);
 
-  const {
-    goPrePageBehaviorState: { goPrevPage },
-  } = useAppSelector(getApiSideEffect);
   const handleSubmit = ({
     participants_groups_list_id,
     ...body
@@ -39,7 +33,6 @@ export function ParticipantsGroupsListAddForm({}: { className?: string }) {
     })(body).then((response) => {
       const Response = response as unknown as { data: ResponseMutationAPI };
 
-      dispatch(preModel());
       // navigate(
       //   `/${APP_ROUTE.SETTINGS_ROUTE}/${
       //     APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE

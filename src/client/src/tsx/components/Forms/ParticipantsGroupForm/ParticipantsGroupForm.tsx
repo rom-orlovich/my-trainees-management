@@ -2,10 +2,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import { citiesApi, traineesApi } from "../../../redux/api/hooksAPI";
+import { traineesApi } from "../../../redux/api/hooksAPI";
 import {
-  CitiesTableAPI,
-  LocationsTableAPI,
   ParticipantsGroupTableAPI,
   TraineesTableExtendsAPI,
 } from "../../../redux/api/interfaceAPI";
@@ -15,12 +13,8 @@ import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
-import {
-  locationsSchema,
-  participantsGroupSchema,
-} from "../../baseComponents/RHF-Components/formsSchemas";
-import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
-import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
+import { participantsGroupSchema } from "../../baseComponents/RHF-Components/formsSchemas";
+
 import style from "./ParticipantsGroupForm.module.scss";
 
 export function ParticipantsGroupForm({
@@ -46,7 +40,7 @@ export function ParticipantsGroupForm({
         resolver: yupResolver(participantsGroupSchema),
       }}
     >
-      {({ control, formState }) => (
+      {({ control }) => (
         <>
           <AutocompleteInputRHF<
             ParticipantsGroupTableAPI,

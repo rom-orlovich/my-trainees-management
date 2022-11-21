@@ -198,11 +198,26 @@ export function MeetingForm({
                       InputProps: { placeholder: "Search Activities" },
                     },
                     addOption: {
-                      link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE_ADD}`,
+                      // link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE_ADD}`,
+                      onClick() {
+                        dispatch(
+                          openModel({
+                            displayContent: "activityForm",
+                          })
+                        );
+                      },
                     },
                     editOption: {
-                      link: (id) =>
-                        `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE}/${id}`,
+                      // link: (id) =>
+                      //   `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.ACTIVITIES_ROUTE}/${id}`,
+                      onClick(id) {
+                        dispatch(
+                          openModel({
+                            displayContent: "activityForm",
+                            curParam: id,
+                          })
+                        );
+                      },
                     },
                     loadingSpinnerResult: { nameData: "Activity" },
                     useGetData: activitiesApi.useGetItemsQuery,

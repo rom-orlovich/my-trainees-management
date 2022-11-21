@@ -5,19 +5,20 @@ import { RootState } from "../store";
 
 export type ModelDisplayContentOptions =
   | "meeting"
-  | "participantsGroupsListForm";
+  | "participantsGroupsListForm"
+  | "activityForm";
 export interface ModelControllerState {
   displayContent: ModelDisplayContentOptions[];
   isModelOpen: boolean;
   curParam?: number;
-  lastModel?: ModelDisplayContentOptions | string;
+  lastModel?: ModelDisplayContentOptions;
 }
 
 const initialState: ModelControllerState = {
   isModelOpen: false,
   displayContent: ["meeting"],
   curParam: undefined,
-  lastModel: "",
+  lastModel: undefined,
 };
 export const modelControllerSlice = createSlice({
   name: "modelControllerSlice",
@@ -41,11 +42,12 @@ export const modelControllerSlice = createSlice({
     closeModel: (state) => {
       state.isModelOpen = false;
       state.displayContent = [];
-      state.lastModel = "";
+      // state.curParam = undefined;
+      state.lastModel = undefined;
     },
     preModel: (state) => {
       state.displayContent.pop();
-
+      // state.curParam = undefined;
       state.lastModel = state.displayContent[state.displayContent.length - 1];
     },
   },

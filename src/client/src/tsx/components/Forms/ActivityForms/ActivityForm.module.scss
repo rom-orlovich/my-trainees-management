@@ -1,31 +1,31 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 
-.form_activity {
-  span[class*="input_label"] {
-    @include flex-dir(null, null, column);
-    max-width: 50%;
-    flex: 50%;
-  }
-  span[class*="AutocompleteInput"] {
-    span[class*="input_label"] {
-      @include flex-dir(null, null, column);
-      max-width: 100%;
-      flex: 50%;
-    }
+// .form_activity {
+//   // span[class*="input_label"] {
+//   //   @include flex-dir(null, null, column);
+//   //   max-width: 50%;
+//   //   flex: 50%;
+//   // }
+//   // span[class*="AutocompleteInput"] {
+//   //   span[class*="input_label"] {
+//   //     @include flex-dir(null, null, column);
+//   //     max-width: 100%;
+//   //     flex: 50%;
+//   //   }
 
-    li {
-      font-size: 1.2rem !important;
-    }
-  }
-  div[class*="buttons_container"] {
-    width: 80% !important;
-  }
-}
+//   //   li {
+//   //     font-size: 1.2rem !important;
+//   //   }
+//   // }
+//   // div[class*="buttons_container"] {
+//   //   width: 80% !important;
+//   // }
+// }
 
-@include smartphone() {
-  .form_musclesGroup {
-    div[class*="buttons_container"] {
-      width: 100% !important;
-    }
-  }
-}
+// @include smartphone() {
+//   .form_musclesGroup {
+//     div[class*="buttons_container"] {
+//       width: 100% !important;
+//     }
+//   }
+// }

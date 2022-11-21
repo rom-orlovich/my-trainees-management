@@ -20,6 +20,8 @@ export function ActivityForm({
       <Form<ActivitiesTableAPI>
         onSubmit={onSubmit}
         editMode={editMode}
+        saveState={false}
+        modelMode={true}
         nameForm="Activity"
         formProps={{ className: style.form_activity }}
         formOptions={{
@@ -30,9 +32,9 @@ export function ActivityForm({
           resolver: yupResolver(activitySchema),
         }}
       >
-        {({ register, formState }) => {
+        {({ register, formState, getValues }) => {
           const { errors } = formState;
-
+          console.log(getValues());
           return (
             <>
               <InputLabel

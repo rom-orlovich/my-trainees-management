@@ -71,5 +71,9 @@
     p[class*="message_spinner"] {
       @include posAbs(100%, 2%, null, null);
     }
+
+    .select_plus_button {
+      @include posAbs(40%, null, 0%, null);
+    }
   }
 }

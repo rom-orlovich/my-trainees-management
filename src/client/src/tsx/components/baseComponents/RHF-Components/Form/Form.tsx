@@ -18,7 +18,11 @@ import {
   getFormsState,
   saveFormState,
 } from "../../../../redux/slices/formValuesStateSlice";
-import { preModel } from "../../../../redux/slices/modelControllerSlice";
+import {
+  closeModel,
+  getModelControllerState,
+  preModel,
+} from "../../../../redux/slices/modelControllerSlice";
 
 import { FormProps } from "../../baseComponentsTypes";
 import style from "./Form.module.scss";
@@ -67,6 +71,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   const {
     goPrePageBehaviorState: { goPrevPage },
   } = useAppSelector(getApiSideEffect);
+  const { displayContent } = useAppSelector(getModelControllerState);
   const dispatch = useAppDispatch();
 
   const methods = useForm<TFormValues>({
@@ -110,8 +115,9 @@ export default function Form<TFormValues extends Record<string, any>>({
               values: methods.getValues(),
             })
           );
-
-      if (goPrevPage) {
+      if (modelMode) {
+        dispatch(displayContent.length ? preModel() : closeModel());
+      } else if (goPrevPage) {
         nav((pathMove || -1) as any);
       }
       dispatch(enableGoPrevPage());
