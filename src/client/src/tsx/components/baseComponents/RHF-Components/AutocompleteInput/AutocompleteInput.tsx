@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import {
-  UseLazyQuery,
-  UseQuery,
-} from "@reduxjs/toolkit/dist/query/react/buildHooks";
+import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import React, {
   ChangeEvent,
   ReactNode,
@@ -31,11 +28,11 @@ import AutocompleteLi, {
 } from "./AutocompleteLi";
 
 export interface AddOption {
-  link: string;
+  link?: string;
   onClick?: () => void;
 }
 export interface EditOption {
-  link: string | ((id: any) => string);
+  link?: string | ((id: any) => string);
   onClick?: (id: any) => void;
 }
 export interface AutocompleteInputProps<T, O extends FieldValues = any> {
@@ -180,9 +177,17 @@ function AutocompleteInput<T extends Record<string, any>>({
           }}
         />
       )}
-      <span onClick={addOption?.onClick} className={style.select_plus_button}>
+      <span className={style.select_plus_button}>
         {addOption ? (
-          <Link to={addOption.link}>{<AiOutlinePlusCircle />} </Link>
+          <Link
+            onClick={(e) => {
+              e.preventDefault();
+              addOption?.onClick && addOption?.onClick();
+            }}
+            to={addOption.link || ""}
+          >
+            {<AiOutlinePlusCircle />}{" "}
+          </Link>
         ) : (
           <> </>
         )}

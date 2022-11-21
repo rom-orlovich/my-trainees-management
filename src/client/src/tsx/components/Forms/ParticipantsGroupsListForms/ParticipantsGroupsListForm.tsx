@@ -3,6 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { ParticipantsGroupsListTableAPI } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../redux/hooks";
+import { closeModel } from "../../../redux/slices/modelControllerSlice";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
@@ -17,6 +19,7 @@ export function ParticipantsGroupsListForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<ParticipantsGroupsListTableAPI>) {
+  const dispatch = useAppDispatch();
   return (
     <>
       <Form<ParticipantsGroupsListTableAPI>
@@ -34,7 +37,7 @@ export function ParticipantsGroupsListForm({
           resolver: yupResolver(participantsGroupListSchema),
         }}
       >
-        {({ register, formState, getValues }) => {
+        {({ register, formState }) => {
           const { errors } = formState;
 
           return (
@@ -63,6 +66,9 @@ export function ParticipantsGroupsListForm({
               </Checkbox>
               {editMode && (
                 <Link
+                  onClick={() => {
+                    dispatch(closeModel());
+                  }}
                   style={{ textDecoration: "none" }}
                   to={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${defaultValues?.participants_groups_list_id}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`}
                 >

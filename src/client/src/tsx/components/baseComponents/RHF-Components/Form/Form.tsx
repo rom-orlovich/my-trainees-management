@@ -136,10 +136,14 @@ export default function Form<TFormValues extends Record<string, any>>({
   ) : (
     <div className={style.buttons_container_two_buttons}>
       <Link
-        onClick={(e) => {
-          e.preventDefault();
-          dispatch(preModel());
-        }}
+        onClick={
+          modelMode
+            ? (e) => {
+                e.preventDefault();
+                dispatch(preModel());
+              }
+            : undefined
+        }
         to={-1 as any}
       >
         Back

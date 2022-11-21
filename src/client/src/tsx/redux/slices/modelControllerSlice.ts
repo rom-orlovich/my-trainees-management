@@ -45,6 +45,7 @@ export const modelControllerSlice = createSlice({
     },
     preModel: (state) => {
       state.displayContent.pop();
+
       state.lastModel = state.displayContent[state.displayContent.length - 1];
     },
   },

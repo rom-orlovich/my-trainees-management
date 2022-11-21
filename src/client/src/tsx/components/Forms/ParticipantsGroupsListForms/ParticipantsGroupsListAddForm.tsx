@@ -11,6 +11,7 @@ import {
   disableGoPrevPage,
   getApiSideEffect,
 } from "../../../redux/slices/apiSideEffectSlice";
+import { preModel } from "../../../redux/slices/modelControllerSlice";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
@@ -38,11 +39,12 @@ export function ParticipantsGroupsListAddForm({}: { className?: string }) {
     })(body).then((response) => {
       const Response = response as unknown as { data: ResponseMutationAPI };
 
-      navigate(
-        `/${APP_ROUTE.SETTINGS_ROUTE}/${
-          APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE
-        }/${Number(Response.data.id)}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`
-      );
+      dispatch(preModel());
+      // navigate(
+      //   `/${APP_ROUTE.SETTINGS_ROUTE}/${
+      //     APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE
+      //   }/${Number(Response.data.id)}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`
+      // );
 
       return Response;
     });

@@ -1,5 +1,4 @@
 import { useAppDispatch } from "../../../redux/hooks";
-
 import { closeModel } from "../../../redux/slices/modelControllerSlice";
 import { genClassName } from "../../../utilities/helpersFun";
 import { PropsBasic } from "../baseComponentsTypes";
@@ -10,7 +9,6 @@ import style from "./ModelCard.module.scss";
 
 function ModelCard({ children, className }: PropsBasic) {
   const dispatch = useAppDispatch();
-
   return (
     <Model>
       <div

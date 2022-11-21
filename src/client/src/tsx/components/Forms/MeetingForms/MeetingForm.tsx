@@ -155,7 +155,14 @@ export function MeetingForm({
                       InputProps: { placeholder: "Search Groups" },
                     },
                     addOption: {
-                      link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE_ADD}`,
+                      // link: `/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE_ADD}`,
+                      onClick() {
+                        dispatch(
+                          openModel({
+                            displayContent: "participantsGroupsListForm",
+                          })
+                        );
+                      },
                     },
                     loadingSpinnerResult: { nameData: "Search Groups" },
                     useGetData: participantsGroupsListApi.useGetItemsQuery,

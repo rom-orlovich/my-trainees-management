@@ -26,6 +26,10 @@
       @include classMatcher("AutocompleteInput_autocomplete_container") {
         max-width: 100%;
       }
+
+      span[class*="checkbox_label"] {
+        align-self: center;
+      }
     }
     @include classMatcher("Form_buttons_container_two_buttons") {
       a {
@@ -38,42 +42,18 @@
   }
 }
 
-// @include smartphone() {
-//   .meeting_model_container {
-//     @include classMatcher("Form_form_container") {
-//       min-height: fit-content;
-//       form {
-//         gap: 0.5rem;
-//         width: 95%;
-//         flex-flow: column;
-//         align-items: initial;
-//         @include classMatcher("dates_meeting_model_form_container") {
-//           width: 100%;
-//           @include flex-dir(null, null, column);
-//           column-gap: 0.5rem;
-//           @include classMatcher("input_label") {
-//             max-width: 100%;
-//             input {
-//               width: 100%;
-//             }
-//           }
-//         }
-//         @include classMatcher("autocomplete_meeting_model_form_container") {
-//           @include flex-dir(null, null, column);
-//           column-gap: 0.5rem;
-//           @include classMatcher("AutocompleteInput_autocomplete_container") {
-//             max-width: 100%;
-//             ul {
-//               max-width: 100%;
-//             }
-//           }
-//         }
-//       }
-//     }
-//     @include classMatcher("Form_buttons_container_one_button") {
-//       button {
-//         width: 100%;
-//       }
-//     }
-//   }
-// }
+@include smartphone() {
+  .model_form_container {
+    @include classMatcher("Form_form_container") {
+      min-height: fit-content;
+      height: fit-content;
+      form {
+      }
+      @include classMatcher("Form_buttons_container_two_buttons") {
+        a {
+          padding: 0.3rem 0.7rem !important;
+        }
+      }
+    }
+  }
+}
