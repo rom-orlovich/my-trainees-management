@@ -13,6 +13,7 @@ function ModelMeetingDetails({ meetingID }: { meetingID: number }) {
   const queryOptions = isTrainee
     ? { traineeID, trainerUserID, userID }
     : { userID };
+
   const {
     data: meetingData,
     isError,

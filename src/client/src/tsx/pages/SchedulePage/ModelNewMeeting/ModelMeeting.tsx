@@ -28,12 +28,7 @@ function ModelMeeting() {
     : ModelMeetingDetailsContent;
 
   return (
-    <ModelCard
-      className={genClassName(
-        style.meeting_model_container,
-        isTrainee ? style.trainee_meeting_model_container : ""
-      )}
-    >
+    <ModelCard className={genClassName(style.meeting_model_container)}>
       {modelContent}
     </ModelCard>
   );
