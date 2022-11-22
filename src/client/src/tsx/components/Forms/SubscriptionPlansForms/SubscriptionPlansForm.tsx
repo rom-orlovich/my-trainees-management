@@ -30,12 +30,8 @@ function SubscriptionPlansForm({
         }}
       >
         {({ register, formState }) => {
-          const {
-            product_id,
-            current_num_trainings,
-            total_trainings,
-            last_training,
-          } = formState.errors;
+          const { current_num_trainings, total_trainings, last_training } =
+            formState.errors;
 
           return (
             <>

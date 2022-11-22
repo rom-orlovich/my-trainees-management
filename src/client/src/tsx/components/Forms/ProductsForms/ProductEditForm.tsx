@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 import { productsApi } from "../../../redux/api/hooksAPI";

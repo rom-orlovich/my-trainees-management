@@ -78,7 +78,7 @@
   }
   // for timeGridDay-view color td
   @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
-    padding: 0 0.5rem;
+    padding: 0 0.2rem;
     table {
       height: 100%;
       th {
@@ -122,7 +122,7 @@
     @include heightWidth(3.5rem, 3.5rem);
     border-radius: 50%;
     background-color: white;
-    @include posAbs(null, null, 4%, 2%);
+    @include posAbs(null, null, 1%, 2%);
     position: fixed;
     z-index: 75;
     color: rgb(62, 108, 194);
@@ -188,7 +188,7 @@
         @include classMatcher("fc-toolbar-chunk") {
           margin-top: 0.2rem;
           width: 100%;
-          padding: 0 1rem;
+          padding: 0 0.3rem;
           @include flex-dir(space-between, null, row);
         }
         // For the arrow buttons.
@@ -225,7 +225,7 @@
       @include heightWidth(3.5rem, 3.5rem);
       border-radius: 50%;
       background-color: white;
-      @include posAbs(null, null, 4%, 2%);
+      @include posAbs(null, null, 2%, 2%);
       position: fixed;
 
       cursor: pointer;

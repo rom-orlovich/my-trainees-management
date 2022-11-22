@@ -41,7 +41,6 @@ function ProductsPage() {
           />
 
           <span>
-            {/* <Link to={`${APP_ROUTE.PRODUCTS_ADD}`}>Add Product</Link> */}
             <Link
               onClick={() => {
                 dispatch(openModel({ displayContent: "productForm" }));

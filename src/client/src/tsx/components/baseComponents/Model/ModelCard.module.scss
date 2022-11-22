@@ -38,10 +38,11 @@
 
 @include smartphone() {
   #backdrop {
-    @include heightWidth(100%, 100%);
+    @include heightWidth(200vh, 100%);
   }
   .model_card {
     @include posAbs(70% !important, null, null, null);
+
     @include minHeightWidth(30vh, 90vw);
     @include heightWidth(fit-content, 50vw);
   }

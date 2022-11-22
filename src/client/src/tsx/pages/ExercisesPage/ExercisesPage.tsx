@@ -19,7 +19,7 @@ function ExercisesPage() {
 
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
-  console.log(queriesOptions);
+
   return (
     <InsteadOutletRoutes
       InsteadOutletRoutesPaths={APP_ROUTE.EXERCISES_LIST_ROUTE}

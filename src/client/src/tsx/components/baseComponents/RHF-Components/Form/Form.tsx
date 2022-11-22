@@ -60,8 +60,6 @@ export default function Form<TFormValues extends Record<string, any>>({
   modelMode,
   saveState = true,
 }: FormRHFProps<TFormValues>) {
-  // const [disabled, setDisabled] = useState(true);
-
   const nav = useNavigate();
 
   const location = useLocation();
@@ -106,7 +104,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   const handleSubmit = async (data: TFormValues) => {
     try {
       await onSubmit(data);
-      // console.log("after", goPrevPage);
+
       methods.reset();
       if (saveState)
         if (!editMode)
