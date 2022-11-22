@@ -16,6 +16,7 @@
 
     .income_events_board_grid_item {
       grid-area: 1 / 1 / 2 / 8;
+      position: relative;
     }
     .user_details_grid_item {
       grid-area: 1 /8/ 1 /10;

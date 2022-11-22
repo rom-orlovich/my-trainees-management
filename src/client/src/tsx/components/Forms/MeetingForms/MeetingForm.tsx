@@ -49,16 +49,12 @@ export function MeetingForm({
   const dateStart = Number(queryParams.get("dateStart"));
   const dateEnd = Number(queryParams.get("dateEnd"));
 
-  console.log(
-    setInputLocalDate(new Date(defaultValues?.date_start || dateStart))
-  );
-
   const DateStart = setInputLocalDate(
-    new Date(defaultValues?.date_start || dateStart)
+    newDate(defaultValues?.date_start || dateStart)
   );
 
   const DateEnd = setInputLocalDate(
-    new Date(defaultValues?.date_end || dateEnd)
+    newDate(defaultValues?.date_end || dateEnd)
   );
 
   return (

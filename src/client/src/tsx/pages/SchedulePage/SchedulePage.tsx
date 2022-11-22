@@ -192,11 +192,9 @@ function SchedulePage() {
 
             setQueryParams({
               dateStart: String(
-                newDate(new Date(), { dPlus: -1, minPlus: 0 }).getTime()
+                newDate(new Date(), { dPlus: 0, minPlus: 0 }).getTime()
               ),
-              dateEnd: String(
-                newDate(new Date(), { dPlus: 1, minPlus: 0 }).getTime()
-              ),
+              dateEnd: "",
               modelFormState: "add",
             });
           }}

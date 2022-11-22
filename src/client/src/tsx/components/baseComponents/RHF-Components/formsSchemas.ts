@@ -308,7 +308,7 @@ export const meetingsSchema = yup.object().shape({
   participants_groups_list_id: yup.number().required(),
   activity_id: yup.number().required(),
   location_id: yup.number().required(),
-  note_topic: yup.string().notRequired().default(""),
+  note_topic: yup.string().required("Event title is required."),
   note_text: yup.string().notRequired().default(""),
   user_id: yup.number().notRequired().nullable().default(1),
 });

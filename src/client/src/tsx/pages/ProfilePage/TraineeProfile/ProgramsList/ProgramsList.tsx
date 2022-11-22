@@ -11,7 +11,7 @@ import { TraineeProfileProps } from "../TraineeProfile";
 import ListProfile from "../../ListProfile/ListProfile";
 
 import TrainingProgramsLi from "./TrainingProgramsLi";
-import listProfileStyle from "../../ListProfile/ListProfile.module.scss";
+
 import style from "./ProgramsList.module.scss";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 
@@ -22,7 +22,7 @@ function ProgramsList({ className, queryOptions }: TraineeProfileProps) {
     <Card
       className={genClassName(
         className,
-        // listProfileStyle.list_container,
+
         style.programs_container
       )}
     >

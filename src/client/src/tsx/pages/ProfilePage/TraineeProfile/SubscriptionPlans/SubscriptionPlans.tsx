@@ -29,12 +29,6 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
       )}
     >
       {!isTrainee && (
-        // <Link
-        //   className={style.plus_button_icon}
-        //   to={`/${APP_ROUTE.TRAINEES_ROUTE}/${queryOptions?.traineeID}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}/${APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE_ADD}`}
-        // >
-        //   <BsFillPlusSquareFill />
-        // </Link>
         <Link
           onClick={(e) => {
             e.preventDefault();

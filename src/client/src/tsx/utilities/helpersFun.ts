@@ -19,12 +19,13 @@ export interface AddToDate {
   minPlus?: number;
 }
 
-export const newDate = (date: Date, add?: AddToDate) => {
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
-  const hour = date.getHours();
-  const minutes = date.getMinutes();
+export const newDate = (date: Date | number | string, add?: AddToDate) => {
+  const curDate = new Date(date);
+  const year = curDate.getFullYear();
+  const month = curDate.getMonth();
+  const day = curDate.getDate();
+  const hour = curDate.getHours();
+  const minutes = curDate.getMinutes();
 
   return new Date(
     year + (add?.yPlus || 0),

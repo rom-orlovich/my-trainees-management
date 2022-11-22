@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { meetingApi } from "../../../../redux/api/hooksAPI";
@@ -23,6 +24,14 @@ function IncomeEventsBoard({
   return (
     <Card className={genClassName(className)}>
       <ListProfile
+        dataNotFoundEl={
+          <Link
+            style={{ textDecoration: "none" }}
+            to={`/${APP_ROUTE.SCHEDULE_ROUTE}`}
+          >
+            No upcoming events are found
+          </Link>
+        }
         queryOptions={meetingApiOptions}
         useQuery={meetingApi.useGetItemsQuery}
         heading={"Incoming Events"}
