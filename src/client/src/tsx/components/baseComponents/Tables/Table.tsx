@@ -4,7 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+
 import {
   genClassName,
   getKeysArrObj,
@@ -13,8 +13,6 @@ import {
 import { TableProps } from "../baseComponentsTypes";
 import { formatThValue, TdCell, ThCell } from "./TableCells";
 import style from "./Table.module.scss";
-import { ModelDisplayContentOptions } from "../../../redux/slices/modelControllerSlice";
-import { useAppDispatch } from "../../../redux/hooks";
 
 // Creates dynamic data table with action of edit and remove.
 // customizes the table by Td and Th cells component.
@@ -36,6 +34,7 @@ function Table<T extends Record<string, any>>({
   const newDataArr = dataArr.map((obj: T) => {
     let newObj = {};
 
+    // Check if the table is users table
     for (const key in obj) {
       if (key === "user_id" && obj.username) {
         newObj = { ...newObj, [key]: obj[key] };

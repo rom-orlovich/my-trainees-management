@@ -7,15 +7,24 @@
     @include heightWidth(7rem, 7rem);
     color: rgb(210, 216, 219);
   }
+
   h2 {
     font-weight: 500;
   }
   .user_details_links {
     width: 100%;
+    gap: 0.5rem;
     @include flex-dir(null, center, column);
     a {
       font-size: 1.2rem;
       text-decoration: none;
+    }
+    .resend_email {
+      font-size: 1.2rem;
+      border: none;
+      color: blue;
+      background-color: white;
+      cursor: pointer;
     }
   }
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import SubscriptionPlansAddForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansAddForm";
-import SubscriptionPlansEditForm from "../components/Forms/SubscriptionPlansForms/SubscriptionPlansEditForm";
+
 import TraineeAddForm from "../components/Forms/TraineeForms/TraineeAddForm";
 import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
 import TraineeProfile from "../pages/ProfilePage/TraineeProfile/TraineeProfile";
