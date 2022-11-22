@@ -35,7 +35,6 @@ import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
 import { providerTags } from "../reduxHelpers";
 import { baseQueryWithReauth } from "./apiReauthQuery";
 import { GenericRecord } from "../../types";
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
 
 export const usersApi = apiCreateCRUDHooks<User>({
   reducerPath: "usersApi",
@@ -272,6 +271,7 @@ export const meetingApi = apiCreateCRUDHooks<MeetingAPI>({
 });
 
 export const emailAPi = createApi({
+  reducerPath: "emailApi",
   baseQuery: baseQueryWithReauth(`${API_ROUTES.API_AUTH_ROUTE}`),
   endpoints: (builder) => ({
     resendEmail: builder.query({
