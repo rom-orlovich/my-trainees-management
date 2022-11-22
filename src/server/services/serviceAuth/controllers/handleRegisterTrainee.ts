@@ -4,10 +4,14 @@ import { RequestHandler } from "express";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { insertNewTableData } from "../../../PGSql/complexSqlQueries";
 import { TABLES_DATA } from "../../../utilities/constants";
-import { API_ROUTES, URL_CUR_CLIENT } from "../../apiRoutesConstants";
+import { API_ROUTES } from "../../apiRoutesConstants";
 import { createLogAlertInfo } from "../../serviceAlerts/handleAlerts";
 
-import { genToken, sendEmail } from "../utilities/authHelpers";
+import {
+  createRegisterMessage,
+  genToken,
+  sendEmail,
+} from "../utilities/authHelpers";
 import { TokenType } from "./validateAuthMiddleware";
 
 export const prepareLogAlert = createLogAlertInfo(API_ROUTES.TRAINEES_ENTITY);
@@ -45,13 +49,12 @@ export const handleRegisterTrainee: RequestHandler = async (req, res, next) => {
       true
     );
 
-    const res = await client.query("COMMIT");
-    const link = `${URL_CUR_CLIENT}${API_ROUTES.SIGN_UP_ROUTE}/${API_ROUTES.TRAINEES_ENTITY}/${trainee.trainee_id}?verify=${signUpGmailToken}`;
-    const message = {
-      subject: "Welcome to My-Trainees-Management-app",
-      text: `Create account in this link ${link}`,
-    };
-    sendEmail(email, message).catch((value) => {
+    await client.query("COMMIT");
+
+    sendEmail(
+      email,
+      createRegisterMessage(trainee.trainee_id, signUpGmailToken)
+    ).catch((value) => {
       console.log(value);
     });
   } catch (error) {

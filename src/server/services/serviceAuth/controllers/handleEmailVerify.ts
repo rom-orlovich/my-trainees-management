@@ -18,7 +18,7 @@ import { TokenType } from "./validateAuthMiddleware";
 
 export const handleEmailVerify: RequestHandler = async (req, res, next) => {
   const { email } = req.body;
-  const queryLogic = `JOIN  ${TABLES_DATA.PROFILES_TABLE_NAME} as pr ON
+  const queryLogic = `JOIN ${TABLES_DATA.PROFILES_TABLE_NAME} as pr ON
 pr.${TABLES_DATA.PROFILE_ID}=${TABLES_DATA.USERS_TABLE_NAME}.${TABLES_DATA.PROFILE_ID}
 where email=$1
 `;

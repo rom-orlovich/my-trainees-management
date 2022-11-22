@@ -14,7 +14,11 @@ export enum TokenType {
   VERIFY_SIGN_UP = 1,
   VERIFY_CHANGE_CRED = 2,
 }
-const checkTraineeHaveToken = async (token: string, profileID: number) => {
+const checkTraineeHaveToken = async (
+  token: string,
+  profileID: number,
+  traineeID: string
+) => {
   // eslint-disable-next-line no-unused-vars
   const [trainee, errorTrainee] = await promiseHandler(
     selectQuery(
@@ -24,7 +28,9 @@ const checkTraineeHaveToken = async (token: string, profileID: number) => {
       [token, profileID]
     )
   );
-  if (errorTrainee) return false;
+
+  if (errorTrainee || trainee[0]?.trainee_id !== Number(traineeID))
+    return false;
 
   return trainee && trainee[0];
 };
@@ -62,7 +68,13 @@ export const validateTokenMiddleware: RequestHandler = async (
   // and check if the user have the corresponded verify signUp token.
   // The next middleware is validateRolePermission.
   if (Decode?.profile_id && Decode.tokenType === TokenType.VERIFY_SIGN_UP) {
-    if (await checkTraineeHaveToken(accessToken, Decode?.profile_id)) {
+    if (
+      await checkTraineeHaveToken(
+        accessToken,
+        Decode?.profile_id,
+        req.query.traineeID as string
+      )
+    ) {
       req.signUpData = {
         role: "trainer",
       };

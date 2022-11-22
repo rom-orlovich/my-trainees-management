@@ -11,6 +11,7 @@ export enum API_ROUTES {
   LOGOUT_ROUTE = "/logout",
   USERS_ROUTE = "/api/users",
   CHANGE_USER_CRED_ROUTE = "/credentials/change",
+  RESEND_EMAIL_ROUTE = "resendEmail",
   USER_ENTITY = "user",
   ALERT_ROUTE = "/api/alerts",
   ALERT_ENTITY = "alert",

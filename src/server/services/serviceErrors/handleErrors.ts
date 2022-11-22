@@ -74,9 +74,7 @@ export class ErrorCustomizes<
     else if (this.error?.code === ErrorCodes.LOGIN_FAILED) {
       this.message = this.error?.message || "";
       this.statusCode = 401;
-    } else if (this.error?.message) {
-      this.message = this.error.message;
-    }
+    } else if (this.error?.message) this.message = this.error.message;
 
     return this;
   }

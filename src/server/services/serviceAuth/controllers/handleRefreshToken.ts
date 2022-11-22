@@ -41,7 +41,7 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   // Check if the user exist
   if (!(user && user[0]) || error) {
-    const [userUpdate, errorUpdate] = await promiseHandler(
+    await promiseHandler(
       updateQuerySingleItem(
         TABLES_DATA.USERS_TABLE_NAME,
         {

@@ -35,6 +35,7 @@ import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
 import { providerTags } from "../reduxHelpers";
 import { baseQueryWithReauth } from "./apiReauthQuery";
 import { GenericRecord } from "../../types";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 
 export const usersApi = apiCreateCRUDHooks<User>({
   reducerPath: "usersApi",
@@ -158,10 +159,21 @@ export const traineesApi = apiCreateCRUDHooks<TraineesTableExtendsAPI>({
 }).injectEndpoints({
   endpoints: (builder) => ({
     getRegisterTrainee: builder.query<TraineesTableExtendsAPI, any>({
-      query: ({ id, verifyToken }: { id: string; verifyToken: string }) => {
+      query: ({
+        id,
+        verifyToken,
+        ...rest
+      }: {
+        id: string;
+        verifyToken: string;
+      }) => {
         const headers = new Headers();
         headers.set("authorization", `Bearer ${verifyToken}`);
-        return { url: `${API_ROUTES.TRAINEES_ENTITY}/${id}`, headers };
+        return {
+          url: `${API_ROUTES.TRAINEES_ENTITY}/${id}`,
+          headers,
+          params: { traineeID: id, ...rest },
+        };
       },
     }),
     registerTrainee: builder.mutation({
@@ -259,6 +271,15 @@ export const meetingApi = apiCreateCRUDHooks<MeetingAPI>({
   listId: "meetings_list",
 });
 
+export const emailAPi = createApi({
+  baseQuery: baseQueryWithReauth(`${API_ROUTES.API_AUTH_ROUTE}`),
+  endpoints: (builder) => ({
+    resendEmail: builder.query({
+      query: (params) => ({ url: `/${API_ROUTES.RESEND_EMAIL_ROUTE}`, params }),
+    }),
+  }),
+});
+
 export const apiCreateCrudArr = [
   leadsApi,
   musclesGroupApi,
@@ -286,6 +307,7 @@ export const apiCreateCrudArr = [
   participantsGroupApi,
   participantsGroupsListApi,
   financesApi,
+  emailAPi,
 ];
 
 // Create Reducer arr that contains  object with key of the reducer name and value the reducer function.

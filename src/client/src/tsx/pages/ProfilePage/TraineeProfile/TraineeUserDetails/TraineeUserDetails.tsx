@@ -5,6 +5,7 @@ import { PropsBasic } from "../../../../components/baseComponents/baseComponents
 import Card from "../../../../components/baseComponents/Card/Card";
 
 import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
+import { emailAPi } from "../../../../redux/api/hooksAPI";
 
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 
@@ -12,8 +13,9 @@ import { genClassName } from "../../../../utilities/helpersFun";
 import style from "../../UserDetailsStyle/UserDetails.module.scss";
 
 function TraineeUserDetails({ className }: PropsBasic) {
-  const { profileID, traineeID, username } = useGetUserTraineeData();
-
+  const { profileID, traineeID, username, userID } = useGetUserTraineeData();
+  const [trigger] = emailAPi.useLazyResendEmailQuery();
+  const queryOptions = { userID, profileID, traineeID };
   return (
     <Card className={genClassName(className, style.user_details_container)}>
       <div>
@@ -25,11 +27,14 @@ function TraineeUserDetails({ className }: PropsBasic) {
         {username ? (
           <> </>
         ) : (
-          <button className={style.resend_email}> Resend Email</button>
+          <button
+            onClick={() => trigger(queryOptions)}
+            className={style.resend_email}
+          >
+            Resend Email
+          </button>
         )}
-        <Link
-          to={`/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_PERSONAL_DETAILS_ROUTE}`}
-        >
+        <Link to={`/${APP_ROUTE.TRAINEES_ROUTE}/${traineeID}`}>
           Edit Details
         </Link>
 

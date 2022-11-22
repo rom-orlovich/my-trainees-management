@@ -9,7 +9,7 @@ import { genClassName } from "../../../../utilities/helpersFun";
 import style from "../../UserDetailsStyle/UserDetails.module.scss";
 
 function TrainerUserDetails({ className }: PropsBasic) {
-  const { authState, user_id } = useGetUserLoginData();
+  const { authState } = useGetUserLoginData();
 
   return (
     <Card className={genClassName(className, style.user_details_container)}>

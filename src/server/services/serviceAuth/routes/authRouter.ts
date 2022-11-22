@@ -7,10 +7,7 @@ import {
   signUpSchema,
 } from "../../schemas/DBSchemas";
 import { validateMiddleware } from "../../serviceValidate/validateMiddleware";
-import {
-  validateRolePermission,
-  validateTokenMiddleware,
-} from "../controllers/validateAuthMiddleware";
+import { validateTokenMiddleware } from "../controllers/validateAuthMiddleware";
 
 import { changeUserCredentialsHandler } from "../controllers/handleChangeCredentials";
 import { handleEmailVerify } from "../controllers/handleEmailVerify";
@@ -20,9 +17,7 @@ import { refreshTokenHandler } from "../controllers/handleRefreshToken";
 import { signUpHandlerTrainee } from "../controllers/handleSignUpTrainee";
 
 import { signUpHandlerTrainer } from "../controllers/handleSignUpTrainer";
-import { app } from "../../../server";
-import { traineesOptionsCRUD } from "../../serviceCRUD/routes/configRoutes";
-import { handleRegisterTrainee } from "../controllers/handleRegisterTrainee";
+import { handleResendEmail } from "../controllers/handleResendEmail";
 
 const authRouter = Router();
 const validateMiddlewareHandlerLogin = validateMiddleware(loginSchema);
@@ -36,6 +31,12 @@ authRouter.post(
   `${API_ROUTES.SIGN_UP_ROUTE}/trainer`,
   validateMiddlewareHandlerSignUp,
   signUpHandlerTrainer
+);
+
+authRouter.get(
+  `/${API_ROUTES.RESEND_EMAIL_ROUTE}`,
+  validateTokenMiddleware,
+  handleResendEmail
 );
 
 authRouter.post(

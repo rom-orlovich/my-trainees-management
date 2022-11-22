@@ -113,6 +113,14 @@ export async function createUser(
     return [undefined, error as Error] as const;
   }
 }
+export const createRegisterMessage = (id: string, token: string) => {
+  const link = `${URL_CUR_CLIENT}${API_ROUTES.SIGN_UP_ROUTE}/${API_ROUTES.TRAINEES_ENTITY}/${id}?verify=${token}`;
+  const message = {
+    subject: "Welcome to My-Trainees-Management-app",
+    text: `Please create your account in this link ${link}`,
+  };
+  return message;
+};
 
 export const sendEmail = async (
   to: string,
