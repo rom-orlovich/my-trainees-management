@@ -11,35 +11,15 @@ export const uniqueObjArr = <T extends Record<string, any>>(
 export const capitalFirstLetter = (str: string) =>
   str[0].toUpperCase() + str.slice(1).toLowerCase();
 
-export const formatDate = (date: Date, plusDay = 1, timeStamp = false) => {
-  const newDate = new Date(date);
+export interface AddToDate {
+  yPlus?: number;
+  mPlus?: number;
+  dPlus?: number;
+  hPlus?: number;
+  minPlus?: number;
+}
 
-  const formatted = new Date(
-    newDate.getTime() + Math.abs(newDate.getTimezoneOffset() * 60000)
-  );
-  formatted.setDate(newDate.getDate() + plusDay);
-
-  if (timeStamp) return formatted.toISOString().slice(0, -1);
-  return formatted.toLocaleDateString("en-CA");
-};
-
-export const checkIfStrIsValidDate = (value: string) => {
-  if (value.split("-").length <= 2) return value;
-  const parseDate = Date.parse(value);
-  if (Number.isNaN(parseDate)) return value;
-  return formatDate(new Date(parseDate));
-};
-
-export const newDate = (
-  date: Date,
-  add?: {
-    yPlus?: number;
-    mPlus?: number;
-    dPlus?: number;
-    hPlus?: number;
-    minPlus?: number;
-  }
-) => {
+export const newDate = (date: Date, add?: AddToDate) => {
   const year = date.getFullYear();
   const month = date.getMonth();
   const day = date.getDate();
@@ -53,6 +33,32 @@ export const newDate = (
     hour + (add?.hPlus || 0),
     minutes + (add?.minPlus || 0)
   );
+};
+
+export const changeDateUTCtoLocal = (date: Date) =>
+  new Date(date.getTime() + Math.abs(date.getTimezoneOffset() * 60000));
+
+export const getInputFormattedISO = (date: Date) =>
+  date.toISOString().slice(0, -1);
+
+export const setInputLocalDate = (date: Date) =>
+  getInputFormattedISO(changeDateUTCtoLocal(date));
+
+export const formatDate = (date: Date, plusDay = 1, timeStamp = false) => {
+  const newDate = new Date(date);
+  const formatted = changeDateUTCtoLocal(newDate);
+
+  formatted.setDate(newDate.getDate() + plusDay);
+
+  if (timeStamp) return getInputFormattedISO(formatted);
+  return formatted.toLocaleDateString("en-CA");
+};
+
+export const checkIfStrIsValidDate = (value: string) => {
+  if (value.split("-").length <= 2) return value;
+  const parseDate = Date.parse(value);
+  if (Number.isNaN(parseDate)) return value;
+  return formatDate(new Date(parseDate));
 };
 
 export const deleteFunMutation = <T extends MutationTrigger<any>>(

@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
+import { getValue } from "@testing-library/user-event/dist/types/utils";
+import { format } from "date-fns";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -20,9 +22,11 @@ import {
 import { useAppDispatch } from "../../../redux/hooks";
 import { openModel } from "../../../redux/slices/modelControllerSlice";
 
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
-
-import { formatDate, newDate } from "../../../utilities/helpersFun";
+import {
+  formatDate,
+  newDate,
+  setInputLocalDate,
+} from "../../../utilities/helpersFun";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
@@ -45,15 +49,16 @@ export function MeetingForm({
   const dateStart = Number(queryParams.get("dateStart"));
   const dateEnd = Number(queryParams.get("dateEnd"));
 
-  const DateStart = formatDate(
-    defaultValues?.date_start || new Date(dateStart),
-    0,
-    true
+  console.log(
+    setInputLocalDate(new Date(defaultValues?.date_start || dateStart))
   );
-  const DateEnd = formatDate(
-    defaultValues?.date_end || new Date(dateEnd),
-    0,
-    true
+
+  const DateStart = setInputLocalDate(
+    new Date(defaultValues?.date_start || dateStart)
+  );
+
+  const DateEnd = setInputLocalDate(
+    new Date(defaultValues?.date_end || dateEnd)
   );
 
   return (
@@ -91,12 +96,7 @@ export function MeetingForm({
 
               setValue(
                 "date_end",
-                formatDate(
-                  newDate(curStartDate, { minPlus: 45 }),
-
-                  0,
-                  true
-                ) as any
+                setInputLocalDate(newDate(curStartDate, { minPlus: 45 })) as any
               );
             }
           }, [date_start, touchedFields.date_start]);
