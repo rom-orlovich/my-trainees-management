@@ -20,12 +20,11 @@ function FinancesStatsCards({
     userID: user_id,
   };
 
-  const data = financesApi.useGetFinancesQuery({
+  const { data } = financesApi.useGetFinancesQuery({
     ...queryOptionsData,
     chartDisplay: CHART_DISPLAY.DISTRIBUTION,
   });
-  console.log(data);
-  const Data = data.data as unknown as FinanceAPI;
+  const Data = data as unknown as FinanceAPI;
 
   return (
     <>
