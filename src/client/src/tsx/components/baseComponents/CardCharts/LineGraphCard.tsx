@@ -55,6 +55,15 @@ function LineGraphCard({
             className={lineChartProps?.className}
             options={{
               ...CHART_BASE_OPTIONS,
+              scales: {
+                x: {
+                  ticks: {
+                    font: {
+                      size: 10,
+                    },
+                  },
+                },
+              },
               plugins: {
                 tooltip: {
                   callbacks: { label: labelFormatterByUnit(unit) },
@@ -75,7 +84,7 @@ function LineGraphCard({
                 borderColor: defaultColors,
                 pointBorderColor: defaultColors,
                 pointBackgroundColor: defaultColors,
-                pointRadius: 4,
+                pointRadius: 5,
                 pointStyle: "circle",
                 tension: 0.5,
                 label: chartHeading,

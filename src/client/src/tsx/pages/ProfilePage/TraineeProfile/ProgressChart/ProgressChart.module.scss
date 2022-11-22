@@ -1,7 +1,7 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 .progress_chart_container {
   position: relative;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 @include smartphone() {

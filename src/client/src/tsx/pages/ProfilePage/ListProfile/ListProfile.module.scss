@@ -33,7 +33,7 @@
         .list_detail {
           width: 10rem;
           text-align: center;
-          @include flex-dir(center, center, column);
+          @include flex-dir(space-between, center, column);
           gap: 0.1rem;
           :first-child {
             font-weight: 500;
