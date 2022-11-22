@@ -122,7 +122,7 @@
     @include heightWidth(3.5rem, 3.5rem);
     border-radius: 50%;
     background-color: white;
-    @include posAbs(null, null, 1%, 2%);
+    @include posAbs(null, null, 1%, 1%);
     position: fixed;
     z-index: 75;
     color: rgb(62, 108, 194);

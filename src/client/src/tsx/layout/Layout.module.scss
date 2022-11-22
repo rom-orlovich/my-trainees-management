@@ -12,7 +12,7 @@
   width: 100vw;
   height: $MAIN_LAYOUT_HEIGHT;
   @include flex-dir(null, null, row);
-  gap: 0.8rem;
+  gap: 1rem;
   .side_bar {
     flex: $SIDE_BAR_FLEX;
   }
