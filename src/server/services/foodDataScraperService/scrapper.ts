@@ -8,7 +8,8 @@ import {
   JSON_ENCODING_DEFAULT,
   PRODUCTS_LINKS_HTML_PATH,
   PRODUCT_DETAILS_HTML_PATH,
-  LINKS_SCRAPPER_JSON_PATH
+  LINKS_SCRAPPER_JSON_PATH,
+  FOOD_DICT_DB_PATH
 } from "./constants";
 import { CreateNationalProductsNamesDB } from "./initDBfood";
 import { CronCachedData, Food } from "./types";
@@ -71,7 +72,7 @@ async function beginScrapping() {
 // beginScrapping();
 
 const arr = JSON.parse(
-  readFileSync(LINKS_SCRAPPER_JSON_PATH, JSON_ENCODING_DEFAULT)
+  readFileSync(FOOD_DICT_DB_PATH, JSON_ENCODING_DEFAULT)
 ) as Food[];
 
 const newArr = arr
@@ -96,8 +97,4 @@ const newArr = arr
     };
   });
 
-writeFileSync(
-  LINKS_SCRAPPER_JSON_PATH,
-  JSON.stringify(newArr),
-  JSON_ENCODING_DEFAULT
-);
+writeFileSync(FOOD_DICT_DB_PATH, JSON.stringify(newArr), JSON_ENCODING_DEFAULT);
