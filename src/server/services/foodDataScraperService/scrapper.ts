@@ -95,3 +95,9 @@ const newArr = arr
       calories_total: el.calories
     };
   });
+
+writeFileSync(
+  LINKS_SCRAPPER_JSON_PATH,
+  JSON.stringify(newArr),
+  JSON_ENCODING_DEFAULT
+);
