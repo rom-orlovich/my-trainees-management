@@ -1,4 +1,5 @@
 {
   "ignore": ["./jest.config.ts"],
-  "watch": ["../*.ts"]
+  "watch": ["../*.ts"],
+  "ext": "ts"
 }
