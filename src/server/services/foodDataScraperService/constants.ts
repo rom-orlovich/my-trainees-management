@@ -8,6 +8,7 @@ export enum FILES_PATH {
   NATIONAL_FOOD_DICT = "nationalFoodDict.json",
   LINKS_SCRAPPER = "productsLinks.json",
   CRON_CACHED_DATA = "cronCachedData.json",
+  FOOD_DICT_DB = "foodDictDB.json",
 
   HTML_FOLDER = "HTML",
   PRODUCT_LINKS = "productsList",
@@ -28,6 +29,10 @@ export const NATIONAL_FOOD_DICT_JSON_PATH = resolve(
 export const LINKS_SCRAPPER_JSON_PATH = resolve(
   JSON_FOLDER_PATH,
   FILES_PATH.LINKS_SCRAPPER
+);
+export const FOOD_DICT_DB_PATH = resolve(
+  JSON_FOLDER_PATH,
+  FILES_PATH.FOOD_DICT_DB
 );
 export const CRON_CACHED_DATA_JSON_PATH = resolve(
   JSON_FOLDER_PATH,

@@ -1,0 +1,118 @@
+import { Cheerio, CheerioAPI, Element, load } from "cheerio";
+import e from "express";
+import { readFileSync } from "fs";
+import { lowerCase, replace } from "lodash";
+import { URL_PATH } from "../constants";
+
+export function createCheerioLoad(strHTML: string) {
+  const htmlFile = readFileSync(strHTML, "utf-8");
+  return load(htmlFile);
+}
+
+export function createProductsLinksData(pathHTML: string) {
+  const $ = createCheerioLoad(pathHTML);
+  const links = $(".media-body a")
+    .toArray()
+    .map((el) => `${URL_PATH.FOOD_DICT_URL}${el.attribs.href}`);
+  return links;
+}
+
+const ckv = ($: ReturnType<CheerioAPI>) => {
+  const aTag = $.find("a");
+  if (aTag) {
+    const nameValue = lowerCase(
+      aTag[0].attribs.href.split("/").slice(-1).join("").split(".")[0]
+    ).replace(/\s+/g, "_");
+
+    const valueEl = $.find("[id*=currentValue]");
+
+    const value = Number(valueEl.text() || 0);
+    if (valueEl?.attr("id")?.includes("5")) return { saturated_fat: value };
+    return { [nameValue]: value };
+  }
+  return {};
+};
+
+export function createProductsDetailsData(pathHTML: string) {
+  const $ = createCheerioLoad(pathHTML);
+  const productName = $("h1").text();
+  const allerganElText = $(".allergic-box").text();
+  const resAllergan: string[] = [];
+
+  const allerganList = [
+    "גלוטן",
+    "סויה",
+    "שומשום",
+    "בוטנים",
+    "חיטה",
+    "אגוזים",
+    "ביצה",
+    "סולפיט",
+    "ביצים",
+    "חלב",
+    "שקדים",
+    "אגוזי לוז",
+    "אגוזי פקאן",
+    "קוקוס",
+    "קשיו",
+    "לוז",
+    "פקאן",
+    "חרדל",
+    "סלרי",
+  ];
+  allerganList.forEach((el) => {
+    if (allerganElText.includes(el))
+      if (el === "גלוטן" && !allerganElText.includes("ללא גלוטן"))
+        resAllergan.push(el);
+      else resAllergan.push(el);
+  });
+
+  let values = { productName } as any;
+  const kosher = !$("p").text().includes("לא כשר");
+  const meat = $("p").text().includes("בשרי") && "בשרי";
+  const pareve = $("p").text().includes("פרווה") && "פרווה";
+  const dairy = $("p").text().includes("חלבי") && "חלבי";
+
+  $("tbody:has(a[href*=Protein]) tr")
+    .toArray()
+    .slice(1)
+    .forEach((el) => {
+      const curEl = $(el);
+      const checkAttr = (hrefVal: string) =>
+        curEl.find(`a[href*=${hrefVal}]`).length;
+      if (
+        checkAttr("Calories") ||
+        checkAttr("Protein") ||
+        checkAttr("Carbohydrates") ||
+        checkAttr("Total_Fat") ||
+        checkAttr("Cholesterol") ||
+        checkAttr("Sodium")
+      )
+        values = {
+          ...values,
+          ...ckv(curEl),
+          allergens: resAllergan,
+          kosher: !kosher,
+          typeKosher: meat || dairy || pareve || null,
+        };
+    });
+  let productType = "";
+
+  if (
+    values.proteins > values.carbohydrates &&
+    values.proteins > values.total_fat
+  )
+    productType = "protein";
+  else if (
+    values.proteins < values.total_fat &&
+    values.carbohydrates < values.total_fat
+  )
+    productType = "fats";
+  else if (
+    values.proteins < values.carbohydrates &&
+    values.total_fat < values.carbohydrates
+  )
+    productType = "carbohydrates";
+
+  return { ...values, productType };
+}

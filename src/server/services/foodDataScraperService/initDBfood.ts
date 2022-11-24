@@ -10,7 +10,7 @@ import {
 export const getDataFromAPI = async () => {
   try {
     const curData = JSON.parse(
-      await readFile(NATIONAL_FOOD_DICT_JSON_PATH, { encoding: "utf-8" })
+      await readFile(NATIONAL_FOOD_DICT_JSON_PATH, JSON_ENCODING_DEFAULT)
     ) as FoodDB[];
     const { length } = curData;
     const urlQuery = {

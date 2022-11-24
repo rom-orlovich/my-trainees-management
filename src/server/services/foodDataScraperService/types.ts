@@ -138,7 +138,7 @@ export interface FoodDB {
 export interface CronCachedData {
   eachMin: number;
   fetchNationalDict: Range;
-  fetchLinks: Range;
+  fetchProductsLinks: Range;
 }
 
 export interface Range {
