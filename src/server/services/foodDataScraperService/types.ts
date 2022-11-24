@@ -145,3 +145,26 @@ export interface Range {
   start: number;
   end: number;
 }
+
+export interface Food {
+  id: string;
+  product_name: string;
+  calories: number;
+  allergens: string[];
+  kosher: boolean;
+  kosher_type: string;
+  proteins: number;
+  carbohydrates: number;
+  total_fat: number;
+  saturated_fat: number;
+  cholesterol: number;
+  sodium: number;
+  food_type: string;
+  protein_g: number;
+  // fat_g
+  // crabs_g
+  // protein_cals
+  // fat_cals
+  // crabs_cals
+  // calories_total
+}

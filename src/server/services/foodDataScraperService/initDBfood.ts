@@ -3,11 +3,12 @@ import axios from "axios";
 import { FoodDB, ResDataBaseFood } from "./types";
 import {
   FILES_PATH,
+  JSON_ENCODING_DEFAULT,
   NATIONAL_FOOD_DICT_JSON_PATH,
   URL_PATH,
 } from "./constants";
 
-export const getDataFromAPI = async () => {
+export const CreateNationalProductsNamesDB = async () => {
   try {
     const curData = JSON.parse(
       await readFile(NATIONAL_FOOD_DICT_JSON_PATH, JSON_ENCODING_DEFAULT)
@@ -42,7 +43,7 @@ export const getDataFromAPI = async () => {
         ];
         console.log(`start writing ${FILES_PATH.NATIONAL_FOOD_DICT} `);
         await writeFile(
-          URL_PATH.NATIONAL_FOOD_DICT_URL,
+          NATIONAL_FOOD_DICT_JSON_PATH,
           JSON.stringify(foodNames)
         );
       }

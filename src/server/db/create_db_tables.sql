@@ -48,6 +48,8 @@ DROP TABLE IF EXISTS "participants_groups_list" CASCADE;
 
 DROP TABLE IF EXISTS "products" CASCADE;
 
+DROP TABLE IF EXISTS "foods" CASCADE; 
+
 CREATE TABLE IF NOT EXISTS "cities" (
   "city_id" serial PRIMARY KEY,
   "city_name" VARCHAR(255) UNIQUE NOT NULL,

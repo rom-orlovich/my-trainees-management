@@ -52,7 +52,7 @@ export async function conditionHTMLFetch(pathHTML: string, fetchURL: string) {
   }
 }
 
-// export async function fetchNationalFoodDict(start: number, end: number) {
+// export async function createProductsListLinksDB(start: number, end: number) {
 //   const curData = JSON.parse(
 //     await readFile(NATIONAL_FOOD_DICT_JSON_PATH, JSON_ENCODING_DEFAULT)
 //   ) as FoodDB[];
@@ -98,10 +98,10 @@ export async function createPromiseFetchArr<T>(
   return promiseArr;
 }
 
-export async function fetchNationalFoodDict(start: number, end: number) {
+export async function createProductsListLinksDB(start: number, end: number) {
   try {
     const promiseArrRes = await Promise.all(
-      // await fetchNationalFoodDict(start, end)
+      // await createProductsListLinksDB(start, end)
       await createPromiseFetchArr(
         start,
         end,
@@ -124,7 +124,7 @@ export async function fetchNationalFoodDict(start: number, end: number) {
   }
 }
 
-export async function fetchProductLinksDetails(start: number, end: number) {
+export async function createProductDetailsDB(start: number, end: number) {
   try {
     const promiseArrRes = await Promise.all(
       await createPromiseFetchArr(

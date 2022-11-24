@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { resolve } from "path";
 
-export const RESULT_ADD = 5;
+export const RESULT_ADD = 10;
 export const JSON_ENCODING_DEFAULT = "utf8";
 export enum FILES_PATH {
   JSON_FOLDER_PATH = "JSON",

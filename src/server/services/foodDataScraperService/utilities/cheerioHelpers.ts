@@ -20,14 +20,27 @@ export function createProductsLinksData(pathHTML: string) {
 const ckv = ($: ReturnType<CheerioAPI>) => {
   const aTag = $.find("a");
   if (aTag) {
-    const nameValue = lowerCase(
+    let nameValue = lowerCase(
       aTag[0].attribs.href.split("/").slice(-1).join("").split(".")[0]
     ).replace(/\s+/g, "_");
-
     const valueEl = $.find("[id*=currentValue]");
-
     const value = Number(valueEl.text() || 0);
     if (valueEl?.attr("id")?.includes("5")) return { saturated_fat: value };
+
+    if (nameValue === "proteins") {
+      nameValue = "protein_g";
+      return { protein_cals: value * 4, [nameValue]: value };
+    }
+
+    if (nameValue === "carbohydrates") {
+      nameValue = "crabs_g";
+      return { crabs_cals: value * 4, [nameValue]: value };
+    }
+    if (nameValue === "total_fat") {
+      nameValue = "fat_g";
+      return { fat_cals: value * 4, [nameValue]: value };
+    }
+
     return { [nameValue]: value };
   }
   return {};
@@ -67,19 +80,34 @@ export function createProductsDetailsData(pathHTML: string) {
       else resAllergan.push(el);
   });
 
-  let values = { productName } as any;
-  const kosher = !$("p").text().includes("לא כשר");
+  let values = {
+    product_name: productName,
+    calories: 0,
+    allergens: [],
+    kosher: true,
+    kosher_type: "פרווה",
+    proteins: 0,
+    carbohydrates: 0,
+    total_fat: 0,
+    saturated_fat: 0,
+    cholesterol: 0,
+    sodium: 0,
+    food_type: "",
+  } as any;
+
+  const kosher = $("p").text().includes("לא כשר");
   const meat = $("p").text().includes("בשרי") && "בשרי";
   const pareve = $("p").text().includes("פרווה") && "פרווה";
   const dairy = $("p").text().includes("חלבי") && "חלבי";
 
-  $("tbody:has(a[href*=Protein]) tr")
+  $("tbody:has(a[href*=Calories]) tr")
     .toArray()
     .slice(1)
     .forEach((el) => {
       const curEl = $(el);
       const checkAttr = (hrefVal: string) =>
         curEl.find(`a[href*=${hrefVal}]`).length;
+
       if (
         checkAttr("Calories") ||
         checkAttr("Protein") ||
@@ -93,26 +121,26 @@ export function createProductsDetailsData(pathHTML: string) {
           ...ckv(curEl),
           allergens: resAllergan,
           kosher: !kosher,
-          typeKosher: meat || dairy || pareve || null,
+          kosher_type: meat || dairy || pareve || null,
         };
     });
-  let productType = "";
+  let foodType = "";
 
   if (
     values.proteins > values.carbohydrates &&
     values.proteins > values.total_fat
   )
-    productType = "protein";
+    foodType = "proteins";
   else if (
     values.proteins < values.total_fat &&
     values.carbohydrates < values.total_fat
   )
-    productType = "fats";
+    foodType = "fats";
   else if (
     values.proteins < values.carbohydrates &&
     values.total_fat < values.carbohydrates
   )
-    productType = "carbohydrates";
+    foodType = "carbohydrates";
 
-  return { ...values, productType };
+  return { ...values, food_type: foodType };
 }

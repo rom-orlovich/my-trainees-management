@@ -67,7 +67,7 @@ export function createArrDataObjJSON<T>(pathJSON: string, scrapData: T) {
 
   writeFileSync(
     pathJSON,
-    JSON.stringify([...curData, scrapData]),
+    JSON.stringify([...curData, { id: curData.length + 1, ...scrapData }]),
     JSON_ENCODING_DEFAULT
   );
 }
