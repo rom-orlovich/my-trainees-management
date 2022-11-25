@@ -3,7 +3,7 @@ import * as path from "path";
 
 import ESLintPlugin from "eslint-webpack-plugin";
 
-const cwd = `deploy-render`;
+const cwd = `deploy`;
 type Mode = "development" | "none" | "production";
 const mode = (process.env.NODE_ENV || "development") as Mode;
 const config: webpack.Configuration = {
