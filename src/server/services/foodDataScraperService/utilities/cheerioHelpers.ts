@@ -1,7 +1,7 @@
-import { Cheerio, CheerioAPI, Element, load } from "cheerio";
-import e from "express";
+import { CheerioAPI, load } from "cheerio";
+
 import { readFileSync } from "fs";
-import { lowerCase, replace } from "lodash";
+import { lowerCase } from "lodash";
 import { URL_PATH } from "../constants";
 
 export function createCheerioLoad(strHTML: string) {
@@ -17,7 +17,7 @@ export function createProductsLinksData(pathHTML: string) {
   return links;
 }
 
-const ckv = ($: ReturnType<CheerioAPI>) => {
+const createKeyValue = ($: ReturnType<CheerioAPI>) => {
   const aTag = $.find("a");
   if (aTag) {
     let nameValue = lowerCase(
@@ -26,7 +26,9 @@ const ckv = ($: ReturnType<CheerioAPI>) => {
     const valueEl = $.find("[id*=currentValue]");
     const value = Number(valueEl.text() || 0);
     if (valueEl?.attr("id")?.includes("5")) return { saturated_fat: value };
+    if (valueEl?.attr("id")?.includes("3")) return { sugars_g: value };
 
+    if (nameValue === "calories") return { calories_total: value };
     if (nameValue === "proteins") {
       nameValue = "protein_g";
       return { protein_cals: value * 4, [nameValue]: value };
@@ -51,7 +53,6 @@ export function createProductsDetailsData(pathHTML: string) {
   const productName = $("h1").text();
   const allerganElText = $(".allergic-box").text();
   const resAllergan: string[] = [];
-
   const allerganList = [
     "גלוטן",
     "סויה",
@@ -82,17 +83,21 @@ export function createProductsDetailsData(pathHTML: string) {
 
   let values = {
     product_name: productName,
-    calories: 0,
+    calories_total: 0,
+    protein_g: 0,
+    protein_cals: 0,
+    crabs_g: 0,
+    crabs_cals: 0,
+    sugars_g: 0,
+    fat_g: 0,
+    fat_cals: 0,
+    saturated_fat_mg: 0,
+    cholesterol_mg: 0,
+    sodium_mg: 0,
+    food_type: "",
     allergens: [],
     kosher: true,
     kosher_type: "פרווה",
-    proteins: 0,
-    carbohydrates: 0,
-    total_fat: 0,
-    saturated_fat: 0,
-    cholesterol: 0,
-    sodium: 0,
-    food_type: "",
   } as any;
 
   const kosher = $("p").text().includes("לא כשר");
@@ -118,7 +123,7 @@ export function createProductsDetailsData(pathHTML: string) {
       )
         values = {
           ...values,
-          ...ckv(curEl),
+          ...createKeyValue(curEl),
           allergens: resAllergan,
           kosher: !kosher,
           kosher_type: meat || dairy || pareve || null,

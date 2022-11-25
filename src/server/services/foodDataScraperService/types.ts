@@ -130,7 +130,7 @@ export interface Links {
   next: string;
 }
 
-export interface FoodDB {
+export interface FoodNameDB {
   id: number;
   name: string;
 }
@@ -148,7 +148,7 @@ export interface Range {
 
 export interface Food {
   id: string;
-  product_name: string;
+  productName: string;
   calories: number;
   allergens: string[];
   kosher: boolean;

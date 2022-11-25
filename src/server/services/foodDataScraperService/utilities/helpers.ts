@@ -8,7 +8,7 @@ import {
   PRODUCT_DETAILS_HTML_PATH,
   URL_PATH,
 } from "../constants";
-import { FoodDB } from "../types";
+import { FoodNameDB } from "../types";
 
 function mapStr() {
   let mapEncoded = {} as Record<any, any>;
@@ -67,12 +67,12 @@ export function createArrDataObjJSON<T>(pathJSON: string, scrapData: T) {
 
   writeFileSync(
     pathJSON,
-    JSON.stringify([...curData, { id: curData.length + 1, ...scrapData }]),
+    JSON.stringify([...curData, { food_id: curData.length + 1, ...scrapData }]),
     JSON_ENCODING_DEFAULT
   );
 }
 
-export const createProductLinksHTMLandFetchURL = (el: FoodDB) => {
+export const createProductLinksHTMLandFetchURL = (el: FoodNameDB) => {
   const nameTrim = el.name
     .replace(/\s+/g, " ")
     .trim()

@@ -1,6 +1,6 @@
 import { writeFile, readFile } from "fs/promises";
 import axios from "axios";
-import { FoodDB, ResDataBaseFood } from "./types";
+import { FoodNameDB, ResDataBaseFood } from "./types";
 import {
   FILES_PATH,
   JSON_ENCODING_DEFAULT,
@@ -12,7 +12,7 @@ export const CreateNationalProductsNamesDB = async () => {
   try {
     const curData = JSON.parse(
       await readFile(NATIONAL_FOOD_DICT_JSON_PATH, JSON_ENCODING_DEFAULT)
-    ) as FoodDB[];
+    ) as FoodNameDB[];
     const { length } = curData;
     const urlQuery = {
       sort: "protein desc",

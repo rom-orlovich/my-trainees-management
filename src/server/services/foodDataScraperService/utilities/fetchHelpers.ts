@@ -16,10 +16,8 @@ import {
   JSON_ENCODING_DEFAULT,
   LINKS_SCRAPPER_JSON_PATH,
   NATIONAL_FOOD_DICT_JSON_PATH,
-  PRODUCTS_LINKS_HTML_PATH,
-  URL_PATH,
 } from "../constants";
-import { FoodDB } from "../types";
+
 import {
   createProductsDetailsData,
   createProductsLinksData,
@@ -51,30 +49,6 @@ export async function conditionHTMLFetch(pathHTML: string, fetchURL: string) {
     return defaultReturn;
   }
 }
-
-// export async function createProductsListLinksDB(start: number, end: number) {
-//   const curData = JSON.parse(
-//     await readFile(NATIONAL_FOOD_DICT_JSON_PATH, JSON_ENCODING_DEFAULT)
-//   ) as FoodDB[];
-//   const promiseArr = curData.slice(start, end).map(
-//     throat(2, async (el) => {
-//       const nameTrim = el.name
-//         .replace(/\s+/g, " ")
-//         .trim()
-//         .split(",")
-//         .slice(0, 1)
-//         .join("");
-//       const nameSplit = nameTrim.replace(/(\")/g, "").replace(/\//g, " ");
-
-//       const nameQuery = encoded(nameTrim);
-//       const pathHTML = resolve(PRODUCTS_LINKS_HTML_PATH, `${nameSplit}.html`);
-//       const fetchURL = `${URL_PATH.FOOD_DICT_URL}/FoodsSearch.php?q=${nameQuery}`;
-//       return await conditionHTMLFetch(pathHTML, fetchURL);
-//     })
-//   );
-
-//   return promiseArr;
-// }
 
 export async function createPromiseFetchArr<T>(
   start: number,
@@ -148,3 +122,48 @@ export async function createProductDetailsDB(start: number, end: number) {
     console.log(error);
   }
 }
+
+// const arr = JSON.parse(
+//   readFileSync(FOOD_DICT_DB_PATH, JSON_ENCODING_DEFAULT)
+// ) as Food[];
+
+// const newArr = arr
+//   .filter((el) => el.calories || el.calories === 0)
+//   .map(
+//     (
+//       {
+//         productName,
+//         id,
+//         proteins,
+//         carbohydrates,
+//         total_fat,
+//         sodium,
+//         cholesterol,
+//         saturated_fat,
+//         calories,
+//         ...el
+//       },
+//       i
+//     ) => {
+//       const proteinCals = Number(proteins * 4).toFixed(2);
+//       const crabsCals = Number(carbohydrates * 4).toFixed(2);
+//       const fatCals = Number(total_fat * 9).toFixed(2);
+//       return {
+//         food_id: i + 1,
+//         product_name: productName,
+//         ...el,
+//         protein_g: proteins || 0,
+//         crabs_g: carbohydrates || 0,
+//         fat_g: total_fat || 0,
+//         sodium_mg: sodium || 0,
+//         cholesterol_mg: cholesterol || 0,
+//         saturated_fat_mg: saturated_fat || 0,
+//         protein_cals: proteinCals,
+//         crabs_cals: crabsCals,
+//         fat_cals: fatCals,
+//         calories_total: calories
+//       };
+//     }
+//   );
+
+// writeFileSync(FOOD_DICT_DB_PATH, JSON.stringify(newArr), JSON_ENCODING_DEFAULT);

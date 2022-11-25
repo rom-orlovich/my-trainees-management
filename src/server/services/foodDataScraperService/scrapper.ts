@@ -69,32 +69,4 @@ async function beginScrapping() {
     console.log(error);
   }
 }
-// beginScrapping();
-
-const arr = JSON.parse(
-  readFileSync(FOOD_DICT_DB_PATH, JSON_ENCODING_DEFAULT)
-) as Food[];
-
-const newArr = arr
-  .filter((el) => el.calories || el.calories === 0)
-  .map((el, i) => {
-    const proteinCals = el.proteins * 4;
-    const crabsCals = el.carbohydrates * 4;
-    const fatCals = el.total_fat * 9;
-    return {
-      ...el,
-      food_id: i,
-      protein_g: el.proteins || 0,
-      crabs_g: el.carbohydrates || 0,
-      fat_g: el.total_fat || 0,
-      sodium_mg: el.sodium || 0,
-      cholesterol_mg: el.cholesterol || 0,
-      saturated_fat_mg: el.saturated_fat || 0,
-      protein_cals: proteinCals,
-      crabs_cals: crabsCals,
-      fat_cals: fatCals,
-      calories_total: el.calories
-    };
-  });
-
-writeFileSync(FOOD_DICT_DB_PATH, JSON.stringify(newArr), JSON_ENCODING_DEFAULT);
+beginScrapping();
