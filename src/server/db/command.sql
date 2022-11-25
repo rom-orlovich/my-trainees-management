@@ -1,4 +1,1 @@
-SELECT
-    *
-from
-    foods;
+select * from foods where not food_id = any(Array[1,2,3]) and not allergens&&ARRAY['גלוטן','ביצים','סויה'] and kosher=true

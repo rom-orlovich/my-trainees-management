@@ -48,10 +48,6 @@ DROP TABLE IF EXISTS "foods" CASCADE;
 
 DROP TABLE IF EXISTS "meals" CASCADE;
 
-DROP TABLE IF EXISTS "nutrition_program" CASCADE;
-
-DROP TABLE IF EXISTS "nutrition_programs_list" CASCADE;
-
 DROP TABLE IF EXISTS "nutrition_menus" CASCADE;
 
 DROP TABLE IF EXISTS "meals_foods" CASCADE;
@@ -379,7 +375,7 @@ CREATE TABLE
 CREATE TABLE
   IF NOT EXISTS "foods" (
     "food_id" serial PRIMARY KEY,
-    "product_name" VARCHAR(100),
+    "food_name" VARCHAR(100),
     "calories_total" FLOAT,
     "protein_g" FLOAT,
     "protein_cals" FLOAT,
@@ -388,22 +384,22 @@ CREATE TABLE
     "sugars_g" FLOAT,
     "fat_g" FLOAT,
     "fat_cals" FLOAT,
-    "saturated_fat_mg" FLOAT,
+    "saturated_fat" FLOAT,
     "cholesterol_mg" FLOAT,
     "sodium_mg" FLOAT,
     "food_type" VARCHAR(100),
     "allergens" TEXT ARRAY,
     "kosher" BOOLEAN,
-    "kosher_type" DEFAULT "פרווה",
+    "kosher_type" VARCHAR(10) DEFAULT 'פרווה',
     "user_id" INTEGER DEFAULT 1,
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT "kosher_type" CHECK ("kosher_type" IN ("פרווה", "בשרי", "חלבי")) CONSTRAINT "food_type" CHECK ("food_type" IN ("proteins", "fats", "carbohydrates"))
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL ON UPDATE CASCADE
+    -- CONSTRAINT "kosher_type" CHECK ("kosher_type" IN ('פרווה', 'בשרי', 'חלבי')),
+    -- CONSTRAINT "food_type" CHECK ("food_type" IN ('proteins', 'fats', 'carbohydrates'))
   );
 
 CREATE TABLE
   IF NOT EXISTS "meals" (
     "meal_id" serial PRIMARY KEY,
-    "meal_name" VARCHAR(50),
     "note_topic" TEXT,
     "note_text" TEXT,
     "user_id" INTEGER DEFAULT 1,
@@ -417,9 +413,9 @@ CREATE TABLE
     "date_end" DATE,
     "note_topic" TEXT,
     "note_text" TEXT,
-    "trainee_id" INTEGER,
-    CONSTRAINT fk_trainee_id FOREIGN KEY (trainee_id) REFERENCES trainees (trainee_id) ON DELETE SET NULL ON UPDATE CASCADE,
+    "profile_id" INTEGER,
     "user_id" INTEGER DEFAULT 1,
+    CONSTRAINT fk_profile_id FOREIGN KEY (profile_id) REFERENCES profiles (profile_id) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL ON UPDATE CASCADE
   );
 
@@ -437,6 +433,22 @@ CREATE TABLE
     "meal_id" integer,
     CONSTRAINT fk_menu_nutrition_id FOREIGN KEY (menu_nutrition_id) REFERENCES menus_nutrition (menu_nutrition_id) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE SET NULL ON UPDATE CASCADE
+  );
+
+CREATE TABLE
+  IF NOT EXISTS "nutrition_questionnaires" (
+    "nutrition_questionnaire_id" serial PRIMARY KEY,
+    "allergens" VARCHAR(50) ARRAY,
+    "black_list_foods" INTEGER ARRAY,
+    "favorite_foods" INTEGER ARRAY,
+    "kosher" BOOLEAN,
+    "day_start" Date,
+    "day_end" Date,
+    "meals_dist_percents" INTEGER ARRAY,
+    "profile_id" INTEGER,
+    "user_id" INTEGER,
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_profile_id FOREIGN KEY (profile_id) REFERENCES profiles (profile_id) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 -- pg_dump --column-inserts --data-only my_trainees_management  > dummy_data.sql

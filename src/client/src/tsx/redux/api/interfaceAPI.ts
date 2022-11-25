@@ -209,7 +209,7 @@ export interface TrainingProgramsListTableAPI {
   note_text?: string;
 }
 
-export interface MeasuresAPI {
+export interface MeasuresRawAPI {
   measure_id?: number;
   date: Date;
   weight: number;

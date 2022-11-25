@@ -157,7 +157,7 @@ export async function createProductDetailsDB(start: number, end: number) {
 //         fat_g: total_fat || 0,
 //         sodium_mg: sodium || 0,
 //         cholesterol_mg: cholesterol || 0,
-//         saturated_fat_mg: saturated_fat || 0,
+//         saturated_fat: saturated_fat || 0,
 //         protein_cals: proteinCals,
 //         crabs_cals: crabsCals,
 //         fat_cals: fatCals,

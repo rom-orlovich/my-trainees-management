@@ -24,6 +24,7 @@ import {
   participantsGroupSchema,
   meetingsSchema,
   participantsGroupListSchema,
+  foodsSchema,
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/constants";
 import { API_ROUTES } from "../../apiRoutesConstants";
@@ -564,19 +565,7 @@ export const foodsOptionsCRUD: OptionsCRUD = {
     querySelectLogic: ``,
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
-  validateSchema: meetingsSchema,
-  logAlert: true,
-};
-export const mealsOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.FOOD_ENTITY,
-  selectQuery: {
-    tableName: `${TABLES_DATA.MEALS_TABLE_NAME} as ml`,
-    tableID: `ml.${TABLES_DATA.MEALS_ID}`,
-    fieldNamesQuery: ``,
-    querySelectLogic: ``,
-  },
-  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
-  // validateSchema: meetingsSchema,
+  validateSchema: foodsSchema,
   logAlert: true,
 };
 

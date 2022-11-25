@@ -5,7 +5,7 @@ import React from "react";
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
 import { measuresApi } from "../../../redux/api/hooksAPI";
-import { MeasuresAPI } from "../../../redux/api/interfaceAPI";
+import { MeasuresRawAPI } from "../../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
@@ -49,7 +49,7 @@ function MeasureEditForm() {
           fat_cals,
           ...rest
         } = data.data[0];
-        const handleSubmit = ({ measure_id, ...body }: MeasuresAPI) =>
+        const handleSubmit = ({ measure_id, ...body }: MeasuresRawAPI) =>
           addFunction({
             addItem,
           })({ ...body });

@@ -50,3 +50,28 @@ export const formatDate = (date: Date, plusDay = 1) => {
 
 export const getFilename = (filename: string) =>
   filename.slice(__dirname.length + 1);
+
+export interface AddToDate {
+  yPlus?: number;
+  mPlus?: number;
+  dPlus?: number;
+  hPlus?: number;
+  minPlus?: number;
+}
+
+export const newDate = (date: Date | number | string, add?: AddToDate) => {
+  const curDate = new Date(date);
+  const year = curDate.getFullYear();
+  const month = curDate.getMonth();
+  const day = curDate.getDate();
+  const hour = curDate.getHours();
+  const minutes = curDate.getMinutes();
+
+  return new Date(
+    year + (add?.yPlus || 0),
+    month + (add?.mPlus || 0),
+    day + (add?.dPlus || 0),
+    hour + (add?.hPlus || 0),
+    minutes + (add?.minPlus || 0)
+  );
+};

@@ -7,18 +7,17 @@ import {
   CRON_CACHED_DATA_JSON_PATH,
   JSON_ENCODING_DEFAULT,
   PRODUCTS_LINKS_HTML_PATH,
-  PRODUCT_DETAILS_HTML_PATH,
-  LINKS_SCRAPPER_JSON_PATH,
-  FOOD_DICT_DB_PATH
+  PRODUCT_DETAILS_HTML_PATH
 } from "./constants";
-import { CreateNationalProductsNamesDB } from "./initDBfood";
-import { CronCachedData, Food } from "./types";
+import { createNationalProductsNamesDB } from "./initDBfood";
+import { CronCachedData } from "./types";
 import {
   createProductsListLinksDB,
   createProductDetailsDB
 } from "./utilities/fetchHelpers";
 
 async function beginScrapping() {
+  let success: boolean | undefined;
   console.log("Scraping begin");
   try {
     await mkdir(PRODUCTS_LINKS_HTML_PATH, { recursive: true });
@@ -27,36 +26,52 @@ async function beginScrapping() {
       readFileSync(CRON_CACHED_DATA_JSON_PATH, JSON_ENCODING_DEFAULT)
     ) as CronCachedData;
 
-    const { fetchNationalDict, fetchProductsLinks } = cronCachedData;
+    const { fetchProductsList, fetchProductsDetails, fetchNationalDict } =
+      cronCachedData;
+
+    // Init National DB scrapper
+    fetchNationalDict.start += await createNationalProductsNamesDB(
+      fetchNationalDict.start,
+      fetchNationalDict.add
+    );
+
     // Init products list links scrapper.
     await createProductsListLinksDB(
-      fetchNationalDict.start,
-      fetchNationalDict.end
+      fetchProductsList.start,
+      fetchProductsList.end
     );
     // Init product details scrapper.
     await createProductDetailsDB(
-      fetchProductsLinks.start,
-      fetchProductsLinks.end
+      fetchProductsDetails.start,
+      fetchProductsDetails.end
     );
 
     schedule(`*/${cronCachedData.eachMin} * * * *`, async () => {
-      // National DB scrapper.
-      await CreateNationalProductsNamesDB();
       cronCachedData.eachMin = Math.floor(1 + Math.random() * 5);
-      fetchNationalDict.start += RESULT_ADD;
-      fetchNationalDict.end += RESULT_ADD;
-      fetchProductsLinks.start += RESULT_ADD;
-      fetchProductsLinks.end += RESULT_ADD;
+
+      fetchProductsList.start += RESULT_ADD;
+      fetchProductsList.end += RESULT_ADD;
+      fetchProductsDetails.start += RESULT_ADD;
+      fetchProductsDetails.end += RESULT_ADD;
+
       console.log("Begin fetching");
+
+      // National DB scrapper.
+      fetchNationalDict.start += await createNationalProductsNamesDB(
+        fetchNationalDict.start,
+        fetchNationalDict.add
+      );
+      console.log(fetchNationalDict.start);
+
       // Products list links scrapper.
       await createProductsListLinksDB(
-        fetchNationalDict.start,
-        fetchNationalDict.end
+        fetchProductsList.start,
+        fetchProductsList.end
       );
       // Product details scrapper.
       await createProductDetailsDB(
-        fetchProductsLinks.start,
-        fetchProductsLinks.end
+        fetchProductsDetails.start,
+        fetchProductsDetails.end
       );
       console.log("curCronCachedData", cronCachedData);
       writeFileSync(

@@ -306,3 +306,29 @@ export const meetingsSchema = yup.object().shape({
   note_text: yup.string().notRequired().default(""),
   user_id: yup.number().notRequired().nullable(),
 });
+export const foodsSchema = yup.object().shape({
+  food_id: yup.number().notRequired().nullable(),
+  food_name: yup.string().required(),
+  calories_total: yup.number().required(),
+  protein_g: yup.number().required(),
+  protein_cals: yup.number().required(),
+  crabs_g: yup.number().required(),
+  crabs_cals: yup.number().required(),
+  sugars_g: yup.number().required(),
+  fat_g: yup.number().required(),
+  fat_cals: yup.number().required(),
+  saturated_fat: yup.number().required(),
+  cholesterol_mg: yup.number().required(),
+  sodium_mg: yup.number().required(),
+  food_type: yup
+    .string()
+    .oneOf(
+      ["protein", "fats", "carbohydrates"],
+      "Please enter protein/fats/carbohydrates."
+    ),
+  allergens: yup.array().required(),
+  kosher: yup.boolean().required(),
+  kosher_type: yup
+    .string()
+    .oneOf(["פרווה", "בשרי", "חלבי"], "Please enter פרווה/בשרי/חלבי"),
+});

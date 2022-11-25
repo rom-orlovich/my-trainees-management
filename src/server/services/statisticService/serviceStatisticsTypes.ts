@@ -14,6 +14,18 @@ export interface TrainingProgramExercise {
   note_topic: string;
   note_text: string;
 }
+
+export interface MeasuresRawAPI {
+  measure_id?: number;
+  date: Date;
+  weight: number;
+  height: number;
+  activity_factor: number;
+  fat_percents?: number;
+  protein_per_kg: number;
+  fat_per_kg: number;
+  fixed_cals?: number;
+}
 export interface MeasuresCalResAPI {
   measure_id: number;
   date: Date;

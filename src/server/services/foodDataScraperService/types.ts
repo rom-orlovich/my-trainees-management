@@ -137,14 +137,21 @@ export interface FoodNameDB {
 
 export interface CronCachedData {
   eachMin: number;
-  fetchNationalDict: Range;
-  fetchProductsLinks: Range;
+  fetchProductsList: Range;
+  fetchProductsDetails: Range;
+  fetchNationalDict: {
+    start: number;
+    add: number;
+  };
 }
 
 export interface Range {
   start: number;
   end: number;
 }
+
+export type KosherType = "בשרי" | "חלבי" | "פרווה";
+export type FoodType = "proteins" | "fats" | "carbohydrates";
 
 export interface Food {
   food_id?: number;
@@ -157,11 +164,11 @@ export interface Food {
   sugars_g: number;
   fat_g: number;
   fat_cals: number;
-  saturated_fat_mg: number;
+  saturated_fat: number;
   cholesterol_mg: number;
   sodium_mg: number;
-  food_type: string;
+  food_type: FoodType;
   allergens: string[];
   kosher: boolean;
-  kosher_type: "בשרי" | "חלבי" | "פרווה";
+  kosher_type: KosherType;
 }

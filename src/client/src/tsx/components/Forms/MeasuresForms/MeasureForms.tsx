@@ -5,7 +5,7 @@ import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { measuresSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
-import { MeasuresAPI } from "../../../redux/api/interfaceAPI";
+import { MeasuresRawAPI } from "../../../redux/api/interfaceAPI";
 
 import { formatDate } from "../../../utilities/helpersFun";
 
@@ -13,9 +13,9 @@ export function MeasureForm({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<MeasuresAPI>) {
+}: GeneralFormProps<MeasuresRawAPI>) {
   return (
-    <Form<MeasuresAPI>
+    <Form<MeasuresRawAPI>
       editMode={editMode}
       onSubmit={onSubmit}
       nameForm="Measure"

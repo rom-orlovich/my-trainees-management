@@ -28,7 +28,7 @@ const createKeyValue = ($: ReturnType<CheerioAPI>) => {
     const value = Number(valueEl.text() || 0);
 
     // For nameValue that are already exists like total fat and carbohydrates
-    if (valueEl?.attr("id")?.includes("5")) return { saturated_fat_mg: value };
+    if (valueEl?.attr("id")?.includes("5")) return { saturated_fat: value };
     if (valueEl?.attr("id")?.includes("3")) return { sugars_g: value };
 
     if (nameValue === "cholesterol") return { cholesterol_mg: value };
@@ -52,11 +52,31 @@ const createKeyValue = ($: ReturnType<CheerioAPI>) => {
   }
   return {};
 };
+// "body > div:nth-child(6) > div:nth-child(2) > div > div.row > div.col-8.col-article-info > div:nth-child(1) > div > p"
+
+const calProductScore = ($: CheerioAPI) => {
+  const ingredientsList = $(
+    ".col-8.col-article-info > div:nth-child(1) > div > p:nth-child(3)"
+  )?.text();
+
+  const numWords = ingredientsList?.split(",")?.length || 0;
+
+  const neturalIngredientsWithWarn = $(
+    "div.col-8.col-article-info > div:nth-child(1) > div"
+  ).text();
+
+  ("מאכל טבעיים בלבד");
+  ("ללא חומרים משמרים");
+  ("ללא צבעי מאכל");
+  ("מכיל חומרים משמרים.");
+};
 
 export function createProductsDetailsData(pathHTML: string) {
   const $ = createCheerioLoad(pathHTML);
   const productName = $("h1").text();
+
   const allerganElText = $(".allergic-box").text();
+
   const resAllergan: string[] = [];
 
   ALLERGENS_LIST.forEach((el) => {
@@ -76,10 +96,10 @@ export function createProductsDetailsData(pathHTML: string) {
     sugars_g: 0,
     fat_g: 0,
     fat_cals: 0,
-    saturated_fat_mg: 0,
+    saturated_fat: 0,
     cholesterol_mg: 0,
     sodium_mg: 0,
-    food_type: "",
+    food_type: "carbohydrates",
     allergens: [],
     kosher: true,
     kosher_type: "פרווה",

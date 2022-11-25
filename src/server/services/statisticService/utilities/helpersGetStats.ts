@@ -7,7 +7,7 @@ import {
   lastDayOfMonth,
   startOfWeek,
 } from "date-fns";
-import { formatDate } from "../../../utilities/helpers";
+import { formatDate, newDate } from "../../../utilities/helpers";
 import { AnyFun, GenericRecord } from "../../../utilities/types";
 import {
   ChartTypes,
@@ -44,21 +44,6 @@ export const normalizeDatesValues = <T extends { date: Date; value: number }[]>(
     labelFormatted: dates,
     datasetsValues: values,
   };
-};
-
-export const newDate = (
-  date: Date,
-  add?: { yPlus?: number; mPlus?: number; dPlus?: number }
-) => {
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
-
-  return new Date(
-    year + (add?.yPlus || 0),
-    month + (add?.mPlus || 0),
-    day + (add?.dPlus || 0)
-  );
 };
 
 export const getNameMonth = (date: Date) => format(date, "MMMMMM");

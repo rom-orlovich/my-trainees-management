@@ -1,20 +1,10 @@
 /* eslint-disable camelcase */
 import { RequestHandler } from "webpack-dev-server";
+import { MeasuresRawAPI } from "../serviceStatisticsTypes";
 
-export interface MeasuresAPI {
-  measure_id?: number;
-  date: Date;
-  weight: number;
-  height: number;
-  activity_factor: number;
-  fat_percents?: number;
-  protein_per_kg: number;
-  fat_per_kg: number;
-  fixed_cals?: number;
-}
 export const handleInsertNewMeasure: RequestHandler = (req, res, next) => {
   const { activity_factor, weight, protein_per_kg, fat_per_kg, fixed_cals } =
-    req.body as MeasuresAPI;
+    req.body as MeasuresRawAPI;
 
   const caloriesTotal = activity_factor * weight + (fixed_cals || 0);
   const proteinG = weight * protein_per_kg;

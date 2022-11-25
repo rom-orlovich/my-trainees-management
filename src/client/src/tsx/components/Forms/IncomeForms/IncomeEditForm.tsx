@@ -11,7 +11,10 @@ import {
   incomesApi,
   measuresApi,
 } from "../../../redux/api/hooksAPI";
-import { IncomesTableAPI, MeasuresAPI } from "../../../redux/api/interfaceAPI";
+import {
+  IncomesTableAPI,
+  MeasuresRawAPI,
+} from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 

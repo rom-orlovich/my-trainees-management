@@ -1,1 +1,6 @@
-{"eachMin":4,"fetchNationalDict":{"start":1380,"end":1390},"fetchProductsLinks":{"start":10,"end":20}}
+{
+  "eachMin": 1,
+  "fetchProductsList": { "start": 2620, "end": 2640 },
+  "fetchProductsDetails": { "start": 1260, "end": 1280 },
+  "fetchNationalDict": { "start": 3800, "add": 100 }
+}
