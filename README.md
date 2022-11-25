@@ -1,6 +1,6 @@
-# My Trainees Management App v2:
+# My Trainees Management App v3:
 
-Link to the app: [My Trainees Management App v2](https://my-trainees-management-v2-pro.onrender.com/login):point_left:
+Link to the app: [My Trainees Management App v2](https://my-trainees-management-v3.onrender.com/login):point_left:
 
 **Demo accounts:** \
 **Trainer:** \
