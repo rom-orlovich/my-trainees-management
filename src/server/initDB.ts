@@ -8,7 +8,7 @@ import {
   FOOD_DICT_DB_PATH,
   JSON_ENCODING_DEFAULT,
 } from "./services/foodDataScraperService/constants";
-import { createUser } from "./services/serviceAuth/utilities/authHelpers";
+import { createUser } from "./services/authService/utilities/authHelpers";
 import {
   CREATE_DB_TABLE_SQL_FILE_PATH,
   CREATE_DUMMY_DATA_FILE_PATH,

@@ -467,12 +467,3 @@ CREATE TABLE
   );
 
 -- pg_dump --column-inserts --data-only my_trainees_management  > dummy_data.sql
-
-
-
-
- 1 | 20 גרם חלבון בגביע - יוגורט 1.5% שומן - דנונה PRO, שטראוס עלית
-                 1 | תמי - עוגת וניל ללא גלוטן, קמח תמי
-                 1 | WHEY PROTEIN VANILLA FLAVOR - חלבון מי גבינה בטעם וניל, allin
-                 1 | WHEY PROTEIN COOKIES CREAM FLAVOR - חלבון מי גבינה בטעם קרם עוגיות, allin
-                 1 | במבה ללא גלוטן, אסם

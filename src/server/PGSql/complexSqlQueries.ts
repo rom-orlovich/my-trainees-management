@@ -7,7 +7,7 @@
 import {
   SelectPaginationQueryParam,
   TablePropsData,
-} from "../services/serviceCRUD/serviceCRUDTypes";
+} from "../services/CRUDService/serviceCRUDTypes";
 
 import { client } from "./DBConnectConfig";
 import {

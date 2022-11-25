@@ -1,6 +1,6 @@
-import { UserRoles } from "./services/serviceAuth/utilities/authHelpers";
-import { ErrorCustomizes } from "./services/serviceErrors/handleErrors";
-import { TrainingProgramExercise } from "./services/serviceStatistics/serviceStatisticsTypes";
+import { UserRoles } from "./services/authService/utilities/authHelpers";
+import { ErrorCustomizes } from "./services/errosService/handleErrors";
+import { TrainingProgramExercise } from "./services/statisticService/serviceStatisticsTypes";
 
 export interface ModifiedActionResult {
   successRes?: {

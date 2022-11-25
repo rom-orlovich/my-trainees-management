@@ -2,7 +2,7 @@
 /* eslint-disable guard-for-in */
 // Makes string from the keys of the obj.
 
-import { SelectPaginationQueryParam } from "../services/serviceCRUD/serviceCRUDTypes";
+import { SelectPaginationQueryParam } from "../services/CRUDService/serviceCRUDTypes";
 import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
 
 // This string is used as fieldName in update/insert functions.

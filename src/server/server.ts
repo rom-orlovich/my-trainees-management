@@ -14,16 +14,16 @@ import winstonExpress from "express-winston";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
 
-import { errorHandlerMiddleware } from "./services/serviceErrors/handleErrors";
-import { handleAlertsMiddleware } from "./services/serviceAlerts/handleAlerts";
+import { errorHandlerMiddleware } from "./services/errosService/handleErrors";
+import { handleAlertsMiddleware } from "./services/alertsService/handleAlerts";
 import {
   API_ROUTES,
   URL_HEROKU_CLIENT,
   URL_REACT_CLIENT,
 } from "./services/apiRoutesConstants";
 
-import authRouter from "./services/serviceAuth/routes/authRouter";
-import { routesConfigArr } from "./services/serviceCRUD/routes/routersCRUDArr";
+import authRouter from "./services/authService/routes/authRouter";
+import { routesConfigArr } from "./services/CRUDService/routes/routersCRUDArr";
 import {
   requestLogger,
   logger,
