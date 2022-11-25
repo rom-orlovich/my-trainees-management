@@ -83,7 +83,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 
 ## Main Features:
 
-1. **Modify App's Data** - Create/Read/Update/Delete the following data: Trainees, training programs, exercises, muscles group, equipment, leads, cities and locations.
+1. **Modify App's Data** - Create/Read/Update/Delete the following data: trainees, training programs, exercises, muscles group, equipment, leads, cities and locations, financial system and schedule events .
 2. **Table Pagination** - Shows when there are more than ten items.
 3. **Filter Table's Rows By Name** - Filters the table's items by name.
 4. **Autocomplete Search Input** - Suggests a list of results from the server. \
@@ -101,8 +101,9 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
     Trainees can watch their next sessions.
 
 ## Coming soon:
-1. **Additional System Data** - Nutrition program's progress, financial system and suppliers.
-2. **Food Nutrition API** - The app will interface with food API to build nutrition menus.
+1. **Generate Nutrition Menus** - The app will generate nutrition menus based on the trainee's preference.
+2. **App's Style Improvement** - Improve the app's style. 
+3. **Mailbox For Communication** - Mailbox for communication between the trainer and his trainees. 
 
 
 ## Images: 
