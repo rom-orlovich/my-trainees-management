@@ -308,34 +308,6 @@ export const measuresOptionsCRUD: OptionsCRUD = {
   validateSchema: measuresSchema,
 };
 
-export const nutritionProgramOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_ENTITY,
-  selectQuery: {
-    tableName: `${TABLES_DATA.NUTRITION_PROGRAM_TABLE_NAME} as np`,
-    tableID: `np.${TABLES_DATA.NUTRITION_PROGRAM_ID}`,
-    fieldNamesQuery: `*`,
-    querySelectLogic: ``,
-  },
-  permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
-  validateSchema: nutritionProgramSchema,
-};
-
-export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_LIST_ENTITY,
-  selectQuery: {
-    tableName: `${TABLES_DATA.NUTRITION_PROGRAM_LIST_TABLE_NAME} as npl`,
-    tableID: `npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}`,
-    fieldNamesQuery: `npl.*`,
-    querySelectLogic: `
-    LEFT JOIN ${TABLES_DATA.TRAINEES_TABLE_NAME} as tr ON
-    npl.${TABLES_DATA.TRAINEE_ID}=tr.${TABLES_DATA.TRAINEE_ID}
-    LEFT JOIN  ${TABLES_DATA.NUTRITION_PROGRAM_TABLE_NAME} as np ON
-    npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}=np.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}`,
-  },
-  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
-  validateSchema: nutritionProgramsListSchema,
-};
-
 export const subscriptionPlansOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.SUBSCRIPTION_PLANS_ENTITY,
   selectQuery: {
@@ -582,3 +554,40 @@ export const meetingOptionsCRUD: OptionsCRUD = {
   validateSchema: meetingsSchema,
   logAlert: true,
 };
+
+export const foodsOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.FOOD_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.FOODS_TABLE_NAME} as fd`,
+    tableID: `fd.${TABLES_DATA.FOODS_ID}`,
+    fieldNamesQuery: ``,
+    querySelectLogic: ``,
+  },
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  validateSchema: meetingsSchema,
+  logAlert: true,
+};
+export const mealsOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.FOOD_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.MEALS_TABLE_NAME} as ml`,
+    tableID: `ml.${TABLES_DATA.MEALS_ID}`,
+    fieldNamesQuery: ``,
+    querySelectLogic: ``,
+  },
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  // validateSchema: meetingsSchema,
+  logAlert: true,
+};
+
+// export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
+//   singleEntityName: API_ROUTES.NUTRITION_MENUS_ENTITY,
+//   selectQuery: {
+//     tableName: `${TABLES_DATA} as npl`,
+//     tableID: `npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}`,
+//     fieldNamesQuery: `npl.*`,
+//     querySelectLogic: ``,
+//   },
+//   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+//   validateSchema: nutritionProgramsListSchema,
+// };

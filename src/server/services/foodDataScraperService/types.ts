@@ -147,24 +147,21 @@ export interface Range {
 }
 
 export interface Food {
-  id: string;
-  productName: string;
-  calories: number;
+  food_id?: number;
+  food_name: string;
+  calories_total: number;
+  protein_g: number;
+  protein_cals: number;
+  crabs_g: number;
+  crabs_cals: number;
+  sugars_g: number;
+  fat_g: number;
+  fat_cals: number;
+  saturated_fat_mg: number;
+  cholesterol_mg: number;
+  sodium_mg: number;
+  food_type: string;
   allergens: string[];
   kosher: boolean;
-  kosher_type: string;
-  proteins: number;
-  carbohydrates: number;
-  total_fat: number;
-  saturated_fat: number;
-  cholesterol: number;
-  sodium: number;
-  food_type: string;
-  protein_g: number;
-  // fat_g
-  // crabs_g
-  // protein_cals
-  // fat_cals
-  // crabs_cals
-  // calories_total
+  kosher_type: "בשרי" | "חלבי" | "פרווה";
 }

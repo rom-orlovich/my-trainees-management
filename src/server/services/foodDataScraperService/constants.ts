@@ -47,3 +47,25 @@ export const PRODUCT_DETAILS_HTML_PATH = resolve(
   HTML_FOLDER_PATH,
   FILES_PATH.PRODUCT_DETAILS
 );
+
+export const ALLERGENS_LIST = [
+  "גלוטן",
+  "סויה",
+  "שומשום",
+  "בוטנים",
+  "חיטה",
+  "אגוזים",
+  "ביצה",
+  "סולפיט",
+  "ביצים",
+  "חלב",
+  "שקדים",
+  "אגוזי לוז",
+  "אגוזי פקאן",
+  "קוקוס",
+  "קשיו",
+  "לוז",
+  "פקאן",
+  "חרדל",
+  "סלרי",
+];

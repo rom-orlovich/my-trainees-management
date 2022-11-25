@@ -9,8 +9,6 @@ import {
   leadsOptionsCRUD,
   locationsOptionsCRUD,
   musclesGroupOptionsCRUD,
-  nutritionProgramOptionsCRUD,
-  nutritionProgramsListOptionsCRUD,
   participantsGroupListOptionsCRUD,
   participantsGroupOptionsCRUD,
   productsOptionsCRUD,
@@ -86,14 +84,6 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.TRAINING_PROGRAMS_ROUTE,
     router: createCRUDroutes(trainingProgramsOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.NUTRITION_PROGRAMS_LIST_ROUTE,
-    router: createCRUDroutes(nutritionProgramsListOptionsCRUD),
-  },
-  {
-    baseRoute: API_ROUTES.NUTRITION_PROGRAMS_ROUTE,
-    router: createCRUDroutes(nutritionProgramOptionsCRUD),
   },
 
   {

@@ -54,10 +54,6 @@ export enum TABLES_DATA {
   TRAINING_PROGRAM_EXERCISES_STATS_TABLE_NAME = "training_program_exercises_stats",
   TRAINING_PROGRAM_EXERCISES_STATS_ID = "training_program_exercises_stats_id",
 
-  NUTRITION_PROGRAM_LIST_TABLE_NAME = "nutrition_programs_list",
-  NUTRITION_PROGRAM_LIST_ID = "nutrition_programs_list_id",
-  NUTRITION_PROGRAM_TABLE_NAME = "nutrition_program",
-  NUTRITION_PROGRAM_ID = "nutrition_program_id",
   MEASURES_TABLE_NAME = "measures",
   MEASURE_ID = "measure_id",
 
@@ -76,6 +72,13 @@ export enum TABLES_DATA {
   PARTICIPANTS_GROUP_ID = "participants_group_id",
   PARTICIPANTS_GROUPS_LIST_TABLE_NAME = "participants_groups_list",
   PARTICIPANTS_GROUPS_LIST_ID = "participants_groups_list_id",
+
+  FOODS_TABLE_NAME = "foods",
+  FOODS_ID = "food_id",
+  MEALS_TABLE_NAME = "meals",
+  MEALS_ID = "meal_id",
+  NUTRITION_MENUS_TABLE_NAME = "nutrition_menus",
+  NUTRITION_MENUS_ID = "nutrition_menu_id",
 }
 
 export const IS_DEVELOPMENT_MODE = process.env.NODE_ENV === "development";

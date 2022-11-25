@@ -2,7 +2,8 @@ import { CheerioAPI, load } from "cheerio";
 
 import { readFileSync } from "fs";
 import { lowerCase } from "lodash";
-import { URL_PATH } from "../constants";
+import { ALLERGENS_LIST, URL_PATH } from "../constants";
+import { Food } from "../types";
 
 export function createCheerioLoad(strHTML: string) {
   const htmlFile = readFileSync(strHTML, "utf-8");
@@ -25,9 +26,13 @@ const createKeyValue = ($: ReturnType<CheerioAPI>) => {
     ).replace(/\s+/g, "_");
     const valueEl = $.find("[id*=currentValue]");
     const value = Number(valueEl.text() || 0);
-    if (valueEl?.attr("id")?.includes("5")) return { saturated_fat: value };
+
+    // For nameValue that are already exists like total fat and carbohydrates
+    if (valueEl?.attr("id")?.includes("5")) return { saturated_fat_mg: value };
     if (valueEl?.attr("id")?.includes("3")) return { sugars_g: value };
 
+    if (nameValue === "cholesterol") return { cholesterol_mg: value };
+    if (nameValue === "sodium") return { sodium_mg: value };
     if (nameValue === "calories") return { calories_total: value };
     if (nameValue === "proteins") {
       nameValue = "protein_g";
@@ -53,36 +58,16 @@ export function createProductsDetailsData(pathHTML: string) {
   const productName = $("h1").text();
   const allerganElText = $(".allergic-box").text();
   const resAllergan: string[] = [];
-  const allerganList = [
-    "גלוטן",
-    "סויה",
-    "שומשום",
-    "בוטנים",
-    "חיטה",
-    "אגוזים",
-    "ביצה",
-    "סולפיט",
-    "ביצים",
-    "חלב",
-    "שקדים",
-    "אגוזי לוז",
-    "אגוזי פקאן",
-    "קוקוס",
-    "קשיו",
-    "לוז",
-    "פקאן",
-    "חרדל",
-    "סלרי",
-  ];
-  allerganList.forEach((el) => {
+
+  ALLERGENS_LIST.forEach((el) => {
     if (allerganElText.includes(el))
       if (el === "גלוטן" && !allerganElText.includes("ללא גלוטן"))
         resAllergan.push(el);
       else resAllergan.push(el);
   });
 
-  let values = {
-    product_name: productName,
+  let foodInitialValues = {
+    food_name: productName,
     calories_total: 0,
     protein_g: 0,
     protein_cals: 0,
@@ -98,7 +83,7 @@ export function createProductsDetailsData(pathHTML: string) {
     allergens: [],
     kosher: true,
     kosher_type: "פרווה",
-  } as any;
+  } as Food;
 
   const kosher = $("p").text().includes("לא כשר");
   const meat = $("p").text().includes("בשרי") && "בשרי";
@@ -121,31 +106,31 @@ export function createProductsDetailsData(pathHTML: string) {
         checkAttr("Cholesterol") ||
         checkAttr("Sodium")
       )
-        values = {
-          ...values,
+        foodInitialValues = {
+          ...foodInitialValues,
           ...createKeyValue(curEl),
           allergens: resAllergan,
           kosher: !kosher,
-          kosher_type: meat || dairy || pareve || null,
+          kosher_type: meat || dairy || pareve || "פרווה",
         };
     });
   let foodType = "";
 
   if (
-    values.proteins > values.carbohydrates &&
-    values.proteins > values.total_fat
+    foodInitialValues.fat_g < foodInitialValues.protein_g &&
+    foodInitialValues.crabs_g < foodInitialValues.protein_g
   )
     foodType = "proteins";
   else if (
-    values.proteins < values.total_fat &&
-    values.carbohydrates < values.total_fat
+    foodInitialValues.protein_g < foodInitialValues.fat_g &&
+    foodInitialValues.crabs_g < foodInitialValues.fat_g
   )
     foodType = "fats";
   else if (
-    values.proteins < values.carbohydrates &&
-    values.total_fat < values.carbohydrates
+    foodInitialValues.protein_g < foodInitialValues.crabs_g &&
+    foodInitialValues.fat_g < foodInitialValues.crabs_g
   )
     foodType = "carbohydrates";
 
-  return { ...values, food_type: foodType };
+  return { ...foodInitialValues, food_type: foodType };
 }

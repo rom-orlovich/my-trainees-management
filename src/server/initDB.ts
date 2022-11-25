@@ -1,5 +1,4 @@
 /* eslint-disable import/first */
-import { config } from "dotenv";
 
 // eslint-disable-next-line prettier/prettier
 import { readFileSync } from "fs";
@@ -54,4 +53,4 @@ export async function initDB() {
   await readFoodsDB();
 }
 
-readFoodsDB();
+// readFoodsDB();

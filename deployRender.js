@@ -3,7 +3,7 @@ const { existsSync, rmSync, writeFileSync } = require("fs");
 const { copySync } = require("fs-extra");
 const packageJson = {
     name: "",
-    version: "2.0.0",
+    version: "3.0.0",
     description: "",
     scripts: {
       start: "node ./server/*.js",

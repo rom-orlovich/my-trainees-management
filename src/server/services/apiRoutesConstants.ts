@@ -39,10 +39,6 @@ export enum API_ROUTES {
   TRAINING_PROGRAMS_ENTITY = "exercise",
   EXERCISES_STATS_ROUTE = "/api/trainingPrograms/stats",
 
-  NUTRITION_PROGRAMS_LIST_ROUTE = "/api/nutritionProgramsList",
-  NUTRITION_PROGRAMS_LIST_ENTITY = "nutritionProgramList",
-  NUTRITION_PROGRAMS_ROUTE = "/api/nutritionPrograms",
-  NUTRITION_PROGRAMS_ENTITY = "week",
   MEASURES_ROUTE = "/api/measures",
   MEASURES_ENTITY = "measure",
 
@@ -70,6 +66,12 @@ export enum API_ROUTES {
   PARTICIPANTS_GROUP_ENTITY = "participantsGroup",
   PARTICIPANTS_GROUPS_LIST_ROUTE = "/api/participantsGroupsList",
   PARTICIPANTS_GROUPS_LIST_ENTITY = "participantsGroupsList",
+
+  FOOD_ENTITY = "food",
+  FOODS_ROUTE = "foods",
+
+  NUTRITION_MENUS_ROUTE = "/api/nutritionMenus",
+  NUTRITION_MENUS_ENTITY = "nutritionMenu",
 }
 
 export const URL_REACT_CLIENT = "http://localhost:3000";
