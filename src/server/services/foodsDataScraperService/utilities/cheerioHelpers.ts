@@ -78,29 +78,31 @@ const calIngredientFoodScore = ($: CheerioAPI) => {
   if (neutralIngredients.includes("ללא צבעי מאכל")) scoreIngredient += 10;
   if (neutralIngredients.includes("מכיל חומרים משמרים")) scoreIngredient += -10;
 
-  return (scoreIngredient / numWords) * 0.5;
+  return scoreIngredient / numWords;
 };
 
 const calFoodScoreNutritious = (food: Food) => {
   const badValues =
-    food.crabs_g * 0.8 +
-    food.saturated_fat * 1.5 +
+    food.crabs_g * 0.6 +
+    food.saturated_fat +
     food.cholesterol_mg / 1000 +
     food.sodium_mg / 1000;
 
   const goodValues =
-    food.protein_g * 1.5 +
-    (food.fat_g - food.saturated_fat - food.cholesterol_mg / 1000) * 1.5;
+    food.protein_g ** 1.5 +
+    (food.fat_g - food.saturated_fat - food.cholesterol_mg / 1000);
 
   return goodValues / badValues;
 };
 
 const calFinalFoodScore = (food: Food, $: CheerioAPI) =>
-  (
-    calFoodScoreNutritious(food) +
-    calIngredientFoodScore($) +
-    1 * calScoreFoodStarRank($)
-  ).toFixed(2);
+  Number(
+    (
+      calFoodScoreNutritious(food) +
+      calIngredientFoodScore($) +
+      2 * calScoreFoodStarRank($)
+    ).toFixed(2)
+  );
 
 export function createFoodDetailsData(pathHTML: string) {
   const $ = createCheerioLoad(pathHTML);
@@ -191,10 +193,12 @@ export function createFoodDetailsData(pathHTML: string) {
     foodInitialValues.fat_g < foodInitialValues.crabs_g
   )
     foodType = "carbohydrates";
-  console.log(calFinalFoodScore(foodInitialValues, $));
+  const foodScore = calFinalFoodScore(foodInitialValues, $);
+
+  if (isNaN(foodScore) || foodScore === 0) return undefined;
   return {
     ...foodInitialValues,
     food_type: foodType,
-    food_score: calFinalFoodScore(foodInitialValues, $),
+    food_score: foodScore,
   };
 }

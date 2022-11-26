@@ -32,7 +32,7 @@ export const createNationalProductsNamesDB = async (
 
     if (res?.success) {
       console.log(
-        res?.result?.records[0].shmmitzrach,
+        res?.result?.records[0]?.shmmitzrach,
         "exist?",
         curData.find((el) => el.name === res?.result?.records[0]?.shmmitzrach)
       );
@@ -44,11 +44,11 @@ export const createNationalProductsNamesDB = async (
           ...res.result.records
             .filter(
               (el) =>
-                el.protein > 1 && el.carbohydrates > 1 && el.total_fat > 0.5
+                el.protein > 0.1 && el.carbohydrates > 0.1 && el.total_fat > 0.1
             )
             .map((el, i) => ({
               id: i + (curData.length || 1),
-              name: el.shmmitzrach,
+              name: el?.shmmitzrach,
             })),
         ];
         console.log(`start writing ${FILES_PATH.NATIONAL_FOOD_DICT} `);
