@@ -151,7 +151,8 @@ export interface Range {
 }
 
 export type KosherType = "בשרי" | "חלבי" | "פרווה";
-export type FoodType = "proteins" | "fats" | "carbohydrates";
+export type NutritionType = "proteins" | "fats" | "carbohydrates";
+export type FoodType = "בשרי" | "טבעוני" | "צמחוני";
 
 export interface Food {
   food_id?: number;
@@ -167,7 +168,9 @@ export interface Food {
   saturated_fat: number;
   cholesterol_mg: number;
   sodium_mg: number;
-  food_type: FoodType;
+  nutrition_type: NutritionType;
+  is_vegan: boolean;
+  is_vegetarian: boolean;
   allergens: string[];
   kosher: boolean;
   kosher_type: KosherType;

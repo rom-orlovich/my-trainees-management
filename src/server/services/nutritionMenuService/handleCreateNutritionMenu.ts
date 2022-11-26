@@ -94,12 +94,12 @@ const createNutritionMenu = async ({
   const fatsFromFavoriteFood: Food[] = [];
   const crabsFromFavoriteFood: Food[] = [];
   const proteinFromFoodDbRes = foods.filter(
-    (el) => el.food_type === "proteins"
+    (el) => el.nutrition_type === "proteins"
   );
   const crabsFromFoodDbRes = foods.filter(
-    (el) => el.food_type === "carbohydrates"
+    (el) => el.nutrition_type === "carbohydrates"
   );
-  const fatsFromFoodDbRes = foods.filter((el) => el.food_type === "fats");
+  const fatsFromFoodDbRes = foods.filter((el) => el.nutrition_type === "fats");
 
   const mapFavoriteFood = favorite_foods
     .filter((a, b) => a - b)
@@ -111,9 +111,9 @@ const createNutritionMenu = async ({
   foods.forEach((el) => {
     const curFood = mapFavoriteFood[`${el.food_id}`];
     if (curFood) {
-      if (el.food_type === "proteins") proteinFromFavoriteFood.push(el);
-      if (el.food_type === "fats") fatsFromFavoriteFood.push(el);
-      if (el.food_type === "carbohydrates") crabsFromFavoriteFood.push(el);
+      if (el.nutrition_type === "proteins") proteinFromFavoriteFood.push(el);
+      if (el.nutrition_type === "fats") fatsFromFavoriteFood.push(el);
+      if (el.nutrition_type === "carbohydrates") crabsFromFavoriteFood.push(el);
     }
   });
 

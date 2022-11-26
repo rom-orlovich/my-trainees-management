@@ -10,7 +10,7 @@ import {
   PRODUCT_DETAILS_HTML_PATH,
   RESULT_ADD
 } from "./constants";
-import { createNationalProductsNamesDB } from "./initDBfood";
+import { createNationalProductsNamesDB } from "./createNationalProductsNamesDB";
 import { CronCachedData } from "./types";
 import {
   createFoodsListLinksDB,
@@ -22,6 +22,7 @@ async function beginScrapping() {
   try {
     await mkdir(PRODUCTS_LINKS_HTML_PATH, { recursive: true });
     await mkdir(PRODUCT_DETAILS_HTML_PATH, { recursive: true });
+
     const cronCachedData = JSON.parse(
       readFileSync(CRON_CACHED_DATA_JSON_PATH, JSON_ENCODING_DEFAULT)
     ) as CronCachedData;
@@ -41,12 +42,9 @@ async function beginScrapping() {
       fetchProductsList.end
     );
     // Init product details scrapper.
-
     await createFoodsDetailsDB(fetchFoodsDetails.start, fetchFoodsDetails.end);
-
     schedule(`*/${cronCachedData.eachMin} * * * *`, async () => {
       cronCachedData.eachMin = Math.floor(1 + Math.random() * 5);
-
       fetchProductsList.start += RESULT_ADD;
       fetchProductsList.end += RESULT_ADD;
       fetchFoodsDetails.start += RESULT_ADD;

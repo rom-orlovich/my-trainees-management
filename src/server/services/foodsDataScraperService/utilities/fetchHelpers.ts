@@ -18,11 +18,10 @@ import {
   NATIONAL_FOOD_DICT_JSON_PATH,
 } from "../constants";
 
-import {
-  createFoodDetailsData,
-  createProductsLinksData,
-} from "./cheerioHelpers";
+import { createProductsLinksData } from "./cheerioHelpers";
 import { GenericRecord } from "../../../utilities/types";
+import { createFoodDetailsData } from "../createFoodDetails";
+import { logger } from "../../loggerService/logger";
 
 export const getHtml = async (url: string) => {
   const html = await axios.request({
@@ -50,7 +49,7 @@ export async function conditionHTMLFetch(pathHTML: string, fetchURL: string) {
   }
 }
 
-export async function createPromiseFetchArr<T>(
+export async function createPromiseHTMLFetchArr<T>(
   start: number,
   end: number,
   readFilePath: string,
@@ -76,7 +75,7 @@ export async function createFoodsListLinksDB(start: number, end: number) {
   try {
     const promiseArrRes = await Promise.all(
       // await createFoodsListLinksDB(start, end)
-      await createPromiseFetchArr(
+      await createPromiseHTMLFetchArr(
         start,
         end,
         NATIONAL_FOOD_DICT_JSON_PATH,
@@ -101,7 +100,7 @@ export async function createFoodsListLinksDB(start: number, end: number) {
 export async function createFoodsDetailsDB(start: number, end: number) {
   try {
     const promiseArrRes = await Promise.all(
-      await createPromiseFetchArr(
+      await createPromiseHTMLFetchArr(
         start,
         end,
         LINKS_SCRAPPER_JSON_PATH,
@@ -115,11 +114,16 @@ export async function createFoodsDetailsDB(start: number, end: number) {
         createDecodedHTMLFile(pathHTML, el.data);
         console.log(`finish writing `, pathHTML);
         const scrapData = createFoodDetailsData(pathHTML);
-        if (scrapData)
+        if (scrapData) {
+          logger.debug(`LINE:120 scrapData result:`, {
+            objs: [scrapData],
+            __filename,
+          });
           createArrDataObjJSON<GenericRecord<any>>(
             FOOD_DICT_DB_PATH,
             scrapData
           );
+        }
       }
     });
   } catch (error) {

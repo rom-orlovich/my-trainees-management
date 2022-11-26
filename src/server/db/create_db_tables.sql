@@ -387,15 +387,17 @@ CREATE TABLE
     "saturated_fat" FLOAT,
     "cholesterol_mg" FLOAT,
     "sodium_mg" FLOAT,
-    "food_type" VARCHAR(100),
+    "nutrition_type" VARCHAR(100),
     "allergens" TEXT ARRAY,
     "kosher" BOOLEAN,
     "kosher_type" VARCHAR(10) DEFAULT 'פרווה',
     "food_score" FLOAT,
     "user_id" INTEGER DEFAULT 1,
+    "is_vegan" BOOLEAN,
+    "is_vegetarian" BOOLEAN,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL ON UPDATE CASCADE
     -- CONSTRAINT "kosher_type" CHECK ("kosher_type" IN ('פרווה', 'בשרי', 'חלבי')),
-    -- CONSTRAINT "food_type" CHECK ("food_type" IN ('proteins', 'fats', 'carbohydrates'))
+    -- CONSTRAINT "nutrition_type" CHECK ("nutrition_type" IN ('proteins', 'fats', 'carbohydrates'))
   );
 
 CREATE TABLE

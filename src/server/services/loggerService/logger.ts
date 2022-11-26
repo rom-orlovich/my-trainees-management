@@ -50,7 +50,7 @@ const formats = [
 ];
 const combineFormatConsole = combine(...formats, colorize(), myFormat);
 const combineLogFile = combine(...formats, myFormat);
-const httpFormat = combine(...formats, json(), prettyPrint());
+export const httpFormat = combine(...formats, json(), prettyPrint());
 
 const mainTransportLogger: TransportStream[] = [
   loggerInfoTransport,
