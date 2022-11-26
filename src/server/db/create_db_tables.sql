@@ -391,6 +391,7 @@ CREATE TABLE
     "allergens" TEXT ARRAY,
     "kosher" BOOLEAN,
     "kosher_type" VARCHAR(10) DEFAULT 'פרווה',
+    "food_score" FLOAT,
     "user_id" INTEGER DEFAULT 1,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL ON UPDATE CASCADE
     -- CONSTRAINT "kosher_type" CHECK ("kosher_type" IN ('פרווה', 'בשרי', 'חלבי')),

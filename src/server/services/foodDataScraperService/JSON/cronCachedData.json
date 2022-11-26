@@ -1,6 +1,0 @@
-{
-  "eachMin": 1,
-  "fetchProductsList": { "start": 2620, "end": 2640 },
-  "fetchProductsDetails": { "start": 1260, "end": 1280 },
-  "fetchNationalDict": { "start": 3800, "add": 100 }
-}

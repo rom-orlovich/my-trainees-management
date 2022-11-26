@@ -19,7 +19,7 @@ import {
 } from "../constants";
 
 import {
-  createProductsDetailsData,
+  createFoodDetailsData,
   createProductsLinksData,
 } from "./cheerioHelpers";
 import { GenericRecord } from "../../../utilities/types";
@@ -72,10 +72,10 @@ export async function createPromiseFetchArr<T>(
   return promiseArr;
 }
 
-export async function createProductsListLinksDB(start: number, end: number) {
+export async function createFoodsListLinksDB(start: number, end: number) {
   try {
     const promiseArrRes = await Promise.all(
-      // await createProductsListLinksDB(start, end)
+      // await createFoodsListLinksDB(start, end)
       await createPromiseFetchArr(
         start,
         end,
@@ -98,7 +98,7 @@ export async function createProductsListLinksDB(start: number, end: number) {
   }
 }
 
-export async function createProductDetailsDB(start: number, end: number) {
+export async function createFoodsDetailsDB(start: number, end: number) {
   try {
     const promiseArrRes = await Promise.all(
       await createPromiseFetchArr(
@@ -114,8 +114,12 @@ export async function createProductDetailsDB(start: number, end: number) {
         console.log(`begin writing `, pathHTML);
         createDecodedHTMLFile(pathHTML, el.data);
         console.log(`finish writing `, pathHTML);
-        const scrapData = createProductsDetailsData(pathHTML);
-        createArrDataObjJSON<GenericRecord<any>>(FOOD_DICT_DB_PATH, scrapData);
+        const scrapData = createFoodDetailsData(pathHTML);
+        if (scrapData)
+          createArrDataObjJSON<GenericRecord<any>>(
+            FOOD_DICT_DB_PATH,
+            scrapData
+          );
       }
     });
   } catch (error) {

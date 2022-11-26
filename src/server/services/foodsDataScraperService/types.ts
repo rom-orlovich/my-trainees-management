@@ -138,7 +138,7 @@ export interface FoodNameDB {
 export interface CronCachedData {
   eachMin: number;
   fetchProductsList: Range;
-  fetchProductsDetails: Range;
+  fetchFoodsDetails: Range;
   fetchNationalDict: {
     start: number;
     add: number;
@@ -171,4 +171,5 @@ export interface Food {
   allergens: string[];
   kosher: boolean;
   kosher_type: KosherType;
+  food_score: number;
 }

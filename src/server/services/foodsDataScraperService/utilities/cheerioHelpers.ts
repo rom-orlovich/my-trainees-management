@@ -29,6 +29,8 @@ const createKeyValue = ($: ReturnType<CheerioAPI>) => {
 
     // For nameValue that are already exists like total fat and carbohydrates
     if (valueEl?.attr("id")?.includes("5")) return { saturated_fat: value };
+    // For trans fats
+    if (valueEl?.attr("id")?.includes("6")) return {};
     if (valueEl?.attr("id")?.includes("3")) return { sugars_g: value };
 
     if (nameValue === "cholesterol") return { cholesterol_mg: value };
@@ -52,28 +54,65 @@ const createKeyValue = ($: ReturnType<CheerioAPI>) => {
   }
   return {};
 };
-// "body > div:nth-child(6) > div:nth-child(2) > div > div.row > div.col-8.col-article-info > div:nth-child(1) > div > p"
+const calScoreFoodStarRank = ($: CheerioAPI) => {
+  const stars = Number($("#RankAverage").text() || 0);
 
-const calProductScore = ($: CheerioAPI) => {
+  return stars;
+};
+
+const calIngredientFoodScore = ($: CheerioAPI) => {
   const ingredientsList = $(
     ".col-8.col-article-info > div:nth-child(1) > div > p:nth-child(3)"
   )?.text();
 
   const numWords = ingredientsList?.split(",")?.length || 0;
 
-  const neturalIngredientsWithWarn = $(
+  const neutralIngredients = $(
     "div.col-8.col-article-info > div:nth-child(1) > div"
   ).text();
 
-  ("מאכל טבעיים בלבד");
-  ("ללא חומרים משמרים");
-  ("ללא צבעי מאכל");
-  ("מכיל חומרים משמרים.");
+  let scoreIngredient = 0;
+  if (neutralIngredients.includes("צבעי מאכל טבעיים בלבד"))
+    scoreIngredient += 5;
+  if (neutralIngredients.includes("ללא חומרים משמרים")) scoreIngredient += 10;
+  if (neutralIngredients.includes("ללא צבעי מאכל")) scoreIngredient += 10;
+  if (neutralIngredients.includes("מכיל חומרים משמרים")) scoreIngredient += -10;
+
+  return (scoreIngredient / numWords) * 0.5;
 };
 
-export function createProductsDetailsData(pathHTML: string) {
+const calFoodScoreNutritious = (food: Food) => {
+  const badValues =
+    food.crabs_g * 0.8 +
+    food.saturated_fat * 1.5 +
+    food.cholesterol_mg / 1000 +
+    food.sodium_mg / 1000;
+
+  const goodValues =
+    food.protein_g * 1.5 +
+    (food.fat_g - food.saturated_fat - food.cholesterol_mg / 1000) * 1.5;
+
+  return goodValues / badValues;
+};
+
+const calFinalFoodScore = (food: Food, $: CheerioAPI) =>
+  (
+    calFoodScoreNutritious(food) +
+    calIngredientFoodScore($) +
+    1 * calScoreFoodStarRank($)
+  ).toFixed(2);
+
+export function createFoodDetailsData(pathHTML: string) {
   const $ = createCheerioLoad(pathHTML);
-  const productName = $("h1").text();
+  const foodName = $("h1").text();
+  const updateDateInfo = $(".fd-info").text().split(":")[1];
+
+  if (updateDateInfo) {
+    const dateStr = updateDateInfo.trim().replace(/\+s/g, "");
+    const year = dateStr.split(".")[2];
+
+    if (new Date().getFullYear() - Number(year) > 3) return undefined;
+  }
 
   const allerganElText = $(".allergic-box").text();
 
@@ -81,13 +120,13 @@ export function createProductsDetailsData(pathHTML: string) {
 
   ALLERGENS_LIST.forEach((el) => {
     if (allerganElText.includes(el))
-      if (el === "גלוטן" && !allerganElText.includes("ללא גלוטן"))
-        resAllergan.push(el);
-      else resAllergan.push(el);
+      if (el === "גלוטן") {
+        if (!allerganElText.includes("ללא גלוטן")) resAllergan.push(el);
+      } else resAllergan.push(el);
   });
 
   let foodInitialValues = {
-    food_name: productName,
+    food_name: foodName,
     calories_total: 0,
     protein_g: 0,
     protein_cals: 0,
@@ -103,6 +142,7 @@ export function createProductsDetailsData(pathHTML: string) {
     allergens: [],
     kosher: true,
     kosher_type: "פרווה",
+    food_score: 0,
   } as Food;
 
   const kosher = $("p").text().includes("לא כשר");
@@ -151,6 +191,10 @@ export function createProductsDetailsData(pathHTML: string) {
     foodInitialValues.fat_g < foodInitialValues.crabs_g
   )
     foodType = "carbohydrates";
-
-  return { ...foodInitialValues, food_type: foodType };
+  console.log(calFinalFoodScore(foodInitialValues, $));
+  return {
+    ...foodInitialValues,
+    food_type: foodType,
+    food_score: calFinalFoodScore(foodInitialValues, $),
+  };
 }

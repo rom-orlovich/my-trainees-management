@@ -11,7 +11,7 @@ import { TABLES_DATA } from "../../utilities/constants";
 import { newDate } from "../../utilities/helpers";
 import { GenericRecord } from "../../utilities/types";
 
-import { Food } from "../foodDataScraperService/types";
+import { Food } from "../foodsDataScraperService/types";
 import { MeasuresCalResAPI } from "../statisticService/serviceStatisticsTypes";
 import { Meal, NutritionMenu, NutritionQuestionnaires } from "./types";
 

@@ -6,7 +6,7 @@ import { client } from "./PGSql/DBConnectConfig";
 import {
   FOOD_DICT_DB_PATH,
   JSON_ENCODING_DEFAULT,
-} from "./services/foodDataScraperService/constants";
+} from "./services/foodsDataScraperService/constants";
 import { createUser } from "./services/authService/utilities/authHelpers";
 import {
   CREATE_DB_TABLE_SQL_FILE_PATH,
