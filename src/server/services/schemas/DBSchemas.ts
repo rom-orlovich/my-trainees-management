@@ -320,7 +320,7 @@ export const foodsSchema = yup.object().shape({
   saturated_fat: yup.number().required(),
   cholesterol_mg: yup.number().required(),
   sodium_mg: yup.number().required(),
-  nutrition_type: yup
+  nutrient_type: yup
     .string()
     .oneOf(
       ["protein", "fats", "carbohydrates"],

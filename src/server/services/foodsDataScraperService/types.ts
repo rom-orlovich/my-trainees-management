@@ -168,7 +168,7 @@ export interface Food {
   saturated_fat: number;
   cholesterol_mg: number;
   sodium_mg: number;
-  nutrition_type: NutritionType;
+  nutrient_type: NutritionType;
   is_vegan: boolean;
   is_vegetarian: boolean;
   allergens: string[];

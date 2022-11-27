@@ -82,10 +82,16 @@ const calFoodScoreNutritious = (food: Food) => {
 
   console.log("pro", food.protein_g ** powProtein || 1);
   console.log("bad", sodiumMg + badFats || 1);
-  const formula = food.protein_g ** powProtein || 1 / (sodiumMg + badFats) || 1;
+  let formula =
+    food.protein_g ** powProtein ||
+    (1 / (sodiumMg + badFats)) * food.calories_total ||
+    1;
 
-  if (food.nutrition_type !== "carbohydrates")
-    return formula / (food.crabs_g || 0);
+  if (food.nutrient_type === "proteins") formula /= food.crabs_g || 0;
+
+  if (food.nutrient_type === "fats")
+    formula = (formula * goodFats) / (food.crabs_g || 0);
+
   return formula;
 };
 const checkProductIsNotUpdate = (updateDateInfo: string) => {
@@ -144,7 +150,7 @@ const createFoodsNutritionValue = ($: CheerioAPI) => {
     });
   foodInitialValues = {
     ...foodInitialValues,
-    nutrition_type: checkFoodNutritionType(foodInitialValues) as NutritionType,
+    nutrient_type: checkFoodNutritionType(foodInitialValues) as NutritionType,
   };
 
   return foodInitialValues;

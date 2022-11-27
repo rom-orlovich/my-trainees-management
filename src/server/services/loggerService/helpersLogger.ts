@@ -1,6 +1,5 @@
 import { transports } from "winston";
 import { IS_DEVELOPMENT_MODE } from "../../utilities/constants";
-import { httpFormat } from "./logger";
 
 export const LOG_LEVEL: "debug" | "info" | "warn" | "error" =
   IS_DEVELOPMENT_MODE ? "info" : "info";
@@ -14,6 +13,12 @@ export const timezone = () =>
 const logAppDir = "./logs/dev";
 const logHttpDir = "./logs/http";
 
+export const loggerDebugJsonTransport = new transports.File({
+  level: "debug",
+  filename: "debug-json.log",
+
+  dirname: logAppDir,
+});
 export const loggerDebugTransport = new transports.File({
   level: "debug",
   filename: "debug.log",

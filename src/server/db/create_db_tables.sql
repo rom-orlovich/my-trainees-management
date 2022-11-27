@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS "meals_foods" CASCADE;
 DROP TABLE IF EXISTS "nutrition_menus_meals" CASCADE;
 
 CREATE TABLE
-  IF NOT EXISTS "cities" ("city_id" serial PRIMARY KEY, "city_name" VARCHAR(255) UNIQUE NOT NULL, "district" VARCHAR(255), "population" INTEGER, "user_id" integer DEFAULT 1);
+  IF NOT EXISTS "cities" ("city_id" serial PRIMARY KEY, "city_name" VARCHAR(255) UNIQUE NOT NULL, "district" VARCHAR(255), "population" INTEGER, "user_id" INTEGER DEFAULT 1);
 
 CREATE TABLE
   IF NOT EXISTS "profiles" (
@@ -116,7 +116,7 @@ CREATE TABLE
     "location_id" serial PRIMARY KEY,
     "city_id" INTEGER NOT NULL,
     "street" VARCHAR(255),
-    "user_id" integer DEFAULT 1,
+    "user_id" INTEGER DEFAULT 1,
     CONSTRAINT fk_city_id FOREIGN KEY (city_id) REFERENCES cities (city_id) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL ON UPDATE CASCADE
   );
@@ -288,7 +288,7 @@ CREATE TABLE
     "product_id" INTEGER,
     "trainee_id" INTEGER NOT NULL,
     "current_num_trainings" INTEGER DEFAULT 0,
-    "total_trainings" integer NOT NULL,
+    "total_trainings" INTEGER NOT NULL,
     "last_training" date,
     CONSTRAINT "current_num_trainings" CHECK ("current_num_trainings" <= "total_trainings"),
     CONSTRAINT fk_trainee_id FOREIGN KEY (trainee_id) REFERENCES trainees (trainee_id) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -387,7 +387,7 @@ CREATE TABLE
     "saturated_fat" FLOAT,
     "cholesterol_mg" FLOAT,
     "sodium_mg" FLOAT,
-    "nutrition_type" VARCHAR(100),
+    "nutrient_type" VARCHAR(100),
     "allergens" TEXT ARRAY,
     "kosher" BOOLEAN,
     "kosher_type" VARCHAR(10) DEFAULT 'פרווה',
@@ -397,7 +397,7 @@ CREATE TABLE
     "is_vegetarian" BOOLEAN,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL ON UPDATE CASCADE
     -- CONSTRAINT "kosher_type" CHECK ("kosher_type" IN ('פרווה', 'בשרי', 'חלבי')),
-    -- CONSTRAINT "nutrition_type" CHECK ("nutrition_type" IN ('proteins', 'fats', 'carbohydrates'))
+    -- CONSTRAINT "nutrient_type" CHECK ("nutrient_type" IN ('proteins', 'fats', 'carbohydrates'))
   );
 
 CREATE TABLE
@@ -424,16 +424,17 @@ CREATE TABLE
 
 CREATE TABLE
   IF NOT EXISTS "meals_foods" (
-    "meal_id" integer,
-    "food_id" integer,
+    "meal_id" INTEGER,
+    "food_amount" INTEGER,
+    "food_id" INTEGER,
     CONSTRAINT fk_food_id FOREIGN KEY (food_id) REFERENCES foods (food_id) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE SET NULL ON UPDATE CASCADE
   );
 
 CREATE TABLE
   IF NOT EXISTS "nutrition_menus_meals" (
-    "menu_nutrition_id" integer,
-    "meal_id" integer,
+    "menu_nutrition_id" INTEGER,
+    "meal_id" INTEGER,
     CONSTRAINT fk_menu_nutrition_id FOREIGN KEY (menu_nutrition_id) REFERENCES menus_nutrition (menu_nutrition_id) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE SET NULL ON UPDATE CASCADE
   );

@@ -8,6 +8,7 @@ import winstonExpress from "express-winston";
 import TransportStream from "winston-transport";
 
 import {
+  loggerDebugJsonTransport,
   loggerDebugTransport,
   loggerErrorTransport,
   loggerInfoTransport,
@@ -50,7 +51,7 @@ const formats = [
 ];
 const combineFormatConsole = combine(...formats, colorize(), myFormat);
 const combineLogFile = combine(...formats, myFormat);
-export const httpFormat = combine(...formats, json(), prettyPrint());
+export const JSON_FORMAT = combine(...formats, json(), prettyPrint());
 
 const mainTransportLogger: TransportStream[] = [
   loggerInfoTransport,
@@ -72,10 +73,16 @@ const LOGGER_OPTIONS: LoggerOptions = {
 
 export const requestLogger = createLogger({
   transports: loggerRequestTransport,
-  format: httpFormat,
+  format: JSON_FORMAT,
   level: LOG_LEVEL,
 });
 export const logger = createLogger(LOGGER_OPTIONS);
+export const loggerJson = createLogger({
+  level: LOG_LEVEL,
+  format: JSON_FORMAT,
+  defaultMeta: { service: "user-service" },
+  transports: [loggerDebugJsonTransport],
+});
 
 export const winstonExpressOption: winstonExpress.LoggerOptions = {
   winstonInstance: requestLogger,

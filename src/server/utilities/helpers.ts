@@ -1,4 +1,7 @@
 /* eslint-disable no-restricted-syntax */
+
+import { GenericRecord } from "./types";
+
 /**
  *
  * @param promise Gets the promise in pending state.
@@ -74,4 +77,37 @@ export const newDate = (date: Date | number | string, add?: AddToDate) => {
     hour + (add?.hPlus || 0),
     minutes + (add?.minPlus || 0)
   );
+};
+
+export const shuffleArr = <T>(arr: T[]) => {
+  const copyArr = arr.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copyArr[i], copyArr[j]] = [copyArr[j], copyArr[i]];
+  }
+  return copyArr;
+};
+
+export const sortBy = (arr: number[], isAscOrder = true) => {
+  const ascOrder = (a: number, b: number) => a - b;
+  const desOrder = (a: number, b: number) => b - a;
+  const curOrder = isAscOrder ? ascOrder : desOrder;
+  return arr.sort(curOrder);
+};
+
+export const filterArrObjBy = <T, K extends keyof T>(
+  arr: T[],
+  key: K,
+  value: T[K]
+) => arr.filter((el) => el[key] === value);
+
+export const sortArrObjBy = <T extends GenericRecord<any>, K extends keyof T>(
+  arr: T[],
+  key: K,
+  isAscOrder = true
+) => {
+  const ascOrder = (a: T, b: T) => a[key] - b[key];
+  const desOrder = (a: T, b: T) => b[key] - a[key];
+  const curOrder = isAscOrder ? ascOrder : desOrder;
+  return arr.sort(curOrder);
 };
