@@ -1,6 +1,1 @@
-{
-  "eachMin": 2,
-  "fetchProductsList": { "start": 10620, "end": 10640 },
-  "fetchFoodsDetails": { "start": 0, "end": 20 },
-  "fetchNationalDict": { "start": 6900, "add": 50 }
-}
+{"eachMin":5,"fetchProductsList":{"start":4260,"end":4280},"fetchFoodsDetails":{"start":1640,"end":1660},"fetchNationalDict":{"start":7050,"add":50}}

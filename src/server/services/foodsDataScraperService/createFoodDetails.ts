@@ -79,8 +79,6 @@ const calFoodScoreNutritious = (food: Food) => {
   const goodFats = food.fat_g - food.saturated_fat - cholesterolMg;
   const badFats = food.saturated_fat + cholesterolMg;
 
-  console.log("pro", food.protein_g ** powProtein || 1);
-  console.log("bad", sodiumMg + badFats || 1);
   let formula =
     (food.protein_g ** powProtein || 1) /
     (((sodiumMg + badFats) * food.calories_total) / 100 || 1);
@@ -219,14 +217,17 @@ export function createFoodDetailsData(pathHTML: string) {
   const allerganElText = $(".allergic-box").text();
   const resAllergan = createAllergensList(allerganElText);
 
-  const allerganInNames = ALLERGENS_LIST.filter(
-    (el) =>
-      (!foodName.food_name.includes(`${el} ללא`) ||
-        !foodName.food_name.includes(`${el} נטול`)) &&
-      foodName.food_name.includes(el)
-  );
-
-  resAllergan.push(...allerganInNames);
+  // const allerganInNames = ALLERGENS_LIST.filter(
+  //   (el) =>
+  //     (!foodName.food_name.includes(`${el} ללא`) ||
+  //       !foodName.food_name.includes(`${el} נטול`)) &&
+  //     foodName.food_name.includes(el)
+  // );
+  if (
+    foodName.food_name.includes("ביצה") ||
+    foodName.food_name.includes("ביצים")
+  )
+    resAllergan.push("ביצה");
   const initialFoodValue = {
     sugars_g: 0,
     saturated_fat: 0,

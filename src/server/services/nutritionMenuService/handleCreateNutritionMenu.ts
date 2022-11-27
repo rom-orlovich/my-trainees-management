@@ -55,6 +55,7 @@ const createNutritionMenu = async ({
   meals_dist_percents,
   profile_id,
   user_id,
+  isCutting,
 }: NutritionQuestionnaire) => {
   await client.connect();
 
@@ -218,7 +219,8 @@ const createNutritionMenu = async ({
       proteins_cals: food.protein_cals * amountFood,
       carbs_cals: food.carbs_cals * amountFood,
       fats_cals: food.fat_cals * amountFood,
-      totalCals: food.fat_cals * amountFood,
+      totalCals: food.calories_total * amountFood,
+      food_density: food.food_density,
     };
   };
 
@@ -332,7 +334,7 @@ const createNutritionMenu = async ({
           "kosher_type",
           ["בשרי", "פרווה"]
         ).slice(
-          NUM_FOODS_IN_MEAL * i,
+          NUM_FOODS_IN_MEAL * (i + 1),
           NUM_FOODS_IN_MEAL * (i + 1) + keepMeatMilkObj.proteinIllegalCount
         );
         const carbsChosenFoodsFilterByMeat = filterArrObjBy(
@@ -340,7 +342,7 @@ const createNutritionMenu = async ({
           "kosher_type",
           ["בשרי", "פרווה"]
         ).slice(
-          NUM_FOODS_IN_MEAL * i,
+          NUM_FOODS_IN_MEAL * (i + 1),
           NUM_FOODS_IN_MEAL * (i + 1) + keepMeatMilkObj.carbsIllegalCount
         );
         const fatsChosenFoodsFilterByMeat = filterArrObjBy(
@@ -348,7 +350,7 @@ const createNutritionMenu = async ({
           "kosher_type",
           ["בשרי", "פרווה"]
         ).slice(
-          NUM_FOODS_IN_MEAL * i,
+          NUM_FOODS_IN_MEAL * (i + 1),
           NUM_FOODS_IN_MEAL * (i + 1) + keepMeatMilkObj.fatsIllegalCount
         );
 
@@ -376,7 +378,7 @@ const createNutritionMenu = async ({
           "kosher_type",
           ["חלבי", "פרווה"]
         ).slice(
-          NUM_FOODS_IN_MEAL * i,
+          NUM_FOODS_IN_MEAL * (i + 1),
           NUM_FOODS_IN_MEAL * (i + 1) + keepMeatMilkObj.proteinIllegalCount
         );
         const carbsChosenFoodsFilterByMeat = filterArrObjBy(
@@ -384,7 +386,7 @@ const createNutritionMenu = async ({
           "kosher_type",
           ["חלבי", "פרווה"]
         ).slice(
-          NUM_FOODS_IN_MEAL * i,
+          NUM_FOODS_IN_MEAL * (i + 1),
           NUM_FOODS_IN_MEAL * (i + 1) + keepMeatMilkObj.carbsIllegalCount
         );
         const fatsChosenFoodsFilterByMeat = filterArrObjBy(
@@ -392,7 +394,7 @@ const createNutritionMenu = async ({
           "kosher_type",
           ["חלבי", "פרווה"]
         ).slice(
-          NUM_FOODS_IN_MEAL * i,
+          NUM_FOODS_IN_MEAL * (i + 1),
           NUM_FOODS_IN_MEAL * (i + 1) + keepMeatMilkObj.fatsIllegalCount
         );
         moreMealFoodsNutrients = {
@@ -439,6 +441,7 @@ const nutritionQuestionnaires: NutritionQuestionnaire = {
   day_start: new Date(),
   day_end: newDate(new Date(), { hPlus: 15 }),
   meals_dist_percents: [25, 35, 16, 24],
+  isCutting: true,
 };
 
 createNutritionMenu(nutritionQuestionnaires);

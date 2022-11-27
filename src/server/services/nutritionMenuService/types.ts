@@ -18,12 +18,14 @@ export interface NutritionQuestionnaire {
   allergens: string[];
   black_list_foods: number[];
   favorite_foods: number[];
+
+  profile_id: number;
+  day_start: Date;
+  day_end: Date;
   kosher: boolean;
   is_vegan: boolean;
   is_vegetarian: boolean;
   isKeepMeatMilk: boolean;
-  profile_id: number;
-  day_start: Date;
-  day_end: Date;
+  isCutting?: boolean;
   meals_dist_percents: number[];
 }

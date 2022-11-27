@@ -27,14 +27,13 @@ async function beginScrapping() {
       readFileSync(CRON_CACHED_DATA_JSON_PATH, JSON_ENCODING_DEFAULT)
     ) as CronCachedData;
 
-    const { fetchProductsList, fetchFoodsDetails, fetchNationalDict } =
-      cronCachedData;
+    const { fetchProductsList, fetchFoodsDetails } = cronCachedData;
 
-    // Init National DB scrapper
-    fetchNationalDict.start += await createNationalProductsNamesDB(
-      fetchNationalDict.start,
-      fetchNationalDict.add
-    );
+    // // Init National DB scrapper
+    // fetchNationalDict.start += await createNationalProductsNamesDB(
+    //   fetchNationalDict.start,
+    //   fetchNationalDict.add
+    // );
 
     // Init products list links scrapper.
     await createFoodsListLinksDB(
@@ -53,11 +52,10 @@ async function beginScrapping() {
       console.log("Begin fetching");
 
       // National DB scrapper.
-      fetchNationalDict.start += await createNationalProductsNamesDB(
-        fetchNationalDict.start,
-        fetchNationalDict.add
-      );
-      console.log(fetchNationalDict.start);
+      // fetchNationalDict.start += await createNationalProductsNamesDB(
+      //   fetchNationalDict.start,
+      //   fetchNationalDict.add
+      // );
 
       // Products list links scrapper.
       await createFoodsListLinksDB(
