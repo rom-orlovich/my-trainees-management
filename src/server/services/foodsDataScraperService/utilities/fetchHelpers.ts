@@ -115,10 +115,10 @@ export async function createFoodsDetailsDB(start: number, end: number) {
         console.log(`finish writing `, pathHTML);
         const scrapData = createFoodDetailsData(pathHTML);
         if (scrapData) {
-          logger.debug(`LINE:120 scrapData result:`, {
-            objs: [scrapData],
-            __filename,
-          });
+          // logger.debug(`LINE:120 scrapData result:`, {
+          //   objs: [scrapData],
+          //   __filename,
+          // });
           createArrDataObjJSON<GenericRecord<any>>(
             FOOD_DICT_DB_PATH,
             scrapData

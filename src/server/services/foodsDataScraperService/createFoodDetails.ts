@@ -149,19 +149,17 @@ const createFoodsNutritionValue = ($: CheerioAPI) => {
 
   return foodInitialValues;
 };
-const calFinalFoodScore = (food: Food, $: CheerioAPI) => {
-  logger.debug(`LINE:142: nut ${calFoodScoreNutritious(food)}`, { __filename });
-  logger.debug(`LINE:143: ing ${calIngredientFoodScore($)}`, { __filename });
-  logger.debug(`LINE:144: star ${calScoreFoodStarRank($) * 2}`, { __filename });
+const calFinalFoodScore = (food: Food, $: CheerioAPI) =>
+  // logger.debug(`LINE:142: nut ${calFoodScoreNutritious(food)}`, { __filename });
+  // logger.debug(`LINE:143: ing ${calIngredientFoodScore($)}`, { __filename });
+  // logger.debug(`LINE:144: star ${calScoreFoodStarRank($) * 2}`, { __filename });
 
-  return Number(
+  Number(
     (
       calFoodScoreNutritious(food) * calIngredientFoodScore($) +
       calScoreFoodStarRank($)
     ).toFixed(2)
   );
-};
-
 const getVeganRelevantText = ($: CheerioAPI) => {
   const headerText = $("#pageHeader").text();
   const ingredientsText = $(
@@ -169,10 +167,10 @@ const getVeganRelevantText = ($: CheerioAPI) => {
   ).text();
   const kosherText = $("div.col-8.col-article-info > p:nth-child(4)").text();
 
-  logger.debug(
-    `LINE:173: text ${headerText} ${ingredientsText} ${kosherText}`,
-    { __filename }
-  );
+  // logger.debug(
+  //   `LINE:173: text ${headerText} ${ingredientsText} ${kosherText}`,
+  //   { __filename }
+  // );
 
   return `${headerText} ${ingredientsText} ${kosherText}`;
 };

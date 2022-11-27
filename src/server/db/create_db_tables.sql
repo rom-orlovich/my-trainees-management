@@ -445,6 +445,8 @@ CREATE TABLE
     "black_list_foods" INTEGER ARRAY,
     "favorite_foods" INTEGER ARRAY,
     "kosher" BOOLEAN,
+    "is_vegan" BOOLEAN,
+    "is_vegetarian" BOOLEAN,
     "day_start" Date,
     "day_end" Date,
     "meals_dist_percents" INTEGER ARRAY,
