@@ -71,6 +71,11 @@ export const ALLERGENS_LIST = [
 ];
 
 export const NOT_VEGAN_INGREDIENTS = [
+  "דניס",
+  "לברק",
+  "נסיכת הנילוס",
+  "קרפיון",
+  "סלמון",
   "ביצים",
   "ביצה",
   "לקטוז",

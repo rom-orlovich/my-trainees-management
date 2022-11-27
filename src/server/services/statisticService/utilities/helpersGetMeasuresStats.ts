@@ -72,7 +72,7 @@ export const caloriesChartCreateLabelAndDatasets = (
       datasetsValues: [
         measuresCalData.protein_g,
         measuresCalData.fat_g,
-        measuresCalData.crabs_g,
+        measuresCalData.carbs_g,
       ],
     },
     caloriesDisplay: {
@@ -80,7 +80,7 @@ export const caloriesChartCreateLabelAndDatasets = (
       datasetsValues: [
         measuresCalData.protein_cals,
         measuresCalData.fat_cals,
-        measuresCalData.crabs_cals,
+        measuresCalData.carbs_cals,
       ],
     },
     calories_total: measuresCalData.calories_total,

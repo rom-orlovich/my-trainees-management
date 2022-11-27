@@ -38,10 +38,10 @@ export interface MeasuresCalResAPI {
   fixed_cals?: number;
   protein_g: number;
   fat_g: number;
-  crabs_g: number;
+  carbs_g: number;
   protein_cals: number;
   fat_cals: number;
-  crabs_cals: number;
+  carbs_cals: number;
   calories_total: number;
 }
 

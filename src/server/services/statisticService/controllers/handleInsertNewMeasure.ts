@@ -11,17 +11,17 @@ export const handleInsertNewMeasure: RequestHandler = (req, res, next) => {
   const fatG = weight * fat_per_kg;
   const proteinCals = weight * protein_per_kg * 4;
   const fatCals = weight * fat_per_kg * 9;
-  const crabsCal = caloriesTotal - proteinCals - fatCals;
-  const crabsG = (caloriesTotal - proteinCals - fatCals) / 4;
+  const carbsCal = caloriesTotal - proteinCals - fatCals;
+  const carbsG = (caloriesTotal - proteinCals - fatCals) / 4;
 
   const result = {
     ...req.body,
     protein_g: proteinG.toFixed(2),
     fat_g: fatG.toFixed(2),
-    crabs_g: crabsG.toFixed(2),
+    carbs_g: carbsG.toFixed(2),
     protein_cals: proteinCals.toFixed(2),
     fat_cals: fatCals.toFixed(2),
-    crabs_cals: crabsCal.toFixed(2),
+    carbs_cals: carbsCal.toFixed(2),
     calories_total: caloriesTotal.toFixed(2),
   };
 

@@ -28,8 +28,8 @@ const createKeyValue = ($: ReturnType<CheerioAPI>) => {
     }
 
     if (nameValue === "carbohydrates") {
-      nameValue = "crabs_g";
-      return { crabs_cals: value * 4, [nameValue]: value };
+      nameValue = "carbs_g";
+      return { carbs_cals: value * 4, [nameValue]: value };
     }
     if (nameValue === "total_fat") {
       nameValue = "fat_g";
@@ -72,28 +72,27 @@ const calIngredientFoodScore = ($: CheerioAPI) => {
 };
 
 const calFoodScoreNutritious = (food: Food) => {
-  const powProtein = food.is_vegan ? 1.2 : 1.3;
+  const powProtein = food.is_vegan ? 1.8 : 2;
   const cholesterolMg = food.cholesterol_mg / 1000;
   const sodiumMg = food.sodium_mg / 1000;
 
   const goodFats = food.fat_g - food.saturated_fat - cholesterolMg;
   const badFats = food.saturated_fat + cholesterolMg;
-  const fatRatio = goodFats / badFats;
 
   console.log("pro", food.protein_g ** powProtein || 1);
   console.log("bad", sodiumMg + badFats || 1);
   let formula =
-    food.protein_g ** powProtein ||
-    (1 / (sodiumMg + badFats)) * food.calories_total ||
-    1;
+    (food.protein_g ** powProtein || 1) /
+    (((sodiumMg + badFats) * food.calories_total) / 100 || 1);
 
-  if (food.nutrient_type === "proteins") formula /= food.crabs_g || 0;
+  if (food.nutrient_type === "proteins") formula /= food.carbs_g || 1;
 
   if (food.nutrient_type === "fats")
-    formula = (formula * goodFats) / (food.crabs_g || 0);
+    formula = (formula * goodFats) / (food.carbs_g || 1);
 
   return formula;
 };
+
 const checkProductIsNotUpdate = (updateDateInfo: string) => {
   if (updateDateInfo) {
     const dateStr = updateDateInfo.trim().replace(/\+s/g, "");
@@ -115,11 +114,11 @@ const createAllergensList = (allerganElText: string) => {
 };
 const checkFoodNutritionType = (food: Food) => {
   let nutritionType = "";
-  if (food.fat_g < food.protein_g && food.crabs_g < food.protein_g)
+  if (food.fat_g < food.protein_g && food.carbs_g < food.protein_g)
     nutritionType = "proteins";
-  else if (food.protein_g < food.fat_g && food.crabs_g < food.fat_g)
+  else if (food.protein_g < food.fat_g && food.carbs_g < food.fat_g)
     nutritionType = "fats";
-  else if (food.protein_g < food.crabs_g && food.fat_g < food.crabs_g)
+  else if (food.protein_g < food.carbs_g && food.fat_g < food.carbs_g)
     nutritionType = "carbohydrates";
   return nutritionType;
 };
@@ -210,7 +209,7 @@ const createFoodIdentity = ($: CheerioAPI) => {
 const checkIfIsNotFood = (food: Food, foodScore: number) =>
   Number.isNaN(foodScore) ||
   !food.calories_total ||
-  !(food.protein_cals && food.crabs_cals && food.fat_cals);
+  !(food.protein_cals && food.carbs_cals && food.fat_cals);
 
 export function createFoodDetailsData(pathHTML: string) {
   const $ = createCheerioLoad(pathHTML);
@@ -219,6 +218,15 @@ export function createFoodDetailsData(pathHTML: string) {
   if (checkProductIsNotUpdate(updateDateInfo)) return undefined;
   const allerganElText = $(".allergic-box").text();
   const resAllergan = createAllergensList(allerganElText);
+
+  const allerganInNames = ALLERGENS_LIST.filter(
+    (el) =>
+      (!foodName.food_name.includes(`${el} ללא`) ||
+        !foodName.food_name.includes(`${el} נטול`)) &&
+      foodName.food_name.includes(el)
+  );
+
+  resAllergan.push(...allerganInNames);
   const initialFoodValue = {
     sugars_g: 0,
     saturated_fat: 0,
@@ -237,9 +245,12 @@ export function createFoodDetailsData(pathHTML: string) {
   const foodScore = calFinalFoodScore(food, $);
 
   if (checkIfIsNotFood(food, foodScore)) return undefined;
+  const calCaloriesDensity = (food: Food) =>
+    Number((food.calories_total / 100).toFixed(2));
   return {
     ...food,
     allergens: resAllergan,
+    food_density: calCaloriesDensity(food),
     food_score: foodScore,
   } as Food;
 }

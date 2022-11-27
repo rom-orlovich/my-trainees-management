@@ -42,9 +42,9 @@ function MeasureEditForm() {
         const {
           protein_g,
           calories_total,
-          crabs_cals,
+          carbs_cals,
           fat_g,
-          crabs_g,
+          carbs_g,
           protein_cals,
           fat_cals,
           ...rest

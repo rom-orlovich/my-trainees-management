@@ -160,8 +160,8 @@ export interface Food {
   calories_total: number;
   protein_g: number;
   protein_cals: number;
-  crabs_g: number;
-  crabs_cals: number;
+  carbs_g: number;
+  carbs_cals: number;
   sugars_g: number;
   fat_g: number;
   fat_cals: number;
@@ -169,10 +169,12 @@ export interface Food {
   cholesterol_mg: number;
   sodium_mg: number;
   nutrient_type: NutritionType;
-  is_vegan: boolean;
-  is_vegetarian: boolean;
   allergens: string[];
   kosher: boolean;
+  is_vegan: boolean;
+  is_vegetarian: boolean;
   kosher_type: KosherType;
   food_score: number;
+  food_density: number;
+  user_id?: number;
 }

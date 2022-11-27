@@ -98,8 +98,8 @@ export const sortBy = (arr: number[], isAscOrder = true) => {
 export const filterArrObjBy = <T, K extends keyof T>(
   arr: T[],
   key: K,
-  value: T[K]
-) => arr.filter((el) => el[key] === value);
+  values: T[K][]
+) => arr.filter((el) => values.includes(el[key]));
 
 export const sortArrObjBy = <T extends GenericRecord<any>, K extends keyof T>(
   arr: T[],

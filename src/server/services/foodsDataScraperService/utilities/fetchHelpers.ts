@@ -154,20 +154,20 @@ export async function createFoodsDetailsDB(start: number, end: number) {
 //       i
 //     ) => {
 //       const proteinCals = Number(proteins * 4).toFixed(2);
-//       const crabsCals = Number(carbohydrates * 4).toFixed(2);
+//       const carbsCals = Number(carbohydrates * 4).toFixed(2);
 //       const fatCals = Number(total_fat * 9).toFixed(2);
 //       return {
 //         food_id: i + 1,
 //         product_name: productName,
 //         ...el,
 //         protein_g: proteins || 0,
-//         crabs_g: carbohydrates || 0,
+//         carbs_g: carbohydrates || 0,
 //         fat_g: total_fat || 0,
 //         sodium_mg: sodium || 0,
 //         cholesterol_mg: cholesterol || 0,
 //         saturated_fat: saturated_fat || 0,
 //         protein_cals: proteinCals,
-//         crabs_cals: crabsCals,
+//         carbs_cals: carbsCals,
 //         fat_cals: fatCals,
 //         calories_total: calories
 //       };

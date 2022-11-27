@@ -13,12 +13,15 @@ export interface Meal {
   note_text: string;
   user_id: number;
 }
-export interface NutritionQuestionnaires {
+export interface NutritionQuestionnaire {
   user_id: number;
   allergens: string[];
   black_list_foods: number[];
   favorite_foods: number[];
   kosher: boolean;
+  is_vegan: boolean;
+  is_vegetarian: boolean;
+  isKeepMeatMilk: boolean;
   profile_id: number;
   day_start: Date;
   day_end: Date;

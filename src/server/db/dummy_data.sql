@@ -74,8 +74,7 @@ VALUES
 SELECT
   pg_catalog.setval ('public.locations_location_id_seq', 9, false);
 
-update
-  profiles
+update profiles
 set
   email = 'rom-orlovich@cyber4s.dev',
   status = true,
@@ -330,10 +329,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -353,10 +352,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -376,10 +375,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -399,10 +398,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -422,10 +421,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -445,10 +444,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -468,10 +467,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -491,10 +490,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -514,10 +513,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -537,10 +536,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -560,10 +559,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -583,10 +582,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -606,10 +605,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -629,10 +628,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -652,10 +651,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -675,10 +674,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -698,10 +697,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -721,10 +720,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -744,10 +743,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -767,10 +766,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -790,10 +789,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -813,10 +812,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -836,10 +835,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -859,10 +858,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
@@ -882,10 +881,10 @@ INSERT INTO
     fat_per_kg,
     protein_g,
     fat_g,
-    crabs_g,
+    carbs_g,
     protein_cals,
     fat_cals,
-    crabs_cals,
+    carbs_cals,
     fixed_cals,
     calories_total
   )
