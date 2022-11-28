@@ -48,7 +48,7 @@ export interface MealFood {
   amount: number;
 }
 export interface NutritionMenusMeals {
-  menu_nutrition_id?: number;
+  nutrition_menu_id?: number;
   meal_id?: number;
 }
 

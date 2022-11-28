@@ -61,6 +61,7 @@ export const createNutritionMenu = async (
 
     const lastMeasure = await getLastMeasureByProfileID(profile_id);
     const { protein_cals, fat_cals, carbs_cals, calories_total } = lastMeasure;
+
     // Creates for each meals it's nutrients calories distribution by user's preference.
     // The function get percents array of the relative size of each meal.
     // For example [50,25,25].
@@ -108,7 +109,7 @@ export const createNutritionMenu = async (
             nutrientFoodsArr,
             mealNutrientsCals,
             nutrientTypeCalsKey,
-            newMeal.meal_id,
+            mealInsertRes.meal_id,
             isKeepMeatMilk ? keepMeatAndMilkObj : undefined,
             NUM_FOODS_IN_MEAL * i,
             NUM_FOODS_IN_MEAL * (i + 1)
@@ -141,7 +142,7 @@ export const createNutritionMenu = async (
       }
     );
 
-    await Promise.all(meals);
+    const mealsResPromises = await Promise.all(meals);
 
     loggerJson.debug(`LINE 274: meals`, {
       __filename,
@@ -152,7 +153,7 @@ export const createNutritionMenu = async (
           protein_cals,
           fat_cals,
           carbs_cals,
-          meals,
+          meals: mealsResPromises,
         },
       ],
     });

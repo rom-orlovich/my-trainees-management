@@ -33,7 +33,7 @@ export const insertNewFoodsInMeal = async (
       TABLES_DATA.MEALS_FOODS_TABLE_NAME,
       mealFood.map((el) => ({
         meal_id: el.meal_id,
-        amount: el.amount,
+        food_amount: el.amount,
         food_id: el.food_id,
       }))
     );
@@ -49,7 +49,7 @@ export const insertNewNutrientMenuMeal = async (
 ) => {
   if (!nutritionMenuId || !mealID) return;
   const menuNutritionMealsObj: NutritionMenusMeals = {
-    menu_nutrition_id: nutritionMenuId,
+    nutrition_menu_id: nutritionMenuId,
     meal_id: mealID,
   };
 
