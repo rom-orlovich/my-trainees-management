@@ -53,23 +53,23 @@ export function createArrDataJSON<T>(pathJSON: string, scrapData: any[]) {
   const curData = JSON.parse(
     readFileSync(pathJSON, JSON_ENCODING_DEFAULT)
   ) as T[];
+  console.log("createArrDataJSON", curData.length - 1);
+  const writtingArr = [...curData, ...scrapData];
+  writeFileSync(pathJSON, JSON.stringify(writtingArr), JSON_ENCODING_DEFAULT);
 
-  writeFileSync(
-    pathJSON,
-    JSON.stringify([...curData, ...scrapData]),
-    JSON_ENCODING_DEFAULT
-  );
+  return writtingArr.length - 1;
 }
 export function createArrDataObjJSON<T>(pathJSON: string, scrapData: T) {
   const curData = JSON.parse(
     readFileSync(pathJSON, JSON_ENCODING_DEFAULT)
   ) as T[];
-
-  writeFileSync(
-    pathJSON,
-    JSON.stringify([...curData, { food_id: curData.length + 1, ...scrapData }]),
-    JSON_ENCODING_DEFAULT
-  );
+  console.log("createArrDataObjJSON", curData.length - 1);
+  const writingArr = [
+    ...curData,
+    { food_id: curData.length + 1, ...scrapData },
+  ];
+  writeFileSync(pathJSON, JSON.stringify(writingArr), JSON_ENCODING_DEFAULT);
+  return writingArr.length - 1;
 }
 
 export const createProductLinksHTMLandFetchURL = (el: FoodNameDB) => {

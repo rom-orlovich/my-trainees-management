@@ -18,7 +18,7 @@ export const createNationalProductsNamesDB = async (
       await readFile(NATIONAL_FOOD_DICT_JSON_PATH, JSON_ENCODING_DEFAULT)
     ) as FoodNameDB[];
     const urlQuery = {
-      sort: "protein desc",
+      sort: "carbohydrates asc",
       resource_id: "c3cb0630-0650-46c1-a068-82d575c094b2",
       offset: start,
       limit: add,

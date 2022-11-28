@@ -64,7 +64,7 @@ export const measuresChartLineCreateLabelAndDatasets = (
 export const caloriesChartCreateLabelAndDatasets = (
   measuresCalData: MeasuresCalResAPI
 ) => {
-  const labels = ["Protein", "Fats", "Crabs"];
+  const labels = ["Protein", "Fats", "Carbs"];
 
   return {
     weightsDisplay: {

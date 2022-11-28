@@ -38,6 +38,7 @@ export async function conditionHTMLFetch(pathHTML: string, fetchURL: string) {
   const defaultReturn = { pathHTML: "", data: undefined };
   try {
     await exist;
+    console.log("exist  ", pathHTML);
     return defaultReturn;
   } catch (error) {
     if (error) {
@@ -65,16 +66,17 @@ export async function createPromiseHTMLFetchArr<T>(
   const promiseArr = curData.slice(start, end).map(
     throat(2, async (el) => {
       const { fetchURL, pathHTML } = cb(el);
-      return await conditionHTMLFetch(pathHTML, fetchURL);
+
+      return conditionHTMLFetch(pathHTML, fetchURL);
     })
   );
   return promiseArr;
 }
 
 export async function createFoodsListLinksDB(start: number, end: number) {
+  let lengthFoodsListLinks: number = start;
   try {
     const promiseArrRes = await Promise.all(
-      // await createFoodsListLinksDB(start, end)
       await createPromiseHTMLFetchArr(
         start,
         end,
@@ -89,15 +91,21 @@ export async function createFoodsListLinksDB(start: number, end: number) {
         createDecodedHTMLFile(pathHTML, el.data);
         console.log(`finish writing `, pathHTML);
         const scrapData = createProductsLinksData(pathHTML);
-        createArrDataJSON<string>(LINKS_SCRAPPER_JSON_PATH, scrapData);
+        lengthFoodsListLinks = createArrDataJSON<string>(
+          LINKS_SCRAPPER_JSON_PATH,
+          scrapData
+        );
       }
     });
+    return lengthFoodsListLinks;
   } catch (error) {
     console.log(error);
+    return start;
   }
 }
 
 export async function createFoodsDetailsDB(start: number, end: number) {
+  let lengthFoodsDetailsDB: number = start;
   try {
     const promiseArrRes = await Promise.all(
       await createPromiseHTMLFetchArr(
@@ -119,15 +127,17 @@ export async function createFoodsDetailsDB(start: number, end: number) {
           //   objs: [scrapData],
           //   __filename,
           // });
-          createArrDataObjJSON<GenericRecord<any>>(
+          lengthFoodsDetailsDB = createArrDataObjJSON<GenericRecord<any>>(
             FOOD_DICT_DB_PATH,
             scrapData
           );
         }
       }
     });
+    return lengthFoodsDetailsDB;
   } catch (error) {
     console.log(error);
+    return start;
   }
 }
 

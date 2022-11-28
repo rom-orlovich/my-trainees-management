@@ -27,21 +27,26 @@ async function beginScrapping() {
       readFileSync(CRON_CACHED_DATA_JSON_PATH, JSON_ENCODING_DEFAULT)
     ) as CronCachedData;
 
-    const { fetchProductsList, fetchFoodsDetails } = cronCachedData;
+    const { fetchProductsList, fetchFoodsDetails, fetchNationalDict } =
+      cronCachedData;
 
     // // Init National DB scrapper
-    // fetchNationalDict.start += await createNationalProductsNamesDB(
-    //   fetchNationalDict.start,
-    //   fetchNationalDict.add
-    // );
+    fetchNationalDict.start += await createNationalProductsNamesDB(
+      fetchNationalDict.start,
+      fetchNationalDict.add
+    );
 
     // Init products list links scrapper.
-    await createFoodsListLinksDB(
+    const t = await createFoodsListLinksDB(
       fetchProductsList.start,
       fetchProductsList.end
     );
     // Init product details scrapper.
-    await createFoodsDetailsDB(fetchFoodsDetails.start, fetchFoodsDetails.end);
+    const k = await createFoodsDetailsDB(
+      fetchFoodsDetails.start,
+      fetchFoodsDetails.end
+    );
+    console.log(t, k);
     schedule(`*/${cronCachedData.eachMin} * * * *`, async () => {
       cronCachedData.eachMin = Math.floor(1 + Math.random() * 5);
       fetchProductsList.start += RESULT_ADD;
@@ -52,21 +57,25 @@ async function beginScrapping() {
       console.log("Begin fetching");
 
       // National DB scrapper.
-      // fetchNationalDict.start += await createNationalProductsNamesDB(
-      //   fetchNationalDict.start,
-      //   fetchNationalDict.add
-      // );
+      fetchNationalDict.start += await createNationalProductsNamesDB(
+        fetchNationalDict.start,
+        fetchNationalDict.add
+      );
 
       // Products list links scrapper.
-      await createFoodsListLinksDB(
+      const lengthFoodsListLinks = await createFoodsListLinksDB(
         fetchProductsList.start,
         fetchProductsList.end
       );
       // Product details scrapper.
-      await createFoodsDetailsDB(
+      const lengthFoodsDetails = await createFoodsDetailsDB(
         fetchFoodsDetails.start,
         fetchFoodsDetails.end
       );
+
+      console.log(lengthFoodsListLinks, lengthFoodsDetails);
+      cronCachedData.fetchFoodsDetails.start = lengthFoodsListLinks;
+      cronCachedData.fetchFoodsDetails.start = lengthFoodsDetails;
       console.log("curCronCachedData", cronCachedData);
       writeFileSync(
         CRON_CACHED_DATA_JSON_PATH,

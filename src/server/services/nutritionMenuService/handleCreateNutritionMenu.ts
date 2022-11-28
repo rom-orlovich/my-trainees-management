@@ -148,19 +148,19 @@ const createNutritionMenu = async ({
 
   const totalCals = lastMeasure.calories_total;
   const totalProteinCals = lastMeasure.protein_cals;
-  const totalCrabsCals = lastMeasure.carbs_cals;
+  const totalCarbsCals = lastMeasure.carbs_cals;
   const totalFatsCals = lastMeasure.fat_cals;
 
   const mealsNutrientsCalsDist = meals_dist_percents.map((percentsNum) => {
     const percents = percentsNum / 100;
     const mealProteinsTotalCals = totalProteinCals * percents;
     const mealFatsTotalCals = totalFatsCals * percents;
-    const mealCrabsTotalCals = totalCrabsCals * percents;
+    const mealCarbsTotalCals = totalCarbsCals * percents;
     const mealTotalCals = totalCals * percents;
     return {
       mealProteinsTotalCals,
       mealFatsTotalCals,
-      mealCrabsTotalCals,
+      mealCarbsTotalCals,
       mealTotalCals,
     };
   });
@@ -168,7 +168,7 @@ const createNutritionMenu = async ({
   interface MealNutrientsCals {
     mealProteinsTotalCals: number;
     mealFatsTotalCals: number;
-    mealCrabsTotalCals: number;
+    mealCarbsTotalCals: number;
     mealTotalCals: number;
   }
   type NutrientCalsType = "protein_cals" | "carbs_cals" | "fat_cals";
@@ -321,7 +321,7 @@ const createNutritionMenu = async ({
       carbsFoods: createFoodMealByNutrientWithMealID(
         carbsChosenFoods,
         "carbs_cals",
-        mealNutrientsCals.mealCrabsTotalCals
+        mealNutrientsCals.mealCarbsTotalCals
       ),
     };
 
@@ -369,7 +369,7 @@ const createNutritionMenu = async ({
           carbsFoods: createFoodMealByNutrientWithMealID(
             carbsChosenFoodsFilterByMeat,
             "carbs_cals",
-            mealNutrientsCals.mealCrabsTotalCals
+            mealNutrientsCals.mealCarbsTotalCals
           ),
         };
       } else {
@@ -412,7 +412,7 @@ const createNutritionMenu = async ({
           carbsFoods: createFoodMealByNutrientWithMealID(
             carbsChosenFoodsFilterByMeat,
             "carbs_cals",
-            mealNutrientsCals.mealCrabsTotalCals
+            mealNutrientsCals.mealCarbsTotalCals
           ),
         };
       }
@@ -430,17 +430,17 @@ const createNutritionMenu = async ({
 };
 const nutritionQuestionnaires: NutritionQuestionnaire = {
   user_id: 2,
-  allergens: ["ביצים"],
-  black_list_foods: [7, 92, 702, 81, 23],
-  favorite_foods: [1, 300, 3, 5, 17, 23, 502],
-  kosher: true,
-  isKeepMeatMilk: true,
-  is_vegan: true,
+  allergens: [],
+  black_list_foods: [],
+  favorite_foods: [],
+  kosher: false,
+  isKeepMeatMilk: false,
+  is_vegan: false,
   is_vegetarian: false,
   profile_id: 3,
   day_start: new Date(),
   day_end: newDate(new Date(), { hPlus: 15 }),
-  meals_dist_percents: [25, 35, 16, 24],
+  meals_dist_percents: [30, 50, 20],
   isCutting: true,
 };
 
