@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 import { shuffle, sortBy } from "lodash";
-import { selectQuery } from "../../PGSql/simpleSqlQueries";
+import { insertQueryOneItem, selectQuery } from "../../PGSql/simpleSqlQueries";
 import { TABLES_DATA } from "../../utilities/constants";
 import { filterArrObjBy, sortArrObjBy } from "../../utilities/helpers";
 import { GenericRecord } from "../../utilities/types";
@@ -15,14 +15,50 @@ import { MeasuresCalResAPI } from "../statisticService/serviceStatisticsTypes";
 import { NUM_FOODS_FOR_EACH_NUTRIENTS, NUM_FOODS_IN_MEAL } from "./constants";
 import {
   ChosenFoodsNutrientsArrObj,
-  CreateFoodMealByNutrientWithMealIDFun,
+  CreateMealFoodByNutrientWithMealIDFun,
   DietTypes,
-  FoodMeal,
+  MealFood,
   KeepMeatAndMilkObj,
   MealNutrientsCals,
   NutrientCalsType,
   NutritionQuestionnaire,
 } from "./types";
+
+export const createMenuDescription = ({
+  kosher,
+  is_vegan,
+  is_vegetarian,
+  diet_type,
+  isKeepMeatMilk,
+  allergens,
+  meals_dist_percents,
+  profile_id,
+  user_id,
+}: NutritionQuestionnaire) => {
+  const kosherText = kosher ? "כשרה" : "";
+  const veganText = is_vegan ? "טבעונית" : "";
+  const vegetarianText = is_vegetarian ? "צמחונית" : "";
+  const isKeepMeatMilkText = isKeepMeatMilk ? "ללא בשר וחלב" : "";
+  const mealsDistPercentsText = `${meals_dist_percents
+    .map((el, i) => `meal ${i + 1} %${el}`)
+    .join(", ")
+    .slice(0, -1)}`;
+  const allergensText = allergens
+    .map((el) => `${el} ללא`)
+    .join(", ")
+    .slice(0, -1);
+
+  return {
+    note_text: `Type menu:${diet_type} ${kosherText} ${
+      veganText || vegetarianText
+    } ${isKeepMeatMilkText}`,
+    note_topic: `${`${allergensText} ` || ""}${
+      mealsDistPercentsText ? `meals percents: ${mealsDistPercentsText}` : ""
+    } `,
+    profile_id,
+    user_id,
+  };
+};
 
 export const matchFoodByDietType = (foods: Food[], dietType: DietTypes) => {
   if (dietType === "neutral") return foods;
@@ -39,7 +75,6 @@ export const getLastMeasureByProfileID = async (profileID: number) => {
     [profileID]
   );
   const lastMeasure = measures[measures.length - 1];
-
   return lastMeasure;
 };
 
@@ -158,11 +193,9 @@ export const createChosenFoodsNutrientsArr = (
 // The function get percents array of the relative size of each meal.
 // For example [50,25,25].
 export const createMealsNutrientsCalsDistribution = async (
-  profileID: number,
+  lastMeasure: MeasuresCalResAPI,
   mealsDistPercents: number[]
 ) => {
-  const lastMeasure = await getLastMeasureByProfileID(profileID);
-
   const totalCals = lastMeasure.calories_total;
   const totalProteinCals = lastMeasure.protein_cals;
   const totalCarbsCals = lastMeasure.carbs_cals;
@@ -203,7 +236,7 @@ export const getAmountOFfood = (
 };
 
 // Creates food for meal.
-export const createFoodMeal = (
+export const createMealFood = (
   food: Food,
   mealNutrientsCals: number,
   nutrientTypeCalsKey: NutrientCalsType,
@@ -260,7 +293,7 @@ export const countHowManyNutrientsFoodsDisqualify = (
   return false;
 };
 
-export const createFoodMealByNutrientAndDisqualifyByMeatAndMilk = (
+export const createMealFoodByNutrientAndDisqualifyByMeatAndMilk = (
   nutrientFoodsArr: Food[],
   mealNutrientsCals: number,
   nutrientTypeCalsKey: NutrientCalsType,
@@ -271,21 +304,21 @@ export const createFoodMealByNutrientAndDisqualifyByMeatAndMilk = (
 ) =>
   nutrientFoodsArr
     .slice(start, amount)
-    .reduce((pre: FoodMeal[], food: Food) => {
+    .reduce((pre: MealFood[], food: Food) => {
       if (keepMeatAndMilkObj) {
         disableMeatOrDiaryFoods(keepMeatAndMilkObj, food);
         if (countHowManyNutrientsFoodsDisqualify(keepMeatAndMilkObj, food))
           return pre;
       }
 
-      const foodMeal = createFoodMeal(
+      const mealFood = createMealFood(
         food,
         mealNutrientsCals,
         nutrientTypeCalsKey,
         mealID
       );
 
-      pre.push(foodMeal);
+      pre.push(mealFood);
       return pre;
     }, []);
 
@@ -337,7 +370,7 @@ export const createMoreMealFoodsNutrientsForEachDisqualifiedFood = (
   keepMeatAndMilkObj: KeepMeatAndMilkObj,
   chosenFoodsNutrientsArrObj: ChosenFoodsNutrientsArrObj,
   i: number,
-  createFoodMealByNutrientWithMealID: CreateFoodMealByNutrientWithMealIDFun
+  createMealFoodByNutrientWithMealID: CreateMealFoodByNutrientWithMealIDFun
 ) => {
   if (!(keepMeatAndMilkObj?.dairyIllegal || keepMeatAndMilkObj?.meatIllegal))
     return {
@@ -360,18 +393,18 @@ export const createMoreMealFoodsNutrientsForEachDisqualifiedFood = (
   );
 
   const moreMealFoodsNutrients = {
-    proteinsFoods: createFoodMealByNutrientWithMealID(
+    proteinsFoods: createMealFoodByNutrientWithMealID(
       proteinsChosenFoodsFilterByKosherType,
       "protein_cals",
       mealNutrientsCals.mealProteinsTotalCals
     ),
 
-    fatsFoods: createFoodMealByNutrientWithMealID(
+    fatsFoods: createMealFoodByNutrientWithMealID(
       fatsChosenFoodsFilterByKosherType,
       "fat_cals",
       mealNutrientsCals.mealFatsTotalCals
     ),
-    carbsFoods: createFoodMealByNutrientWithMealID(
+    carbsFoods: createMealFoodByNutrientWithMealID(
       carbsChosenFoodsFilterByKosherType,
       "carbs_cals",
       mealNutrientsCals.mealCarbsTotalCals

@@ -8,31 +8,64 @@ config();
 import { RequestHandler } from "express";
 
 import { client } from "../../PGSql/DBConnectConfig";
+import { insertMany, insertQueryOneItem } from "../../PGSql/simpleSqlQueries";
+import { TABLES_DATA } from "../../utilities/constants";
 
 import { newDate } from "../../utilities/helpers";
 
 import { Food } from "../foodsDataScraperService/types";
 import { loggerJson } from "../loggerService/logger";
 
-import { DEVIATION_NUMBER_PERCENTS, NUM_FOODS_IN_MEAL } from "./constants";
+import { NUM_FOODS_IN_MEAL } from "./constants";
 import {
   createChosenFoodsNutrientsArr,
-  createFoodMealByNutrientAndDisqualifyByMeatAndMilk,
+  createMealFoodByNutrientAndDisqualifyByMeatAndMilk,
   createMealsNutrientsCalsDistribution,
   createMoreMealFoodsNutrientsForEachDisqualifiedFood,
   getFoodsByNutritionQuestionnaireParams,
+  getLastMeasureByProfileID,
 } from "./helpersCreateNutritionMenu";
-import { Meal, NutrientCalsType, NutritionQuestionnaire } from "./types";
+import {
+  insertNewFoodsInMeal,
+  insertNewNutrientMenuMeal,
+  insertNewNutritionMenuToDB,
+} from "./helpersDB";
+import {
+  ChosenFoodsNutrientsArrObj,
+  CreateMealFoodByNutrientWithMealIDFun,
+  Meal,
+  MealNutrientsCals,
+  MealNutrientsFoodsObj,
+  NutrientCalsType,
+  NutritionMenu,
+  NutritionQuestionnaire,
+} from "./types";
+// Creates array of foods for each nutrient.
+export const createMealFoodsNutrients = (
+  mealNutrientsCals: MealNutrientsCals,
+  chosenFoodsNutrientsArrObj: ChosenFoodsNutrientsArrObj,
+  createMealFoodByNutrientWithMealID: CreateMealFoodByNutrientWithMealIDFun
+) => {
+  const mealFoodsNutrients: MealNutrientsFoodsObj = {
+    ...mealNutrientsCals,
+    proteinsFoods: createMealFoodByNutrientWithMealID(
+      chosenFoodsNutrientsArrObj.proteinsChosenFoods,
+      "protein_cals",
+      mealNutrientsCals.mealProteinsTotalCals
+    ),
 
-export const createMealsDescription = ({
-  kosher,
-  is_vegan,
-  is_vegetarian,
-  diet_type,
-}: NutritionQuestionnaire) => {
-  const kosherText = kosher ? "כשרה" : "";
-
-  return { title: `` };
+    fatsFoods: createMealFoodByNutrientWithMealID(
+      chosenFoodsNutrientsArrObj.fatsChosenFoods,
+      "fat_cals",
+      mealNutrientsCals.mealFatsTotalCals
+    ),
+    carbsFoods: createMealFoodByNutrientWithMealID(
+      chosenFoodsNutrientsArrObj.carbsChosenFoods,
+      "carbs_cals",
+      mealNutrientsCals.mealCarbsTotalCals
+    ),
+  };
+  return mealFoodsNutrients;
 };
 
 const createNutritionMenu = async (
@@ -46,109 +79,152 @@ const createNutritionMenu = async (
     user_id,
     // diet_type,
   } = nutritionQuestionnaire;
-  await client.connect();
+  try {
+    await client.connect();
 
-  // const nutritionMenu: NutritionMenu = {
-  //   nutrition_menu_id: 1,
-  //   date_start: new Date(),
-  //   date_end: undefined,
-  //   note_text: "",
-  //   note_topic: "",
-  //   profile_id,
-  //   user_id,
-  // };
+    await client.query("BEGIN");
 
-  // Gets foods from the db filter by user's nutrition questionnaire.
-  const foods = await getFoodsByNutritionQuestionnaireParams(
-    nutritionQuestionnaire
-  );
+    // // Insert new nutritionMenu to db.
+    const nutritionMenuInsertRes: NutritionMenu =
+      await insertNewNutritionMenuToDB(nutritionQuestionnaire);
 
-  // Creates for each meals it's nutrients calories distribution by user's preference.
-  // The function get percents array of the relative size of each meal.
-  // For example [50,25,25].
-  const mealsNutrientsCalsDistribution =
-    await createMealsNutrientsCalsDistribution(profile_id, meals_dist_percents);
+    // Gets foods from the db filter by user's nutrition questionnaire.
+    const foods = await getFoodsByNutritionQuestionnaireParams(
+      nutritionQuestionnaire
+    );
 
-  // Creates the potential menu foods divided by nutrients.
-  const chosenFoodsNutrientsArrObj = createChosenFoodsNutrientsArr(
-    foods,
-    favorite_foods
-  );
-
-  const { proteinsChosenFoods, fatsChosenFoods, carbsChosenFoods } =
-    chosenFoodsNutrientsArrObj;
-
-  // Iterates over each meal's data obj with the nutrients calories.
-  const meals = mealsNutrientsCalsDistribution.map((mealNutrientsCals, i) => {
-    const keepMeatAndMilkObj = {
-      meatIllegal: false,
-      dairyIllegal: false,
-      proteinIllegalCount: 0,
-      fatsIllegalCount: 0,
-      carbsIllegalCount: 0,
-    };
-    const newMeal: Meal = {
-      note_text: ``,
-      note_topic: "",
-      user_id,
-      meal_id: 0,
-    };
-    const createFoodMealByNutrientAndDisqualifyByMeatAndMilkWithMealID = (
-      nutrientFoodsArr: Food[],
-      nutrientTypeCalsKey: NutrientCalsType,
-      mealNutrientsCals: number
-    ) =>
-      createFoodMealByNutrientAndDisqualifyByMeatAndMilk(
-        nutrientFoodsArr,
-        mealNutrientsCals,
-        nutrientTypeCalsKey,
-        newMeal.meal_id,
-        isKeepMeatMilk ? keepMeatAndMilkObj : undefined,
-        NUM_FOODS_IN_MEAL * i,
-        NUM_FOODS_IN_MEAL * (i + 1)
+    const lastMeasure = await getLastMeasureByProfileID(profile_id);
+    const { protein_cals, fat_cals, carbs_cals, calories_total } = lastMeasure;
+    // Creates for each meals it's nutrients calories distribution by user's preference.
+    // The function get percents array of the relative size of each meal.
+    // For example [50,25,25].
+    const mealsNutrientsCalsDistribution =
+      await createMealsNutrientsCalsDistribution(
+        lastMeasure,
+        meals_dist_percents
       );
 
-    // Creates array of foods for each nutrient.
-    const mealFoodsNutrients = {
-      ...mealNutrientsCals,
-      proteinsFoods:
-        createFoodMealByNutrientAndDisqualifyByMeatAndMilkWithMealID(
-          proteinsChosenFoods,
-          "protein_cals",
-          mealNutrientsCals.mealProteinsTotalCals
-        ),
+    // Creates the potential menu foods divided by nutrients.
+    const chosenFoodsNutrientsArrObj = createChosenFoodsNutrientsArr(
+      foods,
+      favorite_foods
+    );
 
-      fatsFoods: createFoodMealByNutrientAndDisqualifyByMeatAndMilkWithMealID(
-        fatsChosenFoods,
-        "fat_cals",
-        mealNutrientsCals.mealFatsTotalCals
-      ),
-      carbsFoods: createFoodMealByNutrientAndDisqualifyByMeatAndMilkWithMealID(
-        carbsChosenFoods,
-        "carbs_cals",
-        mealNutrientsCals.mealCarbsTotalCals
-      ),
-    };
+    const { proteinsChosenFoods, fatsChosenFoods, carbsChosenFoods } =
+      chosenFoodsNutrientsArrObj;
 
-    // Creates array of foods for each nutrient that replace the foods that were disqualified .
-    const { carbsFoods, fatsFoods, proteinsFoods } =
-      createMoreMealFoodsNutrientsForEachDisqualifiedFood(
-        mealFoodsNutrients,
-        keepMeatAndMilkObj,
-        chosenFoodsNutrientsArrObj,
-        i,
-        createFoodMealByNutrientAndDisqualifyByMeatAndMilkWithMealID
-      );
+    // Iterates over each meal's data obj with the nutrients calories.
+    const meals = mealsNutrientsCalsDistribution.map(
+      async (mealNutrientsCals, i) => {
+        const keepMeatAndMilkObj = {
+          meatIllegal: false,
+          dairyIllegal: false,
+          proteinIllegalCount: 0,
+          fatsIllegalCount: 0,
+          carbsIllegalCount: 0,
+        };
 
-    mealFoodsNutrients.proteinsFoods.push(...proteinsFoods);
-    mealFoodsNutrients.carbsFoods.push(...fatsFoods);
-    mealFoodsNutrients.fatsFoods.push(...carbsFoods);
+        const newMeal: Meal = {
+          note_text: "",
+          note_topic: "",
+          user_id,
+        };
 
-    return { ...newMeal, ...mealFoodsNutrients };
-  });
+        const mealInsertRes: Meal = await insertQueryOneItem(
+          TABLES_DATA.MEALS_TABLE_NAME,
+          newMeal
+        );
 
-  loggerJson.debug(`LINE 274: meals`, { __filename, objs: [meals] });
-  console.log("The nutrition menu was created successfully!");
+        // Set the mealID and keepMeatAndMilkObj into the createMealFoodByNutrientAndDisqualifyByMeatAndMilk fun.
+        const createMealFoodByNutrientAndDisqualifyByMeatAndMilkWithMealID = (
+          nutrientFoodsArr: Food[],
+          nutrientTypeCalsKey: NutrientCalsType,
+          mealNutrientsCals: number
+        ) =>
+          createMealFoodByNutrientAndDisqualifyByMeatAndMilk(
+            nutrientFoodsArr,
+            mealNutrientsCals,
+            nutrientTypeCalsKey,
+            newMeal.meal_id,
+            isKeepMeatMilk ? keepMeatAndMilkObj : undefined,
+            NUM_FOODS_IN_MEAL * i,
+            NUM_FOODS_IN_MEAL * (i + 1)
+          );
+
+        // Creates array of foods for each nutrient.
+        // const mealFoodsNutrients: MealNutrientsFoodsObj = {
+        //   ...mealNutrientsCals,
+        //   proteinsFoods:
+        //     createMealFoodByNutrientAndDisqualifyByMeatAndMilkWithMealID(
+        //       proteinsChosenFoods,
+        //       "protein_cals",
+        //       mealNutrientsCals.mealProteinsTotalCals
+        //     ),
+
+        //   fatsFoods:
+        //     createMealFoodByNutrientAndDisqualifyByMeatAndMilkWithMealID(
+        //       fatsChosenFoods,
+        //       "fat_cals",
+        //       mealNutrientsCals.mealFatsTotalCals
+        //     ),
+        //   carbsFoods:
+        //     createMealFoodByNutrientAndDisqualifyByMeatAndMilkWithMealID(
+        //       carbsChosenFoods,
+        //       "carbs_cals",
+        //       mealNutrientsCals.mealCarbsTotalCals
+        //     ),
+        // };
+        const mealFoodsNutrients = createMealFoodsNutrients(
+          mealNutrientsCals,
+          chosenFoodsNutrientsArrObj,
+          createMealFoodByNutrientAndDisqualifyByMeatAndMilkWithMealID
+        );
+
+        // Creates array of foods for each nutrient that replace the foods that were disqualified .
+        const { carbsFoods, fatsFoods, proteinsFoods } =
+          createMoreMealFoodsNutrientsForEachDisqualifiedFood(
+            mealNutrientsCals,
+            keepMeatAndMilkObj,
+            chosenFoodsNutrientsArrObj,
+            i,
+            createMealFoodByNutrientAndDisqualifyByMeatAndMilkWithMealID
+          );
+
+        mealFoodsNutrients.proteinsFoods.push(...proteinsFoods);
+        mealFoodsNutrients.carbsFoods.push(...fatsFoods);
+        mealFoodsNutrients.fatsFoods.push(...carbsFoods);
+
+        // insert new nutrient foods
+        await insertNewFoodsInMeal(mealFoodsNutrients);
+        await insertNewNutrientMenuMeal(
+          nutritionMenuInsertRes.nutrition_menu_id,
+          mealInsertRes.meal_id
+        );
+        return { ...mealInsertRes, ...mealFoodsNutrients };
+      }
+    );
+
+    await Promise.all(meals);
+
+    loggerJson.debug(`LINE 274: meals`, {
+      __filename,
+      objs: [
+        {
+          ...nutritionMenuInsertRes,
+          calories_total,
+          protein_cals,
+          fat_cals,
+          carbs_cals,
+          meals,
+        },
+      ],
+    });
+    console.log("The nutrition menu was created successfully!");
+    await client.query("COMMIT");
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.log(error);
+  }
 };
 
 const nutritionQuestionnaires: NutritionQuestionnaire = {
@@ -168,16 +244,5 @@ const nutritionQuestionnaires: NutritionQuestionnaire = {
 };
 
 createNutritionMenu(nutritionQuestionnaires);
-
-const handlePrefrenceNutrition = (defaultMealNum = 3) => {
-  // const defaultMealNum =
-  //   meals_dist_percents?.length ||
-  //   Math.floor(
-  //     Math.abs((day_end.getTime() - day_start.getTime()) / 1000 / 3600 / 4)
-  //   );
-  const remainPercent = 100;
-  const avgPercent = 100 / defaultMealNum;
-  const t = DEVIATION_NUMBER_PERCENTS + Math.random() * Math.floor(avgPercent);
-};
 
 export const handleCreateNutritionMenu: RequestHandler = (req, res, next) => {};

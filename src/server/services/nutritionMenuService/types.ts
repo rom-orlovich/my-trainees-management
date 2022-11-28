@@ -23,7 +23,6 @@ export interface NutritionQuestionnaire {
   allergens: string[];
   black_list_foods: number[];
   favorite_foods: number[];
-
   profile_id: number;
   day_start: Date;
   day_end: Date;
@@ -43,10 +42,14 @@ export interface MealNutrientsCals {
 }
 export type NutrientCalsType = "protein_cals" | "carbs_cals" | "fat_cals";
 
-export interface FoodMeal {
+export interface MealFood {
   meal_id?: number;
   food_id?: number;
   amount: number;
+}
+export interface NutritionMenusMeals {
+  menu_nutrition_id?: number;
+  meal_id?: number;
 }
 
 export interface KeepMeatAndMilkObj {
@@ -62,9 +65,14 @@ export interface ChosenFoodsNutrientsArrObj {
   carbsChosenFoods: Food[];
   fatsChosenFoods: Food[];
 }
+export interface MealNutrientsFoodsObj {
+  proteinsFoods: MealFood[];
+  fatsFoods: MealFood[];
+  carbsFoods: MealFood[];
+}
 
-export type CreateFoodMealByNutrientWithMealIDFun = (
+export type CreateMealFoodByNutrientWithMealIDFun = (
   nutrientFoodsArr: Food[],
   nutrientTypeCalsKey: NutrientCalsType,
   mealNutrientsCals: number
-) => FoodMeal[];
+) => MealFood[];
