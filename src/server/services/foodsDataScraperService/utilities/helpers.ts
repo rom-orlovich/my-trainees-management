@@ -54,10 +54,11 @@ export function createArrDataJSON<T>(pathJSON: string, scrapData: any[]) {
     readFileSync(pathJSON, JSON_ENCODING_DEFAULT)
   ) as T[];
   console.log("createArrDataJSON", curData.length - 1);
-  const writtingArr = [...curData, ...scrapData];
-  writeFileSync(pathJSON, JSON.stringify(writtingArr), JSON_ENCODING_DEFAULT);
+  const writingArr = [...curData, ...scrapData];
+  if (!curData.includes(scrapData[0]))
+    writeFileSync(pathJSON, JSON.stringify(writingArr), JSON_ENCODING_DEFAULT);
 
-  return writtingArr.length - 1;
+  return writingArr.length - 1;
 }
 export function createArrDataObjJSON<T>(pathJSON: string, scrapData: T) {
   const curData = JSON.parse(

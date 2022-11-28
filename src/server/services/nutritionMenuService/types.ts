@@ -13,6 +13,9 @@ export interface Meal {
   note_text: string;
   user_id: number;
 }
+
+export type DietTypes = "cutting" | "bulking" | "neutral";
+
 export interface NutritionQuestionnaire {
   user_id: number;
   allergens: string[];
@@ -26,6 +29,6 @@ export interface NutritionQuestionnaire {
   is_vegan: boolean;
   is_vegetarian: boolean;
   isKeepMeatMilk: boolean;
-  isCutting?: boolean;
+  diet_type: "cutting" | "bulking" | "neutral";
   meals_dist_percents: number[];
 }

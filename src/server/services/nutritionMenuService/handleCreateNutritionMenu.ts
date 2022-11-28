@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 /* eslint-disable import/first */
@@ -18,74 +19,53 @@ import {
 } from "../../utilities/helpers";
 import { GenericRecord } from "../../utilities/types";
 
-import { Food } from "../foodsDataScraperService/types";
-import { logger, loggerJson } from "../loggerService/logger";
+import { Food, NutritionType } from "../foodsDataScraperService/types";
+import { loggerJson } from "../loggerService/logger";
 import { MeasuresCalResAPI } from "../statisticService/serviceStatisticsTypes";
-import { Meal, NutritionMenu, NutritionQuestionnaire } from "./types";
+import {
+  DEVIATION_NUMBER_PERCENTS,
+  NUM_FOODS_FOR_EACH_NUTRIENTS,
+  NUM_FOODS_IN_MEAL,
+} from "./constants";
+import {
+  DietTypes,
+  Meal,
+  NutritionMenu,
+  NutritionQuestionnaire,
+} from "./types";
 
-const NUM_FOODS_IN_MEAL = 10;
-const DEVIATION_NUMBER_PERCENTS = 5;
-const example = {
-  measure_id: 23,
-  profile_id: 3,
-  weight: 65,
-  height: 165,
-  fat_percents: null,
-  activity_factor: 29,
-  protein_per_kg: 1.8,
-  fat_per_kg: 0.8,
-  protein_g: 117,
-  fat_g: 52,
-  carbs_g: 237.25,
-  protein_cals: 468,
-  fat_cals: 468,
-  carbs_cals: 949,
-  fixed_cals: 0,
-  calories_total: 1885,
-};
-
-const createNutritionMenu = async ({
-  allergens,
-  black_list_foods,
-  is_vegan,
-  is_vegetarian,
-  isKeepMeatMilk,
-  favorite_foods,
-  kosher,
-  meals_dist_percents,
-  profile_id,
-  user_id,
-  isCutting,
-}: NutritionQuestionnaire) => {
-  await client.connect();
-
+export const getLastMeasureByProfileID = async (profileID: number) => {
   const measures: MeasuresCalResAPI[] = await selectQuery(
     TABLES_DATA.MEASURES_TABLE_NAME,
     `protein_cals, fat_cals ,carbs_cals,fixed_cals,calories_total`,
     `where ${TABLES_DATA.PROFILE_ID}=$1 `,
-    [profile_id]
+    [profileID]
   );
-
-  const nutritionMenu: NutritionMenu = {
-    nutrition_menu_id: 1,
-    date_start: new Date(),
-    date_end: undefined,
-    note_text: "",
-    note_topic: "",
-    profile_id,
-    user_id,
-  };
-
-  // where not food_id = any(Array[1,2,3]) and not allergens&&ARRAY['גלוטן','ביצים','סויה'] and kosher=true
-
   const lastMeasure = measures[measures.length - 1];
 
+  return lastMeasure;
+};
+
+const matchFoodByDietType = (foods: Food[], dietType: DietTypes) => {
+  if (dietType === "neutral") return foods;
+  const checkDietType = dietType === "cutting";
+  return sortArrObjBy(foods, "food_density", checkDietType);
+};
+
+export const getFoodsByNutritionQuestionnaireParams = async ({
+  kosher,
+  is_vegan,
+  is_vegetarian,
+  black_list_foods,
+  allergens,
+}: NutritionQuestionnaire) => {
   const kosherArr = kosher ? [kosher] : [];
   const isVegan = is_vegan ? [is_vegan] : [];
   const isVegetarian = is_vegetarian ? [is_vegetarian] : [];
   const checkKosherStr = kosher ? `and kosher=$3` : "";
   const checkIsVeganStr = is_vegan ? `and is_vegan=$4` : "";
   const checkIsVegetarianStr = is_vegetarian ? `and is_vegan=$5` : "";
+
   const foods = (await selectQuery(
     TABLES_DATA.FOODS_TABLE_NAME,
     "*",
@@ -94,23 +74,32 @@ const createNutritionMenu = async ({
     [black_list_foods, allergens, ...kosherArr, ...isVegan, ...isVegetarian]
   )) as Food[];
 
+  return foods;
+};
+
+export const getBestNutrientsFoods = (foods: Food[], amount = 100) => {
+  const prepareMostFoodScoreByAmount = (foods: Food[], amount = 100) =>
+    sortArrObjBy(foods, "food_score", false).slice(0, amount);
+
+  const getMostFoodsScoreByAmount = (nutrientType: NutritionType) =>
+    prepareMostFoodScoreByAmount(
+      filterArrObjBy(foods, "nutrient_type", [nutrientType]),
+      amount
+    );
+  const proteinsFromFoodDbRes = getMostFoodsScoreByAmount("proteins");
+  const carbsFromFoodDbRes = getMostFoodsScoreByAmount("carbohydrates");
+  const fatsFromFoodDbRes = getMostFoodsScoreByAmount("fats");
+
+  return { proteinsFromFoodDbRes, carbsFromFoodDbRes, fatsFromFoodDbRes };
+};
+
+export const createFavoritesNutrientsArr = (
+  favorite_foods: number[],
+  foods: Food[]
+) => {
   const proteinsFromFavoriteFood: Food[] = [];
   const fatsFromFavoriteFood: Food[] = [];
   const carbsFromFavoriteFood: Food[] = [];
-
-  const getMostFoodScoreByAmount = (foods: Food[], amount: number = 100) =>
-    sortArrObjBy(foods, "food_score", false).slice(0, amount);
-
-  const proteinsFromFoodDbRes = getMostFoodScoreByAmount(
-    filterArrObjBy(foods, "nutrient_type", ["proteins"])
-  );
-  const carbsFromFoodDbRes = getMostFoodScoreByAmount(
-    filterArrObjBy(foods, "nutrient_type", ["carbohydrates"])
-  );
-  const fatsFromFoodDbRes = getMostFoodScoreByAmount(
-    filterArrObjBy(foods, "nutrient_type", ["fats"])
-  );
-  // console.log(carbsFromFoodDbRes);/
 
   const mapFavoriteFood = sortBy(favorite_foods).reduce((obj, foodID) => {
     obj[`${foodID}`] = foodID;
@@ -127,6 +116,50 @@ const createNutritionMenu = async ({
         carbsFromFavoriteFood.push(food);
     }
   });
+
+  return {
+    proteinsFromFavoriteFood,
+    fatsFromFavoriteFood,
+    carbsFromFavoriteFood,
+  };
+};
+
+const createNutritionMenu = async (
+  nutritionQuestionnaire: NutritionQuestionnaire
+) => {
+  const {
+    isKeepMeatMilk,
+    favorite_foods,
+    meals_dist_percents,
+    profile_id,
+    user_id,
+    diet_type,
+  } = nutritionQuestionnaire;
+  await client.connect();
+  const lastMeasure = await getLastMeasureByProfileID(profile_id);
+
+  const nutritionMenu: NutritionMenu = {
+    nutrition_menu_id: 1,
+    date_start: new Date(),
+    date_end: undefined,
+    note_text: "",
+    note_topic: "",
+    profile_id,
+    user_id,
+  };
+
+  const foods = await getFoodsByNutritionQuestionnaireParams(
+    nutritionQuestionnaire
+  );
+
+  const { carbsFromFoodDbRes, fatsFromFoodDbRes, proteinsFromFoodDbRes } =
+    getBestNutrientsFoods(foods, NUM_FOODS_FOR_EACH_NUTRIENTS);
+
+  const {
+    carbsFromFavoriteFood,
+    fatsFromFavoriteFood,
+    proteinsFromFavoriteFood,
+  } = createFavoritesNutrientsArr(favorite_foods, foods);
 
   const createChosenFoodArray = (favoriteFoods: Food[], foods: Food[]) => [
     ...favoriteFoods,
@@ -220,6 +253,7 @@ const createNutritionMenu = async ({
       carbs_cals: food.carbs_cals * amountFood,
       fats_cals: food.fat_cals * amountFood,
       totalCals: food.calories_total * amountFood,
+      food_score: food.food_score,
       food_density: food.food_density,
     };
   };
@@ -441,7 +475,8 @@ const nutritionQuestionnaires: NutritionQuestionnaire = {
   day_start: new Date(),
   day_end: newDate(new Date(), { hPlus: 15 }),
   meals_dist_percents: [30, 50, 20],
-  isCutting: true,
+
+  diet_type: "neutral",
 };
 
 createNutritionMenu(nutritionQuestionnaires);

@@ -111,3 +111,6 @@ export const sortArrObjBy = <T extends GenericRecord<any>, K extends keyof T>(
   const curOrder = isAscOrder ? ascOrder : desOrder;
   return arr.sort(curOrder);
 };
+export function getUniqueListBy<T>(arr: T[], key: keyof T) {
+  return [...new Map(arr.map((item) => [item[key], item])).values()];
+}

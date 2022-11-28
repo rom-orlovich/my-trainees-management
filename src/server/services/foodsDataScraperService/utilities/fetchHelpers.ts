@@ -38,7 +38,7 @@ export async function conditionHTMLFetch(pathHTML: string, fetchURL: string) {
   const defaultReturn = { pathHTML: "", data: undefined };
   try {
     await exist;
-    console.log("exist  ", pathHTML);
+
     return defaultReturn;
   } catch (error) {
     if (error) {

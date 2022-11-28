@@ -37,6 +37,7 @@ export const createNationalProductsNamesDB = async (
         curData.find((el) => el.name === res?.result?.records[0]?.shmmitzrach)
       );
       if (
+        res?.result?.records[0]?.shmmitzrach &&
         !curData.find((el) => el.name === res?.result?.records[0]?.shmmitzrach)
       ) {
         const foodNames = [
