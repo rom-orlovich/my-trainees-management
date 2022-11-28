@@ -8297,7 +8297,7 @@
   },
   {
     "food_id": 344,
-    "food_name": "קוטג`",
+    "food_name": "קוטג",
     "sugars_g": 2.67,
     "saturated_fat": 1.718,
     "cholesterol_mg": 17,
@@ -26940,7 +26940,6 @@
     "food_density": 1.92,
     "food_score": 3.96
   },
-
   {
     "food_id": 1116,
     "food_name": "בזיליקום מיובש",
@@ -27285,5 +27284,51 @@
     "allergens": ["חלב"],
     "food_density": 0.95,
     "food_score": 4.81
+  },
+  {
+    "food_id": 1130,
+    "food_name": "ליצ`י",
+    "sugars_g": 15.23,
+    "saturated_fat": 0.099,
+    "cholesterol_mg": 0,
+    "is_vegan": true,
+    "is_vegetarian": true,
+    "kosher": true,
+    "kosher_type": "פרווה",
+    "calories_total": 66,
+    "protein_cals": 3.32,
+    "protein_g": 0.83,
+    "carbs_cals": 66.12,
+    "carbs_g": 16.53,
+    "fat_cals": 1.76,
+    "fat_g": 0.44,
+    "sodium_mg": 1,
+    "nutrient_type": "carbohydrates",
+    "allergens": [],
+    "food_density": 0.66,
+    "food_score": 15.33
+  },
+  {
+    "food_id": 1131,
+    "food_name": "סרדין פסיפי משומר ברוטב עגבניות",
+    "sugars_g": 0.43,
+    "saturated_fat": 2.684,
+    "cholesterol_mg": 61,
+    "is_vegan": true,
+    "is_vegetarian": true,
+    "kosher": true,
+    "kosher_type": "פרווה",
+    "calories_total": 185,
+    "protein_cals": 83.44,
+    "protein_g": 20.86,
+    "carbs_cals": 42.16,
+    "carbs_g": 10.54,
+    "fat_cals": 41.8,
+    "fat_g": 10.45,
+    "sodium_mg": 414,
+    "nutrient_type": "proteins",
+    "allergens": [],
+    "food_density": 1.85,
+    "food_score": 4.85
   }
 ]

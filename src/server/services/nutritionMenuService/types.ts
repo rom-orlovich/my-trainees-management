@@ -1,3 +1,5 @@
+import { Food } from "../foodsDataScraperService/types";
+
 export interface NutritionMenu {
   nutrition_menu_id?: number;
   date_start: Date;
@@ -29,6 +31,40 @@ export interface NutritionQuestionnaire {
   is_vegan: boolean;
   is_vegetarian: boolean;
   isKeepMeatMilk: boolean;
-  diet_type: "cutting" | "bulking" | "neutral";
+  diet_type: DietTypes;
   meals_dist_percents: number[];
 }
+
+export interface MealNutrientsCals {
+  mealProteinsTotalCals: number;
+  mealFatsTotalCals: number;
+  mealCarbsTotalCals: number;
+  mealTotalCals: number;
+}
+export type NutrientCalsType = "protein_cals" | "carbs_cals" | "fat_cals";
+
+export interface FoodMeal {
+  meal_id?: number;
+  food_id?: number;
+  amount: number;
+}
+
+export interface KeepMeatAndMilkObj {
+  meatIllegal: boolean;
+  dairyIllegal: boolean;
+  proteinIllegalCount: number;
+  fatsIllegalCount: number;
+  carbsIllegalCount: number;
+}
+
+export interface ChosenFoodsNutrientsArrObj {
+  proteinsChosenFoods: Food[];
+  carbsChosenFoods: Food[];
+  fatsChosenFoods: Food[];
+}
+
+export type CreateFoodMealByNutrientWithMealIDFun = (
+  nutrientFoodsArr: Food[],
+  nutrientTypeCalsKey: NutrientCalsType,
+  mealNutrientsCals: number
+) => FoodMeal[];
