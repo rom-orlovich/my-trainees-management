@@ -22,6 +22,7 @@ import {
   MealNutrientsCals,
   NutrientCalsType,
   NutritionQuestionnaire,
+  MealNutrientsFoodsObj,
 } from "./types";
 
 export const createMenuDescription = ({
@@ -322,6 +323,34 @@ export const createMealFoodByNutrientAndDisqualifyByMeatAndMilk = (
       return pre;
     }, []);
 
+// Creates array of foods for each nutrient.
+export const createMealFoodsNutrients = (
+  mealNutrientsCals: MealNutrientsCals,
+  chosenFoodsNutrientsArrObj: ChosenFoodsNutrientsArrObj,
+  createMealFoodByNutrientWithMealID: CreateMealFoodByNutrientWithMealIDFun
+) => {
+  const mealFoodsNutrients: MealNutrientsFoodsObj = {
+    ...mealNutrientsCals,
+    proteinsFoods: createMealFoodByNutrientWithMealID(
+      chosenFoodsNutrientsArrObj.proteinsChosenFoods,
+      "protein_cals",
+      mealNutrientsCals.mealProteinsTotalCals
+    ),
+
+    fatsFoods: createMealFoodByNutrientWithMealID(
+      chosenFoodsNutrientsArrObj.fatsChosenFoods,
+      "fat_cals",
+      mealNutrientsCals.mealFatsTotalCals
+    ),
+    carbsFoods: createMealFoodByNutrientWithMealID(
+      chosenFoodsNutrientsArrObj.carbsChosenFoods,
+      "carbs_cals",
+      mealNutrientsCals.mealCarbsTotalCals
+    ),
+  };
+  return mealFoodsNutrients;
+};
+
 // Creates filter nutrient foods array by kosher type and index where to start.
 export const createFilterNutrientsFoodsArrByKosherType = (
   chosenFoodsNutrientsArrObj: ChosenFoodsNutrientsArrObj,
@@ -370,7 +399,8 @@ export const createMoreMealFoodsNutrientsForEachDisqualifiedFood = (
   keepMeatAndMilkObj: KeepMeatAndMilkObj,
   chosenFoodsNutrientsArrObj: ChosenFoodsNutrientsArrObj,
   i: number,
-  createMealFoodByNutrientWithMealID: CreateMealFoodByNutrientWithMealIDFun
+  createMealFoodByNutrientWithMealID: CreateMealFoodByNutrientWithMealIDFun,
+  mealFoodsNutrients: MealNutrientsFoodsObj
 ) => {
   if (!(keepMeatAndMilkObj?.dairyIllegal || keepMeatAndMilkObj?.meatIllegal))
     return {
@@ -410,6 +440,9 @@ export const createMoreMealFoodsNutrientsForEachDisqualifiedFood = (
       mealNutrientsCals.mealCarbsTotalCals
     ),
   };
-
-  return moreMealFoodsNutrients;
+  mealFoodsNutrients.proteinsFoods.push(
+    ...moreMealFoodsNutrients.proteinsFoods
+  );
+  mealFoodsNutrients.carbsFoods.push(...moreMealFoodsNutrients.fatsFoods);
+  mealFoodsNutrients.fatsFoods.push(...moreMealFoodsNutrients.carbsFoods);
 };
