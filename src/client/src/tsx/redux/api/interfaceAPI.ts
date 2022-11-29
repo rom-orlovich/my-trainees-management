@@ -41,8 +41,8 @@ export enum API_ROUTES {
   EXERCISES_STATS_ROUTE = "/api/trainingPrograms",
   TRAINING_PROGRAMS_ENTITY = "exercise",
 
-  NUTRITION_MENUS_ROUTE = "/api/nutritionMenus",
-  NUTRITION_MENUS_ENTITY = "nutritionMenu",
+  NUTRITION_MENUS_LIST_ROUTE = "/api/nutritionMenusList",
+  NUTRITION_MENUS_LIST_ENTITY = "nutritionMenuList",
 
   MEASURES_ROUTE = "/api/measures",
   MEASURE_ENTITY = "measure",

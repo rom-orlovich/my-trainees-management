@@ -8,7 +8,7 @@ import style from "../Page.module.scss";
 
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
-import TableTrainingPrograms from "../TrainingProgramsPage/TableTrainingPrograms";
+import TrainingProgramsTable from "../TrainingProgramsPage/TrainingProgramsTable";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 
 function MyWorkoutsPage() {
@@ -41,7 +41,7 @@ function MyWorkoutsPage() {
         />
       </div>
       <div className={style.page_main_content}>
-        <TableTrainingPrograms
+        <TrainingProgramsTable
           traineeID={Number(userData.authState.user?.trainee_id || 0)}
           queriesOptions={queriesOptions}
           nameData="Workout"

@@ -70,8 +70,8 @@ export enum API_ROUTES {
   FOOD_ENTITY = "food",
   FOODS_ROUTE = "foods",
 
-  NUTRITION_MENUS_ROUTE = "/api/nutritionMenus",
-  NUTRITION_MENUS_ENTITY = "nutritionMenu",
+  NUTRITION_MENUS_LIST_ROUTE = "/api/nutritionMenusList",
+  NUTRITION_MENUS_LIST_ENTITY = "nutritionMenuList",
 }
 
 export const URL_REACT_CLIENT = "http://localhost:3000";

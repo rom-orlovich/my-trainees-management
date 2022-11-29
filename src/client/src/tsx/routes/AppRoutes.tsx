@@ -41,6 +41,8 @@ import TraineeStatsPage from "../pages/StatsPages/TraineeStatsPage/TraineeStatsP
 import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 import LeadsStatsPage from "../pages/StatsPages/LeadsStatsPage/LeadsStatsPage";
 import FinanceStatsPage from "../pages/StatsPages/FinancesStatsPage/FinancesStatsPage";
+import NutritionMenusListPage from "../pages/NutritionMenusListPage/NutritionMenusListPage";
+import NutritionMenusListRoutes from "./NutritionMenusListRoutes";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -94,6 +96,10 @@ function AppRoutes() {
           <Route
             path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/*`}
             element={<TrainingProgramListRoutes />}
+          />
+          <Route
+            path={`${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/*`}
+            element={<NutritionMenusListRoutes />}
           />
           <Route path={APP_ROUTE.MEASURES_ROUTE}>
             <Route path={APP_ROUTE.MEASURE_ADD} element={<MeasureAddForm />} />

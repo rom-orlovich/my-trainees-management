@@ -75,7 +75,7 @@ WITH
                 )
             ) as menu
         from
-            nutrition_menus_meals nmm
+              NUTRITION_MENUS_LIST_meals nmm
             INNER JOIN meal m on m.meal_id = m.meal_id
         GROUP BY
             nmm.nutrition_menu_id
@@ -83,5 +83,5 @@ WITH
 select
     *
 from
-    nutrition_menus nms
+      NUTRITION_MENUS_LIST nms
     INNER JOIN nutrition_menu as nms2 on nms.nutrition_menu_id = nms2.nutrition_menu_id;

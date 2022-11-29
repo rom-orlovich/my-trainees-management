@@ -131,7 +131,7 @@ export const routesConfigArr: {
     router: createFinanceRouter(),
   },
   {
-    baseRoute: API_ROUTES.NUTRITION_MENUS_ROUTE,
+    baseRoute: API_ROUTES.NUTRITION_MENUS_LIST_ROUTE,
     router: createCRUDroutes(nutritionMenusListOptionsCRUD),
   },
 ];

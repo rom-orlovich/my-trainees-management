@@ -27,7 +27,7 @@ const transformTrainingProgramList = ({
   ),
   ...rest,
 });
-function TableTrainingPrograms({
+function TrainingProgramsTable({
   traineeID,
   queriesOptions,
   nameData,
@@ -48,4 +48,4 @@ function TableTrainingPrograms({
   );
 }
 
-export default TableTrainingPrograms;
+export default TrainingProgramsTable;

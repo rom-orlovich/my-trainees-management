@@ -129,9 +129,9 @@ export const trainingProgramsApi =
   });
 export const nutritionMenusListApi = apiCreateCRUDHooks<NutritionMenuTableApi>({
   reducerPath: "nutritionMenusListApi",
-  baseUrl: API_ROUTES.NUTRITION_MENUS_ROUTE,
-  singleEntityName: API_ROUTES.NUTRITION_MENUS_ENTITY,
-  listId: "nutrition_menus_list",
+  baseUrl: API_ROUTES.NUTRITION_MENUS_LIST_ROUTE,
+  singleEntityName: API_ROUTES.NUTRITION_MENUS_LIST_ENTITY,
+  listId: "NUTRITION_MENUS_LIST",
 });
 
 export const measuresApi = apiCreateCRUDHooks<MeasuresCalResAPI>({

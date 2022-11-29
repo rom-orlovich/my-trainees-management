@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import { trainingProgramsListApi } from "../../redux/api/hooksAPI";
-import { TrainingProgramsListTableAPI } from "../../redux/api/interfaceAPI";
-import TrainingProgramsTable from "./TrainingProgramsTable";
+import { nutritionMenusListApi } from "../../redux/api/hooksAPI";
+import { NutritionMenuTableApi } from "../../redux/api/interfaceAPI";
+import NutritionMenusTable from "./NutritionMenusListTable";
 
 import style from "../Page.module.scss";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
@@ -12,54 +12,52 @@ import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
-function TrainingProgramsPage() {
+export const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
+function NutritionMenusListPage() {
   const { traineeID } = useGetUserTraineeData();
-  const [trainingProgram, setTrainingProgram] = useState<string[]>(["", ""]);
+  const [nutritionMenu, setNutritionMenu] = useState<string[]>(["", ""]);
   const authState = useAppSelector(getAuthState);
 
   const queriesOptions = {
+    nutritionMenu,
     traineeID,
-    programType: trainingProgram[1],
     trainerUserID: authState.user?.user_id,
-    orderBy: "updateDate",
+    orderBy: "date_start",
     asc: "false",
   };
 
   return (
     <section className={style.page_container}>
       <div className={style.page_header}>
-        <AutocompleteInput<TrainingProgramsListTableAPI>
-          keys={["program_type"]}
-          id={"training_programs_list_id"}
-          loadingSpinnerResult={{ nameData: "Workout" }}
-          setSelectOptionValue={setTrainingProgram}
+        <AutocompleteInput<NutritionMenuTableApi>
+          keys={["note_topic"]}
+          id={"nutrition_menu_id"}
+          loadingSpinnerResult={{ nameData: NUTRITION_MENU_NAME_DATA }}
+          setSelectOptionValue={setNutritionMenu}
           queriesOptions={queriesOptions}
-          useGetData={trainingProgramsListApi.useGetItemsQuery}
+          useGetData={nutritionMenusListApi.useGetItemsQuery}
           InputLabelProps={{
-            InputProps: { placeholder: "Workout Name" },
+            InputProps: { placeholder: NUTRITION_MENU_NAME_DATA },
             LabelProps: {
-              labelText: "Search Workout",
-              htmlFor: "searchWorkout",
+              labelText: "Search Nutrition Menu",
+              htmlFor: "searchNutritionMenu",
             },
           }}
         />
 
         <span>
           {traineeID && (
-            <Link to={`${traineeID}/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}>
-              Add Program
+            <Link to={`${traineeID}/${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}`}>
+              Add Menu
             </Link>
           )}
         </span>
       </div>
       <div className={style.page_main_content}>
-        <TrainingProgramsTable
-          traineeID={traineeID}
-          queriesOptions={queriesOptions}
-        />
+        <NutritionMenusTable queriesOptions={queriesOptions} />
       </div>
     </section>
   );
 }
 
-export default TrainingProgramsPage;
+export default NutritionMenusListPage;

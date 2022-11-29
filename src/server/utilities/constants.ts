@@ -79,8 +79,8 @@ export enum TABLES_DATA {
   MEALS_ID = "meal_id",
   MEALS_FOODS_TABLE_NAME = "meals_foods",
 
-  NUTRITION_MENUS_TABLE_NAME = "nutrition_menus",
-  NUTRITION_MENUS_ID = "nutrition_menu_id",
+  NUTRITION_MENUS_LIST_TABLE_NAME = "nutrition_menus",
+  NUTRITION_MENUS_LIST_ID = "nutrition_menu_id",
 
   NUTRITION_MENUS_MEALS_TABLE_NAME = "nutrition_menus_meals",
 }

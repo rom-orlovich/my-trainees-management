@@ -23,6 +23,10 @@ export enum APP_ROUTE {
   TRAINING_PROGRAMS_EXERCISES_ROUTE = "trainingProgramsExercises",
   TRAINING_PROGRAMS_EXERCISE_ADD = "addNewTrainingProgramExercise",
 
+  NUTRITION_MENUS_LIST_ROUTE = "nutritionMenusList",
+  NUTRITION_MENUS_LIST_EDIT = "editNutritionMenusList",
+  NUTRITION_MENUS_LIST_ADD = "addNewNutritionMenusList",
+
   EXERCISES_LIST_ROUTE = "exercisesList",
   EXERCISE_ADD = "addNewExercise",
   EXERCISE_EDIT = "editExercise",

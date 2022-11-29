@@ -570,10 +570,10 @@ export const foodsOptionsCRUD: OptionsCRUD = {
 };
 
 export const nutritionMenusListOptionsCRUD: OptionsCRUD = {
-  singleEntityName: API_ROUTES.NUTRITION_MENUS_ENTITY,
+  singleEntityName: API_ROUTES.NUTRITION_MENUS_LIST_ENTITY,
   selectQuery: {
-    tableName: `${TABLES_DATA.NUTRITION_MENUS_MEALS_TABLE_NAME} as nml`,
-    tableID: `nml.${TABLES_DATA.NUTRITION_MENUS_ID}`,
+    tableName: `${TABLES_DATA.NUTRITION_MENUS_LIST_TABLE_NAME} as nml`,
+    tableID: `nml.${TABLES_DATA.NUTRITION_MENUS_LIST_ID}`,
     fieldNamesQuery: `nml.*`,
     querySelectLogic: ``,
   },

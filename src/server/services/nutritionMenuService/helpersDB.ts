@@ -19,7 +19,7 @@ export const insertNewNutritionMenuToDB = async (
   };
 
   const nutritionMenuInsertRes: NutritionMenu = await insertQueryOneItem(
-    TABLES_DATA.NUTRITION_MENUS_TABLE_NAME,
+    TABLES_DATA.NUTRITION_MENUS_LIST_TABLE_NAME,
     nutritionMenu
   );
   return nutritionMenuInsertRes;
@@ -54,7 +54,7 @@ export const insertNewNutrientMenuMeal = async (
   };
 
   await insertQueryOneItem(
-    TABLES_DATA.NUTRITION_MENUS_MEALS_TABLE_NAME,
+    TABLES_DATA.NUTRITION_MENUS_LIST_MEALS_TABLE_NAME,
     menuNutritionMealsObj
   );
 };
