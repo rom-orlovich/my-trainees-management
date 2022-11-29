@@ -2,8 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { TrainingProgramAddExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramAddForm";
 import { TrainingProgramEditExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramEditForm";
-import { TrainingProgramsListAddForm } from "../components/Forms/TrainingProgramListForms/TrainingProgramsListAddForm";
-import { TrainingProgramsListEditForm } from "../components/Forms/TrainingProgramListForms/TrainingProgramsListEditForm";
+
 import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
 import ExerciseStatsPage from "../pages/ExerciseStatsPage/ExerciseStatsPage";
 
@@ -11,6 +10,7 @@ import { APP_ROUTE } from "./appRoutesConstants";
 import NutritionMenusListPage from "../pages/NutritionMenusListPage/NutritionMenusListPage";
 import { NutritionMenusListEditForm } from "../components/Forms/NutritionMenusListForms/NutritionMenusListEditForm";
 import { NutritionMenusListAddForm } from "../components/Forms/NutritionMenusListForms/NutritionMenusListAddForm";
+import NutritionMenuPage from "../pages/NutritionMenuPage/NutritionMenuPage";
 
 const NutritionMenusListRoutes = () => (
   <Routes>
@@ -21,8 +21,8 @@ const NutritionMenusListRoutes = () => (
       element={<NutritionMenusListAddForm />}
     />
     <Route
-      path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
-      element={<TrainingProgramExercises />}
+      path={`:id/${APP_ROUTE.NUTRITION_MENU_ROUTE}`}
+      element={<NutritionMenuPage />}
     >
       <Route path={`:exerciseID/stats`} element={<ExerciseStatsPage />} />
       <Route

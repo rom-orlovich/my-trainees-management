@@ -1,0 +1,17 @@
+@use "../../../style/utilities/utilities.scss" as *;
+.nutrition_menu_page {
+  @include classMatcher("page_header") {
+    span {
+      margin-left: auto;
+      button {
+        @include button(rgb(114, 151, 224), 0.7rem, 0.5rem);
+        text-decoration: none;
+        color: white;
+        font-size: 1rem;
+        &:hover {
+          background-color: #75b1dd;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useParams } from "react-router-dom";
+
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { NUTRITION_MENU_NAME_DATA } from "../../../pages/NutritionMenusListPage/NutritionMenusListPage";
 import { NutritionMenuTableApi } from "../../../redux/api/interfaceAPI";
@@ -20,6 +21,7 @@ export function NutritionMenusListForm({
 }: GeneralFormProps<NutritionMenuTableApi>) {
   const dateNow = new Date();
   const { user_id } = useGetUserLoginData();
+  const profileID = Number(useParams().id);
   return (
     <>
       <Form<NutritionMenuTableApi>
@@ -30,7 +32,7 @@ export function NutritionMenusListForm({
         onSubmit={onSubmit}
         editMode={editMode}
         formOptions={{
-          defaultValues: { ...defaultValues, user_id },
+          defaultValues: { ...defaultValues, user_id, profile_id: profileID },
           resolver: yupResolver(nutritionMenusListSchema),
         }}
       >
