@@ -3,47 +3,51 @@
 import { Link } from "react-router-dom";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { SelectInput } from "../../../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
+import useOnChangeInput from "../../../../hooks/useOnChangeInput";
 
 import { trainingProgramsListApi } from "../../../../redux/api/hooksAPI";
 
 import { genClassName } from "../../../../utilities/helpersFun";
 import { TraineeProfileProps } from "../TraineeProfile";
-import ListProfile from "../../ListProfile/ListProfile";
-
-import TrainingProgramsLi from "./TrainingProgramsLi";
+import NutritionMenuList from "./NutritionMenuList/NutritionMenuList";
 
 import style from "./ProgramsList.module.scss";
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 
+import TrainingProgramsList from "./TrainingProgramsList/TrainingProgramsList";
+
+export const TRAINING_PROGRAMS_LIST_NAME = "Training Programs";
+export const NUTRITION_MENUS_LIST_NAME = "Nutrition Menus";
+
+export const PROGRAM_LIST_OPTIONS = [
+  {
+    label: TRAINING_PROGRAMS_LIST_NAME,
+    value: TRAINING_PROGRAMS_LIST_NAME,
+  },
+  {
+    label: NUTRITION_MENUS_LIST_NAME,
+    value: NUTRITION_MENUS_LIST_NAME,
+  },
+];
 function ProgramsList({ className, queryOptions }: TraineeProfileProps) {
-  const trainingProgramsName = "Training Programs";
-  const trainingProgramLink = `/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}?traineeID=${queryOptions?.traineeID}`;
+  const [stateSelectInput, onChangeSelectInput] = useOnChangeInput({
+    display: TRAINING_PROGRAMS_LIST_NAME,
+  });
   return (
-    <Card
-      className={genClassName(
-        className,
-
-        style.programs_container
-      )}
-    >
+    <Card className={genClassName(className, style.programs_container)}>
       <SelectInput
-        selectProps={{}}
+        selectProps={{
+          onChange: onChangeSelectInput,
+          id: "display",
+          value: stateSelectInput.display,
+        }}
         LabelProps={{ labelText: "" }}
-        options={[
-          { label: trainingProgramsName, value: trainingProgramsName },
-          { label: "Nutrition Programs", value: "Nutrition Programs" },
-        ]}
+        options={PROGRAM_LIST_OPTIONS}
       />
-      <ListProfile
-        dataNotFoundEl={
-          <Link to={trainingProgramLink}>{trainingProgramsName} Page</Link>
-        }
-        LI={TrainingProgramsLi}
-        useQuery={trainingProgramsListApi.useGetItemsQuery}
-        heading={trainingProgramsName}
-        queryOptions={queryOptions}
-        pagePath={trainingProgramLink}
-      />
+      {stateSelectInput.display === TRAINING_PROGRAMS_LIST_NAME ? (
+        <TrainingProgramsList queryOptions={queryOptions} />
+      ) : (
+        <NutritionMenuList queryOptions={queryOptions} />
+      )}
     </Card>
   );
 }

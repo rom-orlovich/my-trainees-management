@@ -7,8 +7,6 @@ import {
   ExpensesTableAPI,
   EquipmentsTableAPI,
   ExercisesTableAPI,
-  NutritionProgramsListTable,
-  NutritionProgramsTable,
   LocationsGetRes,
   TraineesTableExtendsAPI,
   TrainingProgramExerciseTableAPI,
@@ -29,6 +27,7 @@ import {
   ParticipantsGroupTableAPI,
   ParticipantsGroupsListTableAPI,
   FinanceAPI,
+  NutritionMenuTableApi,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -128,26 +127,18 @@ export const trainingProgramsApi =
       }),
     }),
   });
-export const nutritionProgramsListApi =
-  apiCreateCRUDHooks<NutritionProgramsListTable>({
-    reducerPath: "nutritionProgramsListApi",
-    baseUrl: API_ROUTES.NUTRITION_PROGRAMS_LIST_ROUTE,
-    singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_LIST_ENTITY,
-    listId: "nutrition_programs_list",
-  });
+export const nutritionMenusListApi = apiCreateCRUDHooks<NutritionMenuTableApi>({
+  reducerPath: "nutritionMenusListApi",
+  baseUrl: API_ROUTES.NUTRITION_MENUS_ROUTE,
+  singleEntityName: API_ROUTES.NUTRITION_MENUS_ENTITY,
+  listId: "nutrition_menus_list",
+});
 
 export const measuresApi = apiCreateCRUDHooks<MeasuresCalResAPI>({
   reducerPath: "measuresApi",
   baseUrl: API_ROUTES.MEASURES_ROUTE,
   singleEntityName: API_ROUTES.MEASURE_ENTITY,
   listId: "measures_list",
-});
-
-export const nutritionProgramsApi = apiCreateCRUDHooks<NutritionProgramsTable>({
-  reducerPath: "nutritionProgramsApi",
-  baseUrl: API_ROUTES.NUTRITION_PROGRAMS_ROUTE,
-  singleEntityName: API_ROUTES.NUTRITION_PROGRAMS_ENTITY,
-  listId: "nutrition_programs_weeks_list",
 });
 
 export const traineesApi = apiCreateCRUDHooks<TraineesTableExtendsAPI>({
@@ -292,8 +283,8 @@ export const apiCreateCrudArr = [
   exercisesApi,
   trainingProgramsListApi,
   trainingProgramsApi,
-  nutritionProgramsListApi,
-  nutritionProgramsApi,
+  nutritionMenusListApi,
+
   measuresApi,
   traineesApi,
   usersApi,
