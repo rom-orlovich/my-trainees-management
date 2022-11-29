@@ -126,7 +126,11 @@ export const createNutritionMenu = async (
 
         // insert new nutrient foods
         await insertNewFoodsInMeal(mealFoodsNutrients);
-        await insertNewNutrientMenuMeal(nutritionMenuID, mealInsertRes.meal_id);
+        await insertNewNutrientMenuMeal(
+          mealNutrientsCals,
+          nutritionMenuID,
+          mealInsertRes.meal_id
+        );
         return { ...mealInsertRes, ...mealFoodsNutrients };
       }
     );

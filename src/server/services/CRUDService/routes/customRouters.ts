@@ -28,6 +28,7 @@ import {
 } from "./configRoutes";
 import { createCRUDroutes } from "./createCRUDroutes";
 import { handleCreateNutritionMenu } from "../../nutritionMenuService/handleCreateNutritionMenu";
+import { handleGetNutritionMenu } from "../../nutritionMenuService/handleGetNutritionMenu";
 
 export const createMeasuresRouter = () => {
   const {
@@ -130,11 +131,18 @@ export const createMeetingRouter = () => {
 };
 
 export const createNutritionMenuRouter = () => {
-  const nutritionMenuRouter = createCRUDroutes(nutritionMenuOptionsCRUD);
+  const nutritionMenuRouter = createCRUDroutes(nutritionMenuOptionsCRUD, {
+    getByID: true,
+  });
   // nutritionMenuRouter.get(`/generateMenu/:id`, (req, res, next) => {
   //   res.send("hey");
   // });
+
   nutritionMenuRouter.get(`/generateMenu/:id`, handleCreateNutritionMenu);
+  nutritionMenuRouter.get(
+    `/${API_ROUTES.NUTRITION_MENU_ENTITY}/:id`,
+    handleGetNutritionMenu
+  );
   // console.log(
   //   nutritionMenuRouter.get("/one", (req, res, next) => {
   //     res.send("hey");

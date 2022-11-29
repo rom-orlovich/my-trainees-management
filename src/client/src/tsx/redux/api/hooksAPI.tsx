@@ -144,6 +144,9 @@ export const nutritionMenuApi = apiCreateCRUDHooks<NutritionMenuTableApi>({
       query: (params) => ({
         url: `/${API_ROUTES.NUTRITION_MENU_GENERATE}/${params.id}`,
         params,
+        invalidatesTags: [
+          { type: API_ROUTES.NUTRITION_MENU_ENTITY, id: "nutrition_menu" },
+        ],
       }),
     }),
   }),

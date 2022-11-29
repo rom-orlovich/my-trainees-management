@@ -60,7 +60,7 @@ function NutritionMenuPage() {
         </span>
       </div>
       <div className={style.page_main_content}>
-        <MealsList data={data} />
+        <MealsList queriesOptions={queriesOptions} />
         {/* <NutritionMenusTable queriesOptions={queriesOptions} /> */}
       </div>
     </section>

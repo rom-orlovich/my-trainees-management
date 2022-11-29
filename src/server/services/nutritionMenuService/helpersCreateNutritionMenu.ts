@@ -3,7 +3,7 @@
 import { shuffle, sortBy } from "lodash";
 import { selectQuery } from "../../PGSql/simpleSqlQueries";
 import { TABLES_DATA } from "../../utilities/tableDataSQL";
-import { filterArrObjBy, sortArrObjBy } from "../../utilities/helpers";
+import { filterArrObjBy, fixNum, sortArrObjBy } from "../../utilities/helpers";
 import { GenericRecord } from "../../utilities/types";
 import {
   Food,
@@ -204,10 +204,10 @@ export const createMealsNutrientsCalsDistribution = async (
 
   const mealsNutrientsCalsDist = mealsDistPercents.map((percentsNum) => {
     const percents = percentsNum / 100;
-    const mealProteinsTotalCals = totalProteinCals * percents;
-    const mealFatsTotalCals = totalFatsCals * percents;
-    const mealCarbsTotalCals = totalCarbsCals * percents;
-    const mealTotalCals = totalCals * percents;
+    const mealProteinsTotalCals = fixNum(totalProteinCals * percents);
+    const mealFatsTotalCals = fixNum(totalFatsCals * percents);
+    const mealCarbsTotalCals = fixNum(totalCarbsCals * percents);
+    const mealTotalCals = fixNum(totalCals * percents);
     return {
       mealProteinsTotalCals,
       mealFatsTotalCals,
@@ -229,11 +229,11 @@ export const getAmountOFfood = (
   if (curCalNutrientCals < food[key]) {
     return Number((curCalNutrientCals / food[key]).toFixed(2));
   }
-  while (curCalNutrientCals - food[key] >= 0) {
+  while (curCalNutrientCals > food[key] * 2) {
     curCalNutrientCals -= food[key];
     amount++;
   }
-  return amount;
+  return amount + Number((curCalNutrientCals / food[key]).toFixed());
 };
 
 // Creates food for meal.

@@ -9,13 +9,16 @@ import { createControllersHandlerAndRoutes } from "../utilities/helperServiceCRU
  * @returns Route object with all the CRUD controller functions.
  * @description Create the route with all the CRUD controller functions.
  */
-export function createCRUDroutes(optionsCRUD: OptionsCRUD) {
+export function createCRUDroutes(
+  optionsCRUD: OptionsCRUD,
+  disableRoute?: { getByID: boolean }
+) {
   const {
     controllerHandlersObj,
     routeByEntity,
     routeByEntityAndID,
     expressRouterObj,
-  } = createControllersHandlerAndRoutes(optionsCRUD);
+  } = createControllersHandlerAndRoutes(optionsCRUD, disableRoute);
 
   // POST route for CRUD with insert Statistics
   routeByEntity.post(

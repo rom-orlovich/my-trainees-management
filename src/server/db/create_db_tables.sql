@@ -435,6 +435,10 @@ CREATE TABLE
 CREATE TABLE
   IF NOT EXISTS "nutrition_menus_meals" (
     "nutrition_menu_id" INTEGER,
+    "calories_total" FLOAT,
+    "protein_cals" FLOAT,
+    "carbs_cals" FLOAT,
+    "fat_cals" FLOAT,
     "meal_id" INTEGER,
     CONSTRAINT fk_nutrition_menu_id FOREIGN KEY (nutrition_menu_id) REFERENCES nutrition_menus (nutrition_menu_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE SET NULL ON UPDATE CASCADE

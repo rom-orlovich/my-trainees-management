@@ -46,10 +46,15 @@ export type NutrientCalsType = "protein_cals" | "carbs_cals" | "fat_cals";
 export interface MealFood {
   meal_id?: number;
   food_id?: number;
+
   amount: number;
 }
 export interface NutritionMenusMeals {
   nutrition_menu_id?: number;
+  calories_total: number;
+  protein_cals: number;
+  carbs_cals: number;
+  fat_cals: number;
   meal_id?: number;
 }
 

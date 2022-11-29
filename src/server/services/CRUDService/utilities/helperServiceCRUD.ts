@@ -47,7 +47,12 @@ export const createControllersHandlerAndRouterWithAuthMiddleware = (
  *Function that create a router that handle the token and permission middleware,
  * getting/deleting data from the db with/without id controllers.
  */
-export const createControllersHandlerAndRoutes = (optionsCRUD: OptionsCRUD) => {
+export const createControllersHandlerAndRoutes = (
+  optionsCRUD: OptionsCRUD,
+  disableRoute?: {
+    getByID: boolean;
+  }
+) => {
   const {
     expressRouterObj,
     routeByBaseRoute,
@@ -63,9 +68,9 @@ export const createControllersHandlerAndRoutes = (optionsCRUD: OptionsCRUD) => {
   );
 
   // GET and DELETE by id route and middleware.
-  routeByEntityAndID
-    .get(controllerHandlersObj.getValueFromDBbyID)
-    .delete(controllerHandlersObj.deleteValueByID);
+  !disableRoute?.getByID &&
+    routeByEntityAndID.get(controllerHandlersObj.getValueFromDBbyID);
+  routeByEntityAndID.delete(controllerHandlersObj.deleteValueByID);
 
   routeByEntity.post(controllerHandlersObj.validateMiddlewareHandler);
   routeByEntityAndID.put(controllerHandlersObj.validateMiddlewareHandler);

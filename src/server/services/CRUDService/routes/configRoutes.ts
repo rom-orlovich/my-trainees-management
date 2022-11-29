@@ -40,6 +40,7 @@ import {
   PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
 } from "../../usersPermission";
 import { OptionsCRUD } from "../CRUDServiceTypes";
+import { WITH_CLAUSE_GET_NUTRITION_MENU } from "../../nutritionMenuService/helpersDB";
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
@@ -584,7 +585,7 @@ export const nutritionMenusListOptionsCRUD: OptionsCRUD = {
 export const nutritionMenuOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.NUTRITION_MENU_ENTITY,
   selectQuery: {
-    withClause: ``,
+    // withClause: `${WITH_CLAUSE_GET_NUTRITION_MENU}`,
     tableName: `${TABLES_DATA.NUTRITION_MENUS_MEALS_TABLE_NAME} as nmm`,
     tableID: `nmm.${TABLES_DATA.NUTRITION_MENUS_LIST_ID}`,
     fieldNamesQuery: `nmm.*`,

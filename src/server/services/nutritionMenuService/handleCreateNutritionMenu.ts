@@ -20,13 +20,13 @@ export const nutritionQuestionnaires: NutritionQuestionnaire = {
   diet_type: "neutral",
 };
 const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
+export const logAlert = createLogAlertInfo(NUTRITION_MENU_NAME_DATA);
 
 export const handleCreateNutritionMenu: RequestHandler = async (
   req,
   res,
   next
 ) => {
-  const logAlert = createLogAlertInfo(NUTRITION_MENU_NAME_DATA);
   const nutritionMenuID = Number(req.params.id);
   const nutritionMenuRes = await createNutritionMenu(
     nutritionMenuID,

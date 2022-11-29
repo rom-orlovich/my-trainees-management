@@ -114,3 +114,5 @@ export const sortArrObjBy = <T extends GenericRecord<any>, K extends keyof T>(
 export function getUniqueListBy<T>(arr: T[], key: keyof T) {
   return [...new Map(arr.map((item) => [item[key], item])).values()];
 }
+
+export const fixNum = (num: number, fix = 2) => Number(num.toFixed(fix));
