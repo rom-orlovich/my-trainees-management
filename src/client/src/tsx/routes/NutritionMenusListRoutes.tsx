@@ -9,14 +9,16 @@ import ExerciseStatsPage from "../pages/ExerciseStatsPage/ExerciseStatsPage";
 
 import { APP_ROUTE } from "./appRoutesConstants";
 import NutritionMenusListPage from "../pages/NutritionMenusListPage/NutritionMenusListPage";
+import { NutritionMenusListEditForm } from "../components/Forms/NutritionMenusListForms/NutritionMenusListEditForm";
+import { NutritionMenusListAddForm } from "../components/Forms/NutritionMenusListForms/NutritionMenusListAddForm";
 
 const NutritionMenusListRoutes = () => (
   <Routes>
     <Route path="" element={<NutritionMenusListPage />} />
-    <Route path=":id" element={<TrainingProgramsListEditForm />}></Route>
+    <Route path=":id" element={<NutritionMenusListEditForm />}></Route>
     <Route
-      path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
-      element={<TrainingProgramsListAddForm />}
+      path={`:id/${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}`}
+      element={<NutritionMenusListAddForm />}
     />
     <Route
       path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}

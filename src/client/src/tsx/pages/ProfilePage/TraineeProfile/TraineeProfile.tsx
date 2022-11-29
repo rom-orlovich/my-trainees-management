@@ -16,15 +16,17 @@ export type TraineeProfileProps = PropsBasic & {
     traineeID: number;
     trainerUserID?: number;
     userID?: number;
+    profileID?: number;
   };
 };
 
 function TraineeProfile() {
-  const { isTrainee, traineeID, userID } = useGetUserTraineeData();
+  const { isTrainee, traineeID, userID, profileID } = useGetUserTraineeData();
 
+  console.log(profileID);
   const queryOptions = isTrainee
     ? { traineeID, userID }
-    : { traineeID, trainerUserID: userID };
+    : { traineeID, trainerUserID: userID, profileID };
 
   return (
     <section className={style.trainee_profile_page}>

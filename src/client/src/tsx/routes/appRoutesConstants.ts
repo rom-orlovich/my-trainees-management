@@ -26,6 +26,9 @@ export enum APP_ROUTE {
   NUTRITION_MENUS_LIST_ROUTE = "nutritionMenusList",
   NUTRITION_MENUS_LIST_EDIT = "editNutritionMenusList",
   NUTRITION_MENUS_LIST_ADD = "addNewNutritionMenusList",
+  NUTRITION_MENU_ROUTE = "nutritionMenu",
+  NUTRITION_MENU_EDIT = "editNutritionMenu",
+  NUTRITION_MENUS_ADD = "addNewNutritionMenu",
 
   EXERCISES_LIST_ROUTE = "exercisesList",
   EXERCISE_ADD = "addNewExercise",

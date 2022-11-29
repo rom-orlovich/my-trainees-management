@@ -14,7 +14,7 @@ import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 export const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
 function NutritionMenusListPage() {
-  const { traineeID } = useGetUserTraineeData();
+  const { traineeID, profileID } = useGetUserTraineeData();
   const [nutritionMenu, setNutritionMenu] = useState<string[]>(["", ""]);
   const authState = useAppSelector(getAuthState);
 
@@ -46,8 +46,8 @@ function NutritionMenusListPage() {
         />
 
         <span>
-          {traineeID && (
-            <Link to={`${traineeID}/${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}`}>
+          {profileID && (
+            <Link to={`${profileID}/${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}`}>
               Add Menu
             </Link>
           )}

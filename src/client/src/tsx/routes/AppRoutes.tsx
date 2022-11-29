@@ -41,7 +41,7 @@ import TraineeStatsPage from "../pages/StatsPages/TraineeStatsPage/TraineeStatsP
 import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
 import LeadsStatsPage from "../pages/StatsPages/LeadsStatsPage/LeadsStatsPage";
 import FinanceStatsPage from "../pages/StatsPages/FinancesStatsPage/FinancesStatsPage";
-import NutritionMenusListPage from "../pages/NutritionMenusListPage/NutritionMenusListPage";
+
 import NutritionMenusListRoutes from "./NutritionMenusListRoutes";
 
 function AppRoutes() {

@@ -7,7 +7,7 @@ import { TraineeProfileProps } from "../../TraineeProfile";
 import { NUTRITION_MENUS_LIST_NAME } from "../ProgramsList";
 
 function NutritionMenuList({ queryOptions }: TraineeProfileProps) {
-  const nutritionMenusListPageLink = `/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}?traineeID=${queryOptions?.traineeID}`;
+  const nutritionMenusListPageLink = `/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}?profileID=${queryOptions?.profileID}`;
   return (
     <ListProfile
       dataNotFoundEl={
