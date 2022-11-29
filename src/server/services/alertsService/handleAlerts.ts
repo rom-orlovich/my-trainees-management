@@ -5,7 +5,7 @@ import { deleteQuery, insertQueryOneItem } from "../../PGSql/simpleSqlQueries";
 
 import { TABLES_DATA } from "../../utilities/constants";
 import { createObjValuesArr, promiseHandler } from "../../utilities/helpers";
-import { ActionType, ErrorCustomizes } from "../errosService/handleErrors";
+import { ActionType, ErrorCustomizes } from "../errorsService/errorsService";
 
 export const createDataIDwithMessage = (
   message: {

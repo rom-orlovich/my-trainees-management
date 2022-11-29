@@ -1,4 +1,5 @@
-import { Food } from "../foodsDataScraperService/types";
+/* eslint-disable no-unused-vars */
+import { Food } from "../foodsDataScraperService/foodsDataScraperServiceTypes";
 
 export interface NutritionMenu {
   nutrition_menu_id?: number;

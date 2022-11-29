@@ -426,7 +426,7 @@ CREATE TABLE
 CREATE TABLE
   IF NOT EXISTS "meals_foods" (
     "meal_id" INTEGER,
-    "food_amount" INTEGER,
+    "food_amount" FLOAT,
     "food_id" INTEGER,
     CONSTRAINT fk_food_id FOREIGN KEY (food_id) REFERENCES foods (food_id) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE SET NULL ON UPDATE CASCADE
@@ -434,9 +434,9 @@ CREATE TABLE
 
 CREATE TABLE
   IF NOT EXISTS "nutrition_menus_meals" (
-    "menu_nutrition_id" INTEGER,
+    "nutrition_menu_id" INTEGER,
     "meal_id" INTEGER,
-    CONSTRAINT fk_menu_nutrition_id FOREIGN KEY (menu_nutrition_id) REFERENCES menus_nutrition (menu_nutrition_id) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT fk_nutrition_menu_id FOREIGN KEY (nutrition_menu_id) REFERENCES nutrition_menus (nutrition_menu_id) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE SET NULL ON UPDATE CASCADE
   );
 

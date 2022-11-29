@@ -1,5 +1,6 @@
 import { compare } from "bcryptjs";
-import { RequestHandler } from "webpack-dev-server";
+import { RequestHandler } from "express";
+
 import {
   selectQuery,
   updateQuerySingleItem,
@@ -7,7 +8,7 @@ import {
 
 import { TABLES_DATA } from "../../../utilities/constants";
 import { promiseHandler } from "../../../utilities/helpers";
-import { ErrorCodes } from "../../errosService/handleErrors";
+import { ErrorCodes } from "../../errorsService/errorsService";
 
 import {
   COOKIES_OPTIONS,

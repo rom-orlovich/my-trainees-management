@@ -1,5 +1,6 @@
 import { UserRoles } from "./services/authService/utilities/authHelpers";
-import { ErrorCustomizes } from "./services/errosService/handleErrors";
+import { ErrorCustomizes } from "./services/errorsService/errorsService";
+
 import { TrainingProgramExercise } from "./services/statisticService/serviceStatisticsTypes";
 
 export interface ModifiedActionResult {

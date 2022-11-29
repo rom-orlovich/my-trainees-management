@@ -6,7 +6,7 @@ import {
 
 import { TABLES_DATA } from "../../../utilities/constants";
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
-import { IncomeAPI, ProductAPI } from "../serviceCRUDTypes";
+import { IncomeAPI, ProductAPI } from "../CRUDServiceTypes";
 
 export const handleInsertNewSubscription: RequestHandler = async (
   req,

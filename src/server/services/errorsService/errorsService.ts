@@ -1,8 +1,5 @@
 import { ErrorRequestHandler } from "express";
 import { capitalize } from "lodash";
-// import { insertQueryOneItem } from "../PGSql/sqlHelpers";
-// import { TABLES_DATA } from "../utilities/constants";
-// import { promiseHandler } from "../utilities/helpers";
 
 /* eslint-disable no-unused-vars */
 export enum ErrorCodes {

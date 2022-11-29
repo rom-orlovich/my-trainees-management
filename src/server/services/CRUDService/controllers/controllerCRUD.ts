@@ -10,10 +10,10 @@ import {
 } from "../../../PGSql/complexSqlQueries";
 import { promiseHandler } from "../../../utilities/helpers";
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
-import { ErrorCodes, ErrorCustomizes } from "../../errosService/handleErrors";
+import { ErrorCodes, ErrorCustomizes } from "../../errorsService/errorsService";
 import { validateMiddleware } from "../../validateService/validateMiddleware";
 import { client } from "../../../PGSql/DBConnectConfig";
-import { OptionsCRUD } from "../serviceCRUDTypes";
+import { OptionsCRUD } from "../CRUDServiceTypes";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import {
   insertQueryOneItem,

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { RequestHandler } from "webpack-dev-server";
 import { selectPagination } from "../../../PGSql/complexSqlQueries";
-import { promiseHandler } from "../../../utilities/helpers";
 
 import { OmitKey } from "../../../utilities/types";
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
@@ -12,7 +11,7 @@ import {
 import {
   SelectPaginationQueryParam,
   TablePropsData,
-} from "../../CRUDService/serviceCRUDTypes";
+} from "../../CRUDService/CRUDServiceTypes";
 
 const incomeTablePropsData: TablePropsData = {
   tableName: incomesOptionsCRUD.selectQuery.tableName,

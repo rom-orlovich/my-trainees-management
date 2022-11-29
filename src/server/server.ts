@@ -14,7 +14,7 @@ import winstonExpress from "express-winston";
 import { client } from "./PGSql/DBConnectConfig";
 import { initDB } from "./initDB";
 
-import { errorHandlerMiddleware } from "./services/errosService/handleErrors";
+import { errorHandlerMiddleware } from "./services/errorsService/errorsService";
 import { handleAlertsMiddleware } from "./services/alertsService/handleAlerts";
 import {
   API_ROUTES,
@@ -88,7 +88,7 @@ async function connectDB() {
 
     // Uncomment this line will init the  db.
     // This line is for development purpose.
-    await initDB();
+    // await initDB();
 
     server = app.listen(PORT, () => {
       logger.log("info", `listen port ${PORT}`, __filename);

@@ -38,8 +38,25 @@ export async function selectQuery(
   }
 }
 
+export const insertMany = async <T>(tableName: string, arr: T[]) => {
+  const statement = `INSERT INTO ${tableName} select * from json_populate_recordset(null::${tableName},$1) RETURNING * `;
+
+  const paramsArr = [JSON.stringify(arr)];
+  console.log(paramsArr);
+  try {
+    const res = await client.query(statement, paramsArr);
+    return res;
+  } catch (error) {
+    logger.error(`LINE 48:${statement} : values:${JSON.stringify(paramsArr)}`, {
+      objs: [error],
+      __filename,
+    });
+    throw error;
+  }
+};
+
 // Insert item to the db.
-const insertQuery = async (
+export const insertQuery = async (
   tableName: string,
   fieldName: string,
   fieldParams: string,
@@ -53,13 +70,10 @@ const insertQuery = async (
     const res = await client.query(statement, paramsArr);
     return res;
   } catch (error) {
-    logger.error(
-      `LINE 287:${statement} : values:${JSON.stringify(paramsArr)}`,
-      {
-        objs: [error],
-        __filename,
-      }
-    );
+    logger.error(`LINE 74:${statement} : values:${JSON.stringify(paramsArr)}`, {
+      objs: [error],
+      __filename,
+    });
     throw error;
   }
 };

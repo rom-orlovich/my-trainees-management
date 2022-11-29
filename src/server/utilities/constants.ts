@@ -77,8 +77,12 @@ export enum TABLES_DATA {
   FOODS_ID = "food_id",
   MEALS_TABLE_NAME = "meals",
   MEALS_ID = "meal_id",
+  MEALS_FOODS_TABLE_NAME = "meals_foods",
+
   NUTRITION_MENUS_TABLE_NAME = "nutrition_menus",
   NUTRITION_MENUS_ID = "nutrition_menu_id",
+
+  NUTRITION_MENUS_MEALS_TABLE_NAME = "nutrition_menus_meals",
 }
 
 export const IS_DEVELOPMENT_MODE = process.env.NODE_ENV === "development";

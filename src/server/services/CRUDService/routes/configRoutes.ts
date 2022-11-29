@@ -38,7 +38,7 @@ import {
   PERMISSION_TRAINEE_BY_USER_ID,
   PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
 } from "../../usersPermission";
-import { OptionsCRUD } from "../serviceCRUDTypes";
+import { OptionsCRUD } from "../CRUDServiceTypes";
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate

@@ -1,5 +1,5 @@
 import { handleInsertStatistics } from "../../statisticService/controllers/handleInsertStatistics";
-import { OptionsCRUD } from "../serviceCRUDTypes";
+import { OptionsCRUD } from "../CRUDServiceTypes";
 
 import { createControllersHandlerAndRoutes } from "../utilities/helperServiceCRUD";
 
