@@ -12,7 +12,7 @@ import {
   subscriptionPlansSchema,
   musclesGroupSchema,
   nutritionProgramSchema,
-  nutritionProgramsListSchema,
+  nutritionMenusListSchema,
   providersSchema,
   traineesSchema,
   trainingProgramSchema,
@@ -569,14 +569,14 @@ export const foodsOptionsCRUD: OptionsCRUD = {
   logAlert: true,
 };
 
-// export const nutritionProgramsListOptionsCRUD: OptionsCRUD = {
-//   singleEntityName: API_ROUTES.NUTRITION_MENUS_ENTITY,
-//   selectQuery: {
-//     tableName: `${TABLES_DATA} as npl`,
-//     tableID: `npl.${TABLES_DATA.NUTRITION_PROGRAM_LIST_ID}`,
-//     fieldNamesQuery: `npl.*`,
-//     querySelectLogic: ``,
-//   },
-//   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
-//   validateSchema: nutritionProgramsListSchema,
-// };
+export const nutritionMenusListOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.NUTRITION_MENUS_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.NUTRITION_MENUS_MEALS_TABLE_NAME} as nml`,
+    tableID: `nml.${TABLES_DATA.NUTRITION_MENUS_ID}`,
+    fieldNamesQuery: `nml.*`,
+    querySelectLogic: ``,
+  },
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  validateSchema: nutritionMenusListSchema,
+};

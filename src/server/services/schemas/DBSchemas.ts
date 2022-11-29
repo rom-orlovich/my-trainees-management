@@ -129,10 +129,9 @@ export const trainingProgramExerciseStatsSchema = yup.object().shape({
     .typeError({ message: "RPE is number between 1 and 10." }),
 });
 
-export const nutritionProgramsListSchema = yup.object().shape({
-  nutrition_programs_list_id: yup.number().notRequired().nullable(),
-  trainee_id: yup.number().required(),
-  program_type: yup.string().required(),
+export const nutritionMenusListSchema = yup.object().shape({
+  nutrition_menu_id: yup.number().notRequired().nullable(),
+  profile_id: yup.number().required(),
   date_start: yup.date().required(),
   date_end: yup
     .date()

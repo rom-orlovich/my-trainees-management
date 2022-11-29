@@ -9,6 +9,7 @@ import {
   leadsOptionsCRUD,
   locationsOptionsCRUD,
   musclesGroupOptionsCRUD,
+  nutritionMenusListOptionsCRUD,
   participantsGroupListOptionsCRUD,
   participantsGroupOptionsCRUD,
   productsOptionsCRUD,
@@ -128,5 +129,9 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.FINANCES_ROUTE,
     router: createFinanceRouter(),
+  },
+  {
+    baseRoute: API_ROUTES.NUTRITION_MENUS_ROUTE,
+    router: createCRUDroutes(nutritionMenusListOptionsCRUD),
   },
 ];
