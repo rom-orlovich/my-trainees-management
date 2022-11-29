@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 
 import { RequestHandler } from "webpack-dev-server";
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { API_ROUTES } from "../../apiRoutesConstants";
 
 import { handleDeleteAllUserAlerts } from "../../alertsService/handleAlerts";
@@ -23,9 +23,11 @@ import {
   incomesOptionsCRUD,
   measuresOptionsCRUD,
   meetingOptionsCRUD,
+  nutritionMenuOptionsCRUD,
   traineesOptionsCRUD,
 } from "./configRoutes";
 import { createCRUDroutes } from "./createCRUDroutes";
+import { handleCreateNutritionMenu } from "../../nutritionMenuService/handleCreateNutritionMenu";
 
 export const createMeasuresRouter = () => {
   const {
@@ -125,4 +127,20 @@ export const createMeetingRouter = () => {
   );
 
   return expressRouterObj;
+};
+
+export const createNutritionMenuRouter = () => {
+  const nutritionMenuRouter = createCRUDroutes(nutritionMenuOptionsCRUD);
+  // nutritionMenuRouter.get(`/generateMenu/:id`, (req, res, next) => {
+  //   res.send("hey");
+  // });
+  nutritionMenuRouter.get(`/generateMenu/:id`, handleCreateNutritionMenu);
+  // console.log(
+  //   nutritionMenuRouter.get("/one", (req, res, next) => {
+  //     res.send("hey");
+  //   })
+  // );
+  // /generateMenu?userID=2
+
+  return nutritionMenuRouter;
 };

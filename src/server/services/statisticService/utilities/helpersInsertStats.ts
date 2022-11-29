@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import { insertQueryOneItem } from "../../../PGSql/simpleSqlQueries";
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { TrainingProgramExercise } from "../serviceStatisticsTypes";
 
 export const transformTrainingProgramExerciseData = ({

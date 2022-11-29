@@ -141,6 +141,10 @@ export const nutritionMenusListSchema = yup.object().shape({
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
+export const nutritionMenuSchema = yup.object().shape({
+  nutrition_menu_id: yup.number().notRequired().nullable(),
+  meal_id: yup.number().notRequired().nullable(),
+});
 export const nutritionProgramSchema = yup.object().shape({
   nutrition_program_id: yup.number().notRequired().nullable(),
   nutrition_program_list_id: yup.number().required(),

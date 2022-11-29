@@ -1,5 +1,5 @@
 import { insertMany, insertQueryOneItem } from "../../PGSql/simpleSqlQueries";
-import { TABLES_DATA } from "../../utilities/constants";
+import { TABLES_DATA } from "../../utilities/tableDataSQL";
 import { createMenuDescription } from "./helpersCreateNutritionMenu";
 import {
   MealFood,
@@ -7,7 +7,7 @@ import {
   NutritionMenu,
   NutritionMenusMeals,
   NutritionQuestionnaire,
-} from "./types";
+} from "./nutritionMenuServiceTypes";
 
 export const insertNewNutritionMenuToDB = async (
   nutritionQuestionnaire: NutritionQuestionnaire
@@ -54,7 +54,7 @@ export const insertNewNutrientMenuMeal = async (
   };
 
   await insertQueryOneItem(
-    TABLES_DATA.NUTRITION_MENUS_LIST_MEALS_TABLE_NAME,
+    TABLES_DATA.NUTRITION_MENUS_MEALS_TABLE_NAME,
     menuNutritionMealsObj
   );
 };

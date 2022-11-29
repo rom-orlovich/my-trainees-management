@@ -4,7 +4,7 @@ import {
   selectQuery,
   updateQuerySingleItem,
 } from "../../../PGSql/simpleSqlQueries";
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
 import {

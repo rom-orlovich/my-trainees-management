@@ -30,7 +30,7 @@ const transformNutritionMenuList = ({
   nutrition_menu_id,
   program_type: (
     <Link
-      to={`/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/${nutrition_menu_id}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
+      to={`/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/${nutrition_menu_id}/${APP_ROUTE.NUTRITION_MENU_ROUTE}`}
     >
       {note_topic}
     </Link>

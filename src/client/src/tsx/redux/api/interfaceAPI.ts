@@ -44,6 +44,10 @@ export enum API_ROUTES {
   NUTRITION_MENUS_LIST_ROUTE = "/api/nutritionMenusList",
   NUTRITION_MENUS_LIST_ENTITY = "nutritionMenuList",
 
+  NUTRITION_MENU_ROUTE = "/api/nutritionMenu",
+  NUTRITION_MENU_ENTITY = "nutritionMenu",
+  NUTRITION_MENU_GENERATE = "generateMenu",
+
   MEASURES_ROUTE = "/api/measures",
   MEASURE_ENTITY = "measure",
   TRAINEES_ROUTE = "/api/trainees",

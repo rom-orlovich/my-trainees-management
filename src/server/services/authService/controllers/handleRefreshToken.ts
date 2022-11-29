@@ -4,7 +4,7 @@ import { hash, compare } from "bcryptjs";
 
 import { promiseHandler } from "../../../utilities/helpers";
 
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 
 import {
   COOKIES_OPTIONS,

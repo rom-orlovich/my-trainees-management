@@ -1,60 +1,50 @@
 -- select * from foods where not food_id = any(Array[1,2,3]) and not allergens&&ARRAY['גלוטן','ביצים','סויה'] and kosher=true
 WITH
-    foods_cho AS (
+    all_meals_food AS (
         SELECT
             *
         from
             meals_foods as mf
             INNER JOIN foods as f on mf.food_id = f.food_id
     ),
-    pro AS (
-        SELECT
-            *
+    build_pro_arr as (
+        select
+            json_agg (all_meals_food)
         from
-            foods_cho
+            all_meals_food
         where
             nutrient_type = 'proteins'
-    ),
-    fats AS (
-        SELECT
-            *
-        from
-            foods_cho
-        where
-            nutrient_type = 'fats'
-    ),
-    carbs AS (
-        SELECT
-            *
-        from
-            foods_cho
-        where
-            nutrient_type = 'carbhytorates'
     ),
     meal AS (
         select
             mf.meal_id,
             json_build_object (
-                'pro',
+                'proteins',
                 (
                     select
-                        json_agg (pro)
+                        json_agg (all_meals_food)
                     from
-                        pro
+                        all_meals_food
+                    where
+                        nutrient_type = 'proteins'
                 ),
                 'fats',
                 (
                     select
-                        json_agg (fats)
+                        json_agg (all_meals_food)
                     from
-                        fats
+                        all_meals_food
+                    where
+                        nutrient_type = 'fats'
                 ),
                 'carbs',
                 (
                     select
-                        json_agg (carbs)
+                        json_agg (all_meals_food)
                     from
-                        carbs
+                        all_meals_food
+                    where
+                        nutrient_type = 'carbhytorates'
                 )
             ) as nutrients
         from
@@ -75,7 +65,7 @@ WITH
                 )
             ) as menu
         from
-              NUTRITION_MENUS_LIST_meals nmm
+            nutrition_menus_meals nmm
             INNER JOIN meal m on m.meal_id = m.meal_id
         GROUP BY
             nmm.nutrition_menu_id
@@ -83,5 +73,4 @@ WITH
 select
     *
 from
-      NUTRITION_MENUS_LIST nms
-    INNER JOIN nutrition_menu as nms2 on nms.nutrition_menu_id = nms2.nutrition_menu_id;
+    nutrition_menu nm;

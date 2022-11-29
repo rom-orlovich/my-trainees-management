@@ -5,7 +5,7 @@ import {
   selectQuery,
   updateQuerySingleItem,
 } from "../../../PGSql/simpleSqlQueries";
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { promiseHandler } from "../../../utilities/helpers";
 import { COOKIES_OPTIONS, User } from "../utilities/authHelpers";
 

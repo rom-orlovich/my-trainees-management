@@ -25,8 +25,9 @@ import {
   meetingsSchema,
   participantsGroupListSchema,
   foodsSchema,
+  nutritionMenuSchema,
 } from "../../schemas/DBSchemas";
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { API_ROUTES } from "../../apiRoutesConstants";
 import {
   PERMISSION_ADMIN,
@@ -579,4 +580,16 @@ export const nutritionMenusListOptionsCRUD: OptionsCRUD = {
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: nutritionMenusListSchema,
+};
+export const nutritionMenuOptionsCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.NUTRITION_MENU_ENTITY,
+  selectQuery: {
+    withClause: ``,
+    tableName: `${TABLES_DATA.NUTRITION_MENUS_MEALS_TABLE_NAME} as nmm`,
+    tableID: `nmm.${TABLES_DATA.NUTRITION_MENUS_LIST_ID}`,
+    fieldNamesQuery: `nmm.*`,
+    querySelectLogic: ``,
+  },
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  validateSchema: nutritionMenuSchema,
 };

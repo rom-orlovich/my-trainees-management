@@ -3,7 +3,7 @@ import { RequestHandler } from "webpack-dev-server";
 import { ModifiedActionResult } from "../../express";
 import { deleteQuery, insertQueryOneItem } from "../../PGSql/simpleSqlQueries";
 
-import { TABLES_DATA } from "../../utilities/constants";
+import { TABLES_DATA } from "../../utilities/tableDataSQL";
 import { createObjValuesArr, promiseHandler } from "../../utilities/helpers";
 import { ActionType, ErrorCustomizes } from "../errorsService/errorsService";
 

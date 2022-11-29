@@ -46,6 +46,7 @@ export function createRoutesControllers({
     orderByParam,
     comparisonQuery,
     groupBy,
+    withClause,
   },
   logAlert = true,
   validateSchema,
@@ -63,6 +64,7 @@ export function createRoutesControllers({
       comparisonQuery,
     };
     const tablePropsData = {
+      withClause,
       tableName,
       fieldNamesQuery,
       querySelectLogic: `${querySelectLogic} ${
@@ -99,7 +101,7 @@ export function createRoutesControllers({
     const id = Number(req.params.id);
 
     const [data, err] = await promiseHandler(
-      selectQuery(tableName, `${fieldNamesQuery}`, queryLogic, [id])
+      selectQuery(tableName, `${fieldNamesQuery}`, queryLogic, [id], withClause)
     );
 
     if (err) return next(new ErrorCustomizes(err, "get"));

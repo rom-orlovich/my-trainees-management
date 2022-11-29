@@ -4,7 +4,7 @@ import {
   updateQuerySingleItem,
 } from "../../../PGSql/simpleSqlQueries";
 
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { promiseHandler } from "../../../utilities/helpers";
 import { API_ROUTES, URL_CUR_CLIENT } from "../../apiRoutesConstants";
 

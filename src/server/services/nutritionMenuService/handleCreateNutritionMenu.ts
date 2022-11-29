@@ -1,7 +1,8 @@
 import { RequestHandler } from "express";
 import { newDate } from "../../utilities/helpers";
+import { createLogAlertInfo } from "../alertsService/handleAlerts";
 import { createNutritionMenu } from "./createNutritionMenu";
-import { NutritionQuestionnaire } from "./types";
+import { NutritionQuestionnaire } from "./nutritionMenuServiceTypes";
 
 export const nutritionQuestionnaires: NutritionQuestionnaire = {
   user_id: 2,
@@ -18,7 +19,37 @@ export const nutritionQuestionnaires: NutritionQuestionnaire = {
   meals_dist_percents: [30, 50, 20],
   diet_type: "neutral",
 };
+const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
 
-export const handleCreateNutritionMenu: RequestHandler = (req, res, next) => {
-  createNutritionMenu(nutritionQuestionnaires);
+export const handleCreateNutritionMenu: RequestHandler = async (
+  req,
+  res,
+  next
+) => {
+  const logAlert = createLogAlertInfo(NUTRITION_MENU_NAME_DATA);
+  const nutritionMenuID = Number(req.params.id);
+  const nutritionMenuRes = await createNutritionMenu(
+    nutritionMenuID,
+    nutritionQuestionnaires
+  );
+  // console.log(nutritionMenuRes);
+  if (nutritionMenuRes)
+    req.logAlertInfo = logAlert(
+      {
+        data: nutritionMenuRes,
+        sendDataID: true,
+      },
+      undefined,
+      "create",
+      true
+    );
+  else {
+    req.logAlertInfo = logAlert(
+      undefined,
+      { message: `The ${NUTRITION_MENU_NAME_DATA} creation was failed.` },
+      "create",
+      true
+    );
+  }
+  return next();
 };

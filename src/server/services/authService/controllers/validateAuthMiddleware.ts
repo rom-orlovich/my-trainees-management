@@ -3,7 +3,7 @@ import { RequestHandler } from "webpack-dev-server";
 import { selectQuery } from "../../../PGSql/simpleSqlQueries";
 // eslint-disable-next-line no-unused-vars
 
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { promiseHandler } from "../../../utilities/helpers";
 import { logger } from "../../loggerService/logger";
 import { Permission, Permissions } from "../../usersPermission";

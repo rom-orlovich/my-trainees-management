@@ -11,7 +11,7 @@ import { createUser } from "./services/authService/utilities/authHelpers";
 import {
   CREATE_DB_TABLE_SQL_FILE_PATH,
   CREATE_DUMMY_DATA_FILE_PATH,
-} from "./utilities/constants";
+} from "./utilities/serverConstants";
 
 async function readFromSQLfileAndExecute(path: string) {
   const query = readFileSync(path, "utf8");

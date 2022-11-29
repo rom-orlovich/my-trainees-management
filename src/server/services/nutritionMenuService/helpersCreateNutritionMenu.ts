@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 import { shuffle, sortBy } from "lodash";
-import { insertQueryOneItem, selectQuery } from "../../PGSql/simpleSqlQueries";
-import { TABLES_DATA } from "../../utilities/constants";
+import { selectQuery } from "../../PGSql/simpleSqlQueries";
+import { TABLES_DATA } from "../../utilities/tableDataSQL";
 import { filterArrObjBy, sortArrObjBy } from "../../utilities/helpers";
 import { GenericRecord } from "../../utilities/types";
 import {
@@ -10,7 +10,7 @@ import {
   KosherType,
   KosherTypeWithoutPareve,
   NutritionType,
-} from "../foodsDataScraperService/types";
+} from "../foodsDataScraperService/foodsDataScraperServiceTypes";
 import { MeasuresCalResAPI } from "../statisticService/serviceStatisticsTypes";
 import { NUM_FOODS_FOR_EACH_NUTRIENTS, NUM_FOODS_IN_MEAL } from "./constants";
 import {
@@ -23,7 +23,7 @@ import {
   NutrientCalsType,
   NutritionQuestionnaire,
   MealNutrientsFoodsObj,
-} from "./types";
+} from "./nutritionMenuServiceTypes";
 
 export const createMenuDescription = ({
   kosher,

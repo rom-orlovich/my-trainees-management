@@ -131,7 +131,22 @@ export const nutritionMenusListApi = apiCreateCRUDHooks<NutritionMenuTableApi>({
   reducerPath: "nutritionMenusListApi",
   baseUrl: API_ROUTES.NUTRITION_MENUS_LIST_ROUTE,
   singleEntityName: API_ROUTES.NUTRITION_MENUS_LIST_ENTITY,
-  listId: "NUTRITION_MENUS_LIST",
+  listId: "nutrition_menus_list",
+});
+export const nutritionMenuApi = apiCreateCRUDHooks<NutritionMenuTableApi>({
+  reducerPath: "nutritionMenuApi",
+  baseUrl: API_ROUTES.NUTRITION_MENU_ROUTE,
+  singleEntityName: API_ROUTES.NUTRITION_MENU_ENTITY,
+  listId: "nutrition_menu",
+}).injectEndpoints({
+  endpoints: (builder) => ({
+    getGenerateMenu: builder.query<any, { id: number }>({
+      query: (params) => ({
+        url: `/${API_ROUTES.NUTRITION_MENU_GENERATE}/${params.id}`,
+        params,
+      }),
+    }),
+  }),
 });
 
 export const measuresApi = apiCreateCRUDHooks<MeasuresCalResAPI>({
@@ -284,7 +299,7 @@ export const apiCreateCrudArr = [
   trainingProgramsListApi,
   trainingProgramsApi,
   nutritionMenusListApi,
-
+  nutritionMenuApi,
   measuresApi,
   traineesApi,
   usersApi,

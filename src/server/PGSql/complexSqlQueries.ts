@@ -28,8 +28,14 @@ export async function selectPagination(
   tablePropsData: TablePropsData,
   selectPaginationQueryParam: SelectPaginationQueryParam
 ) {
-  const { fieldNamesQuery, groupBy, querySelectLogic, tableName, tableID } =
-    tablePropsData;
+  const {
+    fieldNamesQuery,
+    groupBy,
+    querySelectLogic,
+    tableName,
+    tableID,
+    withClause,
+  } = tablePropsData;
 
   const {
     page,
@@ -57,7 +63,8 @@ export async function selectPagination(
     tableName,
     "count(*)",
     queryStrStatement,
-    queryParamsRes
+    queryParamsRes,
+    withClause
   );
   const numTotalRows = Number(countRows[0].count);
 
@@ -77,7 +84,8 @@ export async function selectPagination(
     tableName,
     fieldNamesQuery,
     `${queryStrStatement} ${queryStatementAddons}`,
-    [...queryParamsRes, maxNumResult, offset]
+    [...queryParamsRes, maxNumResult, offset],
+    withClause
   );
 
   return {

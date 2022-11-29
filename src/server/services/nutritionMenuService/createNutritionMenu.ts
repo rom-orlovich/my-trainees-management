@@ -2,17 +2,15 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 /* eslint-disable import/first */
-import { config } from "dotenv";
 
-config();
 import { client } from "../../PGSql/DBConnectConfig";
 import { insertQueryOneItem } from "../../PGSql/simpleSqlQueries";
-import { TABLES_DATA } from "../../utilities/constants";
+import { TABLES_DATA } from "../../utilities/tableDataSQL";
+import { Food } from "../foodsDataScraperService/foodsDataScraperServiceTypes";
 
-import { Food } from "../foodsDataScraperService/types";
 import { loggerJson } from "../loggerService/logger";
 import { NUM_FOODS_IN_MEAL } from "./constants";
-import { nutritionQuestionnaires } from "./handleCreateNutritionMenu";
+
 import {
   createChosenFoodsNutrientsArr,
   createMealFoodByNutrientAndDisqualifyByMeatAndMilk,
@@ -22,19 +20,15 @@ import {
   getFoodsByNutritionQuestionnaireParams,
   getLastMeasureByProfileID,
 } from "./helpersCreateNutritionMenu";
-import {
-  insertNewFoodsInMeal,
-  insertNewNutrientMenuMeal,
-  insertNewNutritionMenuToDB,
-} from "./helpersDB";
+import { insertNewFoodsInMeal, insertNewNutrientMenuMeal } from "./helpersDB";
 import {
   Meal,
   NutrientCalsType,
-  NutritionMenu,
   NutritionQuestionnaire,
-} from "./types";
+} from "./nutritionMenuServiceTypes";
 
 export const createNutritionMenu = async (
+  nutritionMenuID: number,
   nutritionQuestionnaire: NutritionQuestionnaire
 ) => {
   const {
@@ -46,13 +40,11 @@ export const createNutritionMenu = async (
     // diet_type,
   } = nutritionQuestionnaire;
   try {
-    await client.connect();
-
     await client.query("BEGIN");
 
     // // Insert new nutritionMenu to db.
-    const nutritionMenuInsertRes: NutritionMenu =
-      await insertNewNutritionMenuToDB(nutritionQuestionnaire);
+    // const nutritionMenuInsertRes: NutritionMenu =
+    //   await insertNewNutritionMenuToDB(nutritionQuestionnaire);
 
     // Gets foods from the db filter by user's nutrition questionnaire.
     const foods = await getFoodsByNutritionQuestionnaireParams(
@@ -134,34 +126,35 @@ export const createNutritionMenu = async (
 
         // insert new nutrient foods
         await insertNewFoodsInMeal(mealFoodsNutrients);
-        await insertNewNutrientMenuMeal(
-          nutritionMenuInsertRes.nutrition_menu_id,
-          mealInsertRes.meal_id
-        );
+        await insertNewNutrientMenuMeal(nutritionMenuID, mealInsertRes.meal_id);
         return { ...mealInsertRes, ...mealFoodsNutrients };
       }
     );
 
     const mealsResPromises = await Promise.all(meals);
 
+    const nutritionMenuRes = {
+      nutrition_menu_id: nutritionMenuID,
+      calories_total,
+      protein_cals,
+      fat_cals,
+      carbs_cals,
+      meals: mealsResPromises,
+    };
     loggerJson.debug(`LINE 274: meals`, {
       __filename,
-      objs: [
-        {
-          ...nutritionMenuInsertRes,
-          calories_total,
-          protein_cals,
-          fat_cals,
-          carbs_cals,
-          meals: mealsResPromises,
-        },
-      ],
+      objs: [nutritionMenuRes],
     });
     console.log("The nutrition menu was created successfully!");
     await client.query("COMMIT");
+
+    return nutritionMenuRes;
   } catch (error) {
     await client.query("ROLLBACK");
-    console.log(error);
+    loggerJson.error(`LINE 156: error`, {
+      __filename,
+      objs: [error],
+    });
   }
 };
-createNutritionMenu(nutritionQuestionnaires);
+// createNutritionMenu(5,nutritionQuestionnaires);

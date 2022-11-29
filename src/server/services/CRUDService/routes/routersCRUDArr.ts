@@ -27,6 +27,7 @@ import {
   createIncomesRouter,
   createMeasuresRouter,
   createMeetingRouter,
+  createNutritionMenuRouter,
   createTraineesRouter,
 } from "./customRouters";
 
@@ -133,5 +134,9 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.NUTRITION_MENUS_LIST_ROUTE,
     router: createCRUDroutes(nutritionMenusListOptionsCRUD),
+  },
+  {
+    baseRoute: API_ROUTES.NUTRITION_MENU_ROUTE,
+    router: createNutritionMenuRouter(),
   },
 ];

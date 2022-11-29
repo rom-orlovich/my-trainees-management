@@ -8,7 +8,7 @@ import { JwtPayload, sign, verify } from "jsonwebtoken";
 import Mail from "nodemailer/lib/mailer";
 
 import { API_ROUTES, URL_CUR_CLIENT } from "../../apiRoutesConstants";
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
 import { client } from "../../../PGSql/DBConnectConfig";
 import {

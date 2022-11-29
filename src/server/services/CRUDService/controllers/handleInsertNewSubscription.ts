@@ -4,7 +4,7 @@ import {
   selectQuery,
 } from "../../../PGSql/simpleSqlQueries";
 
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
 import { IncomeAPI, ProductAPI } from "../CRUDServiceTypes";
 

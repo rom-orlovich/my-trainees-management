@@ -2,7 +2,7 @@ import { hash } from "bcryptjs";
 import { RequestHandler } from "webpack-dev-server";
 import { updateQuerySingleItem } from "../../../PGSql/simpleSqlQueries";
 
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { promiseHandler } from "../../../utilities/helpers";
 
 import { prepareLogAlert } from "../utilities/authHelpers";

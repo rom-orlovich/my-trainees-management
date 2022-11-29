@@ -4,7 +4,7 @@ import { RequestHandler } from "express";
 import { client } from "../../../PGSql/DBConnectConfig";
 import { updateQuerySingleItem } from "../../../PGSql/simpleSqlQueries";
 
-import { TABLES_DATA } from "../../../utilities/constants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { createUser } from "../utilities/authHelpers";
 import { prepareLogAlert } from "./handleRegisterTrainee";
 

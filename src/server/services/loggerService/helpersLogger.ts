@@ -1,5 +1,5 @@
 import { transports } from "winston";
-import { IS_DEVELOPMENT_MODE } from "../../utilities/constants";
+import { IS_DEVELOPMENT_MODE } from "../../utilities/serverConstants";
 
 export const LOG_LEVEL: "debug" | "info" | "warn" | "error" =
   IS_DEVELOPMENT_MODE ? "info" : "info";

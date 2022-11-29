@@ -8,6 +8,7 @@ export interface ComparisonQuery {
 export interface SelectTableQueryParam {
   tableName: string;
   tableID: string;
+  withClause?: string;
   fieldNamesQuery: string; // The field names that we want to return from the query
   querySelectLogic: string; // The query logic
   orderByParam?: Record<string, string>;
@@ -45,6 +46,7 @@ export interface SelectPaginationQueryParam {
 }
 
 export interface TablePropsData {
+  withClause?: string;
   tableName: string;
   tableID: string;
   fieldNamesQuery: string;
