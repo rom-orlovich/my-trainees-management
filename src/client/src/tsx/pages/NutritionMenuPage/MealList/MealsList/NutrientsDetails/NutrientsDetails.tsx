@@ -14,6 +14,9 @@ function NutrientsDetails({
   nutrientsFoods: FoodNutrientDetails[];
   nutrientCalories: number;
 }) {
+  const numG = (
+    nutrientName === "Fats" ? nutrientCalories / 9 : nutrientCalories / 4
+  ).toFixed(2);
   return (
     <div className={genClassName(style.nutrient_details_container)}>
       <h3>{nutrientName}:</h3>
@@ -26,11 +29,8 @@ function NutrientsDetails({
         )}
         dataArr={nutrientsFoods}
       />
-      <div>
-        <b>
-          {`Meal's ${nutrientName.toLocaleLowerCase()} ${nutrientCalories} Kcal`}
-        </b>
-      </div>
+
+      <b>{`Up to ${nutrientCalories}Kcal/${numG}g per food`}</b>
     </div>
   );
 }

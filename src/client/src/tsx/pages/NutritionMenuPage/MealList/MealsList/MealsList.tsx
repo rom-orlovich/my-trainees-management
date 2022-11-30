@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import style from "./MealsList.module.scss";
 import List from "../../../../components/baseComponents/List/List";
@@ -14,9 +15,9 @@ function MealsList({ meals }: { meals: MealDetails[] }) {
         ${caloriesTotal}
         Kcal`}
       </h1>
-      <p>Each meal has many suggestions of foods per nutrient.</p>
+      <p>Each meal has many options of foods per nutrient.</p>
       <p>Please choose one food per nutrient.</p>
-      <p> Each unit of nutrient is per 100g</p>
+      <p> One unit is 100g of food.</p>
       <List
         className={genClassName(style.meals_list_container)}
         LI={({
@@ -28,9 +29,7 @@ function MealsList({ meals }: { meals: MealDetails[] }) {
           ...data
         }) => (
           <li className={genClassName(style.meals_details_container)}>
-            <h2>
-              Meal {Number(index + 1)}, Total: {calories_total} Kcal
-            </h2>
+            <h2>Meal {Number(index + 1)}</h2>
             <div className={genClassName(style.nutrients_details_container)}>
               <NutrientsDetails
                 nutrientsFoods={proteins}
@@ -48,6 +47,7 @@ function MealsList({ meals }: { meals: MealDetails[] }) {
                 nutrientCalories={data.carbs_cals}
               />
             </div>
+            <h4> Total: {calories_total} Kcal</h4>
           </li>
         )}
         dataArr={meals}
