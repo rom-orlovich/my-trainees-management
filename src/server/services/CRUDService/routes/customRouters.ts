@@ -27,7 +27,7 @@ import {
   traineesOptionsCRUD,
 } from "./configRoutes";
 import { createCRUDroutes } from "./createCRUDroutes";
-import { handleCreateNutritionMenu } from "../../nutritionMenuService/handleCreateNutritionMenu";
+import { handleGenerateNutritionMenu } from "../../nutritionMenuService/handleGenerateNutritionMenu";
 import { handleGetNutritionMenu } from "../../nutritionMenuService/handleGetNutritionMenu";
 
 export const createMeasuresRouter = () => {
@@ -138,7 +138,7 @@ export const createNutritionMenuRouter = () => {
   //   res.send("hey");
   // });
 
-  nutritionMenuRouter.get(`/generateMenu/:id`, handleCreateNutritionMenu);
+  nutritionMenuRouter.get(`/generateMenu/:id`, handleGenerateNutritionMenu);
   nutritionMenuRouter.get(
     `/${API_ROUTES.NUTRITION_MENU_ENTITY}/:id`,
     handleGetNutritionMenu

@@ -428,8 +428,8 @@ CREATE TABLE
     "meal_id" INTEGER,
     "food_amount" FLOAT,
     "food_id" INTEGER,
-    CONSTRAINT fk_food_id FOREIGN KEY (food_id) REFERENCES foods (food_id) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_food_id FOREIGN KEY (food_id) REFERENCES foods (food_id) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 CREATE TABLE
@@ -441,7 +441,7 @@ CREATE TABLE
     "fat_cals" FLOAT,
     "meal_id" INTEGER,
     CONSTRAINT fk_nutrition_menu_id FOREIGN KEY (nutrition_menu_id) REFERENCES nutrition_menus (nutrition_menu_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meals (meal_id) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 CREATE TABLE
