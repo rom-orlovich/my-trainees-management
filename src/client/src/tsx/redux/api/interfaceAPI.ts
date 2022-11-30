@@ -456,3 +456,26 @@ export enum CHART_DISPLAY {
   DISTRIBUTION = "distribution",
   ALL = "all",
 }
+
+export interface FoodNutrientDetails {
+  meal_id: number;
+  food_id: number;
+  food_name: string;
+  food_amount: number;
+}
+
+export interface MealDetails {
+  calories_total: number;
+  protein_cals: number;
+  fat_cals: number;
+  carbs_cals: number;
+  proteins: FoodNutrientDetails[];
+  fats: FoodNutrientDetails[];
+  carbohydrates: FoodNutrientDetails[];
+}
+
+export interface NutritionMenuAPI {
+  message: string;
+  nutrition_menu_id: number;
+  meals: MealDetails[];
+}

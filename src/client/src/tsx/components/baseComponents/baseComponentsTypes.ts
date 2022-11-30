@@ -54,7 +54,7 @@ export interface AlertData {
   status: boolean;
 }
 export type LiComponentProps<T extends object> = (
-  props: ComponentProps<T> & { liProps?: LiProps }
+  props: ComponentProps<T> & { liProps?: LiProps; index?: number }
 ) => JSX.Element;
 
 export interface NavLinkLIProps extends PropsBasic {

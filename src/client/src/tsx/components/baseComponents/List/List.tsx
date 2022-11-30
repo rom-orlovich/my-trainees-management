@@ -23,7 +23,7 @@ function List<T extends Record<string, any>>({
     <ul {...UlProps} ref={UlProps?.ref} className={className}>
       {!insertChildLast ? children : ""}
       {dataArr.map((el, i) => (
-        <LI key={`${key}${i}`} {...el} />
+        <LI index={i} key={`${key}${i}`} {...el} />
       ))}
       {insertChildLast ? children : ""}
     </ul>

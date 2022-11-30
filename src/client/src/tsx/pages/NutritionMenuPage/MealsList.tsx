@@ -1,5 +1,7 @@
 import React from "react";
+import LoadingSpinner from "../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import { nutritionMenuApi } from "../../redux/api/hooksAPI";
+import MealDetails from "./MealDetails/MealDetails";
 
 function MealsList({
   // data,
@@ -9,11 +11,14 @@ function MealsList({
   queriesOptions: Record<string, any>;
 }) {
   // console.log(data);
-  const { data } = nutritionMenuApi.useGetItemByIDQuery(
-    queriesOptions as { id: number }
+  const { data, isError, isFetching, isLoading } =
+    nutritionMenuApi.useGetItemByIDQuery(queriesOptions as { id: number });
+  console.log(data?.meals);
+  return (
+    <LoadingSpinner stateData={{ data, isError, isFetching, isLoading }}>
+      {(data) => <MealDetails meals={data.meals} />}
+    </LoadingSpinner>
   );
-  console.log(data);
-  return <div>{JSON.stringify(data)}</div>;
 }
 
 export default MealsList;

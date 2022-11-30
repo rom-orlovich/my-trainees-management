@@ -28,6 +28,7 @@ import {
   ParticipantsGroupsListTableAPI,
   FinanceAPI,
   NutritionMenuTableApi,
+  NutritionMenuAPI,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -133,7 +134,7 @@ export const nutritionMenusListApi = apiCreateCRUDHooks<NutritionMenuTableApi>({
   singleEntityName: API_ROUTES.NUTRITION_MENUS_LIST_ENTITY,
   listId: "nutrition_menus_list",
 });
-export const nutritionMenuApi = apiCreateCRUDHooks<NutritionMenuTableApi>({
+export const nutritionMenuApi = apiCreateCRUDHooks<NutritionMenuAPI>({
   reducerPath: "nutritionMenuApi",
   baseUrl: API_ROUTES.NUTRITION_MENU_ROUTE,
   singleEntityName: API_ROUTES.NUTRITION_MENU_ENTITY,
