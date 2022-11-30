@@ -222,30 +222,49 @@ export const createMealsNutrientsCalsDistribution = async (
 export const getAmountOFfood = (
   food: Food,
   totalMealNutrientCals: number,
+  totalCals: number,
   key: NutrientCalsType
 ) => {
-  let amount = 0;
+  let amount = 1;
   let curCalNutrientCals = totalMealNutrientCals;
   if (curCalNutrientCals < food[key]) {
     return Number((curCalNutrientCals / food[key]).toFixed(2));
   }
-  while (curCalNutrientCals > food[key] * 2) {
+  // console.log(totalCals);
+  const checkTotal =
+    key === "protein_cals" ? (totalCals * 50) / 100 : (totalCals * 25) / 100;
+  let sumTotal =
+    amount * food.carbs_cals + amount * food.fat_cals + food.protein_cals;
+  while (curCalNutrientCals > food[key] * 2 && sumTotal < checkTotal) {
+    // console.log(
+    //   "sumTotal",
+    //   sumTotal,
+    //   food.food_name,
+    //   checkTotal,
+    //   "amount",
+    //   amount
+    // );
     curCalNutrientCals -= food[key];
     amount++;
+    sumTotal =
+      amount * food.carbs_cals + amount * food.fat_cals + food.protein_cals;
   }
-  return amount + Number((curCalNutrientCals / food[key]).toFixed());
+
+  return amount;
 };
 
 // Creates food for meal.
 export const createMealFood = (
   food: Food,
   mealNutrientsCals: number,
+  totalCals: number,
   nutrientTypeCalsKey: NutrientCalsType,
   mealID?: number
 ) => {
   const amountFood = getAmountOFfood(
     food,
     mealNutrientsCals,
+    totalCals,
     nutrientTypeCalsKey
   );
   return {
@@ -253,12 +272,12 @@ export const createMealFood = (
     amount: amountFood,
     meal_id: mealID,
     food_name: food.food_name,
-    proteins_cals: food.protein_cals * amountFood,
-    carbs_cals: food.carbs_cals * amountFood,
-    fats_cals: food.fat_cals * amountFood,
-    totalCals: food.calories_total * amountFood,
-    food_score: food.food_score,
-    food_density: food.food_density,
+    // proteins_cals: food.protein_cals * amountFood,
+    // carbs_cals: food.carbs_cals * amountFood,
+    // fats_cals: food.fat_cals * amountFood,
+    // totalCals: food.calories_total * amountFood,
+    // food_score: food.food_score,
+    // food_density: food.food_density,
   };
 };
 
@@ -297,9 +316,11 @@ export const countHowManyNutrientsFoodsDisqualify = (
 export const createMealFoodByNutrientAndDisqualifyByMeatAndMilk = (
   nutrientFoodsArr: Food[],
   mealNutrientsCals: number,
+  totalCals: number,
   nutrientTypeCalsKey: NutrientCalsType,
   mealID?: number,
   keepMeatAndMilkObj?: KeepMeatAndMilkObj,
+
   start = 0,
   amount = NUM_FOODS_IN_MEAL
 ) =>
@@ -315,6 +336,7 @@ export const createMealFoodByNutrientAndDisqualifyByMeatAndMilk = (
       const mealFood = createMealFood(
         food,
         mealNutrientsCals,
+        totalCals,
         nutrientTypeCalsKey,
         mealID
       );
@@ -334,18 +356,21 @@ export const createMealFoodsNutrients = (
     proteinsFoods: createMealFoodByNutrientWithMealID(
       chosenFoodsNutrientsArrObj.proteinsChosenFoods,
       "protein_cals",
-      mealNutrientsCals.mealProteinsTotalCals
+      mealNutrientsCals.mealProteinsTotalCals,
+      mealNutrientsCals.mealTotalCals
     ),
 
     fatsFoods: createMealFoodByNutrientWithMealID(
       chosenFoodsNutrientsArrObj.fatsChosenFoods,
       "fat_cals",
-      mealNutrientsCals.mealFatsTotalCals
+      mealNutrientsCals.mealFatsTotalCals,
+      mealNutrientsCals.mealTotalCals
     ),
     carbsFoods: createMealFoodByNutrientWithMealID(
       chosenFoodsNutrientsArrObj.carbsChosenFoods,
       "carbs_cals",
-      mealNutrientsCals.mealCarbsTotalCals
+      mealNutrientsCals.mealCarbsTotalCals,
+      mealNutrientsCals.mealTotalCals
     ),
   };
   return mealFoodsNutrients;
@@ -426,18 +451,21 @@ export const createMoreMealFoodsNutrientsForEachDisqualifiedFood = (
     proteinsFoods: createMealFoodByNutrientWithMealID(
       proteinsChosenFoodsFilterByKosherType,
       "protein_cals",
-      mealNutrientsCals.mealProteinsTotalCals
+      mealNutrientsCals.mealProteinsTotalCals,
+      mealNutrientsCals.mealTotalCals
     ),
 
     fatsFoods: createMealFoodByNutrientWithMealID(
       fatsChosenFoodsFilterByKosherType,
       "fat_cals",
-      mealNutrientsCals.mealFatsTotalCals
+      mealNutrientsCals.mealFatsTotalCals,
+      mealNutrientsCals.mealTotalCals
     ),
     carbsFoods: createMealFoodByNutrientWithMealID(
       carbsChosenFoodsFilterByKosherType,
       "carbs_cals",
-      mealNutrientsCals.mealCarbsTotalCals
+      mealNutrientsCals.mealCarbsTotalCals,
+      mealNutrientsCals.mealTotalCals
     ),
   };
   mealFoodsNutrients.proteinsFoods.push(

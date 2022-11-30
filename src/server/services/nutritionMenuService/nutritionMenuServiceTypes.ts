@@ -80,5 +80,6 @@ export interface MealNutrientsFoodsObj {
 export type CreateMealFoodByNutrientWithMealIDFun = (
   nutrientFoodsArr: Food[],
   nutrientTypeCalsKey: NutrientCalsType,
-  mealNutrientsCals: number
+  mealNutrientsCals: number,
+  totalCals: number
 ) => MealFood[];

@@ -95,11 +95,13 @@ export const createNutritionMenu = async (
         const createMealFoodByNutrientAndDisqualifyByMeatAndMilkWithMealID = (
           nutrientFoodsArr: Food[],
           nutrientTypeCalsKey: NutrientCalsType,
-          mealNutrientsCals: number
+          mealNutrientsCals: number,
+          totalCals: number
         ) =>
           createMealFoodByNutrientAndDisqualifyByMeatAndMilk(
             nutrientFoodsArr,
             mealNutrientsCals,
+            totalCals,
             nutrientTypeCalsKey,
             mealInsertRes.meal_id,
             isKeepMeatMilk ? keepMeatAndMilkObj : undefined,
