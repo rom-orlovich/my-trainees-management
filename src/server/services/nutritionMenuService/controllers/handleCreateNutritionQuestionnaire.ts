@@ -1,4 +1,4 @@
-import { DEVIATION_NUMBER_PERCENTS } from "./constants";
+import { DEVIATION_NUMBER_PERCENTS } from "../constants";
 
 export const handleCreateNutritionQuestionnaire = (defaultMealNum = 3) => {
   // const defaultMealNum =

@@ -1,10 +1,10 @@
 import { RequestHandler } from "express";
-import { deleteQuery } from "../../PGSql/simpleSqlQueries";
-import { newDate } from "../../utilities/helpers";
-import { TABLES_DATA } from "../../utilities/tableDataSQL";
-import { createLogAlertInfo } from "../alertsService/handleAlerts";
-import { createNutritionMenu } from "./createNutritionMenu";
-import { NutritionQuestionnaire } from "./nutritionMenuServiceTypes";
+import { deleteQuery } from "../../../PGSql/simpleSqlQueries";
+import { newDate } from "../../../utilities/helpers";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
+import { createLogAlertInfo } from "../../alertsService/handleAlerts";
+import { createNutritionMenu } from "../utilities/createNutritionMenu";
+import { NutritionQuestionnaire } from "../nutritionMenuServiceTypes";
 
 export const nutritionQuestionnaires: NutritionQuestionnaire = {
   user_id: 2,

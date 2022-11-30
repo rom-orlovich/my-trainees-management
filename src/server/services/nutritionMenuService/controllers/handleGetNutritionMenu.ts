@@ -1,11 +1,10 @@
 import { RequestHandler } from "express";
-import { client } from "../../PGSql/DBConnectConfig";
+import { client } from "../../../PGSql/DBConnectConfig";
 
-import { API_ROUTES } from "../apiRoutesConstants";
-import { ErrorCustomizes } from "../errorsService/errorsService";
+import { ErrorCustomizes } from "../../errorsService/errorsService";
 
 import { logAlert } from "./handleGenerateNutritionMenu";
-import { WITH_CLAUSE_GET_NUTRITION_MENU } from "./helpersDB";
+import { WITH_CLAUSE_GET_NUTRITION_MENU } from "../utilities/helpersDB";
 
 export const handleGetNutritionMenu: RequestHandler = async (
   req,

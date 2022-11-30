@@ -1,18 +1,22 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 import { shuffle, sortBy } from "lodash";
-import { selectQuery } from "../../PGSql/simpleSqlQueries";
-import { TABLES_DATA } from "../../utilities/tableDataSQL";
-import { filterArrObjBy, fixNum, sortArrObjBy } from "../../utilities/helpers";
-import { GenericRecord } from "../../utilities/types";
+import { selectQuery } from "../../../PGSql/simpleSqlQueries";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
+import {
+  filterArrObjBy,
+  fixNum,
+  sortArrObjBy,
+} from "../../../utilities/helpers";
+import { GenericRecord } from "../../../utilities/types";
 import {
   Food,
   KosherType,
   KosherTypeWithoutPareve,
   NutritionType,
-} from "../foodsDataScraperService/foodsDataScraperServiceTypes";
-import { MeasuresCalResAPI } from "../statisticService/serviceStatisticsTypes";
-import { NUM_FOODS_FOR_EACH_NUTRIENTS, NUM_FOODS_IN_MEAL } from "./constants";
+} from "../../foodsDataScraperService/foodsDataScraperServiceTypes";
+import { MeasuresCalResAPI } from "../../statisticService/serviceStatisticsTypes";
+import { NUM_FOODS_FOR_EACH_NUTRIENTS, NUM_FOODS_IN_MEAL } from "../constants";
 import {
   ChosenFoodsNutrientsArrObj,
   CreateMealFoodByNutrientWithMealIDFun,
@@ -23,7 +27,7 @@ import {
   NutrientCalsType,
   NutritionQuestionnaire,
   MealNutrientsFoodsObj,
-} from "./nutritionMenuServiceTypes";
+} from "../nutritionMenuServiceTypes";
 
 export const createMenuDescription = ({
   kosher,

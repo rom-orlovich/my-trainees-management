@@ -27,8 +27,8 @@ import {
   traineesOptionsCRUD,
 } from "./configRoutes";
 import { createCRUDroutes } from "./createCRUDroutes";
-import { handleGenerateNutritionMenu } from "../../nutritionMenuService/handleGenerateNutritionMenu";
-import { handleGetNutritionMenu } from "../../nutritionMenuService/handleGetNutritionMenu";
+import { handleGenerateNutritionMenu } from "../../nutritionMenuService/controllers/handleGenerateNutritionMenu";
+import { handleGetNutritionMenu } from "../../nutritionMenuService/controllers/handleGetNutritionMenu";
 
 export const createMeasuresRouter = () => {
   const {

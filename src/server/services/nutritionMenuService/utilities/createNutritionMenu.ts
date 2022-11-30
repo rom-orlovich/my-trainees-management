@@ -3,13 +3,13 @@
 /* eslint-disable camelcase */
 /* eslint-disable import/first */
 
-import { client } from "../../PGSql/DBConnectConfig";
-import { insertQueryOneItem } from "../../PGSql/simpleSqlQueries";
-import { TABLES_DATA } from "../../utilities/tableDataSQL";
-import { Food } from "../foodsDataScraperService/foodsDataScraperServiceTypes";
+import { client } from "../../../PGSql/DBConnectConfig";
+import { insertQueryOneItem } from "../../../PGSql/simpleSqlQueries";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
+import { Food } from "../../foodsDataScraperService/foodsDataScraperServiceTypes";
 
-import { loggerJson } from "../loggerService/logger";
-import { NUM_FOODS_IN_MEAL } from "./constants";
+import { loggerJson } from "../../loggerService/logger";
+import { NUM_FOODS_IN_MEAL } from "../constants";
 
 import {
   createChosenFoodsNutrientsArr,
@@ -25,7 +25,7 @@ import {
   Meal,
   NutrientCalsType,
   NutritionQuestionnaire,
-} from "./nutritionMenuServiceTypes";
+} from "../nutritionMenuServiceTypes";
 
 export const createNutritionMenu = async (
   nutritionMenuID: number,

@@ -1,7 +1,10 @@
 import { readFileSync } from "fs";
-import { insertMany, insertQueryOneItem } from "../../PGSql/simpleSqlQueries";
-import { NUTRITION_MENU_WITH_QUERY_FILE_PATH } from "../../utilities/serverConstants";
-import { TABLES_DATA } from "../../utilities/tableDataSQL";
+import {
+  insertMany,
+  insertQueryOneItem,
+} from "../../../PGSql/simpleSqlQueries";
+import { NUTRITION_MENU_WITH_QUERY_FILE_PATH } from "../../../utilities/serverConstants";
+import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { createMenuDescription } from "./helpersCreateNutritionMenu";
 import {
   MealFood,
@@ -10,7 +13,7 @@ import {
   NutritionMenu,
   NutritionMenusMeals,
   NutritionQuestionnaire,
-} from "./nutritionMenuServiceTypes";
+} from "../nutritionMenuServiceTypes";
 
 export const insertNewNutritionMenuToDB = async (
   nutritionQuestionnaire: NutritionQuestionnaire
