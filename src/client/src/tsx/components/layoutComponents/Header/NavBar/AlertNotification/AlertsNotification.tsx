@@ -43,7 +43,7 @@ function DropDownLiAlert(
   };
   const username = useGetUserLoginData().authState.user?.username;
 
-  const messageAlert = props.data.alert_message.includes("Login")
+  const messageAlert = props.data?.alert_message?.includes("Login")
     ? `Welcome back, ${username}!  `
     : props.data.alert_message;
   return (

@@ -14,4 +14,7 @@
       }
     }
   }
+  @include classMatcher("Page_page_main_content") {
+    overflow-y: scroll;
+  }
 }

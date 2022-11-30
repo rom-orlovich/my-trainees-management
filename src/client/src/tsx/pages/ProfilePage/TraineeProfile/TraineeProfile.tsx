@@ -23,7 +23,6 @@ export type TraineeProfileProps = PropsBasic & {
 function TraineeProfile() {
   const { isTrainee, traineeID, userID, profileID } = useGetUserTraineeData();
 
-  console.log(profileID);
   const queryOptions = isTrainee
     ? { traineeID, userID }
     : { traineeID, trainerUserID: userID, profileID };

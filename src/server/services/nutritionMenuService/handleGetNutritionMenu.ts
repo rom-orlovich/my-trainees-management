@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { client } from "../../PGSql/DBConnectConfig";
 
 import { API_ROUTES } from "../apiRoutesConstants";
+import { ErrorCustomizes } from "../errorsService/errorsService";
 
 import { logAlert } from "./handleGenerateNutritionMenu";
 import { WITH_CLAUSE_GET_NUTRITION_MENU } from "./helpersDB";
@@ -27,27 +28,20 @@ export const handleGetNutritionMenu: RequestHandler = async (
       [nutritionMenuID]
     );
 
-    if (nutritionMenuRes.rows.length)
-      req.logAlertInfo = logAlert(
-        {
-          data: nutritionMenuRes.rows[nutritionMenuRes.rows.length - 1],
-          message: `${API_ROUTES.NUTRITION_MENU_ENTITY} was found successfully`,
-        },
-        undefined,
-        "get",
-        true
+    if (!nutritionMenuRes.rows.length)
+      return next(
+        new ErrorCustomizes({ message: "No nutrition menu is found" }, "get")
       );
-    else {
-      req.logAlertInfo = logAlert(
-        {
-          data: nutritionMenuRes.rows[nutritionMenuRes.rows.length - 1],
-          message: `${API_ROUTES.NUTRITION_MENU_ENTITY} wasn't found`,
-        },
-        undefined,
-        "get",
-        true
-      );
-    }
+
+    // req.logAlertInfo = logAlert(
+    //   {
+    //     data: nutritionMenuRes.rows[nutritionMenuRes.rows.length - 1],
+    //   },
+    //   undefined,
+    //   "get",
+    //   true
+    // );
+    return res.status(200).json(nutritionMenuRes.rows[0]);
   } catch (error) {
     console.log(error);
     req.logAlertInfo = logAlert(undefined, error as Error, "get", true);

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { useParams } from "react-router-dom";
 import style from "../Page.module.scss";
 
@@ -7,10 +5,13 @@ import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 import { genClassName } from "../../utilities/helpersFun";
 import nutritionMenusPageStyle from "./NutritionMenuPage.module.scss";
 import { nutritionMenuApi } from "../../redux/api/hooksAPI";
-import MealsList from "./MealsList";
+import MealsList from "./MealList/MealsContainer";
+import { useAppDispatch } from "../../redux/hooks";
+import { API_ROUTES } from "../../redux/api/interfaceAPI";
 
 function NutritionMenuPage() {
-  const { traineeID, profileID, userID } = useGetUserTraineeData();
+  const dispatch = useAppDispatch();
+  const { userID } = useGetUserTraineeData();
   const nutritionMenuID = Number(useParams().id);
   // const { trainerUserID } = useGetUserTraineeData();
   const [trigger, data] = nutritionMenuApi.useLazyGetGenerateMenuQuery();
@@ -19,7 +20,6 @@ function NutritionMenuPage() {
     id: nutritionMenuID,
   };
 
-  console.log(data);
   return (
     <section
       className={genClassName(
@@ -28,29 +28,22 @@ function NutritionMenuPage() {
       )}
     >
       <div className={style.page_header}>
-        {/* <AutocompleteInput<NutritionMenuTableApi>
-          keys={["note_topic"]}
-          id={"nutrition_menu_id"}
-          loadingSpinnerResult={{ nameData: NUTRITION_MENU_NAME_DATA }}
-          setSelectOptionValue={setNutritionMenu}
-          queriesOptions={queriesOptions}
-          useGetData={nutritionMenusListApi.useGetItemsQuery}
-          InputLabelProps={{
-            InputProps: { placeholder: NUTRITION_MENU_NAME_DATA },
-            LabelProps: {
-              labelText: "Search Nutrition Menu",
-              htmlFor: "searchNutritionMenu",
-            },
-          }}
-        /> */}
-
         <span>
           {
             <button
               onClick={() => {
                 trigger(queriesOptions)
                   .unwrap()
-                  .then(console.log)
+                  .then(() => {
+                    dispatch(
+                      nutritionMenuApi.util.invalidateTags([
+                        {
+                          type: API_ROUTES.NUTRITION_MENU_ENTITY,
+                          id: nutritionMenuID,
+                        },
+                      ])
+                    );
+                  })
                   .catch(console.log);
               }}
             >
@@ -61,7 +54,6 @@ function NutritionMenuPage() {
       </div>
       <div className={style.page_main_content}>
         <MealsList queriesOptions={queriesOptions} />
-        {/* <NutritionMenusTable queriesOptions={queriesOptions} /> */}
       </div>
     </section>
   );

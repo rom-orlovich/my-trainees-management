@@ -138,16 +138,13 @@ export const nutritionMenuApi = apiCreateCRUDHooks<NutritionMenuAPI>({
   reducerPath: "nutritionMenuApi",
   baseUrl: API_ROUTES.NUTRITION_MENU_ROUTE,
   singleEntityName: API_ROUTES.NUTRITION_MENU_ENTITY,
-  listId: "nutrition_menu",
+  listId: "nutrition_menu_list",
 }).injectEndpoints({
   endpoints: (builder) => ({
     getGenerateMenu: builder.query<any, { id: number }>({
       query: (params) => ({
         url: `/${API_ROUTES.NUTRITION_MENU_GENERATE}/${params.id}`,
         params,
-        invalidatesTags: [
-          { type: API_ROUTES.NUTRITION_MENU_ENTITY, id: "nutrition_menu" },
-        ],
       }),
     }),
   }),

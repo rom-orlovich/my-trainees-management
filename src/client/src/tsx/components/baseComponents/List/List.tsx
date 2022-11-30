@@ -14,7 +14,8 @@ function List<T extends Record<string, any>>({
 }: ListProps<T> & {
   insertChildLast?: boolean;
 }) {
-  if (!dataArr[0]) return <> </>;
+  if (!dataArr) return <> </>;
+  if (dataArr && !dataArr[0]) return <> </>;
 
   const keys = getKeysArrObj(dataArr[0]);
   const key = keys[0] + keys[1];
