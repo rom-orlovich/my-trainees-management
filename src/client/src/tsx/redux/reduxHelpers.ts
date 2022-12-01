@@ -1,15 +1,14 @@
 import { getValuesArrObj } from "../utilities/helpersFun";
 
-export const providerTag = <T extends object>(obj: T, itemTag: string) => {
-  console.log({
+export const providerTag = <T extends object>(obj: T, itemTag: string) =>
+  // console.log({
+  //   type: itemTag,
+  //   id: getValuesArrObj(obj)[0],
+  // });
+  ({
     type: itemTag,
     id: getValuesArrObj(obj)[0],
   });
-  return {
-    type: itemTag,
-    id: getValuesArrObj(obj)[0],
-  };
-};
 
 export function providerTags<T extends object>(
   data: T[] | undefined,

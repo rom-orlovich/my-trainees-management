@@ -5,6 +5,7 @@ import { APP_ROUTE } from "../../../../../routes/appRoutesConstants";
 import ListProfile from "../../../ListProfile/ListProfile";
 import { TraineeProfileProps } from "../../TraineeProfile";
 import { NUTRITION_MENUS_LIST_NAME } from "../ProgramsList";
+import NutritionMenuLi from "./NutritionMenuLi";
 
 function NutritionMenuList({ queryOptions }: TraineeProfileProps) {
   const nutritionMenusListPageLink = `/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}?profileID=${queryOptions?.profileID}`;
@@ -15,10 +16,7 @@ function NutritionMenuList({ queryOptions }: TraineeProfileProps) {
           {NUTRITION_MENUS_LIST_NAME} Page
         </Link>
       }
-      LI={(data) => {
-        console.log(data);
-        return <></>;
-      }}
+      LI={NutritionMenuLi}
       useQuery={nutritionMenusListApi.useGetItemsQuery}
       heading={NUTRITION_MENUS_LIST_NAME}
       queryOptions={queryOptions}
