@@ -8,7 +8,7 @@ import { closeModel } from "../../../redux/slices/modelControllerSlice";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
-import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
+import Checkbox from "../../baseComponents/RHF-Components/CheckBoxGroup/Checkbox";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { participantsGroupListSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";

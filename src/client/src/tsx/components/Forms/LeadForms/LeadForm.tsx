@@ -15,7 +15,7 @@ import {
   LocationsGetRes,
 } from "../../../redux/api/interfaceAPI";
 
-import Checkbox from "../../baseComponents/RHF-Components/Checkbox";
+import Checkbox from "../../baseComponents/RHF-Components/CheckBoxGroup/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 

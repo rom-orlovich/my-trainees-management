@@ -1,6 +1,6 @@
 @use "../../../../../style//utilities/utilities.scss" as *;
 .select_plus_button {
-  @include posAbs(43%, null, 0%, null);
+  @include posAbs(40%, null, 0%, null);
 
   a {
     margin-bottom: 0.3rem;

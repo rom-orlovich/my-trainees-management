@@ -4,7 +4,10 @@
   position: relative;
   @include flex-dir(null, null);
   max-width: 50%;
-  span[class*="input_label"],
+  label {
+    width: 100%;
+  }
+  label[class*="input_label"],
   .list_res {
     max-width: 100%;
   }
@@ -56,15 +59,15 @@
     }
   }
 
-  .select_plus_button {
-    @include posAbs(43%, null, 0%, null);
+  // .select_plus_button {
+  //   @include posAbs(41%, null, 0%, null);
 
-    a {
-      margin-bottom: 0.3rem;
-      font-size: 2rem;
-      color: rgb(89, 89, 228);
-    }
-  }
+  //   a {
+  //     margin-bottom: 0.3rem;
+  //     font-size: 2rem;
+  //     color: rgb(89, 89, 228);
+  //   }
+  // }
 }
 @include smartphone() {
   .autocomplete_container {

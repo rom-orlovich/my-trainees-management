@@ -20,25 +20,25 @@ function ModelController() {
   let content = <></>;
   if (modelControllerState.lastModel === "meeting")
     content = <ModelMeetingContent />;
-  if (modelControllerState.lastModel === "participantsGroupsListForm")
+  else if (modelControllerState.lastModel === "participantsGroupsListForm")
     content = <ModelParticipantsGroupListFormContent />;
-  if (modelControllerState.lastModel === "participantForm")
+  else if (modelControllerState.lastModel === "participantForm")
     content = <ModelParticipantsGroupFormContent />;
-  if (modelControllerState?.lastModel === "activityForm")
+  else if (modelControllerState?.lastModel === "activityForm")
     content = <ModelActivityFormContent />;
-  if (modelControllerState?.lastModel === "locationForm")
+  else if (modelControllerState?.lastModel === "locationForm")
     content = <ModelLocationFormContent />;
-  if (modelControllerState?.lastModel === "cityForm")
+  else if (modelControllerState?.lastModel === "cityForm")
     content = <ModelCityFormContent />;
-  if (modelControllerState?.lastModel === "productForm")
+  else if (modelControllerState?.lastModel === "productForm")
     content = <ModelProductFormContent />;
-  if (modelControllerState?.lastModel === "exerciseForm")
+  else if (modelControllerState?.lastModel === "exerciseForm")
     content = <ModelExerciseFormContent />;
-  if (modelControllerState?.lastModel === "muscleGroupForm")
+  else if (modelControllerState?.lastModel === "muscleGroupForm")
     content = <ModelMuscleGroupFormContent />;
-  if (modelControllerState?.lastModel === "equipmentForm")
+  else if (modelControllerState?.lastModel === "equipmentForm")
     content = <ModelEquipmentFormContent />;
-  if (modelControllerState?.lastModel === "subscriptionPlansForm")
+  else if (modelControllerState?.lastModel === "subscriptionPlansForm")
     content = <ModelSubscriptionPlansFormContent />;
   else content = <></>;
 

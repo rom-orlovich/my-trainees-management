@@ -1,6 +1,9 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { genClassName } from "../../../../utilities/helpersFun";
 import { PropsBasic } from "../../baseComponentsTypes";
+import InputIcon, { InputIconProps } from "../InputIcon/InputIcon";
+import { LabelProps } from "../InputLabel/InputLabel";
 
 import style from "./SelectInput.module.scss";
 
@@ -14,14 +17,8 @@ interface SelectInputProps {
     React.SelectHTMLAttributes<HTMLSelectElement>,
     HTMLSelectElement
   >;
-  LabelProps: React.DetailedHTMLProps<
-    React.LabelHTMLAttributes<HTMLLabelElement>,
-    HTMLLabelElement
-  > & { labelText: string };
-  addOption?: {
-    link: string;
-    saveState?: () => void;
-  };
+  LabelProps: LabelProps;
+  inputIconProps?: InputIconProps;
   options: Option[];
 }
 
@@ -30,30 +27,24 @@ export function SelectInput({
   LabelProps: { htmlFor, labelText, ...LabelProps },
   options,
   children,
-  addOption,
+  inputIconProps,
 }: SelectInputProps & PropsBasic) {
   return (
-    <span className={"selectInput_label"}>
-      {labelText && (
-        <label htmlFor={htmlFor} {...LabelProps}>
-          {labelText}
-        </label>
-      )}
-      <span className={style.select_plus_button}>
-        <select ref={ref} id={htmlFor} name={htmlFor} {...selectProps}>
-          {options.map(({ label, value }, i) => (
-            <option key={`${label}+${value}${i}`} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-        {addOption ? (
-          <Link to={addOption.link}>{<AiOutlinePlusCircle />} </Link>
-        ) : (
-          <> </>
-        )}
-      </span>
+    <label
+      htmlFor={htmlFor}
+      {...LabelProps}
+      className={genClassName(style.selectInput_label, LabelProps.className)}
+    >
+      {labelText}
+      <select ref={ref} id={htmlFor} name={htmlFor} {...selectProps}>
+        {options.map(({ label, value }, i) => (
+          <option key={`${label}+${value}${i}`} value={value}>
+            {label}
+          </option>
+        ))}
+      </select>
+      {inputIconProps && <InputIcon {...inputIconProps} />}
       {children}
-    </span>
+    </label>
   );
 }

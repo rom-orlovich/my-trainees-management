@@ -3,7 +3,7 @@
   @include classMatcher("page_header") {
     padding: 0 0.5rem 0 2rem;
     .add_change_display_container {
-      width: 35%;
+      width: 25%;
       @include flex-dir(space-between, center);
 
       @include classMatcher("selectInput") {

@@ -69,7 +69,7 @@ function FinancesPage() {
 
         <span className={style.add_change_display_container}>
           <SelectInput
-            LabelProps={{ labelText: "Display", htmlFor: "display" }}
+            LabelProps={{ labelText: "", htmlFor: "display" }}
             selectProps={{ onChange, defaultValue: display }}
             options={displayOptions}
           />

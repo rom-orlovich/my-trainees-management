@@ -2,4 +2,8 @@
 
 .wrapper {
   position: relative;
+
+  font-weight: 500;
+
+  @include flex-dir(null, null, column);
 }

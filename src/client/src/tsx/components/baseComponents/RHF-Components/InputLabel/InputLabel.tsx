@@ -37,16 +37,19 @@ export function InputLabel({
   inputIconProps,
 }: InputLabelProps & { className?: string }) {
   return (
-    <span
+    // <span>
+    <label
+      {...LabelProps}
       className={genClassName(
         TextAreaProps ? `textarea_label` : `input_label`,
+        LabelProps.className,
         style.wrapper,
         className
       )}
+      htmlFor={htmlFor}
     >
-      <label {...LabelProps} htmlFor={htmlFor}>
-        {labelText}
-      </label>
+      {labelText}
+
       {TextAreaProps ? (
         <textarea
           ref={TextAreaProps.ref}
@@ -66,6 +69,8 @@ export function InputLabel({
       )}
       {inputIconProps && <InputIcon {...inputIconProps} />}
       {children}
-    </span>
+    </label>
+
+    // </span>
   );
 }
