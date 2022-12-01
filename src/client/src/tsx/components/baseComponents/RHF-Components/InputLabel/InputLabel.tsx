@@ -5,22 +5,24 @@ import { IconOption } from "../AutocompleteInput/AutocompleteInput";
 import InputIcon, { InputIconProps } from "../InputIcon/InputIcon";
 import style from "./InputLabel.module.scss";
 
+export type InputProps = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
+export type LabelProps = React.DetailedHTMLProps<
+  React.LabelHTMLAttributes<HTMLLabelElement>,
+  HTMLLabelElement
+> & { labelText: string };
 export interface InputLabelProps {
   TextAreaProps?: React.DetailedHTMLProps<
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     HTMLTextAreaElement
   >;
   // & { isError?: boolean };
-  InputProps?: React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >;
+  InputProps?: InputProps;
   // &
   // { isError?: boolean };
-  LabelProps: React.DetailedHTMLProps<
-    React.LabelHTMLAttributes<HTMLLabelElement>,
-    HTMLLabelElement
-  > & { labelText: string };
+  LabelProps: LabelProps;
   children?: React.ReactNode;
 
   inputIconProps?: InputIconProps;
