@@ -1,77 +1,7 @@
 import { OmitKey, PickKey } from "../../types";
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-vars */
 
 // All the endpoints and the entities names.
-export enum API_ROUTES {
-  API_AUTH_ROUTE = "/api/auth",
-  SIGN_UP_ROUTE = "/signup",
-  EMAIL_VERIFY_ROUTE = "/email/verify",
-  LOGIN_ROUTE = "/login",
-  REGISTER_TRAINEE_ROUTE = "/register/trainee",
-  REFRESH_TOKEN_ROUTE = "/token/refresh",
-  LOGOUT_ROUTE = "/logout",
-  RESEND_EMAIL_ROUTE = "resendEmail",
-  USERS_ROUTE = "/api/users",
-  CHANGE_USER_CRED_ROUTE = "/credentials/change",
-  USER_ENTITY = "user",
-  ALERTS_ROUTE = "/api/alerts",
-  ALERTS_ENTITY = "alert",
-  LEADS_ROUTE = "/api/leads",
-  LEADS_ENTITY = "lead",
-  MUSCLES_GROUP_ROUTE = "/api/musclesGroups",
-  MUSCLES_GROUP_ENTITY = "musclesGroup",
-  CITIES_ROUTE = "/api/cities",
-  CITIES_ENTITY = "city",
-  LOCATIONS_ROUTE = "/api/locations",
-  LOCATIONS_ENTITY = "location",
-  PROVIDERS_ROUTE = "/api/providers",
-  PROVIDERS_ENTITY = "provider",
-  WEEKS_ROUTE = "/api/weeks",
-  WEEKS_ENTITY = "week",
 
-  EQUIPMENTS_ROUTE = "/api/equipments",
-  EQUIPMENTS_ENTITY = "equipment",
-  EXERCISES_ROUTE = "/api/exercises",
-  EXERCISES_ENTITY = "exercise",
-  TRAINING_PROGRAMS_LIST_ROUTE = "/api/trainingProgramsList",
-  TRAINING_PROGRAMS_LIST_ENTITY = "trainingProgramList",
-  TRAINING_PROGRAMS_ROUTE = "/api/trainingPrograms",
-  EXERCISES_STATS_ROUTE = "/api/trainingPrograms",
-  TRAINING_PROGRAMS_ENTITY = "exercise",
-
-  NUTRITION_MENUS_LIST_ROUTE = "/api/nutritionMenusList",
-  NUTRITION_MENUS_LIST_ENTITY = "nutritionMenuList",
-
-  NUTRITION_MENU_ROUTE = "/api/nutritionMenu",
-  NUTRITION_MENU_ENTITY = "nutritionMenu",
-  NUTRITION_MENU_GENERATE = "generateMenu",
-
-  MEASURES_ROUTE = "/api/measures",
-  MEASURE_ENTITY = "measure",
-  TRAINEES_ROUTE = "/api/trainees",
-  TRAINEES_ENTITY = "trainee",
-  SUBSCRIPTION_PLANS_ROUTE = "/api/subscriptionPlans",
-  SUBSCRIPTION_PLANS_ENTITY = "subscription",
-  INCOMES_ROUTE = "/api/incomes",
-  INCOMES_ENTITY = "income",
-  EXPENSES_ROUTE = "/api/expenses",
-  EXPENSES_ENTITY = "expense",
-  FINANCES_ROUTE = "/api/finances",
-  FINANCES_ENTITY = "finance",
-  PRODUCTS_ROUTE = "/api/products",
-
-  PRODUCT_ENTITY = "product",
-  ACTIVITIES_ROUTE = "/api/activities",
-  ACTIVITIES_ENTITY = "activity",
-  MEETINGS_ROUTE = "/api/meetings",
-  MEETINGS_ENTITY = "meeting",
-  PARTICIPANTS_GROUP_ROUTE = "/api/participantsGroup",
-  PARTICIPANTS_GROUP_ENTITY = "participantsGroup",
-  PARTICIPANTS_GROUPS_LIST_ROUTE = "/api/participantsGroupsList",
-  PARTICIPANTS_GROUPS_LIST_ENTITY = "participantsGroupsList",
-}
 export interface PayloadAPI<T> {
   id: number;
   payload: T;
@@ -478,4 +408,21 @@ export interface NutritionMenuAPI {
   message: string;
   nutrition_menu_id: number;
   meals: MealDetails[];
+}
+export type DietTypes = "cutting" | "bulking" | "neutral";
+export interface NutritionQuestionnaire {
+  nutrition_questionnaire_id?: number;
+  user_id: number;
+  allergens: string[];
+  black_list_foods: number[];
+  favorite_foods: number[];
+  profile_id: number;
+  day_start: Date;
+  day_end: Date;
+  kosher: boolean;
+  is_vegan: boolean;
+  is_vegetarian: boolean;
+  isKeepMeatMilk: boolean;
+  diet_type: DietTypes;
+  meals_dist_percents: number[];
 }

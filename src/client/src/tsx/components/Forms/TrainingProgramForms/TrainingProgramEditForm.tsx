@@ -1,14 +1,12 @@
 /* eslint-disable camelcase */
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import { API_ROUTES } from "../../../redux/api/apiRoutes";
 import {
   trainingProgramsApi,
   trainingProgramsListApi,
 } from "../../../redux/api/hooksAPI";
-import {
-  API_ROUTES,
-  TrainingProgramExerciseOmit,
-} from "../../../redux/api/interfaceAPI";
+import { TrainingProgramExerciseOmit } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";

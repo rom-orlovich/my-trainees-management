@@ -1,0 +1,15 @@
+@use "../../../../../style//utilities/utilities.scss" as *;
+.select_plus_button {
+  @include posAbs(43%, null, 0%, null);
+
+  a {
+    margin-bottom: 0.3rem;
+    font-size: 2rem;
+    color: rgb(89, 89, 228);
+  }
+}
+@include smartphone() {
+  .select_plus_button {
+    @include posAbs(40%, null, 0%, null);
+  }
+}

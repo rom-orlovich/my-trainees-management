@@ -14,7 +14,11 @@ export type ModelDisplayContentOptions =
   | "exerciseForm"
   | "equipmentForm"
   | "muscleGroupForm"
-  | "subscriptionPlansForm";
+  | "subscriptionPlansForm"
+  | "allergensList"
+  | "mealsDistPercents"
+  | "favoriteFoods"
+  | "blackListFoods";
 export interface ModelControllerState {
   displayContent: ModelDisplayContentOptions[];
   isModelOpen: boolean;

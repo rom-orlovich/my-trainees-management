@@ -40,6 +40,7 @@ function ModelController() {
     content = <ModelEquipmentFormContent />;
   if (modelControllerState?.lastModel === "subscriptionPlansForm")
     content = <ModelSubscriptionPlansFormContent />;
+  else content = <></>;
 
   return <ModelCard>{content}</ModelCard>;
 }

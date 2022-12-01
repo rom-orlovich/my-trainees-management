@@ -7,7 +7,7 @@ import nutritionMenusPageStyle from "./NutritionMenuPage.module.scss";
 import { nutritionMenuApi } from "../../redux/api/hooksAPI";
 import MealsList from "./MealList/MealsContainer";
 import { useAppDispatch } from "../../redux/hooks";
-import { API_ROUTES } from "../../redux/api/interfaceAPI";
+import { API_ROUTES } from "../../redux/api/apiRoutes";
 
 function NutritionMenuPage() {
   const dispatch = useAppDispatch();

@@ -1,6 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import React from "react";
 import { genClassName } from "../../../../utilities/helpersFun";
+import { IconOption } from "../AutocompleteInput/AutocompleteInput";
+import InputIcon, { InputIconProps } from "../InputIcon/InputIcon";
 import style from "./InputLabel.module.scss";
 
 export interface InputLabelProps {
@@ -20,6 +22,8 @@ export interface InputLabelProps {
     HTMLLabelElement
   > & { labelText: string };
   children?: React.ReactNode;
+
+  inputIconProps?: InputIconProps;
 }
 
 export function InputLabel({
@@ -28,11 +32,13 @@ export function InputLabel({
   LabelProps: { labelText, htmlFor, ...LabelProps },
   InputProps,
   children,
+  inputIconProps,
 }: InputLabelProps & { className?: string }) {
   return (
     <span
       className={genClassName(
-        TextAreaProps ? `textarea_label` : `input_label ${style.wrapper}`,
+        TextAreaProps ? `textarea_label` : `input_label`,
+        style.wrapper,
         className
       )}
     >
@@ -56,6 +62,7 @@ export function InputLabel({
       ) : (
         <></>
       )}
+      {inputIconProps && <InputIcon {...inputIconProps} />}
       {children}
     </span>
   );

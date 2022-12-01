@@ -7,7 +7,7 @@ import {
   getValuesArrObj,
 } from "../../../../utilities/helpersFun";
 import { ComponentProps, LiProps } from "../../baseComponentsTypes";
-import { EditOption } from "./AutocompleteInput";
+import { IconOption } from "./AutocompleteInput";
 
 export const createStrFromValuesOfChosenKeys = <T extends Record<string, any>>(
   obj: T,
@@ -30,7 +30,7 @@ function AutocompleteLi<T extends Record<string, any>>({
 }: { props: ComponentProps<T> } & {
   liProps?: LiProps;
 } & { handleOnClick: AnyFun } & { keys: (keyof T)[]; id: keyof T } & {
-  editOption?: EditOption;
+  editOption?: IconOption;
 }) {
   const nav = useNavigate();
   const obj = props as T;

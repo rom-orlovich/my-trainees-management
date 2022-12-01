@@ -10,7 +10,6 @@ import {
   LocationsGetRes,
   TraineesTableExtendsAPI,
   TrainingProgramExerciseTableAPI,
-  API_ROUTES,
   SubscriptionPlansAPI,
   LeadsTableAPI,
   TrainingProgramsListTableAPI,
@@ -35,6 +34,7 @@ import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
 import { providerTags } from "../reduxHelpers";
 import { baseQueryWithReauth } from "./apiReauthQuery";
 import { GenericRecord } from "../../types";
+import { API_ROUTES } from "./apiRoutes";
 
 export const usersApi = apiCreateCRUDHooks<User>({
   reducerPath: "usersApi",

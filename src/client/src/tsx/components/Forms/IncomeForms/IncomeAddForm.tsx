@@ -1,9 +1,10 @@
+import { API_ROUTES } from "../../../redux/api/apiRoutes";
 import {
   financesApi,
   incomesApi,
   subscriptionPlansApi,
 } from "../../../redux/api/hooksAPI";
-import { API_ROUTES, IncomesTableAPI } from "../../../redux/api/interfaceAPI";
+import { IncomesTableAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";

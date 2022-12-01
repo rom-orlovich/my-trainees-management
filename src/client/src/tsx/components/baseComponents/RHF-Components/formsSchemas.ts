@@ -1,5 +1,26 @@
 import * as yup from "yup";
 
+export const ALLERGENS_LIST = [
+  "גלוטן",
+  "סויה",
+  "שומשום",
+  "בוטנים",
+  "חיטה",
+  "אגוזים",
+  "ביצה",
+  "סולפיט",
+  " ",
+  "חלב",
+  "שקדים",
+  "אגוזי לוז",
+  "אגוזי פקאן",
+  "קוקוס",
+  "קשיו",
+  "לוז",
+  "פקאן",
+  "חרדל",
+  "סלרי",
+];
 export const musclesGroupSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable().default(1),
   muscles_group_id: yup.number().notRequired().nullable(),
@@ -120,6 +141,25 @@ export const nutritionMenusListSchema = yup.object().shape({
     .min(yup.ref("date_start"), "End date can't be before start date."),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
+});
+export const nutritionQuestionnaireSchema = yup.object().shape({
+  user_id: yup.number().notRequired().nullable(),
+  allergens: yup.array().of(yup.string().oneOf(ALLERGENS_LIST)),
+  black_list_foods: yup.array(),
+  favorite_foods: yup.array(),
+  profile_id: yup.number().required(),
+  date_start: yup.date().required(),
+  date_end: yup
+    .date()
+    .notRequired()
+    .nullable()
+    .min(yup.ref("date_start"), "End date can't be before start date."),
+  kosher: yup.boolean(),
+  is_vegan: yup.boolean(),
+  is_vegetarian: yup.boolean(),
+  isKeepMeatMilk: yup.boolean(),
+  diet_type: yup.string(),
+  meals_dist_percents: yup.array(),
 });
 
 export const measuresSchema = yup.object().shape({

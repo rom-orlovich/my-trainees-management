@@ -21,6 +21,7 @@ import { LiProps } from "../../baseComponentsTypes";
 
 import ListObserver from "../../List/ListObserver";
 import { LoadingSpinnerProps } from "../../LoadingSpinner/LoadingSpinner";
+import InputIcon from "../InputIcon/InputIcon";
 import { InputLabel, InputLabelProps } from "../InputLabel/InputLabel";
 import style from "./AutocompleteInput.module.scss";
 import AutocompleteLi, {
@@ -31,9 +32,9 @@ export interface AddOption {
   link?: string;
   onClick?: () => void;
 }
-export interface EditOption {
-  link?: string | ((id: any) => string);
-  onClick?: (id: any) => void;
+export interface IconOption {
+  link?: string | ((id?: any) => string);
+  onClick?: ((id?: any) => void) | (() => void);
 }
 export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   className?: string;
@@ -44,8 +45,8 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   keys?: (keyof T)[];
   id: keyof T;
 
-  addOption?: AddOption;
-  editOption?: EditOption;
+  addOption?: IconOption;
+  editOption?: IconOption;
   externalInputValueOnChange?: React.Dispatch<React.SetStateAction<string>>;
   useGetData: UseQuery<any>;
   setSelectOptionValue?: React.Dispatch<React.SetStateAction<string[]>>;
@@ -177,21 +178,8 @@ function AutocompleteInput<T extends Record<string, any>>({
           }}
         />
       )}
-      <span className={style.select_plus_button}>
-        {addOption ? (
-          <Link
-            onClick={(e) => {
-              e.preventDefault();
-              addOption?.onClick && addOption?.onClick();
-            }}
-            to={addOption.link || ""}
-          >
-            {<AiOutlinePlusCircle />}
-          </Link>
-        ) : (
-          <> </>
-        )}
-      </span>
+      <InputIcon IconEl={AiOutlinePlusCircle} option={addOption} />
+
       {children}
     </span>
   );

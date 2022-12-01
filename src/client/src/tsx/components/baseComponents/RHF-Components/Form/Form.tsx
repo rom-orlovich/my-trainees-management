@@ -23,6 +23,7 @@ import {
   getModelControllerState,
   preModel,
 } from "../../../../redux/slices/modelControllerSlice";
+import { genClassName } from "../../../../utilities/helpersFun";
 
 import { FormProps } from "../../baseComponentsTypes";
 import style from "./Form.module.scss";
@@ -42,6 +43,7 @@ export type FormRHFProps<TFormValues extends FieldValues> = {
   isLoginMode?: boolean;
   customButtonText?: string;
   modelMode?: boolean;
+  className?: string;
 };
 
 export default function Form<TFormValues extends Record<string, any>>({
@@ -58,6 +60,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   customButtonText,
   isLoginMode,
   modelMode,
+  className,
   saveState = true,
 }: FormRHFProps<TFormValues>) {
   const nav = useNavigate();
@@ -160,7 +163,7 @@ export default function Form<TFormValues extends Record<string, any>>({
   );
 
   return (
-    <div className={style.form_container}>
+    <div className={genClassName(style.form_container, className)}>
       <div className={style.heading}>
         <h2>
           {!heading ? `${editMode ? "Edit" : "Add"} ${nameForm}` : heading}

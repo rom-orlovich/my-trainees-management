@@ -22,11 +22,7 @@ import {
 import { useAppDispatch } from "../../../redux/hooks";
 import { openModel } from "../../../redux/slices/modelControllerSlice";
 
-import {
-  formatDate,
-  newDate,
-  setInputLocalDate,
-} from "../../../utilities/helpersFun";
+import { newDate, setInputLocalDate } from "../../../utilities/helpersFun";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 

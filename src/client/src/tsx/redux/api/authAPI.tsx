@@ -1,9 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import {
-  API_ROUTES,
-  ResponseMutationAuthAPI,
-  SignUpForm,
-} from "./interfaceAPI";
+import { API_ROUTES } from "./apiRoutes";
+import { ResponseMutationAuthAPI, SignUpForm } from "./interfaceAPI";
 
 export const apiAuthBaseQuery = fetchBaseQuery({
   baseUrl: API_ROUTES.API_AUTH_ROUTE,

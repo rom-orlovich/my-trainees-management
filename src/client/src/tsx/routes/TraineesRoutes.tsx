@@ -1,5 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { NutritionQuestionnaireAddForm } from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireAddForm";
+import { NutritionQuestionnaireForm } from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireForm";
 
 import TraineeAddForm from "../components/Forms/TraineeForms/TraineeAddForm";
 import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
@@ -12,9 +14,15 @@ const TraineesRoutes = () => (
     <Route path="" element={<TraineesPage />} />
     <Route path=":id">
       <Route index element={<TraineeEditForm />} />
-
-      <Route path={APP_ROUTE.PROFILE_ROUTE} element={<TraineeProfile />} />
-      <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE}></Route>
+      <Route
+        path={APP_ROUTE.PROFILE_ROUTE}
+        element={<TraineeProfile />}
+      ></Route>
+      <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE} />
+      <Route
+        path={`${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE}`}
+        element={<NutritionQuestionnaireAddForm />}
+      />
     </Route>
 
     <Route path={APP_ROUTE.TRAINEES_ROUTE_ADD} element={<TraineeAddForm />} />
