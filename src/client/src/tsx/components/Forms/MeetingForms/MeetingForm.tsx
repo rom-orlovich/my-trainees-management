@@ -22,7 +22,7 @@ import {
 import { useAppDispatch } from "../../../redux/hooks";
 import { openModel } from "../../../redux/slices/modelControllerSlice";
 
-import { newDate, setInputLocalDate } from "../../../utilities/helpersFun";
+import { addToDate, setInputLocalDate } from "../../../utilities/helpersFun";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
@@ -46,11 +46,11 @@ export function MeetingForm({
   const dateEnd = Number(queryParams.get("dateEnd"));
 
   const DateStart = setInputLocalDate(
-    newDate(defaultValues?.date_start || dateStart)
+    addToDate(defaultValues?.date_start || dateStart)
   );
 
   const DateEnd = setInputLocalDate(
-    newDate(defaultValues?.date_end || dateEnd)
+    addToDate(defaultValues?.date_end || dateEnd)
   );
 
   return (
@@ -88,7 +88,9 @@ export function MeetingForm({
 
               setValue(
                 "date_end",
-                setInputLocalDate(newDate(curStartDate, { minPlus: 45 })) as any
+                setInputLocalDate(
+                  addToDate(curStartDate, { minPlus: 45 })
+                ) as any
               );
             }
           }, [date_start, touchedFields.date_start]);

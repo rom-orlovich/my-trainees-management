@@ -25,9 +25,12 @@ function InputErrorMessage({ error, nameInput }: InputErrorMessageProps) {
   return (
     <>
       {error?.message && (
-        <p className="error_message" style={{ color: "red" }}>
-          {/* {messages[error.type || "default"]}
-           */}
+        <p
+          className="error_message"
+          style={{ color: "red", fontSize: "0.9rem" }}
+        >
+          {/* {messages[error.type || "default"]} */}
+
           {error.message}
         </p>
       )}

@@ -4,14 +4,14 @@ import { genClassName } from "../../../../utilities/helpersFun";
 
 import { InputLabel, InputProps, LabelProps } from "../InputLabel/InputLabel";
 
-import style from "./CheckboxGroup.module.scss";
+import style from "./RadioButtonsGroup.module.scss";
 
-export interface CheckBox {
+export interface RadioButtonProps {
   InputProps?: InputProps;
   LabelProps: LabelProps;
   register?: UseFormRegisterReturn<InternalFieldName>;
 }
-function Checkbox({ InputProps, LabelProps, register }: CheckBox) {
+function RadioButton({ InputProps, LabelProps, register }: RadioButtonProps) {
   return (
     <InputLabel
       LabelProps={{
@@ -23,11 +23,10 @@ function Checkbox({ InputProps, LabelProps, register }: CheckBox) {
         ref: register?.ref,
         name: register?.name,
         onChange: register?.onChange,
-
-        type: "checkbox",
+        type: "radio",
       }}
     />
   );
 }
 
-export default Checkbox;
+export default RadioButton;

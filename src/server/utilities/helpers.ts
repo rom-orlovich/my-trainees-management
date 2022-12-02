@@ -42,12 +42,12 @@ export function createObjKeysArr(obj: object) {
 }
 
 export const formatDate = (date: Date, plusDay = 1) => {
-  const newDate = new Date(date);
+  const addToDate = new Date(date);
 
   const formatted = new Date(
-    newDate.getTime() + Math.abs(newDate.getTimezoneOffset() * 60000)
+    addToDate.getTime() + Math.abs(addToDate.getTimezoneOffset() * 60000)
   );
-  formatted.setDate(newDate.getDate() + plusDay);
+  formatted.setDate(addToDate.getDate() + plusDay);
   return formatted.toLocaleDateString("en-CA");
 };
 
@@ -62,7 +62,7 @@ export interface AddToDate {
   minPlus?: number;
 }
 
-export const newDate = (date: Date | number | string, add?: AddToDate) => {
+export const addToDate = (date: Date | number | string, add?: AddToDate) => {
   const curDate = new Date(date);
   const year = curDate.getFullYear();
   const month = curDate.getMonth();

@@ -15,4 +15,10 @@
       height: 5rem;
     }
   }
+  .checkbox_group {
+    // width: 100%;
+    @include classMatcher("layout") {
+      // width: 100%;
+    }
+  }
 }

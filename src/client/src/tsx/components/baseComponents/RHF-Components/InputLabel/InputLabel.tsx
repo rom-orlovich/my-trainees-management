@@ -46,24 +46,13 @@ export function InputLabel({
         style.wrapper,
         className
       )}
-      htmlFor={htmlFor}
     >
       {labelText}
 
       {TextAreaProps ? (
-        <textarea
-          ref={TextAreaProps.ref}
-          id={htmlFor}
-          name={htmlFor}
-          {...TextAreaProps}
-        />
+        <textarea ref={TextAreaProps.ref} {...TextAreaProps} />
       ) : InputProps ? (
-        <input
-          ref={InputProps?.ref}
-          id={htmlFor}
-          name={htmlFor}
-          {...InputProps}
-        />
+        <input ref={InputProps?.ref} {...InputProps} />
       ) : (
         <></>
       )}

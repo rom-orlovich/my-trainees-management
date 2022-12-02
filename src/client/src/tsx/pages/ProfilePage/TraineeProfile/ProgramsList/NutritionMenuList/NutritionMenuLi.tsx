@@ -14,8 +14,7 @@ import listProfileStyle from "../../../ListProfile/ListProfile.module.scss";
 function NutritionMenuLi({
   nutrition_menu_id,
   note_topic,
-  profile_id,
-  user_id,
+
   date_start,
   date_end,
 }: NutritionMenuTableApi) {

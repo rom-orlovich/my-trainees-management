@@ -59,12 +59,8 @@ export function ParticipantsGroupsListForm({
               <Checkbox
                 LabelProps={{ labelText: "isPrivate?" }}
                 InputProps={{ ...register("is_private") }}
-              >
-                <InputErrorMessage
-                  nameInput="is_private"
-                  error={errors.is_private}
-                />
-              </Checkbox>
+              />
+
               {editMode && (
                 <Link
                   onClick={() => {

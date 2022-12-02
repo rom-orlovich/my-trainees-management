@@ -20,7 +20,7 @@ export function NutritionQuestionnaireAddForm() {
   const profileID = Number(useParams().id);
 
   const navigate = useNavigate();
-  const [addItem] = nutritionMenusListApi.useCreateOneItemMutation();
+  // const [addItem] = nutritionMenusListApi.useCreateOneItemMutation();
   const dispatch = useAppDispatch();
   // resetGoPrevPagesState disable the behavior of returning to pre page , after submit form.
   // Instead after submit this form the function will move the user to his training program's exercises list.
@@ -31,19 +31,22 @@ export function NutritionQuestionnaireAddForm() {
   const handleSubmit = ({
     nutrition_questionnaire_id,
     ...body
-  }: NutritionQuestionnaire) =>
-    addFunction({
-      addItem,
-    })({ ...body, profile_id: profileID }).then((response) => {
-      const Response = response as unknown as { data: ResponseMutationAPI };
+  }: NutritionQuestionnaire) => {
+    console.log(body);
 
-      navigate(
-        `/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/${Number(Response.data.id)}/${
-          APP_ROUTE.NUTRITION_MENU_ROUTE
-        }`
-      );
+    //  addFunction({
+    //   addItem,
+    // })({ ...body, profile_id: profileID }).then((response) => {
+    //   const Response = response as unknown as { data: ResponseMutationAPI };
 
-      return Response;
-    });
+    //   navigate(
+    //     `/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/${Number(Response.data.id)}/${
+    //       APP_ROUTE.NUTRITION_MENU_ROUTE
+    //     }`
+    //   );
+
+    //   return Response;
+    // })
+  };
   return <NutritionQuestionnaireForm onSubmit={handleSubmit} />;
 }

@@ -34,7 +34,7 @@ export const leadsSchema = yup.object().shape({
   first_name: yup.string().required(),
   last_name: yup.string().required(),
   gender: yup.string().required(),
-  location_id: yup.number().required(),
+  location_id: yup.number().required("Must be a number"),
   birthday: yup
     .date()
     .required()
@@ -51,13 +51,13 @@ export const citiesSchema = yup.object().shape({
   city_id: yup.number().notRequired().nullable(),
   city_name: yup.string().required(),
   district: yup.string().required(),
-  population: yup.number().required(),
+  population: yup.number().required("Must be a number"),
 });
 
 export const locationsSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable().default(1),
   location_id: yup.number().notRequired().nullable(),
-  city_id: yup.number().required(),
+  city_id: yup.number().required("Must be a number"),
   street: yup.string().notRequired().nullable(),
 });
 
@@ -65,7 +65,7 @@ export const providersSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable().default(1),
   provider_id: yup.number().notRequired().nullable(),
   provider_name: yup.string().required(),
-  location_id: yup.number().required(),
+  location_id: yup.number().required("Must be a number"),
 });
 
 export const equipmentSchema = yup.object().shape({
@@ -73,7 +73,7 @@ export const equipmentSchema = yup.object().shape({
   equipment_id: yup.number().notRequired().nullable(),
   equipment_name: yup.string().required(),
   brand: yup.string().required(),
-  manufacture_year: yup.number().required(),
+  manufacture_year: yup.number().required("Must be a number"),
   // expense_id: yup.number().notRequired().nullable(),
 });
 
@@ -101,14 +101,14 @@ export const trainingProgramsListSchema = yup.object().shape({
 
 export const trainingProgramSchema = yup.object().shape({
   training_program_row_id: yup.number().notRequired().nullable(),
-  training_programs_list_id: yup.number().required(),
+  training_programs_list_id: yup.number().required("Must be a number"),
   update_date: yup.date().required(),
-  exercise_id: yup.number().required(),
+  exercise_id: yup.number().required("Must be a number"),
   rest: yup
     .string()
     .required()
     .matches(/min/g, { message: "Please include 'min' unites." }),
-  sets: yup.number().required(),
+  sets: yup.number().required("Must be a number"),
   reps: yup
     .string()
     .required()
@@ -132,7 +132,7 @@ export const trainingProgramSchema = yup.object().shape({
 
 export const nutritionMenusListSchema = yup.object().shape({
   nutrition_menu_id: yup.number().notRequired().nullable(),
-  profile_id: yup.number().required(),
+  profile_id: yup.number().required("Must be a number"),
   date_start: yup.date().required(),
   date_end: yup
     .date()
@@ -143,30 +143,30 @@ export const nutritionMenusListSchema = yup.object().shape({
   note_text: yup.string().notRequired().default(""),
 });
 export const nutritionQuestionnaireSchema = yup.object().shape({
-  user_id: yup.number().notRequired().nullable(),
-  allergens: yup.array().of(yup.string().oneOf(ALLERGENS_LIST)),
-  black_list_foods: yup.array(),
-  favorite_foods: yup.array(),
-  profile_id: yup.number().required(),
-  date_start: yup.date().required(),
-  date_end: yup
-    .date()
-    .notRequired()
-    .nullable()
-    .min(yup.ref("date_start"), "End date can't be before start date."),
-  kosher: yup.boolean(),
-  is_vegan: yup.boolean(),
-  is_vegetarian: yup.boolean(),
-  isKeepMeatMilk: yup.boolean(),
-  diet_type: yup.string(),
-  meals_dist_percents: yup.array(),
+  // user_id: yup.number().notRequired().nullable(),
+  // allergens: yup.array().of(yup.string().oneOf(ALLERGENS_LIST)),
+  // black_list_foods: yup.array(),
+  // favorite_foods: yup.array(),
+  // profile_id: yup.number().required("Must be a number"),
+  // date_start: yup.date().required(),
+  // date_end: yup
+  //   .date()
+  //   .notRequired()
+  //   .nullable()
+  //   .min(yup.ref("date_start"), "End date can't be before start date."),
+  // kosher: yup.boolean(),
+  // is_vegan: yup.boolean(),
+  // is_vegetarian: yup.boolean(),
+  // isKeepMeatMilk: yup.boolean(),
+  // diet_type: yup.string(),
+  // meals_dist_percents: yup.array(),
 });
 
 export const measuresSchema = yup.object().shape({
   measure_id: yup.number().notRequired().nullable(),
   date: yup.date().required(),
-  weight: yup.number().required().min(1, "Must be positive"),
-  height: yup.number().required().min(1, "Must be positive"),
+  weight: yup.number().required("Must be a number").min(1, "Must be positive"),
+  height: yup.number().required("Must be a number").min(1, "Must be positive"),
   activity_factor: yup
     .number()
     .notRequired()
@@ -194,8 +194,8 @@ export const measuresSchema = yup.object().shape({
 
 export const nutritionProgramSchema = yup.object().shape({
   nutrition_program_id: yup.number().notRequired().nullable(),
-  nutrition_program_list_id: yup.number().required(),
-  week_id: yup.number().required(),
+  nutrition_program_list_id: yup.number().required("Must be a number"),
+  week_id: yup.number().required("Must be a number"),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
 });
@@ -206,22 +206,22 @@ export const traineesSchema = yup.object().shape({
   first_name: yup.string().required(),
   last_name: yup.string().required(),
   gender: yup.string().required(),
-  identify_num: yup.number().required(),
+  identify_num: yup.number().required("Must be a number"),
   birthday: yup
     .date()
     .required()
     .max(new Date(2010, 1, 1), "Min age is 12 years old."),
   email: yup.string().email().notRequired().nullable(),
   phone_number: yup.string().max(12).required(),
-  location_id: yup.number().required(),
+  location_id: yup.number().required("Must be a number"),
   date_join: yup.date().required(),
   status: yup.boolean().required(),
 });
 
 export const subscriptionPlansSchema = yup.object().shape({
   subscription_plan_id: yup.number().notRequired().nullable(),
-  trainee_id: yup.number().required(),
-  product_id: yup.number().required(),
+  trainee_id: yup.number().required("Must be a number"),
+  product_id: yup.number().required("Must be a number"),
   current_num_trainings: yup
     .number()
     .required()
@@ -238,9 +238,9 @@ export const subscriptionPlansSchema = yup.object().shape({
 
 export const incomesSchema = yup.object().shape({
   income_id: yup.number().notRequired().nullable(),
-  product_id: yup.number().required(),
+  product_id: yup.number().required("Must be a number"),
   date: yup.date().required(),
-  buyer_id: yup.number().required(),
+  buyer_id: yup.number().required("Must be a number"),
   amount: yup.number().default(1),
   total_price: yup
     .number()
@@ -252,7 +252,7 @@ export const incomesSchema = yup.object().shape({
 });
 export const expensesSchema = yup.object().shape({
   expense_id: yup.number().notRequired().nullable(),
-  product_id: yup.number().required(),
+  product_id: yup.number().required("Must be a number"),
   date: yup.date().required(),
   seller_name: yup.string().required(),
   amount: yup.number().default(1),
@@ -273,7 +273,10 @@ export const productSchema = yup.object().shape({
     .number()
     .notRequired()
     .transform((value) => (Number.isNaN(value) ? undefined : value)),
-  price: yup.number().required().min(1, "Total price must be a positive value"),
+  price: yup
+    .number()
+    .required("Must be a number")
+    .min(1, "Total price must be a positive value"),
   user_id: yup.number().notRequired().nullable().default(1),
 });
 export const loginSchema = yup.object().shape({
@@ -324,8 +327,8 @@ export const activitySchema = yup.object().shape({
 
 export const participantsGroupSchema = yup.object().shape({
   participants_group_id: yup.number().notRequired().nullable(),
-  participants_groups_list_id: yup.number().required(),
-  trainee_id: yup.number().required(),
+  participants_groups_list_id: yup.number().required("Must be a number"),
+  trainee_id: yup.number().required("Must be a number"),
   user_id: yup.number().notRequired().nullable().default(1),
 });
 
@@ -344,9 +347,9 @@ export const meetingsSchema = yup.object().shape({
     .notRequired()
     .nullable()
     .min(yup.ref("date_start"), "End date can't be before start date."),
-  participants_groups_list_id: yup.number().required(),
-  activity_id: yup.number().required(),
-  location_id: yup.number().required(),
+  participants_groups_list_id: yup.number().required("Must be a number"),
+  activity_id: yup.number().required("Must be a number"),
+  location_id: yup.number().required("Must be a number"),
   note_topic: yup.string().required("Event title is required."),
   note_text: yup.string().notRequired().default(""),
   user_id: yup.number().notRequired().nullable().default(1),

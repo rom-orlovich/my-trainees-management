@@ -22,7 +22,7 @@ import { useSearchParams } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 
 import { BsFillPlusSquareFill } from "react-icons/bs";
-import { genClassName, newDate } from "../../utilities/helpersFun";
+import { genClassName, addToDate } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
 
 import { useAppDispatch } from "../../redux/hooks";
@@ -192,7 +192,7 @@ function SchedulePage() {
 
             setQueryParams({
               dateStart: String(
-                newDate(new Date(), { dPlus: 0, minPlus: 0 }).getTime()
+                addToDate(new Date(), { dPlus: 0, minPlus: 0 }).getTime()
               ),
               dateEnd: "",
               modelFormState: "add",

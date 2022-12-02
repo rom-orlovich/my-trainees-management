@@ -51,7 +51,8 @@ export function LeadForm({
         resolver: yupResolver(leadsSchema),
       }}
     >
-      {({ register, formState, control }) => {
+      {({ register, formState, control, getValues }) => {
+        console.log(getValues("status"));
         const {
           lead_date,
           first_name,
@@ -178,10 +179,8 @@ export function LeadForm({
 
             <Checkbox
               LabelProps={{ labelText: "status" }}
-              InputProps={{ ...register("status") }}
-            >
-              <InputErrorMessage nameInput="status" error={status} />
-            </Checkbox>
+              register={register("status")}
+            />
             <InputLabel
               InputProps={{ ...register("note_topic") }}
               LabelProps={{

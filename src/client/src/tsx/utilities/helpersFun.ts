@@ -19,13 +19,38 @@ export interface AddToDate {
   minPlus?: number;
 }
 
-export const newDate = (date: Date | number | string, add?: AddToDate) => {
-  const curDate = new Date(date);
+export interface SetDate {
+  setYear?: number;
+  setMonth?: number;
+  setDay?: number;
+  setHour?: number;
+  setMinutes?: number;
+}
+
+export const curDateTime = (date?: Date | number | string) => {
+  const curDate = date ? new Date(date) : new Date();
   const year = curDate.getFullYear();
   const month = curDate.getMonth();
   const day = curDate.getDate();
   const hour = curDate.getHours();
   const minutes = curDate.getMinutes();
+
+  return { year, month, day, hour, minutes };
+};
+
+export const setInDate = (set: SetDate, date?: Date | number | string) => {
+  const curDate = date ? new Date(date) : new Date();
+  set?.setYear && curDate.setFullYear(set?.setYear);
+  set?.setMonth && curDate.setMonth(set?.setMonth);
+  set?.setDay && curDate.setDate(set?.setDay);
+  set?.setHour && curDate.setHours(set?.setHour);
+  set?.setMinutes && curDate.setMinutes(set?.setMinutes);
+
+  return curDate;
+};
+
+export const addToDate = (date?: Date | number | string, add?: AddToDate) => {
+  const { day, hour, minutes, month, year } = curDateTime(date);
 
   return new Date(
     year + (add?.yPlus || 0),
@@ -46,10 +71,10 @@ export const setInputLocalDate = (date: Date) =>
   getInputFormattedISO(changeDateUTCtoLocal(date));
 
 export const formatDate = (date: Date, plusDay = 1, timeStamp = false) => {
-  const newDate = new Date(date);
-  const formatted = changeDateUTCtoLocal(newDate);
+  const addToDate = new Date(date);
+  const formatted = changeDateUTCtoLocal(addToDate);
 
-  formatted.setDate(newDate.getDate() + plusDay);
+  formatted.setDate(addToDate.getDate() + plusDay);
 
   if (timeStamp) return getInputFormattedISO(formatted);
   return formatted.toLocaleDateString("en-CA");

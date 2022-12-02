@@ -7,7 +7,7 @@ import {
   lastDayOfMonth,
   startOfWeek,
 } from "date-fns";
-import { formatDate, newDate } from "../../../utilities/helpers";
+import { formatDate, addToDate } from "../../../utilities/helpers";
 import { AnyFun, GenericRecord } from "../../../utilities/types";
 import {
   ChartTypes,
@@ -82,8 +82,8 @@ export const getWeekRangeInMonthStr = (date: Date) => {
   const reminderDiff = 7 - remainder;
   const dateStartWeek = new Date(date.setDate(curDay - remainder));
   const dateEndWeek = new Date(curDate.setDate(curDay + reminderDiff - 1));
-  const start = getDateLocal(newDate(dateStartWeek, { dPlus: 1 }));
-  const end = getDateLocal(newDate(dateEndWeek, { dPlus: 1 }));
+  const start = getDateLocal(addToDate(dateStartWeek, { dPlus: 1 }));
+  const end = getDateLocal(addToDate(dateEndWeek, { dPlus: 1 }));
 
   // const start = formatDate(new Date(date.setDate(curDay - remainder)));
   // const end = formatDate(new Date(curDate.setDate(curDay + reminderDiff - 1)));

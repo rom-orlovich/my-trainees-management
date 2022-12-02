@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { deleteQuery } from "../../../PGSql/simpleSqlQueries";
-import { newDate } from "../../../utilities/helpers";
+import { addToDate } from "../../../utilities/helpers";
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
 import { createNutritionMenu } from "../utilities/createNutritionMenu";
@@ -17,7 +17,7 @@ export const nutritionQuestionnaires: NutritionQuestionnaire = {
   is_vegetarian: false,
   profile_id: 3,
   day_start: new Date(),
-  day_end: newDate(new Date(), { hPlus: 15 }),
+  day_end: addToDate(new Date(), { hPlus: 15 }),
   meals_dist_percents: [30, 50, 20],
   diet_type: "neutral",
 };

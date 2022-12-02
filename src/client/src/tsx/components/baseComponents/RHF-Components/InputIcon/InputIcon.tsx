@@ -1,4 +1,3 @@
-import React, { ReactNode } from "react";
 import { IconType } from "react-icons";
 import { Link } from "react-router-dom";
 import { genClassName } from "../../../../utilities/helpersFun";
@@ -11,7 +10,6 @@ export interface InputIconProps {
   IconEl: IconType;
 }
 function InputIcon({ option, className, IconEl }: InputIconProps) {
-  console.log(className);
   return (
     <span className={genClassName(style.select_plus_button, className)}>
       {option ? (

@@ -1,0 +1,33 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+.group_inputs_container {
+  width: 100%;
+  @include flex-dir(null, null, column);
+  @include classMatcher("input_label") {
+    @include flex-dir(null, null, row);
+  }
+  label {
+    font-weight: 500;
+  }
+  .group_inputs_layout {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1.5rem;
+    label {
+      max-width: initial;
+      flex: initial;
+      font-size: 1rem;
+      align-items: center;
+      gap: 0.5rem;
+      input {
+        border: none;
+        max-width: initial;
+        &:focus {
+          border: initial;
+          outline: initial;
+        }
+        // @include heightWidth(0.9rem, 0.9rem);
+      }
+    }
+  }
+}

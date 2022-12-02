@@ -200,9 +200,7 @@ export function TraineeForm({
             <Checkbox
               LabelProps={{ labelText: "Active" }}
               InputProps={{ ...register("status") }}
-            >
-              <InputErrorMessage nameInput="Active" error={status} />
-            </Checkbox>
+            />
           </>
         );
       }}

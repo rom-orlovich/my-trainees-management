@@ -423,6 +423,7 @@ export interface NutritionQuestionnaire {
   is_vegan: boolean;
   is_vegetarian: boolean;
   isKeepMeatMilk: boolean;
+
   diet_type: DietTypes;
   meals_dist_percents: number[];
 }
