@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { IoFilterCircle } from "react-icons/io5";
 
 import { useDebounceHook } from "../../../../hooks/useDebounceHook";
 import useHideUnFocusElement from "../../../../hooks/useHideUnFocusElement";
@@ -47,7 +47,8 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
 
   addOption?: IconOption;
   editOption?: IconOption;
-  externalInputValueOnChange?: React.Dispatch<React.SetStateAction<string>>;
+  filterOptions?: IconOption;
+
   useGetData: UseQuery<any>;
   setSelectOptionValue?: React.Dispatch<React.SetStateAction<string[]>>;
   children?: ReactNode;
@@ -68,6 +69,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   children,
   addOption,
   RHFProps,
+  filterOptions,
   queriesOptions,
 }: AutocompleteInputProps<T>) {
   const [page, setPage] = useState(1);
@@ -179,6 +181,7 @@ function AutocompleteInput<T extends Record<string, any>>({
         />
       )}
       <InputIcon IconEl={AiOutlinePlusCircle} option={addOption} />
+      <InputIcon IconEl={IoFilterCircle} option={filterOptions} />
 
       {children}
     </span>

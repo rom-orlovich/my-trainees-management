@@ -8,8 +8,9 @@ import AllergensFormContent from "../../Forms/AllergensForm/AllergensFormContent
 import ModelCityFormContent from "../../Forms/CityForms/ModelCityFormContent";
 import ModelEquipmentFormContent from "../../Forms/EquipmentForms/ModelEquipmentFormContent";
 import ModelExerciseFormContent from "../../Forms/ExerciseForms/ModelExerciseFormContent";
+import FoodListFormContent from "../../Forms/FoodListForms/FoodFormContent";
 import ModelLocationFormContent from "../../Forms/LocationForms/ModelLocationFormContent";
-import MealsCaloriesSizeFormContent from "../../Forms/MealDistPercentsForms/MealsCaloriesSizeFormContent";
+import MealsCaloriesSizeFormContent from "../../Forms/MealsCaloriesSizeForms/MealsCaloriesSizeFormContent";
 
 import ModelMuscleGroupFormContent from "../../Forms/MusclesGroupForms/ModelMuscleGroupFormContent";
 import ModelParticipantsGroupFormContent from "../../Forms/ParticipantsGroupForm/ModelParticipantsGroupFormContent";
@@ -47,6 +48,8 @@ function ModelController() {
     content = <MealsCaloriesSizeFormContent />;
   else if (modelControllerState?.lastModel === "allergensList")
     content = <AllergensFormContent />;
+  else if (modelControllerState?.lastModel === "favoriteFoods")
+    content = <FoodListFormContent />;
   else content = <></>;
 
   return <ModelCard>{content}</ModelCard>;

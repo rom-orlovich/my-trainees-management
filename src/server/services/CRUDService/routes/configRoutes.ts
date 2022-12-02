@@ -585,7 +585,6 @@ export const nutritionMenusListOptionsCRUD: OptionsCRUD = {
 export const nutritionMenuOptionsCRUD: OptionsCRUD = {
   singleEntityName: API_ROUTES.NUTRITION_MENU_ENTITY,
   selectQuery: {
-    // withClause: `${WITH_CLAUSE_GET_NUTRITION_MENU}`,
     tableName: `${TABLES_DATA.NUTRITION_MENUS_MEALS_TABLE_NAME} as nmm`,
     tableID: `nmm.${TABLES_DATA.NUTRITION_MENUS_LIST_ID}`,
     fieldNamesQuery: `nmm.*`,

@@ -149,9 +149,9 @@ export interface Range {
   start: number;
   end: number;
 }
-
-export type KosherType = "בשרי" | "חלבי" | "פרווה";
 export type KosherTypeWithoutPareve = Exclude<KosherType, "פרווה">;
+export type KosherType = "בשרי" | "חלבי" | "פרווה";
+
 export type NutritionType = "proteins" | "fats" | "carbohydrates";
 export type FoodType = "בשרי" | "טבעוני" | "צמחוני";
 

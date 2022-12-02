@@ -6,6 +6,7 @@ import {
   equipmentsOptionsCRUD,
   exerciseListOptionsCRUD,
   expensesOptionsCRUD,
+  foodsOptionsCRUD,
   leadsOptionsCRUD,
   locationsOptionsCRUD,
   musclesGroupOptionsCRUD,
@@ -138,5 +139,9 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.NUTRITION_MENU_ROUTE,
     router: createNutritionMenuRouter(),
+  },
+  {
+    baseRoute: API_ROUTES.FOODS_ROUTE,
+    router: createCRUDroutes(foodsOptionsCRUD),
   },
 ];

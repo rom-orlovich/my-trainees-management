@@ -427,3 +427,33 @@ export interface NutritionQuestionnaire {
   diet_type: DietTypes;
   meals_calories_size_percents: number[];
 }
+
+export type KosherType = "בשרי" | "חלבי" | "פרווה";
+
+export type NutritionType = "proteins" | "fats" | "carbohydrates";
+export type FoodType = "בשרי" | "טבעוני" | "צמחוני";
+
+export interface FoodAPI {
+  food_id?: number;
+  food_name: string;
+  calories_total: number;
+  protein_g: number;
+  protein_cals: number;
+  carbs_g: number;
+  carbs_cals: number;
+  sugars_g: number;
+  fat_g: number;
+  fat_cals: number;
+  saturated_fat: number;
+  cholesterol_mg: number;
+  sodium_mg: number;
+  nutrient_type: NutritionType;
+  allergens: string[];
+  kosher: boolean;
+  is_vegan: boolean;
+  is_vegetarian: boolean;
+  kosher_type: KosherType;
+  food_score: number;
+  food_density: number;
+  user_id?: number;
+}

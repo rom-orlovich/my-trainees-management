@@ -18,7 +18,9 @@ export type ModelDisplayContentOptions =
   | "allergensList"
   | "mealsDistPercents"
   | "favoriteFoods"
-  | "blackListFoods";
+  | "blackListFoods"
+  | "filterFoodForm";
+
 export interface ModelControllerState {
   displayContent: ModelDisplayContentOptions[];
   isModelOpen: boolean;

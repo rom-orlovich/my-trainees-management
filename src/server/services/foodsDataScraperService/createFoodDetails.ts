@@ -1,8 +1,8 @@
 import { CheerioAPI } from "cheerio";
 import { lowerCase } from "lodash";
-import { logger } from "../loggerService/logger";
+
 import { ALLERGENS_LIST, NOT_VEGAN_INGREDIENTS } from "./constants";
-import { Food, NutritionType } from "./types";
+import { Food, NutritionType } from "./foodsDataScraperServiceTypes";
 import { createCheerioLoad } from "./utilities/cheerioHelpers";
 
 const createKeyValue = ($: ReturnType<CheerioAPI>) => {
