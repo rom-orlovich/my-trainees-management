@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
+import { getValue } from "@testing-library/user-event/dist/types/utils";
 import { format } from "date-fns";
 import { useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
@@ -8,18 +9,14 @@ import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
-import { useAppDispatch } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   ModelDisplayContentOptions,
   openModel,
 } from "../../../redux/slices/modelControllerSlice";
+import { getNutritionQuestionnaireState } from "../../../redux/slices/nutritionQuestionnaireSlice";
 
-import {
-  curDateTime,
-  formatDate,
-  addToDate,
-  setInDate,
-} from "../../../utilities/helpersFun";
+import { setInDate } from "../../../utilities/helpersFun";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
@@ -42,11 +39,10 @@ export function NutritionQuestionnaireForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<NutritionQuestionnaire>) {
-  const dateNow = new Date();
   const { user_id } = useGetUserLoginData();
   const profileID = Number(useParams().id);
   const dispatch = useAppDispatch();
-
+  const questionnaireState = useAppSelector(getNutritionQuestionnaireState);
   const createInputIconProps = (modelName: ModelDisplayContentOptions) => ({
     IconEl: FaEdit,
     className: style.edit_icon,
@@ -87,11 +83,14 @@ export function NutritionQuestionnaireForm({
             kosher: false,
             is_vegan: false,
             is_vegetarian: false,
+            isKeepMeatMilk: false,
+            diet_type: "neutral",
+            meals_calories_size_percents: [],
           },
           resolver: yupResolver(nutritionQuestionnaireSchema),
         }}
       >
-        {({ register, formState, getValues, control, watch }) => {
+        {({ register, formState, getValues, watch }) => {
           const {
             day_end,
             day_start,
@@ -100,7 +99,7 @@ export function NutritionQuestionnaireForm({
             // kosher,
             // is_vegan,
             // is_vegetarian,
-            // meals_dist_percents,
+            // meals_calories_size_percents,
             // allergens,
             // favorite_foods,
             // black_list_foods,
@@ -131,14 +130,17 @@ export function NutritionQuestionnaireForm({
               {
                 register: register("diet_type"),
                 LabelProps: { labelText: "Neutral?" },
+                InputProps: { value: "neutral" },
               },
               {
                 register: register("diet_type"),
                 LabelProps: { labelText: "Cutting?" },
+                InputProps: { value: "cutting" },
               },
               {
                 register: register("diet_type"),
                 LabelProps: { labelText: "Bulking?" },
+                InputProps: { value: "bulking" },
               },
             ],
           };
@@ -183,19 +185,32 @@ export function NutritionQuestionnaireForm({
 
               <InputLabel
                 TextAreaProps={{
-                  ...register("meals_dist_percents"),
+                  ...register("meals_calories_size_percents"),
                   disabled: true,
+                  placeholder: questionnaireState.mealsPercents
+                    .reduce(
+                      (pre, cur, i) => `${pre} Meal ${i + 1} ${cur}%,`,
+                      ""
+                    )
+                    .slice(0, -1),
                 }}
                 inputIconProps={createInputIconProps("mealsDistPercents")}
                 LabelProps={{
-                  htmlFor: "meals_dist_percents",
+                  htmlFor: "meals_calories_size_percents",
                   labelText: "Meal Size In Percents",
                 }}
               >
                 {/* <InputErrorMessage nameInput="Sleep Time" error={day_end} /> */}
               </InputLabel>
               <InputLabel
-                TextAreaProps={{ ...register("allergens"), disabled: true }}
+                TextAreaProps={{
+                  ...register("allergens"),
+                  disabled: true,
+
+                  placeholder: questionnaireState.allergens
+                    .reduce((pre, cur, i) => `${pre} ${cur},`, "")
+                    .slice(0, -1),
+                }}
                 inputIconProps={createInputIconProps("allergensList")}
                 LabelProps={{
                   htmlFor: "allergens",

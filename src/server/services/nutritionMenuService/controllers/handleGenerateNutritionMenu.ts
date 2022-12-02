@@ -18,7 +18,7 @@ export const nutritionQuestionnaires: NutritionQuestionnaire = {
   profile_id: 3,
   day_start: new Date(),
   day_end: addToDate(new Date(), { hPlus: 15 }),
-  meals_dist_percents: [30, 50, 20],
+  meals_calories_size_percents: [30, 50, 20],
   diet_type: "neutral",
 };
 const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";

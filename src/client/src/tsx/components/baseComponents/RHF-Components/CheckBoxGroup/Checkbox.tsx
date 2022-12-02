@@ -19,11 +19,10 @@ function Checkbox({ InputProps, LabelProps, register }: CheckBox) {
         className: genClassName(LabelProps?.className),
       }}
       InputProps={{
-        ...InputProps,
         ref: register?.ref,
         name: register?.name,
         onChange: register?.onChange,
-
+        ...InputProps,
         type: "checkbox",
       }}
     />

@@ -1,0 +1,20 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+
+.meals_calories_size_percents_form {
+  .inputs_container {
+    padding: 0.5rem;
+    height: 80%;
+    overflow-y: scroll;
+
+    .inputs_layout {
+      height: 30vh;
+      @include classMatcher("input_label") {
+        width: 90%;
+
+        @include classMatcher("select_plus_button") {
+          @include posAbs(40%, null, -12%, null);
+        }
+      }
+    }
+  }
+}

@@ -9,7 +9,6 @@ export const ALLERGENS_LIST = [
   "אגוזים",
   "ביצה",
   "סולפיט",
-  " ",
   "חלב",
   "שקדים",
   "אגוזי לוז",
@@ -20,7 +19,31 @@ export const ALLERGENS_LIST = [
   "פקאן",
   "חרדל",
   "סלרי",
+] as const;
+
+const ALLERGENS_LIST_ENGLISH = [
+  "Gluten",
+  "soya",
+  "Sesame",
+  "peanuts",
+  "wheat",
+  "nuts",
+  "egg",
+  "sulphite",
+  "milk",
+  "tonsils",
+  "Hazelnuts",
+  "Pecan Nuts",
+  "coconut",
+  "cashew",
+  "hazel",
+  "Pecan",
+  "mustard",
+  "celery",
 ];
+
+export type AllergensListType = typeof ALLERGENS_LIST[number];
+
 export const musclesGroupSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable().default(1),
   muscles_group_id: yup.number().notRequired().nullable(),
@@ -154,12 +177,12 @@ export const nutritionQuestionnaireSchema = yup.object().shape({
   //   .notRequired()
   //   .nullable()
   //   .min(yup.ref("date_start"), "End date can't be before start date."),
-  // kosher: yup.boolean(),
-  // is_vegan: yup.boolean(),
-  // is_vegetarian: yup.boolean(),
-  // isKeepMeatMilk: yup.boolean(),
-  // diet_type: yup.string(),
-  // meals_dist_percents: yup.array(),
+  kosher: yup.boolean(),
+  is_vegan: yup.boolean(),
+  is_vegetarian: yup.boolean(),
+  isKeepMeatMilk: yup.boolean(),
+  diet_type: yup.string(),
+  // meals_calories_size_percents: yup.array(),
 });
 
 export const measuresSchema = yup.object().shape({

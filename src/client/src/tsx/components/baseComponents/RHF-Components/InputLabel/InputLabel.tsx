@@ -50,9 +50,9 @@ export function InputLabel({
       {labelText}
 
       {TextAreaProps ? (
-        <textarea ref={TextAreaProps.ref} {...TextAreaProps} />
+        <textarea {...TextAreaProps} ref={TextAreaProps.ref} />
       ) : InputProps ? (
-        <input ref={InputProps?.ref} {...InputProps} />
+        <input {...InputProps} ref={InputProps?.ref} />
       ) : (
         <></>
       )}

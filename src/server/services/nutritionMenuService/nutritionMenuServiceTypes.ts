@@ -32,7 +32,7 @@ export interface NutritionQuestionnaire {
   is_vegetarian: boolean;
   isKeepMeatMilk: boolean;
   diet_type: DietTypes;
-  meals_dist_percents: number[];
+  meals_calories_size_percents: number[];
 }
 
 export interface MealNutrientsCals {

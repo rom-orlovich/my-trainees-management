@@ -34,7 +34,7 @@ export const createNutritionMenu = async (
   const {
     isKeepMeatMilk,
     favorite_foods,
-    meals_dist_percents,
+    meals_calories_size_percents,
     profile_id,
     user_id,
     // diet_type,
@@ -60,7 +60,7 @@ export const createNutritionMenu = async (
     const mealsNutrientsCalsDistribution =
       await createMealsNutrientsCalsDistribution(
         lastMeasure,
-        meals_dist_percents
+        meals_calories_size_percents
       );
 
     // Creates the potential menu foods divided by nutrients.

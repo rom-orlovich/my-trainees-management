@@ -4,10 +4,13 @@ import { useAppSelector } from "../../../redux/hooks";
 
 import { getModelControllerState } from "../../../redux/slices/modelControllerSlice";
 import ModelActivityFormContent from "../../Forms/ActivityForms/ModelActivityFormContent";
+import AllergensFormContent from "../../Forms/AllergensForm/AllergensFormContent";
 import ModelCityFormContent from "../../Forms/CityForms/ModelCityFormContent";
 import ModelEquipmentFormContent from "../../Forms/EquipmentForms/ModelEquipmentFormContent";
 import ModelExerciseFormContent from "../../Forms/ExerciseForms/ModelExerciseFormContent";
 import ModelLocationFormContent from "../../Forms/LocationForms/ModelLocationFormContent";
+import MealsCaloriesSizeFormContent from "../../Forms/MealDistPercentsForms/MealsCaloriesSizeFormContent";
+
 import ModelMuscleGroupFormContent from "../../Forms/MusclesGroupForms/ModelMuscleGroupFormContent";
 import ModelParticipantsGroupFormContent from "../../Forms/ParticipantsGroupForm/ModelParticipantsGroupFormContent";
 import ModelParticipantsGroupListFormContent from "../../Forms/ParticipantsGroupsListForms/ModelParticipantsGroupListFormContent";
@@ -40,6 +43,10 @@ function ModelController() {
     content = <ModelEquipmentFormContent />;
   else if (modelControllerState?.lastModel === "subscriptionPlansForm")
     content = <ModelSubscriptionPlansFormContent />;
+  else if (modelControllerState?.lastModel === "mealsDistPercents")
+    content = <MealsCaloriesSizeFormContent />;
+  else if (modelControllerState?.lastModel === "allergensList")
+    content = <AllergensFormContent />;
   else content = <></>;
 
   return <ModelCard>{content}</ModelCard>;

@@ -425,5 +425,5 @@ export interface NutritionQuestionnaire {
   isKeepMeatMilk: boolean;
 
   diet_type: DietTypes;
-  meals_dist_percents: number[];
+  meals_calories_size_percents: number[];
 }

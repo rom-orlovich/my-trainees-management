@@ -455,7 +455,7 @@ CREATE TABLE
     "is_vegetarian" BOOLEAN,
     "day_start" Date,
     "day_end" Date,
-    "meals_dist_percents" INTEGER ARRAY,
+    "meals_calories_size_percents" INTEGER ARRAY,
     "profile_id" INTEGER,
     "user_id" INTEGER,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,

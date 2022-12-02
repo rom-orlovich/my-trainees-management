@@ -36,7 +36,7 @@ export const createMenuDescription = ({
   diet_type,
   isKeepMeatMilk,
   allergens,
-  meals_dist_percents,
+  meals_calories_size_percents,
   profile_id,
   user_id,
 }: NutritionQuestionnaire) => {
@@ -44,7 +44,7 @@ export const createMenuDescription = ({
   const veganText = is_vegan ? "טבעונית" : "";
   const vegetarianText = is_vegetarian ? "צמחונית" : "";
   const isKeepMeatMilkText = isKeepMeatMilk ? "ללא בשר וחלב" : "";
-  const mealsDistPercentsText = `${meals_dist_percents
+  const mealsDistPercentsText = `${meals_calories_size_percents
     .map((el, i) => `meal ${i + 1} %${el}`)
     .join(", ")
     .slice(0, -1)}`;
