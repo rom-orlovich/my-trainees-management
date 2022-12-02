@@ -2,7 +2,15 @@
 
 .food_list_form_container {
   height: 50vh;
-
+  @include classMatcher("autocomplete_container") {
+    input {
+      text-align: center;
+    }
+  }
+  .chosen_food_list {
+    height: 30vh;
+    overflow-y: scroll;
+  }
   @include classMatcher("Form_buttons_container_two_buttons") {
     margin-top: auto !important;
   }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFieldArray } from "react-hook-form";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
@@ -11,29 +11,29 @@ import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import AutocompleteInput from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 
-import style from "./FoodListForm.module.scss";
-import FoodsList from "./FoodsList";
+import style from "./FoodsListForm.module.scss";
+import FoodsList from "./FoodsList/FoodsList";
 
-export interface FoodFilterProps {
+export interface FoodProps {
   food_id: number;
   food_name: string;
 }
 
-export interface FoodFilterFormProps {
-  foods: FoodFilterProps[];
+export interface FoodsListFormProps {
+  foods: FoodProps[];
 }
 
-export function FoodListForm({
+export function FoodsListForm({
   onSubmit,
   defaultValues,
   editMode,
-}: GeneralFormProps<FoodFilterFormProps>) {
+}: GeneralFormProps<FoodsListFormProps>) {
   const dispatch = useAppDispatch();
 
   const { user_id } = useGetUserLoginData();
   const [chooseFood, setChooseFood] = useState(["", ""]);
   return (
-    <Form<FoodFilterFormProps>
+    <Form<FoodsListFormProps>
       heading="Choose Food"
       onSubmit={onSubmit}
       modelMode
@@ -52,10 +52,8 @@ export function FoodListForm({
           control,
           name: "foods",
         });
-        if (chooseFood[0])
-          append({ food_id: Number(chooseFood[0]), food_name: chooseFood[1] });
 
-        // if (!fields.length) append({});
+        useEffect(() => {});
 
         return (
           <>
@@ -64,9 +62,21 @@ export function FoodListForm({
                 id="food_id"
                 useGetData={foodsApi.useGetItemsQuery}
                 keys={["food_name"]}
-                InputLabelProps={{ LabelProps: { labelText: "Search Food" } }}
+                InputLabelProps={{
+                  LabelProps: { labelText: "Search Food" },
+                  InputProps: { placeholder: "Search Food" },
+                }}
                 queriesOptions={{ userID: user_id }}
                 setSelectOptionValue={setChooseFood}
+                getCurClickLI={(chooseFood) => {
+                  if (
+                    !fields.find((el) => el.food_id === Number(chooseFood[0]))
+                  )
+                    append({
+                      food_id: Number(chooseFood[0]),
+                      food_name: chooseFood[1],
+                    });
+                }}
                 filterOptions={{
                   link: "",
                   onClick: (id: number) => {
@@ -80,7 +90,7 @@ export function FoodListForm({
                 }}
               />
             </div>
-            <div className="chosen_food_list">
+            <div className={style.chosen_food_list}>
               <FoodsList foods={fields} />
             </div>
           </>

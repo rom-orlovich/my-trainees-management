@@ -8,7 +8,8 @@ import AllergensFormContent from "../../Forms/AllergensForm/AllergensFormContent
 import ModelCityFormContent from "../../Forms/CityForms/ModelCityFormContent";
 import ModelEquipmentFormContent from "../../Forms/EquipmentForms/ModelEquipmentFormContent";
 import ModelExerciseFormContent from "../../Forms/ExerciseForms/ModelExerciseFormContent";
-import FoodListFormContent from "../../Forms/FoodListForms/FoodFormContent";
+import FoodsListFormContent from "../../Forms/FoodListForms/FoodsListFormContent";
+
 import ModelLocationFormContent from "../../Forms/LocationForms/ModelLocationFormContent";
 import MealsCaloriesSizeFormContent from "../../Forms/MealsCaloriesSizeForms/MealsCaloriesSizeFormContent";
 
@@ -49,7 +50,7 @@ function ModelController() {
   else if (modelControllerState?.lastModel === "allergensList")
     content = <AllergensFormContent />;
   else if (modelControllerState?.lastModel === "favoriteFoods")
-    content = <FoodListFormContent />;
+    content = <FoodsListFormContent />;
   else content = <></>;
 
   return <ModelCard>{content}</ModelCard>;

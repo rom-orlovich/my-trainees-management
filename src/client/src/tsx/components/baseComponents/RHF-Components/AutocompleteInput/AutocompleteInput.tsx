@@ -48,9 +48,9 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   addOption?: IconOption;
   editOption?: IconOption;
   filterOptions?: IconOption;
-
   useGetData: UseQuery<any>;
   setSelectOptionValue?: React.Dispatch<React.SetStateAction<string[]>>;
+  getCurClickLI?: (value: string[]) => void;
   children?: ReactNode;
   defaultValueID?: number;
   queriesOptions?: Record<string, any>;
@@ -71,6 +71,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   RHFProps,
   filterOptions,
   queriesOptions,
+  getCurClickLI,
 }: AutocompleteInputProps<T>) {
   const [page, setPage] = useState(1);
   // The first element in array is the id of the option. The sec element is the input value.
@@ -133,6 +134,7 @@ function AutocompleteInput<T extends Record<string, any>>({
     const keyValue = getEntriesArrObj(obj)[0];
     setPage(1);
     setInputValue(keyValue);
+    getCurClickLI && getCurClickLI(keyValue);
   };
 
   // Handles the scrolling event of the autocomplete input's options.

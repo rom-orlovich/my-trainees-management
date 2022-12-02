@@ -563,7 +563,7 @@ export const foodsOptionsCRUD: OptionsCRUD = {
   selectQuery: {
     tableName: `${TABLES_DATA.FOODS_TABLE_NAME} as fd`,
     tableID: `fd.${TABLES_DATA.FOODS_ID}`,
-    fieldNamesQuery: ``,
+    fieldNamesQuery: `fd.*`,
     querySelectLogic: ``,
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,

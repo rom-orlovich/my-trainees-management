@@ -27,7 +27,6 @@ function TraineesPage() {
             InputProps: { placeholder: "Trainee Name" },
             LabelProps: {
               labelText: "Search Trainee",
-              htmlFor: "traineeSearch",
             },
           }}
         />

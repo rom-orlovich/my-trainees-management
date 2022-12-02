@@ -1,0 +1,10 @@
+@use "../../../../../style/utilities/utilities.scss" as *;
+.foods_list_container {
+  overflow-y: scroll;
+  li {
+    padding: 0.2rem;
+    &:nth-child(2n) {
+      background-color: #e1e8f5;
+    }
+  }
+}
