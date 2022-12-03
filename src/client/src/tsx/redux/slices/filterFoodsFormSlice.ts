@@ -10,6 +10,7 @@ import { setAllergensArrFun } from "./nutritionQuestionnaireFormSlice";
 export type NutrientValuesGenericCompare =
   | `${NutrientsNamesFields}_lt`
   | `${NutrientsNamesFields}_gt`;
+
 export type NutrientValuesForQuery = {
   [key in NutrientValuesGenericCompare]: number;
 };

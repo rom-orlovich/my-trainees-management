@@ -77,6 +77,7 @@ export function FoodsListForm({
         const queryOptions = {
           allergens: allergensStr,
           ...nutrientType,
+          ...nutrientsValuesQueryParams,
           ...kosherType,
           ...kosherObj,
           ...isVegan,

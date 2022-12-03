@@ -59,11 +59,6 @@ export const prepareKeyValuesToUpdate = (
   return { keyValuesStr: ` ${keyValuesStr.slice(0, -1)}`, paramsArr };
 };
 
-export interface RealFieldNameAndValue {
-  realFieldName: string;
-  valueToCompare: string;
-}
-
 const prepareArrayQueryParamsKeyValue = (
   requestQuery: GenericRecord<string>,
   arrayQueryParams?: GenericRecord<string>
@@ -83,6 +78,10 @@ const prepareArrayQueryParamsKeyValue = (
 
   return arrayQueryParamsArr;
 };
+export interface RealFieldNameAndValue {
+  realFieldName: string;
+  valueToCompare: string;
+}
 
 const prepareComparisonQueryKeyValue = (
   requestQuery: GenericRecord<any>,
@@ -232,7 +231,7 @@ export const prepareComparisonParamsStatement = (
     ...comparisonLesser,
   ].join(" and ");
 
-  return comparisonStatementStr;
+  return [comparisonStatementStr];
 };
 
 // Makes string from the key-value of other columns of table.
@@ -282,7 +281,9 @@ export const prepareStatementLogic = (
   arrayQueryParams: unknown[][],
   beforeWhereQuery?: string
 ) => {
-  const beforeWhereQueryStatement = beforeWhereQuery || "";
+  const beforeWhereQueryStatement = arrayQueryParams.length
+    ? beforeWhereQuery || ""
+    : "";
 
   const { keyValuesStrArr, paramsArr } = prepareKeyValuesOtherColumnToSelect(
     queryParams,
@@ -293,25 +294,20 @@ export const prepareStatementLogic = (
     prepareKeyValuesOfNameToSelect(queryNameParams, paramsArr.length + 1);
 
   const queryParamsRes = [...arrayQueryParams, ...paramsArr, ...paramsNamesArr];
-
-  // To create string with 'and' between the queries string.
-  const queryStrJoin = [...keyValuesStrArr, ...keyValuesOfNameStrArr].join(
-    keyValuesStrArr.length > 0 ? " and " : ""
-  );
-
   const comparisonStr = prepareComparisonParamsStatement(
     comparisonQuery,
     queryParamsRes
   );
-
-  const comparisonStatementStr = comparisonStr ? `and ${comparisonStr}` : "";
+  // To create string with 'and' between the queries string.
+  const queryStrJoin = [
+    // ...([beforeWhereQueryStatement]),
+    // ...comparisonStr,
+    ...keyValuesStrArr,
+    ...keyValuesOfNameStrArr,
+  ].join(keyValuesStrArr.length > 0 ? " and " : "");
 
   const whereQueryStatement = `${
-    queryStrJoin
-      ? `WHERE ${beforeWhereQueryStatement} ${queryStrJoin} ${comparisonStatementStr}`
-      : `${
-          beforeWhereQueryStatement ? `WHERE ${beforeWhereQueryStatement}` : ""
-        }`
+    queryStrJoin ? `WHERE  ${queryStrJoin} ` : ""
   }`;
 
   const queryStrStatement = `${querySelectLogic} ${whereQueryStatement}`;
