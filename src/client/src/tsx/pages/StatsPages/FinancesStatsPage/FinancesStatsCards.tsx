@@ -19,7 +19,7 @@ function FinancesStatsCards({
     ...queryOptions,
     userID: user_id,
   };
-
+  console.log(queryOptions);
   const { data } = financesApi.useGetFinancesQuery({
     ...queryOptionsData,
     chartDisplay: CHART_DISPLAY.DISTRIBUTION,

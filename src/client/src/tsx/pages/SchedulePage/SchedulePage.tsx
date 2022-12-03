@@ -50,9 +50,9 @@ function SchedulePage() {
     : { userID };
 
   const [dateRange, setDateRange] = useState<{
-    gt: Date | string;
-    lt: Date | string;
-  }>({ gt: "", lt: "" });
+    dateStart_gt: Date | string;
+    dateStart_lt: Date | string;
+  }>({ dateStart_gt: "", dateStart_lt: "" });
 
   const { data } = meetingApi.useGetItemsQuery({
     ...queryOptions,
@@ -146,8 +146,8 @@ function SchedulePage() {
 
   const handleDateset = (DatesSetArg: DatesSetArg) => {
     setDateRange({
-      gt: DatesSetArg.startStr,
-      lt: DatesSetArg.endStr,
+      dateStart_gt: DatesSetArg.startStr,
+      dateStart_lt: DatesSetArg.endStr,
     });
   };
   const handleDateClick = (date: DateClickArg) => {

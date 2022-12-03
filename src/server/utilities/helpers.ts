@@ -34,6 +34,10 @@ export const dataOrErrorResponseAsConst = <T>(
   if (error) return [undefined, error] as const;
   return [data as T, undefined] as const;
 };
+export function createObjEntries(obj: object) {
+  return Object.entries(obj);
+}
+
 export function createObjValuesArr(obj: object) {
   return Object.values(obj);
 }

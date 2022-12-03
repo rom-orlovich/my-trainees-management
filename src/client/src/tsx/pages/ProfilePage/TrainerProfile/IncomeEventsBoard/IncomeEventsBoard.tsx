@@ -17,7 +17,7 @@ function IncomeEventsBoard({
   const meetingApiOptions = {
     ...queryOptions,
     orderBy: "dateStart",
-    gt: curDate.toISOString(),
+    dateStart_gt: curDate.toISOString(),
     numResult: 3,
   };
 

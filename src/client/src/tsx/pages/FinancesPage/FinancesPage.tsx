@@ -23,7 +23,7 @@ const displayOptions = [
 function FinancesPage() {
   const authState = useGetUserLoginData();
 
-  const [{ gt, lt, display }, onChange] = useOnChangeInput({
+  const [{ lt, gt, display }, onChange] = useOnChangeInput({
     gt: "",
     lt: "",
     display: "incomes",
@@ -58,12 +58,12 @@ function FinancesPage() {
       <div className={genClassName(page.page_header)}>
         <span className={page.dates_container}>
           <InputLabel
-            LabelProps={{ labelText: "Date Start", htmlFor: "gt" }}
-            InputProps={{ type: "date", onChange }}
+            LabelProps={{ labelText: "Date Start" }}
+            InputProps={{ type: "date", onChange, id: "gt" }}
           />
           <InputLabel
-            LabelProps={{ labelText: "Date End", htmlFor: "lt" }}
-            InputProps={{ type: "date", onChange }}
+            LabelProps={{ labelText: "Date End" }}
+            InputProps={{ type: "date", onChange, id: "lt" }}
           />
         </span>
 

@@ -41,7 +41,7 @@ function IncomesTable({
     <TablePagination<IncomesTableAPI>
       editPagePath={`${APP_ROUTE.FINANCES_ROUTE}/${APP_ROUTE.INCOMES_ROUTE}`}
       queriesOptions={queriesOptions}
-      nameData="Income"
+      nameData="Incomes"
       transformFun={transformIncomeFunction}
       getAllQuery={incomesApi.useGetItemsQuery}
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}

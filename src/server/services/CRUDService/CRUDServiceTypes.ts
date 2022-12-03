@@ -1,10 +1,12 @@
 import * as yup from "yup";
+import { GenericRecord } from "../../utilities/types";
 import { Permissions } from "../usersPermission";
 
 export interface ComparisonQuery {
-  gt: string;
-  lt: string;
+  fieldName: string;
 }
+// export type FieldComparisonQuery = GenericRecord<ComparisonQuery>;
+
 export interface SelectTableQueryParam {
   tableName: string;
   tableID: string;
@@ -12,7 +14,7 @@ export interface SelectTableQueryParam {
   fieldNamesQuery: string; // The field names that we want to return from the query
   querySelectLogic: string; // The query logic
   orderByParam?: Record<string, string>;
-  comparisonQuery?: ComparisonQuery;
+  comparisonQuery?: GenericRecord<string>;
   // The purpose of below params is to encapsulate the real table's fields from the client,
   // so the client won't able to know what are the real fields name of the table.
   queryParams?: Record<string, string>;
@@ -42,7 +44,7 @@ export interface SelectPaginationQueryParam {
   queryParams?: Record<string, any>;
   queryNameParam?: Record<string, any>;
   orderByParam?: Record<string, string>;
-  comparisonQuery?: ComparisonQuery;
+  comparisonQuery?: GenericRecord<string>;
 }
 
 export interface TablePropsData {

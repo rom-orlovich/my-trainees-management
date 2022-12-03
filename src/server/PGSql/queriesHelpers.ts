@@ -2,8 +2,16 @@
 /* eslint-disable guard-for-in */
 // Makes string from the keys of the obj.
 
-import { SelectPaginationQueryParam } from "../services/CRUDService/CRUDServiceTypes";
-import { createObjKeysArr, createObjValuesArr } from "../utilities/helpers";
+import {
+  ComparisonQuery,
+  SelectPaginationQueryParam,
+} from "../services/CRUDService/CRUDServiceTypes";
+import {
+  createObjEntries,
+  createObjKeysArr,
+  createObjValuesArr,
+} from "../utilities/helpers";
+import { GenericRecord } from "../utilities/types";
 
 // This string is used as fieldName in update/insert functions.
 export const prepareFieldsName = (obj: Record<string, any>) => {
@@ -50,6 +58,48 @@ export const prepareKeyValuesToUpdate = (
 
   return { keyValuesStr: ` ${keyValuesStr.slice(0, -1)}`, paramsArr };
 };
+
+export interface RealFieldNameAndValue {
+  realFieldName: string;
+  valueToCompare: string;
+}
+
+const createComparisonQueryKeyValue = (
+  requestQuery: GenericRecord<any>,
+  comparisonQuery?: GenericRecord<string>
+) => {
+  const comparisonQueryKeyValue: {
+    gt: RealFieldNameAndValue[];
+    lt: RealFieldNameAndValue[];
+  } = {
+    gt: [],
+    lt: [],
+  };
+  if (!comparisonQuery) return comparisonQueryKeyValue;
+  // Create entries comparisonQuery array
+  const comparisonQueryEntries = createObjEntries(comparisonQuery);
+
+  console.log("comparisonQueryEntries", comparisonQueryEntries);
+  comparisonQueryEntries.forEach(([key, realFieldName], i) => {
+    const compareQueryValue = requestQuery[key] as string;
+    // Check if the fake field name is exist in the request query params
+    if (compareQueryValue) {
+      // split the key into the operator
+      let operator;
+      if (key === "gt" || key === "lt") operator = key as "lt" | "gt";
+      else operator = key.split("_")[1] as "lt" | "gt";
+
+      // Push into entries comparisonQueryKeyValue object
+      if (operator && comparisonQueryKeyValue[operator])
+        comparisonQueryKeyValue[operator].push({
+          realFieldName,
+          valueToCompare: compareQueryValue,
+        });
+    }
+  });
+  return comparisonQueryKeyValue;
+};
+
 // Create from the query params of the request and
 //  from the real queries names a new obj which contains the table column name
 // and his value for the select query.
@@ -131,22 +181,41 @@ export const prepareKeyValuesOfNameToSelect = (
 
 export const prepareComparisonParamsStatement = (
   comparisonQuery: {
-    gt: string[];
-    lt: string[];
+    gt: RealFieldNameAndValue[];
+    lt: RealFieldNameAndValue[];
   },
   queryParamsRes: any[]
 ) => {
-  const comparisonGreater = comparisonQuery?.gt[1]
-    ? [`${comparisonQuery?.gt[0]} >= $${queryParamsRes.length + 1}`]
-    : [];
+  // Loop over the gt and lt realFieldNameAndValue array and create array of compare string as a compare format of PostgreSql.
+  const createOperatorStringArr = (
+    operator: "gt" | "lt",
+    operatorSymbol: ">=" | "<="
+  ) => {
+    const strArr: string[] = [];
+    comparisonQuery[operator].forEach(({ realFieldName, valueToCompare }) => {
+      // 'real name field' >= value or 'real name field' <= value
+      strArr.push(
+        `${realFieldName} ${operatorSymbol} $${queryParamsRes.length + 1}`
+      );
+      queryParamsRes.push(valueToCompare);
+    });
+    return strArr;
+  };
 
-  comparisonQuery?.gt[1] && queryParamsRes.push(comparisonQuery?.gt[1]);
+  const comparisonGreater = createOperatorStringArr("gt", ">=");
+  const comparisonLesser = createOperatorStringArr("lt", "<=");
+  console.log("comparisonGreater", comparisonGreater);
+  // const comparisonGreater = comparisonQuery?.gt[1]
+  //   ? [`${comparisonQuery?.gt[0]} >= $${queryParamsRes.length + 1}`]
+  //   : [];
 
-  const comparisonLesser = comparisonQuery?.lt[1]
-    ? [`${comparisonQuery?.lt[0]} <= $${queryParamsRes.length + 1}`]
-    : [];
+  // comparisonQuery?.gt[1] && queryParamsRes.push(comparisonQuery?.gt[1]);
 
-  comparisonQuery?.lt[1] && queryParamsRes.push(comparisonQuery?.lt[1]);
+  // const comparisonLesser = comparisonQuery?.lt[1]
+  //   ? [`${comparisonQuery?.lt[0]} <= $${queryParamsRes.length + 1}`]
+  //   : [];
+
+  // comparisonQuery?.lt[1] && queryParamsRes.push(comparisonQuery?.lt[1]);
 
   const comparisonStatementStr = [
     ...comparisonGreater,
@@ -199,7 +268,7 @@ export const prepareStatementLogic = (
   querySelectLogic: string,
   queryParams: Record<string, any> = {},
   queryNameParams: Record<string, any> = {},
-  comparisonQuery: { gt: string[]; lt: string[] }
+  comparisonQuery: { gt: RealFieldNameAndValue[]; lt: RealFieldNameAndValue[] }
 ) => {
   const { keyValuesStrArr, paramsArr } = prepareKeyValuesOtherColumnToSelect(
     queryParams,
@@ -220,6 +289,7 @@ export const prepareStatementLogic = (
     comparisonQuery,
     queryParamsRes
   );
+
   const comparisonStatementStr = comparisonStr ? `and ${comparisonStr}` : "";
 
   const whereQueryStatement = `${
@@ -258,12 +328,18 @@ export const createSelectPaginationParams = (
   const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
   const numResultDefault = Number(numResults || 8);
   const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
-  const comparisonQueryKeyValue = comparisonQuery
-    ? {
-        gt: [comparisonQuery.gt, gt as string],
-        lt: [comparisonQuery.lt, lt as string],
-      }
-    : { gt: [], lt: [] };
+
+  // const comparisonQueryKeyValue = comparisonQuery
+  //   ? {
+  //       gt: [comparisonQuery.gt, gt as string],
+  //       lt: [comparisonQuery.lt, lt as string],
+  //     }
+  //   : { gt: [], lt: [] };
+
+  const comparisonQueryKeyValue = createComparisonQueryKeyValue(
+    requestQuery,
+    comparisonQuery
+  );
 
   const orderByParamRes =
     orderByParam && orderBy ? orderByParam[orderBy as string] : "";

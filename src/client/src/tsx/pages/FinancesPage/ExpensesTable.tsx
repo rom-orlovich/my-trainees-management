@@ -30,16 +30,13 @@ function transformExpenseFunction({
   };
 }
 
-function ExpensesTable({
-  queriesOptions,
-  nameData,
-}: QueriesOptionsPropsWithNameData) {
+function ExpensesTable({ queriesOptions }: QueriesOptionsPropsWithNameData) {
   const [deleteItem] = expenseApi.useDeleteItemMutation();
   return (
     <TablePagination<ExpensesTableAPI>
       editPagePath={`${APP_ROUTE.FINANCES_ROUTE}/${APP_ROUTE.EXPENSES_ROUTE}`}
       queriesOptions={queriesOptions}
-      nameData="Expense"
+      nameData="Expenses"
       transformFun={transformExpenseFunction}
       getAllQuery={expenseApi.useGetItemsQuery}
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}

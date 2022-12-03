@@ -32,7 +32,8 @@ function PieChartCard({
     chartHeading?: string;
     unit?: string;
   }) {
-  const labelsArr = labelFormatted || ["No data"];
+  const labelsArr = labelFormatted?.length ? labelFormatted : ["No data"];
+  const datasetsValuesArr = datasetsValues?.length ? datasetsValues : [100];
   const colorsGenerate =
     colors || generateRandomColors(labelsArr.length || 0, 0.7);
   return (
@@ -40,7 +41,7 @@ function PieChartCard({
       <PieChart
         datasets={[
           {
-            data: datasetsValues || [100],
+            data: datasetsValuesArr,
             backgroundColor: colorsGenerate,
             borderColor: colorsGenerate,
           },
@@ -66,7 +67,7 @@ function PieChartCard({
             tooltip: {
               callbacks: {
                 label:
-                  unit === "%"
+                  unit === "%" || !labelFormatted?.length
                     ? labelFormatterByPercents
                     : labelFormatterByUnit(unit),
               },

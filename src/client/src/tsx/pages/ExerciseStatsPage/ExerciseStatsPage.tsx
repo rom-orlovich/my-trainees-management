@@ -30,10 +30,11 @@ function ExerciseStatsPage() {
   const { exerciseID } = params;
   const queriesOptions = {
     trainerUserID: authState.user?.user_id,
-    gt,
     lt,
+    gt,
     exerciseID,
   };
+
   const content =
     display === "graph" ? (
       <ExerciseStatsChart queriesOptions={queriesOptions} />
@@ -54,12 +55,12 @@ function ExerciseStatsPage() {
       <div className={genClassName(page.page_header)}>
         <span className={page.dates_container}>
           <InputLabel
-            LabelProps={{ labelText: "Date Start", htmlFor: "gt" }}
-            InputProps={{ type: "date", onChange }}
+            LabelProps={{ labelText: "Date Start" }}
+            InputProps={{ type: "date", onChange, id: "gt" }}
           />
           <InputLabel
-            LabelProps={{ labelText: "Date End", htmlFor: "lt" }}
-            InputProps={{ type: "date", onChange }}
+            LabelProps={{ labelText: "Date End" }}
+            InputProps={{ type: "date", onChange, id: "lt" }}
           />
         </span>
 

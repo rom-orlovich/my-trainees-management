@@ -94,7 +94,15 @@ export const leadsOptionsCRUD: OptionsCRUD = {
     orderByParam: {
       leadDate: "lead_date",
     },
+    // comparisonQuery: {
+    //   leadDate: {
+    // gt: "le.lead_date",
+    // lt: "le.lead_date",
+    //   },
+    // },
     comparisonQuery: {
+      leadDate_gt: "le.lead_date",
+      leadDate_lt: "le.lead_date",
       gt: "le.lead_date",
       lt: "le.lead_date",
     },
@@ -285,10 +293,16 @@ export const trainingProgramsExerciseStatsOptionsCRUD: OptionsCRUD = {
     querySelectLogic: ``,
     queryParams: {
       exerciseID: TABLES_DATA.TRAINING_PROGRAM_ID,
+    },
+
+    // comparisonQuery: { gt: "update_date", lt: "update_date" },
+
+    comparisonQuery: {
+      updateDate_gt: "update_date",
+      updateDate_lt: "update_date",
       gt: "update_date",
       lt: "update_date",
     },
-    comparisonQuery: { gt: "update_date", lt: "update_date" },
   },
 
   permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
@@ -358,7 +372,13 @@ export const traineesOptionsCRUD: OptionsCRUD = {
       trainerUserID: "tr.trainer_user_id",
       id: `tr.${TABLES_DATA.TRAINEE_ID}`,
     },
-    comparisonQuery: { gt: "date_join", lt: "date_join" },
+    // comparisonQuery: { gt: "date_join", lt: "date_join" },
+    comparisonQuery: {
+      dateJoin_gt: "date_join",
+      dateJoin_lt: "date_join",
+      gt: "date_join",
+      lt: "date_join",
+    },
 
     modifiedOtherTable: {
       update: {
@@ -403,7 +423,13 @@ export const incomesOptionsCRUD: OptionsCRUD = {
     queryParams: {
       userID: `inc.${TABLES_DATA.USERS_TABLE_ID}`,
     },
+    // comparisonQuery: {
+    // gt: "date",
+    // lt: "date",
+    // },
     comparisonQuery: {
+      date_gt: "date",
+      date_lt: "date",
       gt: "date",
       lt: "date",
     },
@@ -423,7 +449,13 @@ export const expensesOptionsCRUD: OptionsCRUD = {
     queryParams: {
       userID: `ex.${TABLES_DATA.USERS_TABLE_ID}`,
     },
+    // comparisonQuery: {
+    // gt: "date",
+    // lt: "date",
+    // },
     comparisonQuery: {
+      date_gt: "date",
+      date_lt: "date",
       gt: "date",
       lt: "date",
     },
@@ -545,7 +577,13 @@ export const meetingOptionsCRUD: OptionsCRUD = {
       userID: `mt.${TABLES_DATA.USERS_TABLE_ID}`,
       trainerUserID: `mt.${TABLES_DATA.USERS_TABLE_ID}`,
     },
+    // comparisonQuery: {
+    // gt: "date_start",
+    // lt: "date_end",
+    // },
     comparisonQuery: {
+      dateStart_gt: "date_start",
+      dateStart_lt: "date_end",
       gt: "date_start",
       lt: "date_end",
     },
