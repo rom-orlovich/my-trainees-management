@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useFieldArray } from "react-hook-form";
 
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import { foodsApi } from "../../../redux/api/hooksAPI";
-import { FoodAPI } from "../../../redux/api/interfaceAPI";
-import { useAppDispatch } from "../../../redux/hooks";
-import { openModel } from "../../../redux/slices/modelControllerSlice";
+import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
+import { foodsApi } from "../../../../redux/api/hooksAPI";
+import { FoodAPI } from "../../../../redux/api/interfaceAPI";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { openModel } from "../../../../redux/slices/modelControllerSlice";
 
-import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
-import AutocompleteInput from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
-import Form from "../../baseComponents/RHF-Components/Form/Form";
+import { GeneralFormProps } from "../../../baseComponents/baseComponentsTypes";
+import AutocompleteInput from "../../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
+import Form from "../../../baseComponents/RHF-Components/Form/Form";
 
 import style from "./FoodsListForm.module.scss";
 import FoodsList from "./FoodsList/FoodsList";

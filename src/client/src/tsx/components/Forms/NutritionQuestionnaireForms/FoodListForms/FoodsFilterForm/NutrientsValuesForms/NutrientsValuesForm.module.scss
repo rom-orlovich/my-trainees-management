@@ -1,0 +1,83 @@
+@use "../../../../../../../style/utilities/utilities.scss" as *;
+
+.nutrients_values_form_container {
+  max-width: 28rem;
+  %initial {
+    @include initialWidth();
+  }
+  .inputs_container {
+    padding: 0.5rem;
+    height: 80%;
+    overflow-y: scroll;
+
+    .inputs_layout {
+      height: 30vh;
+      li {
+        @include flex-dir(center, null);
+        gap: 0.2rem;
+        @include classMatcher("selectInput_label") {
+          @extend %initial;
+          max-width: 50%;
+          select {
+            @extend %initial;
+          }
+        }
+        @include classMatcher("input_label") {
+          @extend %initial;
+          max-width: 18%;
+          input {
+            @extend %initial;
+          }
+          @include classMatcher("select_plus_button") {
+            @include posAbs(40%, null, -45%, null);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include smartphone() {
+  .nutrients_values_form_container {
+    max-width: 28rem;
+    %initial {
+      @include initialWidth();
+    }
+    .inputs_container {
+      padding: 0.5rem;
+      height: 80%;
+      overflow-y: scroll;
+
+      .inputs_layout {
+        height: 30vh;
+        li {
+          @include flex-dir(center, null);
+          gap: 0.2rem;
+          @include classMatcher("selectInput_label") {
+            @extend %initial;
+            max-width: 52%;
+            select {
+              @extend %initial;
+              font-size: 0.9rem;
+            }
+          }
+          @include classMatcher("input_label") {
+            @extend %initial;
+            max-width: 18%;
+
+            input {
+              font-size: 0.9rem;
+              @extend %initial;
+            }
+            @include classMatcher("select_plus_button") {
+              a {
+                font-size: 1.5rem;
+              }
+              @include posAbs(42%, null, -45%, null);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-import style from "../../../baseComponents/Model/ModelFormContainer.module.scss";
+import style from "../../../../baseComponents/Model/ModelFormContainer.module.scss";
 import { FoodsFilterAddForm } from "./FoodsFilterAddForm";
 
 function FoodsFilterFormContent() {

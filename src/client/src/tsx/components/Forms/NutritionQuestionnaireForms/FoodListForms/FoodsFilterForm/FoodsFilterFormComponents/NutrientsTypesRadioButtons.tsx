@@ -1,10 +1,10 @@
 import React from "react";
 import { Path, UseFormRegister } from "react-hook-form";
-import { NutrientsTypes } from "../../../../../redux/api/interfaceAPI";
+import { NutrientsTypes } from "../../../../../../redux/api/interfaceAPI";
 
 import RadioButtonsGroup, {
   RadioButtonGroupProps,
-} from "../../../../baseComponents/RHF-Components/RadioButtonsGroup/RadioButtonsGroup";
+} from "../../../../../baseComponents/RHF-Components/RadioButtonsGroup/RadioButtonsGroup";
 
 interface NutrientTypeRadioButtonsProps {
   nutrient_type: NutrientsTypes & "all";

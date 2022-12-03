@@ -19,7 +19,8 @@ export type ModelDisplayContentOptions =
   | "mealsDistPercents"
   | "favoriteFoods"
   | "blackListFoods"
-  | "filterFoodForm";
+  | "filterFoodForm"
+  | "nutrientsValues";
 
 export interface ModelControllerState {
   displayContent: ModelDisplayContentOptions[];

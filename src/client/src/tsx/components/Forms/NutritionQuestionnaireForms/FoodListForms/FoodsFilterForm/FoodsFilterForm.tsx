@@ -1,16 +1,17 @@
 import { useFieldArray } from "react-hook-form";
-import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
-import { NutrientsTypes } from "../../../../redux/api/interfaceAPI";
-import { GeneralFormProps } from "../../../baseComponents/baseComponentsTypes";
-import Form from "../../../baseComponents/RHF-Components/Form/Form";
-import { AllergensListType } from "../../../baseComponents/RHF-Components/formsSchemas";
-import TextFieldOpenModel from "../../../baseComponents/RHF-Components/TextFieldRHFOpenModel/TextFieldRHFOpenModel";
-import FoodRulesCheckboxes from "../../NutritionQuestionnaireForms/NutritionQuestionnaireFormComponents/FoodRulesCheckboxes";
+import useGetUserLoginData from "../../../../../hooks/useGetUserLoginData";
+import { NutrientsTypes } from "../../../../../redux/api/interfaceAPI";
+import { GenericRecord } from "../../../../../types";
+import { GeneralFormProps } from "../../../../baseComponents/baseComponentsTypes";
+import Form from "../../../../baseComponents/RHF-Components/Form/Form";
+import { AllergensListType } from "../../../../baseComponents/RHF-Components/formsSchemas";
+import TextFieldOpenModel from "../../../../baseComponents/RHF-Components/TextFieldRHFOpenModel/TextFieldRHFOpenModel";
+import FoodRulesCheckboxes from "../../NutritionQuestionnaireFormComponents/FoodRulesCheckboxes";
 
 import style from "./FoodsFilterForm.module.scss";
 import NutrientsTypesRadioButtons from "./FoodsFilterFormComponents/NutrientsTypesRadioButtons";
 
-export type NutrientsAmounts =
+export type NutrientsNamesFields =
   | "calories_total"
   | "protein_g"
   | "carbs_g"
@@ -27,11 +28,7 @@ export interface FiltersFoodProps {
   is_vegetarian: boolean;
   isKeepMeatMilk: boolean;
   allergens: AllergensListType[];
-  nutrients_amounts: {
-    gt: number;
-    lt: number;
-    compare_nutrient: NutrientsAmounts;
-  }[];
+  nutrients_values: GenericRecord<number>[];
 }
 
 export function FoodsFilterForm({
@@ -82,11 +79,11 @@ export function FoodsFilterForm({
               nameField="allergens"
             />
             <TextFieldOpenModel
-              labelText="Allergens"
+              labelText="Nutrients values"
               placeholder={allergensPlaceholderStr}
-              modelName="allergensList"
+              modelName="nutrientsValues"
               register={register}
-              nameField="allergens"
+              nameField="nutrients_values"
             />
             <div className="nutrient_amount"></div>
           </>

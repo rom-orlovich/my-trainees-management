@@ -1,15 +1,15 @@
 import { useFieldArray } from "react-hook-form";
 
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 
-import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
-import { CheckBox } from "../../baseComponents/RHF-Components/CheckBoxGroup/Checkbox";
-import CheckBoxGroup from "../../baseComponents/RHF-Components/CheckBoxGroup/CheckboxGroup";
-import Form from "../../baseComponents/RHF-Components/Form/Form";
+import { GeneralFormProps } from "../../../baseComponents/baseComponentsTypes";
+import { CheckBox } from "../../../baseComponents/RHF-Components/CheckBoxGroup/Checkbox";
+import CheckBoxGroup from "../../../baseComponents/RHF-Components/CheckBoxGroup/CheckboxGroup";
+import Form from "../../../baseComponents/RHF-Components/Form/Form";
 import {
   AllergensListType,
   ALLERGENS_LIST,
-} from "../../baseComponents/RHF-Components/formsSchemas";
+} from "../../../baseComponents/RHF-Components/formsSchemas";
 
 import style from "./AllergensForm.module.scss";
 

@@ -1,12 +1,11 @@
 /* eslint-disable camelcase */
 import React from "react";
 import { useParams } from "react-router-dom";
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import { participantsGroupApi } from "../../../redux/api/hooksAPI";
-import { ParticipantsGroupTableAPI } from "../../../redux/api/interfaceAPI";
-import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
-import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
-import { MealsCaloriesSizeForm } from "./MealsCaloriesSizeForm";
+import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
+import { participantsGroupApi } from "../../../../redux/api/hooksAPI";
+import { ParticipantsGroupTableAPI } from "../../../../redux/api/interfaceAPI";
+import LoadingSpinner from "../../../baseComponents/LoadingSpinner/LoadingSpinner";
+import { updateFunction } from "../../../baseComponents/RHF-Components/FormsHook";
 
 export function MealsCaloriesSizeEditForm({ id }: { id: number }) {
   // const [updateItem, state] = participantsGroupApi.useUpdateItemMutation();

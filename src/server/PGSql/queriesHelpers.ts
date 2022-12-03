@@ -204,18 +204,6 @@ export const prepareComparisonParamsStatement = (
 
   const comparisonGreater = createOperatorStringArr("gt", ">=");
   const comparisonLesser = createOperatorStringArr("lt", "<=");
-  console.log("comparisonGreater", comparisonGreater);
-  // const comparisonGreater = comparisonQuery?.gt[1]
-  //   ? [`${comparisonQuery?.gt[0]} >= $${queryParamsRes.length + 1}`]
-  //   : [];
-
-  // comparisonQuery?.gt[1] && queryParamsRes.push(comparisonQuery?.gt[1]);
-
-  // const comparisonLesser = comparisonQuery?.lt[1]
-  //   ? [`${comparisonQuery?.lt[0]} <= $${queryParamsRes.length + 1}`]
-  //   : [];
-
-  // comparisonQuery?.lt[1] && queryParamsRes.push(comparisonQuery?.lt[1]);
 
   const comparisonStatementStr = [
     ...comparisonGreater,

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React from "react";
-import { genClassName } from "../../../../utilities/helpersFun";
-import List from "../../../baseComponents/List/List";
+import { genClassName } from "../../../../../utilities/helpersFun";
+import List from "../../../../baseComponents/List/List";
 import { FoodProps } from "../FoodsListForm";
 import style from "./FoodsList.module.scss";
 

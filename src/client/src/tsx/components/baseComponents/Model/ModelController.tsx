@@ -4,15 +4,14 @@ import { useAppSelector } from "../../../redux/hooks";
 
 import { getModelControllerState } from "../../../redux/slices/modelControllerSlice";
 import ModelActivityFormContent from "../../Forms/ActivityForms/ModelActivityFormContent";
-import AllergensFormContent from "../../Forms/AllergensForm/AllergensFormContent";
+import AllergensFormContent from "../../Forms/NutritionQuestionnaireForms/AllergensForm/AllergensFormContent";
 import ModelCityFormContent from "../../Forms/CityForms/ModelCityFormContent";
 import ModelEquipmentFormContent from "../../Forms/EquipmentForms/ModelEquipmentFormContent";
 import ModelExerciseFormContent from "../../Forms/ExerciseForms/ModelExerciseFormContent";
-import FoodsFilterFormContent from "../../Forms/FoodListForms/FoodsFilterForm/FoodsFilterFormContent";
-import FoodsListFormContent from "../../Forms/FoodListForms/FoodsListFormContent";
+import FoodsFilterFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/FoodsFilterFormContent";
+import FoodsListFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListFormContent";
 
 import ModelLocationFormContent from "../../Forms/LocationForms/ModelLocationFormContent";
-import MealsCaloriesSizeFormContent from "../../Forms/MealsCaloriesSizeForms/MealsCaloriesSizeFormContent";
 
 import ModelMuscleGroupFormContent from "../../Forms/MusclesGroupForms/ModelMuscleGroupFormContent";
 import ModelParticipantsGroupFormContent from "../../Forms/ParticipantsGroupForm/ModelParticipantsGroupFormContent";
@@ -20,6 +19,9 @@ import ModelParticipantsGroupListFormContent from "../../Forms/ParticipantsGroup
 import ModelProductFormContent from "../../Forms/ProductsForms/ModelProductFormContent";
 import ModelSubscriptionPlansFormContent from "../../Forms/SubscriptionPlansForms/ModelSubscriptionPlansFormContent";
 import ModelCard from "./ModelCard";
+import MealsCaloriesSizeFormContent from "../../Forms/NutritionQuestionnaireForms/MealsCaloriesSizeForms/MealsCaloriesSizeFormContent";
+
+import NutrientsValuesFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesFormContent";
 
 function ModelController() {
   const modelControllerState = useAppSelector(getModelControllerState);
@@ -54,6 +56,8 @@ function ModelController() {
     content = <FoodsListFormContent />;
   else if (modelControllerState?.lastModel === "filterFoodForm")
     content = <FoodsFilterFormContent />;
+  else if (modelControllerState?.lastModel === "nutrientsValues")
+    content = <NutrientsValuesFormContent />;
   else content = <></>;
 
   return <ModelCard>{content}</ModelCard>;

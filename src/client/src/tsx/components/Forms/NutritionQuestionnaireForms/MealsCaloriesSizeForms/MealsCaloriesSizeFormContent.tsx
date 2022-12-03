@@ -1,10 +1,9 @@
 import React from "react";
-import { useAppSelector } from "../../../redux/hooks";
-import { getModelControllerState } from "../../../redux/slices/modelControllerSlice";
+import { useAppSelector } from "../../../../redux/hooks";
+import { getModelControllerState } from "../../../../redux/slices/modelControllerSlice";
 
-import style from "../../baseComponents/Model/ModelFormContainer.module.scss";
+import style from "../../../baseComponents/Model/ModelFormContainer.module.scss";
 import { MealsCaloriesSizeAddForm } from "./MealsCaloriesSizeAddForm";
-
 
 function MealsCaloriesSizeFormContent() {
   const id = useAppSelector(getModelControllerState).curParam;

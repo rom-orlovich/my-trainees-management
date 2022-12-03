@@ -1,4 +1,4 @@
-import style from "../../baseComponents/Model/ModelFormContainer.module.scss";
+import style from "../../../baseComponents/Model/ModelFormContainer.module.scss";
 
 import { AllergensAddForm } from "./AllergensAddForm";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
-import { useAppDispatch } from "../../../redux/hooks";
-import { setMealsPercentsArr } from "../../../redux/slices/nutritionQuestionnaireSlice";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { setMealsPercentsArr } from "../../../../redux/slices/nutritionQuestionnaireSlice";
 import { FoodsListForm, FoodsListFormProps } from "./FoodsListForm";
 
 export function FoodListAddForm() {

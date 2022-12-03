@@ -1,10 +1,10 @@
 import React from "react";
 
-import { useAppDispatch } from "../../../redux/hooks";
+import { useAppDispatch } from "../../../../redux/hooks";
 import {
   setAllergensArr,
   setMealsPercentsArr,
-} from "../../../redux/slices/nutritionQuestionnaireSlice";
+} from "../../../../redux/slices/nutritionQuestionnaireSlice";
 
 import { AllergensForm, AllergensFormProps } from "./AllergensForm";
 

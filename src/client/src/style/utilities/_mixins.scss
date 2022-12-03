@@ -64,3 +64,14 @@
     @content;
   }
 }
+
+@mixin initialWidth {
+  width: initial;
+  max-width: initial;
+  min-width: initial;
+}
+@mixin initialHeight {
+  height: initial;
+  max-height: initial;
+  min-height: initial;
+}
