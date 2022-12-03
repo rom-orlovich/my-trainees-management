@@ -134,21 +134,12 @@ export const createNutritionMenuRouter = () => {
   const nutritionMenuRouter = createCRUDroutes(nutritionMenuOptionsCRUD, {
     getByID: true,
   });
-  // nutritionMenuRouter.get(`/generateMenu/:id`, (req, res, next) => {
-  //   res.send("hey");
-  // });
 
   nutritionMenuRouter.get(`/generateMenu/:id`, handleGenerateNutritionMenu);
   nutritionMenuRouter.get(
     `/${API_ROUTES.NUTRITION_MENU_ENTITY}/:id`,
     handleGetNutritionMenu
   );
-  // console.log(
-  //   nutritionMenuRouter.get("/one", (req, res, next) => {
-  //     res.send("hey");
-  //   })
-  // );
-  // /generateMenu?userID=2
 
   return nutritionMenuRouter;
 };

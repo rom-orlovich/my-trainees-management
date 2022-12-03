@@ -11,13 +11,11 @@ export async function selectQuery(
   fields = "*",
   queryLogic = "",
   queryParams = [] as any[],
-  withClause = "",
-  wholeSelectQueryLogic = ""
+  withClause = ""
 ) {
-  const statement = `${
-    wholeSelectQueryLogic ||
-    `${withClause || ""} SELECT ${fields} FROM ${tableName}`
-  } ${queryLogic} `;
+  const statement = `${`${
+    withClause || ""
+  } SELECT ${fields} FROM ${tableName}`} ${queryLogic} `;
 
   try {
     const rows = await client.query(statement, queryParams);

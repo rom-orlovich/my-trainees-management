@@ -24,7 +24,7 @@ export const setAllergensArrFun = <
 ) => {
   state.allergens = action.payload;
   state.allergensStr = action.payload
-    .reduce((pre, cur, i) => `${pre} ${cur},`, "")
+    .reduce((pre, cur, i) => `${pre}${cur},`, "")
     .slice(0, -1);
 };
 export const nutritionQuestionnaireFormSlice = createSlice({

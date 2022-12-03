@@ -15,6 +15,9 @@ export interface SelectTableQueryParam {
   querySelectLogic: string; // The query logic
   orderByParam?: Record<string, string>;
   comparisonQuery?: GenericRecord<string>;
+  arrayQueryParams?: GenericRecord<string>;
+  beforeWhereQuery?: string;
+
   // The purpose of below params is to encapsulate the real table's fields from the client,
   // so the client won't able to know what are the real fields name of the table.
   queryParams?: Record<string, string>;
@@ -45,6 +48,7 @@ export interface SelectPaginationQueryParam {
   queryNameParam?: Record<string, any>;
   orderByParam?: Record<string, string>;
   comparisonQuery?: GenericRecord<string>;
+  arrayQueryParams?: GenericRecord<string>;
 }
 
 export interface TablePropsData {
@@ -54,6 +58,7 @@ export interface TablePropsData {
   fieldNamesQuery: string;
   querySelectLogic: string;
   groupBy?: string;
+  beforeWhereQuery?: string;
 }
 
 export interface IncomeAPI {

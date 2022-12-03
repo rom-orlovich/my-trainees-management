@@ -64,7 +64,27 @@ export interface RealFieldNameAndValue {
   valueToCompare: string;
 }
 
-const createComparisonQueryKeyValue = (
+const prepareArrayQueryParamsKeyValue = (
+  requestQuery: GenericRecord<string>,
+  arrayQueryParams?: GenericRecord<string>
+) => {
+  if (!arrayQueryParams) return [];
+  const arrayQueryParamsEntries = createObjEntries(arrayQueryParams);
+  const arrayQueryParamsArr = arrayQueryParamsEntries.reduce(
+    (pre, [key, value]) => {
+      const queryKey = requestQuery[key];
+      if (queryKey) {
+        pre.push(queryKey.split(","));
+      }
+      return pre;
+    },
+    [] as any[][]
+  );
+
+  return arrayQueryParamsArr;
+};
+
+const prepareComparisonQueryKeyValue = (
   requestQuery: GenericRecord<any>,
   comparisonQuery?: GenericRecord<string>
 ) => {
@@ -79,7 +99,7 @@ const createComparisonQueryKeyValue = (
   // Create entries comparisonQuery array
   const comparisonQueryEntries = createObjEntries(comparisonQuery);
 
-  comparisonQueryEntries.forEach(([key, realFieldName], i) => {
+  comparisonQueryEntries.forEach(([key, realFieldName]) => {
     const compareQueryValue = requestQuery[key] as string;
     // Check if the fake field name is exist in the request query params
     if (compareQueryValue) {
@@ -258,8 +278,12 @@ export const prepareStatementLogic = (
   querySelectLogic: string,
   queryParams: Record<string, any> = {},
   queryNameParams: Record<string, any> = {},
-  comparisonQuery: { gt: RealFieldNameAndValue[]; lt: RealFieldNameAndValue[] }
+  comparisonQuery: { gt: RealFieldNameAndValue[]; lt: RealFieldNameAndValue[] },
+  arrayQueryParams: unknown[][],
+  beforeWhereQuery?: string
 ) => {
+  const beforeWhereQueryStatement = beforeWhereQuery || "";
+
   const { keyValuesStrArr, paramsArr } = prepareKeyValuesOtherColumnToSelect(
     queryParams,
     1
@@ -268,7 +292,7 @@ export const prepareStatementLogic = (
   const { keyValuesOfNameStrArr, paramsNamesArr } =
     prepareKeyValuesOfNameToSelect(queryNameParams, paramsArr.length + 1);
 
-  const queryParamsRes = [...paramsArr, ...paramsNamesArr];
+  const queryParamsRes = [...arrayQueryParams, ...paramsArr, ...paramsNamesArr];
 
   // To create string with 'and' between the queries string.
   const queryStrJoin = [...keyValuesStrArr, ...keyValuesOfNameStrArr].join(
@@ -283,7 +307,11 @@ export const prepareStatementLogic = (
   const comparisonStatementStr = comparisonStr ? `and ${comparisonStr}` : "";
 
   const whereQueryStatement = `${
-    queryStrJoin ? `WHERE ${queryStrJoin} ${comparisonStatementStr}` : ""
+    queryStrJoin
+      ? `WHERE ${beforeWhereQueryStatement} ${queryStrJoin} ${comparisonStatementStr}`
+      : `${
+          beforeWhereQueryStatement ? `WHERE ${beforeWhereQueryStatement}` : ""
+        }`
   }`;
 
   const queryStrStatement = `${querySelectLogic} ${whereQueryStatement}`;
@@ -300,6 +328,7 @@ export const createSelectPaginationParams = (
     queryNameParam,
     orderByParam,
     comparisonQuery,
+    arrayQueryParams,
   } = selectPaginationQueryParam;
 
   const {
@@ -313,20 +342,16 @@ export const createSelectPaginationParams = (
     lt, // The client send in the url query the name of field that his value is lesser than.
     ...rest
   } = requestQuery;
-
+  const arrayQueryParamsArr = prepareArrayQueryParamsKeyValue(
+    requestQuery,
+    arrayQueryParams
+  );
   const pageNumber = Number(page || 1);
   const ascDefault = (asc === undefined ? true : asc === "true") as boolean;
   const numResultDefault = Number(numResults || 8);
   const maxNumResult = numResultDefault > 100 ? 100 : numResultDefault;
 
-  // const comparisonQueryKeyValue = comparisonQuery
-  //   ? {
-  //       gt: [comparisonQuery.gt, gt as string],
-  //       lt: [comparisonQuery.lt, lt as string],
-  //     }
-  //   : { gt: [], lt: [] };
-
-  const comparisonQueryKeyValue = createComparisonQueryKeyValue(
+  const comparisonQueryKeyValue = prepareComparisonQueryKeyValue(
     requestQuery,
     comparisonQuery
   );
@@ -348,6 +373,7 @@ export const createSelectPaginationParams = (
     realQueryByNameParams,
     comparisonQueryKeyValue,
     orderByParamRes,
+    arrayQueryParamsArr,
   };
 };
 

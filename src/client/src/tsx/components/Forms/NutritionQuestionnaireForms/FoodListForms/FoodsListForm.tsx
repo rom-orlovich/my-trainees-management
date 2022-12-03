@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { useEffect, useState } from "react";
 import { useFieldArray } from "react-hook-form";
 
@@ -72,7 +73,9 @@ export function FoodsListForm({
         const kosherObj = kosher ? { kosher } : {};
         const isVegan = is_vegan ? { is_vegan } : {};
         const isVegetarian = is_vegetarian ? { is_vegetarian } : {};
+
         const queryOptions = {
+          allergens: allergensStr,
           ...nutrientType,
           ...kosherType,
           ...kosherObj,

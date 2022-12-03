@@ -610,6 +610,12 @@ export const foodsOptionsCRUD: OptionsCRUD = {
       is_vegetarian: "is_vegetarian",
       nutrient_type: "nutrient_type",
     },
+
+    arrayQueryParams: {
+      allergens: "allergens",
+    },
+
+    beforeWhereQuery: "not allergens && $1",
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: foodsSchema,

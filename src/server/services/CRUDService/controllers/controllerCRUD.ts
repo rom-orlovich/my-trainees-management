@@ -47,6 +47,8 @@ export function createRoutesControllers({
     comparisonQuery,
     groupBy,
     withClause,
+    beforeWhereQuery,
+    arrayQueryParams,
   },
   logAlert = true,
   validateSchema,
@@ -62,8 +64,10 @@ export function createRoutesControllers({
       queryNameParam,
       orderByParam,
       comparisonQuery,
+      arrayQueryParams,
     };
     const tablePropsData = {
+      beforeWhereQuery,
       withClause,
       tableName,
       fieldNamesQuery,

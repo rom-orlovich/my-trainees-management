@@ -1,6 +1,1 @@
-SELECT
-    *
-FROM
-    foods as fd
-WHERE
-    nutrient_type = 'carbohydrates'
+SELECT count(*) FROM foods as fd   WHERE not allergens && $1 and  : values:[["לוז"]]
