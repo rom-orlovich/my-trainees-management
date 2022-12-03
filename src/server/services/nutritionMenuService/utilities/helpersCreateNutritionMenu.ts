@@ -13,7 +13,7 @@ import {
   Food,
   KosherType,
   KosherTypeWithoutPareve,
-  NutritionType,
+  NutrientsTypes,
 } from "../../foodsDataScraperService/foodsDataScraperServiceTypes";
 import { MeasuresCalResAPI } from "../../statisticService/serviceStatisticsTypes";
 import { NUM_FOODS_FOR_EACH_NUTRIENTS, NUM_FOODS_IN_MEAL } from "../constants";
@@ -114,7 +114,7 @@ export const getBestNutrientsFoods = (foods: Food[], amount = 100) => {
   const prepareMostFoodScoreByAmount = (foods: Food[], amount = 100) =>
     sortArrObjBy(foods, "food_score", false).slice(0, amount);
 
-  const getMostFoodsScoreByAmount = (nutrientType: NutritionType) =>
+  const getMostFoodsScoreByAmount = (nutrientType: NutrientsTypes) =>
     prepareMostFoodScoreByAmount(
       filterArrObjBy(foods, "nutrient_type", [nutrientType]),
       amount

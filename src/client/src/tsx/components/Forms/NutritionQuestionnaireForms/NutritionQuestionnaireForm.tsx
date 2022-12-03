@@ -20,18 +20,15 @@ import { setInDate } from "../../../utilities/helpersFun";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
-import CheckBoxGroup, {
-  CheckBoxGroupProps,
-} from "../../baseComponents/RHF-Components/CheckBoxGroup/CheckboxGroup";
-
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { nutritionQuestionnaireSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
-import RadioButtonsGroup, {
-  RadioButtonGroupProps,
-} from "../../baseComponents/RHF-Components/RadioButtonsGroup/RadioButtonsGroup";
+
+import TextFieldOpenModel from "../../baseComponents/RHF-Components/TextFieldRHFOpenModel/TextFieldRHFOpenModel";
 import style from "./NutritionQuestionnaireForm.module.scss";
+import DietTypesRadioButtons from "./NutritionQuestionnaireFormComponents/DietTypesRadioButtons";
+import FoodRulesCheckboxes from "./NutritionQuestionnaireFormComponents/FoodRulesCheckboxes";
 
 export const NUTRITION_QUESTIONNAIRE_NAME = "Nutrition Questionnaire";
 export function NutritionQuestionnaireForm({
@@ -41,24 +38,16 @@ export function NutritionQuestionnaireForm({
 }: GeneralFormProps<NutritionQuestionnaire>) {
   const { user_id } = useGetUserLoginData();
   const profileID = Number(useParams().id);
-  const dispatch = useAppDispatch();
-  const questionnaireState = useAppSelector(getNutritionQuestionnaireState);
-  const createInputIconProps = (modelName: ModelDisplayContentOptions) => ({
-    IconEl: FaEdit,
-    className: style.edit_icon,
-    option: {
-      link: "",
-      onClick: (id: number) => {
-        dispatch(
-          openModel({
-            displayContent: modelName,
-            curParam: id,
-          })
-        );
-      },
-    },
-  });
 
+  const questionnaireState = useAppSelector(getNutritionQuestionnaireState);
+
+  const allergensPlaceholderStr = questionnaireState.allergens
+    .reduce((pre, cur, i) => `${pre} ${cur},`, "")
+    .slice(0, -1);
+
+  const mealsPercentsPlaceholderStr = questionnaireState.mealsPercents
+    .reduce((pre, cur, i) => `${pre} Meal ${i + 1} ${cur}%,`, "")
+    .slice(0, -1);
   return (
     <>
       <Form<NutritionQuestionnaire>
@@ -69,7 +58,6 @@ export function NutritionQuestionnaireForm({
         className={style.nutrition_questionnaire_form_container}
         formOptions={{
           defaultValues: {
-            ...defaultValues,
             user_id,
             day_start: format(
               setInDate({ setHour: 8, setMinutes: 0.5 }),
@@ -86,64 +74,13 @@ export function NutritionQuestionnaireForm({
             isKeepMeatMilk: false,
             diet_type: "neutral",
             meals_calories_size_percents: [],
+            ...defaultValues,
           },
           resolver: yupResolver(nutritionQuestionnaireSchema),
         }}
       >
-        {({ register, formState, getValues, watch }) => {
-          const {
-            day_end,
-            day_start,
-            // diet_type,
-            // isKeepMeatMilk,
-            // kosher,
-            // is_vegan,
-            // is_vegetarian,
-            // meals_calories_size_percents,
-            // allergens,
-            // favorite_foods,
-            // black_list_foods,
-          } = formState.errors;
-
-          const checkboxGroupData: CheckBoxGroupProps = {
-            checkboxDataArr: [
-              {
-                register: register("kosher"),
-                LabelProps: { labelText: "Kosher?" },
-              },
-              {
-                register: register("isKeepMeatMilk"),
-                LabelProps: { labelText: "KeepMeat&Milk?" },
-              },
-              {
-                register: register("is_vegan"),
-                LabelProps: { labelText: "Vegan?" },
-              },
-              {
-                register: register("is_vegetarian"),
-                LabelProps: { labelText: "Vegetarian?" },
-              },
-            ],
-          };
-          const radioButtonsGroupData: RadioButtonGroupProps = {
-            radioButtonsDataArr: [
-              {
-                register: register("diet_type"),
-                LabelProps: { labelText: "Neutral?" },
-                InputProps: { value: "neutral" },
-              },
-              {
-                register: register("diet_type"),
-                LabelProps: { labelText: "Cutting?" },
-                InputProps: { value: "cutting" },
-              },
-              {
-                register: register("diet_type"),
-                LabelProps: { labelText: "Bulking?" },
-                InputProps: { value: "bulking" },
-              },
-            ],
-          };
+        {({ register, formState }) => {
+          const { day_end, day_start } = formState.errors;
 
           return (
             <>
@@ -172,79 +109,42 @@ export function NutritionQuestionnaireForm({
                 <InputErrorMessage nameInput="Sleep Time" error={day_end} />
               </InputLabel>
 
-              <CheckBoxGroup
-                heading="Rules"
-                className={style.checkbox_group}
-                checkboxDataArr={checkboxGroupData.checkboxDataArr}
+              <FoodRulesCheckboxes
+                register={register}
+                className={style.inputs_group}
               />
-              <RadioButtonsGroup
-                heading="Diet Type"
-                className={style.checkbox_group}
-                radioButtonsDataArr={radioButtonsGroupData.radioButtonsDataArr}
+              <DietTypesRadioButtons
+                register={register}
+                className={style.inputs_group}
               />
-
-              <InputLabel
-                TextAreaProps={{
-                  ...register("meals_calories_size_percents"),
-                  disabled: true,
-                  placeholder: questionnaireState.mealsPercents
-                    .reduce(
-                      (pre, cur, i) => `${pre} Meal ${i + 1} ${cur}%,`,
-                      ""
-                    )
-                    .slice(0, -1),
-                }}
-                inputIconProps={createInputIconProps("mealsDistPercents")}
-                LabelProps={{
-                  htmlFor: "meals_calories_size_percents",
-                  labelText: "Meal Size In Percents",
-                }}
-              >
-                {/* <InputErrorMessage nameInput="Sleep Time" error={day_end} /> */}
-              </InputLabel>
-              <InputLabel
-                TextAreaProps={{
-                  ...register("allergens"),
-                  disabled: true,
-
-                  placeholder: questionnaireState.allergens
-                    .reduce((pre, cur, i) => `${pre} ${cur},`, "")
-                    .slice(0, -1),
-                }}
-                inputIconProps={createInputIconProps("allergensList")}
-                LabelProps={{
-                  htmlFor: "allergens",
-                  labelText: "Allergens",
-                }}
-              >
-                {/* <InputErrorMessage nameInput="Text" error={allergens} /> */}
-              </InputLabel>
-              <InputLabel
-                TextAreaProps={{
-                  ...register("favorite_foods"),
-                  disabled: true,
-                }}
-                inputIconProps={createInputIconProps("favoriteFoods")}
-                LabelProps={{
-                  htmlFor: "favorite_foods",
-                  labelText: "Favorite Food",
-                }}
-              >
-                {/* <InputErrorMessage nameInput="Text" error={favorite_foods} /> */}
-              </InputLabel>
-              <InputLabel
-                TextAreaProps={{
-                  ...register("black_list_foods"),
-                  disabled: true,
-                }}
-                inputIconProps={createInputIconProps("blackListFoods")}
-                LabelProps={{
-                  htmlFor: "black_list_foods",
-                  labelText: "Black List Food",
-                }}
-              >
-                {/* <InputErrorMessage nameInput="Text" error={note_text} /> */}
-              </InputLabel>
+              <TextFieldOpenModel
+                labelText="Meals Size"
+                placeholder={mealsPercentsPlaceholderStr}
+                modelName="mealsDistPercents"
+                register={register}
+                nameField="meals_calories_size_percents"
+              />
+              <TextFieldOpenModel
+                labelText="Allergens"
+                placeholder={allergensPlaceholderStr}
+                modelName="allergensList"
+                register={register}
+                nameField="allergens"
+              />
+              <TextFieldOpenModel
+                labelText="Favorite Foods"
+                placeholder={""}
+                modelName="favoriteFoods"
+                register={register}
+                nameField="favorite_foods"
+              />
+              <TextFieldOpenModel
+                labelText="Blacklist Foods"
+                placeholder={""}
+                modelName="blackListFoods"
+                register={register}
+                nameField="black_list_foods"
+              />
             </>
           );
         }}

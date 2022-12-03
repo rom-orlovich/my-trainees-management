@@ -1,0 +1,7 @@
+@use "../../../../../style//utilities/utilities.scss" as *;
+.edit_icon {
+  a {
+    font-size: 1.2rem;
+  }
+  @include posAbs(30%, null, 0%, null);
+}

@@ -430,7 +430,7 @@ export interface NutritionQuestionnaire {
 
 export type KosherType = "בשרי" | "חלבי" | "פרווה";
 
-export type NutritionType = "proteins" | "fats" | "carbohydrates";
+export type NutrientsTypes = "proteins" | "fats" | "carbohydrates";
 export type FoodType = "בשרי" | "טבעוני" | "צמחוני";
 
 export interface FoodAPI {
@@ -447,7 +447,7 @@ export interface FoodAPI {
   saturated_fat: number;
   cholesterol_mg: number;
   sodium_mg: number;
-  nutrient_type: NutritionType;
+  nutrient_type: NutrientsTypes;
   allergens: string[];
   kosher: boolean;
   is_vegan: boolean;

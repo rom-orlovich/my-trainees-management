@@ -2,7 +2,7 @@ import React from "react";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { FiltersFoodProps, FoodsFilterForm } from "./FoodsFilterForm";
 
-export function FoodListAddForm() {
+export function FoodsFilterAddForm() {
   const dispatch = useAppDispatch();
   const handleSubmit = (body: FiltersFoodProps) => {
     console.log(body);

@@ -1,4 +1,21 @@
-@use "../../../../style/utilities/utilities.scss" as *;
+@use "../../../../../style/utilities/utilities.scss" as *;
 
-.filters_food_container {
+.foods_filters_form_container {
+  %shared {
+    @include classMatcher("GroupInputs_group_inputs_layout") {
+      justify-content: center;
+    }
+  }
+  .nutrient_type_radio_buttons {
+    @extend %shared;
+    @include classMatcher("input_label") {
+      gap: 0.2rem;
+    }
+  }
+  .foods_rules_checkboxes {
+    @extend %shared;
+    @include classMatcher("input_label") {
+      gap: 0.2rem;
+    }
+  }
 }

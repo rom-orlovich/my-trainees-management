@@ -1,12 +1,6 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 
 .nutrition_questionnaire_form_container {
-  .edit_icon {
-    a {
-      font-size: 1.2rem;
-    }
-    @include posAbs(30%, null, 0%, null);
-  }
   @include classMatcher("textarea") {
     textarea {
       &:disabled {
@@ -15,10 +9,8 @@
       height: 5rem;
     }
   }
-  .checkbox_group {
-    // width: 100%;
+  .inputs_group {
     @include classMatcher("layout") {
-      // width: 100%;
     }
   }
 }

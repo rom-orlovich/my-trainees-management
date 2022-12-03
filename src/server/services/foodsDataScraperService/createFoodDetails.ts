@@ -2,7 +2,7 @@ import { CheerioAPI } from "cheerio";
 import { lowerCase } from "lodash";
 
 import { ALLERGENS_LIST, NOT_VEGAN_INGREDIENTS } from "./constants";
-import { Food, NutritionType } from "./foodsDataScraperServiceTypes";
+import { Food, NutrientsTypes } from "./foodsDataScraperServiceTypes";
 import { createCheerioLoad } from "./utilities/cheerioHelpers";
 
 const createKeyValue = ($: ReturnType<CheerioAPI>) => {
@@ -110,7 +110,7 @@ const createAllergensList = (allerganElText: string) => {
   });
   return resAllergan;
 };
-const checkFoodNutritionType = (food: Food) => {
+const checkFoodNutrientsTypes = (food: Food) => {
   let nutritionType = "";
   if (food.fat_g < food.protein_g && food.carbs_g < food.protein_g)
     nutritionType = "proteins";
@@ -147,7 +147,7 @@ const createFoodsNutritionValue = ($: CheerioAPI) => {
     });
   foodInitialValues = {
     ...foodInitialValues,
-    nutrient_type: checkFoodNutritionType(foodInitialValues) as NutritionType,
+    nutrient_type: checkFoodNutrientsTypes(foodInitialValues) as NutrientsTypes,
   };
 
   return foodInitialValues;
