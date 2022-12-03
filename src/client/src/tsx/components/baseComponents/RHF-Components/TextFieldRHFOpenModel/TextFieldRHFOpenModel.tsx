@@ -21,12 +21,14 @@ function TextFieldOpenModel<T extends FieldValues>({
   nameField,
   placeholder,
   labelText,
+  id,
 }: {
   labelText: string;
   modelName: ModelDisplayContentOptions;
   nameField: Path<T>;
   register: UseFormRegister<T>;
   placeholder: string;
+  id?: string;
 }) {
   const dispatch = useAppDispatch();
 
@@ -40,6 +42,7 @@ function TextFieldOpenModel<T extends FieldValues>({
       inputIconProps={{
         IconEl: FaEdit,
         className: style.edit_icon,
+        id,
         option: {
           link: "",
           onClick: (id: number) => {

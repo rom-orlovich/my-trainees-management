@@ -12,17 +12,14 @@ import { NutrientsNamesFields } from "../FoodsFilterForm";
 
 import style from "./NutrientsValuesForm.module.scss";
 
-export type NutrientValuesGenericCompare =
-  | `${NutrientsNamesFields}_lt`
-  | `${NutrientsNamesFields}_gt`;
-
-export type NutrientValues = {
+export interface NutrientValues {
   nutrientName: NutrientsNamesFields;
   gt: number;
   lt: number;
-};
+}
+export type NutrientValuesPartial = Partial<NutrientValues>;
 export interface NutrientsValuesFormProps {
-  nutrients_values: Partial<NutrientValues>[];
+  nutrients_values: NutrientValuesPartial[];
 }
 export interface SelectInputNutrientValueOptions {
   value: NutrientsNamesFields;
@@ -35,14 +32,14 @@ export function NutrientsValuesForm({
 }: GeneralFormProps<NutrientsValuesFormProps>) {
   const authState = useGetUserLoginData();
   const selectInputNutrientValuesOptions: SelectInputNutrientValueOptions[] = [
-    { value: "calories_total", label: "Calories Total(100g)" },
-    { value: "protein_g", label: "Protein(g)" },
-    { value: "carbs_g", label: "Carbohydrates(g)" },
-    { value: "fat_g", label: "Fats(g)" },
-    { value: "saturated_fat", label: "Saturated Fat(g)" },
-    { value: "cholesterol_mg", label: "Cholesterol(mg)" },
-    { value: "sugars_g", label: "Sugars(g)" },
-    { value: "sodium_mg", label: "Sodium(mg)" },
+    { value: "caloriesTotal", label: "Calories Total(100g)" },
+    { value: "proteinG", label: "Protein(g)" },
+    { value: "carbsG", label: "Carbohydrates(g)" },
+    { value: "sugarsG", label: "Fats(g)" },
+    { value: "fatG", label: "Saturated Fat(g)" },
+    { value: "saturatedFatG", label: "Cholesterol(mg)" },
+    { value: "cholesterolMg", label: "Sugars(g)" },
+    { value: "sodiumMg", label: "Sodium(mg)" },
   ];
   return (
     <Form<NutrientsValuesFormProps>
@@ -66,7 +63,7 @@ export function NutrientsValuesForm({
             name: "nutrients_values",
           });
         if (!fields.length)
-          append({ nutrientName: "calories_total", gt: 1, lt: 300 });
+          append({ nutrientName: "caloriesTotal", gt: 1, lt: 300 });
 
         return (
           <div className={style.inputs_container}>
@@ -74,7 +71,6 @@ export function NutrientsValuesForm({
               {fields.map((el, index) => {
                 const minValue = watch(`nutrients_values.${index}.gt`);
                 const maxValue = watch(`nutrients_values.${index}.lt`);
-                console.log(maxValue);
 
                 return (
                   <li key={el.id}>
@@ -88,7 +84,9 @@ export function NutrientsValuesForm({
                         }),
 
                         type: "number",
-                        max: Number(maxValue),
+                        max: Number.isFinite(Number(maxValue))
+                          ? Number(maxValue)
+                          : undefined,
                       }}
                     />
                     <SelectInput
@@ -110,7 +108,7 @@ export function NutrientsValuesForm({
                           onClick: () => {
                             append({
                               gt: 1,
-                              nutrientName: "calories_total",
+                              nutrientName: "caloriesTotal",
                               lt: 300,
                             });
                           },
@@ -124,7 +122,9 @@ export function NutrientsValuesForm({
 
                         type: "number",
 
-                        min: Number(minValue) + 1,
+                        min: Number.isFinite(Number(minValue))
+                          ? Number(minValue)
+                          : undefined,
                       }}
                     />
                   </li>

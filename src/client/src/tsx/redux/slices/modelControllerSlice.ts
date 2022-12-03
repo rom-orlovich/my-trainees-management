@@ -25,7 +25,7 @@ export type ModelDisplayContentOptions =
 export interface ModelControllerState {
   displayContent: ModelDisplayContentOptions[];
   isModelOpen: boolean;
-  curParam?: number;
+  curParam?: any;
   lastModel?: ModelDisplayContentOptions;
 }
 

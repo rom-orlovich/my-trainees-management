@@ -1,13 +1,16 @@
 import React from "react";
-// import { useAppDispatch } from "../../../../../../redux/hooks";
+import { useAppDispatch } from "../../../../../../redux/hooks";
+import { setNutrientsValuesQueryParams } from "../../../../../../redux/slices/filterFoodsFormSlice";
 
-import { NutrientsValuesForm } from "./NutrientsValuesForm";
+import {
+  NutrientsValuesForm,
+  NutrientsValuesFormProps,
+} from "./NutrientsValuesForm";
 
 export function NutrientsValuesAddForm() {
-  // const dispatch = useAppDispatch();
-  const handleSubmit = (body: any) => {
-    console.log(body);
-    // dispatch(setMealsPercentsArr(body.meals_calories_size_percents));
+  const dispatch = useAppDispatch();
+  const handleSubmit = ({ nutrients_values }: NutrientsValuesFormProps) => {
+    dispatch(setNutrientsValuesQueryParams(nutrients_values));
   };
 
   return <NutrientsValuesForm onSubmit={handleSubmit} />;

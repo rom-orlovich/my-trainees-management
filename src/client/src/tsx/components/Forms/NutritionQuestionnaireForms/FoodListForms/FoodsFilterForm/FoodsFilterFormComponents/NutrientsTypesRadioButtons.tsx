@@ -7,7 +7,7 @@ import RadioButtonsGroup, {
 } from "../../../../../baseComponents/RHF-Components/RadioButtonsGroup/RadioButtonsGroup";
 
 interface NutrientTypeRadioButtonsProps {
-  nutrient_type: NutrientsTypes & "all";
+  nutrient_type: NutrientsTypes | "all";
 }
 
 function NutrientsTypesRadioButtons<T extends NutrientTypeRadioButtonsProps>({
@@ -20,7 +20,7 @@ function NutrientsTypesRadioButtons<T extends NutrientTypeRadioButtonsProps>({
   const radioButtonsGroupData: RadioButtonGroupProps = {
     radioButtonsDataArr: [
       {
-        register: register("nutrient_type" as Path<T>),
+        register: register("nutrient_type" as Path<T>, { required: true }),
         LabelProps: { labelText: "All" },
         InputProps: { value: "all" },
       },

@@ -22,8 +22,6 @@ export function AllergensForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<AllergensFormProps>) {
-  const authState = useGetUserLoginData();
-
   return (
     <Form<AllergensFormProps>
       nameForm="Allergens"
@@ -40,7 +38,7 @@ export function AllergensForm({
       }}
     >
       {({ control, register, formState }) => {
-        const { fields, append, update } = useFieldArray<AllergensFormProps>({
+        const { fields, append } = useFieldArray<AllergensFormProps>({
           control,
           name: "allergens",
         } as any);
@@ -52,7 +50,6 @@ export function AllergensForm({
             InputProps: {
               onChange: (e) => {
                 append(ALLERGENS_LIST[i]);
-                // onChange(e);
               },
             },
             LabelProps: { labelText: el },

@@ -1,20 +1,16 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
-import { getValue } from "@testing-library/user-event/dist/types/utils";
+
 import { format } from "date-fns";
-import { useEffect } from "react";
-import { FaEdit } from "react-icons/fa";
+
 import { useParams } from "react-router-dom";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import {
-  ModelDisplayContentOptions,
-  openModel,
-} from "../../../redux/slices/modelControllerSlice";
-import { getNutritionQuestionnaireState } from "../../../redux/slices/nutritionQuestionnaireSlice";
+import { useAppSelector } from "../../../redux/hooks";
+
+import { getNutritionQuestionnaireFormState } from "../../../redux/slices/nutritionQuestionnaireFormSlice";
 
 import { setInDate } from "../../../utilities/helpersFun";
 
@@ -39,15 +35,8 @@ export function NutritionQuestionnaireForm({
   const { user_id } = useGetUserLoginData();
   const profileID = Number(useParams().id);
 
-  const questionnaireState = useAppSelector(getNutritionQuestionnaireState);
+  const questionnaireState = useAppSelector(getNutritionQuestionnaireFormState);
 
-  const allergensPlaceholderStr = questionnaireState.allergens
-    .reduce((pre, cur, i) => `${pre} ${cur},`, "")
-    .slice(0, -1);
-
-  const mealsPercentsPlaceholderStr = questionnaireState.mealsPercents
-    .reduce((pre, cur, i) => `${pre} Meal ${i + 1} ${cur}%,`, "")
-    .slice(0, -1);
   return (
     <>
       <Form<NutritionQuestionnaire>
@@ -84,31 +73,35 @@ export function NutritionQuestionnaireForm({
 
           return (
             <>
-              <InputLabel
-                InputProps={{
-                  ...register("day_start"),
-                  type: "time",
-                }}
-                LabelProps={{
-                  htmlFor: "date_start",
-                  labelText: "Wake Up Time",
-                }}
-              >
-                <InputErrorMessage nameInput="Wake Up Time" error={day_start} />
-              </InputLabel>
-              <InputLabel
-                InputProps={{
-                  ...register("day_end"),
-                  type: "time",
-                }}
-                LabelProps={{
-                  htmlFor: "date_end",
-                  labelText: "Sleep Time",
-                }}
-              >
-                <InputErrorMessage nameInput="Sleep Time" error={day_end} />
-              </InputLabel>
-
+              <div className={style.time_activity}>
+                <InputLabel
+                  InputProps={{
+                    ...register("day_start"),
+                    type: "time",
+                  }}
+                  LabelProps={{
+                    htmlFor: "date_start",
+                    labelText: "Wake Up Time",
+                  }}
+                >
+                  <InputErrorMessage
+                    nameInput="Wake Up Time"
+                    error={day_start}
+                  />
+                </InputLabel>
+                <InputLabel
+                  InputProps={{
+                    ...register("day_end"),
+                    type: "time",
+                  }}
+                  LabelProps={{
+                    htmlFor: "date_end",
+                    labelText: "Sleep Time",
+                  }}
+                >
+                  <InputErrorMessage nameInput="Sleep Time" error={day_end} />
+                </InputLabel>
+              </div>
               <FoodRulesCheckboxes
                 register={register}
                 className={style.inputs_group}
@@ -119,14 +112,14 @@ export function NutritionQuestionnaireForm({
               />
               <TextFieldOpenModel
                 labelText="Meals Size"
-                placeholder={mealsPercentsPlaceholderStr}
+                placeholder={questionnaireState.mealsPercentsStr}
                 modelName="mealsDistPercents"
                 register={register}
                 nameField="meals_calories_size_percents"
               />
               <TextFieldOpenModel
                 labelText="Allergens"
-                placeholder={allergensPlaceholderStr}
+                placeholder={questionnaireState.allergensStr}
                 modelName="allergensList"
                 register={register}
                 nameField="allergens"

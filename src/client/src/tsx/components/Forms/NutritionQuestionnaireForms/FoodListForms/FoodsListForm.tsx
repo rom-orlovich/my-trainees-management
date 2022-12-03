@@ -4,7 +4,7 @@ import { useFieldArray } from "react-hook-form";
 import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 import { foodsApi } from "../../../../redux/api/hooksAPI";
 import { FoodAPI } from "../../../../redux/api/interfaceAPI";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { openModel } from "../../../../redux/slices/modelControllerSlice";
 
 import { GeneralFormProps } from "../../../baseComponents/baseComponentsTypes";
@@ -13,6 +13,7 @@ import Form from "../../../baseComponents/RHF-Components/Form/Form";
 
 import style from "./FoodsListForm.module.scss";
 import FoodsList from "./FoodsList/FoodsList";
+import { getFilterFoodsFormState } from "../../../../redux/slices/filterFoodsFormSlice";
 
 export interface FoodProps {
   food_id: number;
@@ -32,6 +33,19 @@ export function FoodsListForm({
 
   const { user_id } = useGetUserLoginData();
   const [chooseFood, setChooseFood] = useState(["", ""]);
+  const fitterFormState = useAppSelector(getFilterFoodsFormState);
+  const {
+    nutrientsValuesStr,
+    allergensStr,
+    allergens,
+    nutrientsValuesQueryParams,
+    kosher_type,
+    nutrient_type,
+    kosher,
+    is_vegan,
+    is_vegetarian,
+  } = fitterFormState;
+  console.log("fitterFormState", fitterFormState);
   return (
     <Form<FoodsListFormProps>
       heading="Choose Food"
@@ -47,12 +61,25 @@ export function FoodsListForm({
         },
       }}
     >
-      {({ control, formState }) => {
+      {({ control }) => {
         const { fields, append } = useFieldArray({
           control,
           name: "foods",
         });
 
+        const kosherType = kosher_type === "all" ? {} : { kosher_type };
+        const nutrientType = nutrient_type === "all" ? {} : { nutrient_type };
+        const kosherObj = kosher ? { kosher } : {};
+        const isVegan = is_vegan ? { is_vegan } : {};
+        const isVegetarian = is_vegetarian ? { is_vegetarian } : {};
+        const queryOptions = {
+          ...nutrientType,
+          ...kosherType,
+          ...kosherObj,
+          ...isVegan,
+          ...isVegetarian,
+          userID: user_id,
+        };
         return (
           <>
             <div className="search_input">
@@ -64,7 +91,7 @@ export function FoodsListForm({
                   LabelProps: { labelText: "Search Food" },
                   InputProps: { placeholder: "Search Food" },
                 }}
-                queriesOptions={{ userID: user_id }}
+                queriesOptions={queryOptions}
                 setSelectOptionValue={setChooseFood}
                 getCurClickLI={(chooseFood) => {
                   if (

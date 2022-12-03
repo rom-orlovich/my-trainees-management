@@ -1,8 +1,24 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 
 .nutrition_questionnaire_form_container {
-  .inputs_group {
-    @include classMatcher("layout") {
+  .time_activity {
+    width: 100%;
+    @include flex-dir(null, null);
+    gap: 0.5rem;
+    @include classMatcher("input_label") {
+      @include initialWidth();
+      // }
+    }
+    .inputs_group {
+      @include classMatcher("layout") {
+      }
+    }
+  }
+}
+@include smartphone() {
+  .nutrition_questionnaire_form_container {
+    .time_activity {
+      @include flex-dir(null, null, column);
     }
   }
 }

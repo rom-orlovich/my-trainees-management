@@ -1,11 +1,14 @@
 @use "../../../../../../style/utilities/utilities.scss" as *;
 
 .foods_filters_form_container {
+  gap: 0.6rem !important;
+
   %shared {
     @include classMatcher("GroupInputs_group_inputs_layout") {
       justify-content: center;
     }
   }
+
   .nutrient_type_radio_buttons {
     @extend %shared;
     @include classMatcher("input_label") {

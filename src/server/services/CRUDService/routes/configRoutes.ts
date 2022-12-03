@@ -603,6 +603,13 @@ export const foodsOptionsCRUD: OptionsCRUD = {
     tableID: `fd.${TABLES_DATA.FOODS_ID}`,
     fieldNamesQuery: `fd.*`,
     querySelectLogic: ``,
+    queryParams: {
+      kosher: "kosher",
+      kosher_type: "kosher_type",
+      is_vegan: "is_vegan",
+      is_vegetarian: "is_vegetarian",
+      nutrient_type: "nutrient_type",
+    },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: foodsSchema,

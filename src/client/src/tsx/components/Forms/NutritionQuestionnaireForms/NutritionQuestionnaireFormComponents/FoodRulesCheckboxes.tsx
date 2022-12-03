@@ -9,15 +9,17 @@ interface FoodRulesCheckboxesProps {
   kosher: boolean;
   is_vegan: boolean;
   is_vegetarian: boolean;
-  isKeepMeatMilk: boolean;
+  isKeepMeatMilk?: boolean;
 }
 
 function FoodRulesCheckboxes<T extends FoodRulesCheckboxesProps>({
   register,
   className,
+  keepMeatMeal,
 }: {
   register: UseFormRegister<T>;
   className?: string;
+  keepMeatMeal?: boolean;
 }) {
   const checkboxGroupData: CheckBoxGroupProps = {
     checkboxDataArr: [
@@ -25,10 +27,7 @@ function FoodRulesCheckboxes<T extends FoodRulesCheckboxesProps>({
         register: register("kosher" as Path<T>),
         LabelProps: { labelText: "Kosher?" },
       },
-      {
-        register: register("isKeepMeatMilk" as Path<T>),
-        LabelProps: { labelText: "KeepMeat&Milk?" as Path<T> },
-      },
+
       {
         register: register("is_vegan" as Path<T>),
         LabelProps: { labelText: "Vegan?" },
@@ -37,6 +36,10 @@ function FoodRulesCheckboxes<T extends FoodRulesCheckboxesProps>({
         register: register("is_vegetarian" as Path<T>),
         LabelProps: { labelText: "Vegetarian?" },
       },
+      {
+        register: register("isKeepMeatMilk" as Path<T>),
+        LabelProps: { labelText: "KeepMeat&Milk?" as Path<T> },
+      },
     ],
   };
 
@@ -44,7 +47,11 @@ function FoodRulesCheckboxes<T extends FoodRulesCheckboxesProps>({
     <CheckBoxGroup
       heading="Food Rules"
       className={className}
-      checkboxDataArr={checkboxGroupData.checkboxDataArr}
+      checkboxDataArr={
+        keepMeatMeal
+          ? checkboxGroupData.checkboxDataArr
+          : checkboxGroupData.checkboxDataArr.slice(0, -1)
+      }
     />
   );
 }

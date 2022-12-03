@@ -79,7 +79,6 @@ const createComparisonQueryKeyValue = (
   // Create entries comparisonQuery array
   const comparisonQueryEntries = createObjEntries(comparisonQuery);
 
-  console.log("comparisonQueryEntries", comparisonQueryEntries);
   comparisonQueryEntries.forEach(([key, realFieldName], i) => {
     const compareQueryValue = requestQuery[key] as string;
     // Check if the fake field name is exist in the request query params
@@ -87,7 +86,10 @@ const createComparisonQueryKeyValue = (
       // split the key into the operator
       let operator;
       if (key === "gt" || key === "lt") operator = key as "lt" | "gt";
-      else operator = key.split("_")[1] as "lt" | "gt";
+      else {
+        const splitKey = key.split("_");
+        operator = splitKey[splitKey.length - 1] as "lt" | "gt";
+      }
 
       // Push into entries comparisonQueryKeyValue object
       if (operator && comparisonQueryKeyValue[operator])
