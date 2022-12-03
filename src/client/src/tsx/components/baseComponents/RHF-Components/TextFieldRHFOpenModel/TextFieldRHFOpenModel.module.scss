@@ -1,7 +1,16 @@
 @use "../../../../../style//utilities/utilities.scss" as *;
-.edit_icon {
-  a {
-    font-size: 1.2rem;
+
+@include classMatcher("textarea") {
+  textarea {
+    &:disabled {
+      background-color: rgb(225, 232, 245);
+    }
+    height: 5rem;
   }
-  @include posAbs(30%, null, 0%, null);
+  .edit_icon {
+    a {
+      font-size: 1.2rem;
+    }
+    @include posAbs(30%, null, 0%, null);
+  }
 }

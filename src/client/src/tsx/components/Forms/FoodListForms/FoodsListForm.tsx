@@ -47,13 +47,11 @@ export function FoodsListForm({
         },
       }}
     >
-      {({ control, register, formState }) => {
-        const { fields, append, update } = useFieldArray({
+      {({ control, formState }) => {
+        const { fields, append } = useFieldArray({
           control,
           name: "foods",
         });
-
-        useEffect(() => {});
 
         return (
           <>
