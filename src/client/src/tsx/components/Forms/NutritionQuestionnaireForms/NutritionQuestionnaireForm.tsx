@@ -10,7 +10,7 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../../redux/hooks";
 
-import { getNutritionQuestionnaireFormState } from "../../../redux/slices/nutritionQuestionnaireFormSlice";
+import { getNutritionQuestionnaireFormState } from "../../../redux/slices/nutritionQuestionnaireFormStates/nutritionQuestionnaireFormSlice";
 
 import { setInDate } from "../../../utilities/helpersFun";
 
@@ -34,8 +34,9 @@ export function NutritionQuestionnaireForm({
 }: GeneralFormProps<NutritionQuestionnaire>) {
   const { user_id } = useGetUserLoginData();
   const profileID = Number(useParams().id);
-
-  const questionnaireState = useAppSelector(getNutritionQuestionnaireFormState);
+  const { displayInputsForm, serverQueryProps } = useAppSelector(
+    getNutritionQuestionnaireFormState
+  );
 
   return (
     <>
@@ -43,6 +44,7 @@ export function NutritionQuestionnaireForm({
         buttonNext={!editMode}
         heading={`${NUTRITION_QUESTIONNAIRE_NAME}`}
         onSubmit={onSubmit}
+        saveState={false}
         editMode={editMode}
         className={style.nutrition_questionnaire_form_container}
         formOptions={{
@@ -57,10 +59,6 @@ export function NutritionQuestionnaireForm({
               "HH:mm"
             ) as any,
             profile_id: profileID,
-            kosher: false,
-            is_vegan: false,
-            is_vegetarian: false,
-            isKeepMeatMilk: false,
             diet_type: "neutral",
             meals_calories_size_percents: [],
             ...defaultValues,
@@ -112,14 +110,16 @@ export function NutritionQuestionnaireForm({
               />
               <TextFieldOpenModel
                 labelText="Meals Size"
-                placeholder={questionnaireState.mealsPercentsStr}
+                placeholder={displayInputsForm.mealsPercentsStr}
                 modelName="mealsDistPercents"
                 register={register}
                 nameField="meals_calories_size_percents"
               />
               <TextFieldOpenModel
                 labelText="Allergens"
-                placeholder={questionnaireState.allergensStr}
+                placeholder={
+                  displayInputsForm.allergenCheckboxState.allergensStr
+                }
                 modelName="allergensList"
                 register={register}
                 nameField="allergens"

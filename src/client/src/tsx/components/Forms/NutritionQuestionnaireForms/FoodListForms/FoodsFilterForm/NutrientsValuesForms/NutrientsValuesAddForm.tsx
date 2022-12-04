@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch } from "../../../../../../redux/hooks";
-import { setNutrientsValuesQueryParams } from "../../../../../../redux/slices/filterFoodsFormSlice";
+import { setNutrientsValuesQueryParams } from "../../../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
 
 import {
   NutrientsValuesForm,

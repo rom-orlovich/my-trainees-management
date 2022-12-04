@@ -8,8 +8,12 @@ import Form from "../../../baseComponents/RHF-Components/Form/Form";
 import style from "./AllergensForm.module.scss";
 import { AllergensListType, ALLERGENS_LIST } from "./constants";
 
+export interface AllergensCheckbox {
+  name: AllergensListType;
+  value: boolean;
+}
 export interface AllergensFormProps {
-  allergens: AllergensListType[];
+  allergens: AllergensCheckbox[];
 }
 
 export function AllergensForm({
@@ -36,15 +40,15 @@ export function AllergensForm({
         const { append } = useFieldArray<AllergensFormProps>({
           control,
           name: "allergens",
-        } as any);
+        });
 
         const checkboxDataArr: CheckBox[] = ALLERGENS_LIST.map(
           (el, i) =>
             ({
               register: register(`allergens.${i}` as any),
               InputProps: {
-                onChange: () => {
-                  append(ALLERGENS_LIST[i]);
+                onChange: (e) => {
+                  append({ name: el, value: e.target.checked });
                 },
               },
               LabelProps: { labelText: el },

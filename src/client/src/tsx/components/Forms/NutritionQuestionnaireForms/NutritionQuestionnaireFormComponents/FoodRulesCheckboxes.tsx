@@ -6,9 +6,9 @@ import CheckBoxGroup, {
 } from "../../../baseComponents/RHF-Components/CheckBoxGroup/CheckboxGroup";
 
 interface FoodRulesCheckboxesProps {
-  kosher: boolean;
-  is_vegan: boolean;
-  is_vegetarian: boolean;
+  kosher?: boolean;
+  is_vegan?: boolean;
+  is_vegetarian?: boolean;
   isKeepMeatMilk?: boolean;
 }
 

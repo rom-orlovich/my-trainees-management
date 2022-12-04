@@ -251,7 +251,7 @@ export const prepareComparisonParamsStatement = (
   };
 
   const comparisonGreaterStr = createOperatorStringArr("gt", ">=", startIndex);
-  console.log("length", comparisonGreaterStr.length);
+
   const comparisonLesserStr = createOperatorStringArr(
     "lt",
     "<=",

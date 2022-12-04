@@ -419,10 +419,10 @@ export interface NutritionQuestionnaire {
   profile_id: number;
   day_start: Date;
   day_end: Date;
-  kosher: boolean;
-  is_vegan: boolean;
-  is_vegetarian: boolean;
-  isKeepMeatMilk: boolean;
+  kosher?: boolean;
+  is_vegan?: boolean;
+  is_vegetarian?: boolean;
+  isKeepMeatMilk?: boolean;
 
   diet_type: DietTypes;
   meals_calories_size_percents: number[];

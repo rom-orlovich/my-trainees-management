@@ -133,11 +133,11 @@ export const nutritionQuestionnaireSchema = yup.object().shape({
   //   .notRequired()
   //   .nullable()
   //   .min(yup.ref("date_start"), "End date can't be before start date."),
-  kosher: yup.boolean(),
-  is_vegan: yup.boolean(),
-  is_vegetarian: yup.boolean(),
-  isKeepMeatMilk: yup.boolean(),
-  diet_type: yup.string(),
+  // kosher: yup.boolean(),
+  // is_vegan: yup.boolean(),
+  // is_vegetarian: yup.boolean(),
+  // isKeepMeatMilk: yup.boolean(),
+  // diet_type: yup.string(),
   // meals_calories_size_percents: yup.array(),
 });
 

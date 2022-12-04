@@ -1,8 +1,5 @@
 /* eslint-disable no-undef */
-import {
-  UseMutation,
-  UseQuery,
-} from "@reduxjs/toolkit/dist/query/react/buildHooks";
+
 import { ReactNode, ThHTMLAttributes } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { AnyFun } from "../../types";

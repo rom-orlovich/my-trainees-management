@@ -81,7 +81,7 @@ export default function Form<TFormValues extends Record<string, any>>({
     reValidateMode: "onBlur",
     defaultValues: {
       ...formOptions?.defaultValues,
-      ...defaultValues[location.pathname],
+      ...defaultValues[className || location.pathname],
     },
   });
 
@@ -95,7 +95,7 @@ export default function Form<TFormValues extends Record<string, any>>({
           if (!editMode) {
             dispatch(
               saveFormState({
-                url: location.pathname,
+                url: className || location.pathname,
                 values: methods.getValues(),
               })
             );

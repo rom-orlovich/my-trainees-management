@@ -4,7 +4,7 @@ import {
   NutrientsTypes,
 } from "../../../../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../../../../redux/hooks";
-import { getFilterFoodsFormState } from "../../../../../redux/slices/filterFoodsFormSlice";
+import { getFilterFoodsFormState } from "../../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
 import { GenericRecord } from "../../../../../types";
 import { GeneralFormProps } from "../../../../baseComponents/baseComponentsTypes";
 import Form from "../../../../baseComponents/RHF-Components/Form/Form";
@@ -30,11 +30,11 @@ export type NutrientsNamesFields =
 export interface FiltersFoodProps {
   nutrient_type: NutrientsTypes | "all";
   kosher_type: KosherType | "all";
-  kosher: boolean;
-  is_vegan: boolean;
-  is_vegetarian: boolean;
-  allergens: AllergensListType[];
-  nutrients_values: GenericRecord<number>[];
+  kosher?: boolean;
+  is_vegan?: boolean;
+  is_vegetarian?: boolean;
+  allergens?: AllergensListType[];
+  nutrients_values?: GenericRecord<number>[];
 }
 
 export function FoodsFilterForm({
@@ -42,10 +42,9 @@ export function FoodsFilterForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<FiltersFoodProps>) {
-  const authState = useGetUserLoginData();
-  const { nutrientsValuesStr, allergensStr } = useAppSelector(
-    getFilterFoodsFormState
-  );
+  const {
+    favoriteFoodFilterForm: { displayInputsForm },
+  } = useAppSelector(getFilterFoodsFormState);
   return (
     <Form<FiltersFoodProps>
       heading={"Filters Food"}
@@ -57,13 +56,13 @@ export function FoodsFilterForm({
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          nutrient_type: "all",
           kosher_type: "all",
-          allergens: [],
+          nutrient_type: "all",
+          // allergens: [],
         },
       }}
     >
-      {({ control, register }) => (
+      {({ control, register, formState, getValues }) => (
         <>
           <NutrientsTypesRadioButtons
             className={style.nutrient_type_radio_buttons}
@@ -79,7 +78,9 @@ export function FoodsFilterForm({
           />
           <TextFieldOpenModel
             labelText="Allergens"
-            placeholder={allergensStr}
+            placeholder={
+              displayInputsForm.allergensCheckboxesState.allergensStr
+            }
             modelName="allergensList"
             register={register}
             nameField="allergens"
@@ -87,12 +88,13 @@ export function FoodsFilterForm({
           />
           <TextFieldOpenModel
             labelText="Nutrients values"
-            placeholder={nutrientsValuesStr}
+            placeholder={
+              displayInputsForm.nutrientsValuesInputsState.nutrientsValuesStr
+            }
             modelName="nutrientsValues"
             register={register}
             nameField="nutrients_values"
           />
-          <div className="nutrient_amount"></div>
         </>
       )}
     </Form>

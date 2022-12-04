@@ -9,14 +9,14 @@ function FoodsList({
   foods,
   className,
 }: {
-  foods: FoodProps[];
+  foods: (FoodProps & { id: string })[];
   className?: string;
 }) {
   return (
     <List
       className={genClassName(style.foods_list_container, className)}
       dataArr={foods}
-      LI={({ food_id, food_name }) => <li>{food_name.slice(0, 25)}</li>}
+      LI={({ food_id, food_name, id }) => <li>{food_name.slice(0, 25)} </li>}
     />
   );
 }

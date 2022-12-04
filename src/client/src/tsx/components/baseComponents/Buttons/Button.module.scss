@@ -1,0 +1,5 @@
+@use "./../../../../style/utilities/utilities.scss" as *;
+.button_container {
+  @include button(rgb(114, 151, 224));
+  color: white;
+}

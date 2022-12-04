@@ -9,8 +9,8 @@ import { apiSideEffectSlice } from "./slices/apiSideEffectSlice";
 import { authSlice } from "./slices/authSlice";
 import { authApi } from "./api/authAPI";
 import { modelControllerSlice } from "./slices/modelControllerSlice";
-import { nutritionQuestionnaireFormSlice } from "./slices/nutritionQuestionnaireFormSlice";
-import { filterFoodsFormSlice } from "./slices/filterFoodsFormSlice";
+import { nutritionQuestionnaireFormSlice } from "./slices/nutritionQuestionnaireFormStates/nutritionQuestionnaireFormSlice";
+import { filterFoodsFormSlice } from "./slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
 
 // Configure the reducers and the middleware of redux.
 export const store = configureStore({

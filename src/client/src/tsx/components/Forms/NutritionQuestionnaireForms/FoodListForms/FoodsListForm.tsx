@@ -14,7 +14,7 @@ import Form from "../../../baseComponents/RHF-Components/Form/Form";
 
 import style from "./FoodsListForm.module.scss";
 import FoodsList from "./FoodsList/FoodsList";
-import { getFilterFoodsFormState } from "../../../../redux/slices/filterFoodsFormSlice";
+import { getFilterFoodsFormState } from "../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
 
 export interface FoodProps {
   food_id: number;
@@ -36,22 +36,17 @@ export function FoodsListForm({
   const [chooseFood, setChooseFood] = useState(["", ""]);
   const fitterFormState = useAppSelector(getFilterFoodsFormState);
   const {
-    nutrientsValuesStr,
-    allergensStr,
-    allergens,
-    nutrientsValuesQueryParams,
-    kosher_type,
-    nutrient_type,
-    kosher,
-    is_vegan,
-    is_vegetarian,
+    favoriteFoodFilterForm: {
+      serverQueryProps: { nutrientsValuesQueryParams, ...rest },
+    },
   } = fitterFormState;
-  console.log("fitterFormState", fitterFormState);
+
   return (
     <Form<FoodsListFormProps>
       heading="Choose Food"
       onSubmit={onSubmit}
       modelMode
+      // saveState={true}
       saveState={false}
       formProps={{ className: style.food_list_form_container }}
       editMode={editMode}
@@ -63,27 +58,17 @@ export function FoodsListForm({
       }}
     >
       {({ control }) => {
-        const { fields, append } = useFieldArray({
+        const { fields, append, remove } = useFieldArray({
           control,
           name: "foods",
         });
-
-        const kosherType = kosher_type === "all" ? {} : { kosher_type };
-        const nutrientType = nutrient_type === "all" ? {} : { nutrient_type };
-        const kosherObj = kosher ? { kosher } : {};
-        const isVegan = is_vegan ? { is_vegan } : {};
-        const isVegetarian = is_vegetarian ? { is_vegetarian } : {};
-
+        console.log(rest);
         const queryOptions = {
-          allergens: allergensStr,
-          ...nutrientType,
           ...nutrientsValuesQueryParams,
-          ...kosherType,
-          ...kosherObj,
-          ...isVegan,
-          ...isVegetarian,
+          ...rest,
           userID: user_id,
         };
+        console.log(queryOptions);
         return (
           <>
             <div className="search_input">
@@ -120,7 +105,13 @@ export function FoodsListForm({
               />
             </div>
             <div className={style.chosen_food_list}>
-              <FoodsList foods={fields} />
+              <FoodsList
+                // onDelete={(food_id: number) => {
+                //   const food = fields.find((el) => el.food_id === food_id);
+                //   remove(food?.id);
+                // }}
+                foods={fields}
+              />
             </div>
           </>
         );
