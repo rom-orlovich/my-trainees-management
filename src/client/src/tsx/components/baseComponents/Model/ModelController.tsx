@@ -8,20 +8,24 @@ import AllergensFormContent from "../../Forms/NutritionQuestionnaireForms/Allerg
 import ModelCityFormContent from "../../Forms/CityForms/ModelCityFormContent";
 import ModelEquipmentFormContent from "../../Forms/EquipmentForms/ModelEquipmentFormContent";
 import ModelExerciseFormContent from "../../Forms/ExerciseForms/ModelExerciseFormContent";
-import FoodsFilterFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/FoodsFilterFormContent";
-import FoodsListFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListFormContent";
+// import FoodsFilterFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/FoodsFilterFormContent";
+// import FoodsListFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListFormContent";
 
 import ModelLocationFormContent from "../../Forms/LocationForms/ModelLocationFormContent";
 
 import ModelMuscleGroupFormContent from "../../Forms/MusclesGroupForms/ModelMuscleGroupFormContent";
 import ModelParticipantsGroupFormContent from "../../Forms/ParticipantsGroupForm/ModelParticipantsGroupFormContent";
-import ModelParticipantsGroupListFormContent from "../../Forms/ParticipantsGroupsListForms/ModelParticipantsGroupListFormContent";
+// import ModelParticipantsGroupListFormContent from "../../Forms/ParticipantsGroupsListForms/ModelParticipantsGroupListFormContent";
 import ModelProductFormContent from "../../Forms/ProductsForms/ModelProductFormContent";
 import ModelSubscriptionPlansFormContent from "../../Forms/SubscriptionPlansForms/ModelSubscriptionPlansFormContent";
 import ModelCard from "./ModelCard";
 import MealsCaloriesSizeFormContent from "../../Forms/NutritionQuestionnaireForms/MealsCaloriesSizeForms/MealsCaloriesSizeFormContent";
 
-import NutrientsValuesFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesFormContent";
+// import NutrientsValuesFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesFormContent";
+import { FoodsListFormContent } from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
+import { FoodsFilterFormContent } from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/FoodsFilterForm";
+import { NutrientsValuesFormContent } from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesForm";
+import { ModelParticipantsGroupListFormContent } from "../../Forms/ParticipantsGroupsListForms/ParticipantsGroupsListForm";
 
 function ModelController() {
   const modelControllerState = useAppSelector(getModelControllerState);
@@ -57,6 +61,8 @@ function ModelController() {
   else if (modelControllerState?.lastModel === "filterFoodForm")
     content = <FoodsFilterFormContent />;
   else if (modelControllerState?.lastModel === "nutrientsValues")
+    content = <NutrientsValuesFormContent />;
+  else if (modelControllerState?.lastModel === "foodDetails")
     content = <NutrientsValuesFormContent />;
   else content = <></>;
 

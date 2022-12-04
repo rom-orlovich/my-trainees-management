@@ -8,11 +8,14 @@ import { closeModel } from "../../../redux/slices/modelControllerSlice";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
+import ModelFormContainer from "../../baseComponents/Model/ModelFormContainer";
 import Checkbox from "../../baseComponents/RHF-Components/CheckBoxGroup/Checkbox";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { participantsGroupListSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
+import { ParticipantsGroupsListAddForm } from "./ParticipantsGroupsListAddForm";
+import { ParticipantsGroupsListEditForm } from "./ParticipantsGroupsListEditForm.tsx";
 
 export function ParticipantsGroupsListForm({
   onSubmit,
@@ -79,3 +82,9 @@ export function ParticipantsGroupsListForm({
     </>
   );
 }
+export const ModelParticipantsGroupListFormContent = () => (
+  <ModelFormContainer
+    AddForm={ParticipantsGroupsListAddForm}
+    EditForm={ParticipantsGroupsListEditForm}
+  />
+);

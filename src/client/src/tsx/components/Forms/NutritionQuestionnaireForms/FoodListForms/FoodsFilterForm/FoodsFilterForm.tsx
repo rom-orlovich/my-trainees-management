@@ -7,11 +7,13 @@ import { useAppSelector } from "../../../../../redux/hooks";
 import { getFilterFoodsFormState } from "../../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
 import { GenericRecord } from "../../../../../types";
 import { GeneralFormProps } from "../../../../baseComponents/baseComponentsTypes";
+import ModelFormContainer from "../../../../baseComponents/Model/ModelFormContainer";
 import Form from "../../../../baseComponents/RHF-Components/Form/Form";
 
 import TextFieldOpenModel from "../../../../baseComponents/RHF-Components/TextFieldRHFOpenModel/TextFieldRHFOpenModel";
 import { AllergensListType } from "../../AllergensForm/constants";
 import FoodRulesCheckboxes from "../../NutritionQuestionnaireFormComponents/FoodRulesCheckboxes";
+import { FoodsFilterAddForm } from "./FoodsFilterAddForm";
 
 import style from "./FoodsFilterForm.module.scss";
 import KosherTypeRadioButtons from "./FoodsFilterFormComponents/KosherTypeRadioButtons";
@@ -109,3 +111,7 @@ export function FoodsFilterForm({
     </Form>
   );
 }
+
+export const FoodsFilterFormContent = () => (
+  <ModelFormContainer AddForm={FoodsFilterAddForm} />
+);

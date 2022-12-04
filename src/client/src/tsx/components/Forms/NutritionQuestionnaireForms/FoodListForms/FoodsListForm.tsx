@@ -15,6 +15,8 @@ import Form from "../../../baseComponents/RHF-Components/Form/Form";
 import style from "./FoodsListForm.module.scss";
 import FoodsList from "./FoodsList/FoodsList";
 import { getFilterFoodsFormState } from "../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
+import ModelFormContainer from "../../../baseComponents/Model/ModelFormContainer";
+import { FoodListAddForm } from "./FoodsListAddForm";
 
 export interface FoodProps {
   food_id: number;
@@ -62,7 +64,7 @@ export function FoodsListForm({
           control,
           name: "foods",
         });
-        console.log(rest);
+
         const queryOptions = {
           ...nutrientsValuesQueryParams,
           ...rest,
@@ -105,13 +107,7 @@ export function FoodsListForm({
               />
             </div>
             <div className={style.chosen_food_list}>
-              <FoodsList
-                // onDelete={(food_id: number) => {
-                //   const food = fields.find((el) => el.food_id === food_id);
-                //   remove(food?.id);
-                // }}
-                foods={fields}
-              />
+              <FoodsList remove={remove} foods={fields} />
             </div>
           </>
         );
@@ -119,3 +115,7 @@ export function FoodsListForm({
     </Form>
   );
 }
+
+export const FoodsListFormContent = () => (
+  <ModelFormContainer AddForm={FoodListAddForm} />
+);

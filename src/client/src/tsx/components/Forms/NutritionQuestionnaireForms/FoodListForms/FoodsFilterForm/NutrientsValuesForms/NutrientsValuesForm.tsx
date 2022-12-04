@@ -5,6 +5,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
 
 import { GeneralFormProps } from "../../../../../baseComponents/baseComponentsTypes";
+import ModelFormContainer from "../../../../../baseComponents/Model/ModelFormContainer";
 
 import Form from "../../../../../baseComponents/RHF-Components/Form/Form";
 import InputIcon from "../../../../../baseComponents/RHF-Components/InputIcon/InputIcon";
@@ -15,6 +16,7 @@ import {
   NutrientsNamesFields,
   NUTRIENTS_NAMES_FIELDS_ARR,
 } from "../FoodsFilterForm";
+import { NutrientsValuesAddForm } from "./NutrientsValuesAddForm";
 
 import style from "./NutrientsValuesForm.module.scss";
 
@@ -150,12 +152,6 @@ export function NutrientsValuesForm({
                     }, 0);
                   }}
                 ></IoMdAddCircleOutline>
-                {/* <InputIcon
-                  IconEl={IoMdAddCircleOutline}
-                  option={{
-                    link: "",
-                  }}
-                /> */}
               </div>
             </ul>
           </div>
@@ -164,3 +160,6 @@ export function NutrientsValuesForm({
     </Form>
   );
 }
+export const NutrientsValuesFormContent = () => (
+  <ModelFormContainer AddForm={NutrientsValuesAddForm} />
+);
