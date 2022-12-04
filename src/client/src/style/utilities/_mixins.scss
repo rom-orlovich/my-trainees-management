@@ -53,14 +53,19 @@
   background-color: $bg-color;
 }
 
+@mixin classMatcher($select) {
+  [class*="#{$select}"] {
+    @content;
+  }
+}
+
 @mixin smartphone {
   @media screen and (max-width: $SMARTPHONE) {
     @content;
   }
 }
-
-@mixin classMatcher($select) {
-  [class*="#{$select}"] {
+@mixin notSmartphone {
+  @media screen and (min-width: $SMARTPHONE) {
     @content;
   }
 }

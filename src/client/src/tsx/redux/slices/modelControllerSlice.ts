@@ -46,7 +46,7 @@ export const modelControllerSlice = createSlice({
       action: {
         payload: {
           displayContent: ModelDisplayContentOptions;
-          curParam?: number;
+          curParam?: any;
         };
       }
     ) => {

@@ -26,6 +26,7 @@ import { FoodsListFormContent } from "../../Forms/NutritionQuestionnaireForms/Fo
 import { FoodsFilterFormContent } from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/FoodsFilterForm";
 import { NutrientsValuesFormContent } from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesForm";
 import { ModelParticipantsGroupListFormContent } from "../../Forms/ParticipantsGroupsListForms/ParticipantsGroupsListForm";
+import FoodDetails from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsList/FoodDetails/FoodDetails";
 
 function ModelController() {
   const modelControllerState = useAppSelector(getModelControllerState);
@@ -63,7 +64,7 @@ function ModelController() {
   else if (modelControllerState?.lastModel === "nutrientsValues")
     content = <NutrientsValuesFormContent />;
   else if (modelControllerState?.lastModel === "foodDetails")
-    content = <NutrientsValuesFormContent />;
+    content = <FoodDetails />;
   else content = <></>;
 
   return <ModelCard>{content}</ModelCard>;

@@ -29,7 +29,10 @@ function FoodsList({
           <span
             onClick={() => {
               dispatch(
-                openModel({ curParam: food_id, displayContent: "foodDetails" })
+                openModel({
+                  curParam: { food_id, amount: 1 },
+                  displayContent: "foodDetails",
+                })
               );
             }}
             className={style.name_food}

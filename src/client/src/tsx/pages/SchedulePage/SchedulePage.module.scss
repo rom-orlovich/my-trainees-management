@@ -76,7 +76,7 @@
       background-color: rgba(12, 131, 155, 0.3);
     }
   }
-  // for timeGridDay-view color td
+  // For timeGridDay-view
   @include classMatcher("fc-timegrid fc-timeGridDay-view fc-view") {
     padding: 0 0.2rem;
     table {
@@ -87,9 +87,9 @@
       td {
         height: 3rem;
       }
-
+      // For displaying customize events.
       @include classMatcher("fc-timegrid-event") {
-        height: fit-content; // For displaying customize events
+        height: fit-content;
         .event_container {
           margin-top: 0;
           .date_data {
@@ -103,7 +103,7 @@
         }
       }
     }
-    // Change the color of the td to weight.
+    // Change the color of the td white.
     @include classMatcher("fc-timegrid-slot fc-timegrid-slot-lane ") {
       background-color: white;
     }
