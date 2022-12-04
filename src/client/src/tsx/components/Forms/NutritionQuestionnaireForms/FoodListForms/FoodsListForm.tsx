@@ -53,7 +53,7 @@ export function FoodsListForm({
       onSubmit={onSubmit}
       modelMode
       // saveState={true}
-
+      customButtonText="Save"
       saveState={false}
       formProps={{ className: style.food_list_form_container }}
       editMode={editMode}

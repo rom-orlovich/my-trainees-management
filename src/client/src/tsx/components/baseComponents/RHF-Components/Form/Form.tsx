@@ -162,7 +162,7 @@ export default function Form<TFormValues extends FieldValues>({
         Back
       </Link>
       <button type="submit" disabled={!methods.formState.isValid}>
-        {buttonNext ? "Next" : editModeText}
+        {customButtonText || (buttonNext ? "Next" : editModeText)}
       </button>
     </div>
   );

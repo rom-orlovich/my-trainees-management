@@ -41,11 +41,11 @@ export function NutritionQuestionnaireForm({
   return (
     <>
       <Form<NutritionQuestionnaire>
-        buttonNext={!editMode}
         heading={`${NUTRITION_QUESTIONNAIRE_NAME}`}
         onSubmit={onSubmit}
         saveState={false}
         editMode={editMode}
+        customButtonText={"Save"}
         className={style.nutrition_questionnaire_form_container}
         formOptions={{
           defaultValues: {
