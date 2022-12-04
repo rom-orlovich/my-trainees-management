@@ -2,16 +2,35 @@
 /* eslint-disable guard-for-in */
 // Makes string from the keys of the obj.
 
-import {
-  ComparisonQuery,
-  SelectPaginationQueryParam,
-} from "../services/CRUDService/CRUDServiceTypes";
+import { SelectPaginationQueryParam } from "../services/CRUDService/CRUDServiceTypes";
 import {
   createObjEntries,
   createObjKeysArr,
   createObjValuesArr,
 } from "../utilities/helpers";
 import { GenericRecord } from "../utilities/types";
+
+export const spreadObj = (
+  obj: Record<string, any>,
+  values: string[],
+  include?: string[]
+) => {
+  let includeKeyValueObj = {};
+  let excludedKeyValueObj = {};
+  for (const key in obj) {
+    const valueToExclude = values?.includes(key);
+    const valueToInclude = include?.includes(key);
+    const keyValue = { [key]: obj[key] };
+    if (valueToInclude && valueToExclude) {
+      includeKeyValueObj = { ...includeKeyValueObj, ...keyValue };
+      excludedKeyValueObj = { ...excludedKeyValueObj, ...keyValue };
+    } else if (valueToExclude)
+      includeKeyValueObj = { ...includeKeyValueObj, ...keyValue };
+    else excludedKeyValueObj = { ...excludedKeyValueObj, ...keyValue };
+  }
+
+  return { includeKeyValueObj, excludedKeyValueObj };
+};
 
 // This string is used as fieldName in update/insert functions.
 export const prepareFieldsName = (obj: Record<string, any>) => {
@@ -299,12 +318,9 @@ export const prepareStatementLogic = (
     queryParamsRes
   );
   // To create string with 'and' between the queries string.
-  const queryStrJoin = [
-    // ...([beforeWhereQueryStatement]),
-    // ...comparisonStr,
-    ...keyValuesStrArr,
-    ...keyValuesOfNameStrArr,
-  ].join(keyValuesStrArr.length > 0 ? " and " : "");
+  const queryStrJoin = [...keyValuesStrArr, ...keyValuesOfNameStrArr].join(
+    keyValuesStrArr.length > 0 ? " and " : ""
+  );
 
   const whereQueryStatement = `${
     queryStrJoin ? `WHERE  ${queryStrJoin} ` : ""
@@ -371,26 +387,4 @@ export const createSelectPaginationParams = (
     orderByParamRes,
     arrayQueryParamsArr,
   };
-};
-
-export const spreadObj = (
-  obj: Record<string, any>,
-  values: string[],
-  include?: string[]
-) => {
-  let includeKeyValueObj = {};
-  let excludedKeyValueObj = {};
-  for (const key in obj) {
-    const valueToExclude = values?.includes(key);
-    const valueToInclude = include?.includes(key);
-    const keyValue = { [key]: obj[key] };
-    if (valueToInclude && valueToExclude) {
-      includeKeyValueObj = { ...includeKeyValueObj, ...keyValue };
-      excludedKeyValueObj = { ...excludedKeyValueObj, ...keyValue };
-    } else if (valueToExclude)
-      includeKeyValueObj = { ...includeKeyValueObj, ...keyValue };
-    else excludedKeyValueObj = { ...excludedKeyValueObj, ...keyValue };
-  }
-
-  return { includeKeyValueObj, excludedKeyValueObj };
 };

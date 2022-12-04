@@ -631,9 +631,8 @@ export const foodsOptionsCRUD: OptionsCRUD = {
     },
     arrayQueryParams: {
       allergens: "fd.allergens",
+      selectQueryStr: "not fd.allergens && ",
     },
-
-    beforeWhereQuery: "not fd.allergens && $1",
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: foodsSchema,
