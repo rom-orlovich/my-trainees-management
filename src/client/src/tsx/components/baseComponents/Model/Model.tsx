@@ -17,6 +17,8 @@ function Model(props: PropsBasic) {
     dispatch(closeModel());
   }, [location.pathname]);
   const modelControllerSlice = useAppSelector(getModelControllerState);
+  if (modelControllerSlice.isModelOpen)
+    modelWarper.scrollIntoView({ behavior: "smooth", block: "end" });
 
   return modelControllerSlice.isModelOpen &&
     modelControllerSlice.displayContent.length ? (

@@ -80,7 +80,7 @@ label[class*="checkbox_label"] {
 
     gap: 1rem;
 
-    span[class*="AutocompleteInput"] {
+    label[class*="AutocompleteInput"] {
       ::-webkit-scrollbar {
         display: initial;
       }
@@ -93,7 +93,7 @@ label[class*="checkbox_label"] {
         word-spacing: -2px;
       }
     }
-    span[class*="textarea_label"] {
+    label[class*="textarea_label"] {
       textarea[name*="note_text"] {
         padding-right: 0.5rem;
         line-height: 2rem;
@@ -163,9 +163,9 @@ label[class*="checkbox_label"] {
     }
     .form {
       overflow-y: inherit;
-      span[class*="input_label"],
-      span[class*="textarea_label"],
-      span[class*="selectInput_label"],
+      label[class*="input_label"],
+      label[class*="textarea_label"],
+      label[class*="selectInput_label"],
       span[class*="autocomplete"] {
         flex: 30%;
         max-width: 100%;
@@ -176,6 +176,14 @@ label[class*="checkbox_label"] {
 
       width: 95%;
       gap: 1rem;
+      label[class*="input_label"] {
+        &:has(input[type*="checkbox"]) {
+          flex-direction: row;
+          align-items: center;
+          gap: 0.5rem;
+          max-width: 50%;
+        }
+      }
     }
 
     .buttons_container_two_buttons {
