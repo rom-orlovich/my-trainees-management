@@ -1,4 +1,3 @@
-import { useFieldArray } from "react-hook-form";
 import useGetUserLoginData from "../../../../../hooks/useGetUserLoginData";
 import {
   KosherType,
@@ -9,8 +8,9 @@ import { getFilterFoodsFormState } from "../../../../../redux/slices/filterFoods
 import { GenericRecord } from "../../../../../types";
 import { GeneralFormProps } from "../../../../baseComponents/baseComponentsTypes";
 import Form from "../../../../baseComponents/RHF-Components/Form/Form";
-import { AllergensListType } from "../../../../baseComponents/RHF-Components/formsSchemas";
+
 import TextFieldOpenModel from "../../../../baseComponents/RHF-Components/TextFieldRHFOpenModel/TextFieldRHFOpenModel";
+import { AllergensListType } from "../../AllergensForm/constants";
 import FoodRulesCheckboxes from "../../NutritionQuestionnaireFormComponents/FoodRulesCheckboxes";
 
 import style from "./FoodsFilterForm.module.scss";

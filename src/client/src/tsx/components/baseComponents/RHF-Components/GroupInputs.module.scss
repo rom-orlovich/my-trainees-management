@@ -3,7 +3,7 @@
   width: 100%;
   @include flex-dir(null, null, column);
   @include classMatcher("input_label") {
-    @include flex-dir(null, null, row);
+    @include flex-dir(center, center, row);
   }
   label {
     font-size: 1.2rem;

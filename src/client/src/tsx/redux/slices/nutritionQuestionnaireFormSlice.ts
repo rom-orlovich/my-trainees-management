@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AllergensListType } from "../../components/baseComponents/RHF-Components/formsSchemas";
+import { AllergensListType } from "../../components/Forms/NutritionQuestionnaireForms/AllergensForm/constants";
 
 import { RootState } from "../store";
 
@@ -24,7 +24,7 @@ export const setAllergensArrFun = <
 ) => {
   state.allergens = action.payload;
   state.allergensStr = action.payload
-    .reduce((pre, cur, i) => `${pre}${cur},`, "")
+    .reduce((pre, cur, i) => (cur ? `${pre}${cur},` : pre), "")
     .slice(0, -1);
 };
 export const nutritionQuestionnaireFormSlice = createSlice({

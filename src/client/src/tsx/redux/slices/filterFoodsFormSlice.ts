@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AllergensListType } from "../../components/baseComponents/RHF-Components/formsSchemas";
+import { AllergensListType } from "../../components/Forms/NutritionQuestionnaireForms/AllergensForm/constants";
+
 import { NutrientsNamesFields } from "../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/FoodsFilterForm";
 import { NutrientValuesPartial } from "../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesForm";
 import { KosherType, NutrientsTypes } from "../api/interfaceAPI";

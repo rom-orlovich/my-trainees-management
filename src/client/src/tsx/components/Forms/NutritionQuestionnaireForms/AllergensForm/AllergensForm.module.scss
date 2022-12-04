@@ -1,6 +1,10 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 
 .allergens_form_container {
+  @include classMatcher("GroupInputs_group_inputs_layout") {
+    justify-content: center;
+  }
+
   @include classMatcher("input_label") {
     width: 20%;
   }

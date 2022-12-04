@@ -233,21 +233,30 @@ export const prepareComparisonParamsStatement = (
   // Loop over the gt and lt realFieldNameAndValue array and create array of compare string as a compare format of PostgreSql.
   const createOperatorStringArr = (
     operator: "gt" | "lt",
-    operatorSymbol: ">=" | "<="
+    operatorSymbol: ">=" | "<=",
+    loopStartIndex = 0
   ) => {
     const strArr: string[] = [];
     comparisonQuery[operator].forEach(
       ({ realFieldName, valueToCompare }, i) => {
+        console.log(`$${loopStartIndex + i}`);
         // 'real name field' >= value or 'real name field' <= value
-        strArr.push(`${realFieldName} ${operatorSymbol} $${startIndex + i}`);
+        strArr.push(
+          `${realFieldName} ${operatorSymbol} $${loopStartIndex + i}`
+        );
         comparisonParams.push(valueToCompare);
       }
     );
     return strArr;
   };
 
-  const comparisonGreaterStr = createOperatorStringArr("gt", ">=");
-  const comparisonLesserStr = createOperatorStringArr("lt", "<=");
+  const comparisonGreaterStr = createOperatorStringArr("gt", ">=", startIndex);
+  console.log("length", comparisonGreaterStr.length);
+  const comparisonLesserStr = createOperatorStringArr(
+    "lt",
+    "<=",
+    comparisonGreaterStr.length + startIndex
+  );
 
   const comparisonStatementStatement = [
     ...comparisonGreaterStr,
@@ -357,7 +366,7 @@ const prepareKeyValuesArrayQueryParamsToStatement = (
   startIndex = 0
 ) => {
   const arrayQueryParamsStatement = arrayQueryParams.selectQueryStatements.map(
-    (statement, i) => `${statement} (${startIndex + i})`
+    (statement, i) => `${statement} ($${startIndex + i})`
   );
   return {
     arrayQueryParamsStatement,
@@ -370,18 +379,17 @@ export const prepareStatementLogic = (
   queryParams: GenericRecord<any> = {},
   queryNameParams: GenericRecord<any> = {},
   comparisonQuery: ComparisonQueryKeyValueObj,
-  arrayQueryParams: ArrayQueryParamsPrepareStatementObj,
-  beforeWhereQuery?: string
+  arrayQueryParams: ArrayQueryParamsPrepareStatementObj
 ) => {
   const queryParamsRes: any[] = [];
   const { keyValuesStatement, paramsArr } = prepareKeyValuesOtherColumnToSelect(
     queryParams,
-    1
+    queryParamsRes?.length + 1
   );
   queryParamsRes.push(...paramsArr);
 
   const { keyValuesOfNameStrArr, paramsNamesArr } =
-    prepareKeyValuesOfNameToSelect(queryNameParams, paramsArr.length + 1);
+    prepareKeyValuesOfNameToSelect(queryNameParams, queryParamsRes.length + 1);
 
   queryParamsRes.push(...paramsNamesArr);
 

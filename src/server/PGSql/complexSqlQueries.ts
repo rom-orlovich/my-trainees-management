@@ -35,7 +35,6 @@ export async function selectPagination(
     tableName,
     tableID,
     withClause,
-    beforeWhereQuery,
   } = tablePropsData;
 
   const {
@@ -58,8 +57,7 @@ export async function selectPagination(
     realQueryParams,
     realQueryByNameParams,
     comparisonQueryKeyValue,
-    arrayQueryParamsObjStatement,
-    beforeWhereQuery
+    arrayQueryParamsObjStatement
   );
 
   // Check the number of items that are in the table .

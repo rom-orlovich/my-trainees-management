@@ -1,49 +1,5 @@
 import * as yup from "yup";
 
-export const ALLERGENS_LIST = [
-  "גלוטן",
-  "סויה",
-  "שומשום",
-  "בוטנים",
-  "חיטה",
-  "אגוזים",
-  "ביצה",
-  "סולפיט",
-  "חלב",
-  "שקדים",
-  "אגוזי לוז",
-  "אגוזי פקאן",
-  "קוקוס",
-  "קשיו",
-  "לוז",
-  "פקאן",
-  "חרדל",
-  "סלרי",
-] as const;
-
-const ALLERGENS_LIST_ENGLISH = [
-  "Gluten",
-  "soya",
-  "Sesame",
-  "peanuts",
-  "wheat",
-  "nuts",
-  "egg",
-  "sulphite",
-  "milk",
-  "tonsils",
-  "Hazelnuts",
-  "Pecan Nuts",
-  "coconut",
-  "cashew",
-  "hazel",
-  "Pecan",
-  "mustard",
-  "celery",
-];
-
-export type AllergensListType = typeof ALLERGENS_LIST[number];
-
 export const musclesGroupSchema = yup.object().shape({
   user_id: yup.number().notRequired().nullable().default(1),
   muscles_group_id: yup.number().notRequired().nullable(),
