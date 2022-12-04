@@ -126,7 +126,7 @@ export function NutritionQuestionnaireForm({
               />
               <TextFieldOpenModel
                 labelText="Favorite Foods"
-                placeholder={""}
+                placeholder={displayInputsForm.favoriteFoodsName}
                 modelName="favoriteFoods"
                 register={register}
                 nameField="favorite_foods"

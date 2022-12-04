@@ -9,6 +9,7 @@ import {
   UseFormReturn,
 } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import useSaveFormState from "../../../../hooks/useSaveFormState";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import {
   enableGoPrevPage,
@@ -46,7 +47,7 @@ export type FormRHFProps<TFormValues extends FieldValues> = {
   className?: string;
 };
 
-export default function Form<TFormValues extends Record<string, any>>({
+export default function Form<TFormValues extends FieldValues>({
   editMode,
   formProps,
   onSubmit,
@@ -68,12 +69,11 @@ export default function Form<TFormValues extends Record<string, any>>({
   const location = useLocation();
 
   const { defaultValues } = useAppSelector(getFormsState);
-
+  const dispatch = useAppDispatch();
   const {
     goPrePageBehaviorState: { goPrevPage },
   } = useAppSelector(getApiSideEffect);
   const { displayContent } = useAppSelector(getModelControllerState);
-  const dispatch = useAppDispatch();
 
   const methods = useForm<TFormValues>({
     ...formOptions,
@@ -81,28 +81,33 @@ export default function Form<TFormValues extends Record<string, any>>({
     reValidateMode: "onBlur",
     defaultValues: {
       ...formOptions?.defaultValues,
-      ...defaultValues[location.pathname],
+      ...defaultValues[className || location.pathname],
     },
   });
 
   // Side effect if the form is not in edit mode.
   // saves the form state values after the user exit from the form component
   // and the component will unmount.
-  useEffect(
-    () => () => {
-      if (!modelMode)
-        if (saveState)
-          if (!editMode) {
-            dispatch(
-              saveFormState({
-                url: location.pathname,
-                values: methods.getValues(),
-              })
-            );
-          }
-    },
-    [location.pathname, location, dispatch, methods, editMode]
-  );
+  // useEffect(
+  //   () => () => {
+  //     if (!modelMode)
+  //       if (saveState)
+  //         if (!editMode) {
+  //           dispatch(
+  //             saveFormState({
+  //               url: location.pathname,
+  //               values: methods.getValues(),
+  //             })
+  //           );
+  //         }
+  //   },
+  //   [location.pathname, location, dispatch, methods, editMode]
+  // );
+  useSaveFormState({
+    getValues: methods.getValues,
+    className: "",
+    condition: !modelMode && saveState && !editMode,
+  });
 
   const handleSubmit = async (data: TFormValues) => {
     try {

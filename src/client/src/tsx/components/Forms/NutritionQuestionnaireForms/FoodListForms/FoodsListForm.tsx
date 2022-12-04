@@ -17,8 +17,11 @@ import FoodsList from "./FoodsList/FoodsList";
 import { getFilterFoodsFormState } from "../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
 import ModelFormContainer from "../../../baseComponents/Model/ModelFormContainer";
 import { FoodListAddForm } from "./FoodsListAddForm";
+import useSaveFormState from "../../../../hooks/useSaveFormState";
+import { getNutritionQuestionnaireFormState } from "../../../../redux/slices/nutritionQuestionnaireFormStates/nutritionQuestionnaireFormSlice";
 
 export interface FoodProps {
+  id?: string;
   food_id: number;
   food_name: string;
 }
@@ -37,6 +40,7 @@ export function FoodsListForm({
   const { user_id } = useGetUserLoginData();
   const [chooseFood, setChooseFood] = useState(["", ""]);
   const fitterFormState = useAppSelector(getFilterFoodsFormState);
+  const foodsList = useAppSelector(getNutritionQuestionnaireFormState);
   const {
     favoriteFoodFilterForm: {
       serverQueryProps: { nutrientsValuesQueryParams, ...rest },
@@ -49,17 +53,18 @@ export function FoodsListForm({
       onSubmit={onSubmit}
       modelMode
       // saveState={true}
+
       saveState={false}
       formProps={{ className: style.food_list_form_container }}
       editMode={editMode}
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          foods: [],
+          foods: foodsList?.serverQueryProps?.favorite_foods || [],
         },
       }}
     >
-      {({ control }) => {
+      {({ control, getValues }) => {
         const { fields, append, remove } = useFieldArray({
           control,
           name: "foods",

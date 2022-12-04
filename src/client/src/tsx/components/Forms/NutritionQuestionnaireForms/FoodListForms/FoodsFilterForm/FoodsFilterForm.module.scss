@@ -2,7 +2,7 @@
 
 .foods_filters_form_container {
   gap: 0.6rem !important;
-
+  position: relative;
   %shared {
     @include classMatcher("GroupInputs_group_inputs_layout") {
       justify-content: center;
@@ -20,5 +20,11 @@
     @include classMatcher("input_label") {
       gap: 0.2rem;
     }
+  }
+  .reset_button {
+    @include posAbs(-7%, null, 0%, null);
+    color: #4679dc;
+    font-size: 2rem;
+    cursor: pointer;
   }
 }

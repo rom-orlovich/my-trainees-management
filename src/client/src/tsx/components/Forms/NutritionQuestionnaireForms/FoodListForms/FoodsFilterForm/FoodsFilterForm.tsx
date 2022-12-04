@@ -1,15 +1,17 @@
-import useGetUserLoginData from "../../../../../hooks/useGetUserLoginData";
+import { RiRestartFill } from "react-icons/ri";
 import {
   KosherType,
   NutrientsTypes,
 } from "../../../../../redux/api/interfaceAPI";
-import { useAppSelector } from "../../../../../redux/hooks";
-import { getFilterFoodsFormState } from "../../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import {
+  getFilterFoodsFormState,
+  resetFormFilters,
+} from "../../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
 import { GenericRecord } from "../../../../../types";
 import { GeneralFormProps } from "../../../../baseComponents/baseComponentsTypes";
 import ModelFormContainer from "../../../../baseComponents/Model/ModelFormContainer";
 import Form from "../../../../baseComponents/RHF-Components/Form/Form";
-
 import TextFieldOpenModel from "../../../../baseComponents/RHF-Components/TextFieldRHFOpenModel/TextFieldRHFOpenModel";
 import { AllergensListType } from "../../AllergensForm/constants";
 import FoodRulesCheckboxes from "../../NutritionQuestionnaireFormComponents/FoodRulesCheckboxes";
@@ -53,6 +55,7 @@ export function FoodsFilterForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<FiltersFoodProps>) {
+  const dispatch = useAppDispatch();
   const {
     favoriteFoodFilterForm: { displayInputsForm },
   } = useAppSelector(getFilterFoodsFormState);
@@ -69,12 +72,18 @@ export function FoodsFilterForm({
           ...defaultValues,
           kosher_type: "all",
           nutrient_type: "all",
-          // allergens: [],
         },
       }}
     >
-      {({ control, register, formState, getValues }) => (
+      {({ register }) => (
         <>
+          <span className={style.reset_button}>
+            <RiRestartFill
+              onClick={() => {
+                dispatch(resetFormFilters({}));
+              }}
+            />
+          </span>
           <NutrientsTypesRadioButtons
             className={style.nutrient_type_radio_buttons}
             register={register}

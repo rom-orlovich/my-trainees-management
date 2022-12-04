@@ -61,15 +61,6 @@ export const filterFoodsFormSlice = createSlice({
     },
 
     setAllergensArr: (state, action: PayloadAction<AllergensCheckbox[]>) =>
-      // const { allergensCheckboxes, allergensNamesArr, allergensStr } =
-      //   setAllergensArrFun(action);
-
-      // favoriteFoodFilterForm.displayInputsForm.allergensCheckboxesState.allergensCheckboxes =
-      //   allergensCheckboxes;
-      // favoriteFoodFilterForm.displayInputsForm.allergensCheckboxesState.allergensStr =
-      //   allergensStr;
-      // favoriteFoodFilterForm.serverQueryProps.allergensNames =
-      //   allergensNamesArr;
       setAllergensArrByFilterForm(state, "favoriteFoodFilterForm", action),
     submitFormFilterFoodForm: (
       state,
@@ -98,12 +89,17 @@ export const filterFoodsFormSlice = createSlice({
         ...nutrientType,
       };
     },
+    resetFormFilters: (state, action: PayloadAction<{ formName?: string }>) => {
+      state.favoriteFoodFilterForm =
+        filterFoodsFormState.favoriteFoodFilterForm;
+    },
   },
 });
 export const {
   setNutrientsValuesQueryParams,
   setAllergensArr,
   submitFormFilterFoodForm,
+  resetFormFilters,
 } = filterFoodsFormSlice.actions;
 
 export const getFilterFoodsFormState = (state: RootState) =>
