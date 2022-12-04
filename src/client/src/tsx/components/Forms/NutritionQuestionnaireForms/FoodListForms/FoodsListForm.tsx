@@ -68,7 +68,7 @@ export function FoodsListForm({
           ...rest,
           userID: user_id,
         };
-        console.log(queryOptions);
+
         return (
           <>
             <div className="search_input">

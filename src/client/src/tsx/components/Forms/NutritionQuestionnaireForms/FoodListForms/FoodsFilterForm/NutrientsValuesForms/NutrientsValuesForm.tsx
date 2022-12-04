@@ -123,42 +123,39 @@ export function NutrientsValuesForm({
                       }}
                     />
 
-                    {
-                      <InputIcon
-                        className={style.delete_button}
-                        IconEl={TiDelete}
-                        option={{
-                          onClick: () => {
-                            remove(index);
-                          },
-                          link: "",
-                        }}
-                      />
-                    }
+                    <TiDelete
+                      className={style.delete_button}
+                      onClick={() => {
+                        remove(index);
+                      }}
+                    />
                   </li>
                 );
               })}
               <div>
-                <InputIcon
+                <IoMdAddCircleOutline
+                  className={style.add_button}
+                  onClick={() => {
+                    append({
+                      gt: 1,
+                      nutrientName: NUTRIENTS_NAMES_FIELDS_ARR[curIndex + 1],
+                      lt: 100,
+                    });
+
+                    setTimeout(() => {
+                      ref.current?.lastElementChild?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "end",
+                      });
+                    }, 0);
+                  }}
+                ></IoMdAddCircleOutline>
+                {/* <InputIcon
                   IconEl={IoMdAddCircleOutline}
                   option={{
-                    onClick: () => {
-                      append({
-                        gt: 1,
-                        nutrientName: NUTRIENTS_NAMES_FIELDS_ARR[curIndex + 1],
-                        lt: 100,
-                      });
-
-                      setTimeout(() => {
-                        ref.current?.lastElementChild?.scrollIntoView({
-                          behavior: "smooth",
-                          block: "end",
-                        });
-                      }, 0);
-                    },
                     link: "",
                   }}
-                />
+                /> */}
               </div>
             </ul>
           </div>

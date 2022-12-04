@@ -10,6 +10,10 @@
     height: 80%;
     overflow-y: scroll;
 
+    %icon_button {
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
     .inputs_layout {
       height: 30vh;
       li {
@@ -33,14 +37,16 @@
         }
 
         .delete_button {
-          @include posAbs(40%, null, -2%, null);
-          a {
-            color: red;
-          }
+          cursor: pointer;
+          @include posAbs(45%, null, -2%, null);
+          @extend %icon_button;
+          color: red;
         }
       }
-      @include classMatcher("select_plus_button") {
-        position: static;
+      .add_button {
+        @extend %icon_button;
+        margin-top: 0.5rem;
+        color: #4679dc;
       }
     }
   }
@@ -62,12 +68,13 @@
               font-size: 0.9rem;
             }
           }
+
           .delete_button {
-            @include posAbs(44%, null, -5%, null);
-            z-index: 50;
-            a {
-              font-size: 1.6rem;
-            }
+            font-size: 1.6rem;
+            @include posAbs(46%, null, -5%, null);
+          }
+          .add_button {
+            font-size: 1.6rem;
           }
         }
       }
