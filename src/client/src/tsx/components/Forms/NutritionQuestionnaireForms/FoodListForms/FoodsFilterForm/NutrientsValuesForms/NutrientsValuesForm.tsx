@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useFieldArray } from "react-hook-form";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
@@ -10,7 +11,10 @@ import InputIcon from "../../../../../baseComponents/RHF-Components/InputIcon/In
 
 import { InputLabel } from "../../../../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import { SelectInput } from "../../../../../baseComponents/RHF-Components/SelectInput/SelectInput";
-import { NutrientsNamesFields } from "../FoodsFilterForm";
+import {
+  NutrientsNamesFields,
+  NUTRIENTS_NAMES_FIELDS_ARR,
+} from "../FoodsFilterForm";
 
 import style from "./NutrientsValuesForm.module.scss";
 
@@ -45,7 +49,7 @@ export function NutrientsValuesForm({
   ];
   return (
     <Form<NutrientsValuesFormProps>
-      nameForm="Meal Size"
+      heading={"Add Nutrient Value Filter"}
       onSubmit={onSubmit}
       modelMode
       saveState={false}
@@ -54,26 +58,27 @@ export function NutrientsValuesForm({
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          nutrients_values: [],
+          nutrients_values: [{ nutrientName: "caloriesTotal", gt: 1, lt: 100 }],
         },
       }}
     >
       {({ control, register, formState, watch }) => {
+        const ref = useRef<HTMLUListElement>(null);
+
+        let curIndex = -1;
         const { fields, append, remove } =
           useFieldArray<NutrientsValuesFormProps>({
             control,
             name: "nutrients_values",
           });
-        if (!fields.length)
-          append({ nutrientName: "caloriesTotal", gt: 1, lt: 300 });
 
         return (
           <div className={style.inputs_container}>
-            <ul className={style.inputs_layout}>
+            <ul ref={ref} className={style.inputs_layout}>
               {fields.map((el, index) => {
-                const minValue = watch(`nutrients_values.${index}.gt`);
-                const maxValue = watch(`nutrients_values.${index}.lt`);
-
+                const minValue = Number(watch(`nutrients_values.${index}.gt`));
+                const maxValue = Number(watch(`nutrients_values.${index}.lt`));
+                curIndex = index;
                 return (
                   <li key={el.id}>
                     <InputLabel
@@ -86,20 +91,11 @@ export function NutrientsValuesForm({
                         }),
 
                         type: "number",
-                        max: Number.isFinite(Number(maxValue))
-                          ? Number(maxValue)
+                        min: 1,
+                        max: Number.isFinite(maxValue)
+                          ? maxValue - 1
                           : undefined,
                       }}
-                      // inputIconProps={{
-                      //   className: style.delete_input,
-                      //   IconEl: TiDelete,
-                      //   option: {
-                      //     onClick: () => {
-                      //       remove(index);
-                      //     },
-                      //     link: "",
-                      //   },
-                      // }}
                     />
                     <SelectInput
                       key={`nutrients_values.${index}.nutrientName`}
@@ -114,19 +110,6 @@ export function NutrientsValuesForm({
                     <InputLabel
                       key={`nutrients_values.${index}.lt`}
                       LabelProps={{ labelText: `Max` }}
-                      // inputIconProps={{
-                      //   IconEl: IoMdAddCircleOutline,
-                      //   option: {
-                      //     onClick: () => {
-                      //       append({
-                      //         gt: 1,
-                      //         nutrientName: "caloriesTotal",
-                      //         lt: 300,
-                      //       });
-                      //     },
-                      //     link: "",
-                      //   },
-                      // }}
                       InputProps={{
                         ...register(`nutrients_values.${index}.lt`, {
                           required: true,
@@ -134,65 +117,49 @@ export function NutrientsValuesForm({
 
                         type: "number",
 
-                        min: Number.isFinite(Number(minValue))
-                          ? Number(minValue)
+                        min: Number.isFinite(minValue)
+                          ? minValue + 1
                           : undefined,
                       }}
                     />
-                    {/* <InputIcon
-                      IconEl={IoMdAddCircleOutline}
-                      option={{
-                        onClick: () => {
-                          append({
-                            gt: 1,
-                            nutrientName: "caloriesTotal",
-                            lt: 300,
-                          });
-                        },
-                        link: "",
-                      }}
-                    /> */}
-                    <InputIcon
-                      className={style.delete_button}
-                      IconEl={TiDelete}
-                      option={{
-                        onClick: () => {
-                          if (index > 0) remove(index);
-                        },
-                        link: "",
-                      }}
-                    />
+
+                    {
+                      <InputIcon
+                        className={style.delete_button}
+                        IconEl={TiDelete}
+                        option={{
+                          onClick: () => {
+                            remove(index);
+                          },
+                          link: "",
+                        }}
+                      />
+                    }
                   </li>
                 );
               })}
+              <div>
+                <InputIcon
+                  IconEl={IoMdAddCircleOutline}
+                  option={{
+                    onClick: () => {
+                      append({
+                        gt: 1,
+                        nutrientName: NUTRIENTS_NAMES_FIELDS_ARR[curIndex + 1],
+                        lt: 100,
+                      });
 
-              <InputIcon
-                IconEl={IoMdAddCircleOutline}
-                option={{
-                  onClick: () => {
-                    append({
-                      gt: 1,
-                      nutrientName: "caloriesTotal",
-                      lt: 300,
-                    });
-                  },
-                  link: "",
-                }}
-              />
-              {/* 
-              <Button
-                className={style.add_filter_button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  append({
-                    gt: 1,
-                    nutrientName: "caloriesTotal",
-                    lt: 300,
-                  });
-                }}
-              >
-                Add Filter
-              </Button> */}
+                      setTimeout(() => {
+                        ref.current?.lastElementChild?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "end",
+                        });
+                      }, 0);
+                    },
+                    link: "",
+                  }}
+                />
+              </div>
             </ul>
           </div>
         );

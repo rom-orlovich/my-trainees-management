@@ -26,7 +26,16 @@ export type NutrientsNamesFields =
   | "saturatedFatG"
   | "cholesterolMg"
   | "sodiumMg";
-
+export const NUTRIENTS_NAMES_FIELDS_ARR = [
+  "caloriesTotal",
+  "proteinG",
+  "carbsG",
+  "sugarsG",
+  "fatG",
+  "saturatedFatG",
+  "cholesterolMg",
+  "sodiumMg",
+] as const;
 export interface FiltersFoodProps {
   nutrient_type: NutrientsTypes | "all";
   kosher_type: KosherType | "all";
@@ -50,7 +59,7 @@ export function FoodsFilterForm({
       heading={"Filters Food"}
       onSubmit={onSubmit}
       modelMode
-      saveState={false}
+      saveState={true}
       formProps={{ className: style.foods_filters_form_container }}
       editMode={editMode}
       formOptions={{

@@ -34,7 +34,7 @@ export function NutritionQuestionnaireForm({
 }: GeneralFormProps<NutritionQuestionnaire>) {
   const { user_id } = useGetUserLoginData();
   const profileID = Number(useParams().id);
-  const { displayInputsForm, serverQueryProps } = useAppSelector(
+  const { displayInputsForm } = useAppSelector(
     getNutritionQuestionnaireFormState
   );
 
