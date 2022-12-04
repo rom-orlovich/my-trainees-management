@@ -46,7 +46,7 @@ export async function selectPagination(
     ascDefault,
     comparisonQueryKeyValue,
     maxNumResult,
-    arrayQueryParamsArr,
+    arrayQueryParamsObjStatement,
   } = createSelectPaginationParams(selectPaginationQueryParam);
 
   const numPage = page - 1;
@@ -58,7 +58,7 @@ export async function selectPagination(
     realQueryParams,
     realQueryByNameParams,
     comparisonQueryKeyValue,
-    arrayQueryParamsArr,
+    arrayQueryParamsObjStatement,
     beforeWhereQuery
   );
 

@@ -34,14 +34,20 @@ export const dataOrErrorResponseAsConst = <T>(
   if (error) return [undefined, error] as const;
   return [data as T, undefined] as const;
 };
-export function createObjEntries(obj: object) {
+export function createObjEntries<T extends GenericRecord<any>>(
+  obj: T
+): [keyof T, T[keyof T]][] {
   return Object.entries(obj);
 }
 
-export function createObjValuesArr(obj: object) {
+export function createObjValuesArr<T extends GenericRecord<any>>(
+  obj: T
+): T[keyof T][] {
   return Object.values(obj);
 }
-export function createObjKeysArr(obj: object) {
+export function createObjKeysArr<T extends GenericRecord<any>>(
+  obj: T
+): (keyof T)[] {
   return Object.keys(obj);
 }
 

@@ -2,16 +2,23 @@
 /* eslint-disable guard-for-in */
 // Makes string from the keys of the obj.
 
-import { SelectPaginationQueryParam } from "../services/CRUDService/CRUDServiceTypes";
+import {
+  ArrayQueryParams,
+  SelectPaginationQueryParam,
+} from "../services/CRUDService/CRUDServiceTypes";
 import {
   createObjEntries,
   createObjKeysArr,
   createObjValuesArr,
 } from "../utilities/helpers";
 import { GenericRecord } from "../utilities/types";
+import {
+  ArrayQueryParamsPrepareStatementObj,
+  ComparisonQueryKeyValueObj,
+} from "./queryHelpersTypes";
 
 export const spreadObj = (
-  obj: Record<string, any>,
+  obj: GenericRecord<any>,
   values: string[],
   include?: string[]
 ) => {
@@ -33,7 +40,7 @@ export const spreadObj = (
 };
 
 // This string is used as fieldName in update/insert functions.
-export const prepareFieldsName = (obj: Record<string, any>) => {
+export const prepareFieldsName = (obj: GenericRecord<any>) => {
   const keys = createObjKeysArr(obj);
   return keys.reduce((pre, cur) => `${pre}${cur},`, "").slice(0, -1);
 };
@@ -41,7 +48,7 @@ export const prepareFieldsName = (obj: Record<string, any>) => {
 // Makes string from the value of the obj.
 // This string is used as the values in insert functions.
 export const prepareValuesToInsert = (
-  obj: Record<string, any>,
+  obj: GenericRecord<any>,
   startParma = 1
 ) => {
   const values = createObjValuesArr(obj);
@@ -64,12 +71,12 @@ export const prepareValuesToInsert = (
 // Makes string from the key-value  of object.
 // This string is used as the  key-values in update functions.
 export const prepareKeyValuesToUpdate = (
-  obj: Record<string, any>,
+  obj: GenericRecord<any>,
   startIndex = 0
 ) => {
   let keyValuesStr = "";
   const paramsArr = [] as any;
-  const keysValuesEntries = Object.entries(obj);
+  const keysValuesEntries = createObjEntries(obj);
   keysValuesEntries.forEach(([key, value], index) => {
     keyValuesStr += `${key}=$${index + startIndex},`;
     paramsArr.push(value);
@@ -78,38 +85,37 @@ export const prepareKeyValuesToUpdate = (
   return { keyValuesStr: ` ${keyValuesStr.slice(0, -1)}`, paramsArr };
 };
 
-const prepareArrayQueryParamsKeyValue = (
+const prepareArrayQueryParamsStatement = (
   requestQuery: GenericRecord<string>,
-  arrayQueryParams?: GenericRecord<string>
+  arrayQueryParams?: GenericRecord<ArrayQueryParams>
 ) => {
-  if (!arrayQueryParams) return [];
+  const initialQueryParamsPrepareStatementObj = {
+    paramsArrayArr: [],
+    selectQueryStatements: [],
+  } as ArrayQueryParamsPrepareStatementObj;
+  if (!arrayQueryParams) return initialQueryParamsPrepareStatementObj;
   const arrayQueryParamsEntries = createObjEntries(arrayQueryParams);
+
   const arrayQueryParamsArr = arrayQueryParamsEntries.reduce(
     (pre, [key, value]) => {
       const queryKey = requestQuery[key];
       if (queryKey) {
-        pre.push(queryKey.split(","));
+        pre.paramsArrayArr.push(queryKey.split(","));
+        pre.selectQueryStatements.push(value.selectQueryStr);
       }
       return pre;
     },
-    [] as any[][]
+    initialQueryParamsPrepareStatementObj
   );
 
   return arrayQueryParamsArr;
 };
-export interface RealFieldNameAndValue {
-  realFieldName: string;
-  valueToCompare: string;
-}
 
 const prepareComparisonQueryKeyValue = (
   requestQuery: GenericRecord<any>,
   comparisonQuery?: GenericRecord<string>
 ) => {
-  const comparisonQueryKeyValue: {
-    gt: RealFieldNameAndValue[];
-    lt: RealFieldNameAndValue[];
-  } = {
+  const comparisonQueryKeyValue: ComparisonQueryKeyValueObj = {
     gt: [],
     lt: [],
   };
@@ -144,13 +150,13 @@ const prepareComparisonQueryKeyValue = (
 //  from the real queries names a new obj which contains the table column name
 // and his value for the select query.
 export const prepareRealQueryKeyValuesObj = (
-  queryFromReq: Record<string, any> | undefined,
-  fakeQueryName: Record<string, string> | undefined
+  queryFromReq?: GenericRecord<any>,
+  fakeQueryName?: GenericRecord<string>
 ) => {
   if (!queryFromReq || !fakeQueryName) return {};
   if (!createObjKeysArr(queryFromReq)[0]) return {};
 
-  let newRealQueryKeyValueObj = {} as Record<string, any>;
+  let newRealQueryKeyValueObj = {} as GenericRecord<any>;
   for (const key in fakeQueryName) {
     // Created  key value obj which the first key is the key with the concat value of the query
     // and the other keys will concat to his key to create the concat name string for the query.
@@ -200,13 +206,13 @@ export const concatQueryWithName = (
 // Makes string from the key-value names of object.
 // This string is used as the  key-values in 'where query' in select queries statement.
 export const prepareKeyValuesOfNameToSelect = (
-  queryNameParams: Record<string, any>,
+  queryNameParams: GenericRecord<any>,
   startIndex = 0
 ) => {
   if (Object.keys(queryNameParams).length === 0)
     return { keyValuesOfNameStrArr: [], paramsNamesArr: [] };
 
-  const keysValuesEntries = Object.entries(queryNameParams);
+  const keysValuesEntries = createObjEntries(queryNameParams);
 
   const { columnsNameStr, valueNameParam } = concatQueryWithName(
     keysValuesEntries,
@@ -220,64 +226,60 @@ export const prepareKeyValuesOfNameToSelect = (
 };
 
 export const prepareComparisonParamsStatement = (
-  comparisonQuery: {
-    gt: RealFieldNameAndValue[];
-    lt: RealFieldNameAndValue[];
-  },
-  queryParamsRes: any[]
+  comparisonQuery: ComparisonQueryKeyValueObj,
+  startIndex = 0
 ) => {
+  const comparisonParams: string[] = [];
   // Loop over the gt and lt realFieldNameAndValue array and create array of compare string as a compare format of PostgreSql.
   const createOperatorStringArr = (
     operator: "gt" | "lt",
     operatorSymbol: ">=" | "<="
   ) => {
     const strArr: string[] = [];
-    comparisonQuery[operator].forEach(({ realFieldName, valueToCompare }) => {
-      // 'real name field' >= value or 'real name field' <= value
-      strArr.push(
-        `${realFieldName} ${operatorSymbol} $${queryParamsRes.length + 1}`
-      );
-      queryParamsRes.push(valueToCompare);
-    });
+    comparisonQuery[operator].forEach(
+      ({ realFieldName, valueToCompare }, i) => {
+        // 'real name field' >= value or 'real name field' <= value
+        strArr.push(`${realFieldName} ${operatorSymbol} $${startIndex + i}`);
+        comparisonParams.push(valueToCompare);
+      }
+    );
     return strArr;
   };
 
-  const comparisonGreater = createOperatorStringArr("gt", ">=");
-  const comparisonLesser = createOperatorStringArr("lt", "<=");
+  const comparisonGreaterStr = createOperatorStringArr("gt", ">=");
+  const comparisonLesserStr = createOperatorStringArr("lt", "<=");
 
-  const comparisonStatementStr = [
-    ...comparisonGreater,
-    ...comparisonLesser,
-  ].join(" and ");
+  const comparisonStatementStatement = [
+    ...comparisonGreaterStr,
+    ...comparisonLesserStr,
+  ];
 
-  return [comparisonStatementStr];
+  return { comparisonStatementStatement, comparisonParams };
 };
 
 // Makes string from the key-value of other columns of table.
 // This string is used as the  key-values in 'where query' in select queries statement.
 export const prepareKeyValuesOtherColumnToSelect = (
-  queryParams: Record<string, any>,
+  queryParams: GenericRecord<any>,
   startIndex = 0
 ) => {
-  if (Object.keys(queryParams).length === 0)
-    return { keyValuesStrArr: [], paramsArr: [] };
-  let keyValuesStr = "";
-  const paramsArr = [] as any;
-  const keysValuesEntries = Object.entries(queryParams);
+  if (createObjKeysArr(queryParams).length === 0)
+    return { keyValuesStatement: [], paramsArr: [] };
 
-  keysValuesEntries.forEach(([key, value], index) => {
+  const paramsArrStr: string[] = [];
+  const paramsArr: any[] = [];
+  const keysValuesEntries = createObjEntries(queryParams);
+
+  keysValuesEntries.forEach(([key, value]) => {
     const diffKey = key.split("-");
 
-    if (diffKey[1] === "diff") {
-      keyValuesStr += value
-        ? ` ${diffKey[0]}!=$${paramsArr.length + startIndex} `
-        : "";
-    } else
-      keyValuesStr += value ? ` ${key}=$${paramsArr.length + startIndex} ` : "";
-    if (index !== keysValuesEntries.length - 1)
-      keyValuesStr += value ? ` and` : "";
-
     if (value) {
+      if (diffKey[1] === "diff")
+        paramsArrStr.push(` ${diffKey[0]}!=$${paramsArr.length + startIndex} `);
+      else paramsArrStr.push(` ${key}=$${paramsArr.length + startIndex} `);
+
+      // If the type of value is not number or key is phone number insert as his type value.
+      // Else insert as number type.
       if (key === "phone_number" || typeof value !== "number")
         paramsArr.push(value);
       else {
@@ -285,50 +287,11 @@ export const prepareKeyValuesOtherColumnToSelect = (
       }
     }
   });
-  // EXAM: keyValuesStrArr : profile_id=$1,
+  // EXAM: keyValuesStatement : profile_id=$1,
   return {
-    keyValuesStrArr: keyValuesStr ? [keyValuesStr] : [],
+    keyValuesStatement: paramsArrStr,
     paramsArr,
   };
-};
-
-export const prepareStatementLogic = (
-  querySelectLogic: string,
-  queryParams: Record<string, any> = {},
-  queryNameParams: Record<string, any> = {},
-  comparisonQuery: { gt: RealFieldNameAndValue[]; lt: RealFieldNameAndValue[] },
-  arrayQueryParams: unknown[][],
-  beforeWhereQuery?: string
-) => {
-  const beforeWhereQueryStatement = arrayQueryParams.length
-    ? beforeWhereQuery || ""
-    : "";
-
-  const { keyValuesStrArr, paramsArr } = prepareKeyValuesOtherColumnToSelect(
-    queryParams,
-    1
-  );
-
-  const { keyValuesOfNameStrArr, paramsNamesArr } =
-    prepareKeyValuesOfNameToSelect(queryNameParams, paramsArr.length + 1);
-
-  const queryParamsRes = [...arrayQueryParams, ...paramsArr, ...paramsNamesArr];
-  const comparisonStr = prepareComparisonParamsStatement(
-    comparisonQuery,
-    queryParamsRes
-  );
-  // To create string with 'and' between the queries string.
-  const queryStrJoin = [...keyValuesStrArr, ...keyValuesOfNameStrArr].join(
-    keyValuesStrArr.length > 0 ? " and " : ""
-  );
-
-  const whereQueryStatement = `${
-    queryStrJoin ? `WHERE  ${queryStrJoin} ` : ""
-  }`;
-
-  const queryStrStatement = `${querySelectLogic} ${whereQueryStatement}`;
-
-  return { queryStrStatement, queryParamsRes };
 };
 
 export const createSelectPaginationParams = (
@@ -354,7 +317,7 @@ export const createSelectPaginationParams = (
     lt, // The client send in the url query the name of field that his value is lesser than.
     ...rest
   } = requestQuery;
-  const arrayQueryParamsArr = prepareArrayQueryParamsKeyValue(
+  const arrayQueryParamsObjStatement = prepareArrayQueryParamsStatement(
     requestQuery,
     arrayQueryParams
   );
@@ -385,6 +348,74 @@ export const createSelectPaginationParams = (
     realQueryByNameParams,
     comparisonQueryKeyValue,
     orderByParamRes,
-    arrayQueryParamsArr,
+    arrayQueryParamsObjStatement,
   };
+};
+
+const prepareKeyValuesArrayQueryParamsToStatement = (
+  arrayQueryParams: ArrayQueryParamsPrepareStatementObj,
+  startIndex = 0
+) => {
+  const arrayQueryParamsStatement = arrayQueryParams.selectQueryStatements.map(
+    (statement, i) => `${statement} (${startIndex + i})`
+  );
+  return {
+    arrayQueryParamsStatement,
+    arrayQueryParamsArr: arrayQueryParams.paramsArrayArr, // like [[]]
+  };
+};
+
+export const prepareStatementLogic = (
+  querySelectLogic: string,
+  queryParams: GenericRecord<any> = {},
+  queryNameParams: GenericRecord<any> = {},
+  comparisonQuery: ComparisonQueryKeyValueObj,
+  arrayQueryParams: ArrayQueryParamsPrepareStatementObj,
+  beforeWhereQuery?: string
+) => {
+  const queryParamsRes: any[] = [];
+  const { keyValuesStatement, paramsArr } = prepareKeyValuesOtherColumnToSelect(
+    queryParams,
+    1
+  );
+  queryParamsRes.push(...paramsArr);
+
+  const { keyValuesOfNameStrArr, paramsNamesArr } =
+    prepareKeyValuesOfNameToSelect(queryNameParams, paramsArr.length + 1);
+
+  queryParamsRes.push(...paramsNamesArr);
+
+  const { comparisonStatementStatement, comparisonParams } =
+    prepareComparisonParamsStatement(
+      comparisonQuery,
+      queryParamsRes.length + 1
+    );
+  queryParamsRes.push(...comparisonParams);
+
+  const { arrayQueryParamsStatement, arrayQueryParamsArr } =
+    prepareKeyValuesArrayQueryParamsToStatement(
+      arrayQueryParams,
+      queryParamsRes.length + 1
+    );
+
+  queryParamsRes.push(...arrayQueryParamsArr);
+
+  // To create string with 'and' between the queries string.
+  const queryStrBeforeJoin = [
+    ...keyValuesStatement,
+    ...keyValuesOfNameStrArr,
+    ...comparisonStatementStatement,
+    ...arrayQueryParamsStatement,
+  ];
+
+  const queryParamsStrStatement = queryStrBeforeJoin.join(
+    queryStrBeforeJoin.length > 1 ? " and " : ""
+  );
+  const whereQueryStatement = `${
+    queryParamsStrStatement ? `WHERE  ${queryParamsStrStatement} ` : ""
+  }`;
+
+  const queryStrStatement = `${querySelectLogic} ${whereQueryStatement}`;
+
+  return { queryStrStatement, queryParamsRes };
 };

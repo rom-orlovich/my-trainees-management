@@ -1,1 +1,1 @@
-SELECT count(*) FROM foods as fd   WHERE not allergens && $1 and  : values:[["לוז"]]
+SELECT * FROM foods as fd   WHERE not fd.allergens && ('{"לוז"}')
