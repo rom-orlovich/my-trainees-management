@@ -88,31 +88,18 @@ export default function Form<TFormValues extends FieldValues>({
   // Side effect if the form is not in edit mode.
   // saves the form state values after the user exit from the form component
   // and the component will unmount.
-  // useEffect(
-  //   () => () => {
-  //     if (!modelMode)
-  //       if (saveState)
-  //         if (!editMode) {
-  //           dispatch(
-  //             saveFormState({
-  //               url: location.pathname,
-  //               values: methods.getValues(),
-  //             })
-  //           );
-  //         }
-  //   },
-  //   [location.pathname, location, dispatch, methods, editMode]
-  // );
   useSaveFormState({
     getValues: methods.getValues,
-    className: "",
-    condition: !modelMode && saveState && !editMode,
+    id: className,
+    condition:
+      saveState &&
+      // && !modelMode
+      !editMode,
   });
 
   const handleSubmit = async (data: TFormValues) => {
     try {
       await onSubmit(data);
-
       methods.reset();
       if (saveState)
         if (!editMode)

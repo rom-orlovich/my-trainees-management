@@ -36,6 +36,7 @@ export const setAllergensDataByFormFun = (
   { payload: { data, formKey } }: ActionByFormKey<AllergensCheckbox[]>
 ) => {
   if (!data) return;
+  if (!state[formKey]) return;
   const { allergensData, allergensNamesArr, allergensStr } =
     createAllergensData(data);
   state[
@@ -51,8 +52,10 @@ export const setNutrientsValuesByFormFun = (
   { payload: { data, formKey } }: ActionByFormKey<NutrientValuesPartial[]>
 ) => {
   if (!data) return;
+  if (!state[formKey]) return;
   const { curNutrientsValues, nutrientsValuesQueryParams, nutrientsValuesStr } =
     createNutrientValuesData(data);
+
   state[formKey].serverQueryProps.nutrientsValuesQueryParams =
     nutrientsValuesQueryParams;
   state[
@@ -69,6 +72,7 @@ export const submitFilterFoodsByFormFun = (
   { payload: { data, formKey } }: ActionByFormKey<NutrientFormRules>
 ) => {
   if (!data) return;
+  if (!state[formKey]) return;
   const { kosher_type, nutrient_type, is_vegan, is_vegetarian, kosher } = data;
   const kosherType = kosher_type === "all" ? {} : { kosher_type };
   const nutrientType = nutrient_type === "all" ? {} : { nutrient_type };
@@ -90,5 +94,6 @@ export const resetFilterFoodsByFormFun = (
   state: FilterFormsState,
   { payload: { formKey } }: ActionByFormKey<NutrientFormRules>
 ) => {
+  if (!state[formKey]) return;
   state[formKey] = initialFilterFoodsFormState[formKey];
 };

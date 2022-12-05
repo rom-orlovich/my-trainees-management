@@ -7,14 +7,15 @@ import {
   getFormsState,
   saveFormState,
 } from "../redux/slices/formValuesStateSlice";
+import { getKeysArrObj } from "../utilities/helpersFun";
 
 function useSaveFormState<T extends FieldValues>({
   getValues,
-  className,
+  id,
   condition = true,
 }: {
   getValues: UseFormGetValues<T>;
-  className?: string;
+  id?: string;
   condition?: boolean;
 }) {
   const dispatch = useDispatch();
@@ -26,10 +27,9 @@ function useSaveFormState<T extends FieldValues>({
   useEffect(
     () => () => {
       if (condition) {
-        console.log(getValues());
         dispatch(
           saveFormState({
-            url: className || location.pathname,
+            url: id || location.pathname,
             values: getValues(),
           })
         );
@@ -38,7 +38,7 @@ function useSaveFormState<T extends FieldValues>({
     [location.pathname, location, dispatch]
   );
 
-  return defaultValues[className || location.pathname] as T;
+  return defaultValues[id || location.pathname] as T;
 }
 
 export default useSaveFormState;

@@ -5,11 +5,13 @@ import {
 } from "../../../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import { getModelControllerState } from "../../../../../redux/slices/modelControllerSlices/modelControllerSlice";
+import { FilterFoodFormTypes } from "../../../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
 import {
   getFilterFoodsFormState,
-  resetFormFilters,
+  resetFormFiltersForm,
 } from "../../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 import { GenericRecord } from "../../../../../types";
+import { genClassName } from "../../../../../utilities/helpersFun";
 import { GeneralFormProps } from "../../../../baseComponents/baseComponentsTypes";
 import ModelFormContainer from "../../../../baseComponents/Model/ModelFormContainer";
 import Form from "../../../../baseComponents/RHF-Components/Form/Form";
@@ -57,23 +59,25 @@ export function FoodsFilterForm({
   editMode,
 }: GeneralFormProps<FiltersFoodProps>) {
   const dispatch = useAppDispatch();
-  const {
-    favoriteFoodsFilterForm: { displayInputsForm },
-  } = useAppSelector(getFilterFoodsFormState);
-  const modelController = useAppSelector(getModelControllerState);
+  const filterFoodForm = useAppSelector(getFilterFoodsFormState);
+
+  const { curParam } = useAppSelector(getModelControllerState);
+  if (!curParam) return <></>;
+  const curFilterFoodFormState =
+    filterFoodForm[curParam as FilterFoodFormTypes];
   return (
     <Form<FiltersFoodProps>
       heading={"Filters Food"}
       onSubmit={onSubmit}
       modelMode
+      className={genClassName(style.foods_filters_form_container, curParam)}
       saveState={true}
-      formProps={{ className: style.foods_filters_form_container }}
       editMode={editMode}
       formOptions={{
         defaultValues: {
-          ...defaultValues,
           kosher_type: "all",
           nutrient_type: "all",
+          ...defaultValues,
         },
       }}
     >
@@ -82,7 +86,7 @@ export function FoodsFilterForm({
           <span className={style.reset_button}>
             <RiRestartFill
               onClick={() => {
-                dispatch(resetFormFilters({}));
+                dispatch(resetFormFiltersForm({ formKey: curParam }));
               }}
             />
           </span>
@@ -101,22 +105,24 @@ export function FoodsFilterForm({
           <TextFieldOpenModel
             labelText="Allergens"
             placeholder={
-              displayInputsForm.allergensCheckboxesState.allergensStr
+              curFilterFoodFormState?.displayInputsForm
+                ?.allergensCheckboxesState?.allergensStr
             }
             modelName="allergensList"
             register={register}
             nameField="allergens"
-            curParam={modelController.curParam}
+            curParam={curParam}
           />
           <TextFieldOpenModel
             labelText="Nutrients values"
             placeholder={
-              displayInputsForm.nutrientsValuesInputsState.nutrientsValuesStr
+              curFilterFoodFormState?.displayInputsForm
+                ?.nutrientsValuesInputsState?.nutrientsValuesStr
             }
             modelName="nutrientsValues"
             register={register}
             nameField="nutrients_values"
-            curParam={modelController.curParam}
+            curParam={curParam}
           />
         </>
       )}

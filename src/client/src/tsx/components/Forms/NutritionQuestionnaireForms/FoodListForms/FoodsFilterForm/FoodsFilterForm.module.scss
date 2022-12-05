@@ -22,7 +22,7 @@
     }
   }
   .reset_button {
-    @include posAbs(-7%, null, 0%, null);
+    @include posAbs(0%, null, 0%, null);
     color: #4679dc;
     font-size: 2rem;
     cursor: pointer;

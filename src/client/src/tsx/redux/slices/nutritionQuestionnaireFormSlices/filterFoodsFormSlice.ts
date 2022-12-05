@@ -53,7 +53,7 @@ export const filterFoodsFormSlice = createSlice({
   reducers: {
     setNutrientsValuesQueryParams: setNutrientsValuesByFormFun,
 
-    setAllergensArr: setAllergensDataByFormFun,
+    setAllergenDataByForm: setAllergensDataByFormFun,
 
     submitFilterFoodsForm: submitFilterFoodsByFormFun,
 
@@ -62,7 +62,7 @@ export const filterFoodsFormSlice = createSlice({
 });
 export const {
   setNutrientsValuesQueryParams,
-  setAllergensArr,
+  setAllergenDataByForm,
   submitFilterFoodsForm,
   resetFormFiltersForm,
 } = filterFoodsFormSlice.actions;

@@ -10,10 +10,7 @@ import {
 import { FaEdit } from "react-icons/fa";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { openModel } from "../../../../redux/slices/modelControllerSlices/modelControllerSlice";
-import {
-  ModelDisplayContentOptions,
-  ModelFormQuestionnaireModeDisplay,
-} from "../../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
+import { ModelDisplayContentOptions } from "../../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
 
 import { InputLabel } from "../InputLabel/InputLabel";
 import style from "./TextFieldRHFOpenModel.module.scss";
@@ -52,7 +49,7 @@ function TextFieldOpenModel<T extends FieldValues, CP extends any>({
             dispatch(
               openModel({
                 displayContent: modelName,
-                curParam: id,
+                curParam,
               })
             );
           },

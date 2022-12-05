@@ -1,33 +1,32 @@
 import React from "react";
 
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { setAllergensArr as setFilterFoodAllergens } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
+import { setAllergenDataByForm } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 
 import { setAllergensArr as setQuestAllergensArr } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import { AllergensForm, AllergensFormProps } from "./AllergensForm";
 
 import { getModelControllerState } from "../../../../redux/slices/modelControllerSlices/modelControllerSlice";
+import { ModelFormQuestionnaireModeDisplay } from "../../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
 
 export function AllergensAddForm() {
   const dispatch = useAppDispatch();
   const { curParam } = useAppSelector(getModelControllerState);
   const handleSubmit = (body: AllergensFormProps) => {
-    if (curParam === "favoriteFoods")
+    const curFormName = curParam as ModelFormQuestionnaireModeDisplay;
+
+    if (
+      curFormName === "blackListFoodsFilterForm" ||
+      curFormName === "favoriteFoodsFilterForm"
+    )
       dispatch(
-        setFilterFoodAllergens({
-          allergensData: body.allergens,
-          formKey: "favoriteFoodsFilterForm",
+        setAllergenDataByForm({
+          data: body.allergens,
+          formKey: curFormName,
         })
       );
-    else if (curParam === "blackListFoods")
-      dispatch(
-        setFilterFoodAllergens({
-          allergensData: body.allergens,
-          formKey: "blackListFoodsFilterForm",
-        })
-      );
-    if (curParam === "nutritionQuestionnaire")
+    else if (curFormName === "nutritionQuestionnaire")
       dispatch(setQuestAllergensArr(body.allergens));
   };
 

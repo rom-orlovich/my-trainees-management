@@ -13,8 +13,6 @@ import { NutritionQuestionnaireForm } from "./NutritionQuestionnaireForm";
 export function NutritionQuestionnaireAddForm() {
   const profileID = Number(useParams().id);
 
-  const dispatch = useAppDispatch();
-
   const handleSubmit = ({
     nutrition_questionnaire_id,
     ...body

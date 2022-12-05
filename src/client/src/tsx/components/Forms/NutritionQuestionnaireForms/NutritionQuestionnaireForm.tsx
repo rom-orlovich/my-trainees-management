@@ -116,10 +116,7 @@ export function NutritionQuestionnaireForm({
                 register={register}
                 nameField="meals_calories_size_percents"
               />
-              <TextFieldOpenModel<
-                NutritionQuestionnaire,
-                ModelFormQuestionnaireModeDisplay
-              >
+              <TextFieldOpenModel
                 labelText="Allergens"
                 placeholder={
                   displayInputsForm.allergenCheckboxState.allergensStr
@@ -135,10 +132,10 @@ export function NutritionQuestionnaireForm({
               >
                 labelText="Favorite Foods"
                 placeholder={displayInputsForm.favoriteFoodsName}
-                modelName="favoriteFoods"
+                modelName="foodsListForm"
                 register={register}
                 nameField="favorite_foods"
-                curParam="favoriteFoods"
+                curParam="favoriteFoodsFilterForm"
               />
               <TextFieldOpenModel<
                 NutritionQuestionnaire,
@@ -146,10 +143,10 @@ export function NutritionQuestionnaireForm({
               >
                 labelText="Blacklist Foods"
                 placeholder={displayInputsForm.blackListFoodsNames}
-                modelName="blackListFoods"
+                modelName="foodsListForm"
                 register={register}
                 nameField="black_list_foods"
-                curParam="blackListFoods"
+                curParam="blackListFoodsFilterForm"
               />
             </>
           );

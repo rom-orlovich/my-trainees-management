@@ -14,9 +14,9 @@ export type ModelDisplayContentOptions =
   | "subscriptionPlansForm"
   | "allergensList"
   | "mealsDistPercents"
-  | "favoriteFoods"
-  | "blackListFoods"
-  | "filterFoodForm"
+  | "filterFoodsForm"
+  | "foodsListForm"
+  | "favoriteFoodsFilterForm"
   | "nutrientsValues"
   | "foodDetails";
 
@@ -27,9 +27,10 @@ export interface ModelControllerState {
   lastModel?: ModelDisplayContentOptions;
 }
 
+export type FilterFoodFormTypes =
+  | "favoriteFoodsFilterForm"
+  | "blackListFoodsFilterForm";
+
 export type ModelFormQuestionnaireModeDisplay =
-  | ExtractKey<
-      ModelDisplayContentOptions,
-      "filterFoodForm" | "blackListFoods" | "favoriteFoods" | "allergensList"
-    >
-  | "nutritionQuestionnaire";
+  | "nutritionQuestionnaire"
+  | FilterFoodFormTypes;

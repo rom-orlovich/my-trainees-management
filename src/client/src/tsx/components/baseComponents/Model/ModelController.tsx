@@ -27,44 +27,33 @@ import { AllergensFormContent } from "../../Forms/NutritionQuestionnaireForms/Al
 import { MealsCaloriesSizeFormContent } from "../../Forms/NutritionQuestionnaireForms/NutritionQuestionnaireFormComponents/MealsCaloriesSizeForms/MealsCaloriesSizeForm";
 
 function ModelController() {
-  const modelControllerState = useAppSelector(getModelControllerState);
+  const { lastModel } = useAppSelector(getModelControllerState);
   let content = <></>;
-  if (modelControllerState.lastModel === "meeting")
-    content = <ModelMeetingContent />;
-  else if (modelControllerState.lastModel === "participantsGroupsListForm")
+  if (lastModel === "meeting") content = <ModelMeetingContent />;
+  else if (lastModel === "participantsGroupsListForm")
     content = <ModelParticipantsGroupListFormContent />;
-  else if (modelControllerState.lastModel === "participantForm")
+  else if (lastModel === "participantForm")
     content = <ModelParticipantsGroupFormContent />;
-  else if (modelControllerState?.lastModel === "activityForm")
-    content = <ModelActivityFormContent />;
-  else if (modelControllerState?.lastModel === "locationForm")
-    content = <ModelLocationFormContent />;
-  else if (modelControllerState?.lastModel === "cityForm")
-    content = <ModelCityFormContent />;
-  else if (modelControllerState?.lastModel === "productForm")
-    content = <ModelProductFormContent />;
-  else if (modelControllerState?.lastModel === "exerciseForm")
-    content = <ModelExerciseFormContent />;
-  else if (modelControllerState?.lastModel === "muscleGroupForm")
+  else if (lastModel === "activityForm") content = <ModelActivityFormContent />;
+  else if (lastModel === "locationForm") content = <ModelLocationFormContent />;
+  else if (lastModel === "cityForm") content = <ModelCityFormContent />;
+  else if (lastModel === "productForm") content = <ModelProductFormContent />;
+  else if (lastModel === "exerciseForm") content = <ModelExerciseFormContent />;
+  else if (lastModel === "muscleGroupForm")
     content = <ModelMuscleGroupFormContent />;
-  else if (modelControllerState?.lastModel === "equipmentForm")
+  else if (lastModel === "equipmentForm")
     content = <ModelEquipmentFormContent />;
-  else if (modelControllerState?.lastModel === "subscriptionPlansForm")
+  else if (lastModel === "subscriptionPlansForm")
     content = <ModelSubscriptionPlansFormContent />;
-  else if (modelControllerState?.lastModel === "mealsDistPercents")
+  else if (lastModel === "mealsDistPercents")
     content = <MealsCaloriesSizeFormContent />;
-  else if (modelControllerState?.lastModel === "allergensList")
-    content = <AllergensFormContent />;
-  else if (modelControllerState?.lastModel === "favoriteFoods")
-    content = <FoodsListFormContent />;
-  else if (modelControllerState?.lastModel === "blackListFoods")
-    content = <FoodsListFormContent />;
-  else if (modelControllerState?.lastModel === "filterFoodForm")
+  else if (lastModel === "allergensList") content = <AllergensFormContent />;
+  else if (lastModel === "foodsListForm") content = <FoodsListFormContent />;
+  else if (lastModel === "filterFoodsForm")
     content = <FoodsFilterFormContent />;
-  else if (modelControllerState?.lastModel === "nutrientsValues")
+  else if (lastModel === "nutrientsValues")
     content = <NutrientsValuesFormContent />;
-  else if (modelControllerState?.lastModel === "foodDetails")
-    content = <FoodDetails />;
+  else if (lastModel === "foodDetails") content = <FoodDetails />;
   else content = <></>;
 
   return <ModelCard>{content}</ModelCard>;

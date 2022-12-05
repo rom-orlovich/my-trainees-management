@@ -43,10 +43,10 @@ export function NutrientsValuesForm({
     { value: "caloriesTotal", label: "Calories Total(100g)" },
     { value: "proteinG", label: "Protein(g)" },
     { value: "carbsG", label: "Carbohydrates(g)" },
-    { value: "sugarsG", label: "Fats(g)" },
-    { value: "fatG", label: "Saturated Fat(g)" },
-    { value: "saturatedFatG", label: "Cholesterol(mg)" },
-    { value: "cholesterolMg", label: "Sugars(g)" },
+    { value: "fatG", label: "Fats(g)" },
+    { value: "saturatedFatG", label: "Saturated Fat(g)" },
+    { value: "cholesterolMg", label: "Cholesterol(mg)" },
+    { value: "sugarsG", label: "Sugars(g)" },
     { value: "sodiumMg", label: "Sodium(mg)" },
   ];
   return (
@@ -54,8 +54,8 @@ export function NutrientsValuesForm({
       heading={"Add Nutrient Value Filter"}
       onSubmit={onSubmit}
       modelMode
+      className={style.nutrients_values_form_container}
       saveState={false}
-      formProps={{ className: style.nutrients_values_form_container }}
       editMode={editMode}
       formOptions={{
         defaultValues: {
