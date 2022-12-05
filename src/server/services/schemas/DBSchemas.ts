@@ -145,12 +145,33 @@ export const nutritionMenuSchema = yup.object().shape({
   nutrition_menu_id: yup.number().notRequired().nullable(),
   meal_id: yup.number().notRequired().nullable(),
 });
+
 export const nutritionProgramSchema = yup.object().shape({
   nutrition_program_id: yup.number().notRequired().nullable(),
   nutrition_program_list_id: yup.number().required(),
   week_id: yup.number().required(),
   note_topic: yup.string().notRequired().default(""),
   note_text: yup.string().notRequired().default(""),
+});
+
+export const nutritionQuestionnaireSchema = yup.object().shape({
+  // user_id: yup.number().notRequired().nullable(),
+  // allergens: yup.array().of(yup.string().oneOf(ALLERGENS_LIST)),
+  // black_list_foods: yup.array(),
+  // favorite_foods: yup.array(),
+  // profile_id: yup.number().required("Must be a number"),
+  // date_start: yup.date().required(),
+  // date_end: yup
+  //   .date()
+  //   .notRequired()
+  //   .nullable()
+  //   .min(yup.ref("date_start"), "End date can't be before start date."),
+  // kosher: yup.boolean(),
+  // is_vegan: yup.boolean(),
+  // is_vegetarian: yup.boolean(),
+  // isKeepMeatMilk: yup.boolean(),
+  // diet_type: yup.string(),
+  // meals_calories_size_percents: yup.array(),
 });
 
 export const measuresSchema = yup.object().shape({

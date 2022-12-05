@@ -16,12 +16,12 @@ export const initialFilterFoodsFormState: FilterFormsState = {
   favoriteFoodsFilterForm: {
     displayInputsForm: {
       allergensCheckboxesState: {
-        allergensCheckboxes: [],
-        allergensStr: "",
+        inputsData: [],
+        inputsStr: "",
       },
       nutrientsValuesInputsState: {
-        nutrientsValuesStr: "",
-        curNutrientsValuesInputs: [],
+        inputsStr: "",
+        inputsData: [],
       },
     },
     serverQueryProps: {
@@ -32,12 +32,12 @@ export const initialFilterFoodsFormState: FilterFormsState = {
   blackListFoodsFilterForm: {
     displayInputsForm: {
       allergensCheckboxesState: {
-        allergensCheckboxes: [],
-        allergensStr: "",
+        inputsData: [],
+        inputsStr: "",
       },
       nutrientsValuesInputsState: {
-        nutrientsValuesStr: "",
-        curNutrientsValuesInputs: [],
+        inputsData: [],
+        inputsStr: "",
       },
     },
     serverQueryProps: {

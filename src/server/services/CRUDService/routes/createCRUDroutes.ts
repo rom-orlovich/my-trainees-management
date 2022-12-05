@@ -11,7 +11,7 @@ import { createControllersHandlerAndRoutes } from "../utilities/helperServiceCRU
  */
 export function createCRUDroutes(
   optionsCRUD: OptionsCRUD,
-  disableRoute?: { getByID: boolean }
+  disableRoute?: { getByID?: boolean; post?: boolean; put?: boolean }
 ) {
   const {
     controllerHandlersObj,
@@ -21,16 +21,18 @@ export function createCRUDroutes(
   } = createControllersHandlerAndRoutes(optionsCRUD, disableRoute);
 
   // POST route for CRUD with insert Statistics
-  routeByEntity.post(
-    controllerHandlersObj.createNewValueInDB,
-    handleInsertStatistics
-  );
+  !disableRoute?.post === true &&
+    routeByEntity.post(
+      controllerHandlersObj.createNewValueInDB,
+      handleInsertStatistics
+    );
 
   // PUT route for CRUD with insert Statistics
-  routeByEntityAndID.put(
-    controllerHandlersObj.updateValueByID,
-    handleInsertStatistics
-  );
+  !disableRoute?.put === true &&
+    routeByEntityAndID.put(
+      controllerHandlersObj.updateValueByID,
+      handleInsertStatistics
+    );
 
   return expressRouterObj;
 }

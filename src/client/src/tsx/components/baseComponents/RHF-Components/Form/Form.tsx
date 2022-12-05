@@ -116,11 +116,16 @@ export default function Form<TFormValues extends FieldValues>({
       }
       dispatch(enableGoPrevPage());
     } catch (error) {
-      const Error = error as {
+      const serverError = error as {
         data: { errorField: Path<TFormValues>; message: string };
       };
-      console.log(error);
-      methods.setError("server" as any, { message: Error.data?.message });
+      const formError = error as Error;
+
+      if (serverError?.data?.message)
+        methods.setError("server" as any, {
+          message: serverError?.data?.message,
+        });
+      else methods.setError("server" as any, { message: formError.message });
     }
   };
 
@@ -170,7 +175,8 @@ export default function Form<TFormValues extends FieldValues>({
         onSubmit={methods.handleSubmit(handleSubmit)}
       >
         {children(methods)}
-        {methods.formState.errors?.server?.message ? (
+        {methods.formState.errors?.server?.message ||
+        methods.formState.errors?.client?.message ? (
           <p className={style.form_error_message}>
             {methods.formState.errors?.server?.message as string}
           </p>

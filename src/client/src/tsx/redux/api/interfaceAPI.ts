@@ -1,3 +1,4 @@
+import { FoodProps } from "../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
 import { OmitKey, PickKey } from "../../types";
 
 // All the endpoints and the entities names.
@@ -412,20 +413,19 @@ export interface NutritionMenuAPI {
 export type DietTypes = "cutting" | "bulking" | "neutral";
 export interface NutritionQuestionnaire {
   nutrition_questionnaire_id?: number;
-  user_id: number;
-  allergens: string[];
-  black_list_foods: number[];
-  favorite_foods: number[];
-  profile_id: number;
   day_start: Date;
   day_end: Date;
+  allergens: string[];
+  black_list_foods: FoodProps[];
+  favorite_foods: FoodProps[];
   kosher?: boolean;
   is_vegan?: boolean;
   is_vegetarian?: boolean;
   isKeepMeatMilk?: boolean;
-
   diet_type: DietTypes;
   meals_calories_size_percents: number[];
+  profile_id: number;
+  user_id: number;
 }
 
 export type KosherType = "בשרי" | "חלבי" | "פרווה";

@@ -118,7 +118,6 @@ export function NutrientsValuesForm({
                         }),
 
                         type: "number",
-
                         min: Number.isFinite(minValue)
                           ? minValue + 1
                           : undefined,

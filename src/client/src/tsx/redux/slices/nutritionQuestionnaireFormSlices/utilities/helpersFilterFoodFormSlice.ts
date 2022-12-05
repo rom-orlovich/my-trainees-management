@@ -39,10 +39,9 @@ export const setAllergensDataByFormFun = (
   if (!state[formKey]) return;
   const { allergensData, allergensNamesArr, allergensStr } =
     createAllergensData(data);
-  state[
-    formKey
-  ].displayInputsForm.allergensCheckboxesState.allergensCheckboxes = allergensData;
-  state[formKey].displayInputsForm.allergensCheckboxesState.allergensStr =
+  state[formKey].displayInputsForm.allergensCheckboxesState.inputsData =
+    allergensData;
+  state[formKey].displayInputsForm.allergensCheckboxesState.inputsStr =
     allergensStr;
   state[formKey].serverQueryProps.allergens = allergensNamesArr;
 };
@@ -58,13 +57,11 @@ export const setNutrientsValuesByFormFun = (
 
   state[formKey].serverQueryProps.nutrientsValuesQueryParams =
     nutrientsValuesQueryParams;
-  state[
-    formKey
-  ].displayInputsForm.nutrientsValuesInputsState.nutrientsValuesStr = nutrientsValuesStr;
+  state[formKey].displayInputsForm.nutrientsValuesInputsState.inputsStr =
+    nutrientsValuesStr;
 
-  state[
-    formKey
-  ].displayInputsForm.nutrientsValuesInputsState.curNutrientsValuesInputs = curNutrientsValues;
+  state[formKey].displayInputsForm.nutrientsValuesInputsState.inputsData =
+    curNutrientsValues;
 };
 
 export const submitFilterFoodsByFormFun = (

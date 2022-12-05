@@ -28,6 +28,7 @@ import DietTypesRadioButtons from "./NutritionQuestionnaireFormComponents/DietTy
 import FoodRulesCheckboxes from "./NutritionQuestionnaireFormComponents/FoodRulesCheckboxes";
 
 export const NUTRITION_QUESTIONNAIRE_NAME = "Nutrition Questionnaire";
+
 export function NutritionQuestionnaireForm({
   onSubmit,
   defaultValues,
@@ -35,10 +36,10 @@ export function NutritionQuestionnaireForm({
 }: GeneralFormProps<NutritionQuestionnaire>) {
   const { user_id } = useGetUserLoginData();
   const profileID = Number(useParams().id);
-  const { displayInputsForm } = useAppSelector(
+  const { displayInputsForm, serverQueryProps } = useAppSelector(
     getNutritionQuestionnaireFormState
   );
-
+  console.log(serverQueryProps);
   return (
     <>
       <Form<NutritionQuestionnaire>
@@ -61,7 +62,6 @@ export function NutritionQuestionnaireForm({
             ) as any,
             profile_id: profileID,
             diet_type: "neutral",
-            meals_calories_size_percents: [],
             ...defaultValues,
           },
           resolver: yupResolver(nutritionQuestionnaireSchema),
@@ -111,16 +111,14 @@ export function NutritionQuestionnaireForm({
               />
               <TextFieldOpenModel
                 labelText="Meals Size"
-                placeholder={displayInputsForm.mealsPercentsStr}
+                placeholder={displayInputsForm.mealsPercentsState.inputsStr}
                 modelName="mealsDistPercents"
                 register={register}
                 nameField="meals_calories_size_percents"
               />
               <TextFieldOpenModel
                 labelText="Allergens"
-                placeholder={
-                  displayInputsForm.allergenCheckboxState.allergensStr
-                }
+                placeholder={displayInputsForm.allergenCheckboxState.inputsStr}
                 modelName="allergensList"
                 register={register}
                 nameField="allergens"

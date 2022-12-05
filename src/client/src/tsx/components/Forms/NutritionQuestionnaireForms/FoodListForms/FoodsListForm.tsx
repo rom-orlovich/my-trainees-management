@@ -80,18 +80,13 @@ export function FoodsListForm({
           control,
           name: "foods",
         });
-        // const defaultValues = useSaveFormState({
-        //   id: curParam,
-        //   getValues,
-        //   condition: fields.length > 0,
-        // });
 
         const queryOptions = {
           ...nutrientsValuesQueryParams,
           ...rest,
           userID: user_id,
         };
-        console.log(formState.defaultValues);
+
         const foods = [...fields];
 
         return (

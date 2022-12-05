@@ -8,11 +8,67 @@
 
     .inputs_layout {
       height: 30vh;
-      @include classMatcher("input_label") {
-        width: 90%;
 
-        @include classMatcher("select_plus_button") {
-          @include posAbs(40%, null, -12%, null);
+      li {
+        position: relative;
+        @include classMatcher("input_label") {
+          width: 90%;
+        }
+        .delete_button {
+          cursor: pointer;
+          @include posAbs(47%, null, -5%, null);
+          font-size: 1.8rem;
+          cursor: pointer;
+          color: red;
+        }
+      }
+
+      .add_button {
+        font-size: 1.8rem;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        color: #4679dc;
+      }
+    }
+  }
+}
+@include notSmartphone() {
+  @include classMatcher("ModelCard_model_card") {
+    &:has(.meals_calories_size_percents_form) {
+      min-width: 25vw;
+    }
+  }
+  .meals_calories_size_percents_form {
+    .inputs_container {
+      padding: 0.5rem;
+      height: 80%;
+      overflow-y: scroll;
+
+      .inputs_layout {
+        height: 30vh;
+
+        li {
+          position: relative;
+          @include classMatcher("input_label") {
+            label {
+              text-align: center;
+            }
+            width: 90%;
+          }
+          .delete_button {
+            cursor: pointer;
+            @include posAbs(47%, null, -2%, null);
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: red;
+          }
+        }
+
+        .add_button {
+          font-size: 1.8rem;
+          cursor: pointer;
+          margin-top: 0.5rem;
+          color: #4679dc;
         }
       }
     }

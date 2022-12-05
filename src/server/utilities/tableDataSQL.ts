@@ -68,4 +68,6 @@ export enum TABLES_DATA {
   NUTRITION_MENUS_LIST_ID = "nutrition_menu_id",
 
   NUTRITION_MENUS_MEALS_TABLE_NAME = "nutrition_menus_meals",
+  NUTRITION_QUESTIONNAIRE_TABLE_NAME = "nutrition_questionnaires",
+  NUTRITION_QUESTIONNAIRE_ID = "nutrition_questionnaire_id",
 }

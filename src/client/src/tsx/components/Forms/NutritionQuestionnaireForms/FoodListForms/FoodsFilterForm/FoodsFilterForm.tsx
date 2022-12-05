@@ -106,7 +106,7 @@ export function FoodsFilterForm({
             labelText="Allergens"
             placeholder={
               curFilterFoodFormState?.displayInputsForm
-                ?.allergensCheckboxesState?.allergensStr
+                ?.allergensCheckboxesState?.inputsStr
             }
             modelName="allergensList"
             register={register}
@@ -117,7 +117,7 @@ export function FoodsFilterForm({
             labelText="Nutrients values"
             placeholder={
               curFilterFoodFormState?.displayInputsForm
-                ?.nutrientsValuesInputsState?.nutrientsValuesStr
+                ?.nutrientsValuesInputsState?.inputsStr
             }
             modelName="nutrientsValues"
             register={register}

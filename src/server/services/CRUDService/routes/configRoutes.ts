@@ -26,6 +26,7 @@ import {
   participantsGroupListSchema,
   foodsSchema,
   nutritionMenuSchema,
+  nutritionQuestionnaireSchema,
 } from "../../schemas/DBSchemas";
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { API_ROUTES } from "../../apiRoutesConstants";
@@ -661,4 +662,15 @@ export const nutritionMenuOptionsCRUD: OptionsCRUD = {
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: nutritionMenuSchema,
+};
+export const nutritionQuestionnaireCRUD: OptionsCRUD = {
+  singleEntityName: API_ROUTES.NUTRITION_QUESTIONNAIRE_ENTITY,
+  selectQuery: {
+    tableName: `${TABLES_DATA.NUTRITION_QUESTIONNAIRE_TABLE_NAME} as nq`,
+    tableID: `nq.${TABLES_DATA.NUTRITION_QUESTIONNAIRE_ID}`,
+    fieldNamesQuery: `nq.*`,
+    querySelectLogic: ``,
+  },
+  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  validateSchema: nutritionQuestionnaireSchema,
 };

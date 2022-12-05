@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AllergensCheckbox } from "../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/AllergensForm";
 
 import { FoodProps } from "../../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
+import { MealsCaloriesSize } from "../../../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireFormComponents/MealsCaloriesSizeForms/MealsCaloriesSizeForm";
 
 import { RootState } from "../../store";
 import { NutritionQuestionnaireFormState } from "./nutritionQuestionnaireFormsSliceTypes";
@@ -11,14 +12,18 @@ import { createAllergensData } from "./utilities/helpersFun";
 
 const nutritionQuestionnaireState: NutritionQuestionnaireFormState = {
   displayInputsForm: {
-    allergenCheckboxState: { allergensCheckboxes: [], allergensStr: "" },
-    mealsPercentsStr: "",
+    allergenCheckboxState: { inputsData: [], inputsStr: "" },
+
     favoriteFoodsName: "",
     blackListFoodsNames: "",
+    mealsPercentsState: {
+      inputsData: [],
+      inputsStr: "",
+    },
   },
   serverQueryProps: {
     allergensNames: [],
-    mealsPercents: [],
+    meals_calories_size_percents: [],
     favorite_foods: [],
     black_list_foods: [],
   },
@@ -37,18 +42,22 @@ export const nutritionQuestionnaireFormSlice = createSlice({
   name: "nutritionQuestionnaireFormSlice",
   initialState: nutritionQuestionnaireState,
   reducers: {
-    setMealsPercentsArr(state, action: PayloadAction<number[]>) {
-      state.serverQueryProps.mealsPercents = action.payload;
-      state.displayInputsForm.mealsPercentsStr = action.payload
-        .reduce((pre, cur, i) => `${pre} Meal ${i + 1} ${cur}%,`, "")
+    setMealsPercentsArr(state, action: PayloadAction<MealsCaloriesSize[]>) {
+      state.displayInputsForm.mealsPercentsState.inputsStr = action.payload
+        .reduce((pre, cur, i) => `${pre} Meal ${i + 1} ${cur.percents}%,`, "")
         .slice(0, -1);
+
+      state.displayInputsForm.mealsPercentsState.inputsData = action.payload;
+
+      state.serverQueryProps.meals_calories_size_percents = action.payload.map(
+        (el) => el.percents
+      );
     },
     setAllergensArr: (state, action: PayloadAction<AllergensCheckbox[]>) => {
       const { allergensData, allergensNamesArr, allergensStr } =
         createAllergensData(action.payload);
-      state.displayInputsForm.allergenCheckboxState.allergensCheckboxes =
-        allergensData;
-      state.displayInputsForm.allergenCheckboxState.allergensStr = allergensStr;
+      state.displayInputsForm.allergenCheckboxState.inputsData = allergensData;
+      state.displayInputsForm.allergenCheckboxState.inputsStr = allergensStr;
       state.serverQueryProps.allergensNames = allergensNamesArr;
     },
     submitFavoriteFoods(state, action: PayloadAction<FoodProps[]>) {

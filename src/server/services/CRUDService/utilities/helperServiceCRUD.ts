@@ -49,9 +49,7 @@ export const createControllersHandlerAndRouterWithAuthMiddleware = (
  */
 export const createControllersHandlerAndRoutes = (
   optionsCRUD: OptionsCRUD,
-  disableRoute?: {
-    getByID: boolean;
-  }
+  disableRoute?: { getByID?: boolean; post?: boolean }
 ) => {
   const {
     expressRouterObj,
@@ -68,7 +66,7 @@ export const createControllersHandlerAndRoutes = (
   );
 
   // GET and DELETE by id route and middleware.
-  !disableRoute?.getByID &&
+  !disableRoute?.getByID === true &&
     routeByEntityAndID.get(controllerHandlersObj.getValueFromDBbyID);
   routeByEntityAndID.delete(controllerHandlersObj.deleteValueByID);
 

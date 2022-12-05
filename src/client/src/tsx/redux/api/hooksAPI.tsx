@@ -29,6 +29,7 @@ import {
   NutritionMenuTableApi,
   NutritionMenuAPI,
   FoodAPI,
+  NutritionQuestionnaire,
 } from "./interfaceAPI";
 
 import { apiCreateCRUDHooks } from "./apiCreateCRUDHooks";
@@ -156,6 +157,13 @@ export const foodsApi = apiCreateCRUDHooks<FoodAPI>({
   singleEntityName: API_ROUTES.FOOD_ENTITY,
   listId: "foods_list",
 });
+export const nutritionQuestionnaireApi =
+  apiCreateCRUDHooks<NutritionQuestionnaire>({
+    reducerPath: "nutritionQuestionnaireApi",
+    baseUrl: API_ROUTES.NUTRITION_QUESTIONNAIRE_ROUTE,
+    singleEntityName: API_ROUTES.NUTRITION_QUESTIONNAIRE_ENTITY,
+    listId: "nutrition_questionnaire",
+  });
 
 export const measuresApi = apiCreateCRUDHooks<MeasuresCalResAPI>({
   reducerPath: "measuresApi",
@@ -323,6 +331,7 @@ export const apiCreateCrudArr = [
   financesApi,
   emailAPi,
   foodsApi,
+  nutritionQuestionnaireApi,
 ];
 
 // Create Reducer arr that contains  object with key of the reducer name and value the reducer function.

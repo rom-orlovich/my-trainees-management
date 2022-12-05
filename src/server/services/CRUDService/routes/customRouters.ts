@@ -24,11 +24,13 @@ import {
   measuresOptionsCRUD,
   meetingOptionsCRUD,
   nutritionMenuOptionsCRUD,
+  nutritionQuestionnaireCRUD,
   traineesOptionsCRUD,
 } from "./configRoutes";
 import { createCRUDroutes } from "./createCRUDroutes";
 import { handleGenerateNutritionMenu } from "../../nutritionMenuService/controllers/handleGenerateNutritionMenu";
 import { handleGetNutritionMenu } from "../../nutritionMenuService/controllers/handleGetNutritionMenu";
+import { handleCreateNutritionQuestionnaire } from "../../nutritionMenuService/controllers/handleCreateNutritionQuestionnaire";
 
 export const createMeasuresRouter = () => {
   const {
@@ -142,4 +144,20 @@ export const createNutritionMenuRouter = () => {
   );
 
   return nutritionMenuRouter;
+};
+
+export const createNutritionQuestionnaireRouter = () => {
+  const nutritionQuestionnaireRouter = createCRUDroutes(
+    nutritionQuestionnaireCRUD,
+    {
+      post: true,
+      put: true,
+    }
+  );
+
+  nutritionQuestionnaireRouter.post(
+    `/${API_ROUTES.NUTRITION_QUESTIONNAIRE_ENTITY}`,
+    handleCreateNutritionQuestionnaire
+  );
+  return nutritionQuestionnaireRouter;
 };

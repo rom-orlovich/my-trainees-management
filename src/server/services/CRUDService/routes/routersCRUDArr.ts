@@ -11,6 +11,7 @@ import {
   locationsOptionsCRUD,
   musclesGroupOptionsCRUD,
   nutritionMenusListOptionsCRUD,
+  nutritionQuestionnaireCRUD,
   participantsGroupListOptionsCRUD,
   participantsGroupOptionsCRUD,
   productsOptionsCRUD,
@@ -29,6 +30,7 @@ import {
   createMeasuresRouter,
   createMeetingRouter,
   createNutritionMenuRouter,
+  createNutritionQuestionnaireRouter,
   createTraineesRouter,
 } from "./customRouters";
 
@@ -143,5 +145,9 @@ export const routesConfigArr: {
   {
     baseRoute: API_ROUTES.FOODS_ROUTE,
     router: createCRUDroutes(foodsOptionsCRUD),
+  },
+  {
+    baseRoute: API_ROUTES.NUTRITION_QUESTIONNAIRE_ROUTE,
+    router: createNutritionQuestionnaireRouter(),
   },
 ];
