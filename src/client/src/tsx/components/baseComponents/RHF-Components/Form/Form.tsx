@@ -23,7 +23,7 @@ import {
   closeModel,
   getModelControllerState,
   preModel,
-} from "../../../../redux/slices/modelControllerSlice";
+} from "../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { genClassName } from "../../../../utilities/helpersFun";
 
 import { FormProps } from "../../baseComponentsTypes";

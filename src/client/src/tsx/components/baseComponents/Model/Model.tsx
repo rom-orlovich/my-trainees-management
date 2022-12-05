@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   closeModel,
   getModelControllerState,
-} from "../../../redux/slices/modelControllerSlice";
+} from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { PropsBasic } from "../baseComponentsTypes";
 
 const modelWarper = document.getElementById("model") as Element;

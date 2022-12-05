@@ -2,31 +2,29 @@ import React from "react";
 import ModelMeetingContent from "../../../pages/SchedulePage/ModelMeetingContent/ModelMeetingContent";
 import { useAppSelector } from "../../../redux/hooks";
 
-import { getModelControllerState } from "../../../redux/slices/modelControllerSlice";
+import { getModelControllerState } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import ModelActivityFormContent from "../../Forms/ActivityForms/ModelActivityFormContent";
-import AllergensFormContent from "../../Forms/NutritionQuestionnaireForms/AllergensForm/AllergensFormContent";
+
 import ModelCityFormContent from "../../Forms/CityForms/ModelCityFormContent";
 import ModelEquipmentFormContent from "../../Forms/EquipmentForms/ModelEquipmentFormContent";
 import ModelExerciseFormContent from "../../Forms/ExerciseForms/ModelExerciseFormContent";
-// import FoodsFilterFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/FoodsFilterFormContent";
-// import FoodsListFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListFormContent";
 
 import ModelLocationFormContent from "../../Forms/LocationForms/ModelLocationFormContent";
 
 import ModelMuscleGroupFormContent from "../../Forms/MusclesGroupForms/ModelMuscleGroupFormContent";
 import ModelParticipantsGroupFormContent from "../../Forms/ParticipantsGroupForm/ModelParticipantsGroupFormContent";
-// import ModelParticipantsGroupListFormContent from "../../Forms/ParticipantsGroupsListForms/ModelParticipantsGroupListFormContent";
+
 import ModelProductFormContent from "../../Forms/ProductsForms/ModelProductFormContent";
 import ModelSubscriptionPlansFormContent from "../../Forms/SubscriptionPlansForms/ModelSubscriptionPlansFormContent";
 import ModelCard from "./ModelCard";
-import MealsCaloriesSizeFormContent from "../../Forms/NutritionQuestionnaireForms/MealsCaloriesSizeForms/MealsCaloriesSizeFormContent";
 
-// import NutrientsValuesFormContent from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesFormContent";
 import { FoodsListFormContent } from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
 import { FoodsFilterFormContent } from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/FoodsFilterForm";
 import { NutrientsValuesFormContent } from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesForm";
 import { ModelParticipantsGroupListFormContent } from "../../Forms/ParticipantsGroupsListForms/ParticipantsGroupsListForm";
 import FoodDetails from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsList/FoodDetails/FoodDetails";
+import { AllergensFormContent } from "../../Forms/NutritionQuestionnaireForms/AllergensForm/AllergensForm";
+import { MealsCaloriesSizeFormContent } from "../../Forms/NutritionQuestionnaireForms/NutritionQuestionnaireFormComponents/MealsCaloriesSizeForms/MealsCaloriesSizeForm";
 
 function ModelController() {
   const modelControllerState = useAppSelector(getModelControllerState);
@@ -59,6 +57,8 @@ function ModelController() {
     content = <AllergensFormContent />;
   else if (modelControllerState?.lastModel === "favoriteFoods")
     content = <FoodsListFormContent />;
+  else if (modelControllerState?.lastModel === "blackListFoods")
+    content = <FoodsListFormContent isFavoriteFood={false} />;
   else if (modelControllerState?.lastModel === "filterFoodForm")
     content = <FoodsFilterFormContent />;
   else if (modelControllerState?.lastModel === "nutrientsValues")

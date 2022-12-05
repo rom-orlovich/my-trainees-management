@@ -1,20 +1,37 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AllergensCheckbox } from "../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/AllergensForm";
 
 import { NutrientValuesPartial } from "../../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesForm";
 
 import { RootState } from "../../store";
-
 import {
+  ActionPayloadAllergens,
   FilterFormsState,
   NutrientFormRules,
   NutrientValuesForQuery,
-} from "./nutrtionQuestionnaireFormsSliceTypes";
+} from "./nutritionQuestionnaireFormsSliceTypes";
+
 import { setAllergensArrByFilterForm } from "./utilities/helpersFun";
 
 const filterFoodsFormState: FilterFormsState = {
-  favoriteFoodFilterForm: {
+  favoriteFoodsFilterForm: {
+    displayInputsForm: {
+      allergensCheckboxesState: {
+        allergensCheckboxes: [],
+        allergensStr: "",
+      },
+      nutrientsValuesInputsState: {
+        nutrientsValuesStr: "",
+        curNutrientsValuesInputs: [],
+      },
+    },
+    serverQueryProps: {
+      nutrientsValuesQueryParams: {},
+      allergens: [],
+    },
+  },
+  blackListFoodsFilterForm: {
     displayInputsForm: {
       allergensCheckboxesState: {
         allergensCheckboxes: [],
@@ -37,7 +54,7 @@ export const filterFoodsFormSlice = createSlice({
   initialState: filterFoodsFormState,
   reducers: {
     setNutrientsValuesQueryParams(
-      { favoriteFoodFilterForm: { displayInputsForm, serverQueryProps } },
+      { favoriteFoodsFilterForm: { displayInputsForm, serverQueryProps } },
       action: PayloadAction<NutrientValuesPartial[]>
     ) {
       if (!action.payload) return;
@@ -60,8 +77,9 @@ export const filterFoodsFormSlice = createSlice({
       serverQueryProps.nutrientsValuesQueryParams = nutrientsValuesQueryParams;
     },
 
-    setAllergensArr: (state, action: PayloadAction<AllergensCheckbox[]>) =>
-      setAllergensArrByFilterForm(state, "favoriteFoodFilterForm", action),
+    setAllergensArr: (state, action: ActionPayloadAllergens) =>
+      setAllergensArrByFilterForm(state, action),
+
     submitFormFilterFoodForm: (
       state,
       {
@@ -80,8 +98,8 @@ export const filterFoodsFormSlice = createSlice({
       const isVegetarian = is_vegetarian ? { is_vegetarian } : {};
       const isKosher = kosher ? { kosher } : {};
 
-      state.favoriteFoodFilterForm.serverQueryProps = {
-        ...state.favoriteFoodFilterForm.serverQueryProps,
+      state.favoriteFoodsFilterForm.serverQueryProps = {
+        ...state.favoriteFoodsFilterForm.serverQueryProps,
         ...isVegan,
         ...isVegetarian,
         ...isKosher,
@@ -90,8 +108,8 @@ export const filterFoodsFormSlice = createSlice({
       };
     },
     resetFormFilters: (state, action: PayloadAction<{ formName?: string }>) => {
-      state.favoriteFoodFilterForm =
-        filterFoodsFormState.favoriteFoodFilterForm;
+      state.favoriteFoodsFilterForm =
+        filterFoodsFormState.favoriteFoodsFilterForm;
     },
   },
 });

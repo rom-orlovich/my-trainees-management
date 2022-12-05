@@ -11,7 +11,7 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 import { useAppDispatch } from "../../redux/hooks";
-import { openModel } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 export const transformDataLocation = (arg: LocationsGetRes) => {
   const { city_id, location_id, city_name, user_id, ...rest } = arg;

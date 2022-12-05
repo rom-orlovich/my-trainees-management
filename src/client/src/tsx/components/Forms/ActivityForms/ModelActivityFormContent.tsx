@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../../redux/hooks";
-import { getModelControllerState } from "../../../redux/slices/modelControllerSlice";
+import { getModelControllerState } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 import style from "../../baseComponents/Model/ModelFormContainer.module.scss";
 import { ActivityAddForm } from "./ActivityAddForm";

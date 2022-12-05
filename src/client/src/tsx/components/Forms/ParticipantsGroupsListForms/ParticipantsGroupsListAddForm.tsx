@@ -8,7 +8,7 @@ import {
 } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { disableGoPrevPage } from "../../../redux/slices/apiSideEffectSlice";
-import { preModel } from "../../../redux/slices/modelControllerSlice";
+import { preModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";

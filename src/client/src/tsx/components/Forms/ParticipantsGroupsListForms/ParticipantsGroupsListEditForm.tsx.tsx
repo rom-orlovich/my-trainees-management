@@ -3,7 +3,7 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { participantsGroupsListApi } from "../../../redux/api/hooksAPI";
 import { ParticipantsGroupsListTableAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import { preModel } from "../../../redux/slices/modelControllerSlice";
+import { preModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ParticipantsGroupsListForm } from "./ParticipantsGroupsListForm";

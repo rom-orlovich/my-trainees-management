@@ -24,7 +24,7 @@ import { SelectInput } from "../../baseComponents/RHF-Components/SelectInput/Sel
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import { locationsApi } from "../../../redux/api/hooksAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import { openModel } from "../../../redux/slices/modelControllerSlice";
+import { openModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 const today = new Date();
 export function LeadForm({

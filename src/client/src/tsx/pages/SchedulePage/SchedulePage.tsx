@@ -32,7 +32,7 @@ import { meetingApi } from "../../redux/api/hooksAPI";
 
 import { MeetingAPI } from "../../redux/api/interfaceAPI";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
-import { openModel } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 const isDesktopWidth = window.innerWidth > 500;
 

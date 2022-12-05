@@ -9,8 +9,9 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../../redux/hooks";
+import { ModelFormQuestionnaireModeDisplay } from "../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
 
-import { getNutritionQuestionnaireFormState } from "../../../redux/slices/nutritionQuestionnaireFormStates/nutritionQuestionnaireFormSlice";
+import { getNutritionQuestionnaireFormState } from "../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import { setInDate } from "../../../utilities/helpersFun";
 
@@ -115,7 +116,10 @@ export function NutritionQuestionnaireForm({
                 register={register}
                 nameField="meals_calories_size_percents"
               />
-              <TextFieldOpenModel
+              <TextFieldOpenModel<
+                NutritionQuestionnaire,
+                ModelFormQuestionnaireModeDisplay
+              >
                 labelText="Allergens"
                 placeholder={
                   displayInputsForm.allergenCheckboxState.allergensStr
@@ -123,20 +127,29 @@ export function NutritionQuestionnaireForm({
                 modelName="allergensList"
                 register={register}
                 nameField="allergens"
+                curParam={"nutritionQuestionnaire"}
               />
-              <TextFieldOpenModel
+              <TextFieldOpenModel<
+                NutritionQuestionnaire,
+                ModelFormQuestionnaireModeDisplay
+              >
                 labelText="Favorite Foods"
                 placeholder={displayInputsForm.favoriteFoodsName}
                 modelName="favoriteFoods"
                 register={register}
                 nameField="favorite_foods"
+                curParam="favoriteFoods"
               />
-              <TextFieldOpenModel
+              <TextFieldOpenModel<
+                NutritionQuestionnaire,
+                ModelFormQuestionnaireModeDisplay
+              >
                 labelText="Blacklist Foods"
-                placeholder={""}
+                placeholder={displayInputsForm.blackListFoodsNames}
                 modelName="blackListFoods"
                 register={register}
                 nameField="black_list_foods"
+                curParam="blackListFoods"
               />
             </>
           );

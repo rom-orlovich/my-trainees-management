@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import React from "react";
-import { JsxAttribute } from "typescript";
+
 import { useAppSelector } from "../../../redux/hooks";
-import { getModelControllerState } from "../../../redux/slices/modelControllerSlice";
+import { getModelControllerState } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { GenericRecord } from "../../../types";
 import style from "./ModelFormContainer.module.scss";
 

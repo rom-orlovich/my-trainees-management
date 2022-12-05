@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../../redux/hooks";
-import { closeModel } from "../../../redux/slices/modelControllerSlice";
+import { closeModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { genClassName } from "../../../utilities/helpersFun";
 import { PropsBasic } from "../baseComponentsTypes";
 import Card from "../Card/Card";

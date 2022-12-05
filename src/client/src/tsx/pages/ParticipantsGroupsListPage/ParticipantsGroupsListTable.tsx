@@ -6,7 +6,7 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 import { participantsGroupsListApi } from "../../redux/api/hooksAPI";
 import { ParticipantsGroupsListTableAPI } from "../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../redux/hooks";
-import { openModel } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 

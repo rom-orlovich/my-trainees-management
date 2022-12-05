@@ -4,7 +4,7 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { meetingApi } from "../../../redux/api/hooksAPI";
 import { MeetingAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import { closeModel } from "../../../redux/slices/modelControllerSlice";
+import { closeModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";

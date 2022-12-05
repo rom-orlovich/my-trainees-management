@@ -12,7 +12,7 @@ import style from "../Page.module.scss";
 
 import ProductsTable from "./ProductsTable";
 import { useAppDispatch } from "../../redux/hooks";
-import { openModel } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 
 function ProductsPage() {

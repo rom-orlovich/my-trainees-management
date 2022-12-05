@@ -2,17 +2,20 @@ import React from "react";
 
 import { useAppDispatch } from "../../../../redux/hooks";
 import {
+  submitBlackListFoods,
   submitFavoriteFoods,
-  setMealsPercentsArr,
-} from "../../../../redux/slices/nutritionQuestionnaireFormStates/nutritionQuestionnaireFormSlice";
+} from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 import { FoodsListForm, FoodsListFormProps } from "./FoodsListForm";
 
-export function FoodListAddForm() {
+export function FoodListAddForm({
+  isFavoriteFood = true,
+}: {
+  isFavoriteFood?: boolean;
+}) {
   const dispatch = useAppDispatch();
   const handleSubmit = (body: FoodsListFormProps) => {
-    console.log(body);
-    dispatch(submitFavoriteFoods(body.foods));
-    // dispatch(setMealsPercentsArr(body.meals_calories_size_percents));
+    if (isFavoriteFood) dispatch(submitFavoriteFoods(body.foods));
+    else dispatch(submitBlackListFoods(body.foods));
   };
 
   return <FoodsListForm onSubmit={handleSubmit} />;

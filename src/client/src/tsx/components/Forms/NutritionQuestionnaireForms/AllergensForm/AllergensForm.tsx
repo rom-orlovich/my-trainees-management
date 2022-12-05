@@ -1,9 +1,11 @@
 import { useFieldArray } from "react-hook-form";
 
 import { GeneralFormProps } from "../../../baseComponents/baseComponentsTypes";
+import ModelFormContainer from "../../../baseComponents/Model/ModelFormContainer";
 import { CheckBox } from "../../../baseComponents/RHF-Components/CheckBoxGroup/Checkbox";
 import CheckBoxGroup from "../../../baseComponents/RHF-Components/CheckBoxGroup/CheckboxGroup";
 import Form from "../../../baseComponents/RHF-Components/Form/Form";
+import { AllergensAddForm } from "./AllergensAddForm";
 
 import style from "./AllergensForm.module.scss";
 import { AllergensListType, ALLERGENS_LIST } from "./constants";
@@ -66,3 +68,7 @@ export function AllergensForm({
     </Form>
   );
 }
+
+export const AllergensFormContent = () => (
+  <ModelFormContainer AddForm={AllergensAddForm} />
+);

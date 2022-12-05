@@ -8,9 +8,9 @@ import { tablesPaginationState } from "./slices/trackTablePagesSlice";
 import { apiSideEffectSlice } from "./slices/apiSideEffectSlice";
 import { authSlice } from "./slices/authSlice";
 import { authApi } from "./api/authAPI";
-import { modelControllerSlice } from "./slices/modelControllerSlice";
-import { nutritionQuestionnaireFormSlice } from "./slices/nutritionQuestionnaireFormStates/nutritionQuestionnaireFormSlice";
-import { filterFoodsFormSlice } from "./slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
+import { modelControllerSlice } from "./slices/modelControllerSlices/modelControllerSlice";
+import { nutritionQuestionnaireFormSlice } from "./slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
+import { filterFoodsFormSlice } from "./slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 
 // Configure the reducers and the middleware of redux.
 export const store = configureStore({

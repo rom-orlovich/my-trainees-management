@@ -1,34 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
 
-import { RootState } from "../store";
-
-export type ModelDisplayContentOptions =
-  | "meeting"
-  | "participantsGroupsListForm"
-  | "participantForm"
-  | "activityForm"
-  | "locationForm"
-  | "cityForm"
-  | "productForm"
-  | "exerciseForm"
-  | "equipmentForm"
-  | "muscleGroupForm"
-  | "subscriptionPlansForm"
-  | "allergensList"
-  | "mealsDistPercents"
-  | "favoriteFoods"
-  | "blackListFoods"
-  | "filterFoodForm"
-  | "nutrientsValues"
-  | "foodDetails";
-
-export interface ModelControllerState {
-  displayContent: ModelDisplayContentOptions[];
-  isModelOpen: boolean;
-  curParam?: any;
-  lastModel?: ModelDisplayContentOptions;
-}
+import { RootState } from "../../store";
+import {
+  ModelControllerState,
+  ModelDisplayContentOptions,
+} from "./modelControllerSliceTypes";
 
 const initialState: ModelControllerState = {
   isModelOpen: false,

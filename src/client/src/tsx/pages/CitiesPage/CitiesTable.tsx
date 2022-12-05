@@ -12,7 +12,7 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 import { useAppDispatch } from "../../redux/hooks";
-import { openModel } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 export const transformDataCity = (arg: CitiesTableAPI) => {
   const { city_name, city_id, ...rest } = arg;

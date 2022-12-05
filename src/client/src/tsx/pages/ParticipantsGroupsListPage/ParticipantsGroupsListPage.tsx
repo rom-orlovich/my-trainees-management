@@ -12,7 +12,7 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { useAppDispatch } from "../../redux/hooks";
-import { openModel } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 function ParticipantsGroupsListPage() {
   const dispatch = useAppDispatch();

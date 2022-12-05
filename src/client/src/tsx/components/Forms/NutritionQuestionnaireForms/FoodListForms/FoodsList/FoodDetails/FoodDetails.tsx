@@ -7,7 +7,7 @@ import { useAppSelector } from "../../../../../../redux/hooks";
 import {
   getModelControllerState,
   preModel,
-} from "../../../../../../redux/slices/modelControllerSlice";
+} from "../../../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import LoadingSpinner from "../../../../../baseComponents/LoadingSpinner/LoadingSpinner";
 import style from "./FoodDetails.module.scss";
 

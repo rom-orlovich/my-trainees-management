@@ -9,7 +9,7 @@ import {
   MusclesGroupTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import { openModel } from "../../../redux/slices/modelControllerSlice";
+import { openModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";

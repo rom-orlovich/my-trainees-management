@@ -11,7 +11,7 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page from "../Page.module.scss";
 import ActivitiesTable from "./ActivitiesTable";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
-import { openModel } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { useAppDispatch } from "../../redux/hooks";
 
 function ActivitiesPage() {

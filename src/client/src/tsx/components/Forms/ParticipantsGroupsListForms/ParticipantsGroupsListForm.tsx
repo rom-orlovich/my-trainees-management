@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { ParticipantsGroupsListTableAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import { closeModel } from "../../../redux/slices/modelControllerSlice";
+import { closeModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";

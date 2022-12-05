@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React from "react";
 import { useAppDispatch } from "../../../../../redux/hooks";
-import { submitFormFilterFoodForm } from "../../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
+import { submitFormFilterFoodForm } from "../../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 import { FiltersFoodProps, FoodsFilterForm } from "./FoodsFilterForm";
 
 export function FoodsFilterAddForm() {

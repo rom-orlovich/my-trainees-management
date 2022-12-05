@@ -1,38 +1,36 @@
+/* eslint-disable camelcase */
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AllergensCheckbox } from "../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/AllergensForm";
-import { AllergensListType } from "../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/constants";
+
 import { FoodProps } from "../../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
 
 import { RootState } from "../../store";
-import { DisplayAllergensInputState } from "./nutrtionQuestionnaireFormsSliceTypes";
+import { NutritionQuestionnaireFormState } from "./nutritionQuestionnaireFormsSliceTypes";
 import { setAllergensArrFun } from "./utilities/helpersFun";
 
-export interface NutritionQuestionnaireFormState {
-  displayInputsForm: {
-    mealsPercentsStr: string;
-    allergenCheckboxState: DisplayAllergensInputState;
-    // black_list_foods: number[];
-    // favorite_foods: number[];
-    favoriteFoodsName: string;
-  };
-  serverQueryProps: {
-    mealsPercents: number[];
-    allergensNames: AllergensListType[];
-    // black_list_foods: number[];
-    favorite_foods: FoodProps[];
-  };
-}
 const nutritionQuestionnaireState: NutritionQuestionnaireFormState = {
   displayInputsForm: {
     allergenCheckboxState: { allergensCheckboxes: [], allergensStr: "" },
     mealsPercentsStr: "",
     favoriteFoodsName: "",
+    blackListFoodsNames: "",
   },
   serverQueryProps: {
     allergensNames: [],
     mealsPercents: [],
     favorite_foods: [],
+    black_list_foods: [],
   },
+};
+export const createChosenFoodData = (action: PayloadAction<FoodProps[]>) => {
+  const foodNameArr: string[] = [];
+  const serverFoodsData: FoodProps[] = [];
+  action.payload.forEach(({ food_id, food_name }) => {
+    foodNameArr.push(food_name);
+    serverFoodsData.push({ food_id, food_name });
+  });
+  return { foodNameArr, serverFoodsData };
 };
 
 export const nutritionQuestionnaireFormSlice = createSlice({
@@ -46,27 +44,31 @@ export const nutritionQuestionnaireFormSlice = createSlice({
         .slice(0, -1);
     },
     setAllergensArr: (state, action: PayloadAction<AllergensCheckbox[]>) => {
-      const { allergensCheckboxes, allergensNamesArr, allergensStr } =
-        setAllergensArrFun(action);
+      const { allergensData, allergensNamesArr, allergensStr } =
+        setAllergensArrFun(action.payload);
       state.displayInputsForm.allergenCheckboxState.allergensCheckboxes =
-        allergensCheckboxes;
+        allergensData;
       state.displayInputsForm.allergenCheckboxState.allergensStr = allergensStr;
       state.serverQueryProps.allergensNames = allergensNamesArr;
     },
     submitFavoriteFoods(state, action: PayloadAction<FoodProps[]>) {
-      const foodNameArr: string[] = [];
-      const serverFoodsData: FoodProps[] = [];
-      action.payload.forEach(({ food_id, food_name }) => {
-        foodNameArr.push(food_name);
-        serverFoodsData.push({ food_id, food_name });
-      });
+      const { foodNameArr, serverFoodsData } = createChosenFoodData(action);
       state.displayInputsForm.favoriteFoodsName = foodNameArr.join(",");
+      state.serverQueryProps.favorite_foods = serverFoodsData;
+    },
+    submitBlackListFoods(state, action: PayloadAction<FoodProps[]>) {
+      const { foodNameArr, serverFoodsData } = createChosenFoodData(action);
+      state.displayInputsForm.blackListFoodsNames = foodNameArr.join(",");
       state.serverQueryProps.favorite_foods = serverFoodsData;
     },
   },
 });
-export const { setMealsPercentsArr, setAllergensArr, submitFavoriteFoods } =
-  nutritionQuestionnaireFormSlice.actions;
+export const {
+  setMealsPercentsArr,
+  setAllergensArr,
+  submitFavoriteFoods,
+  submitBlackListFoods,
+} = nutritionQuestionnaireFormSlice.actions;
 
 export const getNutritionQuestionnaireFormState = (state: RootState) =>
   state.nutritionQuestionnaireFormSlice;

@@ -7,7 +7,7 @@ import {
   LocationsTableAPI,
 } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import { openModel } from "../../../redux/slices/modelControllerSlice";
+import { openModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 

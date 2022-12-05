@@ -12,7 +12,7 @@ import style from "../Page.module.scss";
 import CitiesTable from "./CitiesTable";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import { useAppDispatch } from "../../redux/hooks";
-import { openModel } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 function CitiesPage() {
   const dispatch = useAppDispatch();

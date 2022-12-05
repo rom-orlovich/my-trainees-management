@@ -17,7 +17,7 @@ import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { productsApi, traineesApi } from "../../../redux/api/hooksAPI";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { useAppDispatch } from "../../../redux/hooks";
-import { openModel } from "../../../redux/slices/modelControllerSlice";
+import { openModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 export function IncomeForms({
   onSubmit,

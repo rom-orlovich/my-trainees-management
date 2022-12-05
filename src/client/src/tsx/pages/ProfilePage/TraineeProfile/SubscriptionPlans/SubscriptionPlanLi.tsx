@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { SubscriptionPlansAPI } from "../../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../../redux/hooks";
-import { openModel } from "../../../../redux/slices/modelControllerSlice";
+import { openModel } from "../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
 import { formatDate } from "../../../../utilities/helpersFun";
 import listProfileStyle from "../../ListProfile/ListProfile.module.scss";

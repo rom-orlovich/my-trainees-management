@@ -5,7 +5,7 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 import { participantsGroupApi } from "../../redux/api/hooksAPI";
 import { ParticipantsGroupTableAPI } from "../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../redux/hooks";
-import { openModel } from "../../redux/slices/modelControllerSlice";
+import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 const transformParticipantsGroup = ({

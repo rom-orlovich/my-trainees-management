@@ -1,7 +1,7 @@
 import React from "react";
 
-import { useAppDispatch } from "../../../../redux/hooks";
-import { setMealsPercentsArr } from "../../../../redux/slices/nutritionQuestionnaireFormStates/nutritionQuestionnaireFormSlice";
+import { useAppDispatch } from "../../../../../redux/hooks";
+import { setMealsPercentsArr } from "../../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import {
   MealsCaloriesSizeForm,
@@ -11,7 +11,6 @@ import {
 export function MealsCaloriesSizeAddForm() {
   const dispatch = useAppDispatch();
   const handleSubmit = (body: MealsCaloriesSizeFormProps) => {
-    console.log(body);
     dispatch(setMealsPercentsArr(body.meals_calories_size_percents));
   };
 

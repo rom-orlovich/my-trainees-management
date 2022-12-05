@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React from "react";
 import {
@@ -8,27 +9,29 @@ import {
 } from "react-hook-form";
 import { FaEdit } from "react-icons/fa";
 import { useAppDispatch } from "../../../../redux/hooks";
+import { openModel } from "../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import {
   ModelDisplayContentOptions,
-  openModel,
-} from "../../../../redux/slices/modelControllerSlice";
+  ModelFormQuestionnaireModeDisplay,
+} from "../../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
+
 import { InputLabel } from "../InputLabel/InputLabel";
 import style from "./TextFieldRHFOpenModel.module.scss";
 
-function TextFieldOpenModel<T extends FieldValues>({
+function TextFieldOpenModel<T extends FieldValues, CP extends any>({
   modelName,
   register,
   nameField,
   placeholder,
   labelText,
-  id,
+  curParam,
 }: {
   labelText: string;
   modelName: ModelDisplayContentOptions;
   nameField: Path<T>;
   register: UseFormRegister<T>;
   placeholder: string;
-  id?: string;
+  curParam?: CP;
 }) {
   const dispatch = useAppDispatch();
 
@@ -42,7 +45,7 @@ function TextFieldOpenModel<T extends FieldValues>({
       inputIconProps={{
         IconEl: FaEdit,
         className: style.edit_icon,
-        id,
+
         option: {
           link: "",
           onClick: (id: number) => {

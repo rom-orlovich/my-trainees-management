@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFieldArray } from "react-hook-form";
 
 import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 import { foodsApi } from "../../../../redux/api/hooksAPI";
 import { FoodAPI } from "../../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { openModel } from "../../../../redux/slices/modelControllerSlice";
+import { openModel } from "../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
 import { GeneralFormProps } from "../../../baseComponents/baseComponentsTypes";
 import AutocompleteInput from "../../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
@@ -14,11 +14,11 @@ import Form from "../../../baseComponents/RHF-Components/Form/Form";
 
 import style from "./FoodsListForm.module.scss";
 import FoodsList from "./FoodsList/FoodsList";
-import { getFilterFoodsFormState } from "../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
+import { getFilterFoodsFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 import ModelFormContainer from "../../../baseComponents/Model/ModelFormContainer";
 import { FoodListAddForm } from "./FoodsListAddForm";
-import useSaveFormState from "../../../../hooks/useSaveFormState";
-import { getNutritionQuestionnaireFormState } from "../../../../redux/slices/nutritionQuestionnaireFormStates/nutritionQuestionnaireFormSlice";
+
+import { getNutritionQuestionnaireFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 export interface FoodProps {
   id?: string;
@@ -38,11 +38,11 @@ export function FoodsListForm({
   const dispatch = useAppDispatch();
 
   const { user_id } = useGetUserLoginData();
-  const [chooseFood, setChooseFood] = useState(["", ""]);
+  const [_, setChooseFood] = useState(["", ""]);
   const fitterFormState = useAppSelector(getFilterFoodsFormState);
   const foodsList = useAppSelector(getNutritionQuestionnaireFormState);
   const {
-    favoriteFoodFilterForm: {
+    favoriteFoodsFilterForm: {
       serverQueryProps: { nutrientsValuesQueryParams, ...rest },
     },
   } = fitterFormState;
@@ -52,7 +52,6 @@ export function FoodsListForm({
       heading="Choose Food"
       onSubmit={onSubmit}
       modelMode
-      // saveState={true}
       customButtonText="Save"
       saveState={false}
       formProps={{ className: style.food_list_form_container }}
@@ -64,7 +63,7 @@ export function FoodsListForm({
         },
       }}
     >
-      {({ control, getValues }) => {
+      {({ control }) => {
         const { fields, append, remove } = useFieldArray({
           control,
           name: "foods",
@@ -121,6 +120,12 @@ export function FoodsListForm({
   );
 }
 
-export const FoodsListFormContent = () => (
-  <ModelFormContainer AddForm={FoodListAddForm} />
+export const FoodsListFormContent = ({
+  isFavoriteFood = true,
+}: {
+  isFavoriteFood?: boolean;
+}) => (
+  <ModelFormContainer
+    AddForm={() => <FoodListAddForm isFavoriteFood={isFavoriteFood} />}
+  />
 );

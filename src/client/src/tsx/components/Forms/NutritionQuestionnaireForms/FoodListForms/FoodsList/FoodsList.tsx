@@ -4,7 +4,7 @@ import { UseFieldArrayRemove } from "react-hook-form";
 
 import { TiDelete } from "react-icons/ti";
 import { useAppDispatch } from "../../../../../redux/hooks";
-import { openModel } from "../../../../../redux/slices/modelControllerSlice";
+import { openModel } from "../../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { genClassName } from "../../../../../utilities/helpersFun";
 import List from "../../../../baseComponents/List/List";
 import { FoodProps } from "../FoodsListForm";

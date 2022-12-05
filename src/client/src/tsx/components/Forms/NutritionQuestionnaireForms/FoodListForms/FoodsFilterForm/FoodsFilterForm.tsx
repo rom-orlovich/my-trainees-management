@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import {
   getFilterFoodsFormState,
   resetFormFilters,
-} from "../../../../../redux/slices/nutritionQuestionnaireFormStates/filterFoodsFormSlice";
+} from "../../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 import { GenericRecord } from "../../../../../types";
 import { GeneralFormProps } from "../../../../baseComponents/baseComponentsTypes";
 import ModelFormContainer from "../../../../baseComponents/Model/ModelFormContainer";
@@ -57,7 +57,7 @@ export function FoodsFilterForm({
 }: GeneralFormProps<FiltersFoodProps>) {
   const dispatch = useAppDispatch();
   const {
-    favoriteFoodFilterForm: { displayInputsForm },
+    favoriteFoodsFilterForm: { displayInputsForm },
   } = useAppSelector(getFilterFoodsFormState);
   return (
     <Form<FiltersFoodProps>
@@ -104,7 +104,7 @@ export function FoodsFilterForm({
             modelName="allergensList"
             register={register}
             nameField="allergens"
-            id="filter_foods_form"
+            // curParam="filter_foods_form"
           />
           <TextFieldOpenModel
             labelText="Nutrients values"

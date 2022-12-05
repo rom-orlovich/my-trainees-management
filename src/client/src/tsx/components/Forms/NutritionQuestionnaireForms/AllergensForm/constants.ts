@@ -18,6 +18,7 @@ export const ALLERGENS_LIST = [
   "סלרי",
 ] as const;
 
+// eslint-disable-next-line no-unused-vars
 const ALLERGENS_LIST_ENGLISH = [
   "Gluten",
   "soya",
