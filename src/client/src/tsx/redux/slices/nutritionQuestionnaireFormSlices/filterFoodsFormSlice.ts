@@ -1,20 +1,18 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-import { NutrientValuesPartial } from "../../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsFilterForm/NutrientsValuesForms/NutrientsValuesForm";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../../store";
+import { FilterFormsState } from "./nutritionQuestionnaireFormsSliceTypes";
+
 import {
-  ActionPayloadAllergens,
-  FilterFormsState,
-  NutrientFormRules,
-  NutrientValuesForQuery,
-} from "./nutritionQuestionnaireFormsSliceTypes";
+  resetFilterFoodsByFormFun,
+  setAllergensDataByFormFun,
+  setNutrientsValuesByFormFun,
+  submitFilterFoodsByFormFun,
+} from "./utilities/helpersFilterFoodFormSlice";
 
-import { setAllergensArrByFilterForm } from "./utilities/helpersFun";
-
-const filterFoodsFormState: FilterFormsState = {
+export const initialFilterFoodsFormState: FilterFormsState = {
   favoriteFoodsFilterForm: {
     displayInputsForm: {
       allergensCheckboxesState: {
@@ -51,73 +49,22 @@ const filterFoodsFormState: FilterFormsState = {
 
 export const filterFoodsFormSlice = createSlice({
   name: "filterFoodsFormSlice",
-  initialState: filterFoodsFormState,
+  initialState: initialFilterFoodsFormState,
   reducers: {
-    setNutrientsValuesQueryParams(
-      { favoriteFoodsFilterForm: { displayInputsForm, serverQueryProps } },
-      action: PayloadAction<NutrientValuesPartial[]>
-    ) {
-      if (!action.payload) return;
-      const nutrientsValuesQueryParams = {} as NutrientValuesForQuery;
-      const nutrientsValuesArr: string[] = [];
-      action.payload.forEach((el) => {
-        if (!el?.nutrientName) return;
-        if (el.lt && el.lt > 0)
-          nutrientsValuesQueryParams[`${el.nutrientName}_lt`] = Number(el.lt);
-        if (el.gt && el.gt > 0)
-          nutrientsValuesQueryParams[`${el.nutrientName}_gt`] = Number(el.gt);
-        nutrientsValuesArr.push(` ${el.gt} < ${el.nutrientName} < ${el.lt}`);
-      });
-      const nutrientsValuesStr = nutrientsValuesArr.join(",");
+    setNutrientsValuesQueryParams: setNutrientsValuesByFormFun,
 
-      displayInputsForm.nutrientsValuesInputsState.nutrientsValuesStr =
-        nutrientsValuesStr;
-      displayInputsForm.nutrientsValuesInputsState.curNutrientsValuesInputs =
-        action.payload;
-      serverQueryProps.nutrientsValuesQueryParams = nutrientsValuesQueryParams;
-    },
+    setAllergensArr: setAllergensDataByFormFun,
 
-    setAllergensArr: (state, action: ActionPayloadAllergens) =>
-      setAllergensArrByFilterForm(state, action),
+    submitFilterFoodsForm: submitFilterFoodsByFormFun,
 
-    submitFormFilterFoodForm: (
-      state,
-      {
-        payload: {
-          kosher_type,
-          nutrient_type,
-          is_vegan,
-          is_vegetarian,
-          kosher,
-        },
-      }: PayloadAction<NutrientFormRules>
-    ) => {
-      const kosherType = kosher_type === "all" ? {} : { kosher_type };
-      const nutrientType = nutrient_type === "all" ? {} : { nutrient_type };
-      const isVegan = is_vegan ? { is_vegan } : {};
-      const isVegetarian = is_vegetarian ? { is_vegetarian } : {};
-      const isKosher = kosher ? { kosher } : {};
-
-      state.favoriteFoodsFilterForm.serverQueryProps = {
-        ...state.favoriteFoodsFilterForm.serverQueryProps,
-        ...isVegan,
-        ...isVegetarian,
-        ...isKosher,
-        ...kosherType,
-        ...nutrientType,
-      };
-    },
-    resetFormFilters: (state, action: PayloadAction<{ formName?: string }>) => {
-      state.favoriteFoodsFilterForm =
-        filterFoodsFormState.favoriteFoodsFilterForm;
-    },
+    resetFormFiltersForm: resetFilterFoodsByFormFun,
   },
 });
 export const {
   setNutrientsValuesQueryParams,
   setAllergensArr,
-  submitFormFilterFoodForm,
-  resetFormFilters,
+  submitFilterFoodsForm,
+  resetFormFiltersForm,
 } = filterFoodsFormSlice.actions;
 
 export const getFilterFoodsFormState = (state: RootState) =>

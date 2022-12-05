@@ -1,20 +1,18 @@
 import React from "react";
 
-import { useAppDispatch } from "../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { getModelControllerState } from "../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import {
   submitBlackListFoods,
   submitFavoriteFoods,
 } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 import { FoodsListForm, FoodsListFormProps } from "./FoodsListForm";
 
-export function FoodListAddForm({
-  isFavoriteFood = true,
-}: {
-  isFavoriteFood?: boolean;
-}) {
+export function FoodListAddForm() {
   const dispatch = useAppDispatch();
+  const { curParam } = useAppSelector(getModelControllerState);
   const handleSubmit = (body: FoodsListFormProps) => {
-    if (isFavoriteFood) dispatch(submitFavoriteFoods(body.foods));
+    if (curParam === "favoriteFoods") dispatch(submitFavoriteFoods(body.foods));
     else dispatch(submitBlackListFoods(body.foods));
   };
 

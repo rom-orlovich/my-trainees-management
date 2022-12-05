@@ -58,7 +58,7 @@ function ModelController() {
   else if (modelControllerState?.lastModel === "favoriteFoods")
     content = <FoodsListFormContent />;
   else if (modelControllerState?.lastModel === "blackListFoods")
-    content = <FoodsListFormContent isFavoriteFood={false} />;
+    content = <FoodsListFormContent />;
   else if (modelControllerState?.lastModel === "filterFoodForm")
     content = <FoodsFilterFormContent />;
   else if (modelControllerState?.lastModel === "nutrientsValues")

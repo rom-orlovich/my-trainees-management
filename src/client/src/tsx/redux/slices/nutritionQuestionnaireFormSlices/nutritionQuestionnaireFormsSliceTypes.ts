@@ -56,11 +56,11 @@ export interface FilterFormsState {
   blackListFoodsFilterForm: FilterFoodsFormState;
 }
 
-export interface ActionSetAllergensByFormKey {
-  allergensData: AllergensCheckbox[];
+export interface PayloadByFormKey<T> {
+  data?: T;
   formKey: keyof FilterFormsState;
 }
-export type ActionPayloadAllergens = PayloadAction<ActionSetAllergensByFormKey>;
+export type ActionByFormKey<T> = PayloadAction<PayloadByFormKey<T>>;
 
 export interface NutritionQuestionnaireFormState {
   displayInputsForm: {
@@ -73,7 +73,7 @@ export interface NutritionQuestionnaireFormState {
   serverQueryProps: {
     mealsPercents: number[];
     allergensNames: AllergensListType[];
-    black_list_foods: number[];
+    black_list_foods: FoodProps[];
     favorite_foods: FoodProps[];
   };
 }

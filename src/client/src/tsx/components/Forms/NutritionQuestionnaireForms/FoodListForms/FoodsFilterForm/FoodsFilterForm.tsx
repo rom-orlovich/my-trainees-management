@@ -4,6 +4,7 @@ import {
   NutrientsTypes,
 } from "../../../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import { getModelControllerState } from "../../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import {
   getFilterFoodsFormState,
   resetFormFilters,
@@ -59,6 +60,7 @@ export function FoodsFilterForm({
   const {
     favoriteFoodsFilterForm: { displayInputsForm },
   } = useAppSelector(getFilterFoodsFormState);
+  const modelController = useAppSelector(getModelControllerState);
   return (
     <Form<FiltersFoodProps>
       heading={"Filters Food"}
@@ -104,7 +106,7 @@ export function FoodsFilterForm({
             modelName="allergensList"
             register={register}
             nameField="allergens"
-            // curParam="filter_foods_form"
+            curParam={modelController.curParam}
           />
           <TextFieldOpenModel
             labelText="Nutrients values"
@@ -114,6 +116,7 @@ export function FoodsFilterForm({
             modelName="nutrientsValues"
             register={register}
             nameField="nutrients_values"
+            curParam={modelController.curParam}
           />
         </>
       )}

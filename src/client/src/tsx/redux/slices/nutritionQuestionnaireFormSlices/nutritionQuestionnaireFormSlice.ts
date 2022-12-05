@@ -7,7 +7,7 @@ import { FoodProps } from "../../../components/Forms/NutritionQuestionnaireForms
 
 import { RootState } from "../../store";
 import { NutritionQuestionnaireFormState } from "./nutritionQuestionnaireFormsSliceTypes";
-import { setAllergensArrFun } from "./utilities/helpersFun";
+import { createAllergensData } from "./utilities/helpersFun";
 
 const nutritionQuestionnaireState: NutritionQuestionnaireFormState = {
   displayInputsForm: {
@@ -45,7 +45,7 @@ export const nutritionQuestionnaireFormSlice = createSlice({
     },
     setAllergensArr: (state, action: PayloadAction<AllergensCheckbox[]>) => {
       const { allergensData, allergensNamesArr, allergensStr } =
-        setAllergensArrFun(action.payload);
+        createAllergensData(action.payload);
       state.displayInputsForm.allergenCheckboxState.allergensCheckboxes =
         allergensData;
       state.displayInputsForm.allergenCheckboxState.allergensStr = allergensStr;
@@ -59,7 +59,7 @@ export const nutritionQuestionnaireFormSlice = createSlice({
     submitBlackListFoods(state, action: PayloadAction<FoodProps[]>) {
       const { foodNameArr, serverFoodsData } = createChosenFoodData(action);
       state.displayInputsForm.blackListFoodsNames = foodNameArr.join(",");
-      state.serverQueryProps.favorite_foods = serverFoodsData;
+      state.serverQueryProps.black_list_foods = serverFoodsData;
     },
   },
 });

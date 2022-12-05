@@ -120,12 +120,6 @@ export function FoodsListForm({
   );
 }
 
-export const FoodsListFormContent = ({
-  isFavoriteFood = true,
-}: {
-  isFavoriteFood?: boolean;
-}) => (
-  <ModelFormContainer
-    AddForm={() => <FoodListAddForm isFavoriteFood={isFavoriteFood} />}
-  />
+export const FoodsListFormContent = () => (
+  <ModelFormContainer AddForm={FoodListAddForm} />
 );
