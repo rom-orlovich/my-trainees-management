@@ -448,8 +448,8 @@ CREATE TABLE
   IF NOT EXISTS "nutrition_questionnaires" (
     "nutrition_questionnaire_id" serial PRIMARY KEY,
     "allergens" VARCHAR(50) ARRAY,
-    "black_list_foods" ARRAY JSONB,
-    "favorite_foods" ARRAY,
+    "black_list_foods" JSONB,
+    "favorite_foods" JSONB,
     "kosher" BOOLEAN,
     "is_vegan" BOOLEAN,
     "is_vegetarian" BOOLEAN,

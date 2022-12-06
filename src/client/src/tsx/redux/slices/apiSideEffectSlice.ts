@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { GenericRecord } from "../../types";
 
 import { RootState } from "../store";
 
@@ -55,20 +56,27 @@ export const apiSideEffectSlice = createSlice({
 
         (state, action) => {
           // If there is success response from the server after submit form,
-          // set goPrevPage to true , in order to go back the previous page.
+          // set goPrevPage to true, in order to go back the previous page.
           if (action?.payload?.status !== undefined) {
             state.goPrePageBehaviorState.goPrevPage = false;
           }
         }
       )
       .addMatcher(
-        (action: PayloadAction<Record<string, any> | undefined>) =>
-          action.payload?.statusCode === 201 &&
+        (action: PayloadAction<GenericRecord<any> | undefined>) =>
+          action.payload?.statusCode &&
           !action.payload?.message?.includes("token"),
         (state) => {
           // // Enable fetch alerts.
           state.fetchAlerts = true;
         }
+      )
+      .addMatcher(
+        (action: PayloadAction<GenericRecord<any> | undefined>) => {
+          console.log(action);
+          return true;
+        },
+        () => {}
       ),
 });
 export const {

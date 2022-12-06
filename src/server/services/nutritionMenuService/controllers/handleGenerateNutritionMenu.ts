@@ -21,7 +21,8 @@ export const handleGenerateNutritionMenu: RequestHandler = async (
     const nutritionQuestionnaireRes = await getNutritionQuestionnaire(
       profileID
     );
-
+    console.log(profileID);
+    console.log(nutritionQuestionnaireRes);
     if (!nutritionQuestionnaireRes) {
       req.logAlertInfo = logAlert(
         undefined,

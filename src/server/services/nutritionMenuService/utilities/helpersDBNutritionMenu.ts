@@ -19,8 +19,8 @@ import {
 export const getNutritionQuestionnaire = async (profileID: number) => {
   const nutritionQuestionnaireRes = await selectQuery(
     TABLES_DATA.NUTRITION_QUESTIONNAIRE_TABLE_NAME,
-    "",
-    `WHERE ${TABLES_DATA.PRODUCT_ID}=$1`,
+    "*",
+    `WHERE ${TABLES_DATA.PROFILE_ID}=$1`,
     [profileID]
   );
 

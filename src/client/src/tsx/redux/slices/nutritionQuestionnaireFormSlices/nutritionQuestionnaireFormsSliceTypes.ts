@@ -71,7 +71,7 @@ export interface NutritionQuestionnaireFormState {
   };
   serverQueryProps: {
     meals_calories_size_percents: number[];
-    allergensNames: AllergensListType[];
+    allergens: AllergensListType[];
     black_list_foods: FoodProps[];
     favorite_foods: FoodProps[];
   };

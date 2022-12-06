@@ -31,9 +31,7 @@ export class ErrorCustomizes<
   getFieldName() {
     if (!this.error?.detail) return;
     const detail = this.error.detail?.split(" ")[1].split("=");
-
     const field = detail[0].slice(1, -1);
-
     this.errorFieldValue = { field };
   }
 
@@ -66,9 +64,7 @@ export class ErrorCustomizes<
       }`;
       this.statusCode = 400;
       this.message = newErrorMessage || `The ${this.errorPayload} is invalid.`;
-    } else if (this.error?.code === ErrorCodes.RESULT_NOT_FOUND)
-      this.message = this.error?.message || "";
-    else if (this.error?.code === ErrorCodes.LOGIN_FAILED) {
+    } else if (this.error?.code === ErrorCodes.LOGIN_FAILED) {
       this.message = this.error?.message || "";
       this.statusCode = 401;
     } else if (this.error?.message) this.message = this.error.message;
@@ -85,7 +81,7 @@ export const errorHandlerMiddleware: ErrorRequestHandler = async (
 ) => {
   if (err) {
     const { statusCode, message } = err;
-    return res.status(statusCode).json({ message });
+    return res.status(statusCode).json({ statusCode, message });
   }
   return next();
 };

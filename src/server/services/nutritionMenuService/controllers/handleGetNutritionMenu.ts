@@ -29,17 +29,13 @@ export const handleGetNutritionMenu: RequestHandler = async (
 
     if (!nutritionMenuRes.rows.length)
       return next(
-        new ErrorCustomizes({ message: "No nutrition menu is found" }, "get")
+        new ErrorCustomizes(
+          { message: "No nutrition menu is found" },
+          "get",
+          true
+        )
       );
 
-    // req.logAlertInfo = logAlert(
-    //   {
-    //     data: nutritionMenuRes.rows[nutritionMenuRes.rows.length - 1],
-    //   },
-    //   undefined,
-    //   "get",
-    //   true
-    // );
     return res.status(200).json(nutritionMenuRes.rows[0]);
   } catch (error) {
     console.log(error);

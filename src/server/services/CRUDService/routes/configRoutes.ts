@@ -631,7 +631,7 @@ export const foodsOptionsCRUD: OptionsCRUD = {
       sodiumMg_lt: "fd.sodium_mg",
     },
     arrayQueryParams: {
-      allergensNames: {
+      allergens: {
         selectQueryStr: "not fd.allergens && ",
       },
     },

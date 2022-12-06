@@ -1,1 +1,4 @@
-SELECT * FROM foods as fd   WHERE not fd.allergens && ('{"לוז"}')
+SELECT
+    *
+FROM
+    nutrition_questionnaires

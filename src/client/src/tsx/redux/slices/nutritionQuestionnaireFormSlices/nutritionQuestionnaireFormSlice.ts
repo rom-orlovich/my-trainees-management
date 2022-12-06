@@ -22,7 +22,7 @@ const nutritionQuestionnaireState: NutritionQuestionnaireFormState = {
     },
   },
   serverQueryProps: {
-    allergensNames: [],
+    allergens: [],
     meals_calories_size_percents: [],
     favorite_foods: [],
     black_list_foods: [],
@@ -54,11 +54,12 @@ export const nutritionQuestionnaireFormSlice = createSlice({
       );
     },
     setAllergensArr: (state, action: PayloadAction<AllergensCheckbox[]>) => {
-      const { allergensData, allergensNamesArr, allergensStr } =
-        createAllergensData(action.payload);
+      const { allergensData, allergensArr, allergensStr } = createAllergensData(
+        action.payload
+      );
       state.displayInputsForm.allergenCheckboxState.inputsData = allergensData;
       state.displayInputsForm.allergenCheckboxState.inputsStr = allergensStr;
-      state.serverQueryProps.allergensNames = allergensNamesArr;
+      state.serverQueryProps.allergens = allergensArr;
     },
     submitFavoriteFoods(state, action: PayloadAction<FoodProps[]>) {
       const { foodNameArr, serverFoodsData } = createChosenFoodData(action);

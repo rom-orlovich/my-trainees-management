@@ -37,13 +37,13 @@ export const setAllergensDataByFormFun = (
 ) => {
   if (!data) return;
   if (!state[formKey]) return;
-  const { allergensData, allergensNamesArr, allergensStr } =
+  const { allergensData, allergensArr, allergensStr } =
     createAllergensData(data);
   state[formKey].displayInputsForm.allergensCheckboxesState.inputsData =
     allergensData;
   state[formKey].displayInputsForm.allergensCheckboxesState.inputsStr =
     allergensStr;
-  state[formKey].serverQueryProps.allergens = allergensNamesArr;
+  state[formKey].serverQueryProps.allergens = allergensArr;
 };
 
 export const setNutrientsValuesByFormFun = (

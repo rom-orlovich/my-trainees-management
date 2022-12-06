@@ -3,9 +3,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { format } from "date-fns";
 
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
+import { nutritionQuestionnaireApi } from "../../../redux/api/hooksAPI";
 
 import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../../redux/hooks";
@@ -34,12 +36,19 @@ export function NutritionQuestionnaireForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<NutritionQuestionnaire>) {
-  const { user_id } = useGetUserLoginData();
-  const profileID = Number(useParams().id);
+  const { userID, profileID } = useGetUserTraineeData();
+
   const { displayInputsForm, serverQueryProps } = useAppSelector(
     getNutritionQuestionnaireFormState
   );
   console.log(serverQueryProps);
+  const { data } = nutritionQuestionnaireApi.useGetItemsQuery({
+    userID,
+    profileID,
+  });
+  const lastData = data?.data ? data.data[data.data.length - 1] : {};
+  console.log("🚀 ~ file: NutritionQuestionnaireForm.tsx:46 ~ data", data);
+
   return (
     <>
       <Form<NutritionQuestionnaire>
@@ -51,7 +60,7 @@ export function NutritionQuestionnaireForm({
         className={style.nutrition_questionnaire_form_container}
         formOptions={{
           defaultValues: {
-            user_id,
+            user_id: userID,
             day_start: format(
               setInDate({ setHour: 8, setMinutes: 0.5 }),
               "HH:mm"
@@ -63,13 +72,14 @@ export function NutritionQuestionnaireForm({
             profile_id: profileID,
             diet_type: "neutral",
             ...defaultValues,
+            ...lastData,
           },
           resolver: yupResolver(nutritionQuestionnaireSchema),
         }}
       >
-        {({ register, formState }) => {
+        {({ register, formState, getValues }) => {
           const { day_end, day_start } = formState.errors;
-
+          console.log(getValues());
           return (
             <>
               <div className={style.time_activity}>

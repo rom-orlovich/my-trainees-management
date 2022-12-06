@@ -4,14 +4,14 @@ import { AllergensCheckbox } from "../../../../components/Forms/NutritionQuestio
 import { AllergensListType } from "../../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/constants";
 
 export const createAllergensData = (allergensData: AllergensCheckbox[]) => {
-  const allergensNamesArr: AllergensListType[] = [];
+  const allergensArr: AllergensListType[] = [];
   allergensData.forEach((el) => {
-    allergensNamesArr.push(el.name);
+    allergensArr.push(el.name);
   });
 
   return {
     allergensData,
-    allergensNamesArr,
-    allergensStr: allergensNamesArr.join(","),
+    allergensArr,
+    allergensStr: allergensArr.join(","),
   };
 };
