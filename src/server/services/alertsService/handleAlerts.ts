@@ -70,7 +70,7 @@ export const createLogAlertInfo =
     return {
       successRes: {
         statusCode: successRes?.statusCode,
-        response,
+        ...response,
       },
       logAlert,
     };
@@ -87,7 +87,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
   if (logAlert) {
     const [_, errAlert] = await promiseHandler(
       insertQueryOneItem(TABLES_DATA.ALERTS_TABLE_NAME, {
-        alert_message: error ? error?.message : successRes?.response.message,
+        alert_message: error ? error?.message : successRes?.response?.message,
         user_id: req.auth_data?.user_id,
       })
     );
@@ -105,9 +105,7 @@ export const handleAlertsMiddleware: RequestHandler = async (
     return next(new Error("Something went wrong"));
   }
 
-  return res
-    .status(successRes?.statusCode || 200)
-    .json({ statusCode: successRes?.statusCode, ...successRes.response });
+  return res.status(successRes?.statusCode || 200).json({ ...successRes });
 };
 
 // NOTE: NOT DELETE!!

@@ -53,7 +53,11 @@ function NutritionMenuPage() {
           }
         </span>
       </div>
-      <div className={style.page_main_content}>
+      <div
+        className={
+          (style.page_main_content, nutritionMenusPageStyle.menu_container)
+        }
+      >
         <MealsList queriesOptions={queriesOptions} />
       </div>
     </section>

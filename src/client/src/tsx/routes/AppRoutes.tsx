@@ -28,7 +28,7 @@ import MainRouteByRole from "./utilities/MainRouteByRole";
 import ProfilePage from "../pages/ProfilePage/Profile";
 import TraineesRoutes from "./TraineesRoutes";
 import { MeasureAddForm } from "../components/Forms/MeasuresForms/MeasureAddForm";
-import MeasureEditForm from "../components/Forms/MeasuresForms/MeasureEditForm";
+import MeasureEditForm from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireEditForm";
 import FinancesPage from "../pages/FinancesPage/FinancesPage";
 import { IncomeAddForm } from "../components/Forms/IncomeForms/IncomeAddForm";
 

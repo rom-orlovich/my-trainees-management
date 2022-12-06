@@ -14,28 +14,20 @@ export const handleGetNutritionMenu: RequestHandler = async (
   const nutritionMenuID = Number(req.params.id);
 
   try {
-    // const nutritionMenuRes = await selectQuery(
-    //   "nutrition_menu",
-    //   "*",
-    //   `where ${TABLES_DATA.NUTRITION_MENUS_LIST_ID}=$1`,
-    //   [nutritionMenuID],
-    //   WITH_CLAUSE_GET_NUTRITION_MENU
-    // );
-
     const nutritionMenuRes = await client.query(
       WITH_CLAUSE_GET_NUTRITION_MENU,
       [nutritionMenuID]
     );
 
-    if (!nutritionMenuRes.rows.length)
-      return next(
-        new ErrorCustomizes(
-          { message: "No nutrition menu is found" },
-          "get",
-          true
-        )
+    if (!nutritionMenuRes.rows.length) {
+      req.logAlertInfo = logAlert(
+        undefined,
+        { message: "Nutrition Menu is not found" },
+        "get",
+        true
       );
-
+      return next();
+    }
     return res.status(200).json(nutritionMenuRes.rows[0]);
   } catch (error) {
     console.log(error);

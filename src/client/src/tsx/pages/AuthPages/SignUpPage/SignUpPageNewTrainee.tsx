@@ -20,7 +20,7 @@ function SignUpPageNewTrainee() {
 
   return (
     <LoadingSpinner
-      isErrorFun={() => nav(`/${APP_ROUTE.LOGIN_ROUTE}`)}
+      onErrorFun={() => nav(`/${APP_ROUTE.LOGIN_ROUTE}`)}
       nameData="Trainee"
       stateData={{ isError, isFetching, isLoading, data }}
     >

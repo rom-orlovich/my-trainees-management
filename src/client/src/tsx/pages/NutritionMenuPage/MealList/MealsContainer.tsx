@@ -10,20 +10,28 @@ function MealsContainer({
   queriesOptions: Record<string, any>;
 }) {
   // console.log(data);
-  const { data, isError, isFetching, isLoading } =
+  const { data, isError, isFetching, isLoading, error } =
     nutritionMenuApi.useGetItemByIDQuery(queriesOptions as { id: number });
-
+  const Error = error as { data: { message: string } };
+  console.log(Error);
   return (
-    <LoadingSpinner stateData={{ data, isError, isFetching, isLoading }}>
-      {(data) => {
-        console.log(data);
-    
-        return (
-          <>
-            <MealsList meals={data.meals} />
-          </>
-        );
+    <LoadingSpinner
+      showNoDataMessage
+      className="no_menu_found"
+      message={<>{Error.data?.message}</>}
+      stateData={{
+        data,
+        isError,
+        isFetching,
+        isLoading,
+        error: error as Error,
       }}
+    >
+      {(data) => (
+        <>
+          <MealsList meals={data.meals} />
+        </>
+      )}
     </LoadingSpinner>
   );
 }

@@ -72,6 +72,8 @@ export enum APP_ROUTE {
   SUBSCRIPTION_PLANS_ROUTE = "subscriptionPlans",
   SUBSCRIPTION_PLANS_ROUTE_ADD = "addSubscriptionPlans",
   SUBSCRIPTION_PLANS_ROUTE_EDIT = "editSubscriptionPlans",
+  NUTRITION_QUESTIONNAIRE_EDIT_ROUTE = "editNutritionQuestionnaire",
+  NUTRITION_QUESTIONNAIRE_ADD_ROUTE = "addNutritionQuestionnaire",
   NUTRITION_QUESTIONNAIRE_ROUTE = "nutritionQuestionnaire",
   FINANCES_ROUTE = "finances",
 

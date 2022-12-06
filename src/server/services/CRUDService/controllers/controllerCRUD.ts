@@ -132,7 +132,7 @@ export function createRoutesControllers({
 
     req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },
-      err,
+      undefined,
       "create",
       logAlert
     );
@@ -168,7 +168,7 @@ export function createRoutesControllers({
 
     req.logAlertInfo = prepareLogAlert(
       { data, statusCode: 201, sendDataID: true },
-      err,
+      undefined,
       "update",
       logAlert
     );

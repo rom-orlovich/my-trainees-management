@@ -11,17 +11,13 @@ import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { NutritionQuestionnaireForm } from "./NutritionQuestionnaireForm";
 
 export function NutritionQuestionnaireAddForm() {
-  const { displayInputsForm, serverQueryProps } = useAppSelector(
+  const { serverQueryProps } = useAppSelector(
     getNutritionQuestionnaireFormState
   );
 
   const [createNutritionQuestionnaire] =
     nutritionQuestionnaireApi.useCreateOneItemMutation();
-  const handleSubmit = ({
-    nutrition_questionnaire_id,
-    ...body
-  }: NutritionQuestionnaire) => {
-    console.log(serverQueryProps);
+  const handleSubmit = (body: NutritionQuestionnaire) => {
     addFunction({ addItem: createNutritionQuestionnaire })({
       ...body,
       ...serverQueryProps,

@@ -14,7 +14,12 @@
       }
     }
   }
-  @include classMatcher("Page_page_main_content") {
+  .menu_container {
     overflow-y: scroll;
+
+    @include classMatcher("no_menu_found") {
+      @include posAbs(55% !important, 56% !important, null, null);
+      font-size: 3rem;
+    }
   }
 }

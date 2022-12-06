@@ -41,13 +41,6 @@ export function NutritionQuestionnaireForm({
   const { displayInputsForm, serverQueryProps } = useAppSelector(
     getNutritionQuestionnaireFormState
   );
-  console.log(serverQueryProps);
-  const { data } = nutritionQuestionnaireApi.useGetItemsQuery({
-    userID,
-    profileID,
-  });
-  const lastData = data?.data ? data.data[data.data.length - 1] : {};
-  console.log("🚀 ~ file: NutritionQuestionnaireForm.tsx:46 ~ data", data);
 
   return (
     <>
@@ -72,7 +65,6 @@ export function NutritionQuestionnaireForm({
             profile_id: profileID,
             diet_type: "neutral",
             ...defaultValues,
-            ...lastData,
           },
           resolver: yupResolver(nutritionQuestionnaireSchema),
         }}

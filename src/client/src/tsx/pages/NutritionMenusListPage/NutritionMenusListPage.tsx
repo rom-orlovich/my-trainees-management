@@ -16,14 +16,10 @@ export const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
 function NutritionMenusListPage() {
   const { traineeID, userID, profileID } = useGetUserTraineeData();
   const [nutritionMenu, setNutritionMenu] = useState<string[]>(["", ""]);
-  const authState = useAppSelector(getAuthState);
 
   const queriesOptions = {
     nutritionMenu,
-    // traineeID,
-    // trainerUserID: authState.user?.user_id,
-    // orderBy: "date_start",
-    // asc: "false",
+
     userID,
   };
 

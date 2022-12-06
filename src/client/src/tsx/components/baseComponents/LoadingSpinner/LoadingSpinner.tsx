@@ -10,24 +10,27 @@ export interface LoadingSpinnerProps<T> {
     isFetching?: boolean;
     isError?: boolean;
     data: T | undefined;
+    error?: Error;
   };
-  isErrorFun?: AnyFun;
+  onErrorFun?: AnyFun;
   path?: string;
   message?: ReactNode;
   showNoDataMessage?: boolean;
   nameData?: string;
+  className?: string;
   children?: ReactNode | ((data: T) => ReactNode);
 }
 // Loading Spinner that take care the logic of async functions loading,fetching and ect.
 // Return children as function with the exist data or as regular children type or
 // in case of error the function return not found data.
 function LoadingSpinner<T extends object>({
-  stateData: { isLoading, isFetching, data, isError },
-  isErrorFun,
+  stateData: { isLoading, isFetching, data, isError, error },
+  onErrorFun,
   message,
   path,
   nameData = "The Data",
   showNoDataMessage,
+  className,
   children,
 }: LoadingSpinnerProps<T>) {
   const nav = useNavigate();
@@ -41,8 +44,8 @@ function LoadingSpinner<T extends object>({
   };
 
   useEffect(() => {
-    isErrorFun && isError && isErrorFun();
-  }, [isError, isErrorFun]);
+    onErrorFun && isError && onErrorFun();
+  }, [isError, onErrorFun]);
 
   useEffect(() => {
     isExistDataEmpty() &&
@@ -54,12 +57,18 @@ function LoadingSpinner<T extends object>({
     return <p className={style.loading_spinner}> Loading...</p>;
 
   const SpinnerMessage = (
-    <p className={genClassName(`message_spinner`, style.loading_spinner)}>
+    <p
+      className={genClassName(
+        `message_spinner`,
+        style.loading_spinner,
+        className
+      )}
+    >
       {message || `${nameData} is not found`}
     </p>
   );
 
-  if (!data) {
+  if (!data || error) {
     return showNoDataMessage ? SpinnerMessage : <></>;
   }
 

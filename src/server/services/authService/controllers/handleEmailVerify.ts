@@ -34,7 +34,6 @@ where email=$1
       undefined,
       {
         message: `${email} is not found`,
-        // code: ErrorCodes.RESULT_NOT_FOUND,
       },
       "get",
       false

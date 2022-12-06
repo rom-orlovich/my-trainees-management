@@ -24,14 +24,21 @@ export const handleCreateNutritionQuestionnaire: RequestHandler = async (
 ) => {
   const nutritionQuestionnaireClient = req.body as NutritionQuestionnaire;
   try {
-    const insertNutritionQuestionnaireRes = createNutritionQuestionnaire(
+    const insertNutritionQuestionnaireRes = await createNutritionQuestionnaire(
       nutritionQuestionnaireClient
     );
-
-    req.logAlertInfo = nutritionQuestionnaireLogAlert({
-      data: insertNutritionQuestionnaireRes,
-      sendDataID: true,
-    });
+    console.log(insertNutritionQuestionnaireRes);
+    if (insertNutritionQuestionnaireRes)
+      req.logAlertInfo = nutritionQuestionnaireLogAlert(
+        {
+          data: insertNutritionQuestionnaireRes,
+          sendDataID: true,
+          message: "Nutrition Questionnaire was created successfully",
+        },
+        undefined,
+        "create",
+        true
+      );
   } catch (error) {
     req.logAlertInfo = nutritionQuestionnaireLogAlert(
       undefined,
@@ -39,6 +46,6 @@ export const handleCreateNutritionQuestionnaire: RequestHandler = async (
       "create",
       true
     );
-    return next();
   }
+  return next();
 };
