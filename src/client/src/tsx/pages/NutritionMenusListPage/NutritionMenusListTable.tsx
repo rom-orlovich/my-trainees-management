@@ -3,17 +3,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
-import {
-  nutritionMenusListApi,
-  trainingProgramsListApi,
-} from "../../redux/api/hooksAPI";
-import {
-  NutritionMenuTableApi,
-  TrainingProgramsListTableAPI,
-} from "../../redux/api/interfaceAPI";
+import { nutritionMenusListApi } from "../../redux/api/hooksAPI";
+import { NutritionMenuTableApi } from "../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
-import { NUTRITION_MENUS_LIST_NAME } from "../ProfilePage/TraineeProfile/ProgramsList/ProgramsList";
+
 import { NUTRITION_MENU_NAME_DATA } from "./NutritionMenusListPage";
 
 const transformNutritionMenuList = ({
@@ -30,7 +24,7 @@ const transformNutritionMenuList = ({
   nutrition_menu_id,
   program_type: (
     <Link
-      to={`/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/${nutrition_menu_id}/${APP_ROUTE.NUTRITION_MENU_ROUTE}`}
+      to={`/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/${nutrition_menu_id}/${APP_ROUTE.NUTRITION_MENU_ROUTE}?profileID=${profile_id}`}
     >
       {note_topic}
     </Link>

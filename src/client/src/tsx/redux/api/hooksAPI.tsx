@@ -152,7 +152,7 @@ export const nutritionMenuApi = apiCreateCRUDHooks<NutritionMenuAPI>({
   }),
 });
 export const foodsApi = apiCreateCRUDHooks<FoodAPI>({
-  reducerPath: "nutritionMenuApi",
+  reducerPath: "foodsApi",
   baseUrl: API_ROUTES.FOODS_ROUTE,
   singleEntityName: API_ROUTES.FOOD_ENTITY,
   listId: "foods_list",

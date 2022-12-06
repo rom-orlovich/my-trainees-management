@@ -11,13 +11,14 @@ import { API_ROUTES } from "../../redux/api/apiRoutes";
 
 function NutritionMenuPage() {
   const dispatch = useAppDispatch();
-  const { userID } = useGetUserTraineeData();
+  const { userID, profileID } = useGetUserTraineeData();
   const nutritionMenuID = Number(useParams().id);
-  // const { trainerUserID } = useGetUserTraineeData();
+
   const [trigger, data] = nutritionMenuApi.useLazyGetGenerateMenuQuery();
   const queriesOptions = {
     userID,
     id: nutritionMenuID,
+    profileID,
   };
 
   return (
