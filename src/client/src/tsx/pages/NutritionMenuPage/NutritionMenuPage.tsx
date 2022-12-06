@@ -36,17 +36,17 @@ function NutritionMenuPage() {
                 trigger(queriesOptions)
                   .unwrap()
                   .then(() => {
-                    console.log({
-                      type: API_ROUTES.NUTRITION_MENU_ENTITY,
-                      id: nutritionMenuID,
-                    });
-
                     dispatch(
                       nutritionMenuApi.util.invalidateTags([
                         {
                           type: API_ROUTES.NUTRITION_MENU_ENTITY,
                           id: nutritionMenuID,
                         },
+                      ])
+                    );
+                    dispatch(
+                      nutritionMenuApi.util.invalidateTags([
+                        "nutrition_menu_list",
                       ])
                     );
                   })

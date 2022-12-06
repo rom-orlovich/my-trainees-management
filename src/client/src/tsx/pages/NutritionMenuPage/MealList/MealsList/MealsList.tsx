@@ -3,7 +3,7 @@ import React from "react";
 import style from "./MealsList.module.scss";
 import List from "../../../../components/baseComponents/List/List";
 import { MealDetails } from "../../../../redux/api/interfaceAPI";
-import { genClassName } from "../../../../utilities/helpersFun";
+import { fixNum, genClassName } from "../../../../utilities/helpersFun";
 import NutrientsDetails from "./NutrientsDetails/NutrientsDetails";
 
 function MealsList({ meals }: { meals: MealDetails[] }) {
@@ -12,7 +12,7 @@ function MealsList({ meals }: { meals: MealDetails[] }) {
     <>
       <h1>
         {`Total
-        ${caloriesTotal}
+        ${fixNum(caloriesTotal)}
         Kcal`}
       </h1>
       <p>Each meal has many options of foods per nutrient.</p>

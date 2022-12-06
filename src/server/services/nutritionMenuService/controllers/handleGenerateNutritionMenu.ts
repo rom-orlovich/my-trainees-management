@@ -27,7 +27,7 @@ export const handleGenerateNutritionMenu: RequestHandler = async (
       req.logAlertInfo = logAlert(
         undefined,
         {
-          message: `The Nutrition questionnaire is not found. Please Create One.`,
+          message: `The Nutrition questionnaire is missing. Please Create One.`,
         },
         "get",
         true

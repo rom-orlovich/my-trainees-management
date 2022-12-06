@@ -86,7 +86,16 @@ function NutritionQuestionnaireEditForm() {
       {(data) => {
         const results = data.data;
         const lastData = results[results.length - 1];
-
+        const {
+          nutrition_questionnaire_id,
+          day_start,
+          day_end,
+          kosher,
+          is_vegan,
+          is_vegetarian,
+          diet_type,
+          ...rest
+        } = lastData;
         const handleSubmit = (body: NutritionQuestionnaire) =>
           addFunction({
             addItem,
@@ -97,7 +106,21 @@ function NutritionQuestionnaireEditForm() {
           });
 
         return (
-          <NutritionQuestionnaireForm editMode={true} onSubmit={handleSubmit} />
+          <NutritionQuestionnaireForm
+            editMode={true}
+            onSubmit={handleSubmit}
+            defaultValues={
+              {
+                nutrition_questionnaire_id,
+                day_start,
+                day_end,
+                kosher,
+                is_vegan,
+                is_vegetarian,
+                diet_type,
+              } as any
+            }
+          />
         );
       }}
     </LoadingSpinner>

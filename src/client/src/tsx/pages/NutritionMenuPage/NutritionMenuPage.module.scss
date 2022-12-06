@@ -22,3 +22,17 @@
     }
   }
 }
+
+@include smartphone() {
+  .nutrition_menu_page {
+    @include classMatcher("page_header") {
+    }
+    .menu_container {
+      @include classMatcher("no_menu_found") {
+        @include posAbs(55% !important, 50% !important, null, null);
+        font-size: 2rem;
+        width: 100%;
+      }
+    }
+  }
+}

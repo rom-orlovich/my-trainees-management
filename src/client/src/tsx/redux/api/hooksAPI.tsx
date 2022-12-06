@@ -148,6 +148,7 @@ export const nutritionMenuApi = apiCreateCRUDHooks<NutritionMenuAPI>({
         url: `/${API_ROUTES.NUTRITION_MENU_GENERATE}/${params.id}`,
         params,
       }),
+      providesTags: ["nutrition_menu_list"],
     }),
   }),
 });

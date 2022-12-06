@@ -15,9 +15,9 @@ function MealsContainer({
 
   return (
     <LoadingSpinner
-      // showNoDataMessage
-      // className="no_menu_found"
-      // message={<>{Error?.data?.message}</>}
+      showNoDataMessage
+      className="no_menu_found"
+      message={<>{Error?.data?.message}</>}
       stateData={{
         data,
         isError,
