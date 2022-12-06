@@ -46,7 +46,10 @@ function NutritionMenuPage() {
                     );
                     dispatch(
                       nutritionMenuApi.util.invalidateTags([
-                        "nutrition_menu_list",
+                        {
+                          type: API_ROUTES.NUTRITION_MENU_ENTITY,
+                          id: "nutrition_menu_list",
+                        },
                       ])
                     );
                   })

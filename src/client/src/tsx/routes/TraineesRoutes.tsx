@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { NutritionQuestionnaireAddForm } from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireAddForm";
 import NutritionQuestionnaireEditForm from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireEditForm";
-import { NutritionQuestionnaireForm } from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireForm";
 
 import TraineeAddForm from "../components/Forms/TraineeForms/TraineeAddForm";
 import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
@@ -20,10 +19,7 @@ const TraineesRoutes = () => (
         element={<TraineeProfile />}
       ></Route>
       <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE} />
-      {/* <Route
-        path={`${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE}`}
-        element={<NutritionQuestionnaireAddForm />}
-      /> */}
+
       <Route
         path={`${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE}`}
       >

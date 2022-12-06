@@ -40,7 +40,7 @@ export function NutritionMenusListAddForm() {
       navigate(
         `/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/${Number(Response.data.id)}/${
           APP_ROUTE.NUTRITION_MENU_ROUTE
-        }`
+        }?profileID=${profileID}`
       );
 
       return Response;

@@ -106,10 +106,6 @@ const insertNewNutritionQuestionnaire = async (
     black_list_foods: JSON.stringify(nutritionQuestionnaire.black_list_foods),
     favorite_foods: JSON.stringify(nutritionQuestionnaire.favorite_foods),
   };
-  console.log(
-    "nutritionQuestionnaireStringify",
-    nutritionQuestionnaireStringify
-  );
 
   const insertNutritionQuestionnaireRes = await insertQueryOneItem(
     `${TABLES_DATA.NUTRITION_QUESTIONNAIRE_TABLE_NAME}`,

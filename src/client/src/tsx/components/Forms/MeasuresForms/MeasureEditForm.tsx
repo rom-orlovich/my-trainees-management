@@ -10,10 +10,7 @@ import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
-import {
-  addFunction,
-  updateFunction,
-} from "../../baseComponents/RHF-Components/FormsHook";
+import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 
 import MeasureForm from "./MeasureForms";
 

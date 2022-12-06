@@ -17,12 +17,14 @@ import {
 } from "../nutritionMenuServiceTypes";
 
 export const getNutritionQuestionnaire = async (profileID: number) => {
+  console.log(profileID);
   const nutritionQuestionnaireRes = await selectQuery(
     TABLES_DATA.NUTRITION_QUESTIONNAIRE_TABLE_NAME,
     "*",
     `WHERE ${TABLES_DATA.PROFILE_ID}=$1`,
     [profileID]
   );
+  console.log(nutritionQuestionnaireRes);
 
   return nutritionQuestionnaireRes[nutritionQuestionnaireRes.length - 1];
 };
