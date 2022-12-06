@@ -1,8 +1,6 @@
 import { RequestHandler } from "express";
 import { client } from "../../../PGSql/DBConnectConfig";
 
-import { ErrorCustomizes } from "../../errorsService/errorsService";
-
 import { logAlert } from "./handleGenerateNutritionMenu";
 import { WITH_CLAUSE_GET_NUTRITION_MENU } from "../utilities/helpersDBNutritionMenu";
 

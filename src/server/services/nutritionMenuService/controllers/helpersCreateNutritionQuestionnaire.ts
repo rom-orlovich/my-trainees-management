@@ -27,16 +27,20 @@ export const handleCreateNutritionQuestionnaire: RequestHandler = async (
     const insertNutritionQuestionnaireRes = await createNutritionQuestionnaire(
       nutritionQuestionnaireClient
     );
+    const updateOrCreate =
+      nutritionQuestionnaireClient.nutrition_questionnaire_id
+        ? "update"
+        : "create";
 
     if (insertNutritionQuestionnaireRes)
       req.logAlertInfo = nutritionQuestionnaireLogAlert(
         {
           data: insertNutritionQuestionnaireRes,
 
-          message: "Nutrition Questionnaire was created successfully",
+          message: `Nutrition questionnaire was ${updateOrCreate}d successfully`,
         },
         undefined,
-        "create",
+        updateOrCreate,
         true
       );
   } catch (error) {

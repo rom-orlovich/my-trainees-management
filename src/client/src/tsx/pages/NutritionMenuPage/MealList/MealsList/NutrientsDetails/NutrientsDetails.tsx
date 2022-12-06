@@ -30,7 +30,7 @@ function NutrientsDetails({
         dataArr={nutrientsFoods}
       />
 
-      <b>{`Up to ${nutrientCalories}Kcal/${numG}g per food`}</b>
+      <b>{`Up to ${nutrientCalories}Kcal/${numG}g ${nutrientName.toLocaleLowerCase()}`}</b>
     </div>
   );
 }
