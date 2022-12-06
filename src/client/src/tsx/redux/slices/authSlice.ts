@@ -25,7 +25,7 @@ const setLoginUserDataReducer = (
   }
 ) => {
   const { payload } = action;
-  console.log(payload);
+
   state.user = payload.user;
   state.accessToken = payload.accessToken;
 };

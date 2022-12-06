@@ -63,16 +63,11 @@ export const apiSideEffectSlice = createSlice({
         }
       )
       .addMatcher(
-        (action: PayloadAction<GenericRecord<any> | undefined>) => {
-          console.log(action.payload);
-          return (
-            action.payload?.statusCode &&
-            !action.payload?.message?.includes("token")
-          );
-        },
+        (action: PayloadAction<GenericRecord<any> | undefined>) =>
+          action.payload?.statusCode &&
+          !action.payload?.message?.includes("token"),
         (state) => {
           // // Enable fetch alerts.
-
           state.fetchAlerts = true;
         }
       )

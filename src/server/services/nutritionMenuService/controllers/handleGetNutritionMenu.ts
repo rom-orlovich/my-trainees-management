@@ -28,7 +28,6 @@ export const handleGetNutritionMenu: RequestHandler = async (
     }
     return res.status(200).json(nutritionMenuRes.rows[0]);
   } catch (error) {
-    console.log(error);
     req.logAlertInfo = logAlert(undefined, error as Error, "get", true);
   }
 

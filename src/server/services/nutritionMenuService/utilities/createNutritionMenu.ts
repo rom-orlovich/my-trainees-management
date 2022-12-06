@@ -29,10 +29,12 @@ import {
   NutrientCalsType,
   NutritionQuestionnaire,
 } from "../nutritionMenuServiceTypes";
+import { MeasuresCalResAPI } from "../../statisticService/serviceStatisticsTypes";
 
 export const createNutritionMenu = async (
   nutritionMenuID: number,
-  nutritionQuestionnaire: NutritionQuestionnaire
+  nutritionQuestionnaire: NutritionQuestionnaire,
+  lastMeasure: MeasuresCalResAPI
 ) => {
   const {
     isKeepMeatMilk,
@@ -45,16 +47,11 @@ export const createNutritionMenu = async (
   try {
     await client.query("BEGIN");
 
-    // // Insert new nutritionMenu to db.
-    // const nutritionMenuInsertRes: NutritionMenu =
-    //   await insertNewNutritionMenuToDB(nutritionQuestionnaire);
-
     // Gets foods from the db filter by user's nutrition questionnaire.
     const foods = await getFoodsByNutritionQuestionnaireParams(
       nutritionQuestionnaire
     );
 
-    const lastMeasure = await getLastMeasureByProfileID(profile_id);
     const { protein_cals, fat_cals, carbs_cals, calories_total } = lastMeasure;
 
     // Creates for each meals it's nutrients calories distribution by user's preference.

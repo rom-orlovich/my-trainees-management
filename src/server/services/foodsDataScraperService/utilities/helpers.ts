@@ -1,6 +1,5 @@
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import { GenericRecord } from "../../../utilities/types";
 
 import {
   JSON_ENCODING_DEFAULT,
@@ -8,7 +7,7 @@ import {
   PRODUCT_DETAILS_HTML_PATH,
   URL_PATH,
 } from "../constants";
-import { FoodNameDB } from "../types";
+import { FoodNameDB } from "../foodsDataScraperServiceTypes";
 
 function mapStr() {
   let mapEncoded = {} as Record<any, any>;
@@ -64,7 +63,7 @@ export function createArrDataObjJSON<T>(pathJSON: string, scrapData: T) {
   const curData = JSON.parse(
     readFileSync(pathJSON, JSON_ENCODING_DEFAULT)
   ) as T[];
-  console.log("createArrDataObjJSON", curData.length - 1);
+
   const writingArr = [
     ...curData,
     { food_id: curData.length + 1, ...scrapData },

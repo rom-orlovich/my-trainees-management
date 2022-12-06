@@ -42,7 +42,7 @@ export const insertMany = async <T>(tableName: string, arr: T[]) => {
   const statement = `INSERT INTO ${tableName} select * from json_populate_recordset(null::${tableName},$1) RETURNING * `;
 
   const paramsArr = [JSON.stringify(arr)];
-  console.log(paramsArr);
+
   try {
     const res = await client.query(statement, paramsArr);
 

@@ -34,7 +34,7 @@ export function ActivityForm({
       >
         {({ register, formState, getValues }) => {
           const { errors } = formState;
-          console.log(getValues());
+
           return (
             <>
               <InputLabel

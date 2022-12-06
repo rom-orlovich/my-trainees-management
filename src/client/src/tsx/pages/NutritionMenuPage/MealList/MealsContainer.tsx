@@ -9,7 +9,6 @@ function MealsContainer({
 }: {
   queriesOptions: Record<string, any>;
 }) {
-  // console.log(data);
   const { data, isError, isFetching, isLoading, error } =
     nutritionMenuApi.useGetItemByIDQuery(queriesOptions as { id: number });
   const Error = error as { data: { message: string } };

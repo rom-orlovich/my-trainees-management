@@ -72,7 +72,9 @@ export const matchFoodByDietType = (foods: Food[], dietType: DietTypes) => {
 };
 
 // Gets the last measure of the user.
-export const getLastMeasureByProfileID = async (profileID: number) => {
+export const getLastMeasureByProfileID = async (
+  profileID: number
+): Promise<MeasuresCalResAPI | undefined> => {
   const measures: MeasuresCalResAPI[] = await selectQuery(
     TABLES_DATA.MEASURES_TABLE_NAME,
     `protein_cals, fat_cals ,carbs_cals,fixed_cals,calories_total`,
@@ -249,20 +251,12 @@ export const getAmountOFfood = (
   if (curCalNutrientCals < food[key]) {
     return Number((curCalNutrientCals / food[key]).toFixed(2));
   }
-  // console.log(totalCals);
+
   const checkTotal =
     key === "protein_cals" ? (totalCals * 50) / 100 : (totalCals * 25) / 100;
   let sumTotal =
     amount * food.carbs_cals + amount * food.fat_cals + food.protein_cals;
   while (curCalNutrientCals > food[key] * 2 && sumTotal < checkTotal) {
-    // console.log(
-    //   "sumTotal",
-    //   sumTotal,
-    //   food.food_name,
-    //   checkTotal,
-    //   "amount",
-    //   amount
-    // );
     curCalNutrientCals -= food[key];
     amount++;
     sumTotal =

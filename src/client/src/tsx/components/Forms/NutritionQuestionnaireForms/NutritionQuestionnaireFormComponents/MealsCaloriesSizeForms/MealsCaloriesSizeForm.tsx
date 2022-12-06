@@ -56,7 +56,7 @@ export function MealsCaloriesSizeForm({
             <ul ref={ref} className={style.inputs_layout}>
               {fields.map((el, index) => {
                 curIndex = index;
-                console.log(el);
+
                 return (
                   <li key={el.id}>
                     <InputLabel

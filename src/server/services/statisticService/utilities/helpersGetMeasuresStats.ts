@@ -40,25 +40,6 @@ export const measuresChartLineCreateLabelAndDatasets = (
       value: el.weight,
     }));
   return normalizeDatesValues(statsArr);
-  // const initialObj = { weight: 0 };
-  // let objAllTimeLine = createTimeLineObj(
-  //   initialObj,
-  //   timeLineDisplay,
-  //   "graph",
-  //   dateStart
-  // );
-  // measuresCalData.forEach((measure) => {
-  //   objAllTimeLine = calAllTimeLineObj(
-  //     measure.date,
-  //     "weight",
-  //     objAllTimeLine,
-  //     undefined,
-  //     measure.weight
-  //   );
-  //   console.log(objAllTimeLine);
-  // });
-
-  // return getResultGraphStats(objAllTimeLine, normalizeDatesValuesSumObj);
 };
 
 export const caloriesChartCreateLabelAndDatasets = (

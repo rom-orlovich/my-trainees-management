@@ -52,7 +52,6 @@ export function LeadForm({
       }}
     >
       {({ register, formState, control, getValues }) => {
-        console.log(getValues("status"));
         const {
           lead_date,
           first_name,

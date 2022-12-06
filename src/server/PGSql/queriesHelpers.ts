@@ -239,7 +239,6 @@ export const prepareComparisonParamsStatement = (
     const strArr: string[] = [];
     comparisonQuery[operator].forEach(
       ({ realFieldName, valueToCompare }, i) => {
-        console.log(`$${loopStartIndex + i}`);
         // 'real name field' >= value or 'real name field' <= value
         strArr.push(
           `${realFieldName} ${operatorSymbol} $${loopStartIndex + i}`

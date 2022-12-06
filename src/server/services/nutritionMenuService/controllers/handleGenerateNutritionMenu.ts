@@ -4,6 +4,7 @@ import { deleteQuery } from "../../../PGSql/simpleSqlQueries";
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
 import { createNutritionMenu } from "../utilities/createNutritionMenu";
+import { getLastMeasureByProfileID } from "../utilities/helpersCreateNutritionMenu";
 
 import { getNutritionQuestionnaire } from "../utilities/helpersDBNutritionMenu";
 
@@ -21,15 +22,28 @@ export const handleGenerateNutritionMenu: RequestHandler = async (
     const nutritionQuestionnaireRes = await getNutritionQuestionnaire(
       profileID
     );
-    console.log(nutritionQuestionnaireRes);
 
     if (!nutritionQuestionnaireRes) {
       req.logAlertInfo = logAlert(
         undefined,
         {
-          message: `The Nutrition Questionnaire is not found. Please Create One.`,
+          message: `The Nutrition questionnaire is not found. Please Create One.`,
         },
-        "create",
+        "get",
+        true
+      );
+      return next();
+    }
+
+    const lastMeasure = await getLastMeasureByProfileID(profileID);
+
+    if (!lastMeasure) {
+      req.logAlertInfo = logAlert(
+        undefined,
+        {
+          message: `No measure was found. please add one.`,
+        },
+        "get",
         true
       );
       return next();
@@ -44,7 +58,8 @@ export const handleGenerateNutritionMenu: RequestHandler = async (
 
     const nutritionMenuRes = await createNutritionMenu(
       nutritionMenuID,
-      nutritionQuestionnaireRes
+      nutritionQuestionnaireRes,
+      lastMeasure
     );
 
     if (nutritionMenuRes)
