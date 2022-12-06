@@ -1,5 +1,6 @@
 @use "../../../style/utilities/utilities.scss" as *;
 .nutrition_menu_page {
+  overflow-y: scroll;
   @include classMatcher("page_header") {
     span {
       margin-left: auto;
@@ -15,8 +16,6 @@
     }
   }
   .menu_container {
-    overflow-y: scroll;
-
     @include classMatcher("no_menu_found") {
       @include posAbs(55% !important, 56% !important, null, null);
       font-size: 3rem;

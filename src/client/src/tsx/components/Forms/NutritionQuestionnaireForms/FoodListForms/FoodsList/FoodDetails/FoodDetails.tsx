@@ -2,6 +2,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import useGetUserLoginData from "../../../../../../hooks/useGetUserLoginData";
+import { FoodDetailsModelParam } from "../../../../../../pages/NutritionMenuPage/MealList/MealsList/FoodNutrient/FoodNutrient";
 import { foodsApi } from "../../../../../../redux/api/hooksAPI";
 import { useAppSelector } from "../../../../../../redux/hooks";
 import {
@@ -10,10 +11,11 @@ import {
 } from "../../../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import LoadingSpinner from "../../../../../baseComponents/LoadingSpinner/LoadingSpinner";
 import style from "./FoodDetails.module.scss";
+import { fixNum } from "../../../../../../utilities/helpersFun";
 
 function FoodDetails() {
   const dispatch = useDispatch();
-  const { curParam } = useAppSelector(getModelControllerState);
+  let { curParam } = useAppSelector(getModelControllerState);
   const { user_id } = useGetUserLoginData();
   const { data, isError, isLoading, isFetching } = foodsApi.useGetItemByIDQuery(
     {
@@ -21,6 +23,7 @@ function FoodDetails() {
       userID: user_id,
     }
   );
+  curParam = curParam as FoodDetailsModelParam;
 
   return (
     <LoadingSpinner stateData={{ data, isError, isLoading, isFetching }}>
@@ -28,36 +31,45 @@ function FoodDetails() {
         <div className={style.food_details_container}>
           <h1> {data?.food_name} </h1>
           <span className={style.total_cal}>
-            Total Calories: <b>{data?.calories_total}Kcal </b>
+            Total Calories:
+            <b>{fixNum(data?.calories_total * curParam.amount)}Kcal </b>
+          </span>
+          <span className={style.amount}>
+            Amount:
+            <b>
+              {` ${curParam.amount}`} {curParam.amount > 1 ? " units" : " unit"}
+            </b>
           </span>
           <div className={style.nutrients}>
             <span className={style.nutrient_details}>
-              Proteins <b> {data?.protein_g}g</b>
+              Proteins <b> {fixNum(data?.protein_g * curParam.amount)}g</b>
             </span>
 
             <span className={style.nutrient_details}>
-              Fats<b>{data?.fat_g}g </b>
+              Fats<b>{fixNum(data?.fat_g * curParam.amount)}g </b>
             </span>
             <span className={style.nutrient_details}>
               Carbohydrates
-              <b> {data?.carbs_g}g</b>
+              <b> {fixNum(data?.carbs_g * curParam.amount)}g</b>
             </span>
           </div>
 
           <div className={style.nutrients}>
             <span className={style.nutrient_details}>
-              Saturated Fat<b>{data?.saturated_fat}g </b>
+              Saturated Fat
+              <b>{fixNum(data?.saturated_fat * curParam.amount)}g </b>
             </span>
             <span className={style.nutrient_details}>
-              Cholesterol <b> {data?.cholesterol_mg}mg</b>
+              Cholesterol{" "}
+              <b> {fixNum(data?.cholesterol_mg * curParam.amount)}mg</b>
             </span>
             <span className={style.nutrient_details}>
               Sugars
-              <b> {data?.sugars_g}g</b>
+              <b> {fixNum(data?.sugars_g * curParam.amount)}g</b>
             </span>
             <span className={style.nutrient_details}>
               Sodium
-              <b> {data?.sodium_mg}mg</b>
+              <b> {fixNum(data?.sodium_mg * curParam.amount)}mg</b>
             </span>
           </div>
 

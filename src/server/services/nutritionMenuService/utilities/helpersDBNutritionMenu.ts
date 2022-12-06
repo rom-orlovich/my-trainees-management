@@ -24,7 +24,7 @@ export const getNutritionQuestionnaire = async (profileID: number) => {
     [profileID]
   );
 
-  return nutritionQuestionnaireRes[0];
+  return nutritionQuestionnaireRes[nutritionQuestionnaireRes.length - 1];
 };
 
 export const insertNewNutritionMenuToDB = async (

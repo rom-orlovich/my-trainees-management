@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
@@ -12,6 +12,14 @@ import {
   MeasuresRawAPI,
   NutritionQuestionnaire,
 } from "../../../redux/api/interfaceAPI";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import {
+  getNutritionQuestionnaireFormState,
+  setAllergensArr,
+  setMealsPercentsArr,
+  submitBlackListFoods,
+  submitFavoriteFoods,
+} from "../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 import { NutritionQuestionnaireFormState } from "../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormsSliceTypes";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
@@ -23,11 +31,12 @@ import {
 } from "../../baseComponents/RHF-Components/FormsHook";
 
 import MeasureForm from "../MeasuresForms/MeasureForms";
+import { AllergensListType } from "./AllergensForm/constants";
 import { NutritionQuestionnaireForm } from "./NutritionQuestionnaireForm";
 
 function NutritionQuestionnaireEditForm() {
   const [addItem] = nutritionQuestionnaireApi.useCreateOneItemMutation();
-
+  const dispatch = useAppDispatch();
   // If the user is trainee, the query is executed by his userID instead his trainerUserID.
   const { profileID, traineeID, userID } = useGetUserTraineeData();
 
@@ -36,9 +45,37 @@ function NutritionQuestionnaireEditForm() {
       userID,
       profileID,
     });
-  const lastData = data?.data[data?.data?.length - 1];
-  console.log("🚀 ~ file: NutritionQuestionnaireForm.tsx:46 ~ data", data);
-  console.log(lastData);
+
+  const { serverQueryProps } = useAppSelector(
+    getNutritionQuestionnaireFormState
+  );
+  const re = useRef(true);
+  useEffect(() => {
+    const results = data?.data;
+    if (!results) return;
+    const lastData = results[results?.length - 1];
+    if (!lastData) return;
+    if (re.current) {
+      dispatch(
+        setMealsPercentsArr(
+          lastData.meals_calories_size_percents?.map((el) => ({
+            percents: el,
+          }))
+        )
+      );
+      dispatch(
+        setAllergensArr(
+          lastData.allergens.map((el) => ({
+            name: el as AllergensListType,
+            value: true,
+          }))
+        )
+      );
+      dispatch(submitFavoriteFoods(lastData.favorite_foods));
+      dispatch(submitBlackListFoods(lastData.black_list_foods));
+      re.current = false;
+    }
+  }, [data?.data]);
 
   return (
     <LoadingSpinner
@@ -53,16 +90,14 @@ function NutritionQuestionnaireEditForm() {
         const handleSubmit = (body: NutritionQuestionnaire) =>
           addFunction({
             addItem,
-          })(body);
+          })({
+            ...body,
+            nutrition_questionnaire_id: lastData.nutrition_questionnaire_id,
+            ...serverQueryProps,
+          });
 
         return (
-          <NutritionQuestionnaireForm
-            editMode={true}
-            onSubmit={handleSubmit}
-            defaultValues={{
-              ...lastData,
-            }}
-          />
+          <NutritionQuestionnaireForm editMode={true} onSubmit={handleSubmit} />
         );
       }}
     </LoadingSpinner>

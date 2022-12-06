@@ -5,9 +5,7 @@ import { format } from "date-fns";
 
 import { useParams, useSearchParams } from "react-router-dom";
 
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
-import { nutritionQuestionnaireApi } from "../../../redux/api/hooksAPI";
 
 import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../../redux/hooks";
@@ -71,7 +69,7 @@ export function NutritionQuestionnaireForm({
       >
         {({ register, formState, getValues }) => {
           const { day_end, day_start } = formState.errors;
-          console.log(getValues());
+
           return (
             <>
               <div className={style.time_activity}>

@@ -94,14 +94,29 @@ export const getFoodsByNutritionQuestionnaireParams = async ({
   const kosherArr = kosher ? [kosher] : [];
   const isVegan = is_vegan ? [is_vegan] : [];
   const isVegetarian = is_vegetarian ? [is_vegetarian] : [];
-  const checkKosherStr = kosher ? `and kosher=$3` : "";
-  const checkIsVeganStr = is_vegan ? `and is_vegan=$4` : "";
-  const checkIsVegetarianStr = is_vegetarian ? `and is_vegan=$5` : "";
+  let i = 2;
+  let checkKosherStr = "";
+  let checkIsVeganStr = "";
+  let checkIsVegetarianStr = "";
+  if (kosher) {
+    i++;
+    checkKosherStr = `and kosher=$${i}`;
+  }
+  if (is_vegan) {
+    i++;
+    checkIsVeganStr = `and is_vegan=$${i}`;
+  }
+  if (is_vegetarian) {
+    i++;
+    checkIsVegetarianStr = `and is_vegetarian=${i}`;
+  }
+
   const blackList = black_list_foods.map((el) => el.food_id);
+
   const foods = (await selectQuery(
     TABLES_DATA.FOODS_TABLE_NAME,
     "*",
-    `where not food_id = any($1) and not allergens && $2 ${checkKosherStr}    
+    `where not food_id = any($1) and not allergens && ($2) ${checkKosherStr}    
       ${checkIsVeganStr} ${checkIsVegetarianStr} `,
     [blackList, allergens, ...kosherArr, ...isVegan, ...isVegetarian]
   )) as Food[];

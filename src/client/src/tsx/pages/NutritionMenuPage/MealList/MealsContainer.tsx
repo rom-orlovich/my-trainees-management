@@ -13,12 +13,12 @@ function MealsContainer({
   const { data, isError, isFetching, isLoading, error } =
     nutritionMenuApi.useGetItemByIDQuery(queriesOptions as { id: number });
   const Error = error as { data: { message: string } };
-  console.log(Error);
+
   return (
     <LoadingSpinner
-      showNoDataMessage
-      className="no_menu_found"
-      message={<>{Error.data?.message}</>}
+      // showNoDataMessage
+      // className="no_menu_found"
+      // message={<>{Error?.data?.message}</>}
       stateData={{
         data,
         isError,

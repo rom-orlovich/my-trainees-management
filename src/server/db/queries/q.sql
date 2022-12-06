@@ -1,4 +1,2 @@
-SELECT
-    *
-FROM
-    nutrition_questionnaires
+ SELECT * FROM foods where not allergens &&[ ["שקדים","חיטה"]]     
+  ;

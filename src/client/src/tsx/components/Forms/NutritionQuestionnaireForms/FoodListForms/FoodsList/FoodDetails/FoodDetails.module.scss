@@ -18,6 +18,9 @@
     font-size: 1rem;
     @extend %shared-bold;
   }
+  .amount {
+    @extend %shared-bold;
+  }
   .nutrients {
     padding: 0.3rem 0.5rem;
     border-top: 1px solid black;

@@ -126,7 +126,6 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     ...userSignature,
     jwt: accessToken,
   };
-  const message = "Login is success!";
 
   console.log("user[0]", user[0]);
   const {
@@ -134,7 +133,7 @@ export const loginHandler: RequestHandler = async (req, res, next) => {
     refresh_tokens: refreshTokenArr,
     ...restUser
   } = user[0];
-
+  const message = "Login is success!";
   req.logAlertInfo = prepareLogAlert(
     {
       message,

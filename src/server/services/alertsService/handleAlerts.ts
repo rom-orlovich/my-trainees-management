@@ -20,7 +20,11 @@ export const createDataIDwithMessage = (
   } was ${message.action}d successfully!`,
   data: { id: createObjValuesArr(data || {})[0] },
 });
+const definedStatusCodeByAction = (action?: ActionType) => {
+  if (action === "create") return 201;
 
+  return 200;
+};
 /**
  *
  * @param singleEntityName  The name of single entity.
@@ -67,9 +71,10 @@ export const createLogAlertInfo =
           ...successRes?.data,
         };
 
+    const statusCode = definedStatusCodeByAction(action);
     return {
       successRes: {
-        statusCode: successRes?.statusCode,
+        statusCode: successRes?.statusCode || statusCode,
         ...response,
       },
       logAlert,
@@ -84,10 +89,10 @@ export const handleAlertsMiddleware: RequestHandler = async (
   if (!req.logAlertInfo) return next();
   const { successRes, error, logAlert } = req.logAlertInfo;
 
-  if (logAlert) {
+  if (logAlert && (successRes?.message || error?.message)) {
     const [_, errAlert] = await promiseHandler(
       insertQueryOneItem(TABLES_DATA.ALERTS_TABLE_NAME, {
-        alert_message: error ? error?.message : successRes?.response?.message,
+        alert_message: error ? error?.message : successRes?.message,
         user_id: req.auth_data?.user_id,
       })
     );
@@ -105,7 +110,9 @@ export const handleAlertsMiddleware: RequestHandler = async (
     return next(new Error("Something went wrong"));
   }
 
-  return res.status(successRes?.statusCode || 200).json({ ...successRes });
+  console.log(successRes);
+
+  return res.status(successRes?.statusCode || 200).json(successRes);
 };
 
 // NOTE: NOT DELETE!!

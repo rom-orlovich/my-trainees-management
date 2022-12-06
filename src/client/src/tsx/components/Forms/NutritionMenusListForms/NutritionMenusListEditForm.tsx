@@ -11,9 +11,7 @@ import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { NutritionMenusListForm } from "./NutritionMenusListForm";
 
-
 export function NutritionMenusListEditForm() {
-
   const id = Number(useParams().id);
   const [updateItem] = trainingProgramsListApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();

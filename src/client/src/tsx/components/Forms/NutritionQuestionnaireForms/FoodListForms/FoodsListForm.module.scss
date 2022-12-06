@@ -3,6 +3,8 @@
 .food_list_form_container {
   height: 50vh;
   @include classMatcher("autocomplete_container") {
+    li {
+    }
     input {
       text-align: center;
     }

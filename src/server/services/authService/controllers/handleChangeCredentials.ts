@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
-import { RequestHandler } from "webpack-dev-server";
+
+import { RequestHandler } from "express";
 import { updateQuerySingleItem } from "../../../PGSql/simpleSqlQueries";
 
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";

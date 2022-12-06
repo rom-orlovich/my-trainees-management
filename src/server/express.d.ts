@@ -5,10 +5,8 @@ import { TrainingProgramExercise } from "./services/statisticService/serviceStat
 
 export interface ModifiedActionResult {
   successRes?: {
-    response: {
-      message?: string;
-      data: any;
-    };
+    message?: string;
+    data: any;
     statusCode?: number;
   };
 

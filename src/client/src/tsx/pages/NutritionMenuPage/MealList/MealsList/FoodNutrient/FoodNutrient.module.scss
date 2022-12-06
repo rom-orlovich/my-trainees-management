@@ -1,4 +1,9 @@
 @use "../../../../../../style/utilities/utilities.scss" as *;
 
 .food_nutrient_container {
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(157, 185, 236);
+    border-radius: 8px;
+  }
 }

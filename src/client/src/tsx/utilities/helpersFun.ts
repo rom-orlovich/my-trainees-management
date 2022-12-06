@@ -120,3 +120,4 @@ export const delayFun = (fun: (...arg: any[]) => any, timeout: number) =>
     }, timeout);
   });
 export const relativePath = (path: string) => `/${path}`;
+export const fixNum = (num: number, fix = 2) => Number(num.toFixed(fix));

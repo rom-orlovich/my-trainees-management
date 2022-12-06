@@ -45,6 +45,7 @@ export const insertMany = async <T>(tableName: string, arr: T[]) => {
   console.log(paramsArr);
   try {
     const res = await client.query(statement, paramsArr);
+
     return res;
   } catch (error) {
     logger.error(`LINE 48:${statement} : values:${JSON.stringify(paramsArr)}`, {
@@ -68,6 +69,9 @@ export const insertQuery = async (
 
   try {
     const res = await client.query(statement, paramsArr);
+    logger.debug(`LINE 72:${statement} : values:${JSON.stringify(paramsArr)}`, {
+      __filename,
+    });
     return res;
   } catch (error) {
     logger.error(`LINE 74:${statement} : values:${JSON.stringify(paramsArr)}`, {

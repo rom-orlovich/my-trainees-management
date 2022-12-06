@@ -39,7 +39,6 @@ export function NutritionMenusListForm({
         {({ register, formState }) => {
           const { date_start, date_end, note_topic, note_text } =
             formState.errors;
-          console.log(formState.errors);
           return (
             <>
               <InputLabel

@@ -54,7 +54,7 @@ function AutocompleteLi<T extends Record<string, any>>({
 
   return (
     <li onClick={handleLiClick} {...liProps} id={liID}>
-      {labelText}
+      {labelText.slice(0, 25)}
       {editOption && <AiFillEdit onClick={() => {}} className="editOption" />}
     </li>
   );

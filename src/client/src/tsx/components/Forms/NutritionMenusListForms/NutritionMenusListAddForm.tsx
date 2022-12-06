@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+
 import { nutritionMenusListApi } from "../../../redux/api/hooksAPI";
 import {
   NutritionMenuTableApi,

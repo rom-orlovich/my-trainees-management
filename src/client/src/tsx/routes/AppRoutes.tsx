@@ -46,6 +46,7 @@ import NutritionMenusListRoutes from "./NutritionMenusListRoutes";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
+
   return (
     <Routes>
       <Route path={APP_ROUTE.HOME_PAGE} element={<HomePage />}>

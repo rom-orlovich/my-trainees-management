@@ -106,11 +106,16 @@ const insertNewNutritionQuestionnaire = async (
     black_list_foods: JSON.stringify(nutritionQuestionnaire.black_list_foods),
     favorite_foods: JSON.stringify(nutritionQuestionnaire.favorite_foods),
   };
+  console.log(
+    "nutritionQuestionnaireStringify",
+    nutritionQuestionnaireStringify
+  );
 
   const insertNutritionQuestionnaireRes = await insertQueryOneItem(
     `${TABLES_DATA.NUTRITION_QUESTIONNAIRE_TABLE_NAME}`,
     nutritionQuestionnaireStringify,
     `ON CONFLICT (${TABLES_DATA.NUTRITION_QUESTIONNAIRE_ID}) DO UPDATE SET
+    ${TABLES_DATA.NUTRITION_QUESTIONNAIRE_ID}=excluded.${TABLES_DATA.NUTRITION_QUESTIONNAIRE_ID},
       allergens= excluded.allergens,
   black_list_foods=excluded.black_list_foods,
   favorite_foods=excluded.favorite_foods,
