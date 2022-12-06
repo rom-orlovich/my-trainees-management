@@ -1,26 +1,12 @@
 import { RequestHandler } from "express";
 import { deleteQuery } from "../../../PGSql/simpleSqlQueries";
-import { addToDate } from "../../../utilities/helpers";
+
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
 import { createNutritionMenu } from "../utilities/createNutritionMenu";
-import { NutritionQuestionnaire } from "../nutritionMenuServiceTypes";
 
-export const nutritionQuestionnaires: NutritionQuestionnaire = {
-  user_id: 2,
-  allergens: [],
-  black_list_foods: [],
-  favorite_foods: [344],
-  kosher: true,
-  isKeepMeatMilk: true,
-  is_vegan: false,
-  is_vegetarian: false,
-  profile_id: 3,
-  day_start: new Date(),
-  day_end: addToDate(new Date(), { hPlus: 15 }),
-  meals_calories_size_percents: [30, 50, 20],
-  diet_type: "neutral",
-};
+import { getNutritionQuestionnaire } from "../utilities/helpersDBNutritionMenu";
+
 const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
 export const logAlert = createLogAlertInfo(NUTRITION_MENU_NAME_DATA);
 
@@ -31,17 +17,35 @@ export const handleGenerateNutritionMenu: RequestHandler = async (
 ) => {
   try {
     const nutritionMenuID = Number(req.params.id);
+    const profileID = Number(req.query.profileID);
+    const nutritionQuestionnaireRes = await getNutritionQuestionnaire(
+      profileID
+    );
+
+    if (!nutritionQuestionnaireRes) {
+      req.logAlertInfo = logAlert(
+        undefined,
+        {
+          message: `The Nutrition Questionnaire is not found. Please Create One.`,
+        },
+        "create",
+        true
+      );
+      return next();
+    }
+
     await deleteQuery(
       `${TABLES_DATA.MEALS_TABLE_NAME} as m`,
       `using ${TABLES_DATA.NUTRITION_MENUS_MEALS_TABLE_NAME} as nmm
   where m.${TABLES_DATA.MEALS_ID} = nmm.${TABLES_DATA.MEALS_ID} and nmm.${TABLES_DATA.NUTRITION_MENUS_LIST_ID} = $1`,
       [nutritionMenuID]
     );
+
     const nutritionMenuRes = await createNutritionMenu(
       nutritionMenuID,
-      nutritionQuestionnaires
+      nutritionQuestionnaireRes
     );
-    // console.log(nutritionMenuRes);
+
     if (nutritionMenuRes)
       req.logAlertInfo = logAlert(
         {

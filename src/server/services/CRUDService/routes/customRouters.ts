@@ -30,7 +30,7 @@ import {
 import { createCRUDroutes } from "./createCRUDroutes";
 import { handleGenerateNutritionMenu } from "../../nutritionMenuService/controllers/handleGenerateNutritionMenu";
 import { handleGetNutritionMenu } from "../../nutritionMenuService/controllers/handleGetNutritionMenu";
-import { handleCreateNutritionQuestionnaire } from "../../nutritionMenuService/controllers/handleCreateNutritionQuestionnaire";
+import { handleCreateNutritionQuestionnaire } from "../../nutritionMenuService/controllers/helpersCreateNutritionQuestionnaire";
 
 export const createMeasuresRouter = () => {
   const {

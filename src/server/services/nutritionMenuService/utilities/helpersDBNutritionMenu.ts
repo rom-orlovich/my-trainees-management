@@ -2,6 +2,7 @@ import { readFileSync } from "fs";
 import {
   insertMany,
   insertQueryOneItem,
+  selectQuery,
 } from "../../../PGSql/simpleSqlQueries";
 import { NUTRITION_MENU_WITH_QUERY_FILE_PATH } from "../../../utilities/serverConstants";
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";
@@ -14,6 +15,17 @@ import {
   NutritionMenusMeals,
   NutritionQuestionnaire,
 } from "../nutritionMenuServiceTypes";
+
+export const getNutritionQuestionnaire = async (profileID: number) => {
+  const nutritionQuestionnaireRes = await selectQuery(
+    TABLES_DATA.NUTRITION_QUESTIONNAIRE_TABLE_NAME,
+    "",
+    `WHERE ${TABLES_DATA.PRODUCT_ID}=$1`,
+    [profileID]
+  );
+
+  return nutritionQuestionnaireRes[0];
+};
 
 export const insertNewNutritionMenuToDB = async (
   nutritionQuestionnaire: NutritionQuestionnaire

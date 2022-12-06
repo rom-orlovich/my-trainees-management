@@ -54,6 +54,8 @@ DROP TABLE IF EXISTS "meals_foods" CASCADE;
 
 DROP TABLE IF EXISTS "nutrition_menus_meals" CASCADE;
 
+DROP TABLE IF EXISTS "nutrition_questionnaires" CASCADE;
+
 CREATE TABLE
   IF NOT EXISTS "cities" ("city_id" serial PRIMARY KEY, "city_name" VARCHAR(255) UNIQUE NOT NULL, "district" VARCHAR(255), "population" INTEGER, "user_id" INTEGER DEFAULT 1);
 
@@ -397,8 +399,6 @@ CREATE TABLE
     "is_vegetarian" BOOLEAN,
     "user_id" INTEGER DEFAULT 1,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL ON UPDATE CASCADE
-    -- CONSTRAINT "kosher_type" CHECK ("kosher_type" IN ('פרווה', 'בשרי', 'חלבי')),
-    -- CONSTRAINT "nutrient_type" CHECK ("nutrient_type" IN ('proteins', 'fats', 'carbohydrates'))
   );
 
 CREATE TABLE
@@ -448,13 +448,13 @@ CREATE TABLE
   IF NOT EXISTS "nutrition_questionnaires" (
     "nutrition_questionnaire_id" serial PRIMARY KEY,
     "allergens" VARCHAR(50) ARRAY,
-    "black_list_foods" JSONB,
-    "favorite_foods" JSONB,
+    "black_list_foods" ARRAY JSONB,
+    "favorite_foods" ARRAY,
     "kosher" BOOLEAN,
     "is_vegan" BOOLEAN,
     "is_vegetarian" BOOLEAN,
-    "day_start" TIME,
-    "day_end" TIME,
+    "day_start" VARCHAR(20),
+    "day_end" VARCHAR(20),
     "meals_calories_size_percents" INTEGER ARRAY,
     "profile_id" INTEGER,
     "diet_type" VARCHAR,

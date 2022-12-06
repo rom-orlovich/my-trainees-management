@@ -97,13 +97,13 @@ export const getFoodsByNutritionQuestionnaireParams = async ({
   const checkKosherStr = kosher ? `and kosher=$3` : "";
   const checkIsVeganStr = is_vegan ? `and is_vegan=$4` : "";
   const checkIsVegetarianStr = is_vegetarian ? `and is_vegan=$5` : "";
-
+  const blackList = black_list_foods.map((el) => el.food_id);
   const foods = (await selectQuery(
     TABLES_DATA.FOODS_TABLE_NAME,
     "*",
     `where not food_id = any($1) and not allergens && $2 ${checkKosherStr}    
       ${checkIsVeganStr} ${checkIsVegetarianStr} `,
-    [black_list_foods, allergens, ...kosherArr, ...isVegan, ...isVegetarian]
+    [blackList, allergens, ...kosherArr, ...isVegan, ...isVegetarian]
   )) as Food[];
 
   return foods;

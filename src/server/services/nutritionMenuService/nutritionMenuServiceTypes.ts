@@ -18,21 +18,26 @@ export interface Meal {
 }
 
 export type DietTypes = "cutting" | "bulking" | "neutral";
-
+export interface FoodProps {
+  id?: string;
+  food_id: number;
+  food_name: string;
+}
 export interface NutritionQuestionnaire {
-  user_id: number;
+  nutrition_questionnaire_id?: number;
+  day_start: string;
+  day_end: string;
   allergens: string[];
-  black_list_foods: number[];
-  favorite_foods: number[];
-  profile_id: number;
-  day_start: Date;
-  day_end: Date;
-  kosher: boolean;
-  is_vegan: boolean;
-  is_vegetarian: boolean;
-  isKeepMeatMilk: boolean;
+  black_list_foods: FoodProps[];
+  favorite_foods: FoodProps[];
+  kosher?: boolean;
+  is_vegan?: boolean;
+  is_vegetarian?: boolean;
+  isKeepMeatMilk?: boolean;
   diet_type: DietTypes;
   meals_calories_size_percents: number[];
+  profile_id: number;
+  user_id: number;
 }
 
 export interface MealNutrientsCals {

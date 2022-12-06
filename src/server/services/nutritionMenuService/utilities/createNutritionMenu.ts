@@ -20,7 +20,10 @@ import {
   getFoodsByNutritionQuestionnaireParams,
   getLastMeasureByProfileID,
 } from "./helpersCreateNutritionMenu";
-import { insertNewFoodsInMeal, insertNewNutrientMenuMeal } from "./helpersDB";
+import {
+  insertNewFoodsInMeal,
+  insertNewNutrientMenuMeal,
+} from "./helpersDBNutritionMenu";
 import {
   Meal,
   NutrientCalsType,
@@ -66,7 +69,7 @@ export const createNutritionMenu = async (
     // Creates the potential menu foods divided by nutrients.
     const chosenFoodsNutrientsArrObj = createChosenFoodsNutrientsArr(
       foods,
-      favorite_foods
+      favorite_foods.map((el) => el.food_id)
     );
 
     // Iterates over each meal's data obj with the nutrients calories.

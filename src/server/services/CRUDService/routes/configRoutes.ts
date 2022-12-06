@@ -41,7 +41,7 @@ import {
   PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
 } from "../../usersPermission";
 import { OptionsCRUD } from "../CRUDServiceTypes";
-import { WITH_CLAUSE_GET_NUTRITION_MENU } from "../../nutritionMenuService/utilities/helpersDB";
+import { WITH_CLAUSE_GET_NUTRITION_MENU } from "../../nutritionMenuService/utilities/helpersDBNutritionMenu";
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
