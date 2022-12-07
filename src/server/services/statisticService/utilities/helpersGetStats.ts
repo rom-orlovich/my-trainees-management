@@ -85,10 +85,7 @@ export const getWeekRangeInMonthStr = (date: Date) => {
   const start = getDateLocal(addToDate(dateStartWeek, { dPlus: 1 }));
   const end = getDateLocal(addToDate(dateEndWeek, { dPlus: 1 }));
 
-  // const start = formatDate(new Date(date.setDate(curDay - remainder)));
-  // const end = formatDate(new Date(curDate.setDate(curDay + reminderDiff - 1)));
-
-  const str = `${start}-${end}`;
+  const str = `${start}`;
   return str;
 };
 
@@ -130,7 +127,7 @@ export const createWeeksRangeMonthObj = <
 
     weeksRangeMonthFinanceObj = {
       ...weeksRangeMonthFinanceObj,
-      [`${getDateLocal(dateStart)}-${getDateLocal(lastDate)}`]: {
+      [`${getDateLocal(dateStart)}`]: {
         ...initialObj,
       },
     };

@@ -22,9 +22,10 @@ p {
     .nutrients_details_container {
       @include flex-dir(space-around, null, row);
     }
-    h3 {
+    .total_cals_meal {
+      font-size: 1.4rem;
       text-align: center;
-      font-weight: 500;
+      font-weight: 600;
     }
   }
 }

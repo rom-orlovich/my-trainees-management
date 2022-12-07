@@ -29,7 +29,7 @@ function IncomeEventsBoard({
             style={{ textDecoration: "none" }}
             to={`/${APP_ROUTE.SCHEDULE_ROUTE}`}
           >
-            No upcoming events are found
+            No upcoming events were found
           </Link>
         }
         queryOptions={meetingApiOptions}

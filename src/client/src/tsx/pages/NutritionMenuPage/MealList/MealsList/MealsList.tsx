@@ -47,7 +47,10 @@ function MealsList({ meals }: { meals: MealDetails[] }) {
                 nutrientCalories={data.carbs_cals}
               />
             </div>
-            <h3> Total: {fixNum(calories_total)} Kcal</h3>
+
+            <h3 className={genClassName(style.total_cals_meal)}>
+              Total: {fixNum(calories_total)} Kcal
+            </h3>
           </li>
         )}
         dataArr={meals}
