@@ -38,7 +38,7 @@ function TraineeUserDetails({ className }: PropsBasic) {
           Edit Details
         </Link>
 
-        {!!profileID && (
+        {!!username && (
           <>
             <Link
               to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}

@@ -47,7 +47,7 @@ function MealsList({ meals }: { meals: MealDetails[] }) {
                 nutrientCalories={data.carbs_cals}
               />
             </div>
-            <h4> Total: {fixNum(calories_total)} Kcal</h4>
+            <h3> Total: {fixNum(calories_total)} Kcal</h3>
           </li>
         )}
         dataArr={meals}

@@ -11,7 +11,7 @@ import { API_ROUTES } from "../../redux/api/apiRoutes";
 
 function NutritionMenuPage() {
   const dispatch = useAppDispatch();
-  const { userID, profileID } = useGetUserTraineeData();
+  const { userID, profileID, isTrainee } = useGetUserTraineeData();
   const nutritionMenuID = Number(useParams().id);
 
   const [trigger, data] = nutritionMenuApi.useLazyGetGenerateMenuQuery();
@@ -29,37 +29,29 @@ function NutritionMenuPage() {
       )}
     >
       <div className={style.page_header}>
-        <span>
-          {
-            <button
-              onClick={() => {
-                trigger(queriesOptions)
-                  .unwrap()
-                  .then(() => {
-                    dispatch(
-                      nutritionMenuApi.util.invalidateTags([
-                        {
-                          type: API_ROUTES.NUTRITION_MENU_ENTITY,
-                          id: nutritionMenuID,
-                        },
-                      ])
-                    );
-                    dispatch(
-                      nutritionMenuApi.util.invalidateTags([
-                        {
-                          type: API_ROUTES.NUTRITION_MENU_ENTITY,
-                          id: "nutrition_menu_list",
-                        },
-                      ])
-                    );
-                  })
-                  .catch(console.log);
-              }}
-            >
-              Generate Menu
-            </button>
-          }
-        </span>
+        {!isTrainee && (
+          <span>
+            {
+              <button
+                onClick={() => {
+                  trigger(queriesOptions)
+                    .unwrap()
+                    .then(() => {
+                      console.log();
+                      dispatch(
+                        nutritionMenuApi.util.invalidateTags([
+                          API_ROUTES.NUTRITION_MENU_ENTITY,
+                        ])
+                      );
+                    })
+                    .catch(console.log);
+                }}
+              >
+                Generate Menu
+              </button>
+            }
+          </span>
+        )}
       </div>
       <div
         className={

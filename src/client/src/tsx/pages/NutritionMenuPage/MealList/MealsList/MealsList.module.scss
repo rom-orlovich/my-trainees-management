@@ -22,7 +22,7 @@ p {
     .nutrients_details_container {
       @include flex-dir(space-around, null, row);
     }
-    h4 {
+    h3 {
       text-align: center;
       font-weight: 500;
     }
@@ -36,7 +36,6 @@ p {
     .meals_details_container {
       h2 {
         padding-left: 1rem;
-
         font-size: 1.8rem;
       }
       .nutrients_details_container {

@@ -1,19 +1,25 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 
+@include classMatcher("Card_card_container") {
+  &:has(.meeting_details_container) {
+    min-width: 25vw;
+  }
+}
 .meeting_details_container {
   font-size: 1.2rem;
   padding-left: 1rem;
   text-align: left;
   h1 {
+    font-size: 1.7rem !important;
     margin-top: 0.5rem;
   }
 
   .meeting_details_content {
-    margin-top: 0.2rem;
+    margin-top: 0.4rem;
     @include flex-dir(null, flex-start, column);
-
     gap: 0.5rem;
     span {
+      font-size: 1.1rem;
       b {
         font-weight: 500;
       }
@@ -21,8 +27,9 @@
   }
   .button_submit {
     margin-top: 0.2rem;
+
     align-self: center;
-    @include button(rgb(114, 151, 224));
+    @include button(rgb(114, 151, 224), 0.4rem, 0.5rem);
     color: white;
     font-size: 1.2rem;
   }

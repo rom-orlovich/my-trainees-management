@@ -24,6 +24,7 @@ import { FoodListAddForm } from "./FoodsListAddForm";
 import { getNutritionQuestionnaireFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import { getFormsState } from "../../../../redux/slices/formValuesStateSlice";
+import { genClassName } from "../../../../utilities/helpersFun";
 
 export interface FoodProps {
   id?: string;
@@ -47,7 +48,7 @@ export function FoodsListForm({
   const fitterFormState = useAppSelector(getFilterFoodsFormState);
   const foodsList = useAppSelector(getNutritionQuestionnaireFormState);
   const { curParam } = useAppSelector(getModelControllerState);
-  const formState = useAppSelector(getFormsState);
+
   const {
     favoriteFoodsFilterForm: {
       serverQueryProps: { nutrientsValuesQueryParams, ...rest },
@@ -65,8 +66,7 @@ export function FoodsListForm({
       modelMode
       customButtonText="Save"
       saveState={true}
-      className={style.food_list_form_container}
-      // formProps={{ className: style.food_list_form_container }}
+      className={genClassName(style.food_list_form_container, curParam)}
       editMode={editMode}
       formOptions={{
         defaultValues: {
@@ -75,7 +75,7 @@ export function FoodsListForm({
         },
       }}
     >
-      {({ control, getValues }) => {
+      {({ control }) => {
         const { fields, append, remove } = useFieldArray({
           control,
           name: "foods",
@@ -86,8 +86,6 @@ export function FoodsListForm({
           ...rest,
           userID: user_id,
         };
-
-        const foods = [...fields];
 
         return (
           <>
@@ -125,7 +123,7 @@ export function FoodsListForm({
               />
             </div>
             <div className={style.chosen_food_list}>
-              <FoodsList remove={remove} foods={foods} />
+              <FoodsList remove={remove} foods={fields} />
             </div>
           </>
         );

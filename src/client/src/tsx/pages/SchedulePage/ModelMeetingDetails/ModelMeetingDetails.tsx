@@ -4,6 +4,7 @@ import React from "react";
 import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 import { meetingApi, participantsGroupApi } from "../../../redux/api/hooksAPI";
+import { capitalFirstLetter } from "../../../utilities/helpersFun";
 import style from "./ModelMeetingDetails.module.scss";
 
 function ModelMeetingDetails({ meetingID }: { meetingID: number }) {
@@ -49,7 +50,9 @@ function ModelMeetingDetails({ meetingID }: { meetingID: number }) {
         const { activity_name, date_end, date_start, street, city_name } = data;
         return (
           <div className={style.meeting_details_container}>
-            <h1> {activity_name} </h1>
+            <h1>
+              {activity_name?.split(" ").map(capitalFirstLetter).join(" ")}
+            </h1>
             <div className={style.meeting_details_content}>
               <span>
                 Start: <b>{formatDate(date_start, dateFormat)}</b>

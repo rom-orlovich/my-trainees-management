@@ -11,7 +11,6 @@ import {
   locationsSchema,
   subscriptionPlansSchema,
   musclesGroupSchema,
-  nutritionProgramSchema,
   nutritionMenusListSchema,
   providersSchema,
   traineesSchema,
@@ -41,7 +40,6 @@ import {
   PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
 } from "../../usersPermission";
 import { OptionsCRUD } from "../CRUDServiceTypes";
-import { WITH_CLAUSE_GET_NUTRITION_MENU } from "../../nutritionMenuService/utilities/helpersDBNutritionMenu";
 
 // The setting of the routes.
 // Each one contains the options CRUD and validate schema to validate
@@ -296,11 +294,7 @@ export const trainingProgramsExerciseStatsOptionsCRUD: OptionsCRUD = {
       exerciseID: TABLES_DATA.TRAINING_PROGRAM_ID,
     },
 
-    // comparisonQuery: { gt: "update_date", lt: "update_date" },
-
     comparisonQuery: {
-      updateDate_gt: "update_date",
-      updateDate_lt: "update_date",
       gt: "update_date",
       lt: "update_date",
     },
@@ -375,8 +369,6 @@ export const traineesOptionsCRUD: OptionsCRUD = {
     },
     // comparisonQuery: { gt: "date_join", lt: "date_join" },
     comparisonQuery: {
-      dateJoin_gt: "date_join",
-      dateJoin_lt: "date_join",
       gt: "date_join",
       lt: "date_join",
     },
@@ -424,13 +416,8 @@ export const incomesOptionsCRUD: OptionsCRUD = {
     queryParams: {
       userID: `inc.${TABLES_DATA.USERS_TABLE_ID}`,
     },
-    // comparisonQuery: {
-    // gt: "date",
-    // lt: "date",
-    // },
+
     comparisonQuery: {
-      date_gt: "date",
-      date_lt: "date",
       gt: "date",
       lt: "date",
     },
@@ -450,13 +437,8 @@ export const expensesOptionsCRUD: OptionsCRUD = {
     queryParams: {
       userID: `ex.${TABLES_DATA.USERS_TABLE_ID}`,
     },
-    // comparisonQuery: {
-    // gt: "date",
-    // lt: "date",
-    // },
+
     comparisonQuery: {
-      date_gt: "date",
-      date_lt: "date",
       gt: "date",
       lt: "date",
     },
@@ -578,13 +560,8 @@ export const meetingOptionsCRUD: OptionsCRUD = {
       userID: `mt.${TABLES_DATA.USERS_TABLE_ID}`,
       trainerUserID: `mt.${TABLES_DATA.USERS_TABLE_ID}`,
     },
-    // comparisonQuery: {
-    // gt: "date_start",
-    // lt: "date_end",
-    // },
+
     comparisonQuery: {
-      dateStart_gt: "date_start",
-      dateStart_lt: "date_end",
       gt: "date_start",
       lt: "date_end",
     },
@@ -648,6 +625,13 @@ export const nutritionMenusListOptionsCRUD: OptionsCRUD = {
     tableID: `nml.${TABLES_DATA.NUTRITION_MENUS_LIST_ID}`,
     fieldNamesQuery: `nml.*`,
     querySelectLogic: ``,
+    queryNameParam: {
+      mainName: "nml.note_topic",
+    },
+    queryParams: {
+      // userID: `nml.${TABLES_DATA.USERS_TABLE_ID}`,
+      profileID: `nml.${TABLES_DATA.PROFILE_ID}`,
+    },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: nutritionMenusListSchema,
@@ -659,6 +643,10 @@ export const nutritionMenuOptionsCRUD: OptionsCRUD = {
     tableID: `nmm.${TABLES_DATA.NUTRITION_MENUS_LIST_ID}`,
     fieldNamesQuery: `nmm.*`,
     querySelectLogic: ``,
+    queryParams: {
+      userID: `nml.${TABLES_DATA.USERS_TABLE_ID}`,
+      profileID: `nml.${TABLES_DATA.PROFILE_ID}`,
+    },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: nutritionMenuSchema,
@@ -670,6 +658,10 @@ export const nutritionQuestionnaireCRUD: OptionsCRUD = {
     tableID: `nq.${TABLES_DATA.NUTRITION_QUESTIONNAIRE_ID}`,
     fieldNamesQuery: `nq.*`,
     querySelectLogic: ``,
+    queryParams: {
+      userID: `nml.${TABLES_DATA.USERS_TABLE_ID}`,
+      profileID: `nml.${TABLES_DATA.PROFILE_ID}`,
+    },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
   validateSchema: nutritionQuestionnaireSchema,

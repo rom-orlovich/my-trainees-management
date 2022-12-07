@@ -118,8 +118,8 @@ export const getFoodsByNutritionQuestionnaireParams = async ({
   const foods = (await selectQuery(
     TABLES_DATA.FOODS_TABLE_NAME,
     "*",
-    `where not food_id = any($1) and not allergens && ($2) ${checkKosherStr}    
-      ${checkIsVeganStr} ${checkIsVegetarianStr} ORDER BY food_score`,
+    `WHERE NOT food_id = ANY($1) AND NOT allergens && ($2) ${checkKosherStr}    
+      ${checkIsVeganStr} ${checkIsVegetarianStr} ORDER BY food_score DESC`,
     [blackList, allergens, ...kosherArr, ...isVegan, ...isVegetarian]
   )) as Food[];
 

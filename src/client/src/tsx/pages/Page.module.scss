@@ -42,10 +42,10 @@
     p[class*="message_spinner"],
     p[class*="loading_spinner"] {
       position: absolute;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       display: inline;
       @include centerAbs();
-      @include posAbs(20% !important);
+      @include posAbs(35% !important);
     }
   }
 }

@@ -4,6 +4,8 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
 
 import useGetUserLoginData from "../../../../../hooks/useGetUserLoginData";
+import { useAppSelector } from "../../../../../redux/hooks";
+import { getNutritionQuestionnaireFormState } from "../../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import { GeneralFormProps } from "../../../../baseComponents/baseComponentsTypes";
 import ModelFormContainer from "../../../../baseComponents/Model/ModelFormContainer";
@@ -27,7 +29,11 @@ export function MealsCaloriesSizeForm({
 }: GeneralFormProps<MealsCaloriesSizeFormProps>) {
   const first = 33;
   let curIndex = 0;
-  const { current } = useRef(100 - first);
+  const {
+    displayInputsForm: {
+      mealsPercentsState: { inputsData },
+    },
+  } = useAppSelector(getNutritionQuestionnaireFormState);
   const ref = useRef<HTMLUListElement>(null);
   return (
     <Form<MealsCaloriesSizeFormProps>
@@ -39,12 +45,15 @@ export function MealsCaloriesSizeForm({
       editMode={editMode}
       formOptions={{
         defaultValues: {
+          mealsCaloriesPercents: inputsData.length
+            ? inputsData
+            : [{ percents: first }],
           ...defaultValues,
-          mealsCaloriesPercents: [{ percents: first }],
         },
       }}
     >
       {({ control, register }) => {
+        console.log(defaultValues);
         const { fields, append, remove } =
           useFieldArray<MealsCaloriesSizeFormProps>({
             control,

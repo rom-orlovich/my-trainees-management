@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { nutritionMenusListApi } from "../../redux/api/hooksAPI";
 import { NutritionMenuTableApi } from "../../redux/api/interfaceAPI";
-import NutritionMenusTable from "./NutritionMenusListTable";
+import NutritionMenusTable from "./MyNutritionMenusTable";
 
 import style from "../Page.module.scss";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
@@ -13,14 +13,16 @@ import { getAuthState } from "../../redux/slices/authSlice";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 export const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
-function NutritionMenusListPage() {
-  const { traineeID, userID, profileID } = useGetUserTraineeData();
+function MyNutritionMenusPage() {
+  const { traineeID, userID, trainerUserID, profileID } =
+    useGetUserTraineeData();
   const [nutritionMenu, setNutritionMenu] = useState<string[]>(["", ""]);
 
   const queriesOptions = {
     nutritionMenu,
-
+    traineeID,
     userID,
+    profileID,
   };
 
   return (
@@ -41,14 +43,6 @@ function NutritionMenusListPage() {
             },
           }}
         />
-
-        <span>
-          {profileID && (
-            <Link to={`${profileID}/${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}`}>
-              Add Menu
-            </Link>
-          )}
-        </span>
       </div>
       <div className={style.page_main_content}>
         <NutritionMenusTable
@@ -60,4 +54,4 @@ function NutritionMenusListPage() {
   );
 }
 
-export default NutritionMenusListPage;
+export default MyNutritionMenusPage;

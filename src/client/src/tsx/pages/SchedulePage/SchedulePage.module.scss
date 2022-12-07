@@ -27,7 +27,7 @@
   // For displaying events
   .event_container {
     font-size: 0.7rem;
-    // margin-top: 0rem;
+
     width: 100%;
     cursor: pointer;
     position: relative;
@@ -58,6 +58,9 @@
   @include classMatcher("fc-header-toolbar fc-toolbar ") {
     margin-bottom: 0.5rem !important;
     padding: 0 0.5rem;
+    @include classMatcher("fc-toolbar-title") {
+      font-weight: 500;
+    }
     // For focus on arrow buttons.
     @include classMatcher("fc-button-primary") {
       &:focus,

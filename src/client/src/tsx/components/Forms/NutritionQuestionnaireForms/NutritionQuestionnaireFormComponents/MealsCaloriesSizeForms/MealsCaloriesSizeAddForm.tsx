@@ -16,9 +16,9 @@ export function MealsCaloriesSizeAddForm() {
       0
     );
 
-    if (sum > 100)
+    if (sum !== 100)
       throw new Error(
-        "The maximum size of all meals percents together is 100%"
+        "The maximum percents of all meals together is must be 100%"
       );
     else dispatch(setMealsPercentsArr(body.mealsCaloriesPercents));
   };

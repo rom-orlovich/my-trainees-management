@@ -8,7 +8,7 @@ import { NutritionMenuTableApi } from "../../redux/api/interfaceAPI";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
-import { NUTRITION_MENU_NAME_DATA } from "./NutritionMenusListPage";
+import { NUTRITION_MENU_NAME_DATA } from "./MyNutritionMenusPage";
 
 const transformNutritionMenuList = ({
   date_start,

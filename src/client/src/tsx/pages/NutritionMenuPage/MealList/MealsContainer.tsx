@@ -1,7 +1,6 @@
 import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import { nutritionMenuApi } from "../../../redux/api/hooksAPI";
 
-import style from "./MealsContainer.module.scss";
 import MealsList from "./MealsList/MealsList";
 
 function MealsContainer({

@@ -36,6 +36,11 @@
   @include classMatcher("ModelCard_model_card") {
     &:has(.meals_calories_size_percents_form) {
       min-width: 25vw;
+      p {
+        width: 17rem;
+        text-align: center;
+        font-size: 1.1rem;
+      }
     }
   }
   .meals_calories_size_percents_form {

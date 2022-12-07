@@ -1,11 +1,8 @@
 /* eslint-disable camelcase */
 
-import { Link } from "react-router-dom";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { SelectInput } from "../../../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import useOnChangeInput from "../../../../hooks/useOnChangeInput";
-
-import { trainingProgramsListApi } from "../../../../redux/api/hooksAPI";
 
 import { genClassName } from "../../../../utilities/helpersFun";
 import { TraineeProfileProps } from "../TraineeProfile";

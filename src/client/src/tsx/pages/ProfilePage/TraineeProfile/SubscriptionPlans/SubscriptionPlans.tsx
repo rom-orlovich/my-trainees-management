@@ -46,7 +46,7 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
       )}
 
       <ListProfile
-        dataNotFoundEl={<> No subscription plans are found</>}
+        dataNotFoundEl={<> No subscription plans were found</>}
         heading="Subscription Plans"
         useQuery={subscriptionPlansApi.useGetItemsQuery}
         queryOptions={{

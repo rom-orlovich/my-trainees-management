@@ -8,7 +8,7 @@ with
             nutrition_menus_meals as nmm
             INNER join meals_foods as mf on mf.meal_id = nmm.meal_id
         where
-            nutrition_menu_id = $1
+            nutrition_menu_id = 2
     ),
     foods_w as (
         SELECT

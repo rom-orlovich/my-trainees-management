@@ -44,6 +44,7 @@ import FinanceStatsPage from "../pages/StatsPages/FinancesStatsPage/FinancesStat
 
 import NutritionMenusListRoutes from "./NutritionMenusListRoutes";
 import MeasureEditForm from "../components/Forms/MeasuresForms/MeasureEditForm";
+import MyNutritionMenusPage from "../pages/MyNutritionMenus/MyNutritionMenusPage";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -174,6 +175,10 @@ function AppRoutes() {
             <Route
               path={APP_ROUTE.MY_WORKOUTS_ROUTE}
               element={<MyWorkoutsPage />}
+            />
+            <Route
+              path={APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}
+              element={<MyNutritionMenusPage />}
             />
           </Route>
         </Route>

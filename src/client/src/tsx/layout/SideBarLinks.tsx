@@ -15,7 +15,7 @@ export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
   },
 
   {
-    to: APP_ROUTE.COMING_SOON,
+    to: APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE,
     text: "My Nutrition",
     icon: <IoNutritionSharp className={style.icon} />,
   },

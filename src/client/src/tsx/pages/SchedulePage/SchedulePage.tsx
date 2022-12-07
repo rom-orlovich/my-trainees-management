@@ -186,20 +186,22 @@ function SchedulePage() {
           handleWindowResize={true}
           longPressDelay={500}
         />
-        <BsFillPlusSquareFill
-          onClick={() => {
-            dispatch(changeModelAction);
+        {!isTrainee && (
+          <BsFillPlusSquareFill
+            onClick={() => {
+              dispatch(changeModelAction);
 
-            setQueryParams({
-              dateStart: String(
-                addToDate(new Date(), { dPlus: 0, minPlus: 0 }).getTime()
-              ),
-              dateEnd: "",
-              modelFormState: "add",
-            });
-          }}
-          className={style.float_add_meeting_button}
-        ></BsFillPlusSquareFill>
+              setQueryParams({
+                dateStart: String(
+                  addToDate(new Date(), { dPlus: 0, minPlus: 0 }).getTime()
+                ),
+                dateEnd: "",
+                modelFormState: "add",
+              });
+            }}
+            className={style.float_add_meeting_button}
+          />
+        )}
       </section>
     </>
   );
