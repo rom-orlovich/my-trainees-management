@@ -2,6 +2,7 @@
 import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
 import { usePaginationButtons } from "../../../hooks/usePaginationHook";
 import { ResponseQueryAPI } from "../../../redux/api/interfaceAPI";
@@ -36,7 +37,7 @@ export function TablePagination<T extends Record<string, any>>({
     usePaginationButtons();
   const dispatch = useAppDispatch();
   const pathName = useLocation().pathname;
-
+  const { isTrainee } = useGetUserTraineeData();
   useEffect(() => {
     dispatch(setPageState({ name: nameData, page: numPage }));
   }, [numPage, dispatch, nameData]);
@@ -73,7 +74,7 @@ export function TablePagination<T extends Record<string, any>>({
                 Th={Th}
                 Td={Td}
                 dataArr={transformData.data}
-                deleteItemFun={deleteItemFun}
+                deleteItemFun={!isTrainee ? deleteItemFun : undefined}
                 actions={actions}
                 openEditModel={openEditModel}
               />
