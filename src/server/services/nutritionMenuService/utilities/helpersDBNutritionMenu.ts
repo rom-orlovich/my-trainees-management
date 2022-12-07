@@ -88,154 +88,89 @@ export const insertNewNutrientMenuMeal = async (
     menuNutritionMealsObj
   );
 };
-export const WITH_CLAUSE_GET_NUTRITION_MENU = readFileSync(
-  NUTRITION_MENU_WITH_QUERY_FILE_PATH,
-  "utf-8"
-);
+// export const WITH_CLAUSE_GET_NUTRITION_MENU = readFileSync(
+//   NUTRITION_MENU_WITH_QUERY_FILE_PATH,
+//   "utf-8"
+// );
 
-// export const WITH_CLAUSE_GET_NUTRITION_MENU = `WITH
-// all_meals_food AS (
-//     SELECT
-//         *
-//     from
-//         meals_foods as mf
-//         INNER JOIN foods as f on mf.food_id = f.food_id
-// ),
-// pro AS (
-//     SELECT
-//         am.meal_id,
-//         am.food_name,
-//         am.food_amount
-//     from
-//         all_meals_food as am
-//     where
-//         nutrient_type = 'proteins'
-//     GROUP BY
-//         (am.meal_id, am.food_name, am.food_amount)
-// ),
-// fats AS (
-//     SELECT
-//         am.meal_id,
-//         am.food_name,
-//         am.food_amount
-//     from
-//         all_meals_food as am
-//     where
-//         nutrient_type = 'fats'
-//     GROUP BY
-//         (am.meal_id, am.food_name, am.food_amount)
-// ),
-// carbs AS (
-//     SELECT
-//         am.meal_id,
-//         am.food_name,
-//         am.food_amount
-//     from
-//         all_meals_food as am
-//     where
-//         nutrient_type = 'carbohydrates'
-//     GROUP BY
-//         (am.meal_id, am.food_name, am.food_amount)
-// ),
-// calories_nutrients AS (
-//     select
-//         nmm.meal_id,
-//         nmm.calories_total,
-//         nmm.protein_cals,
-//         nmm.fat_cals,
-//         nmm.carbs_cals
-//     from
-//         nutrition_menus_meals nmm
-//         INNER JOIN meals m on nmm.meal_id = m.meal_id
-// ),
-// meal AS (
-//     select
-//         mf.meal_id,
-//         json_build_object (
-//             'calories_total',
-//             (
-//                 select
-//                     calories_total
-//                 from
-//                     calories_nutrients
-//                 where
-//                     mf.meal_id = calories_nutrients.meal_id
-//             ),
-//             'protein_cals',
-//             (
-//                 select
-//                     protein_cals
-//                 from
-//                     calories_nutrients
-//                 where
-//                     mf.meal_id = calories_nutrients.meal_id
-//             ),
-//             'fat_cals',
-//             (
-//                 select
-//                     fat_cals
-//                 from
-//                     calories_nutrients
-//                 where
-//                     mf.meal_id = calories_nutrients.meal_id
-//             ),
-//             'carbs_cals',
-//             (
-//                 select
-//                     carbs_cals
-//                 from
-//                     calories_nutrients
-//                 where
-//                     mf.meal_id = calories_nutrients.meal_id
-//             ),
-//             'proteins',
-//             (
-//                 select
-//                     json_agg (pro)
-//                 from
-//                     pro
-//                 where
-//                     mf.meal_id = pro.meal_id
-//             ),
-//             'fats',
-//             (
-//                 select
-//                     json_agg (fats)
-//                 from
-//                     fats
-//                 where
-//                     mf.meal_id = fats.meal_id
-//             ),
-//             'carbs',
-//             (
-//                 select
-//                     json_agg (carbs)
-//                 from
-//                     carbs
-//                 where
-//                     mf.meal_id = carbs.meal_id
-//             )
-//         ) as meal_details
-//     from
-//         meals_foods mf
-//     GROUP BY
-//         (mf.meal_id)
-// ),
-// nutrition_menu AS (
-//     select
-//         nmm.nutrition_menu_id,
-//         json_build_object (
-//             'meals',
-//             (
-//                 select
-//                     json_agg (meal)
-//                 from
-//                     meal
-//             )
-//         ) as menu
-//     from
-//         nutrition_menus_meals nmm
-//         INNER JOIN meal m on m.meal_id = m.meal_id
-//     GROUP BY
-//         (nmm.nutrition_menu_id)
-// )`;
+export const WITH_CLAUSE_GET_NUTRITION_MENU = `with
+meals_foods_w as (
+    SELECT
+        nmm.*,
+        mf.food_id,
+        mf.food_amount
+    from
+        nutrition_menus_meals as nmm
+        INNER join meals_foods as mf on mf.meal_id = nmm.meal_id
+    where
+        nutrition_menu_id = $1
+),
+foods_w as (
+    SELECT
+        mfw.meal_id,
+        nutrient_type,
+        f.food_id,
+        food_name,
+        food_amount
+    from
+        meals_foods_w as mfw
+        INNER join foods as f on f.food_id = mfw.food_id
+),
+meals_foods_join AS (
+    SELECT
+        mfw.meal_id,
+        json_build_object (
+            'calories_total',
+            (mfw.calories_total),
+            'protein_cals',
+            (mfw.protein_cals),
+            'fat_cals',
+            (mfw.fat_cals),
+            'carbs_cals',
+            (mfw.carbs_cals),
+            'proteins',
+            (
+                select
+                    json_agg (json_build_object ('meal_id', fw.meal_id, 'food_id', fw.food_id, 'food_name', fw.food_name, 'food_amount', fw.food_amount))
+                from
+                    foods_w as fw
+                where
+                    nutrient_type = 'proteins'
+                    and mfw.meal_id = fw.meal_id
+            ),
+            'fats',
+            (
+                select
+                    json_agg (json_build_object ('meal_id', fw.meal_id, 'food_id', fw.food_id, 'food_name', fw.food_name, 'food_amount', fw.food_amount))
+                from
+                    foods_w as fw
+                where
+                    nutrient_type = 'fats'
+                    and mfw.meal_id = fw.meal_id
+            ),
+            'carbohydrates',
+            (
+                select
+                    json_agg (json_build_object ('meal_id', fw.meal_id, 'food_id', fw.food_id, 'food_name', fw.food_name, 'food_amount', fw.food_amount))
+                from
+                    foods_w as fw
+                where
+                    nutrient_type = 'carbohydrates'
+                    and mfw.meal_id = fw.meal_id
+            )
+        ) as meals_details
+    FROM
+        meals_foods_w as mfw
+    GROUP BY
+        (mfw.meal_id, mfw.calories_total, mfw.protein_cals, mfw.fat_cals, mfw.carbs_cals)
+    order by
+        mfw.meal_id asc
+)
+select
+nmm.nutrition_menu_id,
+json_agg (meals_details) as meals
+from
+meals_foods_join as mfj
+INNER JOIN nutrition_menus_meals as nmm on nmm.meal_id = mfj.meal_id
+GROUP BY
+(nmm.nutrition_menu_id)`;

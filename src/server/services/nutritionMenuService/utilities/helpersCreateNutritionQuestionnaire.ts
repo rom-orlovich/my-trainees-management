@@ -1,6 +1,9 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
+import { json } from "stream/consumers";
 import { insertQueryOneItem } from "../../../PGSql/simpleSqlQueries";
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";
+import { AnyFun } from "../../../utilities/types";
 import { NutritionQuestionnaireInsert } from "../controllers/helpersCreateNutritionQuestionnaire";
 import { NutritionQuestionnaire } from "../nutritionMenuServiceTypes";
 
@@ -14,14 +17,15 @@ const calUserNumMeals = (dayStart: string, dayEnd: string) => {
   return numMeals;
 };
 
-const createRandomMealsSizePercents = (numMeals: number) => {
+export const createRandomMealsSizePercents = (numMeals: number) => {
   let sumMealsPercents = 0;
   if (numMeals < 2)
     return { mealsSizePercentsArr: [100], sumMealsPercents: 100 };
 
   const mealsSizePercentsArr = [];
-  for (let i = 0; i <= numMeals; i++) {
+  for (let i = 0; i < numMeals; i++) {
     const randomMealSize = Math.floor(20 + Math.random() * 29);
+
     sumMealsPercents += randomMealSize;
     mealsSizePercentsArr.push(randomMealSize);
   }
@@ -29,46 +33,68 @@ const createRandomMealsSizePercents = (numMeals: number) => {
   return { sumMealsPercents, mealsSizePercentsArr };
 };
 
-const divideTheDiffFromEachMeals = (
-  diff: number,
+export const completeTheDiffInEachMeals = (
+  sumMealsPercents: number,
   mealsSizePercentsArr: number[]
 ) => {
-  const numMeals = mealsSizePercentsArr.length;
+  let newMealsSizePercentsArr = mealsSizePercentsArr.slice();
+  const diff = sumMealsPercents - 100;
+  const numMeals = newMealsSizePercentsArr.length;
   let newTotalMealsPercents = 0;
+
+  // Check if the diff is small than 5 and if it does just change the last meal.
+  const diffAbs = Math.abs(diff);
+  if (diffAbs < 5) {
+    newTotalMealsPercents = sumMealsPercents;
+    if (diff < 0) {
+      newMealsSizePercentsArr[numMeals - 1] += diffAbs;
+      newTotalMealsPercents += diffAbs;
+    } else {
+      newMealsSizePercentsArr[numMeals - 1] -= diffAbs;
+      newTotalMealsPercents -= diffAbs;
+    }
+    return {
+      newMealsSizePercentsArr,
+      newTotalMealsPercents,
+    };
+  }
+
   // The relative amount that will subtract from each meal.
-  const diffSubtract = Math.round(diff * (1 / numMeals));
+  const diffSubtract = Math.floor(Math.abs(diff * (1 / numMeals)));
+
   // Sum the newTotalMealsPercents and subtract from each meal the diffSubtract.s
-  const newMealsSizePercentsArr = mealsSizePercentsArr.map((el) => {
-    newTotalMealsPercents += el - diffSubtract;
-    return el - diffSubtract;
+  newMealsSizePercentsArr = newMealsSizePercentsArr.map((el) => {
+    const mealDiff = diff < 0 ? el + diffSubtract : el - diffSubtract;
+    newTotalMealsPercents += mealDiff;
+    return mealDiff;
   });
 
   return { newMealsSizePercentsArr, newTotalMealsPercents };
 };
 
-const balanceRandomMealsSizeToBeExact100 = (
-  mealsSizePercentsArr: number[],
-  sumMealsPercents: number
-) => {
-  const numMeals = mealsSizePercentsArr.length;
-  const diff = sumMealsPercents - 100;
-  // If sumMealsPercents is smaller than 100% just add the different.
-  if (diff < 0) {
-    mealsSizePercentsArr[numMeals - 1] += diff;
-    return mealsSizePercentsArr;
-  }
+export const balanceRandomMealsSizeToBeExact100 = (randomMealsSizePercentsObj: {
+  sumMealsPercents: number;
+  mealsSizePercentsArr: number[];
+}) => {
+  const { sumMealsPercents, mealsSizePercentsArr } = randomMealsSizePercentsObj;
 
-  const { newMealsSizePercentsArr, newTotalMealsPercents } =
-    divideTheDiffFromEachMeals(diff, mealsSizePercentsArr);
-  // Balance again if the newTotalMealsPercents is smaller than 100% so just increase the last meal in the diff.
-  const newDiff = 100 - newTotalMealsPercents;
-  if (newTotalMealsPercents < 100)
-    newMealsSizePercentsArr[numMeals - 1] += newDiff;
+  let newTotalMealsPercents;
+  let newMealsSizePercentsArr;
+  // If sumMealsPercents is smaller than 100% just add the relative different in each meal else subtract.
+  ({ newMealsSizePercentsArr, newTotalMealsPercents } =
+    completeTheDiffInEachMeals(sumMealsPercents, mealsSizePercentsArr));
+  while (newTotalMealsPercents !== 100) {
+    ({ newMealsSizePercentsArr, newTotalMealsPercents } =
+      completeTheDiffInEachMeals(
+        newTotalMealsPercents,
+        newMealsSizePercentsArr
+      ));
+  }
 
   return newMealsSizePercentsArr;
 };
 
-const createMealsSizePercents = (
+export const createMealsSizePercents = (
   nutritionQuestionnaireClient: NutritionQuestionnaire
 ) => {
   const { day_start, day_end, meals_calories_size_percents } =
@@ -80,16 +106,15 @@ const createMealsSizePercents = (
   const numMeals = calUserNumMeals(day_start, day_end);
 
   // Calculate randoms meals size percent array
-  let { sumMealsPercents, mealsSizePercentsArr } =
-    createRandomMealsSizePercents(numMeals);
+  const randomMealsSizePercentsObj = createRandomMealsSizePercents(numMeals);
 
   // Return if there is only 1 meal.
-  if (mealsSizePercentsArr.length === 1) return mealsSizePercentsArr;
+  if (randomMealsSizePercentsObj.mealsSizePercentsArr.length === 1)
+    return randomMealsSizePercentsObj.mealsSizePercentsArr;
 
   // Balance the percents of the meals to fill 100%.
-  mealsSizePercentsArr = balanceRandomMealsSizeToBeExact100(
-    mealsSizePercentsArr,
-    sumMealsPercents
+  const mealsSizePercentsArr = balanceRandomMealsSizeToBeExact100(
+    randomMealsSizePercentsObj
   );
 
   return mealsSizePercentsArr;

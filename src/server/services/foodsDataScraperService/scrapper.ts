@@ -11,7 +11,7 @@ import {
   RESULT_ADD
 } from "./constants";
 import { createNationalProductsNamesDB } from "./createNationalProductsNamesDB";
-import { CronCachedData } from "./types";
+import { CronCachedData } from "./foodsDataScraperServiceTypes";
 import {
   createFoodsListLinksDB,
   createFoodsDetailsDB

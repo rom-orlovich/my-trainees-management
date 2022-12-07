@@ -1,7 +1,7 @@
 import { writeFile, readFile } from "fs/promises";
 import axios from "axios";
 
-import { FoodNameDB, ResDataBaseFood } from "./types";
+import { FoodNameDB, ResDataBaseFood } from "./foodsDataScraperServiceTypes";
 import {
   FILES_PATH,
   JSON_ENCODING_DEFAULT,
