@@ -1,19 +1,27 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import { json } from "stream/consumers";
+
 import { insertQueryOneItem } from "../../../PGSql/simpleSqlQueries";
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";
-import { AnyFun } from "../../../utilities/types";
+import { HOURS_BETWEEN_MEALS } from "../constants";
+
 import { NutritionQuestionnaireInsert } from "../controllers/helpersCreateNutritionQuestionnaire";
 import { NutritionQuestionnaire } from "../nutritionMenuServiceTypes";
 
-const calUserNumMeals = (dayStart: string, dayEnd: string) => {
+export const calUserNumMeals = (
+  dayStart: string,
+  dayEnd: string,
+  hourBetweenMeals = HOURS_BETWEEN_MEALS
+) => {
   const [hoursStart, minStart] = dayStart.split(":").map(Number);
   const [hoursEnd, minEnd] = dayEnd.split(":").map(Number);
+
   const calDiffHoursBetween = Math.floor(
     (hoursEnd * 60 + minEnd - (hoursStart * 60 + minStart)) / 60
   );
-  const numMeals = calDiffHoursBetween / 4;
+
+  const numMeals = Math.floor(calDiffHoursBetween / hourBetweenMeals);
+
   return numMeals;
 };
 
@@ -94,8 +102,15 @@ export const balanceRandomMealsSizeToBeExact100 = (randomMealsSizePercentsObj: {
   return newMealsSizePercentsArr;
 };
 
-export const createMealsSizePercents = (
-  nutritionQuestionnaireClient: NutritionQuestionnaire
+export const createMealsSizePercents = <
+  T extends {
+    day_start: string;
+    day_end: string;
+    meals_calories_size_percents: number[];
+  }
+>(
+  nutritionQuestionnaireClient: T,
+  hourBetweenMeals = HOURS_BETWEEN_MEALS
 ) => {
   const { day_start, day_end, meals_calories_size_percents } =
     nutritionQuestionnaireClient;
@@ -103,7 +118,7 @@ export const createMealsSizePercents = (
   if (meals_calories_size_percents.length) return meals_calories_size_percents;
 
   // Calculate the time the user is active during a day and define how many meals is needed.
-  const numMeals = calUserNumMeals(day_start, day_end);
+  const numMeals = calUserNumMeals(day_start, day_end, hourBetweenMeals);
 
   // Calculate randoms meals size percent array
   const randomMealsSizePercentsObj = createRandomMealsSizePercents(numMeals);

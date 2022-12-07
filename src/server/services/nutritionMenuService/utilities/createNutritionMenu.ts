@@ -18,7 +18,6 @@ import {
   createMealsNutrientsCalsDistribution,
   createMoreMealFoodsNutrientsForEachDisqualifiedFood,
   getFoodsByNutritionQuestionnaireParams,
-  getLastMeasureByProfileID,
 } from "./helpersCreateNutritionMenu";
 import {
   insertNewFoodsInMeal,
@@ -40,9 +39,9 @@ export const createNutritionMenu = async (
     isKeepMeatMilk,
     favorite_foods,
     meals_calories_size_percents,
-    profile_id,
+
     user_id,
-    // diet_type,
+    diet_type,
   } = nutritionQuestionnaire;
   try {
     await client.query("BEGIN");
@@ -62,11 +61,17 @@ export const createNutritionMenu = async (
         lastMeasure,
         meals_calories_size_percents
       );
+    // Check the type diet of the trainee.
+    // Trainee with diet_type of 'cutting' will get food with low foods density
+    // while those tha their diet_type is 'bulking' will get foods with heigh food density.
+    const checkSortByDietType =
+      diet_type === "neutral" ? undefined : diet_type === "cutting";
 
     // Creates the potential menu foods divided by nutrients.
     const chosenFoodsNutrientsArrObj = createChosenFoodsNutrientsArr(
       foods,
-      favorite_foods.map((el) => el.food_id)
+      favorite_foods.map((el) => el.food_id),
+      checkSortByDietType
     );
 
     // Iterates over each meal's data obj with the nutrients calories.

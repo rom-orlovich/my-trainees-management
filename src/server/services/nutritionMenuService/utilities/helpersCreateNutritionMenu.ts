@@ -119,7 +119,7 @@ export const getFoodsByNutritionQuestionnaireParams = async ({
     TABLES_DATA.FOODS_TABLE_NAME,
     "*",
     `where not food_id = any($1) and not allergens && ($2) ${checkKosherStr}    
-      ${checkIsVeganStr} ${checkIsVegetarianStr} `,
+      ${checkIsVeganStr} ${checkIsVegetarianStr} ORDER BY food_score`,
     [blackList, allergens, ...kosherArr, ...isVegan, ...isVegetarian]
   )) as Food[];
 
@@ -127,18 +127,26 @@ export const getFoodsByNutritionQuestionnaireParams = async ({
 };
 
 // Gets the food with the best score.
-export const getBestNutrientsFoods = (foods: Food[], amount = 100) => {
-  const prepareMostFoodScoreByAmount = (foods: Food[], amount = 100) =>
-    sortArrObjBy(foods, "food_score", false).slice(0, amount);
+export const getBestNutrientsFoods = (
+  foods: Food[],
+  checkSortByDietType?: boolean,
+  amount = NUM_FOODS_FOR_EACH_NUTRIENTS
+) => {
+  const prepareFoodByFoodDensity = (foods: Food[]) =>
+    sortArrObjBy(foods, "food_density", checkSortByDietType);
 
-  const getMostFoodsScoreByAmount = (nutrientType: NutrientsTypes) =>
-    prepareMostFoodScoreByAmount(
-      filterArrObjBy(foods, "nutrient_type", [nutrientType]),
-      amount
-    );
-  const proteinsFromFoodDbRes = getMostFoodsScoreByAmount("proteins");
-  const carbsFromFoodDbRes = getMostFoodsScoreByAmount("carbohydrates");
-  const fatsFromFoodDbRes = getMostFoodsScoreByAmount("fats");
+  const getFoodsByNutrient = (nutrientType: NutrientsTypes) => {
+    const filterByNutrient = filterArrObjBy(foods, "nutrient_type", [
+      nutrientType,
+    ]).slice(0, amount);
+
+    if (checkSortByDietType === undefined) return filterByNutrient;
+    return prepareFoodByFoodDensity(filterByNutrient);
+  };
+
+  const proteinsFromFoodDbRes = getFoodsByNutrient("proteins");
+  const carbsFromFoodDbRes = getFoodsByNutrient("carbohydrates");
+  const fatsFromFoodDbRes = getFoodsByNutrient("fats");
 
   return { proteinsFromFoodDbRes, carbsFromFoodDbRes, fatsFromFoodDbRes };
 };
@@ -179,10 +187,11 @@ export const createFavoriteFoodsNutrientsArr = (
 // Creates the potential menu foods divided by nutrients
 export const createChosenFoodsNutrientsArr = (
   foods: Food[],
-  favoriteFoods: number[]
+  favoriteFoods: number[],
+  checkSortByDietType?: boolean
 ) => {
   const { carbsFromFoodDbRes, fatsFromFoodDbRes, proteinsFromFoodDbRes } =
-    getBestNutrientsFoods(foods, NUM_FOODS_FOR_EACH_NUTRIENTS);
+    getBestNutrientsFoods(foods, checkSortByDietType);
 
   const {
     carbsFromFavoriteFood,

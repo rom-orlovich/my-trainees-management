@@ -1,6 +1,8 @@
 import {
   balanceRandomMealsSizeToBeExact100,
+  calUserNumMeals,
   completeTheDiffInEachMeals,
+  createMealsSizePercents,
   createRandomMealsSizePercents,
 } from "../utilities/helpersCreateNutritionQuestionnaire";
 
@@ -40,5 +42,22 @@ describe("helpersCreateNutritionQuestionnaire", () => {
     expect(newMealsSizePercentsArr.reduce((pre, cur) => pre + cur, 0)).toBe(
       100
     );
+  });
+
+  it("test createMealsSizePercents", () => {
+    const numMeals = calUserNumMeals("11:35", "22:10");
+    expect(numMeals).toBe(2);
+    let res = createMealsSizePercents({
+      day_start: "11:35",
+      day_end: "22:10",
+      meals_calories_size_percents: [],
+    });
+    expect(res.length).toBe(2);
+    res = createMealsSizePercents({
+      day_start: "11:35",
+      day_end: "22:10",
+      meals_calories_size_percents: [100],
+    });
+    expect(res.length).toBe(1);
   });
 });
