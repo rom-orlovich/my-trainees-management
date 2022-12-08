@@ -31,13 +31,19 @@ function TrainingProgramsTable({
   traineeID,
   queriesOptions,
   nameData,
+  actions,
 }: { traineeID: number; nameData?: string } & {
   queriesOptions?: Record<string, any>;
+  actions?: {
+    edit?: boolean | undefined;
+    delete?: boolean | undefined;
+  };
 }) {
   const [deleteItem] = trainingProgramsListApi.useDeleteItemMutation();
 
   return (
     <TablePagination
+      actions={actions}
       transformFun={transformTrainingProgramList}
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       queriesOptions={{ traineeID, ...queriesOptions }}

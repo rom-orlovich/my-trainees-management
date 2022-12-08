@@ -86,7 +86,7 @@ export const TRAINEE_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
         text: "Update Exercise",
       },
       {
-        to: APP_ROUTE.COMING_SOON,
+        to: APP_ROUTE.MEASURES_ROUTE,
         text: "Add Weighing",
       },
     ],

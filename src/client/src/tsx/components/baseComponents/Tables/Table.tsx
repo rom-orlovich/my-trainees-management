@@ -52,7 +52,11 @@ function Table<T extends Record<string, any>>({
           {keys.map((el, i) => (
             <TH key={i} value={el} />
           ))}
-          {actions ? <TH key={keys.length + 1} value={"Action"} /> : <></>}
+          {actions?.edit || actions.delete ? (
+            <TH key={keys.length + 1} value={"Action"} />
+          ) : (
+            <></>
+          )}
         </tr>
       </thead>
       <tbody>
@@ -66,7 +70,7 @@ function Table<T extends Record<string, any>>({
                 <TD fitTh={keys[col]} key={`${value}${col}`} value={value} />
               ))}
 
-              {actions && (
+              {(actions?.edit || actions.delete) && (
                 <td data-label="Actions">
                   <span className={`${style.actions}`}>
                     {actions?.edit && (

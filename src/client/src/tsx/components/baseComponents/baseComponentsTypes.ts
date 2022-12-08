@@ -65,8 +65,8 @@ export interface ListProps<T extends Record<string, any>>
   LI: LiComponentProps<T>;
 }
 export interface TableAction {
-  element: ReactNode;
-  fun: AnyFun;
+  edit?: boolean;
+  delete?: boolean;
 }
 export interface TableProps<T> extends ComponentWithArray<T> {
   Th?: (props: ThProps) => JSX.Element;

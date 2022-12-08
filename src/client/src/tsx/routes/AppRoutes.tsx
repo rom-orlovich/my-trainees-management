@@ -38,12 +38,14 @@ import { ExpenseAddForm } from "../components/Forms/ExpenseForms/ExpenseAddForm"
 import SchedulePage from "../pages/SchedulePage/SchedulePage";
 import ParticipantsGroupPage from "../pages/ParticipantsGroupPage/ParticipantsGroupPage";
 import TraineeStatsPage from "../pages/StatsPages/TraineeStatsPage/TraineeStatsPage";
-import InsteadOutletRoutes from "./utilities/InsteadOutletRoutes";
+
 import LeadsStatsPage from "../pages/StatsPages/LeadsStatsPage/LeadsStatsPage";
 import FinanceStatsPage from "../pages/StatsPages/FinancesStatsPage/FinancesStatsPage";
 
 import NutritionMenusListRoutes from "./NutritionMenusListRoutes";
-import MeasureEditForm from "../components/Forms/MeasuresForms/MeasureEditForm";
+import MeasureEditForm, {
+  MeasureEditFormNavigate,
+} from "../components/Forms/MeasuresForms/MeasureEditForm";
 import MyNutritionMenusPage from "../pages/MyNutritionMenus/MyNutritionMenusPage";
 import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
 import NutritionQuestionnaireEditForm from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireEditForm";
@@ -70,19 +72,14 @@ function AppRoutes() {
             element={<ComingSoonPage />}
           />
 
-          <Route path={APP_ROUTE.TRAINEES_ROUTE}>
-            <Route path=":id" element={<TraineeEditForm />} />
-          </Route>
-          <Route
-            path={APP_ROUTE.PROFILE_ROUTE}
-            element={
-              <InsteadOutletRoutes
-                InsteadOutletRoutesPaths={APP_ROUTE.PROFILE_ROUTE}
-              >
-                <ProfilePage />
-              </InsteadOutletRoutes>
-            }
-          >
+          {isTrainee && (
+            <Route
+              path={`${APP_ROUTE.TRAINEES_ROUTE}/:id`}
+              element={<TraineeEditForm />}
+            />
+          )}
+
+          <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />}>
             <Route
               element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
             >
@@ -114,21 +111,25 @@ function AppRoutes() {
             </Route>
           </Route>
 
-          <Route
-            path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/*`}
-            element={<TrainingProgramListRoutes />}
-          />
-          <Route
-            path={`${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/*`}
-            element={<NutritionMenusListRoutes />}
-          />
           <Route path={APP_ROUTE.MEASURES_ROUTE}>
-            <Route path={APP_ROUTE.MEASURE_ADD} element={<MeasureAddForm />} />
+            <Route path={""} element={<MeasureEditFormNavigate />} />
             <Route
               path={APP_ROUTE.MEASURE_EDIT}
               element={<MeasureEditForm />}
             />
+            <Route path={APP_ROUTE.MEASURE_ADD} element={<MeasureAddForm />} />
           </Route>
+
+          <Route
+            path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/*`}
+            element={<TrainingProgramListRoutes />}
+          />
+
+          <Route
+            path={`${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/*`}
+            element={<NutritionMenusListRoutes />}
+          />
+
           <Route path={APP_ROUTE.SCHEDULE_ROUTE}>
             <Route index element={<SchedulePage />} />
           </Route>

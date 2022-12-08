@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React from "react";
 import { Link } from "react-router-dom";
+import { TableAction } from "../../components/baseComponents/baseComponentsTypes";
 
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { nutritionMenusListApi } from "../../redux/api/hooksAPI";
@@ -37,14 +38,17 @@ function NutritionMenusTable({
   queriesOptions,
   mainName,
   nameData,
+  actions,
 }: { nameData?: string } & {
   queriesOptions?: Record<string, any>;
   mainName: string;
+  actions?: TableAction;
 }) {
   const [deleteItem] = nutritionMenusListApi.useDeleteItemMutation();
 
   return (
     <TablePagination
+      actions={actions}
       transformFun={transformNutritionMenuList}
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
       queriesOptions={{ ...queriesOptions, mainName }}

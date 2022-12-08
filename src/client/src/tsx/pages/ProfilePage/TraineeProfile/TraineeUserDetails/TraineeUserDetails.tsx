@@ -13,8 +13,7 @@ import { genClassName } from "../../../../utilities/helpersFun";
 import style from "../../UserDetailsStyle/UserDetails.module.scss";
 
 function TraineeUserDetails({ className }: PropsBasic) {
-  const { profileID, traineeID, username, userID, isTrainee } =
-    useGetUserTraineeData();
+  const { profileID, traineeID, username, userID } = useGetUserTraineeData();
   const [trigger] = emailAPi.useLazyResendEmailQuery();
   const queryOptions = { userID, profileID, traineeID };
   return (
@@ -41,11 +40,10 @@ function TraineeUserDetails({ className }: PropsBasic) {
 
         {!!username && (
           <>
-            <Link
-              to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}
-            >
+            <Link to={`/${APP_ROUTE.MEASURES_ROUTE}?profileID=${profileID}`}>
               Edit Measures
             </Link>
+
             <Link
               style={{ fontSize: "1.1rem" }}
               to={`${`/${APP_ROUTE.PROFILE_ROUTE}/`}${

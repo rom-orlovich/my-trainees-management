@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
 
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
@@ -63,6 +64,18 @@ function MeasureEditForm() {
         );
       }}
     </LoadingSpinner>
+  );
+}
+
+export function MeasureEditFormNavigate() {
+  const location = useLocation();
+  const { profileID, username } = useGetUserTraineeData();
+  return (
+    <Navigate
+      to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}
+      replace={true}
+      state={{ state: location }}
+    />
   );
 }
 

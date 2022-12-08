@@ -45,6 +45,7 @@ function MyWorkoutsPage() {
           traineeID={Number(userData.authState.user?.trainee_id || 0)}
           queriesOptions={queriesOptions}
           nameData="Workout"
+          actions={{ delete: false, edit: false }}
         />
       </div>
     </section>

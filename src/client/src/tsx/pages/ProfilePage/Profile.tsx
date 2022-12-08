@@ -3,14 +3,22 @@ import { Navigate } from "react-router-dom";
 import useCheckRole from "../../hooks/useCheckRole";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import TraineeProfile from "./TraineeProfile/TraineeProfile";
 import TrainerProfile from "./TrainerProfile/TrainerProfile";
 
-function ProfilePage() {
+function Profile() {
   const { isTrainee, isTrainer } = useCheckRole();
   if (isTrainee) return <TraineeProfile />;
   if (isTrainer) return <TrainerProfile />;
-  return <Navigate to={`/${APP_ROUTE.COMING_SOON}`}></Navigate>;
+  return <Navigate to={`/${APP_ROUTE.COMING_SOON}`} />;
 }
 
+function ProfilePage() {
+  return (
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.PROFILE_ROUTE}>
+      <Profile />
+    </InsteadOutletRoutes>
+  );
+}
 export default ProfilePage;
