@@ -24,7 +24,7 @@ function Table<T extends Record<string, any>>({
   editPagePath,
   deleteItemFun,
   openEditModel,
-  actions = true,
+  actions = { edit: true, delete: true },
 }: TableProps<T> & {
   editPagePath: string;
   openEditModel?: (id: any) => void;
@@ -69,7 +69,7 @@ function Table<T extends Record<string, any>>({
               {actions && (
                 <td data-label="Actions">
                   <span className={`${style.actions}`}>
-                    {
+                    {actions?.edit && (
                       <Link
                         onClick={(e) => {
                           if (openEditModel) {
@@ -83,8 +83,9 @@ function Table<T extends Record<string, any>>({
                       >
                         <FaEdit className={style.iconEdit} />
                       </Link>
-                    }
-                    {deleteItemFun && (
+                    )}
+
+                    {actions?.delete && (
                       <AiFillDelete
                         onClick={() =>
                           deleteItemFun && deleteItemFun(values[0])

@@ -20,15 +20,11 @@ import {
   submitBlackListFoods,
   submitFavoriteFoods,
 } from "../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
-import { NutritionQuestionnaireFormState } from "../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormsSliceTypes";
+
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
-import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
-import {
-  addFunction,
-  updateFunction,
-} from "../../baseComponents/RHF-Components/FormsHook";
+import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 
 import MeasureForm from "../MeasuresForms/MeasureForms";
 import { AllergensListType } from "./AllergensForm/constants";
@@ -94,7 +90,6 @@ function NutritionQuestionnaireEditForm() {
           is_vegan,
           is_vegetarian,
           diet_type,
-          ...rest
         } = lastData;
         const handleSubmit = (body: NutritionQuestionnaire) =>
           addFunction({

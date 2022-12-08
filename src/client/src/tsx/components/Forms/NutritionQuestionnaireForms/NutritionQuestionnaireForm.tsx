@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { format } from "date-fns";
 
-import { useParams, useSearchParams } from "react-router-dom";
+
 
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 

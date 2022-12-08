@@ -1,4 +1,3 @@
-import { FieldValues } from "react-hook-form";
 import { genClassName } from "../../../../utilities/helpersFun";
 
 import Checkbox, { CheckBox } from "./Checkbox";

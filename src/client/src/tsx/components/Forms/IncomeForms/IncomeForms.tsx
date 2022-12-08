@@ -144,24 +144,6 @@ export function IncomeForms({
             >
               <InputErrorMessage nameInput="Amount" error={errors.amount} />
             </InputLabel>
-            <InputLabel
-              InputProps={{ ...register("note_topic") }}
-              LabelProps={{
-                htmlFor: "note_topic",
-                labelText: "Topic",
-              }}
-            >
-              <InputErrorMessage nameInput="Topic" error={errors.note_topic} />
-            </InputLabel>
-            <InputLabel
-              TextAreaProps={{ ...register("note_text") }}
-              LabelProps={{
-                htmlFor: "note_text",
-                labelText: "Text",
-              }}
-            >
-              <InputErrorMessage nameInput="Text" error={errors.note_text} />
-            </InputLabel>
 
             <InputLabel
               InputProps={{
@@ -179,6 +161,26 @@ export function IncomeForms({
                 nameInput="Total Price"
                 error={errors.total_price}
               />
+            </InputLabel>
+
+            <InputLabel
+              InputProps={{ ...register("note_topic") }}
+              LabelProps={{
+                htmlFor: "note_topic",
+                labelText: "Topic",
+              }}
+            >
+              <InputErrorMessage nameInput="Topic" error={errors.note_topic} />
+            </InputLabel>
+
+            <InputLabel
+              TextAreaProps={{ ...register("note_text") }}
+              LabelProps={{
+                htmlFor: "note_text",
+                labelText: "Text",
+              }}
+            >
+              <InputErrorMessage nameInput="Text" error={errors.note_text} />
             </InputLabel>
           </>
         );

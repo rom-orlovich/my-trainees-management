@@ -72,7 +72,10 @@ export interface TableProps<T> extends ComponentWithArray<T> {
   Th?: (props: ThProps) => JSX.Element;
   Td?: (props: TdProps) => JSX.Element;
   deleteItemFun?: (id: string) => void;
-  actions?: TableAction[] | boolean;
+  actions?: {
+    edit?: boolean;
+    delete?: boolean;
+  };
 }
 export type FormProps = Partial<
   React.DetailedHTMLProps<

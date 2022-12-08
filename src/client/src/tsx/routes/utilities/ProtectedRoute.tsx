@@ -1,13 +1,8 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-import { useAppSelector } from "../../redux/hooks";
-import { getAuthState } from "../../redux/slices/authSlice";
-import { APP_ROUTE } from "../appRoutesConstants";
-
 function ProtectedRoute({ allowedRole }: { allowedRole: boolean }) {
-  const authState = useAppSelector(getAuthState);
   const location = useLocation();
-
+  console.log(allowedRole);
   return allowedRole ? (
     <Outlet />
   ) : (

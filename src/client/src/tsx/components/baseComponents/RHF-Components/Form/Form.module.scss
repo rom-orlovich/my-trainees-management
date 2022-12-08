@@ -16,7 +16,7 @@ label[class*="selectInput_label"] {
 label[class*="textarea_label"] {
   @include flex-dir(null, null, column);
   width: 100%;
-  max-width: 100%;
+  // max-width: 100%;
 }
 
 %input {

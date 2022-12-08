@@ -38,7 +38,7 @@ function TrainingProgramsExerciseStatsList({
   return (
     <TablePagination
       transformFun={transformTrainingProgramList}
-      actions={false}
+      actions={undefined}
       queriesOptions={queriesOptions}
       editPagePath={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${params["*"]}`}
       nameData={nameData || "Exercise Stats"}

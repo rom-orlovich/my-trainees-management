@@ -2,6 +2,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 
 import { TraineesBaseTableAPI } from "../../../redux/api/interfaceAPI";
@@ -12,11 +13,11 @@ import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TraineeForm from "./TraineeForm";
 
 export function TraineeEditForm({ heading }: { heading?: string }) {
-  const id = Number(useParams().id);
+  const { traineeID } = useGetUserTraineeData();
   const [updateTrainee] = traineesApi.useUpdateItemMutation();
   const { data, isError, isFetching, isLoading } =
     traineesApi.useGetItemByIDQuery({
-      id,
+      id: traineeID,
       trainerUserID: useGetUserLoginData().user_id,
     });
 

@@ -28,7 +28,6 @@ export function ExpenseForms({
       editMode={editMode}
       onSubmit={onSubmit}
       nameForm="Expense"
-      pathMove={``}
       formOptions={{
         defaultValues: {
           user_id: authState.user_id,
@@ -131,7 +130,23 @@ export function ExpenseForms({
                 error={errors.seller_name}
               />
             </InputLabel>
-
+            <InputLabel
+              InputProps={{
+                ...register("total_price"),
+                type: "number",
+                step: 1,
+                defaultValue: 0,
+              }}
+              LabelProps={{
+                htmlFor: "total_price",
+                labelText: "Total Price(NIS)",
+              }}
+            >
+              <InputErrorMessage
+                nameInput="Total Price"
+                error={errors.total_price}
+              />
+            </InputLabel>
             <InputLabel
               InputProps={{ ...register("note_topic") }}
               LabelProps={{
@@ -150,24 +165,6 @@ export function ExpenseForms({
               }}
             >
               <InputErrorMessage nameInput="Text" error={errors.note_text} />
-            </InputLabel>
-
-            <InputLabel
-              InputProps={{
-                ...register("total_price"),
-                type: "number",
-                step: 1,
-                defaultValue: 0,
-              }}
-              LabelProps={{
-                htmlFor: "total_price",
-                labelText: "Total Price(NIS)",
-              }}
-            >
-              <InputErrorMessage
-                nameInput="Total Price"
-                error={errors.total_price}
-              />
             </InputLabel>
           </>
         );

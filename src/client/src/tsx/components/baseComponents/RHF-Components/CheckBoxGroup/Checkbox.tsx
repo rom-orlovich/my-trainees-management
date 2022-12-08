@@ -4,7 +4,7 @@ import { genClassName } from "../../../../utilities/helpersFun";
 
 import { InputLabel, InputProps, LabelProps } from "../InputLabel/InputLabel";
 
-import style from "./CheckboxGroup.module.scss";
+import style from "../GroupInputs.module.scss";
 
 export interface CheckBox {
   InputProps?: InputProps;
@@ -16,7 +16,7 @@ function Checkbox({ InputProps, LabelProps, register }: CheckBox) {
     <InputLabel
       LabelProps={{
         ...LabelProps,
-        className: genClassName(LabelProps?.className),
+        className: genClassName(style.checkbox_wrapper, LabelProps?.className),
       }}
       InputProps={{
         ref: register?.ref,

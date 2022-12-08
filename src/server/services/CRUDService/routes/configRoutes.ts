@@ -659,8 +659,8 @@ export const nutritionQuestionnaireCRUD: OptionsCRUD = {
     fieldNamesQuery: `nq.*`,
     querySelectLogic: ``,
     queryParams: {
-      userID: `nml.${TABLES_DATA.USERS_TABLE_ID}`,
-      profileID: `nml.${TABLES_DATA.PROFILE_ID}`,
+      // userID: `nml.${TABLES_DATA.USERS_TABLE_ID}`,
+      // profileID: `nml.${TABLES_DATA.PROFILE_ID}`,
     },
   },
   permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,

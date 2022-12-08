@@ -45,6 +45,9 @@ import FinanceStatsPage from "../pages/StatsPages/FinancesStatsPage/FinancesStat
 import NutritionMenusListRoutes from "./NutritionMenusListRoutes";
 import MeasureEditForm from "../components/Forms/MeasuresForms/MeasureEditForm";
 import MyNutritionMenusPage from "../pages/MyNutritionMenus/MyNutritionMenusPage";
+import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
+import NutritionQuestionnaireEditForm from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireEditForm";
+import { NutritionQuestionnaireAddForm } from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireAddForm";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -66,6 +69,10 @@ function AppRoutes() {
             path={`${APP_ROUTE.COMING_SOON}/*`}
             element={<ComingSoonPage />}
           />
+
+          <Route path={APP_ROUTE.TRAINEES_ROUTE}>
+            <Route path=":id" element={<TraineeEditForm />} />
+          </Route>
           <Route
             path={APP_ROUTE.PROFILE_ROUTE}
             element={
@@ -93,6 +100,17 @@ function AppRoutes() {
                   element={<FinanceStatsPage />}
                 />
               </Route>
+            </Route>
+
+            <Route path={`${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE}`}>
+              <Route
+                path={APP_ROUTE.NUTRITION_QUESTIONNAIRE_EDIT_ROUTE}
+                element={<NutritionQuestionnaireEditForm />}
+              />
+              <Route
+                path={APP_ROUTE.NUTRITION_QUESTIONNAIRE_ADD_ROUTE}
+                element={<NutritionQuestionnaireAddForm />}
+              />
             </Route>
           </Route>
 

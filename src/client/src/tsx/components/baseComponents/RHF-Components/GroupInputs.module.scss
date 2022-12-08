@@ -1,4 +1,13 @@
 @use "../../../../style/utilities/utilities.scss" as *;
+
+.checkbox_wrapper {
+  @include flex-dir(null, center);
+  gap: 0.2rem;
+  input {
+    @include heightWidth(2rem, 1rem);
+  }
+}
+
 .group_inputs_container {
   width: 100%;
   @include flex-dir(null, null, column);
@@ -16,15 +25,14 @@
     gap: 0.5rem 1rem;
     label {
       font-weight: 400;
-      max-width: initial;
+      @include initialWidth;
       flex: initial;
       font-size: 1rem;
       align-items: center;
       gap: 0.5rem;
       input {
         border: none;
-        max-width: initial;
-        min-width: initial;
+        @include initialWidth;
         &:focus {
           border: initial;
           outline: initial;
