@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useFieldArray } from "react-hook-form";
 
+import { RiRestartFill } from "react-icons/ri";
 import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
 import { foodsApi } from "../../../../redux/api/hooksAPI";
 import { FoodAPI } from "../../../../redux/api/interfaceAPI";
@@ -17,11 +18,18 @@ import Form from "../../../baseComponents/RHF-Components/Form/Form";
 
 import style from "./FoodsListForm.module.scss";
 import FoodsList from "./FoodsList/FoodsList";
-import { getFilterFoodsFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
+import {
+  getFilterFoodsFormState,
+  resetAllergenForm,
+} from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 import ModelFormContainer from "../../../baseComponents/Model/ModelFormContainer";
 import { FoodListAddForm } from "./FoodsListAddForm";
 
-import { getNutritionQuestionnaireFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
+import {
+  getNutritionQuestionnaireFormState,
+  resetBlackListFoods,
+  resetFavoriteFoods,
+} from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import { genClassName } from "../../../../utilities/helpersFun";
 
@@ -43,7 +51,7 @@ export function FoodsListForm({
   const dispatch = useAppDispatch();
 
   const { user_id } = useGetUserLoginData();
-  const [_, setChooseFood] = useState(["", ""]);
+  const [chosenFood, setChooseFood] = useState(["", ""]);
   const fitterFormState = useAppSelector(getFilterFoodsFormState);
   const { serverQueryProps } = useAppSelector(
     getNutritionQuestionnaireFormState
@@ -77,12 +85,13 @@ export function FoodsListForm({
       }}
     >
       {({ control }) => {
-        const { fields, append, remove } = useFieldArray({
+        const { fields, append, remove, replace } = useFieldArray({
           control,
           name: "foods",
         });
 
         const queryOptions = {
+          mainName: chosenFood[1],
           ...nutrientsValuesQueryParams,
           ...rest,
           userID: user_id,
@@ -90,6 +99,16 @@ export function FoodsListForm({
 
         return (
           <>
+            <span className={style.reset_button}>
+              <RiRestartFill
+                onClick={() => {
+                  replace([]);
+                  if (curParam === "blackListFoodsFilterForm")
+                    dispatch(resetBlackListFoods());
+                  else dispatch(resetFavoriteFoods());
+                }}
+              />
+            </span>
             <div className="search_input">
               <AutocompleteInput<FoodAPI>
                 id="food_id"

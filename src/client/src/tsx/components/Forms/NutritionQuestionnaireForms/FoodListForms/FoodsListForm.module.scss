@@ -1,6 +1,12 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 
 .food_list_form_container {
+  .reset_button {
+    @include posAbs(0%, null, 0%, null);
+    color: #4679dc;
+    font-size: 2rem;
+    cursor: pointer;
+  }
   height: 50vh;
   @include classMatcher("autocomplete_container") {
     li {

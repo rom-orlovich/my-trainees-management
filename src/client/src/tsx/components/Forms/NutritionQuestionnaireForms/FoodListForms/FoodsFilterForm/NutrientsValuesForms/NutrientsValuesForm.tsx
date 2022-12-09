@@ -1,8 +1,16 @@
 import { useRef } from "react";
 import { useFieldArray } from "react-hook-form";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { RiRestartFill } from "react-icons/ri";
 
 import { TiDelete } from "react-icons/ti";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
+import { getModelControllerState } from "../../../../../../redux/slices/modelControllerSlices/modelControllerSlice";
+import { FilterFoodFormTypes } from "../../../../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
+import {
+  getFilterFoodsFormState,
+  resetNutrientsValuesQueryParams,
+} from "../../../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 
 import { GeneralFormProps } from "../../../../../baseComponents/baseComponentsTypes";
 import ModelFormContainer from "../../../../../baseComponents/Model/ModelFormContainer";
@@ -39,6 +47,14 @@ export function NutrientsValuesForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<NutrientsValuesFormProps>) {
+  const filterFoodForm = useAppSelector(getFilterFoodsFormState);
+  const { curParam } = useAppSelector(getModelControllerState);
+  const {
+    displayInputsForm: {
+      nutrientsValuesInputsState: { inputsData },
+    },
+  } = filterFoodForm[curParam as FilterFoodFormTypes];
+  const dispatch = useAppDispatch();
   const selectInputNutrientValuesOptions: SelectInputNutrientValueOptions[] = [
     { value: "caloriesTotal", label: "Calories Total(100g)" },
     { value: "proteinG", label: "Protein(g)" },
@@ -60,100 +76,121 @@ export function NutrientsValuesForm({
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          nutrients_values: [{ nutrientName: "caloriesTotal", gt: 1, lt: 100 }],
+          nutrients_values: inputsData.length
+            ? inputsData
+            : [{ nutrientName: "caloriesTotal", gt: 1, lt: 100 }],
         },
       }}
     >
-      {({ control, register, formState, watch }) => {
+      {({ control, register, watch }) => {
         const ref = useRef<HTMLUListElement>(null);
 
         let curIndex = -1;
-        const { fields, append, remove } =
+        const { fields, append, remove, replace } =
           useFieldArray<NutrientsValuesFormProps>({
             control,
             name: "nutrients_values",
           });
 
         return (
-          <div className={style.inputs_container}>
-            <ul ref={ref} className={style.inputs_layout}>
-              {fields.map((el, index) => {
-                const minValue = Number(watch(`nutrients_values.${index}.gt`));
-                const maxValue = Number(watch(`nutrients_values.${index}.lt`));
-                curIndex = index;
-                return (
-                  <li key={el.id}>
-                    <InputLabel
-                      key={`nutrients_values.${index}.gt`}
-                      LabelProps={{ labelText: `Min` }}
-                      InputProps={{
-                        ...register(`nutrients_values.${index}.gt`, {
-                          required: true,
-                          min: 0,
-                        }),
+          <>
+            <span className={style.reset_button}>
+              <RiRestartFill
+                onClick={() => {
+                  replace([]);
+                  dispatch(
+                    resetNutrientsValuesQueryParams({ formKey: curParam })
+                  );
+                }}
+              />
+            </span>
+            <div className={style.inputs_container}>
+              <ul ref={ref} className={style.inputs_layout}>
+                {fields.map((el, index) => {
+                  const minValue = Number(
+                    watch(`nutrients_values.${index}.gt`)
+                  );
+                  const maxValue = Number(
+                    watch(`nutrients_values.${index}.lt`)
+                  );
+                  curIndex = index;
+                  return (
+                    <li key={el.id}>
+                      <InputLabel
+                        key={`nutrients_values.${index}.gt`}
+                        LabelProps={{ labelText: `Min` }}
+                        InputProps={{
+                          ...register(`nutrients_values.${index}.gt`, {
+                            required: true,
+                            min: 0,
+                          }),
 
-                        type: "number",
-                        min: 1,
-                        max: Number.isFinite(maxValue)
-                          ? maxValue - 1
-                          : undefined,
-                      }}
-                    />
-                    <SelectInput
-                      key={`nutrients_values.${index}.nutrientName`}
-                      LabelProps={{ labelText: `Nutrient Name` }}
-                      options={selectInputNutrientValuesOptions}
-                      selectProps={{
-                        ...register(`nutrients_values.${index}.nutrientName`, {
-                          required: true,
-                        }),
-                      }}
-                    />
-                    <InputLabel
-                      key={`nutrients_values.${index}.lt`}
-                      LabelProps={{ labelText: `Max` }}
-                      InputProps={{
-                        ...register(`nutrients_values.${index}.lt`, {
-                          required: true,
-                        }),
+                          type: "number",
+                          min: 1,
+                          max: Number.isFinite(maxValue)
+                            ? maxValue - 1
+                            : undefined,
+                        }}
+                      />
+                      <SelectInput
+                        key={`nutrients_values.${index}.nutrientName`}
+                        LabelProps={{ labelText: `Nutrient Name` }}
+                        options={selectInputNutrientValuesOptions}
+                        selectProps={{
+                          ...register(
+                            `nutrients_values.${index}.nutrientName`,
+                            {
+                              required: true,
+                            }
+                          ),
+                        }}
+                      />
+                      <InputLabel
+                        key={`nutrients_values.${index}.lt`}
+                        LabelProps={{ labelText: `Max` }}
+                        InputProps={{
+                          ...register(`nutrients_values.${index}.lt`, {
+                            required: true,
+                          }),
 
-                        type: "number",
-                        min: Number.isFinite(minValue)
-                          ? minValue + 1
-                          : undefined,
-                      }}
-                    />
+                          type: "number",
+                          min: Number.isFinite(minValue)
+                            ? minValue + 1
+                            : undefined,
+                        }}
+                      />
 
-                    <TiDelete
-                      className={style.delete_button}
-                      onClick={() => {
-                        remove(index);
-                      }}
-                    />
-                  </li>
-                );
-              })}
-              <div>
-                <IoMdAddCircleOutline
-                  className={style.add_button}
-                  onClick={() => {
-                    append({
-                      gt: 1,
-                      nutrientName: NUTRIENTS_NAMES_FIELDS_ARR[curIndex + 1],
-                      lt: 100,
-                    });
-
-                    setTimeout(() => {
-                      ref.current?.lastElementChild?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "end",
+                      <TiDelete
+                        className={style.delete_button}
+                        onClick={() => {
+                          remove(index);
+                        }}
+                      />
+                    </li>
+                  );
+                })}
+                <div>
+                  <IoMdAddCircleOutline
+                    className={style.add_button}
+                    onClick={() => {
+                      append({
+                        gt: 1,
+                        nutrientName: NUTRIENTS_NAMES_FIELDS_ARR[curIndex + 1],
+                        lt: 100,
                       });
-                    }, 0);
-                  }}
-                ></IoMdAddCircleOutline>
-              </div>
-            </ul>
-          </div>
+
+                      setTimeout(() => {
+                        ref.current?.lastElementChild?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "end",
+                        });
+                      }, 0);
+                    }}
+                  ></IoMdAddCircleOutline>
+                </div>
+              </ul>
+            </div>
+          </>
         );
       }}
     </Form>

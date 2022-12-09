@@ -3,11 +3,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../../store";
+import { CHECKBOX_ALLERGENS } from "./nutritionQuestionnaireFormSlice";
 import { FilterFormsState } from "./nutritionQuestionnaireFormsSliceTypes";
 
 import {
   resetAllergensFoodsByFormFun,
   resetFilterFoodsByFormFun,
+  resetNutrientsValuesByFormFun,
   setAllergensDataByFormFun,
   setNutrientsValuesByFormFun,
   submitFilterFoodsByFormFun,
@@ -17,7 +19,7 @@ export const initialFilterFoodsFormState: FilterFormsState = {
   favoriteFoodsFilterForm: {
     displayInputsForm: {
       allergensCheckboxesState: {
-        inputsData: [],
+        inputsData: CHECKBOX_ALLERGENS,
         inputsStr: "",
       },
       nutrientsValuesInputsState: {
@@ -33,7 +35,7 @@ export const initialFilterFoodsFormState: FilterFormsState = {
   blackListFoodsFilterForm: {
     displayInputsForm: {
       allergensCheckboxesState: {
-        inputsData: [],
+        inputsData: CHECKBOX_ALLERGENS,
         inputsStr: "",
       },
       nutrientsValuesInputsState: {
@@ -57,9 +59,9 @@ export const filterFoodsFormSlice = createSlice({
     setAllergenDataByForm: setAllergensDataByFormFun,
 
     submitFilterFoodsForm: submitFilterFoodsByFormFun,
-
     resetAllergenForm: resetAllergensFoodsByFormFun,
     resetFormFiltersForm: resetFilterFoodsByFormFun,
+    resetNutrientsValuesQueryParams: resetNutrientsValuesByFormFun,
   },
 });
 export const {
@@ -68,6 +70,7 @@ export const {
   submitFilterFoodsForm,
   resetAllergenForm,
   resetFormFiltersForm,
+  resetNutrientsValuesQueryParams,
 } = filterFoodsFormSlice.actions;
 
 export const getFilterFoodsFormState = (state: RootState) =>

@@ -588,7 +588,7 @@ export const foodsOptionsCRUD: OptionsCRUD = {
       is_vegetarian: "fd.is_vegetarian",
       nutrient_type: "fd.nutrient_type",
     },
-
+    queryNameParam: { mainName: "food_name" },
     comparisonQuery: {
       proteinG_gt: "fd.protein_g",
       proteinG_lt: "fd.protein_g",

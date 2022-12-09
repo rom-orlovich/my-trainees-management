@@ -61,3 +61,15 @@ export const submitBlackListFoodsFun = (
   state.displayInputsForm.blackListFoodsNames = foodNameArr.join(",");
   state.serverQueryProps.black_list_foods = serverFoodsData;
 };
+export const resetFavoriteFoodsFun = (
+  state: NutritionQuestionnaireFormState
+) => {
+  state.displayInputsForm.favoriteFoodsName = "";
+  state.serverQueryProps.favorite_foods = [];
+};
+export const resetBlackListFoodsFun = (
+  state: NutritionQuestionnaireFormState
+) => {
+  state.displayInputsForm.blackListFoodsNames = "";
+  state.serverQueryProps.black_list_foods = [];
+};

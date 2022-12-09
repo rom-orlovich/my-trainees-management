@@ -40,13 +40,9 @@ export function AllergensForm({
   const { displayInputsForm } = useAppSelector(
     getNutritionQuestionnaireFormState
   );
-  const { curParam, lastModel } = useAppSelector(getModelControllerState);
-  const defaultAllergens = ALLERGENS_LIST.map((el) => ({
-    name: el as AllergensListType,
-    value: false,
-  }));
-  let allergensState = [];
+  const { curParam } = useAppSelector(getModelControllerState);
 
+  let allergensState;
   if (curParam === "nutritionQuestionnaire")
     allergensState = displayInputsForm.allergenCheckboxState.inputsData;
   else
@@ -66,7 +62,7 @@ export function AllergensForm({
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          allergens: allergensState.length ? allergensState : defaultAllergens,
+          allergens: allergensState,
         },
       }}
     >
@@ -92,8 +88,6 @@ export function AllergensForm({
             <span className={style.reset_button}>
               <RiRestartFill
                 onClick={() => {
-                  dispatch(resetAllergensArr());
-
                   replace(fields.map((el) => ({ ...el, value: false })));
                   if (curParam === "nutritionQuestionnaire")
                     dispatch(resetAllergensArr());

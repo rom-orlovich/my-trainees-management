@@ -106,3 +106,18 @@ export const resetAllergensFoodsByFormFun = (
   state[formKey].serverQueryProps.allergens =
     initialFilterFoodsFormState[formKey].serverQueryProps.allergens;
 };
+export const resetNutrientsValuesByFormFun = (
+  state: FilterFormsState,
+  { payload: { formKey } }: ActionByFormKey<NutrientFormRules>
+) => {
+  if (!state[formKey]) return;
+
+  state[formKey].serverQueryProps.nutrientsValuesQueryParams =
+    initialFilterFoodsFormState[
+      formKey
+    ].serverQueryProps.nutrientsValuesQueryParams;
+  state[formKey].displayInputsForm.nutrientsValuesInputsState =
+    initialFilterFoodsFormState[
+      formKey
+    ].displayInputsForm.nutrientsValuesInputsState;
+};

@@ -2,15 +2,21 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AllergensCheckbox } from "../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/AllergensForm";
+import {
+  AllergensListType,
+  ALLERGENS_LIST,
+} from "../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/constants";
 
 import { FoodProps } from "../../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
 import { MealsCaloriesSize } from "../../../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireFormComponents/MealsCaloriesSizeForms/MealsCaloriesSizeForm";
 
 import { RootState } from "../../store";
 import { NutritionQuestionnaireFormState } from "./nutritionQuestionnaireFormsSliceTypes";
-import { createAllergensData } from "./utilities/helpersFun";
+
 import {
   resetAllergensArrFun,
+  resetBlackListFoodsFun,
+  resetFavoriteFoodsFun,
   resetMealsPercentsArrFun,
   setAllergensArrFun,
   setMealsPercentsArrFun,
@@ -18,9 +24,14 @@ import {
   submitFavoriteFoodsFun,
 } from "./utilities/helpersNutritionQuestionnaire";
 
+export const CHECKBOX_ALLERGENS = ALLERGENS_LIST.map((el) => ({
+  name: el as AllergensListType,
+  value: false,
+}));
+
 const nutritionQuestionnaireState: NutritionQuestionnaireFormState = {
   displayInputsForm: {
-    allergenCheckboxState: { inputsData: [], inputsStr: "" },
+    allergenCheckboxState: { inputsData: CHECKBOX_ALLERGENS, inputsStr: "" },
 
     favoriteFoodsName: "",
     blackListFoodsNames: "",
@@ -56,6 +67,8 @@ export const nutritionQuestionnaireFormSlice = createSlice({
     resetAllergensArr: resetAllergensArrFun,
     submitFavoriteFoods: submitFavoriteFoodsFun,
     submitBlackListFoods: submitBlackListFoodsFun,
+    resetFavoriteFoods: resetFavoriteFoodsFun,
+    resetBlackListFoods: resetBlackListFoodsFun,
   },
 });
 export const {
@@ -65,6 +78,8 @@ export const {
   submitBlackListFoods,
   resetMealsPercentsArr,
   resetAllergensArr,
+  resetFavoriteFoods,
+  resetBlackListFoods,
 } = nutritionQuestionnaireFormSlice.actions;
 
 export const getNutritionQuestionnaireFormState = (state: RootState) =>
