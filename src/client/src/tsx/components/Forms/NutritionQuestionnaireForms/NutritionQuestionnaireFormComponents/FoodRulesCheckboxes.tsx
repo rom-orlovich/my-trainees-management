@@ -15,7 +15,7 @@ interface FoodRulesCheckboxesProps {
 function FoodRulesCheckboxes<T extends FoodRulesCheckboxesProps>({
   register,
   className,
-  keepMeatMeal,
+  keepMeatMeal = true,
 }: {
   register: UseFormRegister<T>;
   className?: string;

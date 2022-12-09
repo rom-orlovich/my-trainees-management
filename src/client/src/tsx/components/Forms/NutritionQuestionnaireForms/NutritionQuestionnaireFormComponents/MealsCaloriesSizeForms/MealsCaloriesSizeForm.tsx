@@ -41,6 +41,7 @@ export function MealsCaloriesSizeForm({
   } = useAppSelector(getNutritionQuestionnaireFormState);
   const ref = useRef<HTMLUListElement>(null);
   const dispatch = useAppDispatch();
+  const mealsSize = inputsData.length ? inputsData : [{ percents: first }];
   return (
     <Form<MealsCaloriesSizeFormProps>
       nameForm="Meal Size"
@@ -51,15 +52,13 @@ export function MealsCaloriesSizeForm({
       editMode={editMode}
       formOptions={{
         defaultValues: {
-          mealsCaloriesPercents: inputsData.length
-            ? inputsData
-            : [{ percents: first }],
+          mealsCaloriesPercents: mealsSize,
           ...defaultValues,
         },
       }}
     >
       {({ control, register }) => {
-        const { fields, append, remove } =
+        const { fields, append, remove, replace } =
           useFieldArray<MealsCaloriesSizeFormProps>({
             control,
             name: "mealsCaloriesPercents",
@@ -70,6 +69,7 @@ export function MealsCaloriesSizeForm({
             <span className={style.reset_button}>
               <RiRestartFill
                 onClick={() => {
+                  replace([]);
                   dispatch(resetMealsPercentsArr());
                 }}
               />

@@ -101,6 +101,7 @@ export function FoodsFilterForm({
           <FoodRulesCheckboxes
             className={style.foods_rules_checkboxes}
             register={register}
+            keepMeatMeal={false}
           />
           <TextFieldOpenModel
             labelText="Allergens"

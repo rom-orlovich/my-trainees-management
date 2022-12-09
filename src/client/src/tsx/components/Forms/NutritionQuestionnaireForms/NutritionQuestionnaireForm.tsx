@@ -3,8 +3,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { format } from "date-fns";
 
-
-
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
 import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
@@ -36,7 +34,7 @@ export function NutritionQuestionnaireForm({
 }: GeneralFormProps<NutritionQuestionnaire>) {
   const { userID, profileID } = useGetUserTraineeData();
 
-  const { displayInputsForm, serverQueryProps } = useAppSelector(
+  const { displayInputsForm } = useAppSelector(
     getNutritionQuestionnaireFormState
   );
 
@@ -67,7 +65,7 @@ export function NutritionQuestionnaireForm({
           resolver: yupResolver(nutritionQuestionnaireSchema),
         }}
       >
-        {({ register, formState, getValues }) => {
+        {({ register, formState }) => {
           const { day_end, day_start } = formState.errors;
 
           return (

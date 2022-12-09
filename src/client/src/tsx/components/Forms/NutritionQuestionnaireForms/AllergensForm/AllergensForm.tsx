@@ -1,9 +1,17 @@
 import { useFieldArray } from "react-hook-form";
-import { useAppSelector } from "../../../../redux/hooks";
+import { RiRestartFill } from "react-icons/ri";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { getModelControllerState } from "../../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { FilterFoodFormTypes } from "../../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
-import { getFilterFoodsFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
-import { getNutritionQuestionnaireFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
+import {
+  getFilterFoodsFormState,
+  resetAllergenForm,
+} from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
+import {
+  getNutritionQuestionnaireFormState,
+  resetAllergensArr,
+} from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
+import { resetAllergensFoodsByFormFun } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/utilities/helpersFilterFoodFormSlice";
 
 import { GeneralFormProps } from "../../../baseComponents/baseComponentsTypes";
 import ModelFormContainer from "../../../baseComponents/Model/ModelFormContainer";
@@ -33,20 +41,20 @@ export function AllergensForm({
     getNutritionQuestionnaireFormState
   );
   const { curParam, lastModel } = useAppSelector(getModelControllerState);
-  let defaultAllergens = ALLERGENS_LIST.map((el) => ({
+  const defaultAllergens = ALLERGENS_LIST.map((el) => ({
     name: el as AllergensListType,
     value: false,
   }));
   let allergensState = [];
-  if (lastModel === "filterFoodsForm") {
+
+  if (curParam === "nutritionQuestionnaire")
+    allergensState = displayInputsForm.allergenCheckboxState.inputsData;
+  else
     allergensState =
       fitterFormState[curParam as FilterFoodFormTypes].displayInputsForm
         .allergensCheckboxesState.inputsData;
-  } else {
-    allergensState = displayInputsForm.allergenCheckboxState.inputsData;
-  }
-  defaultAllergens = allergensState.length ? allergensState : defaultAllergens;
 
+  const dispatch = useAppDispatch();
   return (
     <Form<AllergensFormProps>
       nameForm="Allergens"
@@ -58,35 +66,47 @@ export function AllergensForm({
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          allergens: defaultAllergens,
+          allergens: allergensState.length ? allergensState : defaultAllergens,
         },
       }}
     >
       {({ control, register }) => {
-        const { update } = useFieldArray<AllergensFormProps>({
+        const { update, replace, fields } = useFieldArray<AllergensFormProps>({
           control,
           name: "allergens",
         });
 
-        const checkboxDataArr: CheckBox[] = defaultAllergens.map(
-          (allergen, i) =>
-            ({
-              register: register(`allergens.${i}.value` as any),
-              InputProps: {
-                onChange: (e) => {
-                  update(i, { name: allergen.name, value: e.target.checked });
-                },
-              },
-              LabelProps: { labelText: allergen.name },
-            } as CheckBox)
-        );
+        const checkboxDataArr: CheckBox[] = fields.map((allergen, i) => ({
+          LabelProps: { labelText: allergen.name },
+          register: register(`allergens.${i}.value` as any),
+          InputProps: {
+            onChange: (e) => {
+              update(i, { name: allergen.name, value: e.target.checked });
+            },
+            checked: allergen.value,
+          },
+        }));
 
         return (
-          <div className={style.inputs_container}>
-            <div className={style.inputs_layout}>
-              <CheckBoxGroup checkboxDataArr={checkboxDataArr} />
+          <>
+            <span className={style.reset_button}>
+              <RiRestartFill
+                onClick={() => {
+                  dispatch(resetAllergensArr());
+
+                  replace(fields.map((el) => ({ ...el, value: false })));
+                  if (curParam === "nutritionQuestionnaire")
+                    dispatch(resetAllergensArr());
+                  else dispatch(resetAllergenForm({ formKey: curParam }));
+                }}
+              />
+            </span>
+            <div className={style.inputs_container}>
+              <div className={style.inputs_layout}>
+                <CheckBoxGroup checkboxDataArr={checkboxDataArr} />
+              </div>
             </div>
-          </div>
+          </>
         );
       }}
     </Form>

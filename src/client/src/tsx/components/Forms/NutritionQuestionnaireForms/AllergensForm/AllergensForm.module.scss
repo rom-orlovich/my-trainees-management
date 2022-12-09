@@ -6,6 +6,12 @@
   }
 }
 .allergens_form_container {
+  .reset_button {
+    @include posAbs(0%, null, 0%, null);
+    color: #4679dc;
+    font-size: 2rem;
+    cursor: pointer;
+  }
   @include classMatcher("GroupInputs_group_inputs_layout") {
     justify-content: center;
     @include classMatcher("InputLabel_wrapper") {
