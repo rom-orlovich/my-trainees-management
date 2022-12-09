@@ -78,7 +78,10 @@ export const submitFilterFoodsByFormFun = (
   const isKosher = kosher ? { kosher } : {};
 
   state[formKey].serverQueryProps = {
-    ...state.favoriteFoodsFilterForm.serverQueryProps,
+    ...initialFilterFoodsFormState[formKey].serverQueryProps,
+    ...state.favoriteFoodsFilterForm.serverQueryProps.allergens,
+    ...state.favoriteFoodsFilterForm.serverQueryProps
+      .nutrientsValuesQueryParams,
     ...isVegan,
     ...isVegetarian,
     ...isKosher,

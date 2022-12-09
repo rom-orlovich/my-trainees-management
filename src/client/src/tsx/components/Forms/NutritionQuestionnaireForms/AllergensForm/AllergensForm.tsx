@@ -50,6 +50,7 @@ export function AllergensForm({
       fitterFormState[curParam as FilterFoodFormTypes].displayInputsForm
         .allergensCheckboxesState.inputsData;
 
+  console.log(allergensState);
   const dispatch = useAppDispatch();
   return (
     <Form<AllergensFormProps>

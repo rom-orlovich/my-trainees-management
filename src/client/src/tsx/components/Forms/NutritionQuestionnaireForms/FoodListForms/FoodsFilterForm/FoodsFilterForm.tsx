@@ -78,6 +78,8 @@ export function FoodsFilterForm({
           kosher_type: "all",
           nutrient_type: "all",
           ...defaultValues,
+
+          // allergens: curFilterFoodFormState.serverQueryProps.allergens,
         },
       }}
     >
