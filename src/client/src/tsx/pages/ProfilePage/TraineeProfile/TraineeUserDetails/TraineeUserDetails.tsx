@@ -46,11 +46,7 @@ function TraineeUserDetails({ className }: PropsBasic) {
 
             <Link
               style={{ fontSize: "1.1rem" }}
-              to={`${`/${APP_ROUTE.PROFILE_ROUTE}/`}${
-                APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE
-              }/${
-                APP_ROUTE.NUTRITION_QUESTIONNAIRE_EDIT_ROUTE
-              }?profileID=${profileID}`}
+              to={`/${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE}/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_EDIT_ROUTE}?profileID=${profileID}`}
             >
               Nutrition Questionnaire
             </Link>

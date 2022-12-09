@@ -23,7 +23,6 @@ import { FoodListAddForm } from "./FoodsListAddForm";
 
 import { getNutritionQuestionnaireFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
-import { getFormsState } from "../../../../redux/slices/formValuesStateSlice";
 import { genClassName } from "../../../../utilities/helpersFun";
 
 export interface FoodProps {
@@ -46,7 +45,9 @@ export function FoodsListForm({
   const { user_id } = useGetUserLoginData();
   const [_, setChooseFood] = useState(["", ""]);
   const fitterFormState = useAppSelector(getFilterFoodsFormState);
-  const foodsList = useAppSelector(getNutritionQuestionnaireFormState);
+  const { serverQueryProps } = useAppSelector(
+    getNutritionQuestionnaireFormState
+  );
   const { curParam } = useAppSelector(getModelControllerState);
 
   const {
@@ -71,7 +72,7 @@ export function FoodsListForm({
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          foods: foodsList?.serverQueryProps?.favorite_foods || [],
+          foods: serverQueryProps?.favorite_foods || [],
         },
       }}
     >
@@ -111,7 +112,7 @@ export function FoodsListForm({
                 }}
                 filterOptions={{
                   link: "",
-                  onClick: (id: number) => {
+                  onClick: () => {
                     dispatch(
                       openModel({
                         displayContent: "filterFoodsForm",

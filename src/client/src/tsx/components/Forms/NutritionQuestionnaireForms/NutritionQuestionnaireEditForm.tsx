@@ -75,7 +75,7 @@ function NutritionQuestionnaireEditForm() {
 
   return (
     <LoadingSpinner
-      path={`/${APP_ROUTE.TRAINEES_ROUTE}/${traineeID}/${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE}/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ADD_ROUTE}?profileID=${profileID}`}
+      path={`/${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE}/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ADD_ROUTE}?profileID=${profileID}`}
       nameData="Nutrition Questionnaire"
       stateData={{ data, isFetching, isError, isLoading }}
     >

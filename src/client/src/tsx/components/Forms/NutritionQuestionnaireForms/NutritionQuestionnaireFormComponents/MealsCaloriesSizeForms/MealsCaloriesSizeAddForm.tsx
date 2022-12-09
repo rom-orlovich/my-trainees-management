@@ -16,7 +16,7 @@ export function MealsCaloriesSizeAddForm() {
       0
     );
 
-    if (sum !== 100)
+    if (sum !== 100 && body?.mealsCaloriesPercents?.length > 0)
       throw new Error(
         "The maximum percents of all meals together is must be 100%"
       );

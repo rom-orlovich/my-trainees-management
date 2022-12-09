@@ -1,11 +1,16 @@
 import { useRef } from "react";
 import { useFieldArray } from "react-hook-form";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { RiRestartFill } from "react-icons/ri";
 import { TiDelete } from "react-icons/ti";
 
 import useGetUserLoginData from "../../../../../hooks/useGetUserLoginData";
-import { useAppSelector } from "../../../../../redux/hooks";
-import { getNutritionQuestionnaireFormState } from "../../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import { resetFormFiltersForm } from "../../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
+import {
+  getNutritionQuestionnaireFormState,
+  resetMealsPercentsArr,
+} from "../../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import { GeneralFormProps } from "../../../../baseComponents/baseComponentsTypes";
 import ModelFormContainer from "../../../../baseComponents/Model/ModelFormContainer";
@@ -35,6 +40,7 @@ export function MealsCaloriesSizeForm({
     },
   } = useAppSelector(getNutritionQuestionnaireFormState);
   const ref = useRef<HTMLUListElement>(null);
+  const dispatch = useAppDispatch();
   return (
     <Form<MealsCaloriesSizeFormProps>
       nameForm="Meal Size"
@@ -53,7 +59,6 @@ export function MealsCaloriesSizeForm({
       }}
     >
       {({ control, register }) => {
-        console.log(defaultValues);
         const { fields, append, remove } =
           useFieldArray<MealsCaloriesSizeFormProps>({
             control,
@@ -61,54 +66,64 @@ export function MealsCaloriesSizeForm({
           });
 
         return (
-          <div className={style.inputs_container}>
-            <ul ref={ref} className={style.inputs_layout}>
-              {fields.map((el, index) => {
-                curIndex = index;
+          <>
+            <span className={style.reset_button}>
+              <RiRestartFill
+                onClick={() => {
+                  dispatch(resetMealsPercentsArr());
+                }}
+              />
+            </span>
 
-                return (
-                  <li key={el.id}>
-                    <InputLabel
-                      key={`mealsCaloriesPercents[${index}]`}
-                      LabelProps={{ labelText: `Meal ${index + 1} (%)` }}
-                      InputProps={{
-                        ...register(`mealsCaloriesPercents.${index}.percents`, {
-                          required: true,
-                        }),
+            <div className={style.inputs_container}>
+              <ul ref={ref} className={style.inputs_layout}>
+                {fields.map((el, index) => {
+                  curIndex = index;
+                  return (
+                    <li key={el.id}>
+                      <InputLabel
+                        key={`mealsCaloriesPercents[${index}]`}
+                        LabelProps={{ labelText: `Meal ${index + 1} (%)` }}
+                        InputProps={{
+                          ...register(
+                            `mealsCaloriesPercents.${index}.percents`,
+                            {
+                              required: true,
+                            }
+                          ),
 
-                        type: "number",
-
-                        min: 1,
-                        max: 100,
-                      }}
-                    />
-                    <TiDelete
-                      className={style.delete_button}
-                      onClick={() => {
-                        remove(index);
-                      }}
-                    />
-                  </li>
-                );
-              })}
-              <div>
-                <IoMdAddCircleOutline
-                  className={style.add_button}
-                  onClick={() => {
-                    const lastEl = fields[curIndex];
-                    append({ percents: lastEl.percents });
-
-                    setTimeout(() => {
-                      ref.current?.lastElementChild?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "end",
-                      });
-                    }, 0);
-                  }}
-                ></IoMdAddCircleOutline>
-              </div>
-            </ul>
-          </div>
+                          type: "number",
+                          min: 1,
+                          max: 100,
+                        }}
+                      />
+                      <TiDelete
+                        className={style.delete_button}
+                        onClick={() => {
+                          remove(index);
+                        }}
+                      />
+                    </li>
+                  );
+                })}
+                <div>
+                  <IoMdAddCircleOutline
+                    className={style.add_button}
+                    onClick={() => {
+                      const lastEl = fields[curIndex];
+                      append({ percents: lastEl.percents });
+                      setTimeout(() => {
+                        ref.current?.lastElementChild?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "end",
+                        });
+                      }, 0);
+                    }}
+                  ></IoMdAddCircleOutline>
+                </div>
+              </ul>
+            </div>
+          </>
         );
       }}
     </Form>

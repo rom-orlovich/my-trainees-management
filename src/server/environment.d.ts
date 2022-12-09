@@ -16,6 +16,7 @@ declare global {
       PASSWORD: string;
       PORT_PG: number;
       DB_NAME_PG: string;
+      DB_TEST_NAME_PG: string;
       HOST_PG: string;
 
       ADMIN_USER: string;

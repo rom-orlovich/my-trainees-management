@@ -110,7 +110,7 @@ export const getFoodsByNutritionQuestionnaireParams = async ({
   }
   if (is_vegetarian) {
     i++;
-    checkIsVegetarianStr = `and is_vegetarian=${i}`;
+    checkIsVegetarianStr = `and is_vegetarian=$${i}`;
   }
 
   const blackList = black_list_foods.map((el) => el.food_id);

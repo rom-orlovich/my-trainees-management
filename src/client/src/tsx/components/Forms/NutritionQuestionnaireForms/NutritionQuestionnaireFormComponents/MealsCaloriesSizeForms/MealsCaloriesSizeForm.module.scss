@@ -1,6 +1,12 @@
 @use "../../../../../../style/utilities/utilities.scss" as *;
 
 .meals_calories_size_percents_form {
+  .reset_button {
+    @include posAbs(0%, null, 0%, null);
+    color: #4679dc;
+    font-size: 2rem;
+    cursor: pointer;
+  }
   .inputs_container {
     padding: 0.5rem;
     height: 80%;

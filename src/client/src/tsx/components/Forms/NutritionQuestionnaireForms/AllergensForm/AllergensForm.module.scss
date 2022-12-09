@@ -1,11 +1,16 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 
+@include classMatcher("model") {
+  &:has(.allergens_form_container) {
+    width: 30vw;
+  }
+}
 .allergens_form_container {
   @include classMatcher("GroupInputs_group_inputs_layout") {
     justify-content: center;
-  }
-
-  @include classMatcher("input_label") {
-    width: 20%;
+    @include classMatcher("InputLabel_wrapper") {
+      flex: 30%;
+      justify-content: flex-end;
+    }
   }
 }

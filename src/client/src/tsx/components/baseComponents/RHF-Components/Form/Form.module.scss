@@ -54,6 +54,7 @@ label[class*="checkbox_label"] {
 }
 
 .form_container {
+  position: relative;
   width: 80%;
   max-height: 95%;
   @include flex-dir(center, center, column);
@@ -70,7 +71,7 @@ label[class*="checkbox_label"] {
   ::-webkit-scrollbar {
     display: none;
   }
-  .form {
+  form {
     padding: 0.2rem;
     overflow-y: scroll;
     display: flex;

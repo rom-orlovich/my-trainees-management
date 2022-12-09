@@ -6,7 +6,7 @@ import {
   createRandomMealsSizePercents,
 } from "../utilities/helpersCreateNutritionQuestionnaire";
 
-describe("helpersCreateNutritionQuestionnaire", () => {
+describe.skip("helpersCreateNutritionQuestionnaire", () => {
   it("test createRandomMealsSizePercents", () => {
     const { mealsSizePercentsArr, sumMealsPercents } =
       createRandomMealsSizePercents(3);

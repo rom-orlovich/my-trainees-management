@@ -1,4 +1,9 @@
 import { useFieldArray } from "react-hook-form";
+import { useAppSelector } from "../../../../redux/hooks";
+import { getModelControllerState } from "../../../../redux/slices/modelControllerSlices/modelControllerSlice";
+import { FilterFoodFormTypes } from "../../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
+import { getFilterFoodsFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
+import { getNutritionQuestionnaireFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import { GeneralFormProps } from "../../../baseComponents/baseComponentsTypes";
 import ModelFormContainer from "../../../baseComponents/Model/ModelFormContainer";
@@ -23,6 +28,25 @@ export function AllergensForm({
   defaultValues,
   editMode,
 }: GeneralFormProps<AllergensFormProps>) {
+  const fitterFormState = useAppSelector(getFilterFoodsFormState);
+  const { displayInputsForm } = useAppSelector(
+    getNutritionQuestionnaireFormState
+  );
+  const { curParam, lastModel } = useAppSelector(getModelControllerState);
+  let defaultAllergens = ALLERGENS_LIST.map((el) => ({
+    name: el as AllergensListType,
+    value: false,
+  }));
+  let allergensState = [];
+  if (lastModel === "filterFoodsForm") {
+    allergensState =
+      fitterFormState[curParam as FilterFoodFormTypes].displayInputsForm
+        .allergensCheckboxesState.inputsData;
+  } else {
+    allergensState = displayInputsForm.allergenCheckboxState.inputsData;
+  }
+  defaultAllergens = allergensState.length ? allergensState : defaultAllergens;
+
   return (
     <Form<AllergensFormProps>
       nameForm="Allergens"
@@ -34,26 +58,26 @@ export function AllergensForm({
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          allergens: [],
+          allergens: defaultAllergens,
         },
       }}
     >
       {({ control, register }) => {
-        const { append } = useFieldArray<AllergensFormProps>({
+        const { update } = useFieldArray<AllergensFormProps>({
           control,
           name: "allergens",
         });
 
-        const checkboxDataArr: CheckBox[] = ALLERGENS_LIST.map(
-          (el, i) =>
+        const checkboxDataArr: CheckBox[] = defaultAllergens.map(
+          (allergen, i) =>
             ({
-              register: register(`allergens.${i}` as any),
+              register: register(`allergens.${i}.value` as any),
               InputProps: {
                 onChange: (e) => {
-                  append({ name: el, value: e.target.checked });
+                  update(i, { name: allergen.name, value: e.target.checked });
                 },
               },
-              LabelProps: { labelText: el },
+              LabelProps: { labelText: allergen.name },
             } as CheckBox)
         );
 
