@@ -153,6 +153,7 @@ const insertNewNutritionQuestionnaire = async (
     `ON CONFLICT (${TABLES_DATA.NUTRITION_QUESTIONNAIRE_ID}) DO UPDATE SET
     ${TABLES_DATA.NUTRITION_QUESTIONNAIRE_ID}=excluded.${TABLES_DATA.NUTRITION_QUESTIONNAIRE_ID},
       allergens= excluded.allergens,
+      is_keep_meat_milk= excluded.is_keep_meat_milk,
   black_list_foods=excluded.black_list_foods,
   favorite_foods=excluded.favorite_foods,
   kosher=excluded.kosher,

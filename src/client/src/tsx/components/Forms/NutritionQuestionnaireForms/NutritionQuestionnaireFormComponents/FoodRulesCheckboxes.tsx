@@ -9,7 +9,7 @@ interface FoodRulesCheckboxesProps {
   kosher?: boolean;
   is_vegan?: boolean;
   is_vegetarian?: boolean;
-  isKeepMeatMilk?: boolean;
+  is_keep_meat_milk?: boolean;
 }
 
 function FoodRulesCheckboxes<T extends FoodRulesCheckboxesProps>({
@@ -37,7 +37,7 @@ function FoodRulesCheckboxes<T extends FoodRulesCheckboxesProps>({
         LabelProps: { labelText: "Vegetarian?" },
       },
       {
-        register: register("isKeepMeatMilk" as Path<T>),
+        register: register("is_keep_meat_milk" as Path<T>),
         LabelProps: { labelText: "KeepMeat&Milk?" as Path<T> },
       },
     ],

@@ -8,13 +8,12 @@ import NutritionMenusTable from "./NutritionMenusListTable";
 
 import style from "../Page.module.scss";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import { useAppSelector } from "../../redux/hooks";
-import { getAuthState } from "../../redux/slices/authSlice";
+
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 export const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
 function NutritionMenusListPage() {
-  const { traineeID, userID, profileID } = useGetUserTraineeData();
+  const { userID, profileID } = useGetUserTraineeData();
   const [nutritionMenu, setNutritionMenu] = useState<string[]>(["", ""]);
 
   const queriesOptions = {
@@ -36,7 +35,7 @@ function NutritionMenusListPage() {
           InputLabelProps={{
             InputProps: { placeholder: NUTRITION_MENU_NAME_DATA },
             LabelProps: {
-              labelText: "Search Nutrition Menu",
+              labelText: "Search Menu",
               htmlFor: "searchNutritionMenu",
             },
           }}

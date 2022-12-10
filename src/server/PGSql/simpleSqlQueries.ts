@@ -18,13 +18,14 @@ export async function selectQuery(
   } SELECT ${fields} FROM ${tableName}`} ${queryLogic} `;
 
   try {
-    const rows = await client.query(statement, queryParams);
     logger.debug(
       `LINE 232:${statement} : values:${JSON.stringify(queryParams)}`,
       {
         __filename,
       }
     );
+    const rows = await client.query(statement, queryParams);
+    logger.debug(`LINE 28: results select`, { objs: [rows.rows] });
     return rows.rows;
   } catch (error) {
     logger.error(
@@ -68,10 +69,12 @@ export const insertQuery = async (
      VALUES ${fieldParams} ${onConflict ? `${onConflict}` : ""} RETURNING * `;
 
   try {
-    const res = await client.query(statement, paramsArr);
     logger.debug(`LINE 72:${statement} : values:${JSON.stringify(paramsArr)}`, {
       __filename,
     });
+    const res = await client.query(statement, paramsArr);
+
+    logger.debug(`LINE 77: result insert`, { objs: [res] });
     return res;
   } catch (error) {
     logger.error(`LINE 74:${statement} : values:${JSON.stringify(paramsArr)}`, {

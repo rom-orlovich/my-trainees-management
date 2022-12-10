@@ -36,7 +36,7 @@ export const createNutritionMenu = async (
   lastMeasure: MeasuresCalResAPI
 ) => {
   const {
-    isKeepMeatMilk,
+    is_keep_meat_milk,
     favorite_foods,
     meals_calories_size_percents,
 
@@ -109,7 +109,7 @@ export const createNutritionMenu = async (
             totalCals,
             nutrientTypeCalsKey,
             mealInsertRes.meal_id,
-            isKeepMeatMilk ? keepMeatAndMilkObj : undefined,
+            is_keep_meat_milk ? keepMeatAndMilkObj : undefined,
             NUM_FOODS_IN_MEAL * i,
             NUM_FOODS_IN_MEAL * (i + 1)
           );

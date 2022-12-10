@@ -128,3 +128,8 @@ export const resetNutrientsValuesByFormFun = (
       formKey
     ].displayInputsForm.nutrientsValuesInputsState;
 };
+export const resetAllFilterFoodsFormFun = (state: FilterFormsState) => {
+  state = { ...initialFilterFoodsFormState };
+
+  return state;
+};

@@ -9,6 +9,7 @@ import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { ModelFormQuestionnaireModeDisplay } from "../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
+import { resetAllFilterFoodsForm } from "../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 
 import {
   getNutritionQuestionnaireFormState,
@@ -77,6 +78,7 @@ export function NutritionQuestionnaireForm({
               <span className={style.reset_button}>
                 <RiRestartFill
                   onClick={() => {
+                    dispatch(resetAllFilterFoodsForm());
                     dispatch(resetNutritionQuestionnaireState());
                   }}
                 />

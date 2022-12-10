@@ -8,6 +8,7 @@ import { FilterFormsState } from "./nutritionQuestionnaireFormsSliceTypes";
 
 import {
   resetAllergensFoodsByFormFun,
+  resetAllFilterFoodsFormFun,
   resetFilterFoodsByFormFun,
   resetNutrientsValuesByFormFun,
   setAllergensDataByFormFun,
@@ -55,14 +56,12 @@ export const filterFoodsFormSlice = createSlice({
   initialState: initialFilterFoodsFormState,
   reducers: {
     setNutrientsValuesQueryParams: setNutrientsValuesByFormFun,
-
     setAllergenDataByForm: setAllergensDataByFormFun,
-
     resetAllergenForm: resetAllergensFoodsByFormFun,
     resetFormFiltersForm: resetFilterFoodsByFormFun,
     resetNutrientsValuesQueryParams: resetNutrientsValuesByFormFun,
-
     submitFilterFoodsForm: submitFilterFoodsByFormFun,
+    resetAllFilterFoodsForm: resetAllFilterFoodsFormFun,
   },
 });
 export const {
@@ -72,6 +71,7 @@ export const {
   resetAllergenForm,
   resetFormFiltersForm,
   resetNutrientsValuesQueryParams,
+  resetAllFilterFoodsForm,
 } = filterFoodsFormSlice.actions;
 
 export const getFilterFoodsFormState = (state: RootState) =>

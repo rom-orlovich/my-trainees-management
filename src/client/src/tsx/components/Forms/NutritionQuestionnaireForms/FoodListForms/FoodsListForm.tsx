@@ -18,10 +18,7 @@ import Form from "../../../baseComponents/RHF-Components/Form/Form";
 
 import style from "./FoodsListForm.module.scss";
 import FoodsList from "./FoodsList/FoodsList";
-import {
-  getFilterFoodsFormState,
-  resetAllergenForm,
-} from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
+import { getFilterFoodsFormState } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 import ModelFormContainer from "../../../baseComponents/Model/ModelFormContainer";
 import { FoodListAddForm } from "./FoodsListAddForm";
 
@@ -53,26 +50,25 @@ export function FoodsListForm({
 
   const { user_id } = useGetUserLoginData();
   const [chosenFood, setChooseFood] = useState(["", ""]);
+  const [foodRemoveState, setFoodRemoveState] = useState<boolean>(false);
+
   const fitterFormState = useAppSelector(getFilterFoodsFormState);
   const nutritionQuestionnaireState = useAppSelector(
     getNutritionQuestionnaireFormState
   );
   const { curParam } = useAppSelector(getModelControllerState);
+  const checkFiltersFormType = curParam === "blackListFoodsFilterForm";
+  const mainName = checkFiltersFormType
+    ? "Blacklist food"
+    : "Favorite list food";
 
-  const mainName =
-    curParam === "blackListFoodsFilterForm"
-      ? "Blacklist food"
-      : "Favorite list food";
+  const foodsListDisplay = checkFiltersFormType
+    ? "black_list_foods"
+    : "favorite_foods";
 
-  const foodsListDisplay =
-    curParam === "blackListFoodsFilterForm"
-      ? "black_list_foods"
-      : "favorite_foods";
-
-  const foodsListNames =
-    curParam === "blackListFoodsFilterForm"
-      ? "blackListFoodsNames"
-      : "favoriteFoodsNames";
+  const foodsListNames = checkFiltersFormType
+    ? "blackListFoodsNames"
+    : "favoriteFoodsNames";
 
   const { serverQueryProps, displayInputsForm } = nutritionQuestionnaireState;
   const curFoodsListStateParams =
@@ -109,8 +105,14 @@ export function FoodsListForm({
           ...rest,
           userID: user_id,
         };
-        if (!fields.length && displayInputsForm[foodsListNames])
+
+        if (
+          !fields.length &&
+          !foodRemoveState &&
+          displayInputsForm[foodsListNames]
+        )
           replace(serverQueryProps[foodsListDisplay]);
+
         return (
           <>
             <span className={style.reset_button}>
@@ -157,7 +159,13 @@ export function FoodsListForm({
               />
             </div>
             <div className={style.chosen_food_list}>
-              <FoodsList remove={remove} foods={fields} />
+              <FoodsList
+                remove={(index) => {
+                  setFoodRemoveState(true);
+                  remove(index);
+                }}
+                foods={fields}
+              />
             </div>
           </>
         );

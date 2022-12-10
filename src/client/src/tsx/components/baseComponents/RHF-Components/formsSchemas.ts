@@ -136,7 +136,7 @@ export const nutritionQuestionnaireSchema = yup.object().shape({
   // kosher: yup.boolean(),
   // is_vegan: yup.boolean(),
   // is_vegetarian: yup.boolean(),
-  // isKeepMeatMilk: yup.boolean(),
+  // is_keep_meat_milk: yup.boolean(),
   // diet_type: yup.string(),
   // meals_calories_size_percents: yup.array(),
 });

@@ -28,3 +28,13 @@
     cursor: pointer;
   }
 }
+
+@include smartphone() {
+  .foods_filters_form_container {
+    gap: 0.2rem !important;
+
+    form.form_layout {
+      gap: 0.5rem;
+    }
+  }
+}

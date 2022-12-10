@@ -17,8 +17,9 @@ function FoodsList({
 }: {
   foods: FoodProps[];
   className?: string;
-  remove: UseFieldArrayRemove;
+  remove: (index: number) => void;
 }) {
+  console.log(foods);
   const dispatch = useAppDispatch();
   return (
     <List
@@ -40,7 +41,13 @@ function FoodsList({
             {food_name.slice(0, 25)}
           </span>
 
-          <span onClick={() => remove(index)} className={style.delete_icon}>
+          <span
+            onClick={() => {
+              console.log(index);
+              remove(index);
+            }}
+            className={style.delete_icon}
+          >
             <TiDelete />
           </span>
         </li>

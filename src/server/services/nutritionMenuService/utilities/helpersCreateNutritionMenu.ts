@@ -34,7 +34,7 @@ export const createMenuDescription = ({
   is_vegan,
   is_vegetarian,
   diet_type,
-  isKeepMeatMilk,
+  is_keep_meat_milk,
   allergens,
   meals_calories_size_percents,
   profile_id,
@@ -43,7 +43,7 @@ export const createMenuDescription = ({
   const kosherText = kosher ? "כשרה" : "";
   const veganText = is_vegan ? "טבעונית" : "";
   const vegetarianText = is_vegetarian ? "צמחונית" : "";
-  const isKeepMeatMilkText = isKeepMeatMilk ? "ללא בשר וחלב" : "";
+  const is_keep_meat_milkText = is_keep_meat_milk ? "ללא בשר וחלב" : "";
   const mealsDistPercentsText = `${meals_calories_size_percents
     .map((el, i) => `meal ${i + 1} %${el}`)
     .join(", ")
@@ -56,7 +56,7 @@ export const createMenuDescription = ({
   return {
     note_text: `Type menu:${diet_type} ${kosherText} ${
       veganText || vegetarianText
-    } ${isKeepMeatMilkText}`,
+    } ${is_keep_meat_milkText}`,
     note_topic: `${`${allergensText} ` || ""}${
       mealsDistPercentsText ? `meals percents: ${mealsDistPercentsText}` : ""
     } `,

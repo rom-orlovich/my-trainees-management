@@ -73,6 +73,7 @@ export function FoodsFilterForm({
       modelMode
       className={genClassName(style.foods_filters_form_container, curParam)}
       saveState={true}
+      formProps={{ className: style.form_layout }}
       editMode={editMode}
       formOptions={{
         defaultValues: {

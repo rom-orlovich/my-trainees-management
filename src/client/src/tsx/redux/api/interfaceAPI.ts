@@ -421,7 +421,7 @@ export interface NutritionQuestionnaire {
   kosher?: boolean;
   is_vegan?: boolean;
   is_vegetarian?: boolean;
-  isKeepMeatMilk?: boolean;
+  is_keep_meat_milk?: boolean;
   diet_type: DietTypes;
   meals_calories_size_percents: number[];
   profile_id: number;

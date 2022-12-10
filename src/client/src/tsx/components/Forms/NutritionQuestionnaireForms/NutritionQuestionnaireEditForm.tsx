@@ -90,6 +90,7 @@ function NutritionQuestionnaireEditForm() {
           is_vegan,
           is_vegetarian,
           diet_type,
+          is_keep_meat_milk,
         } = lastData;
         const handleSubmit = (body: NutritionQuestionnaire) =>
           addFunction({
@@ -113,6 +114,7 @@ function NutritionQuestionnaireEditForm() {
                 is_vegan,
                 is_vegetarian,
                 diet_type,
+                is_keep_meat_milk,
               } as any
             }
           />
