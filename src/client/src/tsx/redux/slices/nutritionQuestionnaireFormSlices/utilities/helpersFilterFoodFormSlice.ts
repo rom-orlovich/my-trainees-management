@@ -88,6 +88,10 @@ export const submitFilterFoodsByFormFun = (
     ...kosherType,
     ...nutrientType,
   };
+
+  state[formKey].displayInputsForm = {
+    ...state[formKey].displayInputsForm,
+  };
 };
 
 export const resetFilterFoodsByFormFun = (

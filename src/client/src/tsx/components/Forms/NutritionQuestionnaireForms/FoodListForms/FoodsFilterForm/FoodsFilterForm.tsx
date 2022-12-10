@@ -65,6 +65,7 @@ export function FoodsFilterForm({
   if (!curParam) return <></>;
   const curFilterFoodFormState =
     filterFoodForm[curParam as FilterFoodFormTypes];
+
   return (
     <Form<FiltersFoodProps>
       heading={"Filters Food"}
@@ -78,8 +79,6 @@ export function FoodsFilterForm({
           kosher_type: "all",
           nutrient_type: "all",
           ...defaultValues,
-
-          // allergens: curFilterFoodFormState.serverQueryProps.allergens,
         },
       }}
     >

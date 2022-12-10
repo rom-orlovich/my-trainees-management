@@ -32,6 +32,7 @@ import {
 } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import { genClassName } from "../../../../utilities/helpersFun";
+import { FilterFoodFormTypes } from "../../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
 
 export interface FoodProps {
   id?: string;
@@ -53,21 +54,30 @@ export function FoodsListForm({
   const { user_id } = useGetUserLoginData();
   const [chosenFood, setChooseFood] = useState(["", ""]);
   const fitterFormState = useAppSelector(getFilterFoodsFormState);
-  const { serverQueryProps } = useAppSelector(
+  const nutritionQuestionnaireState = useAppSelector(
     getNutritionQuestionnaireFormState
   );
   const { curParam } = useAppSelector(getModelControllerState);
-
-  const {
-    favoriteFoodsFilterForm: {
-      serverQueryProps: { nutrientsValuesQueryParams, ...rest },
-    },
-  } = fitterFormState;
 
   const mainName =
     curParam === "blackListFoodsFilterForm"
       ? "Blacklist food"
       : "Favorite list food";
+
+  const foodsListDisplay =
+    curParam === "blackListFoodsFilterForm"
+      ? "black_list_foods"
+      : "favorite_foods";
+
+  const { serverQueryProps } = nutritionQuestionnaireState;
+  const curFoodsListStateParams =
+    fitterFormState[curParam as FilterFoodFormTypes];
+  const {
+    serverQueryProps: { nutrientsValuesQueryParams, ...rest },
+  } = curFoodsListStateParams;
+
+  console.log();
+  console.log(serverQueryProps[foodsListDisplay]);
   return (
     <Form<FoodsListFormProps>
       heading={`Choose ${mainName}`}
@@ -80,7 +90,7 @@ export function FoodsListForm({
       formOptions={{
         defaultValues: {
           ...defaultValues,
-          foods: serverQueryProps?.favorite_foods || [],
+          foods: serverQueryProps[foodsListDisplay] || [],
         },
       }}
     >
@@ -96,7 +106,7 @@ export function FoodsListForm({
           ...rest,
           userID: user_id,
         };
-
+        if (!fields.length) replace(serverQueryProps[foodsListDisplay]);
         return (
           <>
             <span className={style.reset_button}>

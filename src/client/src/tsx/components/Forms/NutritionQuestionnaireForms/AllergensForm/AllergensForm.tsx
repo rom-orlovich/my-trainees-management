@@ -8,6 +8,7 @@ import {
   resetAllergenForm,
 } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 import {
+  CHECKBOXES_ALLERGENS,
   getNutritionQuestionnaireFormState,
   resetAllergensArr,
 } from "../../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
@@ -41,8 +42,11 @@ export function AllergensForm({
     getNutritionQuestionnaireFormState
   );
   const { curParam } = useAppSelector(getModelControllerState);
+  const dispatch = useAppDispatch();
 
-  let allergensState;
+  let allergensState: AllergensCheckbox[] = CHECKBOXES_ALLERGENS;
+
+  // Set the current allergen checkboxes state according to the current form display
   if (curParam === "nutritionQuestionnaire")
     allergensState = displayInputsForm.allergenCheckboxState.inputsData;
   else
@@ -50,8 +54,6 @@ export function AllergensForm({
       fitterFormState[curParam as FilterFoodFormTypes].displayInputsForm
         .allergensCheckboxesState.inputsData;
 
-  console.log(allergensState);
-  const dispatch = useAppDispatch();
   return (
     <Form<AllergensFormProps>
       nameForm="Allergens"
@@ -73,9 +75,14 @@ export function AllergensForm({
           name: "allergens",
         });
 
+        // **NOTE: For some reason the allergen fields reset in every time the component mount.
+        if (!fields.length) {
+          replace(allergensState);
+        }
+
         const checkboxDataArr: CheckBox[] = fields.map((allergen, i) => ({
           LabelProps: { labelText: allergen.name },
-          register: register(`allergens.${i}.value` as any),
+          register: register(`allergens.${i}.value` as const),
           InputProps: {
             onChange: (e) => {
               update(i, { name: allergen.name, value: e.target.checked });
@@ -89,7 +96,7 @@ export function AllergensForm({
             <span className={style.reset_button}>
               <RiRestartFill
                 onClick={() => {
-                  replace(fields.map((el) => ({ ...el, value: false })));
+                  replace(CHECKBOXES_ALLERGENS);
                   if (curParam === "nutritionQuestionnaire")
                     dispatch(resetAllergensArr());
                   else dispatch(resetAllergenForm({ formKey: curParam }));

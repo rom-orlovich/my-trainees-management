@@ -20,3 +20,21 @@
     }
   }
 }
+
+@include smartphone() {
+  @include classMatcher("model") {
+    &:has(.allergens_form_container) {
+      width: fit-content;
+    }
+  }
+  .allergens_form_container {
+    @include classMatcher("GroupInputs_group_inputs_layout") {
+      justify-content: center;
+      label[class*="input_label"] {
+        &:has(input[type*="checkbox"]) {
+          max-width: 29%;
+        }
+      }
+    }
+  }
+}

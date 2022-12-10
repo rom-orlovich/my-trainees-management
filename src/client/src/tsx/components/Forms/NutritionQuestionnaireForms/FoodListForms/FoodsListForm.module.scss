@@ -1,6 +1,12 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
+// @include classMatcher("ModelCard_model_card") {
+//   &:has(.food_list_form_container) {
+//     min-width: 32vw;
+//   }
+// }
 
 .food_list_form_container {
+  height: 32vh;
   .reset_button {
     @include posAbs(0%, null, 0%, null);
     color: #4679dc;
@@ -10,6 +16,8 @@
   height: 50vh;
   @include classMatcher("autocomplete_container") {
     li {
+      font-size: 1rem;
+      height: 2.5rem;
     }
     input {
       text-align: center;

@@ -24,14 +24,14 @@ import {
   submitFavoriteFoodsFun,
 } from "./utilities/helpersNutritionQuestionnaire";
 
-export const CHECKBOX_ALLERGENS = ALLERGENS_LIST.map((el) => ({
+export const CHECKBOXES_ALLERGENS = ALLERGENS_LIST.map((el) => ({
   name: el as AllergensListType,
   value: false,
 }));
 
 const nutritionQuestionnaireState: NutritionQuestionnaireFormState = {
   displayInputsForm: {
-    allergenCheckboxState: { inputsData: CHECKBOX_ALLERGENS, inputsStr: "" },
+    allergenCheckboxState: { inputsData: CHECKBOXES_ALLERGENS, inputsStr: "" },
 
     favoriteFoodsName: "",
     blackListFoodsNames: "",

@@ -34,6 +34,7 @@ export const setAllergensArrFun = (
   const { allergensData, allergensArr, allergensStr } = createAllergensData(
     action.payload
   );
+
   state.displayInputsForm.allergenCheckboxState.inputsData = allergensData;
   state.displayInputsForm.allergenCheckboxState.inputsStr = allergensStr;
   state.serverQueryProps.allergens = allergensArr;

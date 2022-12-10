@@ -5,12 +5,10 @@ import { AllergensListType } from "../../../../components/Forms/NutritionQuestio
 
 export const createAllergensData = (allergensData: AllergensCheckbox[]) => {
   const allergensArr: AllergensListType[] = [];
-  console.log(allergensData);
 
   allergensData
     .filter((el) => el?.value)
     .forEach((el) => {
-      console.log(el);
       allergensArr.push(el.name);
     });
 
