@@ -123,11 +123,7 @@ export async function createFoodsDetailsDB(start: number, end: number) {
         console.log(`finish writing `, pathHTML);
         const scrapData = createFoodDetailsData(pathHTML);
         if (scrapData) {
-          // logger.debug(`LINE:120 scrapData result:`, {
-          //   objs: [scrapData],
-          //   __filename,
-          // });
-          lengthFoodsDetailsDB = createArrDataObjJSON<GenericRecord<any>>(
+          lengthFoodsDetailsDB = createArrDataObjJSON(
             FOOD_DICT_DB_PATH,
             scrapData
           );
@@ -140,48 +136,3 @@ export async function createFoodsDetailsDB(start: number, end: number) {
     return start;
   }
 }
-
-// const arr = JSON.parse(
-//   readFileSync(FOOD_DICT_DB_PATH, JSON_ENCODING_DEFAULT)
-// ) as Food[];
-
-// const newArr = arr
-//   .filter((el) => el.calories || el.calories === 0)
-//   .map(
-//     (
-//       {
-//         productName,
-//         id,
-//         proteins,
-//         carbohydrates,
-//         total_fat,
-//         sodium,
-//         cholesterol,
-//         saturated_fat,
-//         calories,
-//         ...el
-//       },
-//       i
-//     ) => {
-//       const proteinCals = Number(proteins * 4).toFixed(2);
-//       const carbsCals = Number(carbohydrates * 4).toFixed(2);
-//       const fatCals = Number(total_fat * 9).toFixed(2);
-//       return {
-//         food_id: i + 1,
-//         product_name: productName,
-//         ...el,
-//         protein_g: proteins || 0,
-//         carbs_g: carbohydrates || 0,
-//         fat_g: total_fat || 0,
-//         sodium_mg: sodium || 0,
-//         cholesterol_mg: cholesterol || 0,
-//         saturated_fat: saturated_fat || 0,
-//         protein_cals: proteinCals,
-//         carbs_cals: carbsCals,
-//         fat_cals: fatCals,
-//         calories_total: calories
-//       };
-//     }
-//   );
-
-// writeFileSync(FOOD_DICT_DB_PATH, JSON.stringify(newArr), JSON_ENCODING_DEFAULT);

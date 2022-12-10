@@ -210,6 +210,7 @@ const checkIfIsNotFood = (food: Food, foodScore: number) =>
   !(food.protein_cals && food.carbs_cals && food.fat_cals);
 
 export function createFoodDetailsData(pathHTML: string) {
+  console.log("start create food details from", pathHTML);
   const $ = createCheerioLoad(pathHTML);
   const foodName = { food_name: $("h1").text() };
   const updateDateInfo = $(".fd-info").text().split(":")[1];

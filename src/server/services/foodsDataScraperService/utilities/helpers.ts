@@ -7,7 +7,7 @@ import {
   PRODUCT_DETAILS_HTML_PATH,
   URL_PATH,
 } from "../constants";
-import { FoodNameDB } from "../foodsDataScraperServiceTypes";
+import { Food, FoodNameDB } from "../foodsDataScraperServiceTypes";
 
 function mapStr() {
   let mapEncoded = {} as Record<any, any>;
@@ -59,16 +59,17 @@ export function createArrDataJSON<T>(pathJSON: string, scrapData: any[]) {
 
   return writingArr.length - 1;
 }
-export function createArrDataObjJSON<T>(pathJSON: string, scrapData: T) {
+export function createArrDataObjJSON<T>(pathJSON: string, scrapData: Food) {
   const curData = JSON.parse(
     readFileSync(pathJSON, JSON_ENCODING_DEFAULT)
-  ) as T[];
+  ) as Food[];
 
   const writingArr = [
     ...curData,
     { food_id: curData.length + 1, ...scrapData },
   ];
-  writeFileSync(pathJSON, JSON.stringify(writingArr), JSON_ENCODING_DEFAULT);
+  if (!curData.some((el: Food) => el?.food_name === scrapData?.food_name))
+    writeFileSync(pathJSON, JSON.stringify(writingArr), JSON_ENCODING_DEFAULT);
   return writingArr.length - 1;
 }
 

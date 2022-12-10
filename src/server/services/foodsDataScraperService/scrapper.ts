@@ -37,16 +37,16 @@ async function beginScrapping() {
     // );
 
     // Init products list links scrapper.
-    const t = await createFoodsListLinksDB(
+    const productsListPos = await createFoodsListLinksDB(
       fetchProductsList.start,
       fetchProductsList.end
     );
     // Init product details scrapper.
-    const k = await createFoodsDetailsDB(
+    const productDetailsPos = await createFoodsDetailsDB(
       fetchFoodsDetails.start,
       fetchFoodsDetails.end
     );
-    console.log(t, k);
+    console.log(productsListPos, productDetailsPos);
     schedule(`*/${cronCachedData.eachMin} * * * *`, async () => {
       cronCachedData.eachMin = Math.floor(1 + Math.random() * 5);
       fetchProductsList.start += RESULT_ADD;
