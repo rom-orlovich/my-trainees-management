@@ -15,7 +15,7 @@ import ModelMuscleGroupFormContent from "../../Forms/MusclesGroupForms/ModelMusc
 import ModelParticipantsGroupFormContent from "../../Forms/ParticipantsGroupForm/ModelParticipantsGroupFormContent";
 
 import ModelProductFormContent from "../../Forms/ProductsForms/ModelProductFormContent";
-import ModelSubscriptionPlansFormContent from "../../Forms/SubscriptionPlansForms/ModelSubscriptionPlansFormContent";
+
 import ModelCard from "./ModelCard";
 
 import { FoodsListFormContent } from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
@@ -25,6 +25,7 @@ import { ModelParticipantsGroupListFormContent } from "../../Forms/ParticipantsG
 import FoodDetails from "../../Forms/NutritionQuestionnaireForms/FoodListForms/FoodsList/FoodDetails/FoodDetails";
 import { AllergensFormContent } from "../../Forms/NutritionQuestionnaireForms/AllergensForm/AllergensForm";
 import { MealsCaloriesSizeFormContent } from "../../Forms/NutritionQuestionnaireForms/NutritionQuestionnaireFormComponents/MealsCaloriesSizeForms/MealsCaloriesSizeForm";
+import { ModelSubscriptionPlansFormContent } from "../../Forms/SubscriptionPlansForms/SubscriptionPlansForm";
 
 function ModelController() {
   const { lastModel } = useAppSelector(getModelControllerState);

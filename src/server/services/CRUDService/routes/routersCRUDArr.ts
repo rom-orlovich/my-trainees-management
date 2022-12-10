@@ -11,7 +11,6 @@ import {
   locationsOptionsCRUD,
   musclesGroupOptionsCRUD,
   nutritionMenusListOptionsCRUD,
-  nutritionQuestionnaireCRUD,
   participantsGroupListOptionsCRUD,
   participantsGroupOptionsCRUD,
   productsOptionsCRUD,

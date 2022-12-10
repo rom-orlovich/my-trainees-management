@@ -19,6 +19,7 @@ import { openModel } from "../../../../redux/slices/modelControllerSlices/modelC
 
 function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
   const { isTrainee } = useGetUserTraineeData();
+
   const dispatch = useAppDispatch();
   return (
     <Card
@@ -28,13 +29,15 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
         style.subscription_plans_container
       )}
     >
-      {!isTrainee && (
+      {/* {!isTrainee && (
         <Link
           onClick={(e) => {
             e.preventDefault();
             dispatch(
               openModel({
                 displayContent: "subscriptionPlansForm",
+
+
               })
             );
           }}
@@ -43,7 +46,7 @@ function SubscriptionPlans({ className, queryOptions }: TraineeProfileProps) {
         >
           <BsFillPlusSquareFill />
         </Link>
-      )}
+      )} */}
 
       <ListProfile
         dataNotFoundEl={<> No subscription plans were found</>}

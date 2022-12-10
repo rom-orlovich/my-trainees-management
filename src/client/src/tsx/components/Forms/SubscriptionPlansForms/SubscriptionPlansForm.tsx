@@ -1,14 +1,19 @@
 /* eslint-disable camelcase */
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useLocation, useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
+import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
 import { SubscriptionPlansAPI } from "../../../redux/api/interfaceAPI";
 import { formatDate } from "../../../utilities/helpersFun";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
+import ModelFormContainer from "../../baseComponents/Model/ModelFormContainer";
 import Form from "../../baseComponents/RHF-Components/Form/Form";
 import { subscriptionPlansSchema } from "../../baseComponents/RHF-Components/formsSchemas";
 import InputErrorMessage from "../../baseComponents/RHF-Components/InputErrorMessage";
 import { InputLabel } from "../../baseComponents/RHF-Components/InputLabel/InputLabel";
+import SubscriptionPlansAddForm from "./SubscriptionPlansAddForm";
+import SubscriptionPlansEditForm from "./SubscriptionPlansEditForm";
 
 function SubscriptionPlansForm({
   onSubmit,
@@ -16,6 +21,9 @@ function SubscriptionPlansForm({
   editMode,
   fromProps,
 }: GeneralFormProps<SubscriptionPlansAPI>) {
+  const params = useParams();
+  const traineeID = Number(params["*"]?.split("/")[0]);
+  console.log(traineeID);
   return (
     <>
       <Form
@@ -25,7 +33,7 @@ function SubscriptionPlansForm({
         formProps={{ className: ` ${fromProps?.className}` }}
         formOptions={{
           resolver: yupResolver(subscriptionPlansSchema.omit(["trainee_id"])),
-          defaultValues: { ...defaultValues },
+          defaultValues: { ...defaultValues, trainee_id: traineeID },
           mode: "onBlur",
         }}
       >
@@ -89,6 +97,15 @@ function SubscriptionPlansForm({
         }}
       </Form>
     </>
+  );
+}
+
+export function ModelSubscriptionPlansFormContent() {
+  return (
+    <ModelFormContainer
+      EditForm={SubscriptionPlansEditForm}
+      AddForm={SubscriptionPlansAddForm}
+    />
   );
 }
 

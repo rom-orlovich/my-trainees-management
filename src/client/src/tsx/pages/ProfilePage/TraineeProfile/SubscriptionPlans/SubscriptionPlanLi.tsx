@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React from "react";
 import { Link } from "react-router-dom";
-import useGetUserLoginData from "../../../../hooks/useGetUserLoginData";
+
 import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 import { SubscriptionPlansAPI } from "../../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../../redux/hooks";
@@ -16,7 +16,6 @@ function SubscriptionPlanLi({
   total_trainings,
   last_training,
   subscription_plan_id,
-  trainee_id,
 }: SubscriptionPlansAPI) {
   const dispatch = useAppDispatch();
   const { isTrainee } = useGetUserTraineeData();

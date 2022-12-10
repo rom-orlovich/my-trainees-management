@@ -37,6 +37,7 @@ import { openModel } from "../../redux/slices/modelControllerSlices/modelControl
 const isDesktopWidth = window.innerWidth > 500;
 
 function SchedulePage() {
+  const [pos, setPos] = useState<{ x: string; y: string } | null>(null);
   const dispatch = useAppDispatch();
   const [queryParams, setQueryParams] = useSearchParams();
   const [deleteEvent] = meetingApi.useDeleteItemMutation();
@@ -187,10 +188,11 @@ function SchedulePage() {
           longPressDelay={500}
         />
         {!isTrainee && (
-          <BsFillPlusSquareFill
+          <div
+            style={{ top: pos?.y || "", left: pos?.x || "" }}
+            className={style.float_add_meeting_button}
             onClick={() => {
               dispatch(changeModelAction);
-
               setQueryParams({
                 dateStart: String(
                   addToDate(new Date(), { dPlus: 0, minPlus: 0 }).getTime()
@@ -199,8 +201,10 @@ function SchedulePage() {
                 modelFormState: "add",
               });
             }}
-            className={style.float_add_meeting_button}
-          />
+            draggable={true}
+          >
+            <BsFillPlusSquareFill />
+          </div>
         )}
       </section>
     </>

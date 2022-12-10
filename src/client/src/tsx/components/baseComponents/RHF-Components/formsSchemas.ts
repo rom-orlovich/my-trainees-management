@@ -200,7 +200,7 @@ export const traineesSchema = yup.object().shape({
 export const subscriptionPlansSchema = yup.object().shape({
   subscription_plan_id: yup.number().notRequired().nullable(),
   trainee_id: yup.number().required("Must be a number"),
-  product_id: yup.number().required("Must be a number"),
+  // product_id: yup.number().required("Must be a number"),
   current_num_trainings: yup
     .number()
     .required()

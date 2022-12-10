@@ -55,10 +55,11 @@
     display: none;
   }
   .stats_page {
-    height: fit-content;
+    height: 100%;
     overflow-y: scroll;
 
     width: 100%;
+
     .stats_page_header_filters {
       padding-left: 0rem;
       padding: 0.5rem;

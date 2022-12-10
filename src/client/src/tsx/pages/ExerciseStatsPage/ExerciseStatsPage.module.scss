@@ -29,6 +29,15 @@
     @include classMatcher("page_header") {
       margin-top: 1.5rem;
       padding: 0rem 0rem 0rem 0rem !important;
+      flex-direction: column;
+      @include classMatcher("SelectInput") {
+        order: 1;
+        width: 100%;
+        padding: 0 0.5rem;
+      }
+      @include classMatcher("dates_container") {
+        order: 2;
+      }
     }
   }
 }

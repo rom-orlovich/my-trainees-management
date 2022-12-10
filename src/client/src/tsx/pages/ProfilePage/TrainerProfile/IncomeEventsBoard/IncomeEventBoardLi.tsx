@@ -33,7 +33,7 @@ function IncomeEventBoardLi({
     <li className={listProfileStyle.list_li}>
       <span className={listProfileStyle.list_detail}>
         <span>Event</span>
-        {note_topic || ""}
+        <span>{note_topic || ""} </span>
       </span>
       <span className={listProfileStyle.list_detail}>
         <span>{dateDisplayStr}</span>

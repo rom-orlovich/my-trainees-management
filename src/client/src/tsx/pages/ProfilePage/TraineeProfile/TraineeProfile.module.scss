@@ -6,14 +6,14 @@
   width: 100%;
   .trainee_profile_page_container {
     $GRID_ROW: 6;
-    $ROW_HEIGHT: 32vh;
+    $ROW_HEIGHT: 30vh;
     display: grid;
     gap: 1.2rem;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat((6, 1fr));
     padding: 0.5rem 1rem;
     width: 100%;
-    height: calc($GRID_ROW * $ROW_HEIGHT);
+    min-height: calc($GRID_ROW * $ROW_HEIGHT);
 
     .programs_grid_item {
       grid-area: 1 / 1 / 2 / 7;
@@ -37,7 +37,7 @@
 
 @include smartphone() {
   %shared {
-    min-height: 20rem;
+    min-height: 40vh;
   }
   .trainee_profile_page {
     overflow: scroll;
@@ -56,11 +56,11 @@
     }
     .subscription_plans_grid_item {
       order: 4;
-      @extend %shared;
+      min-height: 15vh;
     }
     .programs_grid_item {
       order: 2;
-      @extend %shared;
+      min-height: 15vh;
     }
 
     .calories_chart_grid_item {

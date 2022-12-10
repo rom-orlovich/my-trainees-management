@@ -73,7 +73,7 @@
   //For the main content of the table
   @include classMatcher("fc-scroller fc-scroller-liquid-absolute") {
     overflow-y: hidden;
-    height: 80%;
+    height: 60%;
     // For selection number of cells
     @include classMatcher("fc-highlight") {
       background-color: rgba(12, 131, 155, 0.3);
@@ -122,14 +122,18 @@
   }
 
   .float_add_meeting_button {
-    @include heightWidth(3.5rem, 3.5rem);
-    border-radius: 50%;
-    background-color: white;
     @include posAbs(null, null, 1%, 1%);
     position: fixed;
     z-index: 75;
-    color: rgb(62, 108, 194);
+
     cursor: pointer;
+    @include heightWidth(3.5rem, 3.5rem);
+    svg {
+      @include heightWidth(100%, 100%);
+      border-radius: 50%;
+      background-color: white;
+      color: rgb(62, 108, 194);
+    }
     :hover {
       color: rgb(80, 127, 212);
     }
@@ -225,10 +229,9 @@
       }
     }
     .float_add_meeting_button {
-      @include heightWidth(3.5rem, 3.5rem);
       border-radius: 50%;
       background-color: white;
-      @include posAbs(null, null, 2%, 2%);
+      @include posAbs(null, null, 2%, 1%);
       position: fixed;
 
       cursor: pointer;

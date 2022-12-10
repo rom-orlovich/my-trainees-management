@@ -81,7 +81,6 @@
         }
       }
       @include classMatcher("selectInput_label") {
-        @include posAbs(0.5%, null, 2%, null);
         max-width: initial;
         label {
           display: none;
