@@ -2,14 +2,18 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { format } from "date-fns";
+import { RiRestartFill } from "react-icons/ri";
 
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
 import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { ModelFormQuestionnaireModeDisplay } from "../../../redux/slices/modelControllerSlices/modelControllerSliceTypes";
 
-import { getNutritionQuestionnaireFormState } from "../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
+import {
+  getNutritionQuestionnaireFormState,
+  resetNutritionQuestionnaireState,
+} from "../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
 import { setInDate } from "../../../utilities/helpersFun";
 
@@ -37,7 +41,7 @@ export function NutritionQuestionnaireForm({
   const { displayInputsForm } = useAppSelector(
     getNutritionQuestionnaireFormState
   );
-
+  const dispatch = useAppDispatch();
   return (
     <>
       <Form<NutritionQuestionnaire>
@@ -70,6 +74,13 @@ export function NutritionQuestionnaireForm({
 
           return (
             <>
+              <span className={style.reset_button}>
+                <RiRestartFill
+                  onClick={() => {
+                    dispatch(resetNutritionQuestionnaireState());
+                  }}
+                />
+              </span>
               <div className={style.time_activity}>
                 <InputLabel
                   InputProps={{
@@ -127,7 +138,7 @@ export function NutritionQuestionnaireForm({
                 ModelFormQuestionnaireModeDisplay
               >
                 labelText="Favorite Foods"
-                placeholder={displayInputsForm.favoriteFoodsName}
+                placeholder={displayInputsForm.favoriteFoodsNames}
                 modelName="foodsListForm"
                 register={register}
                 nameField="favorite_foods"

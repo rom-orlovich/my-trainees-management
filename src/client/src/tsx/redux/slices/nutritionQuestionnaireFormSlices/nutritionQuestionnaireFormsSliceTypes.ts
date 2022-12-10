@@ -67,7 +67,7 @@ export interface NutritionQuestionnaireFormState {
     allergenCheckboxState: DisplayAllergensInputState;
     mealsPercentsState: DisplayMealsPercentsInputState;
     blackListFoodsNames: string;
-    favoriteFoodsName: string;
+    favoriteFoodsNames: string;
   };
   serverQueryProps: {
     meals_calories_size_percents: number[];

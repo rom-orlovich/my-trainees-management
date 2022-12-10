@@ -34,7 +34,7 @@ function NutritionQuestionnaireEditForm() {
   const [addItem] = nutritionQuestionnaireApi.useCreateOneItemMutation();
   const dispatch = useAppDispatch();
   // If the user is trainee, the query is executed by his userID instead his trainerUserID.
-  const { profileID, traineeID, userID } = useGetUserTraineeData();
+  const { profileID, userID } = useGetUserTraineeData();
 
   const { data, isError, isFetching, isLoading } =
     nutritionQuestionnaireApi.useGetItemsQuery({

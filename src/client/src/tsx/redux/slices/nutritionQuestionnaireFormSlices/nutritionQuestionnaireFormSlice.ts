@@ -18,6 +18,7 @@ import {
   resetBlackListFoodsFun,
   resetFavoriteFoodsFun,
   resetMealsPercentsArrFun,
+  resetNutritionQuestionnaireStateFun,
   setAllergensArrFun,
   setMealsPercentsArrFun,
   submitBlackListFoodsFun,
@@ -29,11 +30,11 @@ export const CHECKBOXES_ALLERGENS = ALLERGENS_LIST.map((el) => ({
   value: false,
 }));
 
-const nutritionQuestionnaireState: NutritionQuestionnaireFormState = {
+export const nutritionQuestionnaireState: NutritionQuestionnaireFormState = {
   displayInputsForm: {
     allergenCheckboxState: { inputsData: CHECKBOXES_ALLERGENS, inputsStr: "" },
 
-    favoriteFoodsName: "",
+    favoriteFoodsNames: "",
     blackListFoodsNames: "",
     mealsPercentsState: {
       inputsData: [],
@@ -69,6 +70,7 @@ export const nutritionQuestionnaireFormSlice = createSlice({
     submitBlackListFoods: submitBlackListFoodsFun,
     resetFavoriteFoods: resetFavoriteFoodsFun,
     resetBlackListFoods: resetBlackListFoodsFun,
+    resetNutritionQuestionnaireState: resetNutritionQuestionnaireStateFun,
   },
 });
 export const {
@@ -80,6 +82,7 @@ export const {
   resetAllergensArr,
   resetFavoriteFoods,
   resetBlackListFoods,
+  resetNutritionQuestionnaireState,
 } = nutritionQuestionnaireFormSlice.actions;
 
 export const getNutritionQuestionnaireFormState = (state: RootState) =>

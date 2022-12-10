@@ -69,15 +69,18 @@ export function FoodsListForm({
       ? "black_list_foods"
       : "favorite_foods";
 
-  const { serverQueryProps } = nutritionQuestionnaireState;
+  const foodsListNames =
+    curParam === "blackListFoodsFilterForm"
+      ? "blackListFoodsNames"
+      : "favoriteFoodsNames";
+
+  const { serverQueryProps, displayInputsForm } = nutritionQuestionnaireState;
   const curFoodsListStateParams =
     fitterFormState[curParam as FilterFoodFormTypes];
   const {
     serverQueryProps: { nutrientsValuesQueryParams, ...rest },
   } = curFoodsListStateParams;
 
-  console.log();
-  console.log(serverQueryProps[foodsListDisplay]);
   return (
     <Form<FoodsListFormProps>
       heading={`Choose ${mainName}`}
@@ -106,7 +109,8 @@ export function FoodsListForm({
           ...rest,
           userID: user_id,
         };
-        if (!fields.length) replace(serverQueryProps[foodsListDisplay]);
+        if (!fields.length && displayInputsForm[foodsListNames])
+          replace(serverQueryProps[foodsListDisplay]);
         return (
           <>
             <span className={style.reset_button}>

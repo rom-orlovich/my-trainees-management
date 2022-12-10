@@ -3,7 +3,10 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { AllergensCheckbox } from "../../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/AllergensForm";
 import { FoodProps } from "../../../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
 import { MealsCaloriesSize } from "../../../../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireFormComponents/MealsCaloriesSizeForms/MealsCaloriesSizeForm";
-import { createChosenFoodData } from "../nutritionQuestionnaireFormSlice";
+import {
+  createChosenFoodData,
+  nutritionQuestionnaireState,
+} from "../nutritionQuestionnaireFormSlice";
 import { NutritionQuestionnaireFormState } from "../nutritionQuestionnaireFormsSliceTypes";
 import { createAllergensData } from "./helpersFun";
 
@@ -51,7 +54,7 @@ export const submitFavoriteFoodsFun = (
   action: PayloadAction<FoodProps[]>
 ) => {
   const { foodNameArr, serverFoodsData } = createChosenFoodData(action);
-  state.displayInputsForm.favoriteFoodsName = foodNameArr.join(",");
+  state.displayInputsForm.favoriteFoodsNames = foodNameArr.join(",");
   state.serverQueryProps.favorite_foods = serverFoodsData;
 };
 export const submitBlackListFoodsFun = (
@@ -65,7 +68,7 @@ export const submitBlackListFoodsFun = (
 export const resetFavoriteFoodsFun = (
   state: NutritionQuestionnaireFormState
 ) => {
-  state.displayInputsForm.favoriteFoodsName = "";
+  state.displayInputsForm.favoriteFoodsNames = "";
   state.serverQueryProps.favorite_foods = [];
 };
 export const resetBlackListFoodsFun = (
@@ -73,4 +76,10 @@ export const resetBlackListFoodsFun = (
 ) => {
   state.displayInputsForm.blackListFoodsNames = "";
   state.serverQueryProps.black_list_foods = [];
+};
+export const resetNutritionQuestionnaireStateFun = (
+  state: NutritionQuestionnaireFormState
+) => {
+  state = { ...nutritionQuestionnaireState };
+  return state;
 };

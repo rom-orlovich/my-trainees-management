@@ -1,6 +1,12 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 
 .nutrition_questionnaire_form_container {
+  .reset_button {
+    @include posAbs(0%, null, 0%, null);
+    color: #4679dc;
+    font-size: 2rem;
+    cursor: pointer;
+  }
   .time_activity {
     width: 100%;
     @include flex-dir(null, null);
