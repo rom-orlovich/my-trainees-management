@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import { TrainingProgramAddExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramAddForm";
 import { TrainingProgramEditExerciseForm } from "../components/Forms/TrainingProgramForms/TrainingProgramEditForm";
 
-import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
 import ExerciseStatsPage from "../pages/ExerciseStatsPage/ExerciseStatsPage";
 
 import { APP_ROUTE } from "./appRoutesConstants";

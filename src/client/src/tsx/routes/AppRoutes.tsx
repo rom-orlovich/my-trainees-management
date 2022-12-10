@@ -121,12 +121,12 @@ function AppRoutes() {
           </Route>
 
           <Route
-            path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/*`}
+            path={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}//*`}
             element={<TrainingProgramListRoutes />}
           />
 
           <Route
-            path={`${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/*`}
+            path={`${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}//*`}
             element={<NutritionMenusListRoutes />}
           />
 
@@ -196,7 +196,7 @@ function AppRoutes() {
               element={<MyWorkoutsPage />}
             />
             <Route
-              path={APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}
+              path={APP_ROUTE.MY_NUTRITION_MENUS_LIST_ROUTE}
               element={<MyNutritionMenusPage />}
             />
           </Route>

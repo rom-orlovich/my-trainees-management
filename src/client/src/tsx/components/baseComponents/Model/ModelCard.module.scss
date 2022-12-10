@@ -11,6 +11,7 @@
 .model_card {
   @include centerAbs();
   @include minHeightWidth(45vh, 35vw);
+  position: fixed;
   z-index: 100;
   background-color: white;
   text-align: center;
@@ -41,8 +42,8 @@
     @include heightWidth(200vh, 100%);
   }
   .model_card {
-    @include posAbs(70% !important, null, null, null);
-
+    // @include posAbs(70% !important, null, null, null);
+    position: fixed;
     @include minHeightWidth(30vh, 90vw);
     @include heightWidth(fit-content, 50vw);
   }
