@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React from "react";
-import { UseFieldArrayRemove } from "react-hook-form";
 
 import { TiDelete } from "react-icons/ti";
 import { useAppDispatch } from "../../../../../redux/hooks";
@@ -19,7 +18,6 @@ function FoodsList({
   className?: string;
   remove: (index: number) => void;
 }) {
-
   const dispatch = useAppDispatch();
   return (
     <List
@@ -43,7 +41,6 @@ function FoodsList({
 
           <span
             onClick={() => {
-   
               remove(index);
             }}
             className={style.delete_icon}

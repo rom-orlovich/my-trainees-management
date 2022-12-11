@@ -25,6 +25,7 @@ export interface ModelControllerState {
   isModelOpen: boolean;
   curParam?: any;
   lastModel?: ModelDisplayContentOptions;
+  lastParam: any;
 }
 
 export type FilterFoodFormTypes =

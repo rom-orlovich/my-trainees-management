@@ -12,6 +12,7 @@ const initialState: ModelControllerState = {
   displayContent: ["meeting"],
   curParam: undefined,
   lastModel: undefined,
+  lastParam: undefined,
 };
 export const modelControllerSlice = createSlice({
   name: "modelControllerSlice",
@@ -30,6 +31,7 @@ export const modelControllerSlice = createSlice({
       state.isModelOpen = true;
       state.displayContent.push(action.payload.displayContent);
       state.lastModel = action.payload.displayContent;
+      state.lastParam = state.curParam;
       state.curParam = action.payload.curParam;
     },
     closeModel: (state) => {
@@ -42,6 +44,7 @@ export const modelControllerSlice = createSlice({
       state.displayContent.pop();
       // state.curParam = undefined;
       state.lastModel = state.displayContent[state.displayContent.length - 1];
+      state.curParam = state.lastParam;
     },
   },
 });

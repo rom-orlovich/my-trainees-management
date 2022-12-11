@@ -1,14 +1,13 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AllergensCheckbox } from "../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/AllergensForm";
+
 import {
   AllergensListType,
   ALLERGENS_LIST,
 } from "../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/constants";
 
 import { FoodProps } from "../../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
-import { MealsCaloriesSize } from "../../../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireFormComponents/MealsCaloriesSizeForms/MealsCaloriesSizeForm";
 
 import { RootState } from "../../store";
 import { NutritionQuestionnaireFormState } from "./nutritionQuestionnaireFormsSliceTypes";

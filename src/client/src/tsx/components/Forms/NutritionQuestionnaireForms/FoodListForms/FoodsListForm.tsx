@@ -73,6 +73,7 @@ export function FoodsListForm({
   const { serverQueryProps, displayInputsForm } = nutritionQuestionnaireState;
   const curFoodsListStateParams =
     fitterFormState[curParam as FilterFoodFormTypes];
+
   const {
     serverQueryProps: { nutrientsValuesQueryParams, ...rest },
   } = curFoodsListStateParams;
@@ -111,7 +112,7 @@ export function FoodsListForm({
           !foodRemoveState &&
           displayInputsForm[foodsListNames]
         )
-          replace(serverQueryProps[foodsListDisplay]);
+          replace([...serverQueryProps[foodsListDisplay]]);
 
         return (
           <>
@@ -139,11 +140,12 @@ export function FoodsListForm({
                 getCurClickLI={(chooseFood) => {
                   if (
                     !fields.find((el) => el.food_id === Number(chooseFood[0]))
-                  )
+                  ) {
                     append({
                       food_id: Number(chooseFood[0]),
                       food_name: chooseFood[1],
                     });
+                  }
                 }}
                 filterOptions={{
                   link: "",
