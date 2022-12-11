@@ -37,7 +37,7 @@ function NutritionMenuPage() {
                   trigger(queriesOptions)
                     .unwrap()
                     .then(() => {
-                      console.log();
+                  
                       dispatch(
                         nutritionMenuApi.util.invalidateTags([
                           API_ROUTES.NUTRITION_MENU_ENTITY,

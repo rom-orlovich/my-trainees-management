@@ -19,7 +19,7 @@ function FoodsList({
   className?: string;
   remove: (index: number) => void;
 }) {
-  console.log(foods);
+
   const dispatch = useAppDispatch();
   return (
     <List
@@ -43,7 +43,7 @@ function FoodsList({
 
           <span
             onClick={() => {
-              console.log(index);
+   
               remove(index);
             }}
             className={style.delete_icon}

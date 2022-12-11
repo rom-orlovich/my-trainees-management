@@ -4,16 +4,11 @@ import React, { useEffect, useRef } from "react";
 
 import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
-import {
-  measuresApi,
-  nutritionQuestionnaireApi,
-} from "../../../redux/api/hooksAPI";
-import {
-  MeasuresRawAPI,
-  NutritionQuestionnaire,
-} from "../../../redux/api/interfaceAPI";
+import { nutritionQuestionnaireApi } from "../../../redux/api/hooksAPI";
+import { NutritionQuestionnaire } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
+  CHECKBOXES_ALLERGENS,
   getNutritionQuestionnaireFormState,
   setAllergensArr,
   setMealsPercentsArr,
@@ -26,7 +21,7 @@ import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 
-import MeasureForm from "../MeasuresForms/MeasureForms";
+import { uniqueObjArr } from "../../../utilities/helpersFun";
 import { AllergensListType } from "./AllergensForm/constants";
 import { NutritionQuestionnaireForm } from "./NutritionQuestionnaireForm";
 
@@ -45,13 +40,24 @@ function NutritionQuestionnaireEditForm() {
   const { serverQueryProps } = useAppSelector(
     getNutritionQuestionnaireFormState
   );
-  const re = useRef(true);
+  const firstRender = useRef(true);
   useEffect(() => {
     const results = data?.data;
     if (!results) return;
     const lastData = results[results?.length - 1];
+
     if (!lastData) return;
-    if (re.current) {
+    const allergenCheckboxArr = uniqueObjArr(
+      [
+        ...CHECKBOXES_ALLERGENS,
+        ...lastData.allergens.map((el) => ({
+          name: el as AllergensListType,
+          value: true,
+        })),
+      ],
+      "name"
+    );
+    if (firstRender.current) {
       dispatch(
         setMealsPercentsArr(
           lastData.meals_calories_size_percents?.map((el) => ({
@@ -61,15 +67,12 @@ function NutritionQuestionnaireEditForm() {
       );
       dispatch(
         setAllergensArr(
-          lastData.allergens.map((el) => ({
-            name: el as AllergensListType,
-            value: true,
-          }))
+          lastData.allergens.length ? allergenCheckboxArr : CHECKBOXES_ALLERGENS
         )
       );
       dispatch(submitFavoriteFoods(lastData.favorite_foods));
       dispatch(submitBlackListFoods(lastData.black_list_foods));
-      re.current = false;
+      firstRender.current = false;
     }
   }, [data?.data]);
 

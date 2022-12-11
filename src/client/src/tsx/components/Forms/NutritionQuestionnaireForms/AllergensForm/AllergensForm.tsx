@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useFieldArray } from "react-hook-form";
 import { RiRestartFill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
@@ -46,14 +47,16 @@ export function AllergensForm({
 
   let allergensState: AllergensCheckbox[] = CHECKBOXES_ALLERGENS;
 
+  let displayInput;
   // Set the current allergen checkboxes state according to the current form display
   if (curParam === "nutritionQuestionnaire")
-    allergensState = displayInputsForm.allergenCheckboxState.inputsData;
+    displayInput = displayInputsForm.allergenCheckboxState;
   else
-    allergensState =
+    displayInput =
       fitterFormState[curParam as FilterFoodFormTypes].displayInputsForm
-        .allergensCheckboxesState.inputsData;
-
+        .allergensCheckboxesState;
+  allergensState = displayInput.inputsData;
+  
   return (
     <Form<AllergensFormProps>
       nameForm="Allergens"
@@ -76,7 +79,8 @@ export function AllergensForm({
         });
 
         // **NOTE: For some reason the allergen fields reset in every time the component mount.
-        if (!fields.length) {
+     
+        if (fields.length === 0) {
           replace(allergensState);
         }
 
