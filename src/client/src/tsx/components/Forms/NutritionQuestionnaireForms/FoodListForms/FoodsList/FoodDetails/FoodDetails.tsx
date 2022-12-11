@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
 import React from "react";
 import { useDispatch } from "react-redux";

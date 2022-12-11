@@ -152,7 +152,7 @@ describe("tests createNutritionMenu ", () => {
           629.3,
           "fat_cals"
         );
-        expect(amount).toBe(0.98);
+        expect(amount).toBe(1);
       });
       test("fats foods amount with remainder", () => {
         const amount = getAmountOFfood(
@@ -172,7 +172,7 @@ describe("tests createNutritionMenu ", () => {
           710.5,
           "protein_cals"
         );
-        expect(amount).toBe(3);
+        expect(amount).toBe(2);
       });
       test("protein foods amount with remainder", () => {
         const amount = getAmountOFfood(
@@ -181,7 +181,7 @@ describe("tests createNutritionMenu ", () => {
           710.5,
           "protein_cals"
         );
-        expect(amount).toBe(1);
+        expect(amount).toBe(0.75);
       });
       test("protein foods amount exact", () => {
         const amount = getAmountOFfood(
@@ -190,7 +190,7 @@ describe("tests createNutritionMenu ", () => {
           433.55,
           "protein_cals"
         );
-        expect(amount).toBe(1.5);
+        expect(amount).toBe(1);
       });
     });
     describe("carbs foods amounts", () => {

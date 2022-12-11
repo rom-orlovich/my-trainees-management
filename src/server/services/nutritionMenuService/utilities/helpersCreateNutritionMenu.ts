@@ -6,6 +6,7 @@ import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import {
   filterArrObjBy,
   fixNum,
+  quarterNum,
   sortArrObjBy,
 } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
@@ -257,14 +258,16 @@ export const getAmountOFfood = (
 ) => {
   let curCalNutrientCals = totalMealNutrientCals;
   // Protein foods has advantage over other nutrients so we can to eat more calories from protein than other nutrients.
-  const nutrientDeviation = key === "protein_cals" ? 1.5 : 1;
-
+  const nutrientDeviation = key === "protein_cals" ? 1 : 1;
+  const isQuarterUp = key === "protein_cals";
   if (curCalNutrientCals < food.calories_total) {
-    return Number(
+    const reminderRes = Number(
       ((curCalNutrientCals / food.calories_total) * nutrientDeviation).toFixed(
         2
       )
     );
+    // if (totalMealNutrientCals < 100) return reminderRes;
+    return quarterNum(reminderRes) || 0.25;
   }
   let amount = 0;
 
@@ -279,8 +282,8 @@ export const getAmountOFfood = (
 
     sumTotal = amount * food.calories_total;
   }
-
-  return amount * nutrientDeviation || nutrientDeviation;
+  if (amount === 0) return nutrientDeviation;
+  return amount * nutrientDeviation;
 };
 
 // Creates food for meal.
