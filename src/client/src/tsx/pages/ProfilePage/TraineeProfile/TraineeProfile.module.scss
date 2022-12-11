@@ -15,6 +15,7 @@
     min-height: 90vh;
     .programs_grid_item {
       grid-area: 1 / 1 / 2 / 7;
+      min-height: 48vh;
     }
     .user_details_grid_item {
       grid-area: 1 /7/ 2 /9;
