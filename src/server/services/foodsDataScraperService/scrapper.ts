@@ -37,20 +37,19 @@ async function beginScrapping() {
     // );
 
     // Init products list links scrapper.
-    const productsListPos = await createFoodsListLinksDB(
-      fetchProductsList.start,
-      fetchProductsList.end
-    );
+    // const productsListPos = await createFoodsListLinksDB(
+    //   fetchProductsList.start,
+    //   fetchProductsList.end
+    // );
     // Init product details scrapper.
     const productDetailsPos = await createFoodsDetailsDB(
       fetchFoodsDetails.start,
       fetchFoodsDetails.end
     );
-    console.log(productsListPos, productDetailsPos);
     schedule(`*/${cronCachedData.eachMin} * * * *`, async () => {
-      cronCachedData.eachMin = Math.floor(1 + Math.random() * 5);
-      fetchProductsList.start += RESULT_ADD;
-      fetchProductsList.end += RESULT_ADD;
+      cronCachedData.eachMin = Math.floor(1 + Math.random() * 3);
+      // fetchProductsList.start += RESULT_ADD;
+      // fetchProductsList.end += RESULT_ADD;
       fetchFoodsDetails.start += RESULT_ADD;
       fetchFoodsDetails.end += RESULT_ADD;
 
@@ -63,10 +62,10 @@ async function beginScrapping() {
       // );
 
       // Products list links scrapper.
-      await createFoodsListLinksDB(
-        fetchProductsList.start,
-        fetchProductsList.end
-      );
+      // await createFoodsListLinksDB(
+      //   fetchProductsList.start,
+      //   fetchProductsList.end
+      // );
       // Product details scrapper.
       await createFoodsDetailsDB(
         fetchFoodsDetails.start,

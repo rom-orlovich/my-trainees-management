@@ -51,7 +51,7 @@ const calIngredientFoodScore = ($: CheerioAPI) => {
     ".col-8.col-article-info > div:nth-child(1) > div > p:nth-child(3)"
   )?.text();
 
-  const numWords = ingredientsList?.split(",")?.length;
+  const numWords = ingredientsList ? ingredientsList?.split(",")?.length : 0;
   const neutralIngredients = $(
     "div.col-8.col-article-info > div:nth-child(1) > div"
   ).text();
@@ -95,7 +95,7 @@ const checkProductIsNotUpdate = (updateDateInfo: string) => {
   if (updateDateInfo) {
     const dateStr = updateDateInfo.trim().replace(/\+s/g, "");
     const year = dateStr.split(".")[2];
-    if (new Date().getFullYear() - Number(year) > 3) return true;
+    if (new Date().getFullYear() - Number(year) > 7) return true;
   }
   return false;
 };
@@ -153,10 +153,6 @@ const createFoodsNutritionValue = ($: CheerioAPI) => {
   return foodInitialValues;
 };
 const calFinalFoodScore = (food: Food, $: CheerioAPI) =>
-  // logger.debug(`LINE:142: nut ${calFoodScoreNutritious(food)}`, { __filename });
-  // logger.debug(`LINE:143: ing ${calIngredientFoodScore($)}`, { __filename });
-  // logger.debug(`LINE:144: star ${calScoreFoodStarRank($) * 2}`, { __filename });
-
   Number(
     (
       calFoodScoreNutritious(food) * calIngredientFoodScore($) +
@@ -169,11 +165,6 @@ const getVeganRelevantText = ($: CheerioAPI) => {
     "div.col-8.col-article-info > div:nth-child(1) > div"
   ).text();
   const kosherText = $("div.col-8.col-article-info > p:nth-child(4)").text();
-
-  // logger.debug(
-  //   `LINE:173: text ${headerText} ${ingredientsText} ${kosherText}`,
-  //   { __filename }
-  // );
 
   return `${headerText} ${ingredientsText} ${kosherText}`;
 };
@@ -207,7 +198,7 @@ const createFoodIdentity = ($: CheerioAPI) => {
 const checkIfIsNotFood = (food: Food, foodScore: number) =>
   Number.isNaN(foodScore) ||
   !food.calories_total ||
-  !(food.protein_cals && food.carbs_cals && food.fat_cals);
+  (food.protein_cals === 0 && food.carbs_cals === 0 && food.fat_cals === 0);
 
 export function createFoodDetailsData(pathHTML: string) {
   console.log("start create food details from", pathHTML);
@@ -218,12 +209,6 @@ export function createFoodDetailsData(pathHTML: string) {
   const allerganElText = $(".allergic-box").text();
   const resAllergan = createAllergensList(allerganElText);
 
-  // const allerganInNames = ALLERGENS_LIST.filter(
-  //   (el) =>
-  //     (!foodName.food_name.includes(`${el} ללא`) ||
-  //       !foodName.food_name.includes(`${el} נטול`)) &&
-  //     foodName.food_name.includes(el)
-  // );
   if (
     foodName.food_name.includes("ביצה") ||
     foodName.food_name.includes("ביצים")
@@ -246,6 +231,7 @@ export function createFoodDetailsData(pathHTML: string) {
 
   const foodScore = calFinalFoodScore(food, $);
 
+  console.log("food_name", food.food_name, foodScore);
   if (checkIfIsNotFood(food, foodScore)) return undefined;
   const calCaloriesDensity = (food: Food) =>
     Number((food.calories_total / 100).toFixed(2));

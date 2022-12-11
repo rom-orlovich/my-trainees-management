@@ -122,6 +122,7 @@ export async function createFoodsDetailsDB(start: number, end: number) {
         createDecodedHTMLFile(pathHTML, el.data);
         console.log(`finish writing `, pathHTML);
         const scrapData = createFoodDetailsData(pathHTML);
+        console.log("scrapData", scrapData);
         if (scrapData) {
           lengthFoodsDetailsDB = createArrDataObjJSON(
             FOOD_DICT_DB_PATH,
