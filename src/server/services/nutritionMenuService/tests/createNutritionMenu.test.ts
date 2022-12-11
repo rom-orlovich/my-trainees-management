@@ -95,6 +95,53 @@ const proteinNutrientFoodWithRemainder: Food = {
   food_score: 44.88,
 };
 
+const proteinNutrientFoodExact: Food = {
+  food_id: 214,
+  food_name: "בקלה פסיפי מבושל-מיובש בחום",
+  sugars_g: 0,
+  saturated_fat: 0.105,
+  cholesterol_mg: 57,
+  is_vegan: true,
+  is_vegetarian: true,
+  kosher: true,
+  kosher_type: "פרווה",
+  calories_total: 85,
+  protein_cals: 74.92,
+  protein_g: 18.73,
+  carbs_cals: 0,
+  carbs_g: 0,
+  fat_cals: 4.5,
+  fat_g: 0.5,
+  sodium_mg: 372,
+  nutrient_type: "proteins",
+  allergens: [],
+  food_density: 0.85,
+  food_score: 861.28,
+};
+const crabsNutrientFoodWithoutReminder: Food = {
+  food_id: 1226,
+  food_name: "באדי בטעם וניל, תנובה",
+  sugars_g: 9.9,
+  saturated_fat: 0,
+  cholesterol_mg: 0,
+  is_vegan: false,
+  is_vegetarian: true,
+  kosher: true,
+  kosher_type: "חלבי",
+  calories_total: 77,
+  protein_cals: 12.4,
+  protein_g: 3.1,
+  carbs_cals: 51.2,
+  carbs_g: 12.8,
+  fat_cals: 13.5,
+  fat_g: 1.5,
+  sodium_mg: 85,
+  nutrient_type: "carbohydrates",
+  allergens: ["חלב"],
+  food_density: 0.77,
+  food_score: 221.24,
+};
+
 describe("tests createNutritionMenu ", () => {
   describe("test getAmountOFfood", () => {
     describe("fats foods amounts", () => {
@@ -132,9 +179,29 @@ describe("tests createNutritionMenu ", () => {
           proteinNutrientFoodWithRemainder,
           176.4,
           710.5,
-          "fat_cals"
+          "protein_cals"
         );
-        expect(amount).toBe(0.67);
+        expect(amount).toBe(1);
+      });
+      test("protein foods amount exact", () => {
+        const amount = getAmountOFfood(
+          proteinNutrientFoodExact,
+          107.64,
+          433.55,
+          "protein_cals"
+        );
+        expect(amount).toBe(1.5);
+      });
+    });
+    describe("carbs foods amounts", () => {
+      test("carbs foods amount without remainder", () => {
+        const amount = getAmountOFfood(
+          crabsNutrientFoodWithoutReminder,
+          398.58,
+          791.5,
+          "carbs_cals"
+        );
+        expect(amount).toBe(5);
       });
     });
   });

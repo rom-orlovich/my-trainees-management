@@ -17,7 +17,7 @@ function MealsList({ meals }: { meals: MealDetails[] }) {
       </h1>
       <p>Each meal has many options of foods per nutrient.</p>
       <p>Please choose one food per nutrient.</p>
-      <p> One unit is 100g of food.</p>
+      <p> 1 unit is 100g of food.</p>
       <List
         className={genClassName(style.meals_list_container)}
         LI={({

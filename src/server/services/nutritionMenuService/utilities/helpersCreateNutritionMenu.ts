@@ -256,35 +256,31 @@ export const getAmountOFfood = (
   key: NutrientCalsType
 ) => {
   let curCalNutrientCals = totalMealNutrientCals;
+  // Protein foods has advantage over other nutrients so we can to eat more calories from protein than other nutrients.
+  const nutrientDeviation = key === "protein_cals" ? 1.5 : 1;
 
-  console.log("curCalNutrientCals", curCalNutrientCals);
-
-  console.log("food.calories_total", food.calories_total);
   if (curCalNutrientCals < food.calories_total) {
-    return Number((curCalNutrientCals / food.calories_total).toFixed(2));
+    return Number(
+      ((curCalNutrientCals / food.calories_total) * nutrientDeviation).toFixed(
+        2
+      )
+    );
   }
   let amount = 0;
-  // const checkTotal =
-  //   key === "protein_cals" ? (totalCals * 50) / 100 : (totalCals * 25) / 100;
 
-  let sumTotal =
-    amount * food.carbs_cals +
-    amount * food.fat_cals +
-    amount * food.protein_cals;
+  let sumTotal = amount * food.calories_total;
 
   while (
     curCalNutrientCals > food[key] * 2 &&
-    sumTotal < totalMealNutrientCals
+    sumTotal < totalMealNutrientCals - food.calories_total
   ) {
     curCalNutrientCals -= food[key];
     amount++;
-    sumTotal =
-      amount * food.carbs_cals +
-      amount * food.fat_cals +
-      amount * food.protein_cals;
+
+    sumTotal = amount * food.calories_total;
   }
 
-  return amount;
+  return amount * nutrientDeviation || nutrientDeviation;
 };
 
 // Creates food for meal.

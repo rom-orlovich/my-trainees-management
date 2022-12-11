@@ -22,11 +22,7 @@ function NutrientsDetails({
       <h3>{nutrientName}:</h3>
 
       <List
-        LI={(data) => (
-          <>
-            <FoodNutrient foodNutrient={data} />
-          </>
-        )}
+        LI={(data) => <FoodNutrient foodNutrient={data} />}
         dataArr={nutrientsFoods}
       />
 
