@@ -1,7 +1,7 @@
 import { Food } from "../../foodsDataScraperService/foodsDataScraperServiceTypes";
 import { getAmountOFfood } from "../utilities/helpersCreateNutritionMenu";
 
-const foodExampleAmountWithOutRemainder: Food = {
+const fatsNutrientFoodAmountWithoutRemainder: Food = {
   food_id: 1306,
   food_name: "אבוקדו",
   sugars_g: 0.66,
@@ -24,7 +24,7 @@ const foodExampleAmountWithOutRemainder: Food = {
   food_density: 1.6,
   food_score: 6.3,
 };
-const foodExampleWithRemainder: Food = {
+const fatsNutrientFoodWithRemainder: Food = {
   food_id: 823,
   food_name: "אגוזי מקדמיה מיובשים - קלויים ללא תוספת מלח",
   sugars_g: 4.14,
@@ -47,13 +47,60 @@ const foodExampleWithRemainder: Food = {
   food_density: 7.18,
   food_score: 3.25,
 };
+const proteinNutrientFoodWithoutRemainder: Food = {
+  food_id: 1403,
+  food_name:
+    "20 גרם חלבון בגביע - יוגורט בטעם פירות יער 0% שומן - דנונה PRO, שטראוס עלית",
+  sugars_g: 5.6,
+  saturated_fat: 0,
+  cholesterol_mg: 0,
+  is_vegan: false,
+  is_vegetarian: true,
+  kosher: true,
+  kosher_type: "חלבי",
+  calories_total: 65,
+  protein_cals: 40,
+  protein_g: 10,
+  carbs_cals: 22.4,
+  carbs_g: 5.6,
+  fat_cals: 0,
+  fat_g: 0,
+  sodium_mg: 33,
+  nutrient_type: "proteins",
+  allergens: ["חלב"],
+  food_density: 0.65,
+  food_score: 833.5,
+};
+const proteinNutrientFoodWithRemainder: Food = {
+  food_id: 305,
+  food_name: "אנטרקוט בקר מבושל-צלוי",
+  sugars_g: 0,
+  saturated_fat: 6.506,
+  cholesterol_mg: 126,
+  is_vegan: false,
+  is_vegetarian: false,
+  kosher: true,
+  kosher_type: "בשרי",
+  calories_total: 265,
+  protein_cals: 106.32,
+  protein_g: 26.58,
+  carbs_cals: 0,
+  carbs_g: 0,
+  fat_cals: 150.84,
+  fat_g: 16.76,
+  sodium_mg: 53,
+  nutrient_type: "proteins",
+  allergens: [],
+  food_density: 2.65,
+  food_score: 44.88,
+};
 
 describe("tests createNutritionMenu ", () => {
   describe("test getAmountOFfood", () => {
     describe("fats foods amounts", () => {
       test("fats foods amount without remainder", () => {
         const amount = getAmountOFfood(
-          foodExampleAmountWithOutRemainder,
+          fatsNutrientFoodAmountWithoutRemainder,
           156.24,
           629.3,
           "fat_cals"
@@ -62,7 +109,7 @@ describe("tests createNutritionMenu ", () => {
       });
       test("fats foods amount with remainder", () => {
         const amount = getAmountOFfood(
-          foodExampleWithRemainder,
+          fatsNutrientFoodWithRemainder,
           176.4,
           710.5,
           "fat_cals"
@@ -73,21 +120,21 @@ describe("tests createNutritionMenu ", () => {
     describe("protein foods amounts", () => {
       test("protein foods amount without remainder", () => {
         const amount = getAmountOFfood(
-          foodExampleAmountWithOutRemainder,
-          156.24,
-          629.3,
-          "fat_cals"
+          proteinNutrientFoodWithoutRemainder,
+          176.4,
+          710.5,
+          "protein_cals"
         );
-        expect(amount).toBe(0.98);
+        expect(amount).toBe(3);
       });
       test("protein foods amount with remainder", () => {
         const amount = getAmountOFfood(
-          foodExampleWithRemainder,
+          proteinNutrientFoodWithRemainder,
           176.4,
           710.5,
           "fat_cals"
         );
-        expect(amount).toBe(0.25);
+        expect(amount).toBe(0.67);
       });
     });
   });

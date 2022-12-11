@@ -271,8 +271,6 @@ export const getAmountOFfood = (
     amount * food.carbs_cals +
     amount * food.fat_cals +
     amount * food.protein_cals;
-  console.log("sumTotal", sumTotal);
-  console.log("totalMealNutrientCals", totalMealNutrientCals);
 
   while (
     curCalNutrientCals > food[key] * 2 &&
@@ -308,12 +306,6 @@ export const createMealFood = (
     amount: amountFood,
     meal_id: mealID,
     food_name: food.food_name,
-    // proteins_cals: food.protein_cals * amountFood,
-    // carbs_cals: food.carbs_cals * amountFood,
-    // fats_cals: food.fat_cals * amountFood,
-    // totalCals: food.calories_total * amountFood,
-    // food_score: food.food_score,
-    // food_density: food.food_density,
   };
 };
 
