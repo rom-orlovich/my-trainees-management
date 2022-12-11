@@ -255,21 +255,35 @@ export const getAmountOFfood = (
   totalCals: number,
   key: NutrientCalsType
 ) => {
-  let amount = 1;
   let curCalNutrientCals = totalMealNutrientCals;
-  if (curCalNutrientCals < food[key]) {
-    return Number((curCalNutrientCals / food[key]).toFixed(2));
-  }
 
-  const checkTotal =
-    key === "protein_cals" ? (totalCals * 50) / 100 : (totalCals * 25) / 100;
+  console.log("curCalNutrientCals", curCalNutrientCals);
+
+  console.log("food.calories_total", food.calories_total);
+  if (curCalNutrientCals < food.calories_total) {
+    return Number((curCalNutrientCals / food.calories_total).toFixed(2));
+  }
+  let amount = 0;
+  // const checkTotal =
+  //   key === "protein_cals" ? (totalCals * 50) / 100 : (totalCals * 25) / 100;
+
   let sumTotal =
-    amount * food.carbs_cals + amount * food.fat_cals + food.protein_cals;
-  while (curCalNutrientCals > food[key] * 2 && sumTotal < checkTotal) {
+    amount * food.carbs_cals +
+    amount * food.fat_cals +
+    amount * food.protein_cals;
+  console.log("sumTotal", sumTotal);
+  console.log("totalMealNutrientCals", totalMealNutrientCals);
+
+  while (
+    curCalNutrientCals > food[key] * 2 &&
+    sumTotal < totalMealNutrientCals
+  ) {
     curCalNutrientCals -= food[key];
     amount++;
     sumTotal =
-      amount * food.carbs_cals + amount * food.fat_cals + food.protein_cals;
+      amount * food.carbs_cals +
+      amount * food.fat_cals +
+      amount * food.protein_cals;
   }
 
   return amount;

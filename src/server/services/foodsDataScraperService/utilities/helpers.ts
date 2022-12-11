@@ -92,3 +92,4 @@ export const createProductDetailsHTMLAndFetchURL = (el: string) => {
   const pathHTML = resolve(PRODUCT_DETAILS_HTML_PATH, `${nameSplit}.html`);
   return { pathHTML, fetchURL: el };
 };
+

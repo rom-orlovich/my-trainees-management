@@ -1,7 +1,12 @@
 import { CheerioAPI } from "cheerio";
+import { readFileSync, writeFileSync } from "fs";
 import { lowerCase } from "lodash";
 
-import { ALLERGENS_LIST, NOT_VEGAN_INGREDIENTS } from "./constants";
+import {
+  ALLERGENS_LIST,
+  FOOD_DICT_DB_PATH,
+  NOT_VEGAN_INGREDIENTS,
+} from "./constants";
 import { Food, NutrientsTypes } from "./foodsDataScraperServiceTypes";
 import { createCheerioLoad } from "./utilities/cheerioHelpers";
 
@@ -33,7 +38,7 @@ const createKeyValue = ($: ReturnType<CheerioAPI>) => {
     }
     if (nameValue === "total_fat") {
       nameValue = "fat_g";
-      return { fat_cals: value * 4, [nameValue]: value };
+      return { fat_cals: value * 9, [nameValue]: value };
     }
 
     return { [nameValue]: value };
@@ -242,3 +247,17 @@ export function createFoodDetailsData(pathHTML: string) {
     food_score: foodScore,
   } as Food;
 }
+
+// const editFoodDetails = () => {
+//   const foodDetailsArr = JSON.parse(
+//     readFileSync(FOOD_DICT_DB_PATH, "utf-8")
+//   ) as Food[];
+
+//   const newFoodDetailsArr = foodDetailsArr.map((food) => ({
+//     ...food,
+//     fat_cals: food.fat_g * 9,
+//   }));
+//   writeFileSync(FOOD_DICT_DB_PATH, JSON.stringify(newFoodDetailsArr), "utf-8");
+// };
+
+// editFoodDetails();
