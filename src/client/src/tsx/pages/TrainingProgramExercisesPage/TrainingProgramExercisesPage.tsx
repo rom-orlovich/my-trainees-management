@@ -101,11 +101,8 @@ function TrainingProgramExercises() {
               }}
               // editPagePath={pathName.slice(1)}
               nameData="Program's Exercises"
-              deleteItemFun={
-                !isTrainee
-                  ? (id) => deleteFunMutation(id, deleteItem)
-                  : undefined
-              }
+              deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
+              actions={{ edit: true, delete: !isTrainee }}
               getAllQuery={trainingProgramsApi.useGetItemsQuery}
             />
           </InsteadOutletRoutes>

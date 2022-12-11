@@ -11,7 +11,7 @@ function Profile() {
   const { isTrainee, isTrainer } = useCheckRole();
   if (isTrainee) return <TraineeProfile />;
   if (isTrainer) return <TrainerProfile />;
-  return <Navigate to={`/${APP_ROUTE.COMING_SOON}`} />;
+  return <Navigate to={`/`} />;
 }
 
 function ProfilePage() {

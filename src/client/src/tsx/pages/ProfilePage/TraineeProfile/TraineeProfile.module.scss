@@ -1,7 +1,7 @@
 @use "../../../../style/utilities/utilities.scss" as *;
 
 .trainee_profile_page {
-  height: 80vh;
+  height: 130vh;
   overflow-y: scroll;
   width: 100%;
   .trainee_profile_page_container {
@@ -12,7 +12,7 @@
     padding: 0.5rem 1rem;
     width: 100%;
 
-    min-height: 120vh;
+    min-height: 90vh;
     .programs_grid_item {
       grid-area: 1 / 1 / 2 / 7;
     }
@@ -28,7 +28,7 @@
     }
 
     .progress_chart_grid_item {
-      grid-area: 3/ 1/ 5/ 9;
+      grid-area: 3/ 1/ 4/ 9;
     }
   }
 }
@@ -63,13 +63,13 @@
 
     .calories_chart_grid_item {
       order: 3;
-      @extend %shared;
+      min-height: 45vh;
     }
 
     .progress_chart_grid_item {
       height: 30vh;
       order: 5;
-      @extend %shared;
+      min-height: 45vh;
     }
   }
 }

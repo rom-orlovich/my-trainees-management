@@ -83,7 +83,7 @@ export const TRAINEE_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
     dataLinks: [
       {
         to: `/`,
-        text: "Update Exercise",
+        text: "Update Workout",
       },
       {
         to: APP_ROUTE.MEASURES_ROUTE,

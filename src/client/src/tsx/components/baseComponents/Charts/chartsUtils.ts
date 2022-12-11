@@ -46,7 +46,7 @@ export const PIE_CHART_FONTS = {
 export const DOUGHNUT_CHART_FONTS = {
   color: "rgb(59, 71, 66)",
   font: {
-    size: window.innerWidth < 500 ? 20 : 16,
+    size: window.innerWidth < 500 ? 16 : 14,
     weight: 400,
   },
 };

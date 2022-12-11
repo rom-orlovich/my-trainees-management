@@ -127,5 +127,4 @@ export function getUniqueListBy<T>(arr: T[], key: keyof T) {
 
 export const fixNum = (num: number, fix = 2) => Number(num.toFixed(fix));
 
-export const quarterNum = (num: number, up = true) => Math.round(num * 4) / 4;
-// up ? Math.ceil(num * 4) / 4 : Math.floor(num * 4) / 4;
+export const quarterNum = (num: number) => Math.round(num * 4) / 4;

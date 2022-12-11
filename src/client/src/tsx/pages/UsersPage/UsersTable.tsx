@@ -30,6 +30,7 @@ function UsersTable({
       editPagePath={APP_ROUTE.USERS_ROUTE}
       queriesOptions={{ mainName, ...queriesOptions }}
       nameData={"Users"}
+      actions={{ delete: false, edit: false }}
       transformFun={transformDataUser}
       getAllQuery={useGetItemsQuery}
       deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}

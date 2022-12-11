@@ -82,8 +82,6 @@ function CaloriesChart({
           }[state.display];
           return (
             <>
-              <h2> Calories Chart</h2>
-
               <DoughnutChart
                 className={style.pie_chart}
                 datasets={[
@@ -107,7 +105,7 @@ function CaloriesChart({
                   plugins: {
                     pluginCenter: {
                       textCenter: `${calories_total}Kcal `,
-                      fontSize: "1.2",
+                      fontSize: "1.3",
                     },
                     tooltip: {
                       callbacks: { label: labelFormatterByUnit(state.display) },

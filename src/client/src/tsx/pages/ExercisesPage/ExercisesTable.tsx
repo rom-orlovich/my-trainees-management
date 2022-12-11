@@ -12,6 +12,7 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 import { PageTableProps } from "../TraineesPage/TraineesTable";
 import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { useAppDispatch } from "../../redux/hooks";
+import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 function transformExerciseTable({
   exercise_name,
@@ -34,6 +35,7 @@ function ExercisesTable({
 
   const { useGetItemsQuery, useDeleteItemMutation } = exercisesApi;
   const [deleteItem] = useDeleteItemMutation();
+  const { isTrainee } = useGetUserTraineeData();
 
   return (
     <InsteadOutletRoutes
