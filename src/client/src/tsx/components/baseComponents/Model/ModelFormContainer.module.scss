@@ -53,8 +53,7 @@
     @include classMatcher("Form_form_container") {
       min-height: fit-content;
       height: fit-content;
-      form {
-      }
+
       @include classMatcher("Form_buttons_container_two_buttons") {
         a {
           padding: 0.3rem 0.7rem !important;

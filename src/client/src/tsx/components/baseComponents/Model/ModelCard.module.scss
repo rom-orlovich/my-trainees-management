@@ -42,7 +42,7 @@
     @include heightWidth(200vh, 100%);
   }
   .model_card {
-    @include posAbs(57% !important, null, null, null);
+    @include posAbs(58% !important, null, null, null);
     position: fixed;
     @include minHeightWidth(30vh, 90vw);
     @include heightWidth(fit-content, 50vw);
