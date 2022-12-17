@@ -7,7 +7,7 @@ import style from "./HomePage.module.scss";
 function HomePage() {
   return (
     <section className={style.homePage_container}>
-      <InsteadOutletRoutes InsteadOutletRoutesPaths={""}>
+      <InsteadOutletRoutes InsteadOutletRoutesPaths={"/"}>
         <NavLink to={APP_ROUTE.LOGIN_ROUTE}> Get Start</NavLink>
       </InsteadOutletRoutes>
     </section>

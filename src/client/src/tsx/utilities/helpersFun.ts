@@ -105,6 +105,7 @@ export const checkSecValueIncludeOrEqualFirstValue = <T>(
   val: T | T[],
   val2: T
 ) => {
+  console.log(val, val2);
   if (Array.isArray(val)) {
     return val.includes(val2);
   }
