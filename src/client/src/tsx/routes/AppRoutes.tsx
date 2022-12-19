@@ -59,14 +59,15 @@ function AppRoutes() {
       {/* The App data when the user is login */}
       <Route element={<PersistedLogin />}>
         <Route path={"*"} element={<AuthRoutes />} />
-        <Route
-          element={
-            <ProtectedRoute allowedRole={isAdmin || isTrainer || isTrainee} />
-          }
-        >
-          <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
+        <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
+          <Route index element={<MainRouteByRole />} />
+          <Route
+            element={
+              <ProtectedRoute allowedRole={isAdmin || isTrainer || isTrainee} />
+            }
+          >
             {/* The Shared routes between all users roles. */}
-            <Route index element={<MainRouteByRole />} />
+
             <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />} />
             <Route
               path={`${APP_ROUTE.COMING_SOON}/*`}
@@ -80,26 +81,24 @@ function AppRoutes() {
               />
             )}
 
-            <Route
-              path={APP_ROUTE.PROFILE_ROUTE}
-              element={<ProfilePage />}
-            ></Route>
-            <Route
-              element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
-            >
-              <Route path={APP_ROUTE.STATS_ROUTE}>
-                <Route
-                  path={APP_ROUTE.TRAINEES_ROUTE}
-                  element={<TraineeStatsPage />}
-                />
-                <Route
-                  path={APP_ROUTE.LEADS_ROUTE}
-                  element={<LeadsStatsPage />}
-                />
-                <Route
-                  path={APP_ROUTE.FINANCES_ROUTE}
-                  element={<FinanceStatsPage />}
-                />
+            <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />}>
+              <Route
+                element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
+              >
+                <Route path={APP_ROUTE.STATS_ROUTE}>
+                  <Route
+                    path={APP_ROUTE.TRAINEES_ROUTE}
+                    element={<TraineeStatsPage />}
+                  />
+                  <Route
+                    path={APP_ROUTE.LEADS_ROUTE}
+                    element={<LeadsStatsPage />}
+                  />
+                  <Route
+                    path={APP_ROUTE.FINANCES_ROUTE}
+                    element={<FinanceStatsPage />}
+                  />
+                </Route>
               </Route>
             </Route>
 

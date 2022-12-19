@@ -2,4 +2,67 @@
 .homePage_container {
   @include flex-dir(center, center);
   height: 100vh;
+
+  .video {
+    position: fixed;
+    left: 0%;
+    bottom: -35%;
+    min-width: 80%;
+    min-height: 80%;
+  }
+  h1 {
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+  .text {
+    position: absolute;
+    z-index: 100;
+    text-align: center;
+    a {
+      background-color: white;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      color: black;
+      font-size: 1.5rem;
+      text-decoration: none;
+      &:hover {
+        background-color: rgb(208, 203, 203);
+      }
+    }
+  }
+}
+
+@include smartphone() {
+  .homePage_container {
+    @include flex-dir(center, center);
+    height: 100vh;
+
+    .video {
+      position: fixed;
+      left: -200%;
+      bottom: -35%;
+      min-width: 80%;
+      min-height: 80%;
+    }
+    h1 {
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+    .text {
+      position: absolute;
+      z-index: 100;
+      text-align: center;
+      a {
+        background-color: white;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        color: black;
+        font-size: 1.5rem;
+        text-decoration: none;
+        &:hover {
+          background-color: rgb(208, 203, 203);
+        }
+      }
+    }
+  }
 }

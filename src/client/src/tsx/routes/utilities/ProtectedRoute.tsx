@@ -6,7 +6,7 @@ function ProtectedRoute({ allowedRole }: { allowedRole: boolean }) {
   return allowedRole ? (
     <Outlet />
   ) : (
-    <Navigate to={""} state={{ from: location }} replace />
+    <Navigate to={"/"} state={{ from: location }} replace />
   );
 }
 

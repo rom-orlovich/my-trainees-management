@@ -27,9 +27,6 @@ function PersistedLogin() {
     <Outlet />
   ) : (
     <LoadingSpinner
-      // onErrorFun={() => {
-      //   nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
-      // }}
       errorElement={<HomePage />}
       stateData={{ isLoading, isError, isFetching, data }}
     >
