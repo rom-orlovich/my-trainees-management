@@ -19,6 +19,7 @@ export interface LoadingSpinnerProps<T> {
   nameData?: string;
   className?: string;
   children?: ReactNode | ((data: T) => ReactNode);
+  errorElement?: JSX.Element;
 }
 // Loading Spinner that take care the logic of async functions loading,fetching and ect.
 // Return children as function with the exist data or as regular children type or
@@ -32,6 +33,7 @@ function LoadingSpinner<T extends object>({
   showNoDataMessage,
   className,
   children,
+  errorElement,
 }: LoadingSpinnerProps<T>) {
   const nav = useNavigate();
   const location = useLocation();
@@ -69,7 +71,7 @@ function LoadingSpinner<T extends object>({
   );
 
   if (!data || error) {
-    return showNoDataMessage ? SpinnerMessage : <></>;
+    return showNoDataMessage ? SpinnerMessage : errorElement || <></>;
   }
 
   if (isExistDataEmpty()) {

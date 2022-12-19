@@ -25,7 +25,7 @@ const profileButton = {
       to: relativePath(APP_ROUTE.SETTINGS_ROUTE),
       text: "Setting",
     },
-    { to: relativePath(APP_ROUTE.LOGIN_ROUTE), text: "Logout" },
+    { to: relativePath(APP_ROUTE.HOME_PAGE), text: "Logout" },
   ],
 };
 

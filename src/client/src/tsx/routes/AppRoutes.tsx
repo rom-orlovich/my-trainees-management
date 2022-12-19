@@ -56,30 +56,34 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path={APP_ROUTE.HOME_PAGE} element={<HomePage />}>
-        {/* Routes that are related to auth system. */}
-        <Route path={"*"} element={<AuthRoutes />} />
-      </Route>
-
       {/* The App data when the user is login */}
       <Route element={<PersistedLogin />}>
-        <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
-          {/* The Shared routes between all users roles. */}
-          <Route index element={<MainRouteByRole />} />
-          <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />} />
-          <Route
-            path={`${APP_ROUTE.COMING_SOON}/*`}
-            element={<ComingSoonPage />}
-          />
-
-          {isTrainee && (
+        <Route path={"*"} element={<AuthRoutes />} />
+        <Route
+          element={
+            <ProtectedRoute allowedRole={isAdmin || isTrainer || isTrainee} />
+          }
+        >
+          <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
+            {/* The Shared routes between all users roles. */}
+            <Route index element={<MainRouteByRole />} />
+            <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />} />
             <Route
-              path={`${APP_ROUTE.TRAINEES_ROUTE}/:id`}
-              element={<TraineeEditForm />}
+              path={`${APP_ROUTE.COMING_SOON}/*`}
+              element={<ComingSoonPage />}
             />
-          )}
 
-          <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />}>
+            {isTrainee && (
+              <Route
+                path={`${APP_ROUTE.TRAINEES_ROUTE}/:id`}
+                element={<TraineeEditForm />}
+              />
+            )}
+
+            <Route
+              path={APP_ROUTE.PROFILE_ROUTE}
+              element={<ProfilePage />}
+            ></Route>
             <Route
               element={<ProtectedRoute allowedRole={isAdmin || isTrainer} />}
             >

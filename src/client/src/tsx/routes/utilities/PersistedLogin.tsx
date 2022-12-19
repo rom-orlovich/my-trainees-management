@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner/LoadingSpinner";
+import HomePage from "../../pages/HomePage/HomePage";
 
 import { authApi } from "../../redux/api/authAPI";
 import { useAppSelector } from "../../redux/hooks";
@@ -17,18 +18,19 @@ function PersistedLogin() {
     authApi.useLazyRefreshTokenQuery({});
 
   const nav = useNavigate();
-
+  const { pathname } = useLocation();
   useEffect(() => {
     if (!authState.accessToken) trigger({});
   }, [authState.accessToken, trigger]);
-  // authState.accessToken
+
   return authState.accessToken ? (
     <Outlet />
   ) : (
     <LoadingSpinner
-      onErrorFun={() => {
-        nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
-      }}
+      // onErrorFun={() => {
+      //   nav(`/${APP_ROUTE.LOGIN_ROUTE}`);
+      // }}
+      errorElement={<HomePage />}
       stateData={{ isLoading, isError, isFetching, data }}
     >
       {() => <Outlet />}
