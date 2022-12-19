@@ -18,6 +18,8 @@ export function NutritionQuestionnaireAddForm() {
   const [createNutritionQuestionnaire] =
     nutritionQuestionnaireApi.useCreateOneItemMutation();
   const handleSubmit = (body: NutritionQuestionnaire) => {
+    console.log(body);
+
     addFunction({ addItem: createNutritionQuestionnaire })({
       ...body,
       ...serverQueryProps,

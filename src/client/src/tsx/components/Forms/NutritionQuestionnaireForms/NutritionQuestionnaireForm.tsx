@@ -67,10 +67,12 @@ export function NutritionQuestionnaireForm({
             diet_type: "neutral",
             ...defaultValues,
           },
+          mode: "onChange",
+          reValidateMode: "onChange",
           resolver: yupResolver(nutritionQuestionnaireSchema),
         }}
       >
-        {({ register, formState }) => {
+        {({ register, formState, setValue }) => {
           const { day_end, day_start } = formState.errors;
 
           return (
@@ -88,6 +90,14 @@ export function NutritionQuestionnaireForm({
                   InputProps={{
                     ...register("day_start"),
                     type: "time",
+                    // onChange: (e) => {
+                    //   console.log(e.target.value);
+                    //   const today = new Date();
+                    //   const time = new Date(
+                    //     `${today.toLocaleDateString()} ${e.target.value}`
+                    //   );
+                    //   setValue("day_start", time);
+                    // },
                   }}
                   LabelProps={{
                     htmlFor: "date_start",

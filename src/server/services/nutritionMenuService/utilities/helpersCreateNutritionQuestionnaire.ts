@@ -13,11 +13,15 @@ export const calUserNumMeals = (
   dayEnd: string,
   hourBetweenMeals = HOURS_BETWEEN_MEALS
 ) => {
-  const [hoursStart, minStart] = dayStart.split(":").map(Number);
+  let [hoursStart, minStart] = dayStart.split(":").map(Number);
   const [hoursEnd, minEnd] = dayEnd.split(":").map(Number);
 
-  const calDiffHoursBetween = Math.floor(
-    (hoursEnd * 60 + minEnd - (hoursStart * 60 + minStart)) / 60
+  if (hoursStart > hoursEnd) {
+    hoursStart += 12;
+  }
+
+  const calDiffHoursBetween = Math.abs(
+    Math.floor((hoursEnd * 60 + minEnd - (hoursStart * 60 + minStart)) / 60)
   );
 
   const numMeals = Math.floor(calDiffHoursBetween / hourBetweenMeals);

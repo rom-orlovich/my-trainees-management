@@ -127,7 +127,8 @@ export const nutritionQuestionnaireSchema = yup.object().shape({
   // black_list_foods: yup.array(),
   // favorite_foods: yup.array(),
   // profile_id: yup.number().required("Must be a number"),
-  // date_start: yup.date().required(),
+  // date_start: yup
+  //   .string()
   // date_end: yup
   //   .date()
   //   .notRequired()

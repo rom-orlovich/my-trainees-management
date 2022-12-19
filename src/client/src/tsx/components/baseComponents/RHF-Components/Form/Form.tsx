@@ -76,9 +76,9 @@ export default function Form<TFormValues extends FieldValues>({
   const { displayContent } = useAppSelector(getModelControllerState);
 
   const methods = useForm<TFormValues>({
-    ...formOptions,
     mode: "onBlur",
     reValidateMode: "onBlur",
+    ...formOptions,
     defaultValues: {
       ...formOptions?.defaultValues,
       ...defaultValues[className || location.pathname],
