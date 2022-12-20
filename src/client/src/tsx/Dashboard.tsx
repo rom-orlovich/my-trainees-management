@@ -1,4 +1,4 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useOutletContext } from "react-router-dom";
 import ModelController from "./components/baseComponents/Model/ModelController";
 
 import useCheckRole from "./hooks/useCheckRole";
@@ -6,13 +6,20 @@ import AdminLayout from "./layout/AdminLayout/AdminLayout";
 import TraineeLayout from "./layout/TraineeLayout/TraineeLayout";
 import TrainerLayout from "./layout/TrainerLayout/TrainerLayout";
 import HomePage from "./pages/HomePage/HomePage";
-import { APP_ROUTE } from "./routes/appRoutesConstants";
+import { User } from "./redux/api/interfaceAPI";
 
-function App() {
+export interface UserRoles {
+  isAdmin: boolean;
+  isTrainee: boolean;
+  isTrainer: boolean;
+  userData: User;
+}
+function Dashboard() {
   const location = useLocation();
   // Basic layout of the app.
   const Layout = () => {
     const { isAdmin, isTrainer, isTrainee } = useCheckRole();
+
     if (isAdmin) return <AdminLayout />;
     if (isTrainer) return <TrainerLayout />;
     if (isTrainee) return <TraineeLayout />;
@@ -27,4 +34,4 @@ function App() {
   );
 }
 
-export default App;
+export default Dashboard;

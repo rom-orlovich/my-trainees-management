@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../components/baseComponents/LoadingSpinner/LoadingSpinner";
+import useCheckRole from "../../hooks/useCheckRole";
 import HomePage from "../../pages/HomePage/HomePage";
 
 import { authApi } from "../../redux/api/authAPI";

@@ -4,6 +4,9 @@
   *:not(input) {
     color: white;
     text-decoration: none;
+    &:hover:not(label, h2) {
+      color: rgb(254, 238, 238);
+    }
   }
   border-radius: 10px;
   width: 20rem;

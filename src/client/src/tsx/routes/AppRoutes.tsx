@@ -1,11 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import App from "../App";
 
 import { LeadAddForm } from "../components/Forms/LeadForms/LeadAddForm";
 import LeadEditForm from "../components/Forms/LeadForms/LeadEditForm";
 
-import HomePage from "../pages/HomePage/HomePage";
 import LeadsPage from "../pages/LeadsPage/LeadsPage";
 
 import Settings from "../pages/SettingsPage/SettingsPage";
@@ -50,6 +48,7 @@ import MyNutritionMenusPage from "../pages/MyNutritionMenus/MyNutritionMenusPage
 import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
 import NutritionQuestionnaireEditForm from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireEditForm";
 import { NutritionQuestionnaireAddForm } from "../components/Forms/NutritionQuestionnaireForms/NutritionQuestionnaireAddForm";
+import Dashboard from "../Dashboard";
 
 function AppRoutes() {
   const { isAdmin, isTrainee, isTrainer } = useCheckRole();
@@ -59,7 +58,7 @@ function AppRoutes() {
       {/* The App data when the user is login */}
       <Route element={<PersistedLogin />}>
         <Route path={"*"} element={<AuthRoutes />} />
-        <Route path={APP_ROUTE.HOME_PAGE} element={<App />}>
+        <Route path={APP_ROUTE.HOME_PAGE} element={<Dashboard />}>
           <Route index element={<MainRouteByRole />} />
           <Route
             element={
@@ -69,17 +68,17 @@ function AppRoutes() {
             {/* The Shared routes between all users roles. */}
 
             <Route path={APP_ROUTE.SETTINGS_ROUTE} element={<Settings />} />
-            <Route
+            {/* <Route
               path={`${APP_ROUTE.COMING_SOON}/*`}
               element={<ComingSoonPage />}
-            />
-
+            /> */}
+            {/* 
             {isTrainee && (
               <Route
                 path={`${APP_ROUTE.TRAINEES_ROUTE}/:id`}
                 element={<TraineeEditForm />}
               />
-            )}
+            )} */}
 
             <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />}>
               <Route
