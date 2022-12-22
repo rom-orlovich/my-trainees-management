@@ -6,7 +6,7 @@ import { APP_ROUTE } from "../routes/appRoutesConstants";
 import EmailVerifyPage from "../pages/AuthPages/EmailVerifyPage/EmailVerifyPage";
 import SignUpPageNewTrainee from "../pages/AuthPages/SignUpPage/SignUpPageNewTrainee";
 
-export const AuthRoutes: RouteObject[] = [
+export const authRoutes: RouteObject[] = [
   { path: APP_ROUTE.LOGIN_ROUTE, element: <LoginPage /> },
   { path: APP_ROUTE.SIGN_UP, element: <SignUpPage /> },
   { path: APP_ROUTE.CHANGE_USER_CRED_ROUTE, element: <ChangePasswordPage /> },

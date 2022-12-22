@@ -10,7 +10,7 @@ import { store } from "./tsx/redux/store";
 import "./style/utilities/base.scss";
 
 import AppRoutes from "./tsx/routes/AppRoutes";
-import { MainRoutes } from "./tsx/routes2/MainRoutes";
+import { mainRoutes } from "./tsx/routes2/mainRoutes";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -21,7 +21,7 @@ root.render(
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>
-      {/* <RouterProvider router={MainRoutes} /> */}
+      {/* <RouterProvider router={mainRoutes} /> */}
     </Provider>
   </React.StrictMode>
 );

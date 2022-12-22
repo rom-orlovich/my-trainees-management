@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import { APP_ROUTE } from "../routes/appRoutesConstants";
-import { AuthRoutes } from "./AuthRoutes";
-import { DashboardRoutes } from "./DashboardRoutes";
+import { authRoutes } from "./authRoutes";
+import { dashboardRoutes } from "./dashboardRoutes";
 
 import PersistedLogin from "./utilities/PersistedLogin";
 
-export const MainRoutes = createBrowserRouter([
+export const mainRoutes = createBrowserRouter([
   {
     path: APP_ROUTE.HOME_PAGE,
     element: <PersistedLogin />,
-    children: [...AuthRoutes, ...DashboardRoutes],
+    children: [...authRoutes, ...dashboardRoutes],
     errorElement: <h1>Page is Not Found</h1>,
   },
 ]);
