@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 
-import { RequestHandler } from "webpack-dev-server";
+import { RequestHandler } from "express";
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { API_ROUTES } from "../../apiRoutesConstants";
 

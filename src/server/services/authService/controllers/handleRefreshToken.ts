@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { RequestHandler } from "webpack-dev-server";
+import { RequestHandler } from "express";
 import { hash, compare } from "bcryptjs";
 
 import { promiseHandler } from "../../../utilities/helpers";

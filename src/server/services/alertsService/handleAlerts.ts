@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { RequestHandler } from "webpack-dev-server";
+import { RequestHandler } from "express";
 import { ModifiedActionResult } from "../../express";
 import { deleteQuery, insertQueryOneItem } from "../../PGSql/simpleSqlQueries";
 

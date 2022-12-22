@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { RequestHandler } from "webpack-dev-server";
+import { RequestHandler } from "express";
 import { selectQuery } from "../../../PGSql/simpleSqlQueries";
 // eslint-disable-next-line no-unused-vars
 
@@ -161,7 +161,9 @@ export const validateRolePermission: (
     if (checkPermissionByRolesDeleteOperation) return next();
   }
   logger.error(
-    `LINE 156: permission denied only user with id ${req?.auth_data?.user_id} and role ${req?.auth_data?.role}`,
+    `LINE 156: permission denied only user with id ${
+      req.auth_data?.trainer_user_id || req?.auth_data?.user_id
+    } and role ${req?.auth_data?.role}`,
     { __filename }
   );
   return res.sendStatus(401);

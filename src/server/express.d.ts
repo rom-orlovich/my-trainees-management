@@ -20,29 +20,13 @@ export interface ModifiedActionResult {
   logAlert?: boolean;
 }
 
-export interface IncomesTableAPI {
-  income_id?: number;
-  product_id: number;
-  date: Date;
-  buyer_id: number;
-  first_name: string;
-  last_name: string;
-  price: number;
-  product_name: string;
-  amount: number;
-  total_price: number;
-  note_topic?: string;
-  note_text?: string;
-  user_id?: number;
-}
-
 export interface GetRes<T = Record<string, any>> {
   data: T[];
   next: boolean;
   countRows: number;
 }
 
-export interface StatsData<T = Record<string, any>> {
+export interface StatsData {
   updateExerciseData?: TrainingProgramExercise;
   statsResult?: GetRes | GetRes[];
 }

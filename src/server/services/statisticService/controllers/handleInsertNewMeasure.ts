@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { RequestHandler } from "webpack-dev-server";
+import { RequestHandler } from "express";
 import { MeasuresRawAPI } from "../serviceStatisticsTypes";
 
 export const handleInsertNewMeasure: RequestHandler = (req, res, next) => {

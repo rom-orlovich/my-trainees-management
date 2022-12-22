@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { RequestHandler } from "webpack-dev-server";
+import { RequestHandler } from "express";
 
 import { API_ROUTES } from "../../apiRoutesConstants";
 

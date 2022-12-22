@@ -1,4 +1,4 @@
-import { RequestHandler } from "webpack-dev-server";
+import { RequestHandler } from "express";
 import {
   insertQueryOneItem,
   selectQuery,

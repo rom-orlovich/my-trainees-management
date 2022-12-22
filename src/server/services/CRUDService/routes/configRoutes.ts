@@ -629,11 +629,10 @@ export const nutritionMenusListOptionsCRUD: OptionsCRUD = {
       mainName: "nml.note_topic",
     },
     queryParams: {
-      // userID: `nml.${TABLES_DATA.USERS_TABLE_ID}`,
       profileID: `nml.${TABLES_DATA.PROFILE_ID}`,
     },
   },
-  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  permissions: PERMISSION_TRAINEE_WITHOUT_DELETE_CREATE,
   validateSchema: nutritionMenusListSchema,
 };
 export const nutritionMenuOptionsCRUD: OptionsCRUD = {
@@ -663,6 +662,6 @@ export const nutritionQuestionnaireCRUD: OptionsCRUD = {
       // profileID: `nml.${TABLES_DATA.PROFILE_ID}`,
     },
   },
-  permissions: PERMISSION_TRAINEE_READONLY_ADMIN_USER_ID,
+  permissions: PERMISSION_TRAINEE_BY_USER_ID,
   validateSchema: nutritionQuestionnaireSchema,
 };
