@@ -56,8 +56,10 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
   - [Google API](https://www.npmjs.com/package/googleapis) - For Gmail service.
   - [Nodemailer](https://www.npmjs.com/package/nodemailer) - For sending emails.
   - [Date-fns](https://date-fns.org/)- For date manipulation.
-  - [Winston-logger](https://www.npmjs.com/package/winston) -For server logs.
-  
+  - [Winston-logger](https://www.npmjs.com/package/winston) - For server logs.
+  - [cheerio](https://www.npmjs.com/package/cheerio) - For web scrapping of 1600 foods into the DB. 
+  - [node-cron](https://www.npmjs.com/package/node-cron) - For scheduling the web scrapping.
+  - [throat](https://www.npmjs.com/package/throat) - For throttling the fetch requests of the scheduled web scraping.
 
 ## Installation
 
@@ -99,12 +101,12 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
      Trainees will have a graphical overview of their progress.
 9. **Trainer & Trainee Schedule** - Personal Trainers can schedule new training and meeting sessions. \
     Trainees can watch their next sessions.
+10. **Generate Nutrition Menus** - The app generates nutrition menu recommendations based on the trainee's nutrition preference. 
 
 ## Coming soon:
-1. **Generate Nutrition Menus** - The app will generate nutrition menus based on the trainee's preference.
+1. **Edit Nutrition Menus** - Trainers can edit/add/delete meals and food options in their trainees' nutrition menus.  
 2. **App's Style Improvement** - Improve the app's style. 
 3. **Mailbox For Communication** - Mailbox for communication between the trainer and his trainees. 
-
 
 ## Images: 
 ### Trainer's Profile
