@@ -72,13 +72,13 @@ function AppRoutes() {
               path={`${APP_ROUTE.COMING_SOON}/*`}
               element={<ComingSoonPage />}
             /> */}
-            {/* 
+
             {isTrainee && (
               <Route
                 path={`${APP_ROUTE.TRAINEES_ROUTE}/:id`}
                 element={<TraineeEditForm />}
               />
-            )} */}
+            )}
 
             <Route path={APP_ROUTE.PROFILE_ROUTE} element={<ProfilePage />}>
               <Route
@@ -99,17 +99,16 @@ function AppRoutes() {
                   />
                 </Route>
               </Route>
-            </Route>
-
-            <Route path={`${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE}`}>
-              <Route
-                path={APP_ROUTE.NUTRITION_QUESTIONNAIRE_EDIT_ROUTE}
-                element={<NutritionQuestionnaireEditForm />}
-              />
-              <Route
-                path={APP_ROUTE.NUTRITION_QUESTIONNAIRE_ADD_ROUTE}
-                element={<NutritionQuestionnaireAddForm />}
-              />
+              <Route path={`${APP_ROUTE.NUTRITION_QUESTIONNAIRE_ROUTE}`}>
+                <Route
+                  path={APP_ROUTE.NUTRITION_QUESTIONNAIRE_EDIT_ROUTE}
+                  element={<NutritionQuestionnaireEditForm />}
+                />
+                <Route
+                  path={APP_ROUTE.NUTRITION_QUESTIONNAIRE_ADD_ROUTE}
+                  element={<NutritionQuestionnaireAddForm />}
+                />
+              </Route>
             </Route>
           </Route>
 

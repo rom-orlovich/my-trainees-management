@@ -19,9 +19,9 @@ function MeasureEditForm() {
   const [addItem] = measuresApi.useCreateOneItemMutation();
 
   // If the user is trainee, the query is executed by his userID instead his trainerUserID.
-  const { profileID, traineeID, userID } = useGetUserTraineeData();
+  const { profileID, userID, isTrainee } = useGetUserTraineeData();
 
-  const queryOptions = traineeID
+  const queryOptions = isTrainee
     ? { profileID, userID }
     : { profileID, trainerUserID: userID };
 
@@ -50,7 +50,7 @@ function MeasureEditForm() {
         const handleSubmit = ({ measure_id, ...body }: MeasuresRawAPI) =>
           addFunction({
             addItem,
-          })({ ...body });
+          })(body);
 
         return (
           <MeasureForm

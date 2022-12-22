@@ -1,6 +1,6 @@
 {
-  "name": "My Trainees App",
-  "version": "0.1.0",
+  "name": "my-trainees-management-v3-client",
+  "version": "3.0.0",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
