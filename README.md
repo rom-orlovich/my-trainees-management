@@ -129,6 +129,19 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 <img alt="Training programs" src="./readme-images/trainee_program_page.png" width="600" hight="600">
 <img alt="Training program's exericses" src="./readme-images/trainees program_exercises.png" width="600" hight="600">
 
+### Trainee's Nutrition Questionnaire
+<img alt="Nutrition questionnaire upper" src="./readme-images/nutrition_questionnaire_upper.png" width="600" hight="600">
+<img alt="Nutrition questionnaire lower" src="./readme-images/nutrition_questionnaire_lower.png" width="600" hight="600">
+<img alt="Model favorite foods" src="./readme-images/model_favorite_foods.png" width="600" hight="600">
+
+
+### Trainee's Nutrition menu
+<img alt="Nutrition menu upper" src="./readme-images/menu_upper.png" width="600" hight="600">
+<img alt="Nutrition menu lower" src="./readme-images/menu_lower.png" width="600" hight="600">
+<img alt="Fods details" src="./readme-images/food_details.png" width="600" hight="600">
+
+
+
 ### Admin's Account 
 <img alt="Admin account" src="./readme-images/admin_account.png" width="600" hight="600">
 
