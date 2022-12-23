@@ -57,7 +57,7 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
   - [Nodemailer](https://www.npmjs.com/package/nodemailer) - For sending emails.
   - [Date-fns](https://date-fns.org/)- For date manipulation.
   - [Winston-logger](https://www.npmjs.com/package/winston) - For server logs.
-  - [cheerio](https://www.npmjs.com/package/cheerio) - For web scrapping of 1600 foods into the DB. 
+  - [cheerio](https://www.npmjs.com/package/cheerio) - For web scrapping of over 1600 foods into the DB. 
   - [node-cron](https://www.npmjs.com/package/node-cron) - For scheduling the web scrapping.
   - [throat](https://www.npmjs.com/package/throat) - For throttling the fetch requests of the scheduled web scraping.
 
