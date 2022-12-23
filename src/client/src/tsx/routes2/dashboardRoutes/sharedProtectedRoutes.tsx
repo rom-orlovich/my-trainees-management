@@ -1,15 +1,15 @@
 import { RouteObject } from "react-router-dom";
-import ParticipantsGroupPage from "../../../pages/ParticipantsGroupPage/ParticipantsGroupPage";
-import SchedulePage from "../../../pages/SchedulePage/SchedulePage";
+import ParticipantsGroupPage from "../../pages/ParticipantsGroupPage/ParticipantsGroupPage";
+import SchedulePage from "../../pages/SchedulePage/SchedulePage";
 
-import SettingsPage from "../../../pages/SettingsPage/SettingsPage";
+import SettingsPage from "../../pages/SettingsPage/SettingsPage";
 
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 
-import { SharedProtectedRoutes } from "../../utilities/ProtectedRoute";
-import { nutritionMenusListRoutes } from "./nutritionProgramListRoutes";
-import { profileRoutes } from "./profileRoutes";
-import { trainingProgramsListRoutes } from "./trainingProgramListRoutes";
+import { SharedProtectedRoutes } from "../utilities/ProtectedRoute";
+import { nutritionMenusListRoutes } from "./sharedProtectedRoutes/nutritionProgramListRoutes";
+import { profileRoutes } from "./sharedProtectedRoutes/profileRoutes";
+import { trainingProgramsListRoutes } from "./sharedProtectedRoutes/trainingProgramListRoutes";
 
 export const settingRoutes: RouteObject = {
   path: APP_ROUTE.SETTINGS_ROUTE,

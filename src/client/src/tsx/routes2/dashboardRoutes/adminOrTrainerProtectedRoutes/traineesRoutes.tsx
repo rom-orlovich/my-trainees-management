@@ -5,11 +5,6 @@ import TraineeProfile from "../../../pages/ProfilePage/TraineeProfile/TraineePro
 import TraineesPage from "../../../pages/TraineesPage/TraineesPage";
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
-export const nutritionMenuByIDRoutes: RouteObject = {
-  path: ":nutritionMenuID",
-  children: [],
-};
-
 export const traineesRoutes: RouteObject = {
   path: APP_ROUTE.TRAINEES_ROUTE,
   element: <TraineesPage />,
