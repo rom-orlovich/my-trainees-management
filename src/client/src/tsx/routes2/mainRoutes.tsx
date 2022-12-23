@@ -14,6 +14,13 @@ import MainPageRouteByRole from "./utilities/MainPageRouteByRole";
 import PersistedLogin from "./utilities/PersistedLogin";
 import { adminProtectedRoutes } from "./protectedRoutes/adminProtectedRoutes";
 import { traineeProtectedRoutes } from "./protectedRoutes/traineeProtectedRoutes";
+import HomePage from "../pages/HomePage/HomePage";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+
+export const mainPageRouteByRole = {
+  path: "",
+  element: <MainPageRouteByRole />,
+};
 
 export const authRoutes: RouteObject[] = [
   { path: APP_ROUTE.LOGIN_ROUTE, element: <LoginPage /> },
@@ -23,30 +30,23 @@ export const authRoutes: RouteObject[] = [
   { path: APP_ROUTE.SIGN_UP_TRAINEE, element: <SignUpPageNewTrainee /> },
 ];
 
-export const mainPageRouteByRole = {
-  path: "",
-  element: <MainPageRouteByRole />,
+export const dashboardRoutes: RouteObject = {
+  path: APP_ROUTE.HOME_PAGE,
+  element: <Dashboard />,
+  children: [
+    mainPageRouteByRole,
+    sharedProtectedRoutes,
+    adminOrTrainerProtectedRoutes,
+    adminProtectedRoutes,
+    traineeProtectedRoutes,
+  ],
 };
-
-export const dashboardRoutes: RouteObject[] = [
-  {
-    path: APP_ROUTE.HOME_PAGE,
-    element: <Dashboard />,
-    children: [
-      mainPageRouteByRole,
-      sharedProtectedRoutes,
-      adminOrTrainerProtectedRoutes,
-      adminProtectedRoutes,
-      traineeProtectedRoutes,
-    ],
-  },
-];
 
 export const mainRoutes = createBrowserRouter([
   {
     path: APP_ROUTE.HOME_PAGE,
     element: <PersistedLogin />,
-    children: [...authRoutes, ...dashboardRoutes],
-    errorElement: <h1>Page is Not Found</h1>,
+    children: [...authRoutes, dashboardRoutes],
+    errorElement: <ErrorPage />,
   },
 ]);

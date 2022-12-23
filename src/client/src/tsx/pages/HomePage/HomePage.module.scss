@@ -1,19 +1,11 @@
 @use "../../../style/utilities/utilities.scss" as *;
-.homePage_container {
+.home_page_container {
   @include flex-dir(center, center);
   height: 100vh;
 
-  .video {
-    position: fixed;
-    left: 0%;
-    bottom: -35%;
-    min-width: 100%;
-    min-height: 100%;
-  }
-
   .home_page_text {
     position: absolute;
-    z-index: 100;
+    z-index: 1;
     text-align: center;
     h1 {
       color: white;
@@ -33,14 +25,9 @@
 }
 
 @include smartphone() {
-  .homePage_container {
+  .home_page_container {
     @include flex-dir(center, center);
     height: 100vh;
-
-    .video {
-      position: fixed;
-      left: -200%;
-    }
 
     .home_page_text {
       h1 {

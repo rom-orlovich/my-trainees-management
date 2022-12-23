@@ -1,0 +1,16 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+.background_video {
+  position: fixed;
+  left: 0%;
+  bottom: -35%;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}
+@include smartphone() {
+  .background_video {
+    position: fixed;
+    left: -200%;
+  }
+}

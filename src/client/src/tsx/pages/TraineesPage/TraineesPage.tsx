@@ -48,7 +48,9 @@ function Trainees() {
 
 export default function TraineesPage() {
   return (
-    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.TRAINEES_ROUTE}>
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={[APP_ROUTE.TRAINEES_ROUTE, ""]}
+    >
       <Trainees />
     </InsteadOutletRoutes>
   );
