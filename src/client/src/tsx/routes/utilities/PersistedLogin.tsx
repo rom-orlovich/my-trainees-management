@@ -7,7 +7,7 @@ import HomePage from "../../pages/HomePage/HomePage";
 import { authApi } from "../../redux/api/authAPI";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
-import { APP_ROUTE } from "../appRoutesConstants";
+import { APP_ROUTE } from "../../routes2/appRoutesConstants";
 
 export const SUBTRACT_EXPIRE_TIME = 1000 * 60 * 10;
 

@@ -16,7 +16,7 @@ import { locationsApi } from "../../../redux/api/hooksAPI";
 import Checkbox from "../../baseComponents/RHF-Components/CheckBoxGroup/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
 
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import { OmitKey } from "../../../types";
 

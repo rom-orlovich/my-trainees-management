@@ -13,7 +13,7 @@ import {
 
 import { formatDate } from "../../../utilities/helpersFun";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
 import { productsApi, traineesApi } from "../../../redux/api/hooksAPI";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { useAppDispatch } from "../../../redux/hooks";

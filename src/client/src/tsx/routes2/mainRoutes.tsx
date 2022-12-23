@@ -4,7 +4,7 @@ import ChangePasswordPage from "../pages/AuthPages/ChangePasswordPage/ChangePass
 import LoginPage from "../pages/AuthPages/LoginPage/LoginPage";
 import SignUpPage from "../pages/AuthPages/SignUpPage/SignUpPage";
 import SignUpPageNewTrainee from "../pages/AuthPages/SignUpPage/SignUpPageNewTrainee";
-import { APP_ROUTE } from "../routes/appRoutesConstants";
+import { APP_ROUTE } from "./appRoutesConstants";
 import EmailVerifyPage from "../pages/AuthPages/EmailVerifyPage/EmailVerifyPage";
 
 import { adminOrTrainerProtectedRoutes } from "./protectedRoutes/adminOrTrainerProtectedRoutes";

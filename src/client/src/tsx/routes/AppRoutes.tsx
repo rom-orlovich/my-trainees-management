@@ -8,7 +8,7 @@ import LeadsPage from "../pages/LeadsPage/LeadsPage";
 
 import Settings from "../pages/SettingsPage/SettingsPage";
 
-import { APP_ROUTE } from "./appRoutesConstants";
+import { APP_ROUTE } from "../routes2/appRoutesConstants";
 import UsersPage from "../pages/UsersPage/UsersPage";
 
 import ComingSoonPage from "../pages/ComingSoonPage/ComingSoonPage";

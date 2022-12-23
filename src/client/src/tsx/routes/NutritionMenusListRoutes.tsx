@@ -5,7 +5,7 @@ import { TrainingProgramEditExerciseForm } from "../components/Forms/TrainingPro
 
 import ExerciseStatsPage from "../pages/ExerciseStatsPage/ExerciseStatsPage";
 
-import { APP_ROUTE } from "./appRoutesConstants";
+import { APP_ROUTE } from "../routes2/appRoutesConstants";
 import NutritionMenusListPage from "../pages/NutritionMenusListPage/NutritionMenusListPage";
 import { NutritionMenusListEditForm } from "../components/Forms/NutritionMenusListForms/NutritionMenusListEditForm";
 import { NutritionMenusListAddForm } from "../components/Forms/NutritionMenusListForms/NutritionMenusListAddForm";

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { PropsBasic } from "../../../../components/baseComponents/baseComponentsTypes";
 import Card from "../../../../components/baseComponents/Card/Card";
 import { meetingApi } from "../../../../redux/api/hooksAPI";
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../../routes2/appRoutesConstants";
 import { genClassName } from "../../../../utilities/helpersFun";
 import ListProfile from "../../ListProfile/ListProfile";
 import { TrainerProfileProps } from "../TrainerProfile";

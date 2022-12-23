@@ -10,7 +10,7 @@ import { InputLabel } from "../../../components/baseComponents/RHF-Components/In
 import { authApi } from "../../../redux/api/authAPI";
 import { SignUpForm } from "../../../redux/api/interfaceAPI";
 
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
 import { relativePath } from "../../../utilities/helpersFun";
 import style from "../../HomeCardForm.module.scss";
 

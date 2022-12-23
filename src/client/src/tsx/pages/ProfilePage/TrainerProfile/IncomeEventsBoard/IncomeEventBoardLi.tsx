@@ -5,7 +5,7 @@ import { format } from "date-fns";
 
 import { Link } from "react-router-dom";
 import { MeetingAPI } from "../../../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../../routes2/appRoutesConstants";
 import listProfileStyle from "../../ListProfile/ListProfile.module.scss";
 
 function IncomeEventBoardLi({

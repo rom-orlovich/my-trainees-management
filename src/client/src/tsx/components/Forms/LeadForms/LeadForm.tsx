@@ -17,7 +17,7 @@ import {
 
 import Checkbox from "../../baseComponents/RHF-Components/CheckBoxGroup/Checkbox";
 import { formatDate } from "../../../utilities/helpersFun";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { SelectInput } from "../../baseComponents/RHF-Components/SelectInput/SelectInput";

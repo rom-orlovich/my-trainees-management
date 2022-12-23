@@ -7,7 +7,7 @@ import { TrainingProgramsListEditForm } from "../components/Forms/TrainingProgra
 import TrainingProgramExercises from "../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
 import ExerciseStatsPage from "../pages/ExerciseStatsPage/ExerciseStatsPage";
 import TrainingProgramsPage from "../pages/TrainingProgramsPage/TrainingProgramsPage";
-import { APP_ROUTE } from "./appRoutesConstants";
+import { APP_ROUTE } from "../routes2/appRoutesConstants";
 
 const TrainingProgramListRoutes = () => (
   <Routes>

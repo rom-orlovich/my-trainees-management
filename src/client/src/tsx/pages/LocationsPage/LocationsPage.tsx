@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../routes2/appRoutesConstants";
 import style from "../Page.module.scss";
 import LocationTable from "./LocationsTable";
 import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";

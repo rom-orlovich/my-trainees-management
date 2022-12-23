@@ -10,7 +10,7 @@ import ProfilePage from "../../../pages/ProfilePage/Profile";
 import FinanceStatsPage from "../../../pages/StatsPages/FinancesStatsPage/FinancesStatsPage";
 import LeadsStatsPage from "../../../pages/StatsPages/LeadsStatsPage/LeadsStatsPage";
 import TraineeStatsPage from "../../../pages/StatsPages/TraineeStatsPage/TraineeStatsPage";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../appRoutesConstants";
 import { AdminOrTrainerProtectedRoutes } from "../../utilities/ProtectedRoute";
 
 export const profilePageStats: RouteObject = {

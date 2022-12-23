@@ -3,7 +3,7 @@ import { PropsBasic } from "../../../../components/baseComponents/baseComponents
 
 import { financesApi } from "../../../../redux/api/hooksAPI";
 import { CHART_DISPLAY, FinanceAPI } from "../../../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../../routes2/appRoutesConstants";
 import OverviewProfileCard from "../OverviewProfileCard/OverviewProfileCard";
 import { TrainerProfileProps } from "../TrainerProfile";
 import overviewProfileCardStyle from "../OverviewProfileCard/OverviewProfileCard.module.scss";

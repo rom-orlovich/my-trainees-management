@@ -8,7 +8,7 @@ import MusclesGroupPage from "../../../pages/MusclesGroupPage/MusclesGroupPage";
 import ParticipantsGroupPage from "../../../pages/ParticipantsGroupPage/ParticipantsGroupPage";
 import ParticipantsGroupsListPage from "../../../pages/ParticipantsGroupsListPage/ParticipantsGroupsListPage";
 import ProductsPage from "../../../pages/ProductsPage/ProductsPage";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../appRoutesConstants";
 
 export const settingsRoutes: RouteObject = {
   path: APP_ROUTE.SETTINGS_ROUTE,

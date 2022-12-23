@@ -7,7 +7,7 @@ import { ParticipantsGroupsListTableAPI } from "../../redux/api/interfaceAPI";
 import ParticipantsGroupsListTable from "./ParticipantsGroupsListTable";
 
 import style from "../Page.module.scss";
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../routes2/appRoutesConstants";
 
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";

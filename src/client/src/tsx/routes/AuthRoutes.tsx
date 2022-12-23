@@ -5,7 +5,7 @@ import LoginPage from "../pages/AuthPages/LoginPage/LoginPage";
 import SignUpPage from "../pages/AuthPages/SignUpPage/SignUpPage";
 import SignUpPageNewTrainee from "../pages/AuthPages/SignUpPage/SignUpPageNewTrainee";
 import EmailVerifyPage from "../pages/AuthPages/EmailVerifyPage/EmailVerifyPage";
-import { APP_ROUTE } from "./appRoutesConstants";
+import { APP_ROUTE } from "../routes2/appRoutesConstants";
 
 const AuthRoutes = () => (
   <Routes>

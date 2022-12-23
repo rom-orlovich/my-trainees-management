@@ -22,7 +22,7 @@ import {
   ChartsDataAPI,
   CHART_DISPLAY,
 } from "../../../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../../routes2/appRoutesConstants";
 import { genClassName } from "../../../../utilities/helpersFun";
 import { TraineeProfileProps } from "../TraineeProfile";
 import style from "./CaloriesChart.module.scss";

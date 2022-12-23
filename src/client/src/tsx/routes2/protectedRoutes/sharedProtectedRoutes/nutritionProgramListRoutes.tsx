@@ -3,7 +3,7 @@ import { NutritionMenusListAddForm } from "../../../components/Forms/NutritionMe
 import { NutritionMenusListEditForm } from "../../../components/Forms/NutritionMenusListForms/NutritionMenusListEditForm";
 import NutritionMenuPage from "../../../pages/NutritionMenuPage/NutritionMenuPage";
 import NutritionMenusListPage from "../../../pages/NutritionMenusListPage/NutritionMenusListPage";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../appRoutesConstants";
 
 export const nutritionMenuByIDRoutes: RouteObject = {
   path: ":nutritionMenuID",

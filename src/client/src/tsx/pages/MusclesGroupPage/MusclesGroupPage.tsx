@@ -7,7 +7,7 @@ import { MusclesGroupTableAPI } from "../../redux/api/interfaceAPI";
 
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../routes2/appRoutesConstants";
 import page_style from "../Page.module.scss";
 import MusclesGroupTable from "./MusclesGroupTable";
 import { useAppDispatch } from "../../redux/hooks";

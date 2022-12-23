@@ -6,7 +6,7 @@ import { TableAction } from "../../components/baseComponents/baseComponentsTypes
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { nutritionMenusListApi } from "../../redux/api/hooksAPI";
 import { NutritionMenuTableApi } from "../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../routes2/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 import { NUTRITION_MENU_NAME_DATA } from "./MyNutritionMenusPage";

@@ -7,7 +7,7 @@ import Card from "../../../../components/baseComponents/Card/Card";
 import useGetUserTraineeData from "../../../../hooks/useGetUserTraineeData";
 import { emailAPi } from "../../../../redux/api/hooksAPI";
 
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../../routes2/appRoutesConstants";
 
 import { genClassName } from "../../../../utilities/helpersFun";
 import style from "../../UserDetailsStyle/UserDetails.module.scss";

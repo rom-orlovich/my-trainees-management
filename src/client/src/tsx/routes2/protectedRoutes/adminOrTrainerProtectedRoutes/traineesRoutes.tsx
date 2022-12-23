@@ -3,7 +3,7 @@ import TraineeAddForm from "../../../components/Forms/TraineeForms/TraineeAddFor
 import TraineeEditForm from "../../../components/Forms/TraineeForms/TraineeEditForm";
 import TraineeProfile from "../../../pages/ProfilePage/TraineeProfile/TraineeProfile";
 import TraineesPage from "../../../pages/TraineesPage/TraineesPage";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../appRoutesConstants";
 
 export const traineesRoutes: RouteObject = {
   path: APP_ROUTE.TRAINEES_ROUTE,

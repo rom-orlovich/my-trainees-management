@@ -7,7 +7,7 @@ import { traineesApi } from "../../redux/api/hooksAPI";
 import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../routes2/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {

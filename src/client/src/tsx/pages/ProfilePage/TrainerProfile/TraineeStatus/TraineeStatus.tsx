@@ -8,7 +8,7 @@ import {
 import OverviewProfileCard from "../OverviewProfileCard/OverviewProfileCard";
 import { TrainerProfileProps } from "../TrainerProfile";
 
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../../routes2/appRoutesConstants";
 import overviewProfileCardStyle from "../OverviewProfileCard/OverviewProfileCard.module.scss";
 
 function TraineeStatus({

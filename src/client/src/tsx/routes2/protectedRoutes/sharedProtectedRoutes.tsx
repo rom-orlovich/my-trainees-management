@@ -4,7 +4,7 @@ import SchedulePage from "../../pages/SchedulePage/SchedulePage";
 
 import SettingsPage from "../../pages/SettingsPage/SettingsPage";
 
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../appRoutesConstants";
 
 import { SharedProtectedRoutes } from "../utilities/ProtectedRoute";
 import { nutritionMenusListRoutes } from "./sharedProtectedRoutes/nutritionProgramListRoutes";

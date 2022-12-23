@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { disableGoPrevPage } from "../../../redux/slices/apiSideEffectSlice";
 import { preModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { ParticipantsGroupsListForm } from "./ParticipantsGroupsListForm";
 

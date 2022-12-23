@@ -6,7 +6,7 @@ import { TrainingProgramsListEditForm } from "../../../components/Forms/Training
 import ExerciseStatsPage from "../../../pages/ExerciseStatsPage/ExerciseStatsPage";
 import TrainingProgramExercises from "../../../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
 import TrainingProgramsPage from "../../../pages/TrainingProgramsPage/TrainingProgramsPage";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../appRoutesConstants";
 
 export const trainingProgramExercisesRoutes: RouteObject = {
   path: APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE,

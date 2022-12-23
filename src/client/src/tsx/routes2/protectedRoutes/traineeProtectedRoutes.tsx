@@ -1,7 +1,7 @@
 import { RouteObject } from "react-router-dom";
 import MyNutritionMenusPage from "../../pages/MyNutritionMenus/MyNutritionMenusPage";
 import MyWorkoutsPage from "../../pages/MyWorkoutsPage/MyWorkoutsPage";
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../appRoutesConstants";
 import { TraineeProtectedRoutes } from "../utilities/ProtectedRoute";
 
 export const traineeProtectedRoutes: RouteObject = {

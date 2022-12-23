@@ -4,7 +4,7 @@ import { FaMoneyBillAlt, FaUserShield } from "react-icons/fa";
 import { IoNutritionSharp } from "react-icons/io5";
 import { SiGoogleads } from "react-icons/si";
 import { LinkData } from "../components/baseComponents/baseComponentsTypes";
-import { APP_ROUTE } from "../routes/appRoutesConstants";
+import { APP_ROUTE } from "../routes2/appRoutesConstants";
 import style from "../components/layoutComponents/SideBar/SideBar.module.scss";
 
 export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [

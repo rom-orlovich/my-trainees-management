@@ -7,7 +7,7 @@ import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
 import { measuresApi } from "../../../redux/api/hooksAPI";
 import { MeasuresRawAPI } from "../../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
 
 import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";

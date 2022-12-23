@@ -6,7 +6,7 @@ import TraineeEditForm from "../components/Forms/TraineeForms/TraineeEditForm";
 
 import TraineeProfile from "../pages/ProfilePage/TraineeProfile/TraineeProfile";
 import TraineesPage from "../pages/TraineesPage/TraineesPage";
-import { APP_ROUTE } from "./appRoutesConstants";
+import { APP_ROUTE } from "../routes2/appRoutesConstants";
 
 const TraineesRoutes = () => (
   <Routes>

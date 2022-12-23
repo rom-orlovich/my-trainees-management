@@ -5,7 +5,7 @@ import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 import { ParticipantsGroupsListTableAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 import { closeModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
 
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import ModelFormContainer from "../../baseComponents/Model/ModelFormContainer";

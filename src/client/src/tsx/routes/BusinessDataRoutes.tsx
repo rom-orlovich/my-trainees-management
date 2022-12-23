@@ -12,7 +12,7 @@ import ParticipantsGroupPage from "../pages/ParticipantsGroupPage/ParticipantsGr
 
 import ParticipantsGroupsListPage from "../pages/ParticipantsGroupsListPage/ParticipantsGroupsListPage";
 import ProductsPage from "../pages/ProductsPage/ProductsPage";
-import { APP_ROUTE } from "./appRoutesConstants";
+import { APP_ROUTE } from "../routes2/appRoutesConstants";
 
 const BusinessDataRoutes = () => (
   <Routes>

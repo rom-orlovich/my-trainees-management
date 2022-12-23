@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import useCheckRole from "../../hooks/useCheckRole";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../routes2/appRoutesConstants";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import TraineeProfile from "./TraineeProfile/TraineeProfile";
 import TrainerProfile from "./TrainerProfile/TrainerProfile";

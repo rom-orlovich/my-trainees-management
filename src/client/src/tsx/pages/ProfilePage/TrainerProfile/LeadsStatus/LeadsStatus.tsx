@@ -8,7 +8,7 @@ import {
   CHART_DISPLAY,
   GetCitiesGendersAgesStatsAPI,
 } from "../../../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../../../routes2/appRoutesConstants";
 import OverviewProfileCard from "../OverviewProfileCard/OverviewProfileCard";
 
 import { TrainerProfileProps } from "../TrainerProfile";

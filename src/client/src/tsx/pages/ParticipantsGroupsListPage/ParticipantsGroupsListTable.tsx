@@ -7,7 +7,7 @@ import { participantsGroupsListApi } from "../../redux/api/hooksAPI";
 import { ParticipantsGroupsListTableAPI } from "../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../redux/hooks";
 import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
-import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import { APP_ROUTE } from "../../routes2/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 const transformParticipantsGroupsList = ({
