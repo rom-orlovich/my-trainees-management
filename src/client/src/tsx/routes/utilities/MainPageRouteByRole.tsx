@@ -1,6 +1,7 @@
 import React from "react";
+
 import useCheckRole from "../../hooks/useCheckRole";
-import HomePage from "../../pages/HomePage/HomePage";
+
 import MyWorkoutsPage from "../../pages/MyWorkoutsPage/MyWorkoutsPage";
 import TraineesPage from "../../pages/TraineesPage/TraineesPage";
 import UsersPage from "../../pages/UsersPage/UsersPage";

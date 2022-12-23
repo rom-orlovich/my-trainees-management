@@ -8,7 +8,7 @@ import style from "./FinancesPage.module.scss";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
 
 import IncomesTable from "./IncomesTable";
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import ExpensesTable from "./ExpensesTable";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";

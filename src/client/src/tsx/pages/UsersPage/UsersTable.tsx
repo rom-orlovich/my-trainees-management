@@ -5,7 +5,7 @@ import { usersApi } from "../../redux/api/hooksAPI";
 import { User } from "../../redux/api/interfaceAPI";
 
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 export const transformDataUser = ({

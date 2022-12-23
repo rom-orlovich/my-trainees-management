@@ -9,7 +9,7 @@ import {
 } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
 import { openModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
-import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { formatDate } from "../../../utilities/helpersFun";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";

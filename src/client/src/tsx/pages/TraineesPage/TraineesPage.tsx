@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import TraineesTable from "./TraineesTable";
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import AutocompleteInput from "../../components/baseComponents/RHF-Components/AutocompleteInput/AutocompleteInput";
 import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import style from "../Page.module.scss";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
-import InsteadOutletRoutes from "../../routes2/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 
 function Trainees() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);

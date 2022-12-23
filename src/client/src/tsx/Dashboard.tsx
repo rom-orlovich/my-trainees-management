@@ -10,7 +10,7 @@ import TrainerLayout from "./layout/TrainerLayout/TrainerLayout";
 import LoginPage from "./pages/AuthPages/LoginPage/LoginPage";
 import HomePage from "./pages/HomePage/HomePage";
 import { User } from "./redux/api/interfaceAPI";
-import PersistedLogin from "./routes2/utilities/PersistedLogin";
+import PersistedLogin from "./routes/utilities/PersistedLogin";
 
 export interface UserRoles {
   isAdmin: boolean;

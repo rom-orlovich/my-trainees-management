@@ -7,7 +7,7 @@ import { CitiesTableAPI } from "../../redux/api/interfaceAPI";
 
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "../Page.module.scss";
 import CitiesTable from "./CitiesTable";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";

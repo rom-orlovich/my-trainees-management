@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { trainingProgramsListApi } from "../../../../../redux/api/hooksAPI";
-import { APP_ROUTE } from "../../../../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../../../../routes/appRoutesConstants";
 import ListProfile from "../../../ListProfile/ListProfile";
 import { TraineeProfileProps } from "../../TraineeProfile";
 import { TRAINING_PROGRAMS_LIST_NAME } from "../ProgramsList";

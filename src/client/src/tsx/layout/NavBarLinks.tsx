@@ -1,7 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { RiAddCircleFill } from "react-icons/ri";
 import { ReactNode } from "react";
-import { APP_ROUTE } from "../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../routes/appRoutesConstants";
 import { relativePath } from "../utilities/helpersFun";
 
 import style from "../components/layoutComponents/Header/NavBar/NavBar.module.scss";

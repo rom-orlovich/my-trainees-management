@@ -6,8 +6,8 @@ import { LeadsTableAPI } from "../../redux/api/interfaceAPI";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
-import InsteadOutletRoutes from "../../routes2/utilities/InsteadOutletRoutes";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import style from "../Page.module.scss";
 import LeadsTable from "./LeadsTable";
 

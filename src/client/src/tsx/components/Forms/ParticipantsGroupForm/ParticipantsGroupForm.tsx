@@ -8,7 +8,7 @@ import {
   TraineesTableExtendsAPI,
 } from "../../../redux/api/interfaceAPI";
 
-import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";

@@ -4,7 +4,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import LoadingSpinner from "../../../components/baseComponents/LoadingSpinner/LoadingSpinner";
 import { traineesApi } from "../../../redux/api/hooksAPI";
 
-import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import SignUpPage from "./SignUpPage";
 
 function SignUpPageNewTrainee() {

@@ -16,7 +16,7 @@ import {
   submitFavoriteFoods,
 } from "../../../redux/slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 
-import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
 import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";

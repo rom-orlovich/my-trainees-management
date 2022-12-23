@@ -11,7 +11,7 @@ import {
 import { useAppDispatch } from "../../../redux/hooks";
 import { openModel } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 
-import { APP_ROUTE } from "../../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { GeneralFormProps } from "../../baseComponents/baseComponentsTypes";
 import AutocompleteInputRHF from "../../baseComponents/RHF-Components/AutocompleteInput/AutocompleteInputRHF";
 import Form from "../../baseComponents/RHF-Components/Form/Form";

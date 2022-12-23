@@ -6,7 +6,7 @@ import { TablePagination } from "../../components/baseComponents/Tables/TablePag
 import useCheckRole from "../../hooks/useCheckRole";
 import { nutritionMenusListApi } from "../../redux/api/hooksAPI";
 import { NutritionMenuTableApi } from "../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 import { NUTRITION_MENU_NAME_DATA } from "./NutritionMenusListPage";

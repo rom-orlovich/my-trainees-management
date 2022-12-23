@@ -7,7 +7,7 @@ import { ActivitiesTableAPI } from "../../redux/api/interfaceAPI";
 
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page from "../Page.module.scss";
 import ActivitiesTable from "./ActivitiesTable";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";

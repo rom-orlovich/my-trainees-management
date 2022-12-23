@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { genClassName } from "../../utilities/helpersFun";
 import style from "./SettingsPage.module.scss";

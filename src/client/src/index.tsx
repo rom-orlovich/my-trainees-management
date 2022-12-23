@@ -10,7 +10,7 @@ import { store } from "./tsx/redux/store";
 import "./style/utilities/base.scss";
 
 import AppRoutes from "./tsx/routes/AppRoutes";
-import { mainRoutes } from "./tsx/routes2/mainRoutes";
+import { mainRoutes } from "./tsx/routes/mainRoutes";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);

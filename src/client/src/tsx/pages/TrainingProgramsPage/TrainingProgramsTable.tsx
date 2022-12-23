@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { trainingProgramsListApi } from "../../redux/api/hooksAPI";
 import { TrainingProgramsListTableAPI } from "../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 
 const transformTrainingProgramList = ({

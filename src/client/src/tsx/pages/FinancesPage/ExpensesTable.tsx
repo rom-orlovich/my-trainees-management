@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React from "react";
 
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { QueriesOptionsPropsWithNameData } from "./FinancesPage";
 import {
   ExpensesTableAPI,

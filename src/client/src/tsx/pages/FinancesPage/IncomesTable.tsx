@@ -5,7 +5,7 @@ import {
   UseMutation,
   UseQuery,
 } from "@reduxjs/toolkit/dist/query/react/buildHooks";
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { QueriesOptionsPropsWithNameData } from "./FinancesPage";
 import { IncomesTableAPI } from "../../redux/api/interfaceAPI";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";

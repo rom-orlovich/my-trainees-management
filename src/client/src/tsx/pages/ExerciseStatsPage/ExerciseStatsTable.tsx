@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { trainingProgramsApi } from "../../redux/api/hooksAPI";
 import { ExerciseStatsAPI } from "../../redux/api/interfaceAPI";
-import { APP_ROUTE } from "../../routes2/appRoutesConstants";
+import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { formatDate } from "../../utilities/helpersFun";
 
 const transformTrainingProgramList = ({
