@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { APP_ROUTE } from "../routes/appRoutesConstants";
 import { authRoutes } from "./authRoutes";
-import { dashboardRoutes } from "./dashboardRoutes";
+import { dashboardRoutes } from "./dashboardRoutes/dashboardRoutes";
 
 import PersistedLogin from "./utilities/PersistedLogin";
 

@@ -12,7 +12,7 @@ const TraineesRoutes = () => (
   <Routes>
     <Route path="" element={<TraineesPage />} />
     <Route path={APP_ROUTE.TRAINEES_ROUTE_ADD} element={<TraineeAddForm />} />
-    <Route path=":id">
+    <Route path=":traineeID">
       <Route index element={<TraineeEditForm />} />
       <Route path={APP_ROUTE.PROFILE_ROUTE} element={<TraineeProfile />} />
       <Route path={APP_ROUTE.SUBSCRIPTION_PLANS_ROUTE} />

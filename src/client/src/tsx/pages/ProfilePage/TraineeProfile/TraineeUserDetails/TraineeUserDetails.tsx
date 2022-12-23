@@ -34,14 +34,14 @@ function TraineeUserDetails({ className }: PropsBasic) {
             Resend Email
           </button>
         )}
-        <Link to={`/${APP_ROUTE.TRAINEES_ROUTE}/${traineeID}`}>
+        <Link to={`${APP_ROUTE.TRAINEES_ROUTE}/${traineeID}`}>
           Edit Details
         </Link>
 
         {!!username && (
           <>
             <Link
-              to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}
+              to={`/${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}
             >
               Edit Measures
             </Link>

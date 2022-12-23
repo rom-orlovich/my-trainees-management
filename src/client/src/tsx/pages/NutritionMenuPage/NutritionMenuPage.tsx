@@ -12,7 +12,7 @@ import { API_ROUTES } from "../../redux/api/apiRoutes";
 function NutritionMenuPage() {
   const dispatch = useAppDispatch();
   const { userID, profileID, isTrainee } = useGetUserTraineeData();
-  const nutritionMenuID = Number(useParams().id);
+  const nutritionMenuID = Number(useParams().nutritionMenuID);
 
   const [trigger, data] = nutritionMenuApi.useLazyGetGenerateMenuQuery();
   const queriesOptions = {
@@ -37,7 +37,6 @@ function NutritionMenuPage() {
                   trigger(queriesOptions)
                     .unwrap()
                     .then(() => {
-                  
                       dispatch(
                         nutritionMenuApi.util.invalidateTags([
                           API_ROUTES.NUTRITION_MENU_ENTITY,

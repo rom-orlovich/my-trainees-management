@@ -10,9 +10,10 @@ import style from "../Page.module.scss";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
+import InsteadOutletRoutes from "../../routes2/utilities/InsteadOutletRoutes";
 
 export const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
-function NutritionMenusListPage() {
+function NutritionMenusList() {
   const { userID, profileID } = useGetUserTraineeData();
   const [nutritionMenu, setNutritionMenu] = useState<string[]>(["", ""]);
 
@@ -59,4 +60,12 @@ function NutritionMenusListPage() {
   );
 }
 
-export default NutritionMenusListPage;
+export default function NutritionMenusListPage() {
+  return (
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={[APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE]}
+    >
+      <NutritionMenusList />
+    </InsteadOutletRoutes>
+  );
+}

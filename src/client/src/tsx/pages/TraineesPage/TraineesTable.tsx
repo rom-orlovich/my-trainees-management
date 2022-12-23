@@ -37,9 +37,14 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
     id: arg.trainee_id,
     full_name: (
       <Link
-        to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${
+        to={`/${
           APP_ROUTE.PROFILE_ROUTE
-        }?${username ? `username=${username}` : ""}&profileID=${profile_id}`}
+        }?profileID=${profile_id}&traineeID=${trainee_id}${
+          username ? `&username=${username}` : ""
+        }`}
+        // to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${
+        //   APP_ROUTE.PROFILE_ROUTE
+        // }?${username ? `username=${username}` : ""}&profileID=${profile_id}`}
       >
         {`${arg.first_name} ${arg.last_name}`}
       </Link>
@@ -62,7 +67,7 @@ function TraineesTable({
       InsteadOutletRoutesPaths={[APP_ROUTE.TRAINEES_ROUTE, ""]}
     >
       <TablePagination<TraineesTableExtendsAPI>
-        editPagePath={`${APP_ROUTE.TRAINEES_ROUTE}`}
+        editPagePath={`${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE}`}
         queriesOptions={{ mainName, ...queriesOptions }}
         nameData={"Trainees"}
         transformFun={transformDataTrainee}

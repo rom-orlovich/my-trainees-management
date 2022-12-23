@@ -46,7 +46,7 @@ const trainingProgramExercisesTransform = ({
 };
 
 function TrainingProgramExercises() {
-  const trainingProgramListID = Number(useParams().id);
+  const trainingProgramListID = Number(useParams().trainingProgramID);
 
   const [exercise, setExercise] = useState<string[]>(["", ""]);
   const [deleteItem] = trainingProgramsApi.useDeleteItemMutation();

@@ -11,8 +11,9 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
+import InsteadOutletRoutes from "../../routes2/utilities/InsteadOutletRoutes";
 
-function TrainingProgramsPage() {
+function TrainingPrograms() {
   const { traineeID } = useGetUserTraineeData();
   const [trainingProgram, setTrainingProgram] = useState<string[]>(["", ""]);
   const authState = useAppSelector(getAuthState);
@@ -46,7 +47,9 @@ function TrainingProgramsPage() {
 
         <span>
           {traineeID && (
-            <Link to={`${traineeID}/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}>
+            <Link
+              to={`${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}?traineeID=${traineeID}`}
+            >
               Add Program
             </Link>
           )}
@@ -62,4 +65,12 @@ function TrainingProgramsPage() {
   );
 }
 
-export default TrainingProgramsPage;
+export default function TrainingProgramsPage() {
+  return (
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={[APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE]}
+    >
+      <TrainingPrograms />
+    </InsteadOutletRoutes>
+  );
+}

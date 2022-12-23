@@ -16,7 +16,7 @@ import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { NutritionMenusListForm } from "./NutritionMenusListForm";
 
 export function NutritionMenusListAddForm() {
-  const profileID = Number(useParams().id);
+  const profileID = Number(useParams().nutritionMenuID);
 
   const navigate = useNavigate();
   const [addItem] = nutritionMenusListApi.useCreateOneItemMutation();

@@ -1,13 +1,11 @@
 import React from "react";
-import { useOutletContext } from "react-router-dom";
-import { UserRoles } from "../../Dashboard";
 import useCheckRole from "../../hooks/useCheckRole";
 import HomePage from "../../pages/HomePage/HomePage";
 import MyWorkoutsPage from "../../pages/MyWorkoutsPage/MyWorkoutsPage";
 import TraineesPage from "../../pages/TraineesPage/TraineesPage";
 import UsersPage from "../../pages/UsersPage/UsersPage";
 
-function MainRouteByRole() {
+function MainPageRouteByRole() {
   const { isAdmin, isTrainer, isTrainee } = useCheckRole();
 
   if (isAdmin) return <UsersPage />;
@@ -17,4 +15,4 @@ function MainRouteByRole() {
   // return <HomePage />;
 }
 
-export default MainRouteByRole;
+export default MainPageRouteByRole;

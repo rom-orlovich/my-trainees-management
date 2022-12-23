@@ -8,7 +8,7 @@ import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { TrainingProgramListForms } from "./TrainingProgramListForm";
 
 export function TrainingProgramsListEditForm() {
-  const id = Number(useParams().id);
+  const id = Number(useParams().trainingProgramID);
   const [updateItem] = trainingProgramsListApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();
 

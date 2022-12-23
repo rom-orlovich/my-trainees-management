@@ -31,7 +31,8 @@ function MeasureEditForm() {
 
   return (
     <LoadingSpinner
-      path={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_ADD}?profileID=${profileID}`}
+      // path={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_ADD}?profileID=${profileID}`}
+      path={`/${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_ADD}?profileID=${profileID}`}
       nameData="Measures"
       stateData={{ data, isFetching, isError, isLoading }}
     >

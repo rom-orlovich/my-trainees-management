@@ -21,7 +21,7 @@ import ProtectedRoute from "./utilities/ProtectedRoute";
 import useCheckRole from "../hooks/useCheckRole";
 import BusinessDataRoutes from "./BusinessDataRoutes";
 import TrainingProgramListRoutes from "./TrainingProgramListRoutes";
-import MainRouteByRole from "./utilities/MainRouteByRole";
+import MainPageRouteByRole from "./utilities/MainPageRouteByRole";
 
 import ProfilePage from "../pages/ProfilePage/Profile";
 import TraineesRoutes from "./TraineesRoutes";
@@ -59,7 +59,7 @@ function AppRoutes() {
       <Route element={<PersistedLogin />}>
         <Route path={"*"} element={<AuthRoutes />} />
         <Route path={APP_ROUTE.HOME_PAGE} element={<Dashboard />}>
-          <Route index element={<MainRouteByRole />} />
+          <Route index element={<MainPageRouteByRole />} />
           <Route
             element={
               <ProtectedRoute allowedRole={isAdmin || isTrainer || isTrainee} />

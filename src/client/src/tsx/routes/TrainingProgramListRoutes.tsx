@@ -12,13 +12,16 @@ import { APP_ROUTE } from "./appRoutesConstants";
 const TrainingProgramListRoutes = () => (
   <Routes>
     <Route path="" element={<TrainingProgramsPage />} />
-    <Route path=":id" element={<TrainingProgramsListEditForm />}></Route>
     <Route
-      path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
+      path=":trainingProgramID"
+      element={<TrainingProgramsListEditForm />}
+    />
+    <Route
+      path={`:trainingProgramID/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD}`}
       element={<TrainingProgramsListAddForm />}
     />
     <Route
-      path={`:id/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
+      path={`:trainingProgramID/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}`}
       element={<TrainingProgramExercises />}
     >
       <Route path={`:exerciseID/stats`} element={<ExerciseStatsPage />} />
@@ -26,7 +29,10 @@ const TrainingProgramListRoutes = () => (
         path={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}
         element={<TrainingProgramAddExerciseForm />}
       />
-      <Route path={`:id`} element={<TrainingProgramEditExerciseForm />}></Route>
+      <Route
+        path={`:exerciseID`}
+        element={<TrainingProgramEditExerciseForm />}
+      ></Route>
     </Route>
   </Routes>
 );

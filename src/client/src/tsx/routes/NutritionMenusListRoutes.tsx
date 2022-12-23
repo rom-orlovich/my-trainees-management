@@ -14,22 +14,15 @@ import NutritionMenuPage from "../pages/NutritionMenuPage/NutritionMenuPage";
 const NutritionMenusListRoutes = () => (
   <Routes>
     <Route path="" element={<NutritionMenusListPage />} />
-    <Route path=":id" element={<NutritionMenusListEditForm />}></Route>
+    <Route path=":nutritionMenuID" element={<NutritionMenusListEditForm />} />
     <Route
-      path={`:id/${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}`}
+      path={`:nutritionMenuID/${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}`}
       element={<NutritionMenusListAddForm />}
     />
     <Route
-      path={`:id/${APP_ROUTE.NUTRITION_MENU_ROUTE}`}
+      path={`:nutritionMenuID/${APP_ROUTE.NUTRITION_MENU_ROUTE}`}
       element={<NutritionMenuPage />}
-    >
-      <Route path={`:exerciseID/stats`} element={<ExerciseStatsPage />} />
-      <Route
-        path={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}
-        element={<TrainingProgramAddExerciseForm />}
-      />
-      <Route path={`:id`} element={<TrainingProgramEditExerciseForm />}></Route>
-    </Route>
+    />
   </Routes>
 );
 

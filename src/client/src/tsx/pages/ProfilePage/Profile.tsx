@@ -1,6 +1,7 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import useCheckRole from "../../hooks/useCheckRole";
+import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
@@ -9,7 +10,8 @@ import TrainerProfile from "./TrainerProfile/TrainerProfile";
 
 function Profile() {
   const { isTrainee, isTrainer } = useCheckRole();
-  if (isTrainee) return <TraineeProfile />;
+  const { profileID } = useGetUserTraineeData();
+  if (isTrainee || profileID) return <TraineeProfile />;
   if (isTrainer) return <TrainerProfile />;
   return <Navigate to={`/`} />;
 }

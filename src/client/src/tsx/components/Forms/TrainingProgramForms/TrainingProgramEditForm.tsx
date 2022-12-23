@@ -13,7 +13,7 @@ import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import TrainingProgramForms from "./TrainingProgramForm";
 
 export function TrainingProgramEditExerciseForm() {
-  const id = Number(useParams().id);
+  const id = Number(useParams().exerciseID);
   const [updateItem] = trainingProgramsApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();
   const dispatch = useAppDispatch();

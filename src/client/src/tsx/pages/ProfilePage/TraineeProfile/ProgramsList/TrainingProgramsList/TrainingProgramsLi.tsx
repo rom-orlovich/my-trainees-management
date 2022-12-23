@@ -12,13 +12,14 @@ function TrainingProgramsLi({
   training_programs_list_id,
   date_start,
   date_end,
+  trainee_id,
 }: TrainingProgramsListTableAPI) {
   return (
     <li className={listProfileStyle.list_li}>
       <span className={listProfileStyle.list_detail}>
         <span>Program</span>
         <Link
-          to={`/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${training_programs_list_id}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}?program=${program_type}`}
+          to={`/${APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE}/${training_programs_list_id}/${APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}?program=${program_type}&traineeID=${trainee_id}`}
         >
           {program_type}
         </Link>

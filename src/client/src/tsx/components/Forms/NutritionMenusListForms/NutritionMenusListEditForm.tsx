@@ -12,7 +12,7 @@ import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { NutritionMenusListForm } from "./NutritionMenusListForm";
 
 export function NutritionMenusListEditForm() {
-  const id = Number(useParams().id);
+  const id = Number(useParams().nutritionMenuID);
   const [updateItem] = trainingProgramsListApi.useUpdateItemMutation();
   const authState = useGetUserLoginData();
 
