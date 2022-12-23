@@ -11,6 +11,7 @@ import IncomesTable from "./IncomesTable";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import ExpensesTable from "./ExpensesTable";
+import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 
 export type QueriesOptionsPropsWithNameData = { nameData?: string } & {
   queriesOptions?: Record<string, any>;
@@ -20,7 +21,7 @@ const displayOptions = [
   { label: "Expenses", value: "expenses" },
 ];
 
-function FinancesPage() {
+function Finances() {
   const authState = useGetUserLoginData();
 
   const [{ lt, gt, display }, onChange] = useOnChangeInput({
@@ -86,4 +87,10 @@ function FinancesPage() {
   );
 }
 
-export default FinancesPage;
+export default function FinancesPage() {
+  return (
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.FINANCES_ROUTE}>
+      <Finances />
+    </InsteadOutletRoutes>
+  );
+}

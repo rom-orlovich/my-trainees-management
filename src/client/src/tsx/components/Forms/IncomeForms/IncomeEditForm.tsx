@@ -1,29 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import React from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
-import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 
-import {
-  financesApi,
-  incomesApi,
-  measuresApi,
-} from "../../../redux/api/hooksAPI";
-import {
-  IncomesTableAPI,
-  MeasuresRawAPI,
-} from "../../../redux/api/interfaceAPI";
+import { financesApi, incomesApi } from "../../../redux/api/hooksAPI";
+import { IncomesTableAPI } from "../../../redux/api/interfaceAPI";
 import { useAppDispatch } from "../../../redux/hooks";
-import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 
-import { formatDate } from "../../../utilities/helpersFun";
 import LoadingSpinner from "../../baseComponents/LoadingSpinner/LoadingSpinner";
-import {
-  addFunction,
-  updateFunction,
-} from "../../baseComponents/RHF-Components/FormsHook";
+import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 
 import IncomeForms from "./IncomeForms";
 
@@ -32,7 +19,7 @@ function IncomeEditForm() {
   const dispatch = useAppDispatch();
   const { user_id } = useGetUserLoginData();
 
-  const id = Number(useParams().id);
+  const id = Number(useParams().incomeID);
 
   const { data, isFetching, isError, isLoading } =
     incomesApi.useGetItemByIDQuery({

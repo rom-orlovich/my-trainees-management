@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
 
 import { leadsApi } from "../../../redux/api/hooksAPI";
@@ -11,7 +11,7 @@ import { updateFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import LeadsForm from "./LeadForm";
 
 function LeadEditForm() {
-  const id = Number(useParams().id);
+  const id = Number(useParams().leadID);
 
   const [updateItem] = leadsApi.useUpdateItemMutation();
   const { data, isFetching, isError, isLoading } = leadsApi.useGetItemByIDQuery(

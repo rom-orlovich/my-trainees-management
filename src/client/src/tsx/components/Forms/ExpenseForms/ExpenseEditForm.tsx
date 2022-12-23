@@ -20,7 +20,7 @@ function ExpenseEditForm() {
 
   const { user_id } = useGetUserLoginData();
 
-  const id = Number(useParams().id);
+  const id = Number(useParams().expenseID);
 
   const { data, isFetching, isError, isLoading } =
     expenseApi.useGetItemByIDQuery({
