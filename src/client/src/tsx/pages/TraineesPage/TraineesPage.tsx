@@ -8,8 +8,9 @@ import { traineesApi } from "../../redux/api/hooksAPI";
 import style from "../Page.module.scss";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
+import InsteadOutletRoutes from "../../routes2/utilities/InsteadOutletRoutes";
 
-function TraineesPage() {
+function Trainees() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);
   const authSliceState = useAppSelector(getAuthState);
   const queriesOptions = { trainerUserID: authSliceState.user?.user_id };
@@ -45,4 +46,10 @@ function TraineesPage() {
   );
 }
 
-export default TraineesPage;
+export default function TraineesPage() {
+  return (
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.TRAINEES_ROUTE}>
+      <Trainees />
+    </InsteadOutletRoutes>
+  );
+}

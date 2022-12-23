@@ -7,10 +7,11 @@ import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
+import InsteadOutletRoutes from "../../routes2/utilities/InsteadOutletRoutes";
 import style from "../Page.module.scss";
 import LeadsTable from "./LeadsTable";
 
-function LeadsPage() {
+function Leads() {
   const [lead, setLead] = useState<string[]>(["", ""]);
   const authState = useAppSelector(getAuthState);
   const queriesOptions = {
@@ -50,4 +51,10 @@ function LeadsPage() {
   );
 }
 
-export default LeadsPage;
+export default function LeadsPage() {
+  return (
+    <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.LEADS_ROUTE}>
+      <Leads />
+    </InsteadOutletRoutes>
+  );
+}
