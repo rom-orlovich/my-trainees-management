@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import useGetUserTraineeData from "../../../hooks/useGetUserTraineeData";
 import { trainingProgramsListApi } from "../../../redux/api/hooksAPI";
 import {
   ResponseMutationAPI,
@@ -15,7 +16,7 @@ import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { TrainingProgramListForms } from "./TrainingProgramListForm";
 
 export function TrainingProgramsListAddForm() {
-  const traineeID = Number(useParams().id);
+  const { traineeID } = useGetUserTraineeData();
 
   const navigate = useNavigate();
   const [addItem] = trainingProgramsListApi.useCreateOneItemMutation();

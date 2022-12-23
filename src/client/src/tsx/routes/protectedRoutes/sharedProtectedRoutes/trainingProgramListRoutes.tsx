@@ -33,10 +33,7 @@ export const trainingProgramByIDRoutes: RouteObject = {
       path: "",
       element: <TrainingProgramsListEditForm />,
     },
-    {
-      path: APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD,
-      element: <TrainingProgramsListAddForm />,
-    },
+
     {
       path: APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE,
       element: <TrainingProgramExercises />,
@@ -48,5 +45,11 @@ export const trainingProgramByIDRoutes: RouteObject = {
 export const trainingProgramsListRoutes: RouteObject = {
   path: APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE,
   element: <TrainingProgramsPage />,
-  children: [trainingProgramByIDRoutes],
+  children: [
+    trainingProgramByIDRoutes,
+    {
+      path: APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD,
+      element: <TrainingProgramsListAddForm />,
+    },
+  ],
 };

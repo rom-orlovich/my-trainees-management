@@ -35,7 +35,6 @@ function LoadingSpinner<T extends object>({
   children,
   errorElement,
 }: LoadingSpinnerProps<T>) {
-  console.log({ isLoading, isFetching, data, isError, error });
   const nav = useNavigate();
   const location = useLocation();
   const isExistDataEmpty = () => {
