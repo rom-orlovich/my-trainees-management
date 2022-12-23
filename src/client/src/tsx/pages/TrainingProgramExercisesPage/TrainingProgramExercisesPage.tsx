@@ -60,56 +60,54 @@ function TrainingProgramExercises() {
   };
 
   return (
-    <InsteadOutletRoutes
-      InsteadOutletRoutesPaths={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
-    >
-      <section className={page_style.page_container}>
-        <div className={page_style.page_header}>
-          <AutocompleteInput<TrainingProgramExerciseTableAPI>
-            keys={["exercise_name"]}
-            id={"exercise_id"}
-            queriesOptions={queriesOptions}
-            loadingSpinnerResult={{ nameData: "Exercises" }}
-            setSelectOptionValue={setExercise}
-            useGetData={trainingProgramsApi.useGetItemsQuery}
-            InputLabelProps={{
-              InputProps: { placeholder: "Exercise Name" },
-              LabelProps: {
-                labelText: "Search Exercise",
-                htmlFor: "exercise",
-              },
-            }}
-          />
-          {!isTrainee && (
-            <Link to={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}>
-              Add Exercise
-            </Link>
-          )}
-        </div>
+    <section className={page_style.page_container}>
+      <div className={page_style.page_header}>
+        <AutocompleteInput<TrainingProgramExerciseTableAPI>
+          keys={["exercise_name"]}
+          id={"exercise_id"}
+          queriesOptions={queriesOptions}
+          loadingSpinnerResult={{ nameData: "Exercises" }}
+          setSelectOptionValue={setExercise}
+          useGetData={trainingProgramsApi.useGetItemsQuery}
+          InputLabelProps={{
+            InputProps: { placeholder: "Exercise Name" },
+            LabelProps: {
+              labelText: "Search Exercise",
+              htmlFor: "exercise",
+            },
+          }}
+        />
+        {!isTrainee && (
+          <Link to={`${APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD}`}>
+            Add Exercise
+          </Link>
+        )}
+      </div>
 
-        <div className={page_style.page_main_content}>
-          <InsteadOutletRoutes
-            InsteadOutletRoutesPaths={
-              APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE
-            }
-          >
-            <TablePagination
-              transformFun={trainingProgramExercisesTransform}
-              queriesOptions={{
-                mainName: exercise[1],
-                ...queriesOptions,
-              }}
-              // editPagePath={pathName.slice(1)}
-              nameData="Program's Exercises"
-              deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
-              actions={{ edit: true, delete: !isTrainee }}
-              getAllQuery={trainingProgramsApi.useGetItemsQuery}
-            />
-          </InsteadOutletRoutes>
-        </div>
-      </section>
-    </InsteadOutletRoutes>
+      <div className={page_style.page_main_content}>
+        <TablePagination
+          transformFun={trainingProgramExercisesTransform}
+          queriesOptions={{
+            mainName: exercise[1],
+            ...queriesOptions,
+          }}
+          // editPagePath={pathName.slice(1)}
+          nameData="Program's Exercises"
+          deleteItemFun={(id) => deleteFunMutation(id, deleteItem)}
+          actions={{ edit: true, delete: !isTrainee }}
+          getAllQuery={trainingProgramsApi.useGetItemsQuery}
+        />
+      </div>
+    </section>
   );
 }
 
-export default TrainingProgramExercises;
+export default function TrainingProgramExercisesPage() {
+  return (
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE}
+    >
+      <TrainingProgramExercises />
+    </InsteadOutletRoutes>
+  );
+}

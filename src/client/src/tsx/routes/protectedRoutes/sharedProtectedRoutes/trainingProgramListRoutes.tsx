@@ -4,25 +4,28 @@ import { TrainingProgramEditExerciseForm } from "../../../components/Forms/Train
 import { TrainingProgramsListAddForm } from "../../../components/Forms/TrainingProgramListForms/TrainingProgramsListAddForm";
 import { TrainingProgramsListEditForm } from "../../../components/Forms/TrainingProgramListForms/TrainingProgramsListEditForm";
 import ExerciseStatsPage from "../../../pages/ExerciseStatsPage/ExerciseStatsPage";
-import TrainingProgramExercises from "../../../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
+import TrainingProgramExercisesPage from "../../../pages/TrainingProgramExercisesPage/TrainingProgramExercisesPage";
+
 import TrainingProgramsPage from "../../../pages/TrainingProgramsPage/TrainingProgramsPage";
 import { APP_ROUTE } from "../../appRoutesConstants";
 
+export const exerciseByIDRoutes: RouteObject = {
+  path: ":exerciseID",
+  children: [
+    { path: "", element: <TrainingProgramEditExerciseForm /> },
+    { path: "stats", element: <ExerciseStatsPage /> },
+  ],
+};
+
 export const trainingProgramExercisesRoutes: RouteObject = {
   path: APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE,
-  element: <TrainingProgramExercises />,
+  element: <TrainingProgramExercisesPage />,
   children: [
-    {
-      path: ":exerciseID",
-      children: [
-        { path: "", element: <TrainingProgramEditExerciseForm /> },
-        { path: "stats", element: <ExerciseStatsPage /> },
-      ],
-    },
     {
       path: APP_ROUTE.TRAINING_PROGRAMS_EXERCISE_ADD,
       element: <TrainingProgramAddExerciseForm />,
     },
+    exerciseByIDRoutes,
   ],
 };
 
@@ -34,10 +37,6 @@ export const trainingProgramByIDRoutes: RouteObject = {
       element: <TrainingProgramsListEditForm />,
     },
 
-    {
-      path: APP_ROUTE.TRAINING_PROGRAMS_EXERCISES_ROUTE,
-      element: <TrainingProgramExercises />,
-    },
     trainingProgramExercisesRoutes,
   ],
 };
@@ -46,10 +45,10 @@ export const trainingProgramsListRoutes: RouteObject = {
   path: APP_ROUTE.TRAINING_PROGRAMS_LIST_ROUTE,
   element: <TrainingProgramsPage />,
   children: [
-    trainingProgramByIDRoutes,
     {
       path: APP_ROUTE.TRAINING_PROGRAMS_LIST_ADD,
       element: <TrainingProgramsListAddForm />,
     },
+    trainingProgramByIDRoutes,
   ],
 };
