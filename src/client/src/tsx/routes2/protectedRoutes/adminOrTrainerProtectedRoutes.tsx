@@ -12,6 +12,12 @@ import { AdminOrTrainerProtectedRoutes } from "../utilities/ProtectedRoute";
 import { settingsRoutes } from "./adminOrTrainerProtectedRoutes/settingsRoutes";
 import { traineesRoutes } from "./adminOrTrainerProtectedRoutes/traineesRoutes";
 
+export const s: RouteObject = {
+  path: "",
+  element: <></>,
+  children: [],
+};
+
 export const leadsRoutes: RouteObject = {
   path: APP_ROUTE.LEADS_ROUTE,
   element: <LeadsPage />,
@@ -27,7 +33,7 @@ export const leadsRoutes: RouteObject = {
   ],
 };
 
-export const incomeRoutes: RouteObject = {
+export const incomesRoutes: RouteObject = {
   path: APP_ROUTE.INCOMES_ROUTE,
   children: [
     {
@@ -40,7 +46,7 @@ export const incomeRoutes: RouteObject = {
     },
   ],
 };
-export const expenseRoutes: RouteObject = {
+export const expensesRoutes: RouteObject = {
   path: APP_ROUTE.EXPENSES_ROUTE,
   children: [
     {
@@ -56,15 +62,10 @@ export const expenseRoutes: RouteObject = {
 export const financesRoutes: RouteObject = {
   path: APP_ROUTE.FINANCES_ROUTE,
   element: <FinancesPage />,
-  children: [incomeRoutes, expenseRoutes],
-};
-export const s: RouteObject = {
-  path: "",
-  element: <></>,
-  children: [],
+  children: [incomesRoutes, expensesRoutes],
 };
 
-export const adminTrainerProtectedRoutes: RouteObject = {
+export const adminOrTrainerProtectedRoutes: RouteObject = {
   path: "",
   element: <AdminOrTrainerProtectedRoutes />,
   children: [settingsRoutes, traineesRoutes, leadsRoutes, financesRoutes],
