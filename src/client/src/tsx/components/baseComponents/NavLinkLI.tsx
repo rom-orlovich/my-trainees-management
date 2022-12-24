@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { NavLinkLIProps } from "./baseComponentsTypes";
 
@@ -17,9 +16,8 @@ function NavLinkLI({
       >
         {icon ? (
           <>
-            <span>{icon}</span>
+            {icon}
             {text}
-            <span></span>
           </>
         ) : (
           children || text

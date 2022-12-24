@@ -21,10 +21,6 @@ const profileButton = {
   dataLinks: [
     { to: relativePath(APP_ROUTE.PROFILE_ROUTE), icon: <Welcome /> },
 
-    {
-      to: relativePath(APP_ROUTE.SETTINGS_ROUTE),
-      text: "Setting",
-    },
     { to: relativePath(APP_ROUTE.HOME_PAGE), text: "Logout" },
   ],
 };

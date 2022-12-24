@@ -1,15 +1,10 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import {
-  BrowserRouter,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { store } from "./tsx/redux/store";
 import "./style/utilities/base.scss";
 
-import AppRoutes from "./tsx/routes/AppRoutes";
 import { mainRoutes } from "./tsx/routes/mainRoutes";
 
 const container = document.getElementById("root")!;

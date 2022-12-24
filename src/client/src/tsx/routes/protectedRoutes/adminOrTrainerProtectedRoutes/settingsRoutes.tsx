@@ -11,7 +11,7 @@ import ProductsPage from "../../../pages/ProductsPage/ProductsPage";
 import { APP_ROUTE } from "../../appRoutesConstants";
 
 export const settingsRoutes: RouteObject = {
-  path: APP_ROUTE.SETTINGS_ROUTE,
+  path: APP_ROUTE.MISC_ROUTE,
   children: [
     { path: APP_ROUTE.EXERCISES_LIST_ROUTE, element: <ExercisesPage /> },
     { path: APP_ROUTE.EQUIPMENTS_LIST_ROUTE, element: <EquipmentsListPage /> },

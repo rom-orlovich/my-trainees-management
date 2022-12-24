@@ -14,7 +14,7 @@ import MainPageRouteByRole from "./utilities/MainPageRouteByRole";
 import PersistedLogin from "./utilities/PersistedLogin";
 import { adminProtectedRoutes } from "./protectedRoutes/adminProtectedRoutes";
 import { traineeProtectedRoutes } from "./protectedRoutes/traineeProtectedRoutes";
-import HomePage from "../pages/HomePage/HomePage";
+
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export const mainPageRouteByRole = {

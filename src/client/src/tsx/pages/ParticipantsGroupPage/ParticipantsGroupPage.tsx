@@ -15,7 +15,7 @@ import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 import { useAppDispatch } from "../../redux/hooks";
 import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 
-function ParticipantsGroupPage() {
+function ParticipantsGroup() {
   const dispatch = useAppDispatch();
   const { user_id } = useGetUserLoginData();
   const participantsGroupsListID = String(useParams().participantGroupID);
@@ -30,50 +30,51 @@ function ParticipantsGroupPage() {
   };
 
   return (
-    <InsteadOutletRoutes
-      InsteadOutletRoutesPaths={APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}
-    >
-      <section className={style.page_container}>
-        <div className={style.page_header}>
-          <AutocompleteInput<ParticipantsGroupTableAPI>
-            keys={["first_name", "last_name"]}
-            id={"participants_group_id"}
-            loadingSpinnerResult={{ nameData: "Participant" }}
-            setSelectOptionValue={setParticipantsGroups}
-            queriesOptions={queriesOptions}
-            useGetData={participantsGroupApi.useGetItemsQuery}
-            InputLabelProps={{
-              InputProps: { placeholder: "Participant" },
-              LabelProps: {
-                labelText: "Search Participant",
-                htmlFor: "searchParticipant",
-              },
-            }}
-          />
+    <section className={style.page_container}>
+      <div className={style.page_header}>
+        <AutocompleteInput<ParticipantsGroupTableAPI>
+          keys={["first_name", "last_name"]}
+          id={"participants_group_id"}
+          loadingSpinnerResult={{ nameData: "Participant" }}
+          setSelectOptionValue={setParticipantsGroups}
+          queriesOptions={queriesOptions}
+          useGetData={participantsGroupApi.useGetItemsQuery}
+          InputLabelProps={{
+            InputProps: { placeholder: "Participant" },
+            LabelProps: {
+              labelText: "Search Participant",
+              htmlFor: "searchParticipant",
+            },
+          }}
+        />
 
-          <span>
-            {/* <Link to={`${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE_ADD}`}>
-            Add Participant 
-            </Link> */}
-            <Link
-              onClick={() => {
-                dispatch(openModel({ displayContent: "participantForm" }));
-              }}
-              to={``}
-            >
-              Add Participant
-            </Link>
-          </span>
-        </div>
-        <div className={style.page_main_content}>
-          <ParticipantsGroupTable
-            mainName={participantsGroup[1]}
-            queriesOptions={queriesOptions}
-          />
-        </div>
-      </section>
-    </InsteadOutletRoutes>
+        <span>
+          <Link
+            onClick={() => {
+              dispatch(openModel({ displayContent: "participantForm" }));
+            }}
+            to={``}
+          >
+            Add Participant
+          </Link>
+        </span>
+      </div>
+      <div className={style.page_main_content}>
+        <ParticipantsGroupTable
+          mainName={participantsGroup[1]}
+          queriesOptions={queriesOptions}
+        />
+      </div>
+    </section>
   );
 }
 
-export default ParticipantsGroupPage;
+export default function ParticipantsGroupPage() {
+  return (
+    <InsteadOutletRoutes
+      InsteadOutletRoutesPaths={APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}
+    >
+      <ParticipantsGroup />
+    </InsteadOutletRoutes>
+  );
+}

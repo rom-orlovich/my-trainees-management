@@ -13,7 +13,7 @@ import { deleteFunMutation } from "../../utilities/helpersFun";
 const transformParticipantsGroupsList = ({
   group_name,
   participants_groups_list_id,
-  is_private: isPublic,
+  is_private,
 }: ParticipantsGroupsListTableAPI) => ({
   participants_groups_list_id,
   group_name: (
@@ -23,7 +23,7 @@ const transformParticipantsGroupsList = ({
       {group_name}
     </Link>
   ),
-  isPublic,
+  [`is_private?`]: is_private ? "private" : "public",
 });
 function ParticipantsGroupsListTable({
   queriesOptions,

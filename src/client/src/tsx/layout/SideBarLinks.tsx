@@ -2,10 +2,12 @@ import { AiFillSchedule } from "react-icons/ai";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { FaMoneyBillAlt, FaUserShield } from "react-icons/fa";
 import { IoNutritionSharp } from "react-icons/io5";
+import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { SiGoogleads } from "react-icons/si";
 import { LinkData } from "../components/baseComponents/baseComponentsTypes";
 import { APP_ROUTE } from "../routes/appRoutesConstants";
 import style from "../components/layoutComponents/SideBar/SideBar.module.scss";
+import { relativePath } from "../utilities/helpersFun";
 
 export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
   {
@@ -48,6 +50,11 @@ export const TRAINER_SIDE_BAR_LINKS: LinkData[] = [
     to: `${APP_ROUTE.SCHEDULE_ROUTE}`,
     text: "Schedule",
     icon: <AiFillSchedule className={style.icon} />,
+  },
+  {
+    to: relativePath(APP_ROUTE.MISC_ROUTE),
+    text: "Misc",
+    icon: <MdOutlineMiscellaneousServices className={style.icon} />,
   },
 ];
 export const ADMIN_SIDE_BAR_LINKS: LinkData[] = [

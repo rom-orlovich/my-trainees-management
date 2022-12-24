@@ -52,10 +52,10 @@
 
   .alerts_number {
     @include posAbs(-7%, null, -8%, null);
-    min-width: 1.8rem;
+    min-width: 1.4rem;
     min-height: 0.6rem;
     border-radius: 50%;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: white;
     @include flex-dir(center, center);

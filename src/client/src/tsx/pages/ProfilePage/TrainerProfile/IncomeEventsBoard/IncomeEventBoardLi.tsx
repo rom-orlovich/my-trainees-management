@@ -52,7 +52,7 @@ function IncomeEventBoardLi({
         <span>Participants</span>
         <span>
           <Link
-            to={`/${APP_ROUTE.SETTINGS_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${participants_groups_list_id}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`}
+            to={`/${APP_ROUTE.MISC_ROUTE}/${APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE}/${participants_groups_list_id}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`}
           >
             {group_name}
           </Link>

@@ -79,12 +79,8 @@ export const getWeekRangeInMonthStr = (date: Date) => {
   const curDate = new Date(date);
   const curDay = curDate.getDate();
   const remainder = curDay % 7;
-  const reminderDiff = 7 - remainder;
   const dateStartWeek = new Date(date.setDate(curDay - remainder));
-  const dateEndWeek = new Date(curDate.setDate(curDay + reminderDiff - 1));
   const start = getDateLocal(addToDate(dateStartWeek, { dPlus: 1 }));
-  const end = getDateLocal(addToDate(dateEndWeek, { dPlus: 1 }));
-
   const str = `${start}`;
   return str;
 };

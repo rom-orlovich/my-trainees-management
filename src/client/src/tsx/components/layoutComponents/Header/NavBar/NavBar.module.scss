@@ -13,16 +13,16 @@
 
   .profile_icon {
     @extend %icon;
-    @include heightWidth(3.2rem, 3.2rem);
+    @include heightWidth(2.8rem, 2.8rem);
   }
 
   .add_icon {
     @extend %icon;
-    @include heightWidth(2.8rem, 2.8rem);
+    @include heightWidth(2.4rem, 2.4rem);
   }
   .alert_icon {
     @extend %icon;
-    @include heightWidth(2.5rem, 2.5rem);
+    @include heightWidth(2.1rem, 2.1rem);
   }
 
   .profile_drop_down {

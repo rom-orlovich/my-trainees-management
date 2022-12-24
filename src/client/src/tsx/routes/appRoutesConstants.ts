@@ -61,7 +61,7 @@ export enum APP_ROUTE {
   NOTES_ROUTE_EDIT = "editNotes",
   NOTES_ROUTE_ADD = "addNotes",
 
-  SETTINGS_ROUTE = "settings",
+  MISC_ROUTE = "misc",
   PROFILE_ROUTE = "profile",
   STATS_ROUTE = "stats",
   TRAINEES_STATS_ROUTE = "trainees",

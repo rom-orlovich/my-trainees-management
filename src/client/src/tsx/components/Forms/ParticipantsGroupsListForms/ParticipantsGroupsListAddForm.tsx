@@ -34,7 +34,7 @@ export function ParticipantsGroupsListAddForm({}) {
       const Response = response as unknown as { data: ResponseMutationAPI };
 
       // navigate(
-      //   `/${APP_ROUTE.SETTINGS_ROUTE}/${
+      //   `/${APP_ROUTE.MISC_ROUTE}/${
       //     APP_ROUTE.PARTICIPANTS_GROUPS_LIST_ROUTE
       //   }/${Number(Response.data.id)}/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`
       // );
