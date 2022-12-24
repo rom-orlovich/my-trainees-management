@@ -47,6 +47,7 @@ export const mainRoutes = createBrowserRouter([
     path: APP_ROUTE.HOME_PAGE,
     element: <PersistedLogin />,
     children: [...authRoutes, dashboardRoutes],
+
     errorElement: <ErrorPage />,
   },
 ]);

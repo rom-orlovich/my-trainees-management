@@ -44,9 +44,10 @@
 
 @include smartphone() {
   @include classMatcher("main_layout") {
-    min-height: initial;
+    &:has(.misc_page) {
+      min-height: initial;
+    }
   }
   .misc_page {
-    // min-height: ;
   }
 }

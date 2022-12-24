@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import BackgroundVideo from "../../components/baseComponents/BackgroundVideo/BackgroundVideo";
+import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import { genClassName } from "../../utilities/helpersFun";
 import homePageStyle from "../HomePage/HomePage.module.scss";
 
 function ErrorPage() {
   const [loadingState, setLoadingState] = useState(true);
+  const { authState } = useGetUserLoginData();
   return (
     <div
       className={genClassName(homePageStyle.home_page_container, "error_page")}
