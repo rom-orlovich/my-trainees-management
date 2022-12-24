@@ -11,7 +11,7 @@ import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 export const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
 function MyNutritionMenusPage() {
-  const { traineeID, userID, profileID } = useGetUserTraineeData();
+  const { traineeID, userID, profileID, isTrainee } = useGetUserTraineeData();
   const [nutritionMenu, setNutritionMenu] = useState<string[]>(["", ""]);
 
   const queriesOptions = {

@@ -56,7 +56,6 @@ export const ADMIN_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
     dataLinks: addButtonLinks,
   },
 
-  // profileButton,
   hamburgerMenuButton,
 ];
 
@@ -67,7 +66,6 @@ export const TRAINER_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
     dataLinks: addButtonLinks,
   },
 
-  // profileButton,
   hamburgerMenuButton,
 ];
 
@@ -81,7 +79,7 @@ export const TRAINEE_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
         text: "Update Workout",
       },
       {
-        to: APP_ROUTE.MEASURES_ROUTE,
+        to: `/${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.MEASURES_ROUTE}`,
         text: "Add Weighing",
       },
     ],

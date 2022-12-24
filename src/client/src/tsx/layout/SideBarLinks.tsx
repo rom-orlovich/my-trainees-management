@@ -11,6 +11,7 @@ import { relativePath } from "../utilities/helpersFun";
 import Welcome from "../components/layoutComponents/Header/Welcome/Welcome";
 
 export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
+  { to: relativePath(APP_ROUTE.PROFILE_ROUTE), icon: <Welcome /> },
   {
     to: APP_ROUTE.MY_WORKOUTS_ROUTE,
     text: "My Workouts",
@@ -18,7 +19,7 @@ export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
   },
 
   {
-    to: APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE,
+    to: APP_ROUTE.MY_NUTRITION_MENUS_LIST_ROUTE,
     text: "My Nutrition",
     icon: <IoNutritionSharp className={style.icon} />,
   },
@@ -26,6 +27,11 @@ export const TRAINEE_SIDE_BAR_LINKS: LinkData[] = [
     to: `${APP_ROUTE.SCHEDULE_ROUTE}`,
     text: "My Schedule",
     icon: <AiFillSchedule className={style.icon} />,
+  },
+  {
+    to: relativePath(APP_ROUTE.HOME_PAGE),
+    text: "Logout",
+    icon: <AiOutlineLogout className={style.icon} />,
   },
 ];
 

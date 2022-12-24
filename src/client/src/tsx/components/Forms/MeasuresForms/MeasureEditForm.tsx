@@ -73,7 +73,7 @@ export function MeasureEditFormNavigate() {
   const { profileID, username } = useGetUserTraineeData();
   return (
     <Navigate
-      to={`/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}
+      to={`/${APP_ROUTE.PROFILE_ROUTE}/${APP_ROUTE.MEASURES_ROUTE}/${APP_ROUTE.MEASURE_EDIT}?username=${username}&profileID=${profileID}`}
       replace={true}
       state={{ state: location }}
     />

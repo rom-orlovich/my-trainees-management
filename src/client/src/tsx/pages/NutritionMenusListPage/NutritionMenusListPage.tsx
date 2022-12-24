@@ -14,12 +14,12 @@ import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
 
 export const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
 function NutritionMenusList() {
-  const { userID, profileID } = useGetUserTraineeData();
+  const { userID, profileID, isTrainee } = useGetUserTraineeData();
   const [nutritionMenu, setNutritionMenu] = useState<string[]>(["", ""]);
 
   const queriesOptions = {
     nutritionMenu,
-
+    profileID,
     userID,
   };
 
@@ -43,7 +43,7 @@ function NutritionMenusList() {
         />
 
         <span>
-          {profileID && (
+          {!isTrainee && (
             <Link
               to={`${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}?profileID=${profileID}`}
             >
