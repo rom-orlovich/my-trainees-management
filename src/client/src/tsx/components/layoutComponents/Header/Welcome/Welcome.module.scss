@@ -1,0 +1,19 @@
+@use "./../../../../../style/utilities/utilities.scss" as *;
+.welcome_li {
+  @include flex-dir(null, center, column);
+  gap: 0.2rem;
+  .welcome_icon {
+    font-size: 3rem;
+  }
+  .welcome_username {
+    font-weight: 600;
+  }
+}
+
+@include smartphone() {
+  .welcome_li {
+    .welcome_icon {
+      font-size: 4rem;
+    }
+  }
+}

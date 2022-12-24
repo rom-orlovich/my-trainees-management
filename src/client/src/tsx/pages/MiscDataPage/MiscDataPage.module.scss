@@ -4,16 +4,7 @@
   @include flex-dir(null, null, column);
 
   width: 100%;
-  // gap: 0.8rem;
-  // // margin-left: 1rem;
-  // padding: 0 1rem;
-  // &_header {
-  //   h1 {
-  //     font-size: 1.8rem;
-  //     font-weight: 500;
-  //     text-align: left;
-  //   }
-  // }
+
   &_links_container {
     margin-top: 2rem;
     width: 98%;
@@ -34,7 +25,7 @@
           gap: 1rem;
           width: 100%;
           color: rgb(61 61 144);
-          height: 3rem;
+          height: 3.5rem;
           font-size: 1.3rem;
           padding: 0rem 2rem 0 2rem;
           text-decoration: none;
@@ -48,5 +39,14 @@
         }
       }
     }
+  }
+}
+
+@include smartphone() {
+  @include classMatcher("main_layout") {
+    min-height: initial;
+  }
+  .misc_page {
+    // min-height: ;
   }
 }

@@ -64,9 +64,6 @@ function MiscDataPage() {
   return (
     <InsteadOutletRoutes InsteadOutletRoutesPaths={APP_ROUTE.MISC_ROUTE}>
       <section className={genClassName(style.misc_page)}>
-        {/* <div className={genClassName(style.misc_page_header)}>
-          <h1> Misc Data </h1>
-        </div> */}
         <div className={style.misc_page_links_container}>
           <List
             className={genClassName(style.misc_page_links)}

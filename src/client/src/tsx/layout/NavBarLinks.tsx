@@ -19,9 +19,8 @@ const profileButton = {
   id: "profileButton",
   element: <FaUserCircle className={style.profile_icon} />,
   dataLinks: [
-    { to: relativePath(APP_ROUTE.PROFILE_ROUTE), icon: <Welcome /> },
-
-    { to: relativePath(APP_ROUTE.HOME_PAGE), text: "Logout" },
+    // { to: relativePath(APP_ROUTE.PROFILE_ROUTE), icon: <Welcome /> },
+    // { to: relativePath(APP_ROUTE.HOME_PAGE), text: "Logout" },
   ],
 };
 
@@ -57,7 +56,7 @@ export const ADMIN_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
     dataLinks: addButtonLinks,
   },
 
-  profileButton,
+  // profileButton,
   hamburgerMenuButton,
 ];
 
@@ -68,7 +67,7 @@ export const TRAINER_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
     dataLinks: addButtonLinks,
   },
 
-  profileButton,
+  // profileButton,
   hamburgerMenuButton,
 ];
 
@@ -88,6 +87,6 @@ export const TRAINEE_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
     ],
   },
 
-  profileButton,
+  // profileButton,
   hamburgerMenuButton,
 ];

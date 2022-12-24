@@ -11,15 +11,21 @@ import {
 import { useAppSelector } from "../../../redux/hooks";
 
 import List from "../../baseComponents/List/List";
+import { authApi } from "../../../redux/api/authAPI";
 
 function Li(link: LinkData) {
   const dispatch = useDispatch();
+  const [logout] = authApi.useLazyLogoutQuery();
+  const handleLogOut = () => logout({}).unwrap();
+  const checkLogoutText = link.text === "Logout";
+  const onClickProps = checkLogoutText ? { onClick: handleLogOut } : {};
   return (
     <NavLinkLI
       liProps={{
         onClick: () => {
           dispatch(setOneDropDownOn("hamburgerMenu"));
         },
+        ...onClickProps,
       }}
       className={style.isActive}
       linkData={link}
