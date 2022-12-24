@@ -7,7 +7,7 @@
   @include posAbs(120%, 50%, null, null);
   transform: translate(-50%, 0%);
   @include shadow-block();
-  min-width: 14.5rem;
+  min-width: 12.5rem;
   width: fit-content;
   height: fit-content;
   text-align: center;
@@ -21,7 +21,10 @@
   cursor: pointer;
   min-height: 7rem;
   font-weight: 500;
-  font-size: 1.2rem;
+  padding: 0.5rem;
+  p {
+    font-size: 1.1rem;
+  }
 }
 .sec_li {
   @include flex-dir(null, center);

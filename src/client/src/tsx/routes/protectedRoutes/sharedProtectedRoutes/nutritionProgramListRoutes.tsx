@@ -9,10 +9,7 @@ export const nutritionMenuByIDRoutes: RouteObject = {
   path: ":nutritionMenuID",
   children: [
     { path: "", element: <NutritionMenusListEditForm /> },
-    {
-      path: APP_ROUTE.NUTRITION_MENUS_LIST_ADD,
-      element: <NutritionMenusListAddForm />,
-    },
+
     {
       path: APP_ROUTE.NUTRITION_MENU_ROUTE,
       element: <NutritionMenuPage />,
@@ -23,5 +20,11 @@ export const nutritionMenuByIDRoutes: RouteObject = {
 export const nutritionMenusListRoutes: RouteObject = {
   path: APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE,
   element: <NutritionMenusListPage />,
-  children: [nutritionMenuByIDRoutes],
+  children: [
+    nutritionMenuByIDRoutes,
+    {
+      path: APP_ROUTE.NUTRITION_MENUS_LIST_ADD,
+      element: <NutritionMenusListAddForm />,
+    },
+  ],
 };

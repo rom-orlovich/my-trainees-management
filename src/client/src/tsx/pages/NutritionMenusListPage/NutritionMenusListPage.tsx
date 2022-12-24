@@ -44,7 +44,9 @@ function NutritionMenusList() {
 
         <span>
           {profileID && (
-            <Link to={`${profileID}/${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}`}>
+            <Link
+              to={`${APP_ROUTE.NUTRITION_MENUS_LIST_ADD}?profileID=${profileID}`}
+            >
               Add Menu
             </Link>
           )}

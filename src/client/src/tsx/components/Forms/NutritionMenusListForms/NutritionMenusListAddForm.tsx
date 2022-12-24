@@ -16,8 +16,6 @@ import { addFunction } from "../../baseComponents/RHF-Components/FormsHook";
 import { NutritionMenusListForm } from "./NutritionMenusListForm";
 
 export function NutritionMenusListAddForm() {
-  const profileID = Number(useParams().nutritionMenuID);
-
   const navigate = useNavigate();
   const [addItem] = nutritionMenusListApi.useCreateOneItemMutation();
   const dispatch = useAppDispatch();
@@ -34,13 +32,13 @@ export function NutritionMenusListAddForm() {
   }: NutritionMenuTableApi) =>
     addFunction({
       addItem,
-    })({ ...body, profile_id: profileID }).then((response) => {
+    })(body).then((response) => {
       const Response = response as unknown as { data: ResponseMutationAPI };
 
       navigate(
         `/${APP_ROUTE.NUTRITION_MENUS_LIST_ROUTE}/${Number(Response.data.id)}/${
           APP_ROUTE.NUTRITION_MENU_ROUTE
-        }?profileID=${profileID}`
+        }?profileID=${body.profile_id}`
       );
 
       return Response;

@@ -7,6 +7,7 @@
     width: 0rem !important;
   }
   table {
+    border: none;
     th {
       z-index: 50;
     }
@@ -84,6 +85,7 @@
     padding: 0 0.2rem;
     table {
       height: 100%;
+
       th {
         width: 100%;
       }
@@ -166,6 +168,7 @@
       // for dayGridMonth display
       @include classMatcher("fc-daygrid fc-dayGridMonth-view fc-view") {
         overflow-y: hidden;
+
         table {
           th {
             width: 3rem;

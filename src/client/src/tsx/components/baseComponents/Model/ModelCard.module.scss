@@ -10,7 +10,7 @@
 }
 .model_card {
   @include centerAbs();
-  @include minHeightWidth(45vh, 35vw);
+  @include minHeightWidth(45vh, 25vw);
   position: fixed;
   z-index: 100;
   background-color: white;
