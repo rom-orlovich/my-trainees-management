@@ -6,11 +6,9 @@
   ul {
     margin-top: 1.5rem;
     li:first-child {
-      &:has(span[class*="welcome"]) {
-        margin-bottom: 1rem;
-        a {
-          justify-content: center;
-        }
+      margin-bottom: 1rem;
+      a {
+        justify-content: center;
       }
     }
     li:nth-child(2) {
