@@ -54,13 +54,22 @@
 }
 
 @include smartphone() {
+  @include classMatcher("Card_card_container") {
+    &:has(.meeting_model_container) {
+      top: 57% !important;
+      padding: 0.2rem;
+    }
+  }
+
   .meeting_model_container {
     padding: 0.4rem;
     @include classMatcher("Form_form_container") {
+      margin-top: 0;
       min-height: fit-content;
       width: 100%;
       form {
-        gap: 0.3rem;
+        padding: 0;
+        gap: 0.2rem;
         flex-flow: column;
         align-items: initial;
         @include classMatcher("dates_meeting_model_form_container") {
@@ -73,6 +82,10 @@
               width: 100%;
             }
           }
+        }
+        // @include classMatcher("")
+        textarea {
+          height: 4rem;
         }
         @include classMatcher("autocomplete_meeting_model_form_container") {
           @include flex-dir(null, null, column);
