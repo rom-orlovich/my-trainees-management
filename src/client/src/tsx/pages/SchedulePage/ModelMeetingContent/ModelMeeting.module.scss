@@ -49,6 +49,11 @@
           min-width: 100%;
         }
       }
+      @include classMatcher("Form_buttons_container_one_button") {
+        button {
+          width: 60%;
+        }
+      }
     }
   }
 }
