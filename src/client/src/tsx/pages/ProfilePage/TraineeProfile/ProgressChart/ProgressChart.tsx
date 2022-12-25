@@ -26,7 +26,7 @@ function ProgressChart({ className }: PropsBasic) {
   return (
     <LineGraphCard
       unit="kg"
-      useTimeLine={false}
+      useTimeLine={true}
       getItems={measuresApi.useGetItemsQuery}
       chartHeading="Measures Weights Progress"
       queryOptions={queryOptions}

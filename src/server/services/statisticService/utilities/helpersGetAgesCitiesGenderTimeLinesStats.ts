@@ -6,7 +6,6 @@ import {
   TimeLineDisplay,
   LeadTraineeType,
   SharedTraineesLeadsProps,
-  SharedTraineesLeadsSumObj,
   ChartTypes,
   CHART_DISPLAY,
 } from "../serviceStatisticsTypes";
@@ -95,12 +94,11 @@ const calStatsHandlesStatus = (
 };
 
 // Create datasets values and labels
-export const normalizeDatesValuesSumObj = (
-  sumObj: GenericRecord<SharedTraineesLeadsSumObj>,
-  dataType: LeadTraineeType
+export const normalizeDatesValuesSumObj = <T, K extends keyof T>(
+  sumObj: GenericRecord<T>,
+  dataType: K
 ) => {
   const { datasetsValues, labelFormatted } = createLabelDatasetFromObj(sumObj);
-
   const values = datasetsValues.map((objValues) => objValues[dataType]);
 
   return {

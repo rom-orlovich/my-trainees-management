@@ -6,27 +6,25 @@ import {
   MeasuresCalResAPI,
   TimeLineDisplay,
 } from "../serviceStatisticsTypes";
+import { normalizeDatesValuesSumObj } from "./helpersGetAgesCitiesGenderTimeLinesStats";
 
 import {
   calAllTimeLineObj,
   createLabelDatasetFromObj,
   createTimeLineObj,
-  getResultGraphStats,
   normalizeDatesValues,
 } from "./helpersGetStats";
 
-export const normalizeDatesValuesSumObj = (
-  sumObj: GenericRecord<{ weight: number }>
-) => {
-  const { datasetsValues, labelFormatted } = createLabelDatasetFromObj(sumObj);
-
-  const values = datasetsValues.map((objValues) => objValues.weight);
-
-  return {
-    labelFormatted,
-    datasetsValues: values,
-  };
-};
+// export const normalizeDatesValuesSumObj = (
+//   sumObj: GenericRecord<{ weight: number }>
+// ) => {
+//   const { datasetsValues, labelFormatted } = createLabelDatasetFromObj(sumObj);
+//   const values = datasetsValues.map((objValues) => objValues.weight);
+//   return {
+//     labelFormatted,
+//     datasetsValues: values,
+//   };
+// };
 
 export const measuresChartLineCreateLabelAndDatasets = (
   measuresCalData: MeasuresCalResAPI[],
@@ -39,6 +37,46 @@ export const measuresChartLineCreateLabelAndDatasets = (
       date: el.date,
       value: el.weight,
     }));
+
+  let objAllTimeLine = createTimeLineObj(
+    {},
+    timeLineDisplay,
+    "graph",
+    dateStart
+  );
+
+  statsArr.forEach((el) => {
+    objAllTimeLine = calAllTimeLineObj(
+      el.date,
+      "measure",
+      objAllTimeLine,
+      undefined,
+      el.value
+    );
+  });
+  if (objAllTimeLine.weeklySumObj)
+    return normalizeDatesValuesSumObj(
+      objAllTimeLine.weeklySumObj as GenericRecord<{ measure: number }>,
+      "measure"
+    );
+  if (objAllTimeLine.monthlySumObj)
+    return normalizeDatesValuesSumObj(
+      objAllTimeLine.monthlySumObj as GenericRecord<{ measure: number }>,
+      "measure"
+    );
+
+  if (objAllTimeLine.monthsSumObj)
+    return normalizeDatesValuesSumObj(
+      objAllTimeLine.monthsSumObj as GenericRecord<{ measure: number }>,
+      "measure"
+    );
+  if (objAllTimeLine.yearsSumObj) {
+    return normalizeDatesValuesSumObj(
+      objAllTimeLine.yearsSumObj as GenericRecord<{ measure: number }>,
+      "measure"
+    );
+  }
+
   return normalizeDatesValues(statsArr);
 };
 
