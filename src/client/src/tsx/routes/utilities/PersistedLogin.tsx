@@ -10,6 +10,11 @@ import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 import { authRoutes } from "../mainRoutes";
 
+export const pathIsAuthRoute = (path: string) => {
+  const pathEndPointURL = path.slice(1);
+  return authRoutes.map((el) => el.path).includes(pathEndPointURL);
+};
+
 function PersistedLogin() {
   const authState = useAppSelector(getAuthState);
   const nav = useNavigate();
@@ -24,17 +29,20 @@ function PersistedLogin() {
     }
   }, [authState.accessToken, trigger]);
 
-  return authState.accessToken ? (
+  // In order to display the auth pages in the home page background instead the dashboard background.
+  const contentDisplayOnAccessToken = pathIsAuthRoute(location.pathname) ? (
+    <HomePage />
+  ) : (
     <Outlet />
+  );
+
+  return authState.accessToken ? (
+    contentDisplayOnAccessToken
   ) : (
     <LoadingSpinner
       onErrorFun={() => {
-        const path = pathname.slice(1);
         // Check if the url is not one of the authRoutes paths
-        if (
-          !authRoutes.map((el) => el.path).includes(path) &&
-          pathname !== "/"
-        ) {
+        if (!pathIsAuthRoute(pathname) && pathname !== "/") {
           nav("/");
         }
       }}
