@@ -2,7 +2,7 @@ import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import React from "react";
 import GraphCard, {
   GraphFilterByDates,
-} from "../../../pages/StatsPages/GraphCard";
+} from "../../../pages/StatsPages/GraphCard/GraphCard";
 import { CHART_DISPLAY, FinanceAPI } from "../../../redux/api/interfaceAPI";
 import { GenericRecord } from "../../../types";
 import {
@@ -21,7 +21,7 @@ function VerticalBarChartCard({
   unit,
   yTitle,
   lineChartProps,
-  useTimeLine = true,
+  timeLineDisplayOption = true,
 }: {
   yTitle: string;
   chartHeading: string[];
@@ -31,13 +31,13 @@ function VerticalBarChartCard({
   getItems: UseQuery<any>;
   color?: string;
   lineChartProps?: { className: string };
-  useTimeLine?: boolean;
+  timeLineDisplayOption?: boolean;
 }) {
   return (
     <GraphCard
       queryOptions={queryOptions}
       className={className}
-      useTimeLine={useTimeLine}
+      timeLineDisplayOption={timeLineDisplayOption}
     >
       {(queryOptionsData) => {
         const { data } = getItems({

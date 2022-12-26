@@ -1,0 +1,8 @@
+@use "../../../../style/utilities/utilities.scss" as *;
+.display_graph__options_container {
+  @include flex-dir(space-between, null);
+  .dates_container {
+    flex: 60%;
+    @include flex-dir(flex-end, null);
+  }
+}

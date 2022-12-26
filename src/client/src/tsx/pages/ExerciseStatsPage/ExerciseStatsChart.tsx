@@ -23,7 +23,7 @@ function TrainingProgramsExerciseStatsChart({
       lineChartProps={{ className: style.chart_exercise }}
       queryOptions={options}
       unit="kg"
-      useTimeLine={false}
+      timeLineDisplayOption={false}
       getItems={trainingProgramsApi.useGetExerciseStatsQuery}
     />
   );

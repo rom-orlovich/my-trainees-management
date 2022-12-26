@@ -2,7 +2,7 @@ import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 
 import GraphCard, {
   GraphFilterByDates,
-} from "../../../pages/StatsPages/GraphCard";
+} from "../../../pages/StatsPages/GraphCard/GraphCard";
 import {
   CHART_DISPLAY,
   GetCitiesGendersAgesStatsAPI,
@@ -23,7 +23,8 @@ function LineGraphCard({
   unit,
   color,
   lineChartProps,
-  useTimeLine = true,
+  timeLineDisplayOption = true,
+  datesRangeDisplayOption = false,
 }: {
   chartHeading: string;
   unit?: string;
@@ -32,13 +33,15 @@ function LineGraphCard({
   getItems: UseQuery<any>;
   color?: string;
   lineChartProps?: { className: string };
-  useTimeLine?: boolean;
+  timeLineDisplayOption?: boolean;
+  datesRangeDisplayOption?: boolean;
 }) {
   return (
     <GraphCard
       queryOptions={queryOptions}
       className={className}
-      useTimeLine={useTimeLine}
+      timeLineDisplayOption={timeLineDisplayOption}
+      datesRangeDisplayOption={datesRangeDisplayOption}
     >
       {(queryOptionsData) => {
         const { data } = getItems({
@@ -56,6 +59,9 @@ function LineGraphCard({
             options={{
               ...CHART_BASE_OPTIONS,
               scales: {
+                y: {
+                  beginAtZero: true,
+                },
                 x: {
                   ticks: {
                     font: {

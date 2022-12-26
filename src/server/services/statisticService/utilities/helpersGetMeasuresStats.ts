@@ -8,12 +8,7 @@ import {
 } from "../serviceStatisticsTypes";
 import { normalizeDatesValuesSumObj } from "./helpersGetAgesCitiesGenderTimeLinesStats";
 
-import {
-  calAllTimeLineObj,
-  createLabelDatasetFromObj,
-  createTimeLineObj,
-  normalizeDatesValues,
-} from "./helpersGetStats";
+import { calAllTimeLineObj, createTimeLineObj } from "./helpersGetStats";
 
 // export const normalizeDatesValuesSumObj = (
 //   sumObj: GenericRecord<{ weight: number }>

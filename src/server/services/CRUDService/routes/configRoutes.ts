@@ -315,6 +315,10 @@ export const measuresOptionsCRUD: OptionsCRUD = {
     queryParams: {
       profileID: `pr.${TABLES_DATA.PROFILE_ID}`,
     },
+    comparisonQuery: {
+      gt: "date",
+      lt: "date",
+    },
   },
   permissions: PERMISSION_TRAINEE_BY_USER_ID,
   validateSchema: measuresSchema,

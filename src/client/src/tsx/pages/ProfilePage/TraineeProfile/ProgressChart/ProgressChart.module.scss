@@ -1,5 +1,7 @@
 @use "../../../../../style/utilities/utilities.scss" as *;
 .progress_chart_container {
+  @include classMatcher("selectInput_label") {
+  }
   position: relative;
   padding: 0.5rem;
 }
