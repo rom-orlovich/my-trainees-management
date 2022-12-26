@@ -1,15 +1,12 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
 
-import { formatDate } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
 
 import {
   DistributionFinances,
   ExpensesTableAPI,
   TimeLineDisplay,
-  FinancesChartStatsDisplay,
-  FinancesDistributionStatsDisplay,
   FinancesObj,
   IncomesOrExpenses,
   IncomesTableAPI,

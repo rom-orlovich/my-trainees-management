@@ -48,6 +48,7 @@ export const normalizeDatesValues = <T extends { date: Date; value: number }[]>(
 
 export const getNameMonth = (date: Date) => format(date, "MMMMMM");
 export const getDateLocal = (date: Date) => format(date, "dd/MM/yy");
+
 // Creates for each day in the week a initialObj.
 export const createThisWeekDaysDisplayObj = <
   K extends GenericRecord<any>,
@@ -186,7 +187,7 @@ export const calTimeLineObj = <
           [dataType]: amount || 1,
         },
       };
-    return { ...objTimeLine };
+    return { ...objTimeLine } as T;
   }
   if (assignNum) {
     return {
@@ -195,7 +196,7 @@ export const calTimeLineObj = <
         ...objTimeLine[timeLine],
         [dataType]: assignNum,
       },
-    };
+    } as T;
   }
 
   return {
@@ -206,15 +207,22 @@ export const calTimeLineObj = <
     },
   } as T;
 };
-
+export interface ObjAllTimeLine<T> {
+  allSumObj?: GenericRecord<T>;
+  weeklySumObj?: GenericRecord<T>;
+  monthlySumObj?: GenericRecord<T>;
+  monthsSumObj?: GenericRecord<T>;
+  yearsSumObj?: GenericRecord<T>;
+}
 export const createTimeLineObj = <T extends GenericRecord<any>>(
   initialObj: T,
   timeLineDisplay?: TimeLineDisplay,
   graphDisplay?: ChartTypes,
   dateStart?: string
-) => {
+): ObjAllTimeLine<T> => {
   if (graphDisplay !== CHART_DISPLAY.GRAPH)
     return {
+      allSumObj: undefined,
       weeklySumObj: undefined,
       monthlySumObj: undefined,
       monthsSumObj: undefined,
@@ -222,6 +230,10 @@ export const createTimeLineObj = <T extends GenericRecord<any>>(
     };
   const checkCurTimeLineDisplay = (checkTimeLineDisplay: TimeLineDisplay) =>
     checkTimeLineDisplay === timeLineDisplay;
+  const allSumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.ALL)
+    ? ({} as GenericRecord<typeof initialObj>)
+    : undefined;
+
   const weeklySumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
     ? createThisWeekDaysDisplayObj(initialObj, dateStart)
     : undefined;
@@ -235,14 +247,9 @@ export const createTimeLineObj = <T extends GenericRecord<any>>(
     ? ({} as GenericRecord<typeof initialObj>)
     : undefined;
 
-  return { weeklySumObj, monthlySumObj, monthsSumObj, yearsSumObj };
+  return { allSumObj, weeklySumObj, monthlySumObj, monthsSumObj, yearsSumObj };
 };
-export interface ObjAllTimeLine<T> {
-  weeklySumObj?: GenericRecord<T>;
-  monthlySumObj?: GenericRecord<T>;
-  monthsSumObj?: GenericRecord<T>;
-  yearsSumObj?: GenericRecord<T>;
-}
+
 export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   date: Date,
   dataType: string,
@@ -256,6 +263,14 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   const curYear = date.getFullYear();
 
   return {
+    allSumObj: calTimeLineObj(
+      dataType,
+      formattedDate,
+      objAllTimeLine.allSumObj,
+      amount,
+      true,
+      assignNum
+    ),
     weeklySumObj: calTimeLineObj(
       dataType,
       formattedDate,
@@ -295,6 +310,8 @@ export const getResultGraphStats = <T>(
   objAllTimeLine: ObjAllTimeLine<T>,
   normalizeDateValues: AnyFun
 ) => {
+  if (objAllTimeLine.allSumObj)
+    return normalizeDateValues(objAllTimeLine.allSumObj);
   if (objAllTimeLine.weeklySumObj)
     return normalizeDateValues(objAllTimeLine.weeklySumObj);
 

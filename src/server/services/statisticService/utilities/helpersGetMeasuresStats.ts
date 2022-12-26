@@ -54,6 +54,11 @@ export const measuresChartLineCreateLabelAndDatasets = (
       el.value
     );
   });
+  if (objAllTimeLine.allSumObj)
+    return normalizeDatesValuesSumObj(
+      objAllTimeLine.allSumObj as GenericRecord<{ measure: number }>,
+      "measure"
+    );
   if (objAllTimeLine.weeklySumObj)
     return normalizeDatesValuesSumObj(
       objAllTimeLine.weeklySumObj as GenericRecord<{ measure: number }>,
@@ -77,7 +82,7 @@ export const measuresChartLineCreateLabelAndDatasets = (
     );
   }
 
-  return normalizeDatesValues(statsArr);
+  // return normalizeDatesValues(statsArr);
 };
 
 export const caloriesChartCreateLabelAndDatasets = (

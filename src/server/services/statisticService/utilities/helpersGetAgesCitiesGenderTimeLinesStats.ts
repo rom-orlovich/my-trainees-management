@@ -157,6 +157,14 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
         calStatsCitiesRes: createLabelDatasetFromObj(citiesStats),
         calStatusHandlesRes: createLabelDatasetFromObj(handleStatus),
       };
+    if (objAllTimeLine.allSumObj) {
+      return {
+        graphStats: normalizeDatesValuesSumObj(
+          objAllTimeLine.allSumObj,
+          dataType
+        ),
+      };
+    }
 
     if (objAllTimeLine.weeklySumObj) {
       return {

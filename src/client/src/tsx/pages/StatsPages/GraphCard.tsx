@@ -39,6 +39,7 @@ function GraphCard({
           LabelProps={{ labelText: "Display", htmlFor: "display" }}
           selectProps={{ onChange, defaultValue: display }}
           options={[
+            { label: "All", value: GRAPH_TIME_LINE.ALL },
             { label: "Weekly", value: GRAPH_TIME_LINE.WEEKLY },
             { label: "Monthly", value: GRAPH_TIME_LINE.MONTHLY },
             { label: "Months", value: GRAPH_TIME_LINE.MONTHS },

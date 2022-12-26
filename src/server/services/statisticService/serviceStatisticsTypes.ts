@@ -125,11 +125,12 @@ export interface FinancesObj {
   expenses: number;
 }
 
-export type TimeLineDisplay = "weekly" | "monthly" | "months" | "years";
+export type TimeLineDisplay = "all" | "weekly" | "monthly" | "months" | "years";
 
 export type ChartTypes = "graph" | "distribution" | "all";
 
 export enum GRAPH_TIME_LINE {
+  ALL = "all",
   WEEKLY = "weekly",
   MONTHLY = "monthly",
   MONTHS = "months",

@@ -377,6 +377,7 @@ export interface GetCitiesGendersAgesStatsAPI {
 }
 
 export enum GRAPH_TIME_LINE {
+  ALL = "all",
   WEEKLY = "weekly",
   MONTHLY = "monthly",
   MONTHS = "months",
