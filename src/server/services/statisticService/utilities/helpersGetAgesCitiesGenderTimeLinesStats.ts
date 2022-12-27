@@ -14,6 +14,7 @@ import {
   calAllTimeLineObj,
   createLabelDatasetFromObj,
   createTimeLineObj,
+  getResultGraphStats,
 } from "./helpersGetStats";
 
 // Calculates ages range stats
@@ -157,47 +158,11 @@ export const helpersGetAgesCitiesGenderTimeLinesStats = <
         calStatsCitiesRes: createLabelDatasetFromObj(citiesStats),
         calStatusHandlesRes: createLabelDatasetFromObj(handleStatus),
       };
-    if (objAllTimeLine.allSumObj) {
-      return {
-        graphStats: normalizeDatesValuesSumObj(
-          objAllTimeLine.allSumObj,
-          dataType
-        ),
-      };
-    }
 
-    if (objAllTimeLine.weeklySumObj) {
-      return {
-        graphStats: normalizeDatesValuesSumObj(
-          objAllTimeLine.weeklySumObj,
-          dataType
-        ),
-      };
-    }
-    if (objAllTimeLine.monthlySumObj) {
-      return {
-        graphStats: normalizeDatesValuesSumObj(
-          objAllTimeLine.monthlySumObj,
-          dataType
-        ),
-      };
-    }
-    if (objAllTimeLine.monthsSumObj) {
-      return {
-        graphStats: normalizeDatesValuesSumObj(
-          objAllTimeLine.monthsSumObj,
-          dataType
-        ),
-      };
-    }
-    if (objAllTimeLine.yearsSumObj) {
-      return {
-        graphStats: normalizeDatesValuesSumObj(
-          objAllTimeLine.yearsSumObj,
-          dataType
-        ),
-      };
-    }
-    return {};
+    return {
+      graphStats: getResultGraphStats(objAllTimeLine, (timeLineObj) =>
+        normalizeDatesValuesSumObj(timeLineObj, dataType)
+      ),
+    };
   })();
 };

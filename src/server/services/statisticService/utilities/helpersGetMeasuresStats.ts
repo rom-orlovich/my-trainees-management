@@ -8,7 +8,11 @@ import {
 } from "../serviceStatisticsTypes";
 import { normalizeDatesValuesSumObj } from "./helpersGetAgesCitiesGenderTimeLinesStats";
 
-import { calAllTimeLineObj, createTimeLineObj } from "./helpersGetStats";
+import {
+  calAllTimeLineObj,
+  createTimeLineObj,
+  getResultGraphStats,
+} from "./helpersGetStats";
 
 // export const normalizeDatesValuesSumObj = (
 //   sumObj: GenericRecord<{ weight: number }>
@@ -34,7 +38,7 @@ export const measuresChartLineCreateLabelAndDatasets = (
     }));
 
   let objAllTimeLine = createTimeLineObj(
-    {},
+    {} as GenericRecord<{ measure: number }>,
     timeLineDisplay,
     "graph",
     dateStart
@@ -49,35 +53,10 @@ export const measuresChartLineCreateLabelAndDatasets = (
       el.value
     );
   });
-  if (objAllTimeLine.allSumObj)
-    return normalizeDatesValuesSumObj(
-      objAllTimeLine.allSumObj as GenericRecord<{ measure: number }>,
-      "measure"
-    );
-  if (objAllTimeLine.weeklySumObj)
-    return normalizeDatesValuesSumObj(
-      objAllTimeLine.weeklySumObj as GenericRecord<{ measure: number }>,
-      "measure"
-    );
-  if (objAllTimeLine.monthlySumObj)
-    return normalizeDatesValuesSumObj(
-      objAllTimeLine.monthlySumObj as GenericRecord<{ measure: number }>,
-      "measure"
-    );
 
-  if (objAllTimeLine.monthsSumObj)
-    return normalizeDatesValuesSumObj(
-      objAllTimeLine.monthsSumObj as GenericRecord<{ measure: number }>,
-      "measure"
-    );
-  if (objAllTimeLine.yearsSumObj) {
-    return normalizeDatesValuesSumObj(
-      objAllTimeLine.yearsSumObj as GenericRecord<{ measure: number }>,
-      "measure"
-    );
-  }
-
-  // return normalizeDatesValues(statsArr);
+  return getResultGraphStats(objAllTimeLine, (timeLineObj) =>
+    normalizeDatesValuesSumObj(timeLineObj, "measure")
+  );
 };
 
 export const caloriesChartCreateLabelAndDatasets = (

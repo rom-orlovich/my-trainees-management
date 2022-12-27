@@ -308,8 +308,10 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
 
 export const getResultGraphStats = <T>(
   objAllTimeLine: ObjAllTimeLine<T>,
-  normalizeDateValues: AnyFun
+  // normalizeDateValues: AnyFun
+  normalizeDateValues: (timeLine: GenericRecord<T>) => any
 ) => {
+  console.log(objAllTimeLine);
   if (objAllTimeLine.allSumObj)
     return normalizeDateValues(objAllTimeLine.allSumObj);
   if (objAllTimeLine.weeklySumObj)
