@@ -14,17 +14,6 @@ import {
   getResultGraphStats,
 } from "./helpersGetStats";
 
-// export const normalizeDatesValuesSumObj = (
-//   sumObj: GenericRecord<{ weight: number }>
-// ) => {
-//   const { datasetsValues, labelFormatted } = createLabelDatasetFromObj(sumObj);
-//   const values = datasetsValues.map((objValues) => objValues.weight);
-//   return {
-//     labelFormatted,
-//     datasetsValues: values,
-//   };
-// };
-
 export const measuresChartLineCreateLabelAndDatasets = (
   measuresCalData: MeasuresCalResAPI[],
   timeLineDisplay?: TimeLineDisplay,

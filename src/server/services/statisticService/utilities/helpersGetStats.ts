@@ -311,7 +311,6 @@ export const getResultGraphStats = <T>(
   // normalizeDateValues: AnyFun
   normalizeDateValues: (timeLine: GenericRecord<T>) => any
 ) => {
-  console.log(objAllTimeLine);
   if (objAllTimeLine.allSumObj)
     return normalizeDateValues(objAllTimeLine.allSumObj);
   if (objAllTimeLine.weeklySumObj)
