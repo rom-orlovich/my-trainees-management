@@ -25,27 +25,15 @@
     $ROW_HEIGHT: 35vh;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    height: calc($GRID_ROW * $ROW_HEIGHT);
+    grid-template-rows: repeat(5, 1fr);
+    height: 120vh;
+
     .distribution_card_container {
       grid-area: 1 / auto / 3 / auto;
     }
     .graph_card_container {
-      grid-area: 3 / 1/ 5 / 5;
-      padding: 1rem;
-
-      height: fit-content;
-      canvas {
-        max-height: 20rem;
-      }
-    }
-
-    .finances_pie_chart_card {
-      position: relative;
-      width: 100%;
-      @include classMatcher("selectInput") {
-        @include posAbs(0%, null, 0%, null);
-      }
+      grid-area: 3 / 1/6 / 5;
+      padding: 0.5rem;
     }
   }
 }
@@ -56,9 +44,7 @@
   }
   .stats_page {
     height: 100%;
-    overflow-y: scroll;
-
-    width: 100%;
+    width: 98%;
 
     .stats_page_header_filters {
       padding-left: 0rem;
@@ -97,13 +83,7 @@
       }
       .graph_card_container {
         min-height: 30rem;
-        height: fit-content;
-        padding: 1rem;
-
-        canvas {
-          max-height: inherit;
-          height: 85% !important;
-        }
+        // height: fit-content;
       }
     }
   }

@@ -9,20 +9,18 @@ import style from "./ExerciseStatsChart.module.scss";
 function TrainingProgramsExerciseStatsChart({
   queriesOptions,
 }: {
-  queriesOptions?: Record<string, any>;
+  queriesOptions: Record<string, any>;
 }) {
   const [queryParams] = useSearchParams();
-
-  const options = { ...queriesOptions };
 
   return (
     <LineGraphCard
       className={style.card_exercise_container}
       chartHeading={`${queryParams.get("exercise")}`}
-      // className={style.chart_exercise}
-      lineChartProps={{ className: style.chart_exercise }}
-      queryOptions={options}
+      // lineChartProps={{ className: style.chart_exercise }}
+      queryOptions={queriesOptions}
       unit="kg"
+      // datesRangeDisplayOption={true}
       timeLineDisplayOption={false}
       getItems={trainingProgramsApi.useGetExerciseStatsQuery}
     />

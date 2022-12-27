@@ -5,14 +5,13 @@
 .chart_exercise {
   padding: 0.5rem;
   margin-top: 0.5rem;
-  height: 100%;
 }
 
 @include smartphone() {
-  .chart_exercise {
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    width: 102% !important;
-    max-height: 75% !important;
+  .card_exercise_container {
+    max-height: 60vh;
+    margin-top: 1rem;
+    .chart_exercise {
+    }
   }
 }

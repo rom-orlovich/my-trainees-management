@@ -26,6 +26,7 @@ export function SelectInput({
   selectProps: { ref, ...selectProps },
   LabelProps: { htmlFor, labelText, ...LabelProps },
   options,
+  className,
   children,
   inputIconProps,
 }: SelectInputProps & PropsBasic) {
@@ -33,7 +34,11 @@ export function SelectInput({
     <label
       htmlFor={htmlFor}
       {...LabelProps}
-      className={genClassName(style.selectInput_label, LabelProps.className)}
+      className={genClassName(
+        className,
+        style.selectInput_label,
+        LabelProps.className
+      )}
     >
       {labelText}
       <select ref={ref} id={htmlFor} name={htmlFor} {...selectProps}>

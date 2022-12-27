@@ -30,10 +30,10 @@
 
     .progress_chart_grid_item {
       grid-area: 3/ 1/ 5/ 9;
-      max-height: 60vh;
-      canvas {
-        max-height: 40vh;
-      }
+      max-height: 54vh;
+      // canvas {
+      //   max-height: 40vh;
+      // }
     }
   }
 }
@@ -72,9 +72,10 @@
     }
 
     .progress_chart_grid_item {
+      width: 98%;
       height: 30vh;
       order: 5;
-      min-height: 50vh;
+      min-height: 80vh;
     }
   }
 }

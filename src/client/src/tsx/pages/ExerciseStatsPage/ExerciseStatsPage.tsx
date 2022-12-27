@@ -3,13 +3,14 @@ import ExerciseStatsTable from "./ExerciseStatsTable";
 
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
-import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
+
 import { SelectInput } from "../../components/baseComponents/RHF-Components/SelectInput/SelectInput";
 import { genClassName } from "../../utilities/helpersFun";
 import page from "../Page.module.scss";
 import style from "./ExerciseStatsPage.module.scss";
 import ExerciseStatsChart from "./ExerciseStatsChart";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
+import useDateRanges from "../../hooks/useDateRanges";
 
 const displayOptions = [
   { label: "Table", value: "table" },
@@ -20,18 +21,18 @@ function ExerciseStatsPage() {
   const [queryParams] = useSearchParams();
   const authState = useAppSelector(getAuthState);
 
-  const [{ gt, lt, display }, onChange] = useOnChangeInput({
-    gt: "",
-    lt: "",
+  const [{ display }, onChange] = useOnChangeInput({
     display: "graph",
   });
 
+  const { DateRangeComponent, datesRangeOptionState } = useDateRanges();
   const params = useParams();
   const { exerciseID } = params;
   const queriesOptions = {
     trainerUserID: authState.user?.user_id,
-    lt,
-    gt,
+    // lt,
+    // gt,
+    ...datesRangeOptionState,
     exerciseID,
   };
 
@@ -53,16 +54,7 @@ function ExerciseStatsPage() {
       )}
     >
       <div className={genClassName(page.page_header)}>
-        <span className={page.dates_container}>
-          <InputLabel
-            LabelProps={{ labelText: "Date Start" }}
-            InputProps={{ type: "date", onChange, id: "gt" }}
-          />
-          <InputLabel
-            LabelProps={{ labelText: "Date End" }}
-            InputProps={{ type: "date", onChange, id: "lt" }}
-          />
-        </span>
+        <DateRangeComponent className={page.dates_container} />
 
         <SelectInput
           LabelProps={{ labelText: "Display", htmlFor: "display" }}

@@ -89,3 +89,7 @@ export interface GeneralFormProps<T extends FieldValues> {
   onSubmit: SubmitHandler<T>;
   fromProps?: FormProps;
 }
+export type GraphFilterByDates = {
+  gt: string;
+  lt: string;
+};

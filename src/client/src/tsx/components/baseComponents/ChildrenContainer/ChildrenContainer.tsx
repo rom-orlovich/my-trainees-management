@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 export type ComponentFunType<T> = (data: T) => ReactNode;
-function ChildrenFunComponent<T>({
+function ChildrenContainer<T>({
   children,
   className,
   data,
@@ -10,7 +10,11 @@ function ChildrenFunComponent<T>({
   className?: string;
   children: ReactNode | ComponentFunType<T>;
 }) {
-  return <>{typeof children === "function" ? children(data) : children} </>;
+  return (
+    <div className={className}>
+      {typeof children === "function" ? children(data) : children}
+    </div>
+  );
 }
 
-export default ChildrenFunComponent;
+export default ChildrenContainer;

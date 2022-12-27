@@ -1,0 +1,53 @@
+@use "../../../../../style/utilities/utilities.scss" as *;
+.chart_card_container {
+  @include flex-dir(null, null, column);
+  height: 100%;
+  .graph__options_container {
+    padding: 0.2rem 0.5rem;
+    @include flex-dir(space-between, null);
+    .display_option {
+      max-width: 15%;
+    }
+    .dates_range_container {
+      flex: 60%;
+      @include flex-dir(flex-end, null);
+      gap: 0.2rem;
+      @include classMatcher("InputLabel_wrapper") {
+        @include initialWidth();
+        flex: initial;
+      }
+    }
+  }
+  .chart_container {
+    padding: 0.5rem;
+    flex: auto;
+  }
+}
+
+@include smartphone() {
+  .chart_card_container {
+    @include flex-dir(null, null, column);
+
+    .graph__options_container {
+      @include flex-dir(space-between, null, column);
+      .display_option {
+        max-width: 100%;
+      }
+      .dates_range_container {
+        width: 100%;
+        @include flex-dir(flex-end, null, column);
+
+        @include classMatcher("InputLabel_wrapper") {
+          @include initialWidth();
+          flex: initial;
+          max-width: 100%;
+          input {
+            min-width: 100%;
+          }
+        }
+      }
+    }
+    .chart_container {
+    }
+  }
+}

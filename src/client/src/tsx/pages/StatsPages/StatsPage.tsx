@@ -1,15 +1,14 @@
 import React, { ReactNode } from "react";
-import ChildrenFunComponent from "../../components/baseComponents/ChildrenFunComponent/ChildrenFunComponent";
+import ChildrenContainer from "../../components/baseComponents/ChildrenContainer/ChildrenContainer";
+
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
-import { GenericRecord } from "../../types";
 
 import style from "./StatsPages.module.scss";
 
 function StatsPage({
   children,
-}: // PropsBasic &
-{
+}: {
   children: (data: { gt: string; lt: string }) => ReactNode;
 }) {
   const [queryOptions, onChange] = useOnChangeInput({
@@ -36,11 +35,14 @@ function StatsPage({
         </span>
       </div>
 
-      <div className={style.stats_page_container}>
-        <ChildrenFunComponent data={queryOptions}>
-          {(data) => children(data)}
-        </ChildrenFunComponent>
-      </div>
+      {/* <div className={style.stats_page_container}> */}
+      <ChildrenContainer
+        data={queryOptions}
+        className={style.stats_page_container}
+      >
+        {(data) => children(data)}
+      </ChildrenContainer>
+      {/* </div> */}
     </section>
   );
 }

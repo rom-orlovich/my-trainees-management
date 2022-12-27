@@ -1,8 +1,6 @@
 import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 
-import GraphCard, {
-  GraphFilterByDates,
-} from "../../../pages/StatsPages/GraphCard/GraphCard";
+import ChartCard from "./ChartCard/ChartCard";
 import {
   CHART_DISPLAY,
   GetCitiesGendersAgesStatsAPI,
@@ -14,6 +12,7 @@ import {
   labelFormatterByUnit,
 } from "../Charts/chartsUtils";
 import LineChart from "../Charts/LineChart";
+import { GraphFilterByDates } from "../baseComponentsTypes";
 
 function LineGraphCard({
   queryOptions,
@@ -37,7 +36,7 @@ function LineGraphCard({
   datesRangeDisplayOption?: boolean;
 }) {
   return (
-    <GraphCard
+    <ChartCard
       queryOptions={queryOptions}
       className={className}
       timeLineDisplayOption={timeLineDisplayOption}
@@ -101,7 +100,7 @@ function LineGraphCard({
           />
         );
       }}
-    </GraphCard>
+    </ChartCard>
   );
 }
 
