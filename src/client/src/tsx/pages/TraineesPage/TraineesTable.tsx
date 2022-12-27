@@ -1,7 +1,9 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable camelcase */
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { FaFemale, FaMale } from "react-icons/fa";
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { traineesApi } from "../../redux/api/hooksAPI";
 import { TraineesTableExtendsAPI } from "../../redux/api/interfaceAPI";
@@ -28,11 +30,18 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
     trainee_id,
     trainer_user_id,
     measure_id,
+    gender,
     ...rest
   } = arg;
 
   // TODO: try to remove the username from the url.
   // The username query param is used in userDetails in trainee's profile.
+  const maleIcon = (
+    <FaMale style={{ color: "rgb(121 195 248)", fontSize: "1.5rem" }} />
+  );
+  const femaleIcon = (
+    <FaFemale style={{ color: " rgb(244 154 204)", fontSize: "1.5rem" }} />
+  );
   return {
     id: arg.trainee_id,
     full_name: (
@@ -42,13 +51,20 @@ export const transformDataTrainee = (arg: TraineesTableExtendsAPI) => {
         }?profileID=${profile_id}&traineeID=${trainee_id}${
           username ? `&username=${username}` : ""
         }`}
-        // to={`/${APP_ROUTE.TRAINEES_ROUTE}/${trainee_id}/${
-        //   APP_ROUTE.PROFILE_ROUTE
-        // }?${username ? `username=${username}` : ""}&profileID=${profile_id}`}
       >
         {`${arg.first_name} ${arg.last_name}`}
       </Link>
     ),
+    gender:
+      gender === "male" ? (
+        maleIcon
+      ) : gender === "female" ? (
+        femaleIcon
+      ) : (
+        <>
+          {maleIcon} {femaleIcon}
+        </>
+      ),
     ...rest,
   };
 };
