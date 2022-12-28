@@ -3,18 +3,17 @@ import { Outlet } from "react-router-dom";
 import Header from "../../components/layoutComponents/Header/Header";
 import SideBar from "../../components/layoutComponents/SideBar/SideBar";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
-import { traineesApi } from "../../redux/api/hooksAPI";
+
 import style from "../Layout.module.scss";
-import { TRAINEE_NAV_BAR_LINKS } from "../NavBarLinks";
+import { TRAINEE_NAVBAR_LINKS } from "../NavBarLinks";
 import { TRAINEE_SIDE_BAR_LINKS } from "../SideBarLinks";
 
 function TraineeLayout() {
   const userData = useGetUserLoginData();
-  const traineeID = userData.authState.user?.trainee_id;
 
   return (
     <>
-      <Header navBarLinks={TRAINEE_NAV_BAR_LINKS} className={style.header} />
+      <Header navBarLinks={TRAINEE_NAVBAR_LINKS} className={style.header} />
       <main className={style.main_layout}>
         <SideBar
           sideBarLinks={TRAINEE_SIDE_BAR_LINKS}

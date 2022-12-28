@@ -71,11 +71,12 @@ export const TRAINER_SIDE_BAR_LINKS: LinkData[] = [
   },
 ];
 export const ADMIN_SIDE_BAR_LINKS: LinkData[] = [
+  { to: relativePath(APP_ROUTE.PROFILE_ROUTE), icon: <Welcome /> },
   {
     to: APP_ROUTE.USERS_ROUTE,
     text: "Users",
     icon: <FaUserShield className={style.icon} />,
   },
 
-  ...TRAINER_SIDE_BAR_LINKS,
+  ...TRAINER_SIDE_BAR_LINKS.slice(1),
 ];

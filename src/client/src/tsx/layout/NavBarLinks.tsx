@@ -49,7 +49,7 @@ const addButtonLinks = [
   },
 ];
 
-export const ADMIN_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
+const ADMIN_TRAINER_NAVBAR_LINKS = [
   {
     id: "addIconButton",
     element: <RiAddCircleFill className={style.add_icon} />,
@@ -59,23 +59,19 @@ export const ADMIN_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
   hamburgerMenuButton,
 ];
 
-export const TRAINER_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
-  {
-    id: "addIconButton",
-    element: <RiAddCircleFill className={style.add_icon} />,
-    dataLinks: addButtonLinks,
-  },
+export const ADMIN_NAVBAR_LINKS: NavBarNavLinkLI<LinkData>[] =
+  ADMIN_TRAINER_NAVBAR_LINKS;
 
-  hamburgerMenuButton,
-];
+export const TRAINER_NAVBAR_LINKS: NavBarNavLinkLI<LinkData>[] =
+  ADMIN_TRAINER_NAVBAR_LINKS;
 
-export const TRAINEE_NAV_BAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
+export const TRAINEE_NAVBAR_LINKS: NavBarNavLinkLI<LinkData>[] = [
   {
     id: "addIconButton",
     element: <RiAddCircleFill className={style.add_icon} />,
     dataLinks: [
       {
-        to: `/`,
+        to: `/${APP_ROUTE.MY_WORKOUTS_ROUTE}`,
         text: "Update Workout",
       },
       {
