@@ -177,14 +177,30 @@ const calFinancesSum = (
     );
   };
 
-  // Loop over the incomeData and expenseData and calculate the finance stats.
-  incomesData.forEach((income) =>
-    calFinanceOverviewByTimeLine(income, "incomes")
+  const incomesMapData: {
+    dataType: IncomesOrExpenses;
+    data: SharedIncomesExpensesProps;
+  }[] = incomesData.map((income) => ({
+    dataType: "incomes",
+    data: income,
+  }));
+  const expensesMapData: {
+    dataType: IncomesOrExpenses;
+    data: SharedIncomesExpensesProps;
+  }[] = expenseData.map((expense) => ({
+    dataType: "expenses",
+    data: expense,
+  }));
+
+  const financeData = [...incomesMapData, ...expensesMapData].sort(
+    (a, b) => a.data.date.getTime() - b.data.date.getTime()
   );
 
-  expenseData.forEach((expense) =>
-    calFinanceOverviewByTimeLine(expense, "expenses")
+  // Loop over the incomeData and expenseData and calculate the finance stats.
+  financeData.forEach((el) =>
+    calFinanceOverviewByTimeLine(el.data, el.dataType)
   );
+
   let results: GenericRecord<any> = {};
 
   if (checkIsDistributionChart) {
