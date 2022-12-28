@@ -164,50 +164,6 @@ export const createMonthObj = <
   return monthsFinancesObj;
 };
 
-// Generic function that calculate object timeline in pure way.
-export const calTimeLineObj = <
-  O extends GenericRecord<any>,
-  K1 extends keyof O,
-  T extends GenericRecord<O>,
-  K2 extends keyof T
->(
-  dataType: K1,
-  timeLine: K2,
-  objTimeLine: T | undefined,
-  amount?: number,
-  assignNum?: number,
-  addTimeLine?: boolean
-) => {
-  if (!objTimeLine) return undefined;
-
-  if (!objTimeLine[timeLine]) {
-    if (addTimeLine)
-      return {
-        ...objTimeLine,
-        [timeLine]: {
-          [dataType]: amount || 1,
-        },
-      };
-
-    return { ...objTimeLine } as T;
-  }
-  if (assignNum)
-    return {
-      ...objTimeLine,
-      [timeLine]: {
-        ...objTimeLine[timeLine],
-        [dataType]: assignNum,
-      },
-    } as T;
-
-  return {
-    ...objTimeLine,
-    [timeLine]: {
-      ...objTimeLine[timeLine],
-      [dataType]: (objTimeLine[timeLine][dataType] || 0) + (amount || 1),
-    },
-  } as T;
-};
 export interface ObjAllTimeLine<T> {
   allSumObj?: GenericRecord<T>;
   weeklySumObj?: GenericRecord<T>;
@@ -250,13 +206,57 @@ export const createTimeLineObj = <T extends GenericRecord<any>>(
 
   return { allSumObj, weeklySumObj, monthlySumObj, monthsSumObj, yearsSumObj };
 };
+// Generic function that calculate object timeline in pure way.
+export const calTimeLineObj = <
+  O extends GenericRecord<any>,
+  K1 extends keyof O,
+  T extends GenericRecord<O>,
+  K2 extends keyof T
+>(
+  dataType: K1,
+  timeLine: K2,
+  objTimeLine: T | undefined,
+  options: { amount?: number; assignNum?: number; addTimeLine?: boolean } = {}
+) => {
+  if (!objTimeLine) return undefined;
 
+  if (!objTimeLine[timeLine]) {
+    if (options?.addTimeLine)
+      return {
+        ...objTimeLine,
+        [timeLine]: {
+          [dataType]: options.amount || 1,
+        },
+      };
+
+    return { ...objTimeLine } as T;
+  }
+  if (options?.assignNum)
+    return {
+      ...objTimeLine,
+      [timeLine]: {
+        ...objTimeLine[timeLine],
+        [dataType]: options.assignNum,
+      },
+    } as T;
+
+  return {
+    ...objTimeLine,
+    [timeLine]: {
+      ...objTimeLine[timeLine],
+      [dataType]:
+        (objTimeLine[timeLine][dataType] || 0) + (options.amount || 1),
+    },
+  } as T;
+};
 export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   date: Date,
   dataType: string,
   objAllTimeLine: ObjAllTimeLine<T>,
-  amount?: number,
-  assignNum?: number
+  options: {
+    amount?: number;
+    assignNum?: number;
+  } = {}
 ) => {
   const formattedDate = getDateLocal(date);
   // const formattedDate = formatDate(date, 0);
@@ -269,41 +269,31 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
       dataType,
       formattedDate,
       objAllTimeLine.allSumObj,
-      amount,
-      assignNum,
-      true
+      { ...options, addTimeLine: true }
     ),
     weeklySumObj: calTimeLineObj(
       dataType,
       formattedDate,
       objAllTimeLine.weeklySumObj,
-      amount,
-      assignNum,
-      false
+      { ...options, addTimeLine: false }
     ),
     monthlySumObj: calTimeLineObj(
       dataType,
       weekRangeInMonth,
       objAllTimeLine.monthlySumObj,
-      amount,
-      assignNum,
-      false
+      { ...options, addTimeLine: false }
     ),
     monthsSumObj: calTimeLineObj(
       dataType,
       dateMonth,
       objAllTimeLine.monthsSumObj,
-      amount,
-      assignNum,
-      false
+      { ...options, addTimeLine: false }
     ),
     yearsSumObj: calTimeLineObj(
       dataType,
       String(curYear),
       objAllTimeLine.yearsSumObj,
-      amount,
-      assignNum,
-      true
+      { ...options, addTimeLine: true }
     ),
   };
 };

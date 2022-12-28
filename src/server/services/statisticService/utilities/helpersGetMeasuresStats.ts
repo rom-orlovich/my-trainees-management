@@ -34,12 +34,10 @@ export const measuresChartLineCreateLabelAndDatasets = (
   );
 
   statsArr.forEach((el) => {
-    objAllTimeLine = calAllTimeLineObj(
-      el.date,
-      "measure",
-      objAllTimeLine,
-      el.value
-    );
+    objAllTimeLine = calAllTimeLineObj(el.date, "measure", objAllTimeLine, {
+      amount: el.value,
+      assignNum: el.value,
+    });
   });
 
   loggerJson.debug(objAllTimeLine);

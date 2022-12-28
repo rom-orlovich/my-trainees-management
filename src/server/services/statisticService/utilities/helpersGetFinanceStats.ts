@@ -173,7 +173,7 @@ const calFinancesSum = (
       curDate,
       incomesOrExpenses,
       objAllTimeLine,
-      financeObj.total_price
+      { amount: financeObj.total_price }
     );
   };
 

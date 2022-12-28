@@ -131,16 +131,12 @@ const calTimeLineObjAllRes = {
   yearsSumObj: undefined,
 };
 describe.only("test calTimeLineObj", () => {
-  test("test ", () => {
-    console.log(getDateLocal(new Date("2022-10-23T21:00:00.000Z")));
-
+  test("test allSumObj timeline", () => {
     let sumAll = calTimeLineObj(
       "measures",
       getDateLocal(new Date("2022-10-23T21:00:00.000Z")),
       allMeasure.allSumObj as GenericRecord<any>,
-      2,
-      undefined,
-      true
+      { amount: 2, assignNum: undefined, addTimeLine: true }
     );
 
     expect(sumAll).toEqual({ "24/10/22": { measures: 2 } });
@@ -149,9 +145,7 @@ describe.only("test calTimeLineObj", () => {
       "measures",
       getDateLocal(new Date("2022-10-23T21:00:00.000Z")),
       allMeasure.allSumObj as GenericRecord<any>,
-      2,
-      undefined,
-      true
+      { amount: 2, assignNum: undefined, addTimeLine: true }
     );
     expect(sumAll).toEqual({ "24/10/22": { measures: 2 } });
 
@@ -159,9 +153,7 @@ describe.only("test calTimeLineObj", () => {
       "measures",
       getDateLocal(new Date("2022-10-26T21:00:00.000Z")),
       sumAll as GenericRecord<any>,
-      2,
-      undefined,
-      true
+      { amount: 2, assignNum: undefined, addTimeLine: true }
     );
 
     expect(sumAll).toEqual({
