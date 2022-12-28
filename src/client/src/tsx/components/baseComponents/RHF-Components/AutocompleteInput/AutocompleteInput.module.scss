@@ -41,7 +41,7 @@
     li {
       position: relative;
       @include flex-dir(center, center);
-      font-size: 1.2rem;
+      font-size: 1rem;
       height: 3rem;
       background-color: white;
       &:hover {
