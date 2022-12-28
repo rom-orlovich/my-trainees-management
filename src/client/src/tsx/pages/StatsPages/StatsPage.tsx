@@ -35,14 +35,12 @@ function StatsPage({
         </span>
       </div>
 
-      {/* <div className={style.stats_page_container}> */}
       <ChildrenContainer
         data={queryOptions}
         className={style.stats_page_container}
       >
         {(data) => children(data)}
       </ChildrenContainer>
-      {/* </div> */}
     </section>
   );
 }
