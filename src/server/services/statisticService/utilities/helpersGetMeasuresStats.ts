@@ -38,7 +38,6 @@ export const measuresChartLineCreateLabelAndDatasets = (
       el.date,
       "measure",
       objAllTimeLine,
-      undefined,
       el.value
     );
   });

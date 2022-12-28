@@ -65,8 +65,8 @@ export const handleGetStatistic: RequestHandler = async (req, res, next) => {
     result = getFinanceStats(
       incomesRes.data as IncomesTableAPI[],
       expenseRes.data as ExpensesTableAPI[],
-      chartDisplay as ChartTypes,
       timeLineDisplay as TimeLineDisplay,
+      chartDisplay as ChartTypes,
       dateStart as string
     );
     rawRes = {

@@ -174,8 +174,8 @@ export const calTimeLineObj = <
   dataType: K1,
   timeLine: K2,
   objTimeLine: T | undefined,
-  amount?: number,
   addTimeLine?: boolean,
+  amount?: number,
   assignNum?: number
 ) => {
   if (!objTimeLine) return undefined;
@@ -187,16 +187,16 @@ export const calTimeLineObj = <
           [dataType]: amount || 1,
         },
       };
+
+    if (assignNum)
+      return {
+        ...objTimeLine,
+        [timeLine]: {
+          ...objTimeLine[timeLine],
+          [dataType]: assignNum,
+        },
+      } as T;
     return { ...objTimeLine } as T;
-  }
-  if (assignNum) {
-    return {
-      ...objTimeLine,
-      [timeLine]: {
-        ...objTimeLine[timeLine],
-        [dataType]: assignNum,
-      },
-    } as T;
   }
 
   return {
@@ -267,40 +267,40 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
       dataType,
       formattedDate,
       objAllTimeLine.allSumObj,
-      amount,
       true,
+      amount,
       assignNum
     ),
     weeklySumObj: calTimeLineObj(
       dataType,
       formattedDate,
       objAllTimeLine.weeklySumObj,
-      amount,
       false,
+      amount,
       assignNum
     ),
     monthlySumObj: calTimeLineObj(
       dataType,
       weekRangeInMonth,
       objAllTimeLine.monthlySumObj,
-      amount,
       false,
+      amount,
       assignNum
     ),
     monthsSumObj: calTimeLineObj(
       dataType,
       dateMonth,
       objAllTimeLine.monthsSumObj,
-      amount,
       false,
+      amount,
       assignNum
     ),
     yearsSumObj: calTimeLineObj(
       dataType,
       String(curYear),
       objAllTimeLine.yearsSumObj,
-      amount,
       true,
+      amount,
       assignNum
     ),
   };

@@ -120,8 +120,8 @@ const normalizeDatesValuesDistributionFinance = (
 const calFinancesSum = (
   incomesData: IncomesTableAPI[],
   expenseData: ExpensesTableAPI[],
-  chartDisplay?: ChartTypes,
   timeLineDisplay?: TimeLineDisplay,
+  chartDisplay?: ChartTypes,
   dateStart?: string
 ) => {
   // Check the current display according to the timeLineDisplay and chartDisplay.
@@ -218,14 +218,15 @@ const calFinancesSum = (
 export const getFinanceStats = (
   incomesData: IncomesTableAPI[],
   expenseData: ExpensesTableAPI[],
-  chartDisplay?: ChartTypes,
   timeLineDisplay?: TimeLineDisplay,
+  chartDisplay?: ChartTypes,
+
   dateStart?: string
 ) =>
   calFinancesSum(
     incomesData,
     expenseData,
-    chartDisplay,
     timeLineDisplay,
+    chartDisplay,
     dateStart
   );
