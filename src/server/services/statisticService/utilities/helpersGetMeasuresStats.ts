@@ -1,5 +1,5 @@
 import { GenericRecord } from "../../../utilities/types";
-import { logger } from "../../loggerService/logger";
+import { logger, loggerJson } from "../../loggerService/logger";
 import {
   ChartTypes,
   CHART_DISPLAY,
@@ -41,6 +41,8 @@ export const measuresChartLineCreateLabelAndDatasets = (
       el.value
     );
   });
+
+  loggerJson.debug(objAllTimeLine);
 
   return getResultGraphStats(objAllTimeLine, (timeLineObj) =>
     normalizeDatesValuesSumObj(timeLineObj, "measure")

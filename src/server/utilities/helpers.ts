@@ -51,15 +51,14 @@ export function createObjKeysArr<T extends GenericRecord<any>>(
   return Object.keys(obj);
 }
 
-export const formatDate = (date: Date, plusDay = 1) => {
-  const addToDate = new Date(date);
-
-  const formatted = new Date(
-    addToDate.getTime() + Math.abs(addToDate.getTimezoneOffset() * 60000)
-  );
-  formatted.setDate(addToDate.getDate() + plusDay);
-  return formatted.toLocaleDateString("en-CA");
-};
+export const formatDate = (date: Date, plusDay = 1) =>
+  // const addToDate = new Date(date);
+  // const formatted = new Date(
+  //   addToDate.getTime() + Math.abs(addToDate.getTimezoneOffset() * 60000)
+  // );
+  // formatted.setDate(addToDate.getDate() + plusDay);
+  // return formatted.toLocaleDateString("en-CA");
+  new Date(date).toISOString().split("T")[0];
 
 export const getFilename = (filename: string) =>
   filename.slice(__dirname.length + 1);

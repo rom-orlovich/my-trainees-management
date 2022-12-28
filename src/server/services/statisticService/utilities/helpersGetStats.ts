@@ -179,6 +179,7 @@ export const calTimeLineObj = <
   addTimeLine?: boolean
 ) => {
   if (!objTimeLine) return undefined;
+
   if (!objTimeLine[timeLine]) {
     if (addTimeLine)
       return {
@@ -188,16 +189,16 @@ export const calTimeLineObj = <
         },
       };
 
-    if (assignNum)
-      return {
-        ...objTimeLine,
-        [timeLine]: {
-          ...objTimeLine[timeLine],
-          [dataType]: assignNum,
-        },
-      } as T;
     return { ...objTimeLine } as T;
   }
+  if (assignNum)
+    return {
+      ...objTimeLine,
+      [timeLine]: {
+        ...objTimeLine[timeLine],
+        [dataType]: assignNum,
+      },
+    } as T;
 
   return {
     ...objTimeLine,
@@ -257,7 +258,8 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   amount?: number,
   assignNum?: number
 ) => {
-  const formattedDate = formatDate(date, 0);
+  const formattedDate = getDateLocal(date);
+  // const formattedDate = formatDate(date, 0);
   const weekRangeInMonth = getWeekRangeInMonthStr(date);
   const dateMonth = getNameMonth(date);
   const curYear = date.getFullYear();
