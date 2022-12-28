@@ -308,7 +308,7 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
 
 export const getResultGraphStats = <T>(
   objAllTimeLine: ObjAllTimeLine<T>,
-  // normalizeDateValues: AnyFun
+
   normalizeDateValues: (timeLine: GenericRecord<T>) => any
 ) => {
   if (objAllTimeLine.allSumObj)
