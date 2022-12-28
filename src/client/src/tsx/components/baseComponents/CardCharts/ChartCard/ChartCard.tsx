@@ -31,13 +31,9 @@ function ChartCard({
   datesRangeDisplayOption?: boolean;
 }) {
   const [{ period }, onChange] = useOnChangeInput({
-    period: GRAPH_TIME_LINE.MONTHS,
+    period: GRAPH_TIME_LINE.ALL,
   });
-  // const [datesRangeOption, onChangeDates] = useOnChangeInput({
-  //   gt: "",
-  //   lt: "",
-  // });
-  console.log(period);
+
   const { DateRangeComponent, datesRangeOptionState } = useDateRanges();
   const dateRangeOptions = datesRangeDisplayOption ? datesRangeOptionState : {};
   return (

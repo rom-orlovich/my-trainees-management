@@ -19,8 +19,6 @@ function ProgressChart({ className }: PropsBasic) {
     chartDisplay: CHART_DISPLAY.GRAPH,
     asc: "false",
     numResults: 100,
-    gt: "",
-    lt: "",
   };
 
   return (

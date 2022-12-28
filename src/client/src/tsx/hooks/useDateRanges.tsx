@@ -19,7 +19,11 @@ function useDateRanges() {
       />
       <InputLabel
         LabelProps={{ labelText: "Date End" }}
-        InputProps={{ type: "date", onChange: onChangeDates, id: "lt" }}
+        InputProps={{
+          type: "date",
+          onChange: onChangeDates,
+          id: "lt",
+        }}
       />
     </span>
   );
