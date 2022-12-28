@@ -8,7 +8,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import { formatDate, addToDate } from "../../../utilities/helpers";
-import { AnyFun, GenericRecord } from "../../../utilities/types";
+import { GenericRecord } from "../../../utilities/types";
 import {
   ChartTypes,
   CHART_DISPLAY,
