@@ -75,7 +75,6 @@ export default function Form<TFormValues extends FieldValues>({
   } = useAppSelector(getApiSideEffect);
   const { displayContent } = useAppSelector(getModelControllerState);
 
-  console.log(className);
   const methods = useForm<TFormValues>({
     mode: "onBlur",
     reValidateMode: "onBlur",

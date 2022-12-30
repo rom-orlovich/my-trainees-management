@@ -37,12 +37,12 @@ export const modelControllerSlice = createSlice({
     closeModel: (state) => {
       state.isModelOpen = false;
       state.displayContent = [];
-      // state.curParam = undefined;
+
       state.lastModel = undefined;
     },
     preModel: (state) => {
       state.displayContent.pop();
-      // state.curParam = undefined;
+
       state.lastModel = state.displayContent[state.displayContent.length - 1];
       state.curParam = state.lastParam;
     },

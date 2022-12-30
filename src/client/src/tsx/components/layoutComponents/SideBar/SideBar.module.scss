@@ -47,6 +47,21 @@
   }
 }
 
+.sidebar_admin {
+  ul {
+    margin-top: 1rem;
+    li:first-child {
+      margin-bottom: 0.5rem;
+    }
+    li {
+      margin-top: 0.3rem;
+    }
+    li:last-child {
+      margin-top: 0.5rem;
+    }
+  }
+}
+
 @include smartphone() {
   .sideBar {
     display: none;

@@ -58,9 +58,7 @@ function TextFieldOpenModel<T extends FieldValues, CP extends any>({
       LabelProps={{
         labelText,
       }}
-    >
-      {/* <InputErrorMessage nameInput="Text" error={allergens} /> */}
-    </InputLabel>
+    ></InputLabel>
   );
 }
 export default TextFieldOpenModel;
