@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import ChildrenContainer from "../../components/baseComponents/ChildrenContainer/ChildrenContainer";
 
 import { InputLabel } from "../../components/baseComponents/RHF-Components/InputLabel/InputLabel";
+import useDateRanges from "../../hooks/useDateRanges";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
 
 import style from "./StatsPages.module.scss";
@@ -11,6 +12,7 @@ function StatsPage({
 }: {
   children: (data: { gt: string; lt: string }) => ReactNode;
 }) {
+  // const { DateRangeComponent, datesRangeOptionState } = useDateRanges();
   const [queryOptions, onChange] = useOnChangeInput({
     gt: "",
     lt: "",
@@ -26,16 +28,24 @@ function StatsPage({
               type: "date",
               onChange,
               id: "gt",
+              value: queryOptions.gt,
             }}
           />
           <InputLabel
             LabelProps={{ labelText: "Date End" }}
-            InputProps={{ type: "date", onChange, id: "lt" }}
+            InputProps={{
+              type: "date",
+              onChange,
+              id: "lt",
+              value: queryOptions.lt,
+            }}
           />
         </span>
+        {/* <DateRangeComponent /> */}
       </div>
 
       <ChildrenContainer
+        // data={datesRangeOptionState}
         data={queryOptions}
         className={style.stats_page_container}
       >

@@ -11,6 +11,7 @@ import style from "./ExerciseStatsPage.module.scss";
 import ExerciseStatsChart from "./ExerciseStatsChart";
 import useOnChangeInput from "../../hooks/useOnChangeInput";
 import useDateRanges from "../../hooks/useDateRanges";
+import DatesRangeComponent from "../../components/DatesRangeComponent/DatesRangeComponent";
 
 const displayOptions = [
   { label: "Table", value: "table" },
@@ -25,7 +26,7 @@ function ExerciseStatsPage() {
     display: "graph",
   });
 
-  const { DateRangeComponent, datesRangeOptionState } = useDateRanges();
+  const datesRangeOptionState = useDateRanges();
   const params = useParams();
   const { exerciseID } = params;
   const queriesOptions = {
@@ -54,7 +55,10 @@ function ExerciseStatsPage() {
       )}
     >
       <div className={genClassName(page.page_header)}>
-        <DateRangeComponent className={page.dates_container} />
+        <DatesRangeComponent
+          inputsDateProps={datesRangeOptionState}
+          className={page.dates_container}
+        />
 
         <SelectInput
           LabelProps={{ labelText: "Display", htmlFor: "display" }}

@@ -12,6 +12,7 @@ import ChartComponent, {
 import Card from "../../Card/Card";
 import { genClassName } from "../../../../utilities/helpersFun";
 import useDateRanges from "../../../../hooks/useDateRanges";
+import DatesRangeComponent from "../../../DatesRangeComponent/DatesRangeComponent";
 
 function ChartCard({
   children,
@@ -34,7 +35,7 @@ function ChartCard({
     period: GRAPH_TIME_LINE.ALL,
   });
 
-  const { DateRangeComponent, datesRangeOptionState } = useDateRanges();
+  const datesRangeOptionState = useDateRanges();
   const dateRangeOptions = datesRangeDisplayOption ? datesRangeOptionState : {};
   return (
     <Card className={genClassName(style.chart_card_container, className)}>
@@ -54,7 +55,10 @@ function ChartCard({
           />
         )}
         {datesRangeDisplayOption && (
-          <DateRangeComponent className={style.dates_range_container} />
+          <DatesRangeComponent
+            inputsDateProps={datesRangeOptionState}
+            className={style.dates_range_container}
+          />
         )}
       </div>
       <ChartComponent
