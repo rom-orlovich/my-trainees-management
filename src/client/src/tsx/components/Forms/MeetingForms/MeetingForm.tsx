@@ -56,6 +56,7 @@ export function MeetingForm({
   return (
     <>
       <Form<MeetingAPI>
+        className="meeting_form"
         nameForm="Meeting"
         onSubmit={onSubmit}
         editMode={editMode}

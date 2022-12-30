@@ -26,6 +26,7 @@ export function LocationForm({
   const dispatch = useAppDispatch();
   return (
     <Form<LocationsTableAPI>
+      className={style.form_locations}
       nameForm="Location"
       modelMode={true}
       onSubmit={onSubmit}

@@ -16,6 +16,7 @@ export function CityForm({
 }: GeneralFormProps<CitiesTableAPI>) {
   return (
     <Form<CitiesTableAPI>
+      className="city_form"
       nameForm="City"
       editMode={editMode}
       modelMode

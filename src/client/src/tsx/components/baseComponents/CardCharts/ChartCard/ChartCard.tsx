@@ -36,7 +36,8 @@ function ChartCard({
   });
 
   const datesRangeOptionState = useDateRanges();
-  const dateRangeOptions = datesRangeDisplayOption ? datesRangeOptionState : {};
+  const { onChange: onChangeDateRange, ...datesRange } = datesRangeOptionState;
+  const dateRangeOptions = datesRangeDisplayOption ? datesRange : {};
   return (
     <Card className={genClassName(style.chart_card_container, className)}>
       <div className={style.graph__options_container}>
