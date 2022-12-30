@@ -225,7 +225,7 @@
     "fat_g": 1.85,
     "sodium_mg": 29,
     "nutrient_type": "proteins",
-    "allergens": [],
+    "allergens": ["גלוטן"],
     "food_density": 3.7,
     "food_score": 315.08
   },
