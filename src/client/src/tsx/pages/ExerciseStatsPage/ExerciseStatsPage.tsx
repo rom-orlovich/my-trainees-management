@@ -27,13 +27,12 @@ function ExerciseStatsPage() {
   });
 
   const datesRangeOptionState = useDateRanges();
+  const { onChange: onChangeDatesRange, ...datesRange } = datesRangeOptionState;
   const params = useParams();
   const { exerciseID } = params;
   const queriesOptions = {
     trainerUserID: authState.user?.user_id,
-    // lt,
-    // gt,
-    ...datesRangeOptionState,
+    ...datesRange,
     exerciseID,
   };
 
