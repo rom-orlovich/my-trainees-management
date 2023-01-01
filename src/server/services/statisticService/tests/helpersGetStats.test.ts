@@ -1,8 +1,12 @@
 import { formatDate } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
-import { calTimeLineObj, getDateLocal } from "../utilities/helpersGetStats";
+import {
+  calTimeLineObj,
+  createTimeLineObj,
+  getDateLocal,
+} from "../utilities/helpersGetStats";
 
-const measuresDatesArr = [
+const measureDatesArr = [
   { date: "2022-10-23T21:00:00.000Z", value: 70 },
   { date: "2022-10-26T21:00:00.000Z", value: 89 },
   { date: "2022-10-26T21:00:00.000Z", value: 78 },
@@ -29,23 +33,23 @@ const measuresDatesArr = [
   { date: "2022-11-12T22:00:00.000Z", value: 65 },
   { date: "2022-12-26T22:00:00.000Z", value: 60 },
 ];
-const weeklyMeasure = {
+const weeklyMeasureTimeLineObj = {
   allSumObj: undefined,
   weeklySumObj: {
-    "2022-12-25": {},
-    "2022-12-26": {},
-    "2022-12-27": {},
-    "2022-12-28": {},
-    "2022-12-29": {},
-    "2022-12-30": {},
-    "2022-12-31": {},
+    "25/12/22": {},
+    "26/12/22": {},
+    "27/12/22": {},
+    "28/12/22": {},
+    "29/12/22": {},
+    "30/12/22": {},
+    "31/12/22": {},
   },
   monthlySumObj: undefined,
   monthsSumObj: undefined,
   yearsSumObj: undefined,
 };
 
-const allMeasure = {
+const allMeasuresTimeLineObj = {
   allSumObj: {},
   weeklySumObj: undefined,
   monthlySumObj: undefined,
@@ -130,35 +134,100 @@ const calTimeLineObjAllRes = {
   monthsSumObj: undefined,
   yearsSumObj: undefined,
 };
-describe.only("test calTimeLineObj", () => {
-  test("test allSumObj timeline", () => {
-    let sumAll = calTimeLineObj(
-      "measures",
-      getDateLocal(new Date("2022-10-23T21:00:00.000Z")),
-      allMeasure.allSumObj as GenericRecord<any>,
-      { amount: 2, assignNum: undefined, addTimeLine: true }
-    );
+// describe.only("test createTimeLineObj", () => {
+//   test("test create allSumObj", () => {
+//     const allTimeLineObj = createTimeLineObj(
+//       {} as { measure: number },
+//       "all",
+//       "graph"
+//     );
+//     expect(allTimeLineObj).toEqual({
+//       allSumObj: {},
+//       weeklySumObj: undefined,
+//       monthlySumObj: undefined,
+//       monthsSumObj: undefined,
+//       yearsSumObj: undefined,
+//     });
+//   });
+//   test("test create weeklySumObj", () => {
+//     const allTimeLineObj = createTimeLineObj(
+//       {} as { measure: number },
+//       "all",
+//       "graph"
+//     );
+//     expect(allTimeLineObj).toEqual({
+//       allSumObj: {},
+//       weeklySumObj: undefined,
+//       monthlySumObj: undefined,
+//       monthsSumObj: undefined,
+//       yearsSumObj: undefined,
+//     });
+//   });
+// });
 
-    expect(sumAll).toEqual({ "24/10/22": { measures: 2 } });
+describe.only("tests weight measures graph calTimeLineObj function", () => {
+  describe("test allMeasuresTimeLineObj", () => {
+    test("test allMeasuresTimeLineObj timeline when the addTimeLine option is true in the all dates that are will added to the allMeasuresTimeLineObj", () => {
+      let sumAll = calTimeLineObj(
+        "measure",
+        getDateLocal(new Date("2022-10-23T21:00:00.000Z")),
+        allMeasuresTimeLineObj.allSumObj as GenericRecord<any>,
+        { amount: 2, assignNum: undefined, addTimeLine: true }
+      );
+      expect(sumAll).toEqual({ "24/10/22": { measure: 2 } });
 
-    sumAll = calTimeLineObj(
-      "measures",
-      getDateLocal(new Date("2022-10-23T21:00:00.000Z")),
-      allMeasure.allSumObj as GenericRecord<any>,
-      { amount: 2, assignNum: undefined, addTimeLine: true }
-    );
-    expect(sumAll).toEqual({ "24/10/22": { measures: 2 } });
+      sumAll = calTimeLineObj(
+        "measure",
+        getDateLocal(new Date("2022-10-26T21:00:00.000Z")),
+        sumAll as GenericRecord<any>,
+        { amount: 2, assignNum: undefined, addTimeLine: true }
+      );
 
-    sumAll = calTimeLineObj(
-      "measures",
-      getDateLocal(new Date("2022-10-26T21:00:00.000Z")),
-      sumAll as GenericRecord<any>,
-      { amount: 2, assignNum: undefined, addTimeLine: true }
-    );
+      expect(sumAll).toEqual({
+        "24/10/22": { measure: 2 },
+        "27/10/22": { measure: 2 },
+      });
+    });
+    test("test allSumObj when the first date that is added his addTimeLine option is false", () => {
+      let sumAll = calTimeLineObj(
+        "measure",
+        getDateLocal(new Date("2022-10-23T21:00:00.000Z")),
+        allMeasuresTimeLineObj.allSumObj as GenericRecord<any>,
+        { amount: 2, assignNum: undefined, addTimeLine: false }
+      );
+      expect(sumAll).toEqual({});
 
-    expect(sumAll).toEqual({
-      "24/10/22": { measures: 2 },
-      "27/10/22": { measures: 2 },
+      sumAll = calTimeLineObj(
+        "measure",
+        getDateLocal(new Date("2022-10-26T21:00:00.000Z")),
+        sumAll as GenericRecord<any>,
+        { amount: 2, assignNum: undefined, addTimeLine: true }
+      );
+
+      expect(sumAll).toEqual({
+        "27/10/22": { measure: 2 },
+      });
+    });
+  });
+
+  describe("test weeklyMeasureTimeLineObj", () => {
+    test("test when the measure add to the correct date in the week", () => {
+      const weeklySumObj = calTimeLineObj(
+        "measure",
+        getDateLocal(new Date("2022-12-31T21:00:00.000Z")),
+        weeklyMeasureTimeLineObj.weeklySumObj as GenericRecord<any>,
+        { amount: 2, assignNum: 2, addTimeLine: false }
+      );
+
+      expect(weeklySumObj).toEqual({
+        "25/12/22": {},
+        "26/12/22": {},
+        "27/12/22": {},
+        "28/12/22": {},
+        "29/12/22": {},
+        "30/12/22": {},
+        "31/12/22": { measure: 2 },
+      });
     });
   });
 });

@@ -16,6 +16,8 @@ import {
   TimeLineDisplay,
 } from "../serviceStatisticsTypes";
 
+export const getNameMonth = (date: Date) => format(date, "MMMMMM");
+export const getDateLocal = (date: Date) => format(date, "dd/MM/yy");
 export const createLabelDatasetFromObj = <T extends GenericRecord<T[keyof T]>>(
   obj: T
 ) => ({
@@ -45,9 +47,6 @@ export const normalizeDatesValues = <T extends { date: Date; value: number }[]>(
     datasetsValues: values,
   };
 };
-
-export const getNameMonth = (date: Date) => format(date, "MMMMMM");
-export const getDateLocal = (date: Date) => format(date, "dd/MM/yy");
 
 // Creates for each day in the week a initialObj.
 export const createThisWeekDaysDisplayObj = <
