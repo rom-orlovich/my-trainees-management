@@ -221,6 +221,7 @@ export const calTimeLineObj = <
   if (!objTimeLine) return undefined;
 
   if (!objTimeLine[timeLine]) {
+    // There are some timelines like weekly, monthly, months that are predefined. if the  addTimeLine is true, the dates will add and impure these timeline with new dates.
     if (options?.addTimeLine)
       return {
         ...objTimeLine,
@@ -231,6 +232,8 @@ export const calTimeLineObj = <
 
     return { ...objTimeLine } as T;
   }
+
+  // Some calculation stats must only be assigned and not summarized with the old amounts.
   if (options?.assignNum)
     return {
       ...objTimeLine,
