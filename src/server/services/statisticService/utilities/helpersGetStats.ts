@@ -38,7 +38,7 @@ export const normalizeDatesValues = <T extends { date: Date; value: number }[]>(
     });
 
   // Make array of the formatted dates.
-  const dates = [...map.keys()].map((el) => formatDate(el, 1));
+  const dates = [...map.keys()].map((el) => getDateLocal(el));
 
   // Make array of the values.
   const values = [...map.values()];
@@ -164,10 +164,10 @@ export const createMonthObj = <
 };
 
 export interface ObjAllTimeLine<T> {
-  allSumObj?: GenericRecord<T>;
-  weeklySumObj?: GenericRecord<T>;
-  monthlySumObj?: GenericRecord<T>;
-  monthsSumObj?: GenericRecord<T>;
+  allPeriodObj?: GenericRecord<T>;
+  weeklyPeriodObj?: GenericRecord<T>;
+  monthlyPeriodObj?: GenericRecord<T>;
+  monthsPeriodObj?: GenericRecord<T>;
   yearsSumObj?: GenericRecord<T>;
 }
 export const createTimeLineObj = <T extends GenericRecord<any>>(
@@ -178,32 +178,38 @@ export const createTimeLineObj = <T extends GenericRecord<any>>(
 ): ObjAllTimeLine<T> => {
   if (graphDisplay !== CHART_DISPLAY.GRAPH)
     return {
-      allSumObj: undefined,
-      weeklySumObj: undefined,
-      monthlySumObj: undefined,
-      monthsSumObj: undefined,
+      allPeriodObj: undefined,
+      weeklyPeriodObj: undefined,
+      monthlyPeriodObj: undefined,
+      monthsPeriodObj: undefined,
       yearsSumObj: undefined,
     };
   const checkCurTimeLineDisplay = (checkTimeLineDisplay: TimeLineDisplay) =>
     checkTimeLineDisplay === timeLineDisplay;
-  const allSumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.ALL)
+  const allPeriodObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.ALL)
     ? ({} as GenericRecord<typeof initialObj>)
     : undefined;
 
-  const weeklySumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
+  const weeklyPeriodObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.WEEKLY)
     ? createThisWeekDaysDisplayObj(initialObj, dateStart)
     : undefined;
-  const monthlySumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
+  const monthlyPeriodObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHLY)
     ? createWeeksRangeMonthObj(initialObj, dateStart)
     : undefined;
-  const monthsSumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
+  const monthsPeriodObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.MONTHS)
     ? createMonthObj(initialObj)
     : undefined;
   const yearsSumObj = checkCurTimeLineDisplay(GRAPH_TIME_LINE.YEARS)
     ? ({} as GenericRecord<typeof initialObj>)
     : undefined;
 
-  return { allSumObj, weeklySumObj, monthlySumObj, monthsSumObj, yearsSumObj };
+  return {
+    allPeriodObj,
+    weeklyPeriodObj,
+    monthlyPeriodObj,
+    monthsPeriodObj,
+    yearsSumObj,
+  };
 };
 // Generic function that calculate object timeline in pure way.
 export const calTimeLineObj = <
@@ -266,28 +272,28 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   const curYear = date.getFullYear();
 
   return {
-    allSumObj: calTimeLineObj(
+    allPeriodObj: calTimeLineObj(
       dataType,
       formattedDate,
-      objAllTimeLine.allSumObj,
+      objAllTimeLine.allPeriodObj,
       { ...options, addTimeLine: true }
     ),
-    weeklySumObj: calTimeLineObj(
+    weeklyPeriodObj: calTimeLineObj(
       dataType,
       formattedDate,
-      objAllTimeLine.weeklySumObj,
+      objAllTimeLine.weeklyPeriodObj,
       { ...options, addTimeLine: false }
     ),
-    monthlySumObj: calTimeLineObj(
+    monthlyPeriodObj: calTimeLineObj(
       dataType,
       weekRangeInMonth,
-      objAllTimeLine.monthlySumObj,
+      objAllTimeLine.monthlyPeriodObj,
       { ...options, addTimeLine: false }
     ),
-    monthsSumObj: calTimeLineObj(
+    monthsPeriodObj: calTimeLineObj(
       dataType,
       dateMonth,
-      objAllTimeLine.monthsSumObj,
+      objAllTimeLine.monthsPeriodObj,
       { ...options, addTimeLine: false }
     ),
     yearsSumObj: calTimeLineObj(
@@ -303,16 +309,16 @@ export const getResultGraphStats = <T>(
   objAllTimeLine: ObjAllTimeLine<T>,
   normalizeDateValues: (timeLine: GenericRecord<T>) => any
 ) => {
-  if (objAllTimeLine.allSumObj)
-    return normalizeDateValues(objAllTimeLine.allSumObj);
-  if (objAllTimeLine.weeklySumObj)
-    return normalizeDateValues(objAllTimeLine.weeklySumObj);
+  if (objAllTimeLine.allPeriodObj)
+    return normalizeDateValues(objAllTimeLine.allPeriodObj);
+  if (objAllTimeLine.weeklyPeriodObj)
+    return normalizeDateValues(objAllTimeLine.weeklyPeriodObj);
 
-  if (objAllTimeLine.monthlySumObj)
-    return normalizeDateValues(objAllTimeLine.monthlySumObj);
+  if (objAllTimeLine.monthlyPeriodObj)
+    return normalizeDateValues(objAllTimeLine.monthlyPeriodObj);
 
-  if (objAllTimeLine.monthsSumObj)
-    return normalizeDateValues(objAllTimeLine.monthsSumObj);
+  if (objAllTimeLine.monthsPeriodObj)
+    return normalizeDateValues(objAllTimeLine.monthsPeriodObj);
 
   if (objAllTimeLine.yearsSumObj)
     return normalizeDateValues(objAllTimeLine.yearsSumObj);
