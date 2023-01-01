@@ -69,7 +69,7 @@ export const createThisWeekDaysDisplayObj = <
   }).forEach((date) => {
     weeklyDaysObj = {
       ...weeklyDaysObj,
-      [formatDate(date, 0)]: { ...initialObj },
+      [getDateLocal(date)]: { ...initialObj },
     };
   });
   return weeklyDaysObj;
@@ -259,7 +259,6 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   } = {}
 ) => {
   const formattedDate = getDateLocal(date);
-  // const formattedDate = formatDate(date, 0);
   const weekRangeInMonth = getWeekRangeInMonthStr(date);
   const dateMonth = getNameMonth(date);
   const curYear = date.getFullYear();
@@ -300,7 +299,6 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
 
 export const getResultGraphStats = <T>(
   objAllTimeLine: ObjAllTimeLine<T>,
-
   normalizeDateValues: (timeLine: GenericRecord<T>) => any
 ) => {
   if (objAllTimeLine.allSumObj)
