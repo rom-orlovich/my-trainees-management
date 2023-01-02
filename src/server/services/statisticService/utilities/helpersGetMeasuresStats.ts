@@ -46,8 +46,6 @@ export const measuresChartLineCreateLabelAndDatasets = (
     });
   });
 
-  // loggerJson.debug(objAllTimeLine);
-
   return getResultGraphStats(objAllTimeLine, (timeLineObj) =>
     normalizeDatesValuesSumObj(timeLineObj, "measure")
   );

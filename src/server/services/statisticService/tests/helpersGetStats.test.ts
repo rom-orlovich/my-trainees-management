@@ -1,13 +1,10 @@
-import { formatDate } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
-import {
-  createSortMeasuresDateWeightArray,
-  measuresChartLineCreateLabelAndDatasets,
-} from "../utilities/helpersGetMeasuresStats";
+import { measuresChartLineCreateLabelAndDatasets } from "../utilities/helpersGetMeasuresStats";
 import {
   calTimeLineObj,
   createTimeLineObj,
   getDateLocal,
+  MONTHS,
 } from "../utilities/helpersGetStats";
 
 const measureDatesArr = [
@@ -255,13 +252,81 @@ describe.only("tests weight measures graph calTimeLineObj function", () => {
   });
 });
 
-describe.only("test measuresChartLineCreateLabelAndDatasets", () => {
-  const chartLineDataSet = measuresChartLineCreateLabelAndDatasets(
-    measureDatesArr.map((el) => ({ ...el, date: new Date(el.date) })),
-    "all"
-  );
-  expect(chartLineDataSet).toEqual({
-    labelFormatted: ["24/10/22", "27/10/22", "28/10/22"],
-    datasetsValues: [70, 71, 56],
+describe.only("test measuresChartLineCreateLabelAndDatasets function from helpersGetMeasuresStats.ts", () => {
+  const measuresDateValueArr = measureDatesArr.map((el) => ({
+    ...el,
+    date: new Date(el.date),
+  }));
+  test("test graph in display of period all", () => {
+    const chartLineDataSet = measuresChartLineCreateLabelAndDatasets(
+      measuresDateValueArr,
+      "all"
+    );
+
+    expect(chartLineDataSet).toEqual({
+      labelFormatted: ["24/10/22", "27/10/22", "28/10/22"],
+      datasetsValues: [70, 71, 56],
+    });
+  });
+  test("test graph in display of period months", () => {
+    const chartLineDataSet = measuresChartLineCreateLabelAndDatasets(
+      measuresDateValueArr,
+      "months"
+    );
+    expect(chartLineDataSet).toEqual({
+      labelFormatted: MONTHS,
+      datasetsValues: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        56,
+        undefined,
+        undefined,
+      ],
+    });
+  });
+  test("test graph in display of period weekly", () => {
+    const chartLineDataSet = measuresChartLineCreateLabelAndDatasets(
+      measuresDateValueArr,
+      "weekly",
+      "2022-10-23T21:00:00.000Z"
+    );
+
+    expect(chartLineDataSet).toEqual({
+      labelFormatted: [
+        "23/10/22",
+        "24/10/22",
+        "25/10/22",
+        "26/10/22",
+        "27/10/22",
+        "28/10/22",
+        "29/10/22",
+      ],
+      datasetsValues: [undefined, 70, undefined, undefined, 71, 56, undefined],
+    });
+  });
+  test("test graph in display of period monthly", () => {
+    const chartLineDataSet = measuresChartLineCreateLabelAndDatasets(
+      measuresDateValueArr,
+      "monthly",
+      "2022-10-23T21:00:00.000Z"
+    );
+
+    expect(chartLineDataSet).toEqual({
+      labelFormatted: [
+        "01/10/22",
+        "08/10/22",
+        "15/10/22",
+        "22/10/22",
+        "29/10/22",
+      ],
+      datasetsValues: [undefined, undefined, undefined, 71, 56],
+    });
   });
 });

@@ -7,7 +7,7 @@ import {
   lastDayOfMonth,
   startOfWeek,
 } from "date-fns";
-import { formatDate, addToDate } from "../../../utilities/helpers";
+import { addToDate } from "../../../utilities/helpers";
 import { GenericRecord } from "../../../utilities/types";
 import {
   ChartTypes,
@@ -15,6 +15,21 @@ import {
   GRAPH_TIME_LINE,
   TimeLineDisplay,
 } from "../serviceStatisticsTypes";
+
+export const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 export const getNameMonth = (date: Date) => format(date, "MMMMMM");
 export const getDateLocal = (date: Date) => format(date, "dd/MM/yy");
@@ -79,7 +94,7 @@ export const getWeekRangeInMonthStr = (date: Date) => {
   const curDate = new Date(date);
   const curDay = curDate.getDate();
   const remainder = curDay % 7;
-  const dateStartWeek = new Date(date.setDate(curDay - remainder));
+  const dateStartWeek = new Date(curDate.setDate(curDay - remainder));
   const start = getDateLocal(addToDate(dateStartWeek, { dPlus: 1 }));
   const str = `${start}`;
   return str;
@@ -139,22 +154,8 @@ export const createMonthObj = <
 >(
   initialObj: K
 ) => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
   let monthsFinancesObj = {} as R;
-  months.forEach((month) => {
+  MONTHS.forEach((month) => {
     monthsFinancesObj = {
       ...monthsFinancesObj,
       [month]: { ...initialObj },
@@ -267,7 +268,9 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   } = {}
 ) => {
   const formattedDate = getDateLocal(date);
+
   const weekRangeInMonth = getWeekRangeInMonthStr(date);
+
   const dateMonth = getNameMonth(date);
   const curYear = date.getFullYear();
 
