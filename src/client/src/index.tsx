@@ -8,12 +8,13 @@ import "./style/utilities/base.scss";
 import { mainRoutes } from "./tsx/routes/mainRoutes";
 
 const container = document.getElementById("root")!;
-const root = createRoot(container);
 
-root.render(
+export const wrapperApp = (
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={mainRoutes} />
     </Provider>
   </React.StrictMode>
 );
+const root = createRoot(container);
+root.render(wrapperApp);
