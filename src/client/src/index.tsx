@@ -13,9 +13,6 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter> */}
       <RouterProvider router={mainRoutes} />
     </Provider>
   </React.StrictMode>
