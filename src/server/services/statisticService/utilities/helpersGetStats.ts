@@ -270,7 +270,6 @@ export const calAllTimeLineObj = <T extends GenericRecord<any>>(
   const formattedDate = getDateLocal(date);
 
   const weekRangeInMonth = getWeekRangeInMonthStr(date);
-
   const dateMonth = getNameMonth(date);
   const curYear = date.getFullYear();
 
