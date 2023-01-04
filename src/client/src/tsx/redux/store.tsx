@@ -1,4 +1,10 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  ThunkAction,
+  Action,
+  PreloadedState,
+  ConfigureStoreOptions,
+} from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 import { middlewareArr, reducersArr } from "./api/hooksAPI";
@@ -11,9 +17,8 @@ import { authApi } from "./api/authAPI";
 import { modelControllerSlice } from "./slices/modelControllerSlices/modelControllerSlice";
 import { nutritionQuestionnaireFormSlice } from "./slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 import { filterFoodsFormSlice } from "./slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
-
 // Configure the reducers and the middleware of redux.
-export const store = configureStore({
+const configureStoreOptions: ConfigureStoreOptions = {
   reducer: {
     tablesPaginationState: tablesPaginationState.reducer,
     menusSlice: menusSlice.reducer,
@@ -24,16 +29,16 @@ export const store = configureStore({
     nutritionQuestionnaireFormSlice: nutritionQuestionnaireFormSlice.reducer,
     filterFoodsFormSlice: filterFoodsFormSlice.reducer,
     authApi: authApi.reducer,
-
     ...reducersArr,
   },
 
   middleware: (defaultMiddleware) =>
     [...defaultMiddleware(), ...middlewareArr, authApi.middleware] as any,
-});
+};
+export const store = configureStore(configureStoreOptions);
 
 setupListeners(store.dispatch);
-export type AppDispatch = typeof store.dispatch;
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -41,3 +46,9 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
+  configureStore({ ...configureStoreOptions, preloadedState });
+
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = typeof store.dispatch;

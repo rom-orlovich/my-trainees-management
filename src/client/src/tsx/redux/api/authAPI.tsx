@@ -3,7 +3,7 @@ import { API_ROUTES } from "./apiRoutes";
 import { ResponseMutationAuthAPI, SignUpForm } from "./interfaceAPI";
 
 export const apiAuthBaseQuery = fetchBaseQuery({
-  baseUrl: API_ROUTES.API_AUTH_ROUTE,
+  baseUrl: `${API_ROUTES.API_AUTH_ROUTE}`,
   credentials: "include",
 });
 
