@@ -15,7 +15,7 @@ export const pathIsAuthRoute = (path: string) => {
   return authRoutes.map((el) => el.path).includes(pathEndPointURL);
 };
 
-function PersistedLogin() {
+export function PersistedLogin() {
   const authState = useAppSelector(getAuthState);
   const nav = useNavigate();
 
@@ -53,5 +53,3 @@ function PersistedLogin() {
     </LoadingSpinner>
   );
 }
-
-export default PersistedLogin;

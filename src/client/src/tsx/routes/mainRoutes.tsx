@@ -11,7 +11,7 @@ import { adminOrTrainerProtectedRoutes } from "./protectedRoutes/adminOrTrainerP
 import { sharedProtectedRoutes } from "./protectedRoutes/sharedProtectedRoutes";
 import MainPageRouteByRole from "./utilities/MainPageRouteByRole";
 
-import PersistedLogin from "./utilities/PersistedLogin";
+import { PersistedLogin } from "./utilities/PersistedLogin";
 import { adminProtectedRoutes } from "./protectedRoutes/adminProtectedRoutes";
 import { traineeProtectedRoutes } from "./protectedRoutes/traineeProtectedRoutes";
 
