@@ -6,9 +6,27 @@ export const handlers = [
     `*${API_ROUTES.API_AUTH_ROUTE}${API_ROUTES.REFRESH_TOKEN_ROUTE}`,
     (req, res, ctx) => {
       const refreshToken = req.cookies.refresh_token;
-      if (refreshToken) return res(ctx.status(201), ctx.json({ user: "2" }));
+      if (refreshToken)
+        return res(
+          ctx.status(201),
+          ctx.json({
+            statusCode: 201,
+            message: "Access token has create successfully!",
+            user: {
+              user_id: 2,
+              role: "trainer",
+              username: "trainer123",
+              verify_token: null,
+              profile_id: 2,
+              trainee_id: null,
+              trainer_user_id: null,
+            },
+            accessToken:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidHJhaW5lciIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoidHJhaW5lcjEyMyIsImlhdCI6MTY3Mjk1ODU3NSwiZXhwIjoxNjcyOTU5NDc1fQ.GJFtvPCDYBINSqXtJcfNcF79iEs6qYJIfzzJzga0KPs",
+          })
+        );
 
-      return res(ctx.status(403), ctx.json({ user: "2" }));
+      return res(ctx.status(403));
     }
   ),
   rest.post(

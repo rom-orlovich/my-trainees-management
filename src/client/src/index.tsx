@@ -4,8 +4,7 @@ import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { store } from "./tsx/redux/store";
 import "./style/utilities/base.scss";
-
-import { browserRoutes } from "./tsx/routes/browserRoutes";
+import { browserRoutes } from "./tsx/routes/appRoutes";
 
 const container = document.getElementById("root")!;
 

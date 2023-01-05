@@ -6,6 +6,7 @@ import { AnyFun } from "../../../types";
 function BackgroundVideo({ onLoadedData }: { onLoadedData?: AnyFun }) {
   return (
     <video
+      data-testid="background_video"
       autoPlay
       muted
       loop

@@ -4,9 +4,11 @@ import {
   Action,
   PreloadedState,
   ConfigureStoreOptions,
+  EnhancedStore,
 } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
+import { CurriedGetDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
 import { middlewareArr, reducersArr } from "./api/hooksAPI";
 import { menusSlice } from "./slices/menusSlice";
 import { formValuesState } from "./slices/formValuesStateSlice";
@@ -18,7 +20,7 @@ import { modelControllerSlice } from "./slices/modelControllerSlices/modelContro
 import { nutritionQuestionnaireFormSlice } from "./slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 import { filterFoodsFormSlice } from "./slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
 // Configure the reducers and the middleware of redux.
-const configureStoreOptions: ConfigureStoreOptions = {
+const configureStoreOptions = {
   reducer: {
     tablesPaginationState: tablesPaginationState.reducer,
     menusSlice: menusSlice.reducer,
@@ -32,10 +34,26 @@ const configureStoreOptions: ConfigureStoreOptions = {
     ...reducersArr,
   },
 
-  middleware: (defaultMiddleware) =>
+  middleware: (defaultMiddleware: CurriedGetDefaultMiddleware) =>
     [...defaultMiddleware(), ...middlewareArr, authApi.middleware] as any,
 };
-export const store = configureStore(configureStoreOptions);
+export const store = configureStore({
+  reducer: {
+    tablesPaginationState: tablesPaginationState.reducer,
+    menusSlice: menusSlice.reducer,
+    formValuesState: formValuesState.reducer,
+    apiSideEffect: apiSideEffectSlice.reducer,
+    authSlice: authSlice.reducer,
+    modelControllerSlice: modelControllerSlice.reducer,
+    nutritionQuestionnaireFormSlice: nutritionQuestionnaireFormSlice.reducer,
+    filterFoodsFormSlice: filterFoodsFormSlice.reducer,
+    authApi: authApi.reducer,
+    ...reducersArr,
+  } as const,
+
+  middleware: (defaultMiddleware) =>
+    [...defaultMiddleware(), ...middlewareArr, authApi.middleware] as any,
+});
 
 setupListeners(store.dispatch);
 
@@ -47,7 +65,9 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
+export const setupStore = (
+  preloadedState?: PreloadedState<RootState>
+): EnhancedStore<RootState> =>
   configureStore({ ...configureStoreOptions, preloadedState });
 
 export type AppStore = ReturnType<typeof setupStore>;

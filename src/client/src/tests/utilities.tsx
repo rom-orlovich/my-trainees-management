@@ -15,7 +15,7 @@ export const renderUI = (
   UI: JSX.Element,
   initialEntries = ["/"],
   {
-    preloadedState = {},
+    preloadedState = {} as RootState,
     store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}
@@ -33,7 +33,7 @@ export const renderUI = (
   );
 
   return {
-    ...store,
+    store,
     ...render(UI, { wrapper, ...renderOptions }),
   };
 };
