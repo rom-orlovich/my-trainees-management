@@ -41,8 +41,7 @@ export const dashboardRoutes: RouteObject = {
     traineeProtectedRoutes,
   ],
 };
-
-export const mainRoutes = createBrowserRouter([
+export const appRoutes: RouteObject[] = [
   {
     path: APP_ROUTE.HOME_PAGE,
     element: <PersistedLogin />,
@@ -50,4 +49,6 @@ export const mainRoutes = createBrowserRouter([
 
     errorElement: <ErrorPage />,
   },
-]);
+];
+
+export const browserRoutes = createBrowserRouter(appRoutes);

@@ -67,7 +67,6 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
 
   const userSignature = {
     role: user[0].role,
-
     user_id: user[0].user_id,
     username: user[0].username,
   };
@@ -114,15 +113,15 @@ export const refreshTokenHandler: RequestHandler = async (req, res, next) => {
   );
 
   const { password: pwd, refresh_tokens: refreshToken1, ...restUser } = user[0];
+  const successMessage = "Access token has create successfully!";
 
   req.logAlertInfo = prepareLogAlert(
     {
-      message: "Access token has create successfully!",
-
+      message: successMessage,
       data: {
         user: restUser,
         accessToken,
-        message: "Access token has create successfully!",
+        message: successMessage,
       },
       statusCode: 201,
     },

@@ -5,14 +5,14 @@ import { RouterProvider } from "react-router-dom";
 import { store } from "./tsx/redux/store";
 import "./style/utilities/base.scss";
 
-import { mainRoutes } from "./tsx/routes/mainRoutes";
+import { browserRoutes } from "./tsx/routes/browserRoutes";
 
 const container = document.getElementById("root")!;
 
 export const wrapperApp = (
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={mainRoutes} />
+      <RouterProvider router={browserRoutes} />
     </Provider>
   </React.StrictMode>
 );

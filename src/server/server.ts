@@ -52,7 +52,7 @@ app.use(
 );
 
 // Init auth route.
-app.use(API_ROUTES.API_AUTH_ROUTE, authRouter);
+app.use(`${API_ROUTES.API_AUTH_ROUTE}`, authRouter);
 
 // Init all CRUD routes of the app.
 routesConfigArr.forEach(({ baseRoute, router }) => {

@@ -8,7 +8,7 @@ import HomePage from "../../pages/HomePage/HomePage";
 import { authApi } from "../../redux/api/authAPI";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
-import { authRoutes } from "../mainRoutes";
+import { authRoutes } from "../appRoutes";
 
 export const pathIsAuthRoute = (path: string) => {
   const pathEndPointURL = path.slice(1);
