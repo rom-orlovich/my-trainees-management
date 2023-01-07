@@ -14,9 +14,7 @@ const loadingSpinnerTest = async (screen: ReturnType<typeof renderUI>) => {
 describe("test initialization of the app ", () => {
   const user = userEvent.setup();
   let screen: ReturnType<typeof renderUI>;
-  // beforeEach(() => {
-  //   screen = renderUI(<PersistedLogin />);
-  // });
+
   test("loading home page when the user is not login", async () => {
     screen = renderUI(<PersistedLogin />);
     const getStartedBtn = await screen.findByRole("link", {
