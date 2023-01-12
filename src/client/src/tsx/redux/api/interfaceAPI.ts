@@ -19,10 +19,11 @@ export interface User {
   user_id: number;
   username: string;
   email: string;
-  trainee_id?: number;
-  trainer_user_id: number;
+  trainee_id?: number | null;
+  trainer_user_id: number | null;
   profile_id: number;
   role: "admin" | "trainer" | "trainee";
+  verify_token: null;
 }
 
 export interface ResponseMutationAuthAPI {
