@@ -19,9 +19,10 @@ import { authApi } from "./api/authAPI";
 import { modelControllerSlice } from "./slices/modelControllerSlices/modelControllerSlice";
 import { nutritionQuestionnaireFormSlice } from "./slices/nutritionQuestionnaireFormSlices/nutritionQuestionnaireFormSlice";
 import { filterFoodsFormSlice } from "./slices/nutritionQuestionnaireFormSlices/filterFoodsFormSlice";
+import { RootState } from "./store.types";
 
 // The redux reducers of the app
-const reducers = combineReducers({
+export const storeReducers = combineReducers({
   tablesPaginationState: tablesPaginationState.reducer,
   menusSlice: menusSlice.reducer,
   formValuesState: formValuesState.reducer,
@@ -35,29 +36,18 @@ const reducers = combineReducers({
 });
 
 // Configure the reducers and the middleware of redux.
-const configureStoreOptions: ConfigureStoreOptions<
-  ReturnType<typeof reducers>
-> = {
-  reducer: reducers,
-  middleware: (
-    defaultMiddleware: CurriedGetDefaultMiddleware<ReturnType<typeof reducers>>
-  ) => [...defaultMiddleware(), authApi.middleware, ...(middlewareArr as any)],
+export const configureStoreOptions: ConfigureStoreOptions<RootState> = {
+  reducer: storeReducers,
+  middleware: (defaultMiddleware: CurriedGetDefaultMiddleware<RootState>) => [
+    ...defaultMiddleware(),
+    authApi.middleware,
+    ...(middlewareArr as any),
+  ],
 };
-export type PreloadedStateStore = PreloadedState<ReturnType<typeof reducers>>;
 
-export const setupStore = (
-  preloadedState?: PreloadedState<ReturnType<typeof reducers>>
-) => configureStore({ ...configureStoreOptions, preloadedState });
+export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
+  configureStore({ ...configureStoreOptions, preloadedState });
 
 export const store = setupStore();
-export type RootState = ReturnType<typeof store.getState>;
-setupListeners(store.dispatch);
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
 
-export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = typeof store.dispatch;
+setupListeners(store.dispatch);
