@@ -1,4 +1,5 @@
-import { createApi } from "@reduxjs/toolkit/dist/query/react";
+import { CreateApi, createApi } from "@reduxjs/toolkit/dist/query/react";
+import { combineReducers, Reducer } from "@reduxjs/toolkit";
 import {
   MusclesGroupTableAPI,
   CitiesTableAPI,
@@ -302,6 +303,7 @@ export const emailAPi = createApi({
     }),
   }),
 });
+// export type ApiCRUDHooks = ReturnType<typeof apiCreateCRUDHooks<any>>;
 
 export const apiCreateCrudArr = [
   leadsApi,
@@ -329,19 +331,20 @@ export const apiCreateCrudArr = [
   meetingApi,
   participantsGroupApi,
   participantsGroupsListApi,
-  financesApi,
-  emailAPi,
   foodsApi,
   nutritionQuestionnaireApi,
+  financesApi,
+  emailAPi,
 ];
 
 // Create Reducer arr that contains  object with key of the reducer name and value the reducer function.
 // eslint-disable-next-line import/no-mutable-exports
-let reducersArr = {};
+let reducersObj: Record<string, Reducer> = {};
 apiCreateCrudArr.forEach((value) => {
-  reducersArr = { ...reducersArr, [value.reducerPath]: value.reducer };
+  reducersObj = { ...reducersObj, [value.reducerPath]: value.reducer };
 });
-export { reducersArr };
+
+export { reducersObj };
 
 // Create middlewareArr from the apiCreateCrudArr.
 export const middlewareArr = apiCreateCrudArr.map((el) => el.middleware);

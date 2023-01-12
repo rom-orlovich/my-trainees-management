@@ -1,4 +1,14 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
+import { FetchBaseQueryArgs } from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
+import {
+  BaseQueryFn,
+  CreateApi,
+  createApi,
+  QueryDefinition,
+  FetchArgs,
+  FetchBaseQueryError,
+  MutationDefinition,
+  EndpointDefinition,
+} from "@reduxjs/toolkit/query/react";
 import { GenericRecord } from "../../types";
 
 import { providerTag, providerTags } from "../reduxHelpers";
