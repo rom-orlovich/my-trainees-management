@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { APP_ROUTE } from "../tsx/routes/appRoutesConstants";
 
 import { PersistedLogin } from "../tsx/routes/utilities/PersistedLogin";
-import { renderUI } from "./utilities";
+import { renderUI } from "./test.utilities";
 
 const loadingSpinnerTest = async (screen: ReturnType<typeof renderUI>) => {
   const loading = await screen.findByText("Loading...");
