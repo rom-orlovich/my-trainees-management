@@ -8,7 +8,7 @@ import { traineesApi } from "../../redux/api/hooksAPI";
 import style from "../Page.module.scss";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 
 function Trainees() {
   const [trainee, setTrainee] = useState<string[]>(["", ""]);

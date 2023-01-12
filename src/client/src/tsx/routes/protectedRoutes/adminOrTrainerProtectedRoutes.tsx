@@ -8,7 +8,7 @@ import LeadEditForm from "../../components/Forms/LeadForms/LeadEditForm";
 import FinancesPage from "../../pages/FinancesPage/FinancesPage";
 import LeadsPage from "../../pages/LeadsPage/LeadsPage";
 import { APP_ROUTE } from "../appRoutesConstants";
-import { AdminOrTrainerProtectedRoutes } from "../utilities/ProtectedRoute";
+import { AdminOrTrainerProtectedRoutes } from "../components/ProtectedRoute";
 import { settingsRoutes } from "./adminOrTrainerProtectedRoutes/settingsRoutes";
 import { traineesRoutes } from "./adminOrTrainerProtectedRoutes/traineesRoutes";
 

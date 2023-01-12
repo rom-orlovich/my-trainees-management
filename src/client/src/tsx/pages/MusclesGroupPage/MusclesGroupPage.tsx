@@ -5,7 +5,7 @@ import AutocompleteInput from "../../components/baseComponents/RHF-Components/Au
 import { musclesGroupApi } from "../../redux/api/hooksAPI";
 import { MusclesGroupTableAPI } from "../../redux/api/interfaceAPI";
 
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import page_style from "../Page.module.scss";

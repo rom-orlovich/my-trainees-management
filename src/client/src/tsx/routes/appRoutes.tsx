@@ -9,9 +9,9 @@ import EmailVerifyPage from "../pages/AuthPages/EmailVerifyPage/EmailVerifyPage"
 
 import { adminOrTrainerProtectedRoutes } from "./protectedRoutes/adminOrTrainerProtectedRoutes";
 import { sharedProtectedRoutes } from "./protectedRoutes/sharedProtectedRoutes";
-import MainPageRouteByRole from "./utilities/MainPageRouteByRole";
+import MainPageRouteByRole from "./components/MainPageRouteByRole";
 
-import { PersistedLogin } from "./utilities/PersistedLogin";
+import { PersistedLogin } from "./components/PersistedLogin/PersistedLogin";
 import { adminProtectedRoutes } from "./protectedRoutes/adminProtectedRoutes";
 import { traineeProtectedRoutes } from "./protectedRoutes/traineeProtectedRoutes";
 

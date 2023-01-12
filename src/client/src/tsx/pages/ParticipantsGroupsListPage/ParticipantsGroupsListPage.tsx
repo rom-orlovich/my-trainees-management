@@ -10,7 +10,7 @@ import style from "../Page.module.scss";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 import { useAppDispatch } from "../../redux/hooks";
 import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 

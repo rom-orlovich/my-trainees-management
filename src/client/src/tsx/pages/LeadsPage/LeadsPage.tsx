@@ -7,7 +7,7 @@ import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 import style from "../Page.module.scss";
 import LeadsTable from "./LeadsTable";
 

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { LinkData } from "../../components/baseComponents/baseComponentsTypes";
 import List from "../../components/baseComponents/List/List";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 import { genClassName } from "../../utilities/helpersFun";
 import style from "./MiscDataPage.module.scss";
 import Card from "../../components/baseComponents/Card/Card";

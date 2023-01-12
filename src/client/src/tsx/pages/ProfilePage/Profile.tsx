@@ -4,7 +4,7 @@ import useCheckRole from "../../hooks/useCheckRole";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 import TraineeProfile from "./TraineeProfile/TraineeProfile";
 import TrainerProfile from "./TrainerProfile/TrainerProfile";
 

@@ -10,7 +10,7 @@ import style from "../Page.module.scss";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 
 export const NUTRITION_MENU_NAME_DATA = "Nutrition Menu";
 function NutritionMenusList() {

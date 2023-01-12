@@ -4,7 +4,7 @@ import AutocompleteInput from "../../components/baseComponents/RHF-Components/Au
 import { exercisesApi } from "../../redux/api/hooksAPI";
 import { ExercisesTableAPI } from "../../redux/api/interfaceAPI";
 
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "../Page.module.scss";

@@ -6,7 +6,7 @@ import MiscDataPage from "../../pages/MiscDataPage/MiscDataPage";
 
 import { APP_ROUTE } from "../appRoutesConstants";
 
-import { SharedProtectedRoutes } from "../utilities/ProtectedRoute";
+import { SharedProtectedRoutes } from "../components/ProtectedRoute";
 import { nutritionMenusListRoutes } from "./sharedProtectedRoutes/nutritionProgramListRoutes";
 import { profileRoutes } from "./sharedProtectedRoutes/profileRoutes";
 import { trainingProgramsListRoutes } from "./sharedProtectedRoutes/trainingProgramListRoutes";

@@ -11,7 +11,7 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import ParticipantsGroupTable from "./ParticipantsGroupTable";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 import { useAppDispatch } from "../../redux/hooks";
 import { openModel } from "../../redux/slices/modelControllerSlices/modelControllerSlice";
 

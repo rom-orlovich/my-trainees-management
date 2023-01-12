@@ -11,7 +11,7 @@ import IncomesTable from "./IncomesTable";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import useGetUserLoginData from "../../hooks/useGetUserLoginData";
 import ExpensesTable from "./ExpensesTable";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 
 export type QueriesOptionsPropsWithNameData = { nameData?: string } & {
   queriesOptions?: Record<string, any>;

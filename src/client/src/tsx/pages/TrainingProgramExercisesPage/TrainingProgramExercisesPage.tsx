@@ -5,7 +5,7 @@ import AutocompleteInput from "../../components/baseComponents/RHF-Components/Au
 import { TablePagination } from "../../components/baseComponents/Tables/TablePagination";
 import { trainingProgramsApi } from "../../redux/api/hooksAPI";
 import { TrainingProgramExerciseTableAPI } from "../../redux/api/interfaceAPI";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { deleteFunMutation } from "../../utilities/helpersFun";
 

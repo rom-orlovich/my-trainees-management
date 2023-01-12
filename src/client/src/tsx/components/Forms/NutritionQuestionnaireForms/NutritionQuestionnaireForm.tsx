@@ -90,14 +90,6 @@ export function NutritionQuestionnaireForm({
                   InputProps={{
                     ...register("day_start"),
                     type: "time",
-                    // onChange: (e) => {
-                    //   console.log(e.target.value);
-                    //   const today = new Date();
-                    //   const time = new Date(
-                    //     `${today.toLocaleDateString()} ${e.target.value}`
-                    //   );
-                    //   setValue("day_start", time);
-                    // },
                   }}
                   LabelProps={{
                     htmlFor: "date_start",

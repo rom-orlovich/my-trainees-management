@@ -11,7 +11,7 @@ import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import { useAppSelector } from "../../redux/hooks";
 import { getAuthState } from "../../redux/slices/authSlice";
 import useGetUserTraineeData from "../../hooks/useGetUserTraineeData";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 
 function TrainingPrograms() {
   const { traineeID } = useGetUserTraineeData();

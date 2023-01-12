@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import InsteadOutletRoutes from "../../routes/utilities/InsteadOutletRoutes";
+import InsteadOutletRoutes from "../../routes/components/InsteadOutletRoutes";
 import { APP_ROUTE } from "../../routes/appRoutesConstants";
 import style from "./HomePage.module.scss";
 import BackgroundVideo from "../../components/baseComponents/BackgroundVideo/BackgroundVideo";

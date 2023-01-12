@@ -1,7 +1,7 @@
 import { RouteObject } from "react-router-dom";
 import UsersPage from "../../pages/UsersPage/UsersPage";
 import { APP_ROUTE } from "../appRoutesConstants";
-import { AdminProtectedRoutes } from "../utilities/ProtectedRoute";
+import { AdminProtectedRoutes } from "../components/ProtectedRoute";
 
 export const adminProtectedRoutes: RouteObject = {
   path: "",
