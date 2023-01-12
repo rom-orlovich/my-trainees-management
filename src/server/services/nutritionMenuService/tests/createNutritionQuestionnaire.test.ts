@@ -6,15 +6,15 @@ import {
   createRandomMealsSizePercents,
 } from "../utilities/helpersCreateNutritionQuestionnaire";
 
-describe.skip("helpersCreateNutritionQuestionnaire", () => {
-  it("test createRandomMealsSizePercents", () => {
+describe("helpersCreateNutritionQuestionnaire", () => {
+  test("test createRandomMealsSizePercents", () => {
     const { mealsSizePercentsArr, sumMealsPercents } =
       createRandomMealsSizePercents(3);
     expect(mealsSizePercentsArr.length).toBe(3);
     expect(sumMealsPercents).toBeGreaterThan(40);
   });
 
-  it("test newMealsSizePercentsArr", () => {
+  test("test newMealsSizePercentsArr", () => {
     let { newMealsSizePercentsArr, newTotalMealsPercents } =
       completeTheDiffInEachMeals(50, [12, 24, 14]);
     expect(newMealsSizePercentsArr).toEqual([28, 40, 30]);
@@ -26,7 +26,7 @@ describe.skip("helpersCreateNutritionQuestionnaire", () => {
     expect(newTotalMealsPercents).toBe(100);
   });
 
-  it("test balanceRandomMealsSizeToBeExact100", () => {
+  test("test balanceRandomMealsSizeToBeExact100", () => {
     let newMealsSizePercentsArr = balanceRandomMealsSizeToBeExact100({
       sumMealsPercents: 50,
       mealsSizePercentsArr: [12, 24, 14],
@@ -44,7 +44,7 @@ describe.skip("helpersCreateNutritionQuestionnaire", () => {
     );
   });
 
-  it("test createMealsSizePercents", () => {
+  test("test createMealsSizePercents", () => {
     const numMeals = calUserNumMeals("11:35", "22:10");
     expect(numMeals).toBe(2);
     let res = createMealsSizePercents({

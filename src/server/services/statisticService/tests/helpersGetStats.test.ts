@@ -46,7 +46,7 @@ const yearsMeasure = {
   yearsPeriodObj: {},
 };
 
-describe.only("test createTimeLineObj", () => {
+describe("test createTimeLineObj", () => {
   test("test create allPeriodObj", () => {
     const allPeriodObj = createTimeLineObj(
       {} as { measure: number },
@@ -91,7 +91,7 @@ describe.only("test createTimeLineObj", () => {
   });
 });
 
-describe.only("tests weight measures graph calTimeLineObj function", () => {
+describe("tests weight measures graph calTimeLineObj function", () => {
   describe("test calculate of allPeriodObj", () => {
     test("test allMeasuresTimeLineObj timeline when the addTimeLine option is true in the all dates that are will added to the allMeasuresTimeLineObj", () => {
       let sumAll = calTimeLineObj(
@@ -252,7 +252,7 @@ describe.only("tests weight measures graph calTimeLineObj function", () => {
   });
 });
 
-describe.only("test measuresChartLineCreateLabelAndDatasets function from helpersGetMeasuresStats.ts", () => {
+describe("test measuresChartLineCreateLabelAndDatasets function from helpersGetMeasuresStats.ts", () => {
   const measuresDateValueArr = measureDatesArr.map((el) => ({
     ...el,
     date: new Date(el.date),
