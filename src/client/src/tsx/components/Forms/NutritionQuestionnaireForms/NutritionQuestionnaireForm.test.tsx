@@ -23,6 +23,7 @@ describe("NutritionQuestionnaireForm.test", () => {
               role: "trainer",
               username: "trainer123",
               verify_token: null,
+
               profile_id: 2,
               trainee_id: null,
               trainer_user_id: null,

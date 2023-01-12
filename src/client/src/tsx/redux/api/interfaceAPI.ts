@@ -18,7 +18,7 @@ export interface ErrorResponseMutationAPI {
 export interface User {
   user_id: number;
   username: string;
-  email: string;
+  // email: string;
   trainee_id?: number | null;
   trainer_user_id: number | null;
   profile_id: number;
