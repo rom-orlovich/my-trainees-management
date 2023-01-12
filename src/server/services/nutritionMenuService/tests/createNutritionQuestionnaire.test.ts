@@ -6,7 +6,7 @@ import {
   createRandomMealsSizePercents,
 } from "../utilities/helpersCreateNutritionQuestionnaire";
 
-describe("helpersCreateNutritionQuestionnaire", () => {
+describe("helpersCreateNutritionQuestionnaire.ts", () => {
   test("test createRandomMealsSizePercents", () => {
     const { mealsSizePercentsArr, sumMealsPercents } =
       createRandomMealsSizePercents(3);
@@ -44,20 +44,43 @@ describe("helpersCreateNutritionQuestionnaire", () => {
     );
   });
 
-  test("test createMealsSizePercents", () => {
-    const numMeals = calUserNumMeals("11:35", "22:10");
-    expect(numMeals).toBe(2);
-    let res = createMealsSizePercents({
-      day_start: "11:35",
-      day_end: "22:10",
-      meals_calories_size_percents: [],
+  describe(" test calUserNumMeals", () => {
+    test("test calUserNumMeals when hours are 11:35am-22:10pm", () => {
+      const numMeals = calUserNumMeals("11:35", "22:10");
+      expect(numMeals).toBe(2);
     });
-    expect(res.length).toBe(2);
-    res = createMealsSizePercents({
-      day_start: "11:35",
-      day_end: "22:10",
-      meals_calories_size_percents: [100],
+    test("test calUserNumMeals when hours are 6:00am-23:00pm", () => {
+      const numMeals = calUserNumMeals("6:35", "23:00");
+      expect(numMeals).toBe(4);
     });
-    expect(res.length).toBe(1);
+  });
+
+  describe("test createMealsSizePercents", () => {
+    test("test createMealsSizePercents when the user's meals preference is empty and the hours are 11:35am-22:10pm", () => {
+      const res = createMealsSizePercents({
+        day_start: "11:35",
+        day_end: "22:10",
+        meals_calories_size_percents: [],
+      });
+      expect(res.length).toBe(2);
+    });
+
+    test("test createMealsSizePercents when the user's meals preference is empty and the hours are 11:35am-22:10pm", () => {
+      const res = createMealsSizePercents({
+        day_start: "5:35",
+        day_end: "22:10",
+        meals_calories_size_percents: [],
+      });
+      expect(res.length).toBe(4);
+    });
+
+    test("test createMealsSizePercents when the user's meals preference is one meal of 100% and the hours are 11:35am-22:10pm", () => {
+      const res = createMealsSizePercents({
+        day_start: "11:35",
+        day_end: "22:10",
+        meals_calories_size_percents: [100],
+      });
+      expect(res.length).toBe(1);
+    });
   });
 });
