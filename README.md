@@ -88,25 +88,27 @@ My Linkedin - [Rom Orlovich](https://www.linkedin.com/in/rom-orlovich/)
 1. **Modify App's Data** - Create/Read/Update/Delete the following data: trainees, training programs, exercises, muscles group, equipment, leads, cities and locations, financial system and schedule events .
 2. **Table Pagination** - Shows when there are more than ten items.
 3. **Filter Table's Rows By Name** - Filters the table's items by name.
-4. **Autocomplete Search Input** - Suggests a list of results from the server. \
-   Infinite scroll: When there are more than ten possible suggestions, the users can scroll and fetch more suggestions from the server.
+4. **Autocomplete Search Input**
+    - Suggests a list of results from the server. 
+    - Infinite scroll-When there are more than ten possible suggestions, the users can scroll and fetch more suggestions from the server.
 5. **Notifications System** - Notifications display for various user activities.
-6. **Users System** -
-   - Multiple personal trainers able to log in and manage their business. 
-   - Personal trainers can register new trainees to their system and send them an email to sign up and create users to track their progress. 
-   - Each user role has different permission to access app resources. 
-   - Persistent login system based on Refresh Token Rotation mechanism.
+6. **Users System**:
+    - Multiple personal trainers able to log in and manage their business. 
+    - Personal trainers can register new trainees to their system and send them an email to sign up and create users to track their progress. 
+    - Each user role has different permission to access app resources. 
+    - Persistent login system based on Refresh Token Rotation mechanism.
 7. **Trainee & Trainer Profile Page** - The page display their personal account data.
-8. **Statistics Page** - Personal trainers have a graphical overview of their business. \
-     Trainees will have a graphical overview of their progress.
-9. **Trainer & Trainee Schedule** - Personal Trainers can schedule new training and meeting sessions. \
-    Trainees can watch their next sessions.
+8. **Statistics Page**:
+     - Personal trainers have a graphical overview of their business. 
+     - Trainees will have a graphical overview of their progress.
+9. **Trainer & Trainee Schedule**:
+    - Personal Trainers can schedule new training and meeting sessions. 
+    - Trainees can watch their next sessions.
 10. **Generate Nutrition Menus** - The app generates nutrition menu recommendations based on the trainee's nutrition preference. 
 
-## Coming soon:
-1. **Edit Nutrition Menus** - Trainers can edit/add/delete meals and food options in their trainees' nutrition menus.  
-2. **App's Style Improvement** - Improve the app's style. 
-3. **Mailbox For Communication** - Mailbox for communication between the trainer and his trainees. 
+## What's Next?:
+- **Edit Nutrition Menus** - Trainers can edit/add/delete meals and food options in their trainees' nutrition menus.   
+
 
 ## Images: 
 ### Trainer's Profile
