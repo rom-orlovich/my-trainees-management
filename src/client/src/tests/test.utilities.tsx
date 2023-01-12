@@ -1,24 +1,19 @@
-import { PreloadedState } from "@reduxjs/toolkit";
 import { render, RenderOptions } from "@testing-library/react";
 import React from "react";
 import { Provider } from "react-redux";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
-import { AppStore, RootState, setupStore } from "../tsx/redux/store";
+import { AppStore, setupStore } from "../tsx/redux/store";
 import { appRoutes } from "../tsx/routes/appRoutes";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
-  preloadedState?: PreloadedState<RootState>;
+  // preloadedState?: PreloadedState<RootState>;
   store?: AppStore;
 }
 
 export const renderUI = (
   UI: JSX.Element,
   initialEntries = ["/"],
-  {
-    preloadedState = {} as RootState,
-    store = setupStore(preloadedState),
-    ...renderOptions
-  }: ExtendedRenderOptions = {}
+  { store = setupStore(), ...renderOptions }: ExtendedRenderOptions = {}
 ) => {
   const testRoutes = createMemoryRouter(appRoutes, {
     initialEntries,
