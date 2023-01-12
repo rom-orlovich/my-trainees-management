@@ -3,19 +3,19 @@ import userEvent from "@testing-library/user-event";
 
 import { APP_ROUTE } from "../../appRoutesConstants";
 
-import { renderUI } from "../../../../tests/test.utilities";
+import { renderUI, ScreenTest } from "../../../../tests/test.utilities";
 
-const loadingSpinnerTest = async (screen: ReturnType<typeof renderUI>) => {
+export const loadingSpinnerTest = async (screen: ScreenTest) => {
   const loading = await screen.findByText("Loading...");
   expect(loading).toBeInTheDocument();
   waitForElementToBeRemoved(screen.queryByText("Loading..."));
 };
-describe("test initialization of the app ", () => {
+describe("test PersistedLogin.tsx ", () => {
   const user = userEvent.setup();
-  let screen: ReturnType<typeof renderUI>;
+  let screen: ScreenTest;
 
   test("loading home page when the user is not login", async () => {
-    screen = renderUI(<></>);
+    screen = renderUI();
     const getStartedBtn = await screen.findByRole("link", {
       name: /Get Started/,
     });
@@ -23,14 +23,14 @@ describe("test initialization of the app ", () => {
   });
 
   test("load login page", async () => {
-    screen = renderUI(<></>, ["/", `/${APP_ROUTE.LOGIN_ROUTE}`]);
+    screen = renderUI(["/", `/${APP_ROUTE.LOGIN_ROUTE}`]);
     await loadingSpinnerTest(screen);
     const loginBtn = await screen.findByRole("button", { name: /Login/ });
     expect(loginBtn).toBeInTheDocument();
   });
 
   test("try login flow", async () => {
-    screen = renderUI(<></>, ["/", `/${APP_ROUTE.LOGIN_ROUTE}`]);
+    screen = renderUI(["/", `/${APP_ROUTE.LOGIN_ROUTE}`]);
     await loadingSpinnerTest(screen);
     const loginBtn = await screen.findByRole("button", { name: /Login/ });
     await user.click(loginBtn);
