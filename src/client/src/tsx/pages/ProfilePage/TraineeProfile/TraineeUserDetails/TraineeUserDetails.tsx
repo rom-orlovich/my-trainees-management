@@ -45,9 +45,6 @@ function TraineeUserDetails({ className }: PropsBasic) {
             >
               Edit Measures
             </Link>
-            {/* <Link to={`/${APP_ROUTE.MEASURES_ROUTE}?profileID=${profileID}`}>
-              Edit Measures
-            </Link> */}
 
             <Link
               style={{ fontSize: "1.1rem" }}
