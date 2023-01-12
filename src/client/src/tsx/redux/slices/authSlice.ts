@@ -3,8 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { authApi } from "../api/authAPI";
 import { User } from "../api/interfaceAPI";
-
-import { RootState } from "../store";
+import { RootState } from "../store.types";
 
 const initialState: {
   user: User | null;

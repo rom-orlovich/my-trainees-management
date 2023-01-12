@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
 
-import { RootState } from "../../store";
+import { RootState } from "../../store.types";
 import { CHECKBOXES_ALLERGENS } from "./nutritionQuestionnaireFormSlice";
 import { FilterFormsState } from "./nutritionQuestionnaireFormsSliceTypes";
 

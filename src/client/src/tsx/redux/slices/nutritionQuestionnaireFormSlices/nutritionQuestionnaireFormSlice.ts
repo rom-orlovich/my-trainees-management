@@ -8,8 +8,8 @@ import {
 } from "../../../components/Forms/NutritionQuestionnaireForms/AllergensForm/constants";
 
 import { FoodProps } from "../../../components/Forms/NutritionQuestionnaireForms/FoodListForms/FoodsListForm";
+import { RootState } from "../../store.types";
 
-import { RootState } from "../../store";
 import { NutritionQuestionnaireFormState } from "./nutritionQuestionnaireFormsSliceTypes";
 
 import {

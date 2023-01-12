@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
 
-import { RootState } from "../../store";
+import { RootState } from "../../store.types";
 import {
   ModelControllerState,
   ModelDisplayContentOptions,

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { RootState } from "../store.types";
 
 const initialState: Record<string, boolean> = {};
 export const menusSlice = createSlice({

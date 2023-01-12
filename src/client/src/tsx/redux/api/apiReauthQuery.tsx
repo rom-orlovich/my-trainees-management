@@ -8,7 +8,7 @@ import {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/dist/query";
 import { setLoginUserData, setLogout } from "../slices/authSlice";
-import { RootState } from "../store";
+import { RootState } from "../store.types";
 import { API_ROUTES } from "./apiRoutes";
 import { apiAuthBaseQuery } from "./authAPI";
 import { ResponseMutationAuthAPI } from "./interfaceAPI";

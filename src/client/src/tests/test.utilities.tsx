@@ -2,7 +2,8 @@ import { render, RenderOptions } from "@testing-library/react";
 import React, { ReactElement } from "react";
 import { Provider } from "react-redux";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
-import { AppStore, PreloadedStateStore, setupStore } from "../tsx/redux/store";
+import { AppStore, PreloadedStateStore } from "../tsx/redux/store.types";
+import { setupStore } from "../tsx/redux/store";
 import { appRoutes } from "../tsx/routes/appRoutes";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {

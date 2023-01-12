@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GenericRecord } from "../../types";
 
-import { RootState } from "../store";
+import { RootState } from "../store.types";
 
 export interface PayloadSideEffect {
   message?: string;
