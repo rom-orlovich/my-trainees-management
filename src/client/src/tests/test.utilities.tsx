@@ -1,19 +1,24 @@
 import { render, RenderOptions } from "@testing-library/react";
-import React from "react";
+import React, { ReactElement } from "react";
 import { Provider } from "react-redux";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
-import { AppStore, setupStore } from "../tsx/redux/store";
+import { AppStore, PreloadedStateStore, setupStore } from "../tsx/redux/store";
 import { appRoutes } from "../tsx/routes/appRoutes";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
-  // preloadedState?: PreloadedState<RootState>;
+  preloadedState?: PreloadedStateStore;
   store?: AppStore;
 }
 
 export const renderUI = (
-  UI: JSX.Element,
   initialEntries = ["/"],
-  { store = setupStore(), ...renderOptions }: ExtendedRenderOptions = {}
+  UI: ReactElement | undefined = undefined,
+
+  {
+    preloadedState,
+    store = setupStore(preloadedState),
+    ...renderOptions
+  }: ExtendedRenderOptions = {}
 ) => {
   const testRoutes = createMemoryRouter(appRoutes, {
     initialEntries,
@@ -22,13 +27,14 @@ export const renderUI = (
   const wrapper = () => (
     <React.StrictMode>
       <Provider store={store}>
-        <RouterProvider router={testRoutes} />
+        {UI || <RouterProvider router={testRoutes} />}
       </Provider>
     </React.StrictMode>
   );
 
   return {
     store,
-    ...render(UI, { wrapper, ...renderOptions }),
+    ...render(UI || <></>, { wrapper, ...renderOptions }),
   };
 };
+export type ScreenTest = ReturnType<typeof renderUI>;

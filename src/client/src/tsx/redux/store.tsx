@@ -43,8 +43,11 @@ const configureStoreOptions: ConfigureStoreOptions<
     defaultMiddleware: CurriedGetDefaultMiddleware<ReturnType<typeof reducers>>
   ) => [...defaultMiddleware(), authApi.middleware, ...(middlewareArr as any)],
 };
+export type PreloadedStateStore = PreloadedState<ReturnType<typeof reducers>>;
 
-export const setupStore = () => configureStore(configureStoreOptions);
+export const setupStore = (
+  preloadedState?: PreloadedState<ReturnType<typeof reducers>>
+) => configureStore({ ...configureStoreOptions, preloadedState });
 
 export const store = setupStore();
 export type RootState = ReturnType<typeof store.getState>;
