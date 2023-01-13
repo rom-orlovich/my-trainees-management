@@ -16,7 +16,6 @@ import { GeneralFormProps } from "../../../../../baseComponents/baseComponentsTy
 import ModelFormContainer from "../../../../../baseComponents/Model/ModelFormContainer";
 
 import Form from "../../../../../baseComponents/RHF-Components/Form/Form";
-import InputIcon from "../../../../../baseComponents/RHF-Components/InputIcon/InputIcon";
 
 import { InputLabel } from "../../../../../baseComponents/RHF-Components/InputLabel/InputLabel";
 import { SelectInput } from "../../../../../baseComponents/RHF-Components/SelectInput/SelectInput";

@@ -1,7 +1,12 @@
 @use "../../../../../../style/utilities/utilities.scss" as *;
 
+@include classMatcher("ModelCard_model_card") {
+  &:has(.foods_filters_form_container) {
+    min-width: 30rem;
+  }
+}
 .foods_filters_form_container {
-  gap: 0.6rem !important;
+  gap: 0.1rem !important;
   position: relative;
   %shared {
     @include classMatcher("GroupInputs_group_inputs_layout") {
@@ -30,6 +35,11 @@
 }
 
 @include smartphone() {
+  @include classMatcher("ModelCard_model_card") {
+    &:has(.foods_filters_form_container) {
+      min-width: 22rem;
+    }
+  }
   .foods_filters_form_container {
     gap: 0.2rem !important;
 

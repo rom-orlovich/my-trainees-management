@@ -32,3 +32,11 @@
     margin-top: auto !important;
   }
 }
+
+@include smartphone() {
+  @include classMatcher("ModelCard_model_card") {
+    &:has(.food_list_form_container) {
+      min-width: 95vw;
+    }
+  }
+}
