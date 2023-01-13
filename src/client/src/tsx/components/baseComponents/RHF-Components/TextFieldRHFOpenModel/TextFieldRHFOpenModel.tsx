@@ -42,7 +42,6 @@ function TextFieldOpenModel<T extends FieldValues, CP extends any>({
       inputIconProps={{
         IconEl: FaEdit,
         className: style.edit_icon,
-
         option: {
           link: "",
           onClick: (id: number) => {
