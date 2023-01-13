@@ -37,7 +37,6 @@ export function InputLabel({
   inputIconProps,
 }: InputLabelProps & { className?: string }) {
   return (
-    // <span>
     <label
       {...LabelProps}
       className={genClassName(
@@ -59,7 +58,5 @@ export function InputLabel({
       {inputIconProps && <InputIcon {...inputIconProps} />}
       {children}
     </label>
-
-    // </span>
   );
 }

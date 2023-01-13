@@ -1,5 +1,6 @@
 import { rest } from "msw";
 import { API_ROUTES } from "../tsx/redux/api/apiRoutes";
+import { APP_ROUTE } from "../tsx/routes/appRoutesConstants";
 
 export const LOGIN_USER_DUMMY = {
   statusCode: 201,
@@ -190,6 +191,34 @@ export const handlers = [
         stats: {
           graphStats: {},
         },
+      })
+    )
+  ),
+
+  rest.get(`*${API_ROUTES.NUTRITION_QUESTIONNAIRE_ROUTE}`, (req, res, ctx) =>
+    res(
+      ctx.status(200),
+      ctx.json({
+        data: [
+          {
+            nutrition_questionnaire_id: 1,
+            day_start: "06:00",
+            day_end: "23:00",
+            diet_type: "cutting",
+            kosher: false,
+            is_vegan: false,
+            is_keep_meat_milk: false,
+            is_vegetarian: false,
+            meals_calories_size_percents: [],
+            allergens: [],
+            favorite_foods: [],
+            black_list_foods: [],
+            profile_id: 3,
+            user_id: 2,
+          },
+        ],
+        next: false,
+        countRows: 1,
       })
     )
   ),

@@ -58,7 +58,7 @@ function TextFieldOpenModel<T extends FieldValues, CP extends any>({
       LabelProps={{
         labelText,
       }}
-    ></InputLabel>
+    />
   );
 }
 export default TextFieldOpenModel;

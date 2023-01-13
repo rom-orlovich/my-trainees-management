@@ -12,7 +12,10 @@ export interface InputIconProps {
 }
 function InputIcon({ option, className, IconEl, id }: InputIconProps) {
   return (
-    <span className={genClassName(style.select_plus_button, className)}>
+    <span
+      data-testid={"link-icon"}
+      className={genClassName(style.select_plus_button, className)}
+    >
       {option ? (
         <Link
           onClick={(e) => {

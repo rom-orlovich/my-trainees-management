@@ -1,12 +1,14 @@
-import { LOGIN_USER_DUMMY } from "../../../../mocks/handlers";
+import userEvent from "@testing-library/user-event";
 import { renderUI, ScreenTest } from "../../../../tests/test.utilities";
-import { setupStore } from "../../../redux/store";
+
 import { APP_ROUTE } from "../../../routes/appRoutesConstants";
 import { loadingSpinnerTest } from "../../../routes/components/PersistedLogin/PersistedLogin.test";
+import NutritionQuestionnaireEditForm from "./NutritionQuestionnaireEditForm";
 
 describe("NutritionQuestionnaireForm.test", () => {
+  const user = userEvent.setup();
   let screen: ScreenTest;
-  test("", async () => {
+  test("expect filters model form will open", async () => {
     screen = renderUI(
       [
         "/",
@@ -15,6 +17,7 @@ describe("NutritionQuestionnaireForm.test", () => {
         }/${APP_ROUTE.NUTRITION_QUESTIONNAIRE_EDIT_ROUTE}?profileID=${3}`,
       ],
       undefined,
+      // <NutritionQuestionnaireEditForm />,
       {
         preloadedState: {
           authSlice: {
@@ -36,10 +39,25 @@ describe("NutritionQuestionnaireForm.test", () => {
     );
 
     await loadingSpinnerTest(screen);
-    screen.debug();
 
-    expect(
-      await screen.findByRole("heading", { name: /Nutrition Questionnaire/ })
-    ).toBeInTheDocument();
+    //   expect(
+    //     await screen.findByRole("heading", { name: /Nutrition Questionnaire/ })
+    //   ).toBeInTheDocument();
+    // });
+
+    const linkIcons = await screen.findAllByTestId(/link-icon/);
+    expect(linkIcons.length).toBe(4);
+    // Click on meals add
+    console.log(linkIcons[0].querySelector("a")!);
+    if (linkIcons[0].querySelector("a")) await userEvent.click(linkIcons[0]);
+
+    screen.debug(linkIcons[0]);
+    console.log(screen.store.getState().modelControllerSlice.isModelOpen);
+    const form = await screen.findByRole("form");
+    expect(form).toBeInTheDocument();
+
+    const inputMeals = await screen.findByDisplayValue(/33/);
+
+    expect(inputMeals).toBeInTheDocument();
   });
 });
