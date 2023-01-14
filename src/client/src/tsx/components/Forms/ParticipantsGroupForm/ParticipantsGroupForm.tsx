@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+
 import React from "react";
 import { useParams } from "react-router-dom";
 import useGetUserLoginData from "../../../hooks/useGetUserLoginData";
@@ -24,7 +25,8 @@ export function ParticipantsGroupForm({
 }: GeneralFormProps<ParticipantsGroupTableAPI>) {
   const authState = useGetUserLoginData();
   const queriesOptions = { userID: authState.user_id };
-  const participantsGroupsListId = Number(useParams().id);
+  const participantsGroupsListId = Number(useParams().participantGroupListID);
+
   return (
     <Form<ParticipantsGroupTableAPI>
       nameForm="Participant"
@@ -41,7 +43,7 @@ export function ParticipantsGroupForm({
         resolver: yupResolver(participantsGroupSchema),
       }}
     >
-      {({ control }) => (
+      {({ control, getValues, watch, setValue, formState }) => (
         <>
           <AutocompleteInputRHF<
             ParticipantsGroupTableAPI,
@@ -58,6 +60,9 @@ export function ParticipantsGroupForm({
               },
               addOption: {
                 link: `/${APP_ROUTE.TRAINEES_ROUTE}/${APP_ROUTE.TRAINEES_ROUTE_ADD}`,
+              },
+              transformValue(keyValue) {
+                return [Number(keyValue[0]), keyValue[1]];
               },
               loadingSpinnerResult: { nameData: "Trainees" },
               useGetData: traineesApi.useGetItemsQuery,

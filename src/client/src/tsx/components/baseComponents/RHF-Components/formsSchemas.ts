@@ -308,7 +308,14 @@ export const activitySchema = yup.object().shape({
 export const participantsGroupSchema = yup.object().shape({
   participants_group_id: yup.number().notRequired().nullable(),
   participants_groups_list_id: yup.number().required("Must be a number"),
-  trainee_id: yup.number().required("Must be a number"),
+  trainee_id: yup
+    .number()
+    .transform((value) => {
+      console.log(value);
+      return typeof value === "string" ? Number(value) : value;
+    })
+    .required("Must be a number"),
+
   user_id: yup.number().notRequired().nullable().default(1),
 });
 

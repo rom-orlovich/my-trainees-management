@@ -18,7 +18,7 @@ import { openModel } from "../../redux/slices/modelControllerSlices/modelControl
 function ParticipantsGroup() {
   const dispatch = useAppDispatch();
   const { user_id } = useGetUserLoginData();
-  const participantsGroupsListID = String(useParams().participantGroupID);
+  const participantsGroupsListID = String(useParams().participantGroupListID);
   const [participantsGroup, setParticipantsGroups] = useState<string[]>([
     "",
     "",

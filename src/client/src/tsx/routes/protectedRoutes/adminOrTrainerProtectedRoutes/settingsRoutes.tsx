@@ -25,7 +25,7 @@ export const settingsRoutes: RouteObject = {
       element: <ParticipantsGroupsListPage />,
       children: [
         {
-          path: `:participantGroupID/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`,
+          path: `:participantGroupListID/${APP_ROUTE.PARTICIPANTS_GROUP_ROUTE}`,
           element: <ParticipantsGroupPage />,
         },
       ],

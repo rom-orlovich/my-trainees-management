@@ -44,7 +44,6 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   liProps?: LiProps;
   keys?: (keyof T)[];
   id: keyof T;
-
   addOption?: IconOption;
   editOption?: IconOption;
   filterOptions?: IconOption;
@@ -54,6 +53,7 @@ export interface AutocompleteInputProps<T, O extends FieldValues = any> {
   children?: ReactNode;
   defaultValueID?: number;
   queriesOptions?: Record<string, any>;
+  transformValue?: (keyValue: string[]) => unknown[];
 }
 
 function AutocompleteInput<T extends Record<string, any>>({
@@ -72,6 +72,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   filterOptions,
   queriesOptions,
   getCurClickLI,
+  transformValue,
 }: AutocompleteInputProps<T>) {
   const [page, setPage] = useState(1);
   // The first element in array is the id of the option. The sec element is the input value.
@@ -118,7 +119,8 @@ function AutocompleteInput<T extends Record<string, any>>({
     // The parent element's access to the value of the Autocomplete component.
     setSelectOptionValue && setSelectOptionValue(debounce);
     // React hook form Autocomplete component need only the id of the option.
-    debounce[0] && RHFProps?.onChange && RHFProps?.onChange(debounce[0]);
+    const debounceRes = transformValue ? transformValue(debounce) : debounce;
+    debounceRes[0] && RHFProps?.onChange && RHFProps?.onChange(debounceRes[0]);
   }, [debounce, RHFProps, setSelectOptionValue]);
 
   // Handle the input change value, open the options,
@@ -132,6 +134,7 @@ function AutocompleteInput<T extends Record<string, any>>({
   // Handle click on option and set the value of that option in the input.
   const handleClickLi = (obj: Record<string, any>) => {
     const keyValue = getEntriesArrObj(obj)[0];
+
     setPage(1);
     setInputValue(keyValue);
     getCurClickLI && getCurClickLI(keyValue);

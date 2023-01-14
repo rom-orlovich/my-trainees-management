@@ -43,9 +43,7 @@ function AutocompleteInputRHF<
             InputProps: { ...InputProps, ref, onBlur },
           }}
           RHFProps={{ ...field }}
-        >
-          {/* <InputErrorMessage nameInput={name} error={error} /> */}
-        </AutocompleteInput>
+        ></AutocompleteInput>
       )}
     />
   );
