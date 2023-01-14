@@ -9,18 +9,17 @@ import {
 } from "../../../redux/slices/modelControllerSlices/modelControllerSlice";
 import { PropsBasic } from "../baseComponentsTypes";
 
-const modelWarper = document.getElementById("model") as Element;
 function Model(props: PropsBasic) {
+  const modelWarper = document.getElementById("model");
   const location = useLocation();
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(closeModel());
   }, [location.pathname]);
   const modelControllerSlice = useAppSelector(getModelControllerState);
-  // if (modelControllerSlice.isModelOpen)
-  //   modelWarper.scrollIntoView({ behavior: "smooth", block: "end" });
 
-  return modelControllerSlice.isModelOpen &&
+  return modelWarper &&
+    modelControllerSlice.isModelOpen &&
     modelControllerSlice.displayContent.length ? (
     createPortal(props.children, modelWarper)
   ) : (
