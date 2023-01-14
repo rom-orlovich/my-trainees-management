@@ -7,6 +7,7 @@ import { renderUI, ScreenTest } from "../../../../tests/test.utilities";
 
 export const loadingSpinnerTest = async (screen: ScreenTest) => {
   const loading = await screen.findByText("Loading...");
+
   expect(loading).toBeInTheDocument();
   waitForElementToBeRemoved(screen.queryByText("Loading..."));
 };
