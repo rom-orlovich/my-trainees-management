@@ -1,4 +1,3 @@
-import { DetailedHTMLProps, HTMLProps, MouseEventHandler } from "react";
 import { IconType } from "react-icons";
 import { Link } from "react-router-dom";
 import { genClassName } from "../../../../utilities/helpersFun";
@@ -21,7 +20,7 @@ function InputIcon({ option, className, IconEl, id }: InputIconProps) {
       event.preventDefault();
       option?.onClick && option?.onClick(id);
     },
-    "data-testid": "link-icon",
+    "data-testid": "input-icon",
     className: genClassName(style.select_plus_button, className),
   };
 
@@ -38,30 +37,7 @@ function InputIcon({ option, className, IconEl, id }: InputIconProps) {
   const button = <button {...props}> {<IconEl />} </button>;
 
   const content = option ? option?.link ? link : button : <></>;
-  return (
-    <>
-      {/* {option ? (
-        <Link
-          onClick={(e) => {
-            e.preventDefault();
-            option?.onClick && option?.onClick(id);
-          }}
-          data-testid={"link-icon"}
-          className={genClassName(style.select_plus_button, className)}
-          to={
-            typeof option.link === "function"
-              ? option.link()
-              : option.link || ""
-          }
-        >
-          {<IconEl />}
-        </Link>
-      ) : (
-        <> </>
-      )} */}
-      {content}
-    </>
-  );
+  return content;
 }
 
 export default InputIcon;
