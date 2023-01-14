@@ -28,7 +28,7 @@ export const renderUI = (
   const wrapper = () => (
     <React.StrictMode>
       <Provider store={store}>
-        {UI || <RouterProvider router={testRoutes} />}
+        {<RouterProvider router={testRoutes} />}
       </Provider>
     </React.StrictMode>
   );
