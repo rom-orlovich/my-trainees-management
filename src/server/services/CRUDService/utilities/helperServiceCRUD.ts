@@ -6,21 +6,20 @@ import {
 } from "../../authService/controllers/validateAuthMiddleware";
 import { handleGetStatistic } from "../../statisticService/controllers/handleGetStatistic";
 import { createRoutesControllers } from "../controllers/controllerCRUD";
-import { OptionsCRUD } from "../CRUDServiceTypes";
+import { DisableRoutes, OptionsCRUD } from "../CRUDServiceTypes";
 
 /**
  *
  * @param optionsCRUD
- * Function that create the router and controllers handlers
- * and relates him to base route and route entity endpoint with/without id.
+ * Function that initials the router and controllers handlers
+ * create the base routes and routes entity endpoint with/without id.
  */
-export const createControllersHandlerAndRouterWithAuthMiddleware = (
+export const createBaseRouterControllerWithAuthMiddleware = (
   optionsCRUD: OptionsCRUD
 ) => {
   const expressRouterObj = express.Router();
   const singleEntityNameEndPoint = `/${optionsCRUD.singleEntityName}`;
   const singleEntityNameEndPointID = `${singleEntityNameEndPoint}/:id`;
-  const controllerHandlersObj = createRoutesControllers(optionsCRUD);
 
   // Middleware of token's and permission validation
   expressRouterObj.use(
@@ -33,7 +32,6 @@ export const createControllersHandlerAndRouterWithAuthMiddleware = (
   const routeByEntityAndID = expressRouterObj.route(singleEntityNameEndPointID);
 
   return {
-    controllerHandlersObj,
     expressRouterObj,
     routeByBaseRoute,
     routeByEntity,
@@ -49,26 +47,29 @@ export const createControllersHandlerAndRouterWithAuthMiddleware = (
  */
 export const createControllersHandlerAndRoutes = (
   optionsCRUD: OptionsCRUD,
-  disableRoute?: { getByID?: boolean; post?: boolean }
+  disableRoutes?: DisableRoutes
 ) => {
   const {
     expressRouterObj,
     routeByBaseRoute,
     routeByEntityAndID,
     routeByEntity,
-    controllerHandlersObj,
-  } = createControllersHandlerAndRouterWithAuthMiddleware(optionsCRUD);
+  } = createBaseRouterControllerWithAuthMiddleware(optionsCRUD);
+
+  const controllerHandlersObj = createRoutesControllers(optionsCRUD);
 
   // GET route, middleware and handleGetStatistic.
-  routeByBaseRoute.get(
-    controllerHandlersObj.getValuesFromDB,
-    handleGetStatistic
-  );
+  disableRoutes?.get !== true &&
+    routeByBaseRoute.get(
+      controllerHandlersObj.getValuesFromDB,
+      handleGetStatistic
+    );
 
   // GET and DELETE by id route and middleware.
-  !disableRoute?.getByID === true &&
+  disableRoutes?.getByID !== true &&
     routeByEntityAndID.get(controllerHandlersObj.getValueFromDBbyID);
-  routeByEntityAndID.delete(controllerHandlersObj.deleteValueByID);
+  disableRoutes?.deleteByID !== true &&
+    routeByEntityAndID.delete(controllerHandlersObj.deleteValueByID);
 
   routeByEntity.post(controllerHandlersObj.validateMiddlewareHandler);
   routeByEntityAndID.put(controllerHandlersObj.validateMiddlewareHandler);
