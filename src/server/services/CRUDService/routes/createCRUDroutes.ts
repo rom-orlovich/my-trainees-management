@@ -1,5 +1,5 @@
 import { handleInsertStatistics } from "../../statisticService/controllers/handleInsertStatistics";
-import { OptionsCRUD } from "../CRUDServiceTypes";
+import { DisableRoutes, OptionsCRUD } from "../CRUDServiceTypes";
 
 import { createControllersHandlerAndRoutes } from "../utilities/helperServiceCRUD";
 
@@ -11,24 +11,24 @@ import { createControllersHandlerAndRoutes } from "../utilities/helperServiceCRU
  */
 export function createCRUDroutes(
   optionsCRUD: OptionsCRUD,
-  disableRoute?: { getByID?: boolean; post?: boolean; put?: boolean }
+  disableRoutes?: DisableRoutes
 ) {
   const {
     controllerHandlersObj,
     routeByEntity,
     routeByEntityAndID,
     expressRouterObj,
-  } = createControllersHandlerAndRoutes(optionsCRUD, disableRoute);
+  } = createControllersHandlerAndRoutes(optionsCRUD, disableRoutes);
 
   // POST route for CRUD with insert Statistics
-  !disableRoute?.post === true &&
+  disableRoutes?.post !== true &&
     routeByEntity.post(
       controllerHandlersObj.createNewValueInDB,
       handleInsertStatistics
     );
 
   // PUT route for CRUD with insert Statistics
-  !disableRoute?.put === true &&
+  disableRoutes?.put !== true &&
     routeByEntityAndID.put(
       controllerHandlersObj.updateValueByID,
       handleInsertStatistics
