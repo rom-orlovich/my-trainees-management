@@ -6,7 +6,27 @@ import {
 
 import { TABLES_DATA } from "../../../utilities/tableDataSQL";
 import { createLogAlertInfo } from "../../alertsService/handleAlerts";
-import { IncomeAPI, ProductAPI } from "../CRUDServiceTypes";
+
+export interface ProductAPI {
+  product_id?: number;
+  product_name: string;
+  product_type: string;
+  max_training?: number;
+  price: number;
+  user_id?: number;
+}
+
+export interface IncomeAPI {
+  income_id?: number;
+  product_id: number;
+  date: Date;
+  buyer_id: number;
+  amount: number;
+  total_price: number;
+  note_topic?: string;
+  note_text?: string;
+  user_id?: number;
+}
 
 export const handleInsertNewSubscription: RequestHandler = async (
   req,

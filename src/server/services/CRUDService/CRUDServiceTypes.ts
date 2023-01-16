@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { GenericRecord, OmitKey, PickKey } from "../../utilities/types";
+import { GenericRecord, OmitKey } from "../../utilities/types";
 import { Permissions } from "../usersPermission";
 
 export interface ArrayQueryParams {
@@ -48,23 +48,10 @@ export interface OptionsCRUD {
   logAlert?: boolean;
 }
 
-export interface IncomeAPI {
-  income_id?: number;
-  product_id: number;
-  date: Date;
-  buyer_id: number;
-  amount: number;
-  total_price: number;
-  note_topic?: string;
-  note_text?: string;
-  user_id?: number;
-}
-
-export interface ProductAPI {
-  product_id?: number;
-  product_name: string;
-  product_type: string;
-  max_training?: number;
-  price: number;
-  user_id?: number;
+export interface DisableRoutes {
+  get?: boolean;
+  getByID?: boolean;
+  deleteByID?: boolean;
+  post?: boolean;
+  put?: boolean;
 }
