@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 
-import { Router } from "express";
 import {
   citiesSchema,
   equipmentSchema,
@@ -93,12 +92,7 @@ export const leadsOptionsCRUD: OptionsCRUD = {
     orderByParam: {
       leadDate: "lead_date",
     },
-    // comparisonQuery: {
-    //   leadDate: {
-    // gt: "le.lead_date",
-    // lt: "le.lead_date",
-    //   },
-    // },
+
     comparisonQuery: {
       leadDate_gt: "le.lead_date",
       leadDate_lt: "le.lead_date",
