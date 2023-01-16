@@ -365,7 +365,7 @@ export const traineesOptionsCRUD: OptionsCRUD = {
       trainerUserID: "tr.trainer_user_id",
       id: `tr.${TABLES_DATA.TRAINEE_ID}`,
     },
-    // comparisonQuery: { gt: "date_join", lt: "date_join" },
+
     comparisonQuery: {
       gt: "date_join",
       lt: "date_join",

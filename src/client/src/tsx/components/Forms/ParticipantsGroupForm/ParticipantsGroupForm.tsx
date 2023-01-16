@@ -24,7 +24,7 @@ export function ParticipantsGroupForm({
   editMode,
 }: GeneralFormProps<ParticipantsGroupTableAPI>) {
   const authState = useGetUserLoginData();
-  const queriesOptions = { userID: authState.user_id };
+  const queriesOptions = { trainerUserID: authState.user_id };
   const participantsGroupsListId = Number(useParams().participantGroupListID);
 
   return (
