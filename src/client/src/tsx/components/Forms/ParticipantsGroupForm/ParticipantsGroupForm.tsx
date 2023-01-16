@@ -43,7 +43,7 @@ export function ParticipantsGroupForm({
         resolver: yupResolver(participantsGroupSchema),
       }}
     >
-      {({ control, getValues, watch, setValue, formState }) => (
+      {({ control }) => (
         <>
           <AutocompleteInputRHF<
             ParticipantsGroupTableAPI,
