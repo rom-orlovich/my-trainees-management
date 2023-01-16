@@ -14,7 +14,7 @@ import { handleInsertNewMeasure } from "../../statisticService/controllers/handl
 import { handleInsertNewSubscription } from "../controllers/handleInsertNewSubscription";
 
 import {
-  createControllersHandlerAndRouterWithAuthMiddleware,
+  createBaseRouterControllerWithAuthMiddleware,
   createControllersHandlerAndRoutes,
 } from "../utilities/helperServiceCRUD";
 import {
@@ -85,9 +85,7 @@ export const createIncomesRouter = () => {
 
 export const createFinanceRouter = () => {
   const { routeByBaseRoute, expressRouterObj } =
-    createControllersHandlerAndRouterWithAuthMiddleware(
-      financesStatsOptionsCRUD
-    );
+    createBaseRouterControllerWithAuthMiddleware(financesStatsOptionsCRUD);
   routeByBaseRoute.get(handleGetFinanceStats, handleGetStatistic);
 
   return expressRouterObj;
@@ -100,9 +98,15 @@ export const createMeetingRouter = () => {
     routeByBaseRoute,
     routeByEntity,
     routeByEntityAndID,
-  } = createControllersHandlerAndRouterWithAuthMiddleware(meetingOptionsCRUD);
+  } = createControllersHandlerAndRoutes(meetingOptionsCRUD, {
+    get: true,
+    post: true,
+    put: true,
+    deleteByID: true,
+  });
 
   const getMeetingTraineeHandler: RequestHandler = (req, res, next) => {
+    // Enabling trainees to access their meetings.
     if (req.query.traineeID) {
       req.querySelectLogicAddOns = `LEFT JOIN ${TABLES_DATA.PARTICIPANTS_GROUP_TABLE_NAME} as pg ON
       pgl.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}= pg.${TABLES_DATA.PARTICIPANTS_GROUPS_LIST_ID}`;
@@ -121,11 +125,11 @@ export const createMeetingRouter = () => {
     .delete(controllerHandlersObj.deleteValueByID);
 
   routeByEntity.post(
-    controllerHandlersObj.validateMiddlewareHandler,
+    // controllerHandlersObj.validateMiddlewareHandler,
     controllerHandlersObj.createNewValueInDB
   );
   routeByEntityAndID.put(
-    controllerHandlersObj.validateMiddlewareHandler,
+    // controllerHandlersObj.validateMiddlewareHandler,
     controllerHandlersObj.updateValueByID
   );
 
